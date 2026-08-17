@@ -44,4 +44,7 @@ public class CreacionCredenciales {
         }
         return contrasena.toString();
     }
+    /*
+    hlaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    */
 }
