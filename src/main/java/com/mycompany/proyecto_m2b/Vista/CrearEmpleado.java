@@ -169,6 +169,11 @@ public class CrearEmpleado extends javax.swing.JFrame {
                 TXTcedulaMousePressed(evt);
             }
         });
+        TXTcedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTcedulaKeyPressed(evt);
+            }
+        });
 
         Verificar.setBackground(new java.awt.Color(247, 247, 247));
         Verificar.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
@@ -190,6 +195,11 @@ public class CrearEmpleado extends javax.swing.JFrame {
                 TXTnombreMousePressed(evt);
             }
         });
+        TXTnombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTnombreKeyPressed(evt);
+            }
+        });
 
         TXTnombre1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         TXTnombre1.setForeground(new java.awt.Color(94, 94, 94));
@@ -202,6 +212,11 @@ public class CrearEmpleado extends javax.swing.JFrame {
         TXTnombre1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 TXTnombre1MousePressed(evt);
+            }
+        });
+        TXTnombre1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTnombre1KeyPressed(evt);
             }
         });
 
@@ -221,6 +236,11 @@ public class CrearEmpleado extends javax.swing.JFrame {
                 TXTapellidoMousePressed(evt);
             }
         });
+        TXTapellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTapellidoKeyPressed(evt);
+            }
+        });
 
         TXTapellido1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         TXTapellido1.setForeground(new java.awt.Color(94, 94, 94));
@@ -235,6 +255,11 @@ public class CrearEmpleado extends javax.swing.JFrame {
                 TXTapellido1MousePressed(evt);
             }
         });
+        TXTapellido1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTapellido1KeyPressed(evt);
+            }
+        });
 
         FNacimiento.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         FNacimiento.setText("F. nacimiento:");
@@ -244,6 +269,11 @@ public class CrearEmpleado extends javax.swing.JFrame {
 
         Generos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una opción", "M", "F" }));
         Generos.addActionListener(this::GenerosActionPerformed);
+        Generos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                GenerosKeyPressed(evt);
+            }
+        });
 
         Dirección.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         Dirección.setText("Dirección:");
@@ -262,6 +292,11 @@ public class CrearEmpleado extends javax.swing.JFrame {
             }
         });
         TXTcallePrincipal.addActionListener(this::TXTcallePrincipalActionPerformed);
+        TXTcallePrincipal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTcallePrincipalKeyPressed(evt);
+            }
+        });
 
         TXTcalleSecundaria.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         TXTcalleSecundaria.setForeground(new java.awt.Color(94, 94, 94));
@@ -274,6 +309,11 @@ public class CrearEmpleado extends javax.swing.JFrame {
         TXTcalleSecundaria.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 TXTcalleSecundariaMousePressed(evt);
+            }
+        });
+        TXTcalleSecundaria.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTcalleSecundariaKeyPressed(evt);
             }
         });
 
@@ -291,6 +331,11 @@ public class CrearEmpleado extends javax.swing.JFrame {
             }
         });
         TXTnumCasa.addActionListener(this::TXTnumCasaActionPerformed);
+        TXTnumCasa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTnumCasaKeyPressed(evt);
+            }
+        });
 
         TXTciudad.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         TXTciudad.setForeground(new java.awt.Color(94, 94, 94));
@@ -303,6 +348,11 @@ public class CrearEmpleado extends javax.swing.JFrame {
         TXTciudad.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 TXTciudadMousePressed(evt);
+            }
+        });
+        TXTciudad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTciudadKeyPressed(evt);
             }
         });
 
@@ -539,6 +589,11 @@ public class CrearEmpleado extends javax.swing.JFrame {
             }
         });
         TXTTelefono.addActionListener(this::TXTTelefonoActionPerformed);
+        TXTTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTTelefonoKeyPressed(evt);
+            }
+        });
 
         Celular.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         Celular.setText("Celular");
@@ -557,6 +612,11 @@ public class CrearEmpleado extends javax.swing.JFrame {
             }
         });
         TXTCelular.addActionListener(this::TXTCelularActionPerformed);
+        TXTCelular.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTCelularKeyPressed(evt);
+            }
+        });
 
         CorreoElectrocnico.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         CorreoElectrocnico.setText("Correo electrónico");
@@ -575,6 +635,11 @@ public class CrearEmpleado extends javax.swing.JFrame {
             }
         });
         TXTCorreoElectronico.addActionListener(this::TXTCorreoElectronicoActionPerformed);
+        TXTCorreoElectronico.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTCorreoElectronicoKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout BGempleadosLayout = new javax.swing.GroupLayout(BGempleados);
         BGempleados.setLayout(BGempleadosLayout);
@@ -1529,9 +1594,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
     private void TXTCorreoElectronicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTCorreoElectronicoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TXTCorreoElectronicoActionPerformed
-
-    private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
-        // TODO add your handling code here:
+    public void GuardarEmpleado (){
         Validaciones V=new Validaciones();
         
         String Cedula=TXTcedula.getText().trim();
@@ -1618,6 +1681,10 @@ public class CrearEmpleado extends javax.swing.JFrame {
                 +"Por favor, tome una foto o anótelas en un lugar seguro, no se podran modificar una vez cerrada la ventana");
         //Se guarda en la tabla usuarios
         LimpiarDatos();
+    }
+    private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
+        // TODO add your handling code here:
+        GuardarEmpleado();
     }//GEN-LAST:event_PanelGuardarMouseClicked
 
     private void TXTcedulaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTcedulaFocusGained
@@ -2250,6 +2317,97 @@ public class CrearEmpleado extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Datos limpiados correctamente"+"\n"
         +"Ingrese los datos");
     }//GEN-LAST:event_PanelNuevoMouseClicked
+
+    private void TXTcedulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTcedulaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarEmpleado();
+        }
+    }//GEN-LAST:event_TXTcedulaKeyPressed
+
+    private void TXTnombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTnombreKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarEmpleado();
+        }
+    }//GEN-LAST:event_TXTnombreKeyPressed
+
+    private void TXTnombre1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTnombre1KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarEmpleado();
+        }
+    }//GEN-LAST:event_TXTnombre1KeyPressed
+
+    private void TXTapellidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTapellidoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarEmpleado();
+        }
+    }//GEN-LAST:event_TXTapellidoKeyPressed
+
+    private void TXTapellido1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTapellido1KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarEmpleado();
+        }
+    }//GEN-LAST:event_TXTapellido1KeyPressed
+
+    private void GenerosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_GenerosKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarEmpleado();
+        }
+    }//GEN-LAST:event_GenerosKeyPressed
+
+    private void TXTcallePrincipalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTcallePrincipalKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarEmpleado();
+        }
+    }//GEN-LAST:event_TXTcallePrincipalKeyPressed
+
+    private void TXTcalleSecundariaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTcalleSecundariaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarEmpleado();
+        }
+    }//GEN-LAST:event_TXTcalleSecundariaKeyPressed
+
+    private void TXTnumCasaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTnumCasaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarEmpleado();
+        }
+    }//GEN-LAST:event_TXTnumCasaKeyPressed
+
+    private void TXTciudadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTciudadKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarEmpleado();
+        }
+    }//GEN-LAST:event_TXTciudadKeyPressed
+
+    private void TXTTelefonoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTTelefonoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarEmpleado();
+        }
+    }//GEN-LAST:event_TXTTelefonoKeyPressed
+
+    private void TXTCelularKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTCelularKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarEmpleado();
+        }
+    }//GEN-LAST:event_TXTCelularKeyPressed
+
+    private void TXTCorreoElectronicoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTCorreoElectronicoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarEmpleado();
+        }
+    }//GEN-LAST:event_TXTCorreoElectronicoKeyPressed
 
     /**
      * @param args the command line arguments
