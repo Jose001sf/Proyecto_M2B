@@ -22,7 +22,8 @@ public class CreacionCredenciales {
     /*
     Generar usuarios automaticamente
     */
-    //Hola
+    //Hola    
+    //123
     public static String GenerarUsuario (String Nombre1, String Apellido1){
         char inicialNombre = Character.toUpperCase(Nombre1.charAt(0));
         char inicialApellido = Character.toUpperCase(Apellido1.charAt(0));
