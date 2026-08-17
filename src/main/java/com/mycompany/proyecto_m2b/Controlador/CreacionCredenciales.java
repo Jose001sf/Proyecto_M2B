@@ -46,3 +46,7 @@ public class CreacionCredenciales {
         return contrasena.toString();
     }
 }
+
+//hola
+//12
+//1233123
