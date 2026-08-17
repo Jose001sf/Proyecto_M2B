@@ -256,12 +256,10 @@ public class Menu extends javax.swing.JFrame {
                         .addGap(9, 9, 9)
                         .addComponent(ImagenRegresar))
                     .addComponent(Regresar, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Usuarios)
-                            .addComponent(Agregar))
-                        .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Talleres, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(Usuarios)
+                        .addComponent(Agregar))
+                    .addComponent(Talleres, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -309,6 +307,9 @@ public class Menu extends javax.swing.JFrame {
         PanelVehiculos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 116, 78)));
         PanelVehiculos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelVehiculos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelVehiculosMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelVehiculosMouseEntered(evt);
             }
@@ -470,6 +471,9 @@ public class Menu extends javax.swing.JFrame {
         PanelProveedores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         PanelProveedores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelProveedoresMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelProveedoresMouseEntered(evt);
             }
@@ -511,6 +515,9 @@ public class Menu extends javax.swing.JFrame {
         PanelResiduos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         PanelResiduos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelResiduos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelResiduosMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelResiduosMouseEntered(evt);
             }
@@ -924,6 +931,27 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         Agregar.setForeground(new Color(145, 145, 145));
     }//GEN-LAST:event_AgregarMouseExited
+
+    private void PanelVehiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelVehiculosMouseClicked
+        // TODO add your handling code here:
+        Vehiculos rp = new Vehiculos();
+        rp.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_PanelVehiculosMouseClicked
+
+    private void PanelProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelProveedoresMouseClicked
+        // TODO add your handling code here:
+        Proveedores rp = new Proveedores();
+        rp.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_PanelProveedoresMouseClicked
+
+    private void PanelResiduosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelResiduosMouseClicked
+        // TODO add your handling code here:
+        Residuos rp = new Residuos();
+        rp.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_PanelResiduosMouseClicked
 
     /**
      * @param args the command line arguments
