@@ -4,6 +4,8 @@
  */
 package com.mycompany.proyecto_m2b.Vista;
 
+import java.awt.Color;
+
 /**
  *
  * @author usuario
@@ -51,6 +53,14 @@ public class Agregar extends javax.swing.JFrame {
 
         PanelCargos.setBackground(new java.awt.Color(242, 101, 34));
         PanelCargos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelCargos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PanelCargosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                PanelCargosMouseExited(evt);
+            }
+        });
 
         Cargos.setFont(new java.awt.Font("Roboto Condensed ExtraBold", 1, 18)); // NOI18N
         Cargos.setForeground(new java.awt.Color(255, 255, 255));
@@ -75,6 +85,14 @@ public class Agregar extends javax.swing.JFrame {
 
         PanelEspecialidades.setBackground(new java.awt.Color(242, 101, 34));
         PanelEspecialidades.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelEspecialidades.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PanelEspecialidadesMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                PanelEspecialidadesMouseExited(evt);
+            }
+        });
 
         Especialidades.setFont(new java.awt.Font("Roboto Condensed ExtraBold", 1, 18)); // NOI18N
         Especialidades.setForeground(new java.awt.Color(255, 255, 255));
@@ -199,6 +217,30 @@ public class Agregar extends javax.swing.JFrame {
         int y=evt.getYOnScreen();
         this.setLocation(x - xMouse,y - yMouse);
     }//GEN-LAST:event_BarraMouseDragged
+
+    private void PanelCargosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelCargosMouseEntered
+        // TODO add your handling code here:
+        PanelCargos.setBackground(new Color(250, 202, 133));
+        Cargos.setForeground(new Color(247, 247, 247));
+    }//GEN-LAST:event_PanelCargosMouseEntered
+
+    private void PanelCargosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelCargosMouseExited
+        // TODO add your handling code here:
+        PanelCargos.setBackground(new Color (242,101,34));
+        Cargos.setForeground(Color.white);
+    }//GEN-LAST:event_PanelCargosMouseExited
+
+    private void PanelEspecialidadesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEspecialidadesMouseEntered
+        // TODO add your handling code here:
+        PanelEspecialidades.setBackground(new Color(250, 202, 133));
+        Especialidades.setForeground(new Color(247, 247, 247));
+    }//GEN-LAST:event_PanelEspecialidadesMouseEntered
+
+    private void PanelEspecialidadesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEspecialidadesMouseExited
+        // TODO add your handling code here:
+        PanelEspecialidades.setBackground(new Color (242,101,34));
+        Especialidades.setForeground(Color.white);
+    }//GEN-LAST:event_PanelEspecialidadesMouseExited
 
     /**
      * @param args the command line arguments
