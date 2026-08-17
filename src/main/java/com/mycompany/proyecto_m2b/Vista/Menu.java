@@ -352,6 +352,9 @@ public class Menu extends javax.swing.JFrame {
         PanelServicios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 116, 78)));
         PanelServicios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelServicios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelServiciosMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelServiciosMouseEntered(evt);
             }
@@ -884,6 +887,13 @@ public class Menu extends javax.swing.JFrame {
         rp.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_PanelResiduosMouseClicked
+
+    private void PanelServiciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelServiciosMouseClicked
+        // TODO add your handling code here:
+        Servicios ser = new Servicios();
+        ser.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_PanelServiciosMouseClicked
 
     /**
      * @param args the command line arguments
