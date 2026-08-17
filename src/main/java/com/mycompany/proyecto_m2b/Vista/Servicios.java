@@ -319,6 +319,10 @@ public class Servicios extends javax.swing.JFrame {
 
     private void PanelCatalogoServiciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelCatalogoServiciosMouseClicked
         // TODO add your handling code here:
+        CatalogoServicios c = new CatalogoServicios();
+        c.setVisible(true);
+        this.setVisible(false);
+        
     }//GEN-LAST:event_PanelCatalogoServiciosMouseClicked
 
     private void RegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegresarMouseClicked
