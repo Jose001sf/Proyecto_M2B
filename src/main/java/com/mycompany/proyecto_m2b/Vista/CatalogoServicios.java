@@ -340,7 +340,7 @@ public class CatalogoServicios extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+//hhhjjhj
     private void MinimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarMouseClicked
         // TODO add your handling code here:
         setState(java.awt.Frame.ICONIFIED);
