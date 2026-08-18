@@ -507,7 +507,7 @@ public class Cargos extends javax.swing.JFrame {
         }
         if(!V.validarCargo(Cargo) || !V.validarDescripcionCargo(Descripcion)){
             LimpiarDatos();
-            JOptionPane.showMessageDialog(this, "Pro favor ingrese los datos de manera correcta");
+            JOptionPane.showMessageDialog(this, "Por favor ingrese los datos de manera correcta");
             return;
         }
         if (Cargo.equalsIgnoreCase("Cargo") || Descripcion.equalsIgnoreCase("Descripción")){

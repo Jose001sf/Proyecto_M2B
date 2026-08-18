@@ -183,4 +183,13 @@ public class Validaciones {
         Matcher mat=pat.matcher(Descripcion);                
        return mat.matches();                            
     }
+    public boolean validarContrasena (String Contrasena){                
+        if (Contrasena == null){
+            return false;
+        }
+        Contrasena=Contrasena.trim(); 
+        Pattern pat=Pattern.compile("^[A-Za-zÁÉÍÓÚÑáéíóúñ0-9@$!%*?&._-]{8,12}$");
+        Matcher mat=pat.matcher(Contrasena);                
+       return mat.matches();                            
+    }
 }

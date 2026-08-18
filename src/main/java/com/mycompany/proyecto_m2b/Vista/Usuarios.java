@@ -26,6 +26,8 @@ public class Usuarios extends javax.swing.JFrame {
     public Usuarios() {
         initComponents();
         this.setLocationRelativeTo(null);
+        TXTnombreDeUsuario.setEnabled(false);
+        Estados.setEnabled(false);
     }
     int xMouse, yMouse;
     /**
@@ -161,6 +163,11 @@ public class Usuarios extends javax.swing.JFrame {
                 TXTContrasenaMousePressed(evt);
             }
         });
+        TXTContrasena.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTContrasenaKeyPressed(evt);
+            }
+        });
 
         Estado.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         Estado.setText("Estado:");
@@ -267,6 +274,9 @@ public class Usuarios extends javax.swing.JFrame {
         PanelDarBaja.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(215, 106, 106)));
         PanelDarBaja.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelDarBaja.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelDarBajaMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelDarBajaMouseEntered(evt);
             }
@@ -466,6 +476,7 @@ public class Usuarios extends javax.swing.JFrame {
         Editar.setForeground(new Color(66, 66, 66));
     }//GEN-LAST:event_PanelEditarMouseEntered
 
+    
     private void PanelBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseEntered
         // TODO add your handling code here:
         PanelBuscar.setBackground(new Color(219,219,219));
@@ -565,33 +576,34 @@ public class Usuarios extends javax.swing.JFrame {
         Guardar.setForeground(new Color(217, 217, 192));
     }//GEN-LAST:event_PanelGuardarMouseEntered
 
+    public void GuardarCambios (){
+        String contrasena=TXTContrasena.getText().trim();
+        Validaciones V=new Validaciones();
+        if (!V.validarContrasena(contrasena)){
+            JOptionPane.showMessageDialog(this, "Contraseña no valida");
+            TXTContrasena.setText("");
+            return;
+        }
+        JOptionPane.showMessageDialog(this, "Cambio guardado con éxito");
+        TXTContrasena.setText("");
+    }
     private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
         // TODO add your handling code here:
-        Validaciones V=new Validaciones();
-
-        String NombreUsuario=TXTnombreDeUsuario.getText().trim().toUpperCase();        
-        String Contrasena=TXTContrasena.getText().trim().toUpperCase();                
-        String Estado = Estados.getSelectedItem().toString();                
-        String TiposUsuario = TiposDeUsuario.getSelectedItem().toString();
-        String Especialidad = Permiso.getSelectedItem().toString();
-        
-        if (NombreUsuario.isEmpty() || Contrasena.isEmpty() || Estado.isEmpty() || TiposUsuario.isEmpty()
-            || Especialidad.isEmpty()){
-            JOptionPane.showMessageDialog (this, "Por favor complete los datos que faltan");
-            return;
-        }
-        if (NombreUsuario.isBlank()|| Contrasena.isBlank() || Estado.isBlank()|| TiposUsuario.isBlank()
-            || Especialidad.isBlank()){
-            JOptionPane.showMessageDialog (this, "Por favor complete los datos que faltan");
-            return;
-        }
-        if (Estados.equals("Seleccione una opción") || TiposDeUsuario.equals("Seleccione una opción") || Permiso.equals("Seleccione una opción")){
-            JOptionPane.showMessageDialog (this, "Por favor escoga una opción");
-            return;
-        }
-        //No sae
-        LimpiarDatos();
+        GuardarCambios();
     }//GEN-LAST:event_PanelGuardarMouseClicked
+
+    private void PanelDarBajaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarBajaMouseClicked
+        // TODO add your handling code here:
+        Estados.setSelectedIndex(2);
+        JOptionPane.showMessageDialog(this, "Estado cambiado correctamente");
+    }//GEN-LAST:event_PanelDarBajaMouseClicked
+
+    private void TXTContrasenaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTContrasenaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarCambios();
+        }
+    }//GEN-LAST:event_TXTContrasenaKeyPressed
 
     /**
      * @param args the command line arguments
