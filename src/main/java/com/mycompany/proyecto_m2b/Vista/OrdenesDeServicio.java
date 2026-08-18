@@ -22,6 +22,7 @@ public class OrdenesDeServicio extends javax.swing.JFrame {
     /** Creates new form Propietario */
     public OrdenesDeServicio() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to

@@ -21,6 +21,7 @@ public class Repuestos extends javax.swing.JFrame {
     /** Creates new form Propietario */
     public Repuestos() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /** This method is called from within the constructor to
