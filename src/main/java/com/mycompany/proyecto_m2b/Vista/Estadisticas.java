@@ -3,7 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.proyecto_m2b.Vista;
-
+import java.awt.BorderLayout;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.general.DefaultPieDataset;
 /**
  *
  * @author HP
@@ -16,8 +20,35 @@ public class Estadisticas extends javax.swing.JFrame {
      * Creates new form Estadisticas
      */
     public Estadisticas() {
-        initComponents();
+        initComponents(); // Inicializa los componentes de NetBeans
         
+        // Configuración de la ventana
+        setTitle("Estadísticas del Taller");
+        setSize(600, 400);
+        setLocationRelativeTo(null);
+
+        // 1. Crear el conjunto de datos (Ejemplo: Servicios realizados)
+        DefaultPieDataset dataset = new DefaultPieDataset();
+        dataset.setValue("Mecanica General", 45);
+        dataset.setValue("Latoneria y Pintura", 25);
+        dataset.setValue("Electricidad", 15);
+        dataset.setValue("Diagnostico OBD2", 15);
+
+        // 2. Crear el gráfico de pastel
+        JFreeChart chart = ChartFactory.createPieChart(
+            "Distribución de Servicios Realizados", // Título
+            dataset,                                 // Datos
+            true,                                    // Leyenda
+            true,                                    // Tooltips
+            false                                    // URLs
+        );
+
+        // 3. Agregar el gráfico a la ventana
+        ChartPanel panel = new ChartPanel(chart);
+        getContentPane().setLayout(new BorderLayout());
+        getContentPane().add(panel, BorderLayout.CENTER);
+        getContentPane().revalidate();
+        getContentPane().repaint();
     }
     
     /**
