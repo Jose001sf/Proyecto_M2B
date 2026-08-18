@@ -977,6 +977,9 @@ public class Menu extends javax.swing.JFrame {
 
     private void PanelOrdenesServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelOrdenesServicioMouseClicked
         // TODO add your handling code here:
+        OrdenesDeServicio OS=new OrdenesDeServicio();
+        OS.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_PanelOrdenesServicioMouseClicked
 
     private void PanelPropietariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelPropietariosMouseClicked
