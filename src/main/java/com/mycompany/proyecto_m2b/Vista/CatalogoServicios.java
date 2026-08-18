@@ -146,7 +146,7 @@ public class CatalogoServicios extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(MJ)
                     .addComponent(Talleres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1137, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -389,8 +389,8 @@ public class CatalogoServicios extends javax.swing.JFrame {
 
     private void MaximizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MaximizarMouseClicked
         // TODO add your handling code here:
-        if ((getExtendedState() & Servicios.MAXIMIZED_BOTH) == Servicios.MAXIMIZED_BOTH) {
-            this.setExtendedState(Servicios.NORMAL);
+        if ((getExtendedState() & CatalogoServicios.MAXIMIZED_BOTH) == CatalogoServicios.MAXIMIZED_BOTH) {
+            this.setExtendedState(CatalogoServicios.NORMAL);
         } else {
             setExtendedState(MAXIMIZED_BOTH);
         }

@@ -79,7 +79,7 @@
                           <Component id="MJ" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="Talleres" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="1137" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="Regresar" alignment="0" min="-2" pref="206" max="-2" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
