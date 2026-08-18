@@ -17,7 +17,7 @@ public class CatalogoServicios extends javax.swing.JFrame {
      * Creates new form CatalogoServicios
      */
     public CatalogoServicios() {
-        initComponents();
+        initComponents();        
     }
 
     /**
@@ -193,16 +193,12 @@ public class CatalogoServicios extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 102, 0)));
         jPanel2.setForeground(new java.awt.Color(255, 153, 102));
 
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Tiempo estimado:");
 
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Precio Base:");
 
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Servicio:");
 
-        jTextField2.setBackground(new java.awt.Color(255, 255, 255));
         jTextField2.setSelectionColor(new java.awt.Color(102, 102, 102));
         jTextField2.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -211,11 +207,9 @@ public class CatalogoServicios extends javax.swing.JFrame {
         });
         jTextField2.addActionListener(this::jTextField2ActionPerformed);
 
-        jTextField4.setBackground(new java.awt.Color(255, 255, 255));
         jTextField4.setSelectionColor(new java.awt.Color(102, 102, 102));
         jTextField4.addActionListener(this::jTextField4ActionPerformed);
 
-        jTextField3.setBackground(new java.awt.Color(255, 255, 255));
         jTextField3.setSelectionColor(new java.awt.Color(102, 102, 102));
 
         TxtCatalogoServicios.setFont(new java.awt.Font("Segoe UI", 1, 34)); // NOI18N
@@ -225,10 +219,8 @@ public class CatalogoServicios extends javax.swing.JFrame {
         btnHistorial.setText("Historial");
 
         TxtBuscar.setBackground(new java.awt.Color(0, 0, 0));
-        TxtBuscar.setForeground(new java.awt.Color(0, 0, 0));
         TxtBuscar.setText("Buscar:");
 
-        txtBuscar.setBackground(new java.awt.Color(255, 255, 255));
         txtBuscar.setSelectionColor(new java.awt.Color(102, 102, 102));
 
         tblCatalogo.setModel(new javax.swing.table.DefaultTableModel(
@@ -253,7 +245,6 @@ public class CatalogoServicios extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblCatalogo);
 
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Tipo de servicio:");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona un tipo:", "Item 2", "Item 3", "Item 4" }));
