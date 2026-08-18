@@ -163,6 +163,11 @@ public class Usuarios extends javax.swing.JFrame {
                 TXTContrasenaMousePressed(evt);
             }
         });
+        TXTContrasena.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTContrasenaKeyPressed(evt);
+            }
+        });
 
         Estado.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         Estado.setText("Estado:");
@@ -576,6 +581,8 @@ public class Usuarios extends javax.swing.JFrame {
         Validaciones V=new Validaciones();
         if (!V.validarContrasena(contrasena)){
             JOptionPane.showMessageDialog(this, "Contraseña no valida");
+            TXTContrasena.setText("");
+            return;
         }
         JOptionPane.showMessageDialog(this, "Cambio guardado con éxito");
         TXTContrasena.setText("");
@@ -590,6 +597,13 @@ public class Usuarios extends javax.swing.JFrame {
         Estados.setSelectedIndex(2);
         JOptionPane.showMessageDialog(this, "Estado cambiado correctamente");
     }//GEN-LAST:event_PanelDarBajaMouseClicked
+
+    private void TXTContrasenaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTContrasenaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarCambios();
+        }
+    }//GEN-LAST:event_TXTContrasenaKeyPressed
 
     /**
      * @param args the command line arguments
