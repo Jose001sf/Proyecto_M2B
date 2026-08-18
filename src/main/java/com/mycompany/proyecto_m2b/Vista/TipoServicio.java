@@ -3,7 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.proyecto_m2b.Vista;
-
+import java.awt.Color;
+import javax.swing.JOptionPane;
 /**
  *
  * @author HP
@@ -34,16 +35,27 @@ public class TipoServicio extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
-        btnAgregar = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
         TxtBuscar = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
-        BtnBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCatalogo = new javax.swing.JTable();
         Titulo = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        PanelGuardar = new javax.swing.JPanel();
+        Guardar = new javax.swing.JLabel();
+        ImagenSAVE = new javax.swing.JLabel();
+        PanelEditar = new javax.swing.JPanel();
+        Editar = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        PanelBuscar = new javax.swing.JPanel();
+        Buscar = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        PanelNuevo = new javax.swing.JPanel();
+        Nuevo = new javax.swing.JLabel();
+        ImagenADD = new javax.swing.JLabel();
+        PanelDarBaja = new javax.swing.JPanel();
+        DarDeBaja = new javax.swing.JLabel();
+        ImagenDarBaja = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         Regresar = new javax.swing.JLabel();
 
@@ -78,16 +90,6 @@ public class TipoServicio extends javax.swing.JFrame {
         jTextField4.addActionListener(this::jTextField4ActionPerformed);
         jPanel2.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(251, 99, 402, 80));
 
-        btnAgregar.setText("Guardar");
-        btnAgregar.addActionListener(this::btnAgregarActionPerformed);
-        jPanel2.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 191, -1, -1));
-
-        btnEditar.setText("Editar");
-        jPanel2.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(314, 191, -1, -1));
-
-        btnEliminar.setText("Eliminar");
-        jPanel2.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 191, -1, -1));
-
         TxtBuscar.setBackground(new java.awt.Color(0, 0, 0));
         TxtBuscar.setForeground(new java.awt.Color(0, 0, 0));
         TxtBuscar.setText("Buscar:");
@@ -96,9 +98,6 @@ public class TipoServicio extends javax.swing.JFrame {
         txtBuscar.setBackground(new java.awt.Color(255, 255, 255));
         txtBuscar.setSelectionColor(new java.awt.Color(102, 102, 102));
         jPanel2.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 254, 180, -1));
-
-        BtnBuscar.setText("Buscar");
-        jPanel2.add(BtnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
 
         tblCatalogo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -122,18 +121,227 @@ public class TipoServicio extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblCatalogo);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 340, 600, 218));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 600, 218));
 
         Titulo.setFont(new java.awt.Font("Segoe UI", 1, 34)); // NOI18N
         Titulo.setForeground(new java.awt.Color(120, 120, 120));
         Titulo.setText("Tipo de Servicios");
-        jPanel2.add(Titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, -1, -1));
+        jPanel2.add(Titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, -1, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Cute_mechanic_holding_wrench_cartoon_icon_illustration___Premium_Vector-removebg-preview.png"))); // NOI18N
         jLabel3.setText("jLabel3");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 220, 95, -1));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 240, 95, -1));
 
-        PanelFondo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 660, 600));
+        PanelGuardar.setBackground(new java.awt.Color(242, 101, 34));
+        PanelGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        PanelGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelGuardarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PanelGuardarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                PanelGuardarMouseExited(evt);
+            }
+        });
+
+        Guardar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        Guardar.setForeground(new java.awt.Color(255, 255, 255));
+        Guardar.setText("Guardar");
+
+        ImagenSAVE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/save_22dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+
+        javax.swing.GroupLayout PanelGuardarLayout = new javax.swing.GroupLayout(PanelGuardar);
+        PanelGuardar.setLayout(PanelGuardarLayout);
+        PanelGuardarLayout.setHorizontalGroup(
+            PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelGuardarLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(ImagenSAVE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Guardar)
+                .addContainerGap(36, Short.MAX_VALUE))
+        );
+        PanelGuardarLayout.setVerticalGroup(
+            PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelGuardarLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Guardar)
+                    .addComponent(ImagenSAVE))
+                .addContainerGap())
+        );
+
+        jPanel2.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 190, -1, -1));
+
+        PanelEditar.setBackground(new java.awt.Color(255, 255, 255));
+        PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        PanelEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PanelEditarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                PanelEditarMouseExited(evt);
+            }
+        });
+
+        Editar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        Editar.setText("Editar");
+
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/edit_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+
+        javax.swing.GroupLayout PanelEditarLayout = new javax.swing.GroupLayout(PanelEditar);
+        PanelEditar.setLayout(PanelEditarLayout);
+        PanelEditarLayout.setHorizontalGroup(
+            PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelEditarLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Editar)
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
+        PanelEditarLayout.setVerticalGroup(
+            PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelEditarLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Editar)
+                    .addComponent(jLabel4))
+                .addContainerGap())
+        );
+
+        jPanel2.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 190, -1, -1));
+
+        PanelBuscar.setBackground(new java.awt.Color(255, 255, 255));
+        PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        PanelBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PanelBuscarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                PanelBuscarMouseExited(evt);
+            }
+        });
+
+        Buscar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        Buscar.setText("Buscar");
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/person_search_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+
+        javax.swing.GroupLayout PanelBuscarLayout = new javax.swing.GroupLayout(PanelBuscar);
+        PanelBuscar.setLayout(PanelBuscarLayout);
+        PanelBuscarLayout.setHorizontalGroup(
+            PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelBuscarLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Buscar)
+                .addContainerGap(31, Short.MAX_VALUE))
+        );
+        PanelBuscarLayout.setVerticalGroup(
+            PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelBuscarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Buscar)
+                    .addComponent(jLabel5))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel2.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, -1, -1));
+
+        PanelNuevo.setBackground(new java.awt.Color(255, 255, 255));
+        PanelNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        PanelNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelNuevoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PanelNuevoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                PanelNuevoMouseExited(evt);
+            }
+        });
+
+        Nuevo.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        Nuevo.setText("Nuevo");
+
+        ImagenADD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+
+        javax.swing.GroupLayout PanelNuevoLayout = new javax.swing.GroupLayout(PanelNuevo);
+        PanelNuevo.setLayout(PanelNuevoLayout);
+        PanelNuevoLayout.setHorizontalGroup(
+            PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelNuevoLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(ImagenADD)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Nuevo)
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
+        PanelNuevoLayout.setVerticalGroup(
+            PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelNuevoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ImagenADD)
+                    .addComponent(Nuevo))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel2.add(PanelNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
+
+        PanelDarBaja.setBackground(new java.awt.Color(255, 255, 255));
+        PanelDarBaja.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(215, 106, 106)));
+        PanelDarBaja.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelDarBaja.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PanelDarBajaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                PanelDarBajaMouseExited(evt);
+            }
+        });
+
+        DarDeBaja.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        DarDeBaja.setForeground(new java.awt.Color(215, 106, 106));
+        DarDeBaja.setText("Eliminar");
+
+        ImagenDarBaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/person_cancel_22dp_EA3323_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+
+        javax.swing.GroupLayout PanelDarBajaLayout = new javax.swing.GroupLayout(PanelDarBaja);
+        PanelDarBaja.setLayout(PanelDarBajaLayout);
+        PanelDarBajaLayout.setHorizontalGroup(
+            PanelDarBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelDarBajaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ImagenDarBaja)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(DarDeBaja)
+                .addGap(30, 30, 30))
+        );
+        PanelDarBajaLayout.setVerticalGroup(
+            PanelDarBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelDarBajaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelDarBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(DarDeBaja)
+                    .addComponent(ImagenDarBaja))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel2.add(PanelDarBaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, -1, -1));
+
+        PanelFondo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 700, 630));
 
         Regresar.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         Regresar.setForeground(new java.awt.Color(145, 145, 145));
@@ -159,7 +367,7 @@ public class TipoServicio extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 448, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(Regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -171,19 +379,17 @@ public class TipoServicio extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        PanelFondo.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 660, 50));
+        PanelFondo.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 710, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(PanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(PanelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(PanelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -204,10 +410,6 @@ public class TipoServicio extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_RegresarMouseClicked
 
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAgregarActionPerformed
-
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4ActionPerformed
@@ -215,6 +417,78 @@ public class TipoServicio extends javax.swing.JFrame {
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_PanelGuardarMouseClicked
+
+    private void PanelGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseEntered
+        // TODO add your handling code here:
+        PanelGuardar.setBackground(new Color(227, 95, 32));
+        Guardar.setForeground(new Color(217, 217, 192));
+    }//GEN-LAST:event_PanelGuardarMouseEntered
+
+    private void PanelGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseExited
+        // TODO add your handling code here:
+        PanelGuardar.setBackground(new Color(242,101,34));
+        Guardar.setForeground(Color.white);
+    }//GEN-LAST:event_PanelGuardarMouseExited
+
+    private void PanelEditarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseEntered
+        // TODO add your handling code here:
+        PanelEditar.setBackground(new Color(219,219,219));
+        Editar.setForeground(new Color(66, 66, 66));
+    }//GEN-LAST:event_PanelEditarMouseEntered
+
+    private void PanelEditarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseExited
+        // TODO add your handling code here:
+        PanelEditar.setBackground(Color.white);
+        Editar.setForeground(Color.black);
+    }//GEN-LAST:event_PanelEditarMouseExited
+
+    private void PanelBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseEntered
+        // TODO add your handling code here:
+        PanelBuscar.setBackground(new Color(219,219,219));
+        Buscar.setForeground(new Color(66, 66, 66));
+    }//GEN-LAST:event_PanelBuscarMouseEntered
+
+    private void PanelBuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseExited
+        // TODO add your handling code here:
+        PanelBuscar.setBackground(Color.white);
+        Buscar.setForeground(Color.black);
+    }//GEN-LAST:event_PanelBuscarMouseExited
+
+    private void PanelNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseClicked
+        // TODO add your handling code here:
+
+        JOptionPane.showMessageDialog(this, "Datos limpiados correctamente"+"\n"
+            +"Ingrese los datos");
+    }//GEN-LAST:event_PanelNuevoMouseClicked
+
+    private void PanelNuevoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseEntered
+        // TODO add your handling code here:
+        PanelNuevo.setBackground(new Color(219,219,219));
+        Nuevo.setForeground(new Color(66, 66, 66));
+    }//GEN-LAST:event_PanelNuevoMouseEntered
+
+    private void PanelNuevoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseExited
+        // TODO add your handling code here:
+        PanelNuevo.setBackground(Color.white);
+        Nuevo.setForeground(Color.black);
+    }//GEN-LAST:event_PanelNuevoMouseExited
+
+    private void PanelDarBajaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarBajaMouseEntered
+        // TODO add your handling code here:
+        PanelDarBaja.setBackground(new Color (252, 168, 168));
+        DarDeBaja.setForeground(Color.white);
+    }//GEN-LAST:event_PanelDarBajaMouseEntered
+
+    private void PanelDarBajaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarBajaMouseExited
+        // TODO add your handling code here:
+        PanelDarBaja.setBackground(Color.white);
+        DarDeBaja.setForeground(new Color(215, 106, 106));
+    }//GEN-LAST:event_PanelDarBajaMouseExited
 
     /**
      * @param args the command line arguments
@@ -242,17 +516,28 @@ public class TipoServicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnBuscar;
+    private javax.swing.JLabel Buscar;
+    private javax.swing.JLabel DarDeBaja;
+    private javax.swing.JLabel Editar;
+    private javax.swing.JLabel Guardar;
+    private javax.swing.JLabel ImagenADD;
+    private javax.swing.JLabel ImagenDarBaja;
+    private javax.swing.JLabel ImagenSAVE;
+    private javax.swing.JLabel Nuevo;
+    private javax.swing.JPanel PanelBuscar;
+    private javax.swing.JPanel PanelDarBaja;
+    private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelFondo;
+    private javax.swing.JPanel PanelGuardar;
+    private javax.swing.JPanel PanelNuevo;
     private javax.swing.JLabel Regresar;
     private javax.swing.JLabel Titulo;
     private javax.swing.JLabel TxtBuscar;
-    private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnEditar;
-    private javax.swing.JButton btnEliminar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

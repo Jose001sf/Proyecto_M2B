@@ -570,6 +570,9 @@ public class Menu extends javax.swing.JFrame {
         PanelEstadisticas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         PanelEstadisticas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelEstadisticas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelEstadisticasMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelEstadisticasMouseEntered(evt);
             }
@@ -992,6 +995,13 @@ public class Menu extends javax.swing.JFrame {
         CS.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_PanelServiciosMouseClicked
+
+    private void PanelEstadisticasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEstadisticasMouseClicked
+        // TODO add your handling code here:
+        Estadisticas Esta = new Estadisticas();
+        Esta.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_PanelEstadisticasMouseClicked
 
     /**
      * @param args the command line arguments
