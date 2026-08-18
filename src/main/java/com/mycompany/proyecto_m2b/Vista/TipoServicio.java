@@ -63,6 +63,7 @@ public class TipoServicio extends javax.swing.JFrame {
         setUndecorated(true);
 
         PanelFondo.setBackground(new java.awt.Color(238, 238, 238));
+        PanelFondo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         PanelFondo.setMinimumSize(new java.awt.Dimension(0, 0));
         PanelFondo.setPreferredSize(new java.awt.Dimension(1920, 1080));
         PanelFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -72,30 +73,24 @@ public class TipoServicio extends javax.swing.JFrame {
         jPanel2.setForeground(new java.awt.Color(255, 153, 102));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Descripcion:");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(251, 65, -1, -1));
 
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Nombre del servicio :");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 65, 121, -1));
 
-        jTextField2.setBackground(new java.awt.Color(255, 255, 255));
         jTextField2.setSelectionColor(new java.awt.Color(102, 102, 102));
         jTextField2.addActionListener(this::jTextField2ActionPerformed);
         jPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 99, 186, -1));
 
-        jTextField4.setBackground(new java.awt.Color(255, 255, 255));
         jTextField4.setSelectionColor(new java.awt.Color(102, 102, 102));
         jTextField4.addActionListener(this::jTextField4ActionPerformed);
         jPanel2.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(251, 99, 402, 80));
 
         TxtBuscar.setBackground(new java.awt.Color(0, 0, 0));
-        TxtBuscar.setForeground(new java.awt.Color(0, 0, 0));
         TxtBuscar.setText("Buscar:");
         jPanel2.add(TxtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 232, -1, -1));
 
-        txtBuscar.setBackground(new java.awt.Color(255, 255, 255));
         txtBuscar.setSelectionColor(new java.awt.Color(102, 102, 102));
         jPanel2.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 254, 180, -1));
 
@@ -344,7 +339,6 @@ public class TipoServicio extends javax.swing.JFrame {
         PanelFondo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 700, 630));
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel1.setForeground(new java.awt.Color(0, 0, 0));
 
         Regresar.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         Regresar.setForeground(new java.awt.Color(145, 145, 145));
