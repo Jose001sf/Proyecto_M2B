@@ -74,6 +74,7 @@ public class OrdenesDeServicio extends javax.swing.JFrame {
         jTextField2.setText("jTextField2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(238, 238, 238));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -81,7 +82,6 @@ public class OrdenesDeServicio extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(204, 204, 204));
         jLabel21.setText("<- REGRESAR");
         jLabel21.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel21.addMouseListener(new java.awt.event.MouseAdapter() {
