@@ -20,6 +20,8 @@ public class Proveedores extends javax.swing.JFrame {
         
     txtCantidad.setText("Ingrese la cantidad a solicitar");
     txtCantidad.setForeground(java.awt.Color.GRAY);
+    
+    this.setLocationRelativeTo(null);
     }
 
     /**

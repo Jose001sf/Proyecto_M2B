@@ -41,7 +41,7 @@ public class Vehiculos extends javax.swing.JFrame {
 
     txtPuertas.setText("Ingrese el N° de puertas del vehiculo");
     txtPuertas.setForeground(java.awt.Color.GRAY);    
-    this.setLocationRelativeTo(null);        
+    this.setLocationRelativeTo(null);     
         
     }
 
@@ -55,9 +55,6 @@ public class Vehiculos extends javax.swing.JFrame {
     private void initComponents() {
 
         Fondo = new javax.swing.JPanel();
-        BarraArriba = new javax.swing.JPanel();
-        NombreVentanaVehiculos = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         BarraAbajo = new javax.swing.JPanel();
         TituloFuncion1 = new javax.swing.JLabel();
         Placa = new javax.swing.JLabel();
@@ -98,44 +95,6 @@ public class Vehiculos extends javax.swing.JFrame {
         Fondo.setBackground(new java.awt.Color(255, 255, 255));
         Fondo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Fondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        BarraArriba.setBackground(new java.awt.Color(0, 0, 0));
-
-        NombreVentanaVehiculos.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        NombreVentanaVehiculos.setForeground(new java.awt.Color(255, 255, 255));
-        NombreVentanaVehiculos.setText("REGISTRO DE VEHÍCULOS ");
-
-        jLabel1.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Regresar");
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout BarraArribaLayout = new javax.swing.GroupLayout(BarraArriba);
-        BarraArriba.setLayout(BarraArribaLayout);
-        BarraArribaLayout.setHorizontalGroup(
-            BarraArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BarraArribaLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(NombreVentanaVehiculos, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 714, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(43, 43, 43))
-        );
-        BarraArribaLayout.setVerticalGroup(
-            BarraArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BarraArribaLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(BarraArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(NombreVentanaVehiculos))
-                .addContainerGap(9, Short.MAX_VALUE))
-        );
-
-        Fondo.add(BarraArriba, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1210, 60));
 
         BarraAbajo.setBackground(new java.awt.Color(227, 153, 106));
 
@@ -340,11 +299,11 @@ public class Vehiculos extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Fondo, javax.swing.GroupLayout.DEFAULT_SIZE, 1212, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Fondo, javax.swing.GroupLayout.DEFAULT_SIZE, 702, Short.MAX_VALUE)
         );
 
         pack();
@@ -471,13 +430,6 @@ public class Vehiculos extends javax.swing.JFrame {
     ventana.setVisible(true);      
     }//GEN-LAST:event_mmButtonActionPerformed
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        // TODO add your handling code here:
-        Menu m = new Menu();
-        m.setVisible(true);
-        this.dispose();       
-    }//GEN-LAST:event_jLabel1MouseClicked
-
     private void btnVerVRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerVRActionPerformed
         // TODO add your handling code here:
     VehiculosRegistrados mp = new VehiculosRegistrados();
@@ -519,7 +471,6 @@ public class Vehiculos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Ano;
     private javax.swing.JPanel BarraAbajo;
-    private javax.swing.JPanel BarraArriba;
     private javax.swing.JLabel Chasis;
     private javax.swing.JLabel Cilindraje;
     private javax.swing.JLabel Color;
@@ -528,7 +479,6 @@ public class Vehiculos extends javax.swing.JFrame {
     private javax.swing.JLabel Marca;
     private javax.swing.JLabel Modelo;
     private javax.swing.JLabel Motor;
-    private javax.swing.JLabel NombreVentanaVehiculos;
     private javax.swing.JLabel Placa;
     private javax.swing.JLabel Propietario;
     private javax.swing.JLabel Puertas;
@@ -542,7 +492,6 @@ public class Vehiculos extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboModelos;
     private javax.swing.JComboBox<String> comboPropietarios;
     private javax.swing.JComboBox<String> comboTransmicion;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JButton mmButton;
     private javax.swing.JTextField txtAnio;
