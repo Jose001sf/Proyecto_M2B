@@ -86,14 +86,18 @@ public class Vehiculos extends javax.swing.JFrame {
         txtMotor = new javax.swing.JTextField();
         txtCilindraje = new javax.swing.JTextField();
         txtPuertas = new javax.swing.JTextField();
-        mmButton = new javax.swing.JButton();
-        btnVerVR = new javax.swing.JButton();
         PanelGuardar = new javax.swing.JPanel();
         Guardar = new javax.swing.JLabel();
         ImagenSAVE = new javax.swing.JLabel();
         PanelEditar = new javax.swing.JPanel();
         Editar = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        PanelBuscar = new javax.swing.JPanel();
+        Buscar = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        PanelNuevo1 = new javax.swing.JPanel();
+        Nuevo1 = new javax.swing.JLabel();
+        ImagenADD1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -321,19 +325,6 @@ public class Vehiculos extends javax.swing.JFrame {
         });
         Fondo.add(txtPuertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 430, 270, -1));
 
-        mmButton.setText("Agregar Marca/Modelo");
-        mmButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mmButtonMouseClicked(evt);
-            }
-        });
-        mmButton.addActionListener(this::mmButtonActionPerformed);
-        Fondo.add(mmButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 180, 170, 70));
-
-        btnVerVR.setText("Ver Vehiculos Registrados");
-        btnVerVR.addActionListener(this::btnVerVRActionPerformed);
-        Fondo.add(btnVerVR, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 500, 190, 70));
-
         PanelGuardar.setBackground(new java.awt.Color(242, 101, 34));
         PanelGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
         PanelGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -418,6 +409,89 @@ public class Vehiculos extends javax.swing.JFrame {
         );
 
         Fondo.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 520, -1, -1));
+
+        PanelBuscar.setBackground(new java.awt.Color(255, 255, 255));
+        PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        PanelBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PanelBuscarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                PanelBuscarMouseExited(evt);
+            }
+        });
+
+        Buscar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        Buscar.setText("Buscar");
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/person_search_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+
+        javax.swing.GroupLayout PanelBuscarLayout = new javax.swing.GroupLayout(PanelBuscar);
+        PanelBuscar.setLayout(PanelBuscarLayout);
+        PanelBuscarLayout.setHorizontalGroup(
+            PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelBuscarLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Buscar)
+                .addContainerGap(31, Short.MAX_VALUE))
+        );
+        PanelBuscarLayout.setVerticalGroup(
+            PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelBuscarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Buscar)
+                    .addComponent(jLabel3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        Fondo.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 520, -1, -1));
+
+        PanelNuevo1.setBackground(new java.awt.Color(255, 255, 255));
+        PanelNuevo1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        PanelNuevo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelNuevo1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelNuevo1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PanelNuevo1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                PanelNuevo1MouseExited(evt);
+            }
+        });
+
+        Nuevo1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        Nuevo1.setText("Nuevo");
+
+        ImagenADD1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+
+        javax.swing.GroupLayout PanelNuevo1Layout = new javax.swing.GroupLayout(PanelNuevo1);
+        PanelNuevo1.setLayout(PanelNuevo1Layout);
+        PanelNuevo1Layout.setHorizontalGroup(
+            PanelNuevo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelNuevo1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(ImagenADD1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Nuevo1)
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
+        PanelNuevo1Layout.setVerticalGroup(
+            PanelNuevo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelNuevo1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelNuevo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ImagenADD1)
+                    .addComponent(Nuevo1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        Fondo.add(PanelNuevo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 190, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -545,29 +619,6 @@ public class Vehiculos extends javax.swing.JFrame {
         }       
     }//GEN-LAST:event_txtPuertasFocusLost
 
-    private void mmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmButtonActionPerformed
-    NuevaMarcaModelo mp = new NuevaMarcaModelo();
-    javax.swing.JDialog ventana = new javax.swing.JDialog(this, "", true);
-    ventana.add(mp);
-    ventana.pack(); 
-    ventana.setLocationRelativeTo(this); 
-    ventana.setVisible(true);      
-    }//GEN-LAST:event_mmButtonActionPerformed
-
-    private void btnVerVRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerVRActionPerformed
-        // TODO add your handling code here:
-    VehiculosRegistrados mp = new VehiculosRegistrados();
-    javax.swing.JDialog ventana = new javax.swing.JDialog(this, "", true);
-    ventana.add(mp);
-    ventana.pack(); 
-    ventana.setLocationRelativeTo(this); 
-    ventana.setVisible(true);  
-    }//GEN-LAST:event_btnVerVRActionPerformed
-
-    private void mmButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mmButtonMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mmButtonMouseClicked
-
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // TODO add your handling code here:
         Menu m = new Menu();
@@ -603,6 +654,35 @@ public class Vehiculos extends javax.swing.JFrame {
         Editar.setForeground(java.awt.Color.black);
     }//GEN-LAST:event_PanelEditarMouseExited
 
+    private void PanelBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseEntered
+        // TODO add your handling code here:
+        PanelBuscar.setBackground(new java.awt.Color(219,219,219));
+        Buscar.setForeground(new java.awt.Color(66, 66, 66));
+    }//GEN-LAST:event_PanelBuscarMouseEntered
+
+    private void PanelBuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseExited
+        // TODO add your handling code here:
+        PanelBuscar.setBackground(java.awt.Color.white);
+        Buscar.setForeground(java.awt.Color.black);
+    }//GEN-LAST:event_PanelBuscarMouseExited
+
+    private void PanelNuevo1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevo1MouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_PanelNuevo1MouseClicked
+
+    private void PanelNuevo1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevo1MouseEntered
+        // TODO add your handling code here:
+        PanelNuevo.setBackground(new java.awt.Color(219,219,219));
+        Nuevo.setForeground(new java.awt.Color(66, 66, 66));
+    }//GEN-LAST:event_PanelNuevo1MouseEntered
+
+    private void PanelNuevo1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevo1MouseExited
+        // TODO add your handling code here:
+        PanelNuevo.setBackground(java.awt.Color.white);
+        Nuevo.setForeground(java.awt.Color.black);
+    }//GEN-LAST:event_PanelNuevo1MouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -631,35 +711,42 @@ public class Vehiculos extends javax.swing.JFrame {
     private javax.swing.JLabel Ano;
     private javax.swing.JPanel BarraAbajo;
     private javax.swing.JPanel BarraArriba;
+    private javax.swing.JLabel Buscar;
     private javax.swing.JLabel Chasis;
     private javax.swing.JLabel Cilindraje;
     private javax.swing.JLabel Color;
     private javax.swing.JLabel Editar;
     private javax.swing.JPanel Fondo;
     private javax.swing.JLabel Guardar;
+    private javax.swing.JLabel ImagenADD;
+    private javax.swing.JLabel ImagenADD1;
     private javax.swing.JLabel ImagenSAVE;
     private javax.swing.JLabel Kilometraje;
     private javax.swing.JLabel Marca;
     private javax.swing.JLabel Modelo;
     private javax.swing.JLabel Motor;
     private javax.swing.JLabel NombreVentanaVehiculos;
+    private javax.swing.JLabel Nuevo;
+    private javax.swing.JLabel Nuevo1;
+    private javax.swing.JPanel PanelBuscar;
     private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelGuardar;
+    private javax.swing.JPanel PanelNuevo;
+    private javax.swing.JPanel PanelNuevo1;
     private javax.swing.JLabel Placa;
     private javax.swing.JLabel Propietario;
     private javax.swing.JLabel Puertas;
     private javax.swing.JLabel TituloFuncion1;
     private javax.swing.JLabel TituloFuncion2;
     private javax.swing.JLabel Transmicion;
-    private javax.swing.JButton btnVerVR;
     private javax.swing.JComboBox<String> comboMarcas;
     private javax.swing.JComboBox<String> comboModelos;
     private javax.swing.JComboBox<String> comboPropietarios;
     private javax.swing.JComboBox<String> comboTransmicion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JButton mmButton;
     private javax.swing.JTextField txtAnio;
     private javax.swing.JTextField txtChasis;
     private javax.swing.JTextField txtCilindraje;
