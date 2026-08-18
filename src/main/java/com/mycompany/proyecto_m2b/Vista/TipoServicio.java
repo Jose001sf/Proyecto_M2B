@@ -8,14 +8,14 @@ package com.mycompany.proyecto_m2b.Vista;
  *
  * @author HP
  */
-public class Servicios extends javax.swing.JFrame {
+public class TipoServicio extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Servicios.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TipoServicio.class.getName());
 
     /**
-     * Creates new form Servicios
+     * Creates new form TipoServicio
      */
-    public Servicios() {
+    public TipoServicio() {
         initComponents();
     }
 
@@ -37,14 +37,8 @@ public class Servicios extends javax.swing.JFrame {
         Regresar = new javax.swing.JLabel();
         Maximizar = new javax.swing.JLabel();
         Titulo = new javax.swing.JLabel();
-        PanelTipoServicio = new javax.swing.JPanel();
-        TipoServicio = new javax.swing.JLabel();
-        PanelCatalogoServicios = new javax.swing.JPanel();
-        CatalogoServicios = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         PanelFondo.setBackground(new java.awt.Color(238, 238, 238));
         PanelFondo.setMinimumSize(new java.awt.Dimension(0, 0));
@@ -163,100 +157,18 @@ public class Servicios extends javax.swing.JFrame {
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        PanelFondo.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1535, -1));
+        PanelFondo.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, -1));
 
         Titulo.setFont(new java.awt.Font("Segoe UI", 1, 34)); // NOI18N
         Titulo.setForeground(new java.awt.Color(120, 120, 120));
-        Titulo.setText("Servicios");
+        Titulo.setText("Tipo de Servicios");
         PanelFondo.add(Titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 121, -1, -1));
-
-        PanelTipoServicio.setBackground(new java.awt.Color(255, 255, 255));
-        PanelTipoServicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 116, 78)));
-        PanelTipoServicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelTipoServicio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PanelTipoServicioMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelTipoServicioMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelTipoServicioMouseExited(evt);
-            }
-        });
-
-        TipoServicio.setBackground(new java.awt.Color(0, 0, 0));
-        TipoServicio.setForeground(new java.awt.Color(0, 0, 0));
-        TipoServicio.setText("<html><center>Tipo de<br>Servicio</center></html>");
-
-        javax.swing.GroupLayout PanelTipoServicioLayout = new javax.swing.GroupLayout(PanelTipoServicio);
-        PanelTipoServicio.setLayout(PanelTipoServicioLayout);
-        PanelTipoServicioLayout.setHorizontalGroup(
-            PanelTipoServicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelTipoServicioLayout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(TipoServicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(71, Short.MAX_VALUE))
-        );
-        PanelTipoServicioLayout.setVerticalGroup(
-            PanelTipoServicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelTipoServicioLayout.createSequentialGroup()
-                .addContainerGap(86, Short.MAX_VALUE)
-                .addComponent(TipoServicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
-        );
-
-        PanelFondo.add(PanelTipoServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(441, 343, -1, -1));
-
-        PanelCatalogoServicios.setBackground(new java.awt.Color(255, 255, 255));
-        PanelCatalogoServicios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 116, 78)));
-        PanelCatalogoServicios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelCatalogoServicios.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PanelCatalogoServiciosMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelCatalogoServiciosMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelCatalogoServiciosMouseExited(evt);
-            }
-        });
-
-        CatalogoServicios.setBackground(new java.awt.Color(0, 0, 0));
-        CatalogoServicios.setForeground(new java.awt.Color(0, 0, 0));
-        CatalogoServicios.setText("<html><center>Catalogo<br>Servicios</center></html>");
-
-        javax.swing.GroupLayout PanelCatalogoServiciosLayout = new javax.swing.GroupLayout(PanelCatalogoServicios);
-        PanelCatalogoServicios.setLayout(PanelCatalogoServiciosLayout);
-        PanelCatalogoServiciosLayout.setHorizontalGroup(
-            PanelCatalogoServiciosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelCatalogoServiciosLayout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addComponent(CatalogoServicios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
-        );
-        PanelCatalogoServiciosLayout.setVerticalGroup(
-            PanelCatalogoServiciosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelCatalogoServiciosLayout.createSequentialGroup()
-                .addContainerGap(81, Short.MAX_VALUE)
-                .addComponent(CatalogoServicios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
-        );
-
-        PanelFondo.add(PanelCatalogoServicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(1087, 335, -1, -1));
-
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("asdasdasdasdasdasd");
-        PanelFondo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 807, 165, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(PanelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 1537, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(PanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 1538, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,42 +178,15 @@ public class Servicios extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void PanelTipoServicioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelTipoServicioMouseEntered
+    private void MinimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarMouseClicked
         // TODO add your handling code here:
-        PanelTipoServicio.setBackground(new java.awt.Color(252, 170, 118));
-        TipoServicio.setForeground(java.awt.Color.white);
-    }//GEN-LAST:event_PanelTipoServicioMouseEntered
+        setState(java.awt.Frame.ICONIFIED);
+    }//GEN-LAST:event_MinimizarMouseClicked
 
-    private void PanelTipoServicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelTipoServicioMouseExited
+    private void CerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarMouseClicked
         // TODO add your handling code here:
-        PanelTipoServicio.setBackground(java.awt.Color.white);
-        TipoServicio.setForeground(java.awt.Color.black);
-    }//GEN-LAST:event_PanelTipoServicioMouseExited
-
-    private void PanelTipoServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelTipoServicioMouseClicked
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_PanelTipoServicioMouseClicked
-
-    private void PanelCatalogoServiciosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelCatalogoServiciosMouseEntered
-        // TODO add your handling code here:
-        PanelCatalogoServicios.setBackground(new java.awt.Color(252, 170, 118));
-        CatalogoServicios.setForeground(java.awt.Color.white);
-    }//GEN-LAST:event_PanelCatalogoServiciosMouseEntered
-
-    private void PanelCatalogoServiciosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelCatalogoServiciosMouseExited
-        // TODO add your handling code here:
-        PanelCatalogoServicios.setBackground(java.awt.Color.white);
-        CatalogoServicios.setForeground(java.awt.Color.black);
-    }//GEN-LAST:event_PanelCatalogoServiciosMouseExited
-
-    private void PanelCatalogoServiciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelCatalogoServiciosMouseClicked
-        // TODO add your handling code here:
-        CatalogoServicios c = new CatalogoServicios();
-        c.setVisible(true);
-        this.setVisible(false);
-        
-    }//GEN-LAST:event_PanelCatalogoServiciosMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_CerrarMouseClicked
 
     private void RegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegresarMouseClicked
         // TODO add your handling code here:
@@ -319,16 +204,6 @@ public class Servicios extends javax.swing.JFrame {
         // TODO add your handling code here:
         Regresar.setForeground(new java.awt.Color(145, 145, 145));
     }//GEN-LAST:event_RegresarMouseExited
-
-    private void CerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarMouseClicked
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_CerrarMouseClicked
-
-    private void MinimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarMouseClicked
-        // TODO add your handling code here:
-        setState(java.awt.Frame.ICONIFIED);
-    }//GEN-LAST:event_MinimizarMouseClicked
 
     private void MaximizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MaximizarMouseClicked
         // TODO add your handling code here:
@@ -361,23 +236,18 @@ public class Servicios extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Servicios().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new TipoServicio().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel CatalogoServicios;
     private javax.swing.JLabel Cerrar;
     private javax.swing.JLabel MJ;
     private javax.swing.JLabel Maximizar;
     private javax.swing.JLabel Minimizar;
-    private javax.swing.JPanel PanelCatalogoServicios;
     private javax.swing.JPanel PanelFondo;
-    private javax.swing.JPanel PanelTipoServicio;
     private javax.swing.JLabel Regresar;
     private javax.swing.JLabel Talleres;
-    private javax.swing.JLabel TipoServicio;
     private javax.swing.JLabel Titulo;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
