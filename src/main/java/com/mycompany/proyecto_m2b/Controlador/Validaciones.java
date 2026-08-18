@@ -147,4 +147,40 @@ public class Validaciones {
         }
         return true;
     }
+    public boolean validarCargo (String Cargo){                
+        if (Cargo == null){
+            return false;
+        }
+        Cargo=Cargo.trim(); 
+        Pattern pat=Pattern.compile("^[A-Za-zÁÉÍÓÚÑáéíóúñ]{1,30}$");
+        Matcher mat=pat.matcher(Cargo);                
+       return mat.matches();                            
+    }
+    public boolean validarDescripcionCargo (String Descripcion){                
+        if (Descripcion == null){
+            return false;
+        }
+        Descripcion=Descripcion.trim(); 
+        Pattern pat=Pattern.compile("^[A-Za-zÁÉÍÓÚÑáéíóúñ ]{1,80}$");
+        Matcher mat=pat.matcher(Descripcion);                
+       return mat.matches();                            
+    }
+    public boolean validarEspecialidad (String Especialidad){                
+        if (Especialidad == null){
+            return false;
+        }
+        Especialidad=Especialidad.trim(); 
+        Pattern pat=Pattern.compile("^[A-Za-zÁÉÍÓÚÑáéíóúñ]{1,30}$");
+        Matcher mat=pat.matcher(Especialidad);                
+       return mat.matches();                            
+    }
+    public boolean validarDescripcionEspecialidad (String Descripcion){                
+        if (Descripcion == null){
+            return false;
+        }
+        Descripcion=Descripcion.trim(); 
+        Pattern pat=Pattern.compile("^[A-Za-zÁÉÍÓÚÑáéíóúñ ]{1,80}$");
+        Matcher mat=pat.matcher(Descripcion);                
+       return mat.matches();                            
+    }
 }

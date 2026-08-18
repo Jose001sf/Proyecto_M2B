@@ -40,6 +40,8 @@ public class Agregar extends javax.swing.JFrame {
         Especialidades = new javax.swing.JLabel();
         Barra = new javax.swing.JPanel();
         ImagenRegresar = new javax.swing.JLabel();
+        MJ = new javax.swing.JLabel();
+        Talleres = new javax.swing.JLabel();
         PanelFoto = new javax.swing.JPanel();
         foto = new javax.swing.JLabel();
 
@@ -54,6 +56,9 @@ public class Agregar extends javax.swing.JFrame {
         PanelCargos.setBackground(new java.awt.Color(242, 101, 34));
         PanelCargos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelCargos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelCargosMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelCargosMouseEntered(evt);
             }
@@ -86,6 +91,9 @@ public class Agregar extends javax.swing.JFrame {
         PanelEspecialidades.setBackground(new java.awt.Color(242, 101, 34));
         PanelEspecialidades.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelEspecialidades.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelEspecialidadesMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelEspecialidadesMouseEntered(evt);
             }
@@ -135,20 +143,41 @@ public class Agregar extends javax.swing.JFrame {
             }
         });
 
+        MJ.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        MJ.setForeground(new java.awt.Color(152, 75, 45));
+        MJ.setText("M&J");
+
+        Talleres.setBackground(new java.awt.Color(152, 75, 45));
+        Talleres.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Talleres.setForeground(new java.awt.Color(174, 63, 54));
+        Talleres.setText("TALLERES");
+        Talleres.setPreferredSize(new java.awt.Dimension(190, 47));
+
         javax.swing.GroupLayout BarraLayout = new javax.swing.GroupLayout(Barra);
         Barra.setLayout(BarraLayout);
         BarraLayout.setHorizontalGroup(
             BarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BarraLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(BarraLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(BarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Talleres, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(MJ))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(ImagenRegresar)
-                .addContainerGap())
+                .addGap(20, 20, 20))
         );
         BarraLayout.setVerticalGroup(
             BarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BarraLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ImagenRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(BarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(BarraLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(MJ)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Talleres, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(BarraLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(ImagenRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -173,26 +202,28 @@ public class Agregar extends javax.swing.JFrame {
             .addGroup(MenuLayout.createSequentialGroup()
                 .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(MenuLayout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addComponent(PanelEspecialidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(MenuLayout.createSequentialGroup()
                         .addGap(96, 96, 96)
-                        .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(PanelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PanelCargos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(71, Short.MAX_VALUE))
+                        .addComponent(PanelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(MenuLayout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(PanelEspecialidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(MenuLayout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addComponent(PanelCargos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
         MenuLayout.setVerticalGroup(
             MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MenuLayout.createSequentialGroup()
                 .addComponent(Barra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
+                .addGap(34, 34, 34)
                 .addComponent(PanelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(PanelCargos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(PanelEspecialidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
 
         getContentPane().add(Menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 340));
@@ -242,6 +273,20 @@ public class Agregar extends javax.swing.JFrame {
         Especialidades.setForeground(Color.white);
     }//GEN-LAST:event_PanelEspecialidadesMouseExited
 
+    private void PanelCargosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelCargosMouseClicked
+        // TODO add your handling code here:
+        Cargos C=new Cargos();
+        C.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_PanelCargosMouseClicked
+
+    private void PanelEspecialidadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEspecialidadesMouseClicked
+        // TODO add your handling code here:
+        Especialidad E=new Especialidad();
+        E.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_PanelEspecialidadesMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -272,10 +317,12 @@ public class Agregar extends javax.swing.JFrame {
     private javax.swing.JLabel Cargos;
     private javax.swing.JLabel Especialidades;
     private javax.swing.JLabel ImagenRegresar;
+    private javax.swing.JLabel MJ;
     private javax.swing.JPanel Menu;
     private javax.swing.JPanel PanelCargos;
     private javax.swing.JPanel PanelEspecialidades;
     private javax.swing.JPanel PanelFoto;
+    private javax.swing.JLabel Talleres;
     private javax.swing.JLabel foto;
     // End of variables declaration//GEN-END:variables
 }
