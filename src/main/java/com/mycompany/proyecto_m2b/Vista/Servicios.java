@@ -196,17 +196,17 @@ public class Servicios extends javax.swing.JFrame {
             .addGroup(PanelTipoServicioLayout.createSequentialGroup()
                 .addGap(59, 59, 59)
                 .addComponent(TipoServicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(547, Short.MAX_VALUE))
         );
         PanelTipoServicioLayout.setVerticalGroup(
             PanelTipoServicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelTipoServicioLayout.createSequentialGroup()
-                .addContainerGap(86, Short.MAX_VALUE)
+                .addContainerGap(149, Short.MAX_VALUE)
                 .addComponent(TipoServicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
         );
 
-        PanelFondo.add(PanelTipoServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(441, 343, -1, -1));
+        PanelFondo.add(PanelTipoServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(441, 280, 650, 210));
 
         PanelCatalogoServicios.setBackground(new java.awt.Color(255, 255, 255));
         PanelCatalogoServicios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 116, 78)));

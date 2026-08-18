@@ -988,8 +988,8 @@ public class Menu extends javax.swing.JFrame {
 
     private void PanelServiciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelServiciosMouseClicked
         // TODO add your handling code here:
-        Servicios P=new Servicios();
-        P.setVisible(true);
+        CatalogoServicios CS=new CatalogoServicios();
+        CS.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_PanelServiciosMouseClicked
 

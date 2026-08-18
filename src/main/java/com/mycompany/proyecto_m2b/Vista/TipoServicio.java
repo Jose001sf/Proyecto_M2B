@@ -29,60 +29,159 @@ public class TipoServicio extends javax.swing.JFrame {
     private void initComponents() {
 
         PanelFondo = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        MJ = new javax.swing.JLabel();
-        Talleres = new javax.swing.JLabel();
-        Minimizar = new javax.swing.JLabel();
-        Cerrar = new javax.swing.JLabel();
-        Regresar = new javax.swing.JLabel();
-        Maximizar = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        btnAgregar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        TxtBuscar = new javax.swing.JLabel();
+        txtBuscar = new javax.swing.JTextField();
+        BtnBuscar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblCatalogo = new javax.swing.JTable();
         Titulo = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        Regresar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         PanelFondo.setBackground(new java.awt.Color(238, 238, 238));
         PanelFondo.setMinimumSize(new java.awt.Dimension(0, 0));
         PanelFondo.setPreferredSize(new java.awt.Dimension(1920, 1080));
         PanelFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel1.setPreferredSize(new java.awt.Dimension(413, 103));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 102, 0)));
+        jPanel2.setForeground(new java.awt.Color(255, 153, 102));
 
-        MJ.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        MJ.setForeground(new java.awt.Color(152, 75, 45));
-        MJ.setText("M&J");
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Descripcion:");
 
-        Talleres.setBackground(new java.awt.Color(152, 75, 45));
-        Talleres.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        Talleres.setForeground(new java.awt.Color(174, 63, 54));
-        Talleres.setText("TALLERES");
-        Talleres.setPreferredSize(new java.awt.Dimension(190, 47));
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Nombre del servicio :");
 
-        Minimizar.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        Minimizar.setForeground(new java.awt.Color(255, 255, 255));
-        Minimizar.setText("-");
-        Minimizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Minimizar.setMaximumSize(new java.awt.Dimension(12, 47));
-        Minimizar.setMinimumSize(new java.awt.Dimension(12, 47));
-        Minimizar.setPreferredSize(new java.awt.Dimension(12, 47));
-        Minimizar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                MinimizarMouseClicked(evt);
+        jTextField2.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField2.setSelectionColor(new java.awt.Color(102, 102, 102));
+        jTextField2.addActionListener(this::jTextField2ActionPerformed);
+
+        jTextField4.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField4.setSelectionColor(new java.awt.Color(102, 102, 102));
+        jTextField4.addActionListener(this::jTextField4ActionPerformed);
+
+        btnAgregar.setText("Guardar");
+        btnAgregar.addActionListener(this::btnAgregarActionPerformed);
+
+        btnEditar.setText("Editar");
+
+        btnEliminar.setText("Eliminar");
+
+        TxtBuscar.setBackground(new java.awt.Color(0, 0, 0));
+        TxtBuscar.setForeground(new java.awt.Color(0, 0, 0));
+        TxtBuscar.setText("Buscar:");
+
+        txtBuscar.setBackground(new java.awt.Color(255, 255, 255));
+        txtBuscar.setSelectionColor(new java.awt.Color(102, 102, 102));
+
+        BtnBuscar.setText("Buscar");
+
+        tblCatalogo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID Servicio", "Tipo", "Precio base", "Tiempo estimado"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
             }
         });
+        jScrollPane1.setViewportView(tblCatalogo);
 
-        Cerrar.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        Cerrar.setForeground(new java.awt.Color(255, 255, 255));
-        Cerrar.setText("x");
-        Cerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Cerrar.setMaximumSize(new java.awt.Dimension(23, 47));
-        Cerrar.setMinimumSize(new java.awt.Dimension(23, 47));
-        Cerrar.setPreferredSize(new java.awt.Dimension(23, 47));
-        Cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                CerrarMouseClicked(evt);
-            }
-        });
+        Titulo.setFont(new java.awt.Font("Segoe UI", 1, 34)); // NOI18N
+        Titulo.setForeground(new java.awt.Color(120, 120, 120));
+        Titulo.setText("Tipo de Servicios");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(TxtBuscar)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(BtnBuscar)
+                                    .addComponent(Titulo))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnAgregar))
+                                .addGap(87, 87, 87)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                        .addGap(63, 63, 63)
+                                        .addComponent(btnEditar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 194, Short.MAX_VALUE)
+                                        .addComponent(btnEliminar))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(jTextField4))))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addComponent(Titulo)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAgregar)
+                    .addComponent(btnEditar)
+                    .addComponent(btnEliminar))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TxtBuscar)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(BtnBuscar)
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        PanelFondo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 660, 660));
 
         Regresar.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         Regresar.setForeground(new java.awt.Color(145, 145, 145));
@@ -103,95 +202,55 @@ public class TipoServicio extends javax.swing.JFrame {
             }
         });
 
-        Maximizar.setFont(new java.awt.Font("Segoe UI", 1, 42)); // NOI18N
-        Maximizar.setForeground(new java.awt.Color(255, 255, 255));
-        Maximizar.setText("▫");
-        Maximizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Maximizar.setMaximumSize(new java.awt.Dimension(32, 47));
-        Maximizar.setMinimumSize(new java.awt.Dimension(32, 47));
-        Maximizar.setPreferredSize(new java.awt.Dimension(32, 47));
-        Maximizar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                MaximizarMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MJ)
-                    .addComponent(Talleres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(Minimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Maximizar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 448, Short.MAX_VALUE)
+                .addComponent(Regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(MJ, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Minimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Maximizar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Talleres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Regresar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(Regresar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        PanelFondo.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1540, -1));
-
-        Titulo.setFont(new java.awt.Font("Segoe UI", 1, 34)); // NOI18N
-        Titulo.setForeground(new java.awt.Color(120, 120, 120));
-        Titulo.setText("Tipo de Servicios");
-        PanelFondo.add(Titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 121, -1, -1));
+        PanelFondo.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 660, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 1538, Short.MAX_VALUE)
+            .addComponent(PanelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 838, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(PanelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void MinimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarMouseClicked
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
-        setState(java.awt.Frame.ICONIFIED);
-    }//GEN-LAST:event_MinimizarMouseClicked
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
-    private void CerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarMouseClicked
+    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
         // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_CerrarMouseClicked
+    }//GEN-LAST:event_jTextField4ActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void RegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegresarMouseClicked
         // TODO add your handling code here:
-        Menu M = new Menu();
-        M.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_RegresarMouseClicked
 
@@ -204,15 +263,6 @@ public class TipoServicio extends javax.swing.JFrame {
         // TODO add your handling code here:
         Regresar.setForeground(new java.awt.Color(145, 145, 145));
     }//GEN-LAST:event_RegresarMouseExited
-
-    private void MaximizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MaximizarMouseClicked
-        // TODO add your handling code here:
-        if ((getExtendedState() & Servicios.MAXIMIZED_BOTH) == Servicios.MAXIMIZED_BOTH) {
-            this.setExtendedState(Servicios.NORMAL);
-        } else {
-            setExtendedState(MAXIMIZED_BOTH);
-        }
-    }//GEN-LAST:event_MaximizarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -240,14 +290,22 @@ public class TipoServicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Cerrar;
-    private javax.swing.JLabel MJ;
-    private javax.swing.JLabel Maximizar;
-    private javax.swing.JLabel Minimizar;
+    private javax.swing.JButton BtnBuscar;
     private javax.swing.JPanel PanelFondo;
     private javax.swing.JLabel Regresar;
-    private javax.swing.JLabel Talleres;
     private javax.swing.JLabel Titulo;
+    private javax.swing.JLabel TxtBuscar;
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTable tblCatalogo;
+    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }
