@@ -5,7 +5,9 @@
 
 package com.mycompany.proyecto_m2b.Vista;
 
+import com.mycompany.proyecto_m2b.Controlador.Validaciones;
 import java.awt.Color;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -43,13 +45,14 @@ public class Repuestos extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
+        marcas = new javax.swing.JComboBox<>();
+        categorias = new javax.swing.JComboBox<>();
+        TXTrepuesto = new javax.swing.JTextField();
+        TXTprecio = new javax.swing.JTextField();
+        TXTstock = new javax.swing.JTextField();
+        TXTcantidadMinima = new javax.swing.JTextField();
+        TXTcantidadMaxima = new javax.swing.JTextField();
+        Descripcion = new javax.swing.JTextField();
         PanelNuevo = new javax.swing.JPanel();
         Nuevo = new javax.swing.JLabel();
         ImagenADD = new javax.swing.JLabel();
@@ -65,7 +68,6 @@ public class Repuestos extends javax.swing.JFrame {
         PanelBuscar = new javax.swing.JPanel();
         Buscar = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        Descripcion = new javax.swing.JTextField();
 
         jTextField2.setText("jTextField2");
 
@@ -137,23 +139,24 @@ public class Repuestos extends javax.swing.JFrame {
         jLabel13.setText("Cantidad Máxima:");
         jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 130, -1, -1));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno", "Chevrolet", "Kia", "Suzuki", "Toyota", "Hyundai" }));
-        jComboBox2.setBorder(null);
-        jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, -1, -1));
+        marcas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno", "Chevrolet", "Kia", "Suzuki", "Toyota", "Hyundai" }));
+        marcas.setBorder(null);
+        jPanel1.add(marcas, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, -1, -1));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno", "Sedán", "Hatchback", "SUV", "Coupé", "Pick-up" }));
-        jComboBox3.setBorder(null);
-        jPanel1.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, -1, -1));
+        categorias.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno", "Sedán", "Hatchback", "SUV", "Coupé", "Pick-up" }));
+        categorias.setBorder(null);
+        jPanel1.add(categorias, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, -1, -1));
 
-        jTextField4.setForeground(new java.awt.Color(153, 153, 153));
-        jTextField4.setToolTipText("");
-        jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 220, -1));
+        TXTrepuesto.setForeground(new java.awt.Color(153, 153, 153));
+        TXTrepuesto.setToolTipText("");
+        jPanel1.add(TXTrepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 220, -1));
 
-        jTextField5.setToolTipText("");
-        jPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 170, -1));
-        jPanel1.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 70, 190, -1));
-        jPanel1.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 100, 190, -1));
-        jPanel1.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 130, 190, -1));
+        TXTprecio.setToolTipText("");
+        jPanel1.add(TXTprecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 170, -1));
+        jPanel1.add(TXTstock, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 70, 190, -1));
+        jPanel1.add(TXTcantidadMinima, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 100, 190, -1));
+        jPanel1.add(TXTcantidadMaxima, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 130, 190, -1));
+        jPanel1.add(Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 690, 70));
 
         PanelNuevo.setBackground(new java.awt.Color(255, 255, 255));
         PanelNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -182,9 +185,9 @@ public class Repuestos extends javax.swing.JFrame {
             .addGroup(PanelNuevoLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(ImagenADD)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Nuevo)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         PanelNuevoLayout.setVerticalGroup(
             PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,7 +199,7 @@ public class Repuestos extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(PanelNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, -1, -1));
+        jPanel1.add(PanelNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, -1, -1));
 
         PanelGuardar.setBackground(new java.awt.Color(242, 101, 34));
         PanelGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -216,11 +219,6 @@ public class Repuestos extends javax.swing.JFrame {
         Guardar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         Guardar.setForeground(new java.awt.Color(255, 255, 255));
         Guardar.setText("Guardar");
-        Guardar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                GuardarMouseClicked(evt);
-            }
-        });
 
         ImagenSAVE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/save_22dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
 
@@ -245,7 +243,7 @@ public class Repuestos extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel1.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, -1, -1));
+        jPanel1.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 350, -1, -1));
 
         PanelEditar.setBackground(new java.awt.Color(255, 255, 255));
         PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -286,7 +284,7 @@ public class Repuestos extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel1.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 340, -1, -1));
+        jPanel1.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 350, -1, -1));
 
         PanelDarBaja.setBackground(new java.awt.Color(255, 255, 255));
         PanelDarBaja.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(215, 106, 106)));
@@ -327,7 +325,7 @@ public class Repuestos extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(PanelDarBaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 340, -1, -1));
+        jPanel1.add(PanelDarBaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 350, -1, -1));
 
         PanelBuscar.setBackground(new java.awt.Color(255, 255, 255));
         PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -367,8 +365,7 @@ public class Repuestos extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 340, -1, -1));
-        jPanel1.add(Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 690, 70));
+        jPanel1.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 350, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -393,6 +390,7 @@ public class Repuestos extends javax.swing.JFrame {
 
     private void PanelNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseClicked
         // TODO add your handling code here:
+        LimpiarDatos();
         JOptionPane.showMessageDialog(this, "Datos limpiados correctamente"+"\n"
             +"Ingrese los datos");
     }//GEN-LAST:event_PanelNuevoMouseClicked
@@ -411,6 +409,7 @@ public class Repuestos extends javax.swing.JFrame {
 
     private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
         // TODO add your handling code here:
+        GuardarRepuestos();
     }//GEN-LAST:event_PanelGuardarMouseClicked
 
     private void PanelGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseEntered
@@ -461,11 +460,6 @@ public class Repuestos extends javax.swing.JFrame {
         Buscar.setForeground(Color.black);
     }//GEN-LAST:event_PanelBuscarMouseExited
 
-    private void GuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GuardarMouseClicked
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "Datos guardados correctamente");
-    }//GEN-LAST:event_GuardarMouseClicked
-
     /**
      * @param args the command line arguments
      */
@@ -490,7 +484,59 @@ public class Repuestos extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new Repuestos().setVisible(true));
     }
-
+    public void LimpiarDatos (){
+        TXTrepuesto.setText("Ingrese la placa");
+        TXTrepuesto.setForeground(new Color(94, 94, 94));
+        TXTprecio.setText("Ingrese empleado");
+        TXTprecio.setForeground(new Color(94, 94, 94));
+        TXTstock.setText("Costo Total");
+        TXTstock.setForeground(new Color(94, 94, 94));
+        Descripcion.setText("Descripcion");
+        Descripcion.setForeground(new Color(94, 94, 94));
+        TXTcantidadMinima.setText("Ingrese su cédula");
+        TXTcantidadMinima.setForeground(new Color(94, 94, 94));
+        TXTcantidadMaxima.setText("Ingrese su cédula");
+        TXTcantidadMaxima.setForeground(new Color(94, 94, 94));
+        categorias.setSelectedIndex(0);
+        marcas.setSelectedIndex(0);
+    }
+    public void GuardarRepuestos (){
+        Validaciones V=new Validaciones();
+        
+        String Cedula=TXTrepuesto.getText().trim();
+        String Precio=TXTprecio.getText().trim().toUpperCase();
+        String stock=TXTstock.getText().trim().toUpperCase();
+        String cantidadMin=TXTcantidadMinima.getText().trim().toUpperCase();
+        String cantidadMax=TXTcantidadMaxima.getText().trim().toUpperCase();
+        String descripcion=Descripcion.getText().trim().toUpperCase();
+        String categoria = categorias.getSelectedItem().toString();
+        String marca = marcas.getSelectedItem().toString();
+        if (Cedula.isEmpty()|| Precio.isEmpty()||stock.isEmpty()||cantidadMin.isEmpty()||cantidadMax.isEmpty()||descripcion.isEmpty()||categoria.isEmpty()||marca.isEmpty()){
+            JOptionPane.showMessageDialog (this, "Por favor complete los datos que faltan");
+            return;
+        }
+        if (Cedula.isBlank()|| Precio.isBlank()||stock.isBlank()||cantidadMin.isBlank()||cantidadMax.isBlank()||descripcion.isBlank()||categoria.isBlank()||marca.isBlank()){
+            JOptionPane.showMessageDialog (this, "Por favor complete los datos que faltan");
+            return;
+        }
+        if (categoria.equals("Seleccione una opción") ){
+            JOptionPane.showMessageDialog (this, "Por favor escoga una opción");
+            return;
+        }
+         if (marca.equals("Seleccione una opción") ){
+            JOptionPane.showMessageDialog (this, "Por favor escoga una opción");
+            return;
+        }
+        if (!V.ValidarCedula(Cedula)){
+            JOptionPane.showMessageDialog (this, "La cédula esta incorrecta");
+            return;
+        }
+        //Se guardar al empleado
+        
+        //Se genera el usuarios
+        //Se debe verificar para que el usuario no se repita  
+        LimpiarDatos();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Buscar;
     private javax.swing.JLabel DarDeBaja;
@@ -506,8 +552,12 @@ public class Repuestos extends javax.swing.JFrame {
     private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JPanel PanelNuevo;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JTextField TXTcantidadMaxima;
+    private javax.swing.JTextField TXTcantidadMinima;
+    private javax.swing.JTextField TXTprecio;
+    private javax.swing.JTextField TXTrepuesto;
+    private javax.swing.JTextField TXTstock;
+    private javax.swing.JComboBox<String> categorias;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -523,11 +573,7 @@ public class Repuestos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JComboBox<String> marcas;
     // End of variables declaration//GEN-END:variables
 
 }

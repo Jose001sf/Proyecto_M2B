@@ -5,7 +5,10 @@
 
 package com.mycompany.proyecto_m2b.Vista;
 
+import com.mycompany.proyecto_m2b.Controlador.CreacionCredenciales;
+import com.mycompany.proyecto_m2b.Controlador.Validaciones;
 import java.awt.Color;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -32,7 +35,7 @@ public class OrdenesDeServicio extends javax.swing.JFrame {
 
         jTextField2 = new javax.swing.JTextField();
         jProgressBar1 = new javax.swing.JProgressBar();
-        jPanel1 = new javax.swing.JPanel();
+        Jpanel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -44,14 +47,14 @@ public class OrdenesDeServicio extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
-        jTextField12 = new javax.swing.JTextField();
-        jTextField13 = new javax.swing.JTextField();
-        jTextField14 = new javax.swing.JTextField();
+        Estados = new javax.swing.JComboBox<>();
+        TXTplaca = new javax.swing.JTextField();
+        TXTcedula = new javax.swing.JTextField();
+        TXTempleado = new javax.swing.JTextField();
+        TXTcostoTotal = new javax.swing.JTextField();
         Descripcion = new javax.swing.JTextField();
+        CalendarioFechaIngreso = new com.toedter.calendar.JDateChooser();
+        CalendarioFechaEntrega = new com.toedter.calendar.JDateChooser();
         PanelNuevo = new javax.swing.JPanel();
         Nuevo = new javax.swing.JLabel();
         ImagenADD = new javax.swing.JLabel();
@@ -72,8 +75,8 @@ public class OrdenesDeServicio extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(238, 238, 238));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        Jpanel.setBackground(new java.awt.Color(238, 238, 238));
+        Jpanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -115,42 +118,42 @@ public class OrdenesDeServicio extends javax.swing.JFrame {
                 .addGap(36, 36, 36))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 50));
+        Jpanel.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 50));
 
         jLabel5.setText("Placa de vehículo:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
+        Jpanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
         jLabel6.setText("Cédula del Cliente:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
+        Jpanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
 
         jLabel7.setText("Empleado Asignado:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+        Jpanel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
         jLabel8.setText("Estado de Orden:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+        Jpanel.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
 
         jLabel10.setText("Fecha de Ingreso:");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, -1, -1));
+        Jpanel.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, -1, -1));
 
         jLabel11.setText("Fecha de entrega:");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, -1, 20));
+        Jpanel.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, -1, 20));
 
         jLabel12.setText("Detalle/Trabajo a realizar:");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
+        Jpanel.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
 
         jLabel13.setText("Costo Total:");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 130, -1, -1));
+        Jpanel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 130, -1, -1));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno", "Ingresado", "En proceso", "Terminado", "Entregado" }));
-        jComboBox2.setBorder(null);
-        jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, -1, -1));
-        jPanel1.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 200, -1));
-        jPanel1.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 200, -1));
-        jPanel1.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 200, -1));
-        jPanel1.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 70, 200, -1));
-        jPanel1.add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, 200, -1));
-        jPanel1.add(jTextField14, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 130, 140, -1));
-        jPanel1.add(Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 640, 70));
+        Estados.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno", "Ingresado", "En proceso", "Terminado", "Entregado" }));
+        Estados.setBorder(null);
+        Jpanel.add(Estados, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, -1, -1));
+        Jpanel.add(TXTplaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 200, -1));
+        Jpanel.add(TXTcedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 200, -1));
+        Jpanel.add(TXTempleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 200, -1));
+        Jpanel.add(TXTcostoTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 130, 140, -1));
+        Jpanel.add(Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 640, 70));
+        Jpanel.add(CalendarioFechaIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 70, 220, -1));
+        Jpanel.add(CalendarioFechaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, 220, -1));
 
         PanelNuevo.setBackground(new java.awt.Color(255, 255, 255));
         PanelNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -179,9 +182,9 @@ public class OrdenesDeServicio extends javax.swing.JFrame {
             .addGroup(PanelNuevoLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(ImagenADD)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Nuevo)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         PanelNuevoLayout.setVerticalGroup(
             PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,7 +196,7 @@ public class OrdenesDeServicio extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(PanelNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, -1, -1));
+        Jpanel.add(PanelNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, -1, -1));
 
         PanelGuardar.setBackground(new java.awt.Color(242, 101, 34));
         PanelGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -213,11 +216,6 @@ public class OrdenesDeServicio extends javax.swing.JFrame {
         Guardar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         Guardar.setForeground(new java.awt.Color(255, 255, 255));
         Guardar.setText("Guardar");
-        Guardar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                GuardarMouseClicked(evt);
-            }
-        });
 
         ImagenSAVE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/save_22dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
 
@@ -242,7 +240,7 @@ public class OrdenesDeServicio extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel1.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, -1, -1));
+        Jpanel.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 350, -1, -1));
 
         PanelEditar.setBackground(new java.awt.Color(255, 255, 255));
         PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -283,7 +281,7 @@ public class OrdenesDeServicio extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel1.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 340, -1, -1));
+        Jpanel.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 350, -1, -1));
 
         PanelDarBaja.setBackground(new java.awt.Color(255, 255, 255));
         PanelDarBaja.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(215, 106, 106)));
@@ -324,7 +322,7 @@ public class OrdenesDeServicio extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(PanelDarBaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 340, -1, -1));
+        Jpanel.add(PanelDarBaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 350, -1, -1));
 
         PanelBuscar.setBackground(new java.awt.Color(255, 255, 255));
         PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -364,17 +362,17 @@ public class OrdenesDeServicio extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 340, -1, -1));
+        Jpanel.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 350, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Jpanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+            .addComponent(Jpanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
         );
 
         pack();
@@ -393,6 +391,7 @@ public class OrdenesDeServicio extends javax.swing.JFrame {
 
     private void PanelNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseClicked
         // TODO add your handling code here:
+        LimpiarDatos();
         JOptionPane.showMessageDialog(this, "Datos limpiados correctamente"+"\n"
             +"Ingrese los datos");
     }//GEN-LAST:event_PanelNuevoMouseClicked
@@ -411,6 +410,7 @@ public class OrdenesDeServicio extends javax.swing.JFrame {
 
     private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
         // TODO add your handling code here:
+        GuardarOrdenDeServicio();
     }//GEN-LAST:event_PanelGuardarMouseClicked
 
     private void PanelGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseEntered
@@ -461,11 +461,6 @@ public class OrdenesDeServicio extends javax.swing.JFrame {
         Buscar.setForeground(Color.black);
     }//GEN-LAST:event_PanelBuscarMouseExited
 
-    private void GuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GuardarMouseClicked
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this,"Datos guardados correctamente");
-    }//GEN-LAST:event_GuardarMouseClicked
-
     /**
      * @param args the command line arguments
      */
@@ -490,23 +485,87 @@ public class OrdenesDeServicio extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new OrdenesDeServicio().setVisible(true));
     }
-
+    public void LimpiarDatos (){
+        TXTplaca.setText("Ingrese la placa");
+        TXTplaca.setForeground(new Color(94, 94, 94));
+        TXTempleado.setText("Ingrese empleado");
+        TXTempleado.setForeground(new Color(94, 94, 94));
+        TXTcostoTotal.setText("Costo Total");
+        TXTcostoTotal.setForeground(new Color(94, 94, 94));
+        Descripcion.setText("Descripcion");
+        Descripcion.setForeground(new Color(94, 94, 94));
+        TXTcedula.setText("Ingrese su cédula");
+        TXTcedula.setForeground(new Color(94, 94, 94));
+        Estados.setSelectedIndex(0);
+        CalendarioFechaEntrega.setDate(null);
+        CalendarioFechaIngreso.setDate(null);
+    }
+    public void GuardarOrdenDeServicio (){
+        Validaciones V=new Validaciones();
+        
+        String Cedula=TXTcedula.getText().trim();
+        String Placa=TXTplaca.getText().trim().toUpperCase();
+        String Empleado=TXTempleado.getText().trim().toUpperCase();
+        String costoTotal=TXTcostoTotal.getText().trim().toUpperCase();
+        String descripcion=Descripcion.getText().trim().toUpperCase();
+        Date FechaIngreso=CalendarioFechaIngreso.getDate();
+        Date FechaEntrega=CalendarioFechaEntrega.getDate();
+        String Estado = Estados.getSelectedItem().toString();
+        if (Cedula.isEmpty()|| Placa.isEmpty()||Empleado.isEmpty()||costoTotal.isEmpty()||descripcion.isEmpty()||Estado.isEmpty()){
+            JOptionPane.showMessageDialog (this, "Por favor complete los datos que faltan");
+            return;
+        }
+        if (Cedula.isBlank()|| Placa.isBlank()||Empleado.isBlank()||costoTotal.isBlank()||descripcion.isBlank()||Estado.isBlank()){
+            JOptionPane.showMessageDialog (this, "Por favor complete los datos que faltan");
+            return;
+        }
+        if (Estado.equals("Seleccione una opción") ){
+            JOptionPane.showMessageDialog (this, "Por favor escoga una opción");
+            return;
+        }
+        if (!V.ValidarCedula(Cedula)){
+            JOptionPane.showMessageDialog (this, "La cédula esta incorrecta");
+            return;
+        }
+        java.sql.Date FechaIN=new java.sql.Date(FechaIngreso.getTime());
+        if (!V.FechaNacimiento(FechaIN)){
+            JOptionPane.showMessageDialog(this, "La fecha de ingreso esta incorrecta");
+            return;
+        }
+        java.sql.Date FechaENT=new java.sql.Date(FechaEntrega.getTime());
+        if (!V.FechaNacimiento(FechaENT)){
+            JOptionPane.showMessageDialog(this, "La fecha de entrega esta incorrecta");
+            return;
+        }
+        //Se guardar al empleado
+        
+        //Se genera el usuarios
+        //Se debe verificar para que el usuario no se repita  
+        LimpiarDatos();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Buscar;
+    private com.toedter.calendar.JDateChooser CalendarioFechaEntrega;
+    private com.toedter.calendar.JDateChooser CalendarioFechaIngreso;
     private javax.swing.JLabel DarDeBaja;
     private javax.swing.JTextField Descripcion;
     private javax.swing.JLabel Editar;
+    private javax.swing.JComboBox<String> Estados;
     private javax.swing.JLabel Guardar;
     private javax.swing.JLabel ImagenADD;
     private javax.swing.JLabel ImagenDarBaja;
     private javax.swing.JLabel ImagenSAVE;
+    private javax.swing.JPanel Jpanel;
     private javax.swing.JLabel Nuevo;
     private javax.swing.JPanel PanelBuscar;
     private javax.swing.JPanel PanelDarBaja;
     private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JPanel PanelNuevo;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JTextField TXTcedula;
+    private javax.swing.JTextField TXTcostoTotal;
+    private javax.swing.JTextField TXTempleado;
+    private javax.swing.JTextField TXTplaca;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -519,16 +578,9 @@ public class OrdenesDeServicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JProgressBar jProgressBar1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
 
 }
