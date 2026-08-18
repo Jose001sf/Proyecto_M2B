@@ -215,6 +215,7 @@ public class Vehiculos extends javax.swing.JFrame {
                 txtPlacaFocusLost(evt);
             }
         });
+        txtPlaca.addActionListener(this::txtPlacaActionPerformed);
         Fondo.add(txtPlaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 210, -1));
 
         txtColor.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -682,6 +683,10 @@ public class Vehiculos extends javax.swing.JFrame {
         PanelNuevo.setBackground(java.awt.Color.white);
         Nuevo.setForeground(java.awt.Color.black);
     }//GEN-LAST:event_PanelNuevo1MouseExited
+
+    private void txtPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlacaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPlacaActionPerformed
 
     /**
      * @param args the command line arguments
