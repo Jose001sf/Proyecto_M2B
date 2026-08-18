@@ -41,7 +41,7 @@ public class Vehiculos extends javax.swing.JFrame {
 
     txtPuertas.setText("Ingrese el N° de puertas del vehiculo");
     txtPuertas.setForeground(java.awt.Color.GRAY);    
-    this.setLocationRelativeTo(null);        
+    this.setLocationRelativeTo(null);     
         
     }
 

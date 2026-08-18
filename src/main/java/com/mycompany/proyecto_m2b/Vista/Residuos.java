@@ -17,6 +17,7 @@ public class Residuos extends javax.swing.JFrame {
      */
     public Residuos() {
         initComponents();
+    this.setLocationRelativeTo(null);
     }
 
     /**
