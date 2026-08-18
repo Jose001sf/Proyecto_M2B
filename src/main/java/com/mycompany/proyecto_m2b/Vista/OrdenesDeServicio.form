@@ -408,6 +408,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Guardar"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="GuardarMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="ImagenSAVE">
               <Properties>

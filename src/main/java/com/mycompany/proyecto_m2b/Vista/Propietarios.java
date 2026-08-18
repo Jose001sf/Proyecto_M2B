@@ -230,6 +230,11 @@ public class Propietarios extends javax.swing.JFrame {
         Guardar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         Guardar.setForeground(new java.awt.Color(255, 255, 255));
         Guardar.setText("Guardar");
+        Guardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                GuardarMouseClicked(evt);
+            }
+        });
 
         ImagenSAVE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/save_22dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
 
@@ -482,6 +487,11 @@ public class Propietarios extends javax.swing.JFrame {
     private void DescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DescripcionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_DescripcionActionPerformed
+
+    private void GuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GuardarMouseClicked
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this,"Datos guardados correctamente");
+    }//GEN-LAST:event_GuardarMouseClicked
 
     /**
      * @param args the command line arguments
