@@ -58,6 +58,9 @@ public class Vehiculos extends javax.swing.JFrame {
         BarraArriba = new javax.swing.JPanel();
         NombreVentanaVehiculos = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        Minimizar = new javax.swing.JLabel();
+        Maximizar = new javax.swing.JLabel();
+        Cerrar = new javax.swing.JLabel();
         BarraAbajo = new javax.swing.JPanel();
         TituloFuncion1 = new javax.swing.JLabel();
         Placa = new javax.swing.JLabel();
@@ -114,25 +117,78 @@ public class Vehiculos extends javax.swing.JFrame {
             }
         });
 
+        Minimizar.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        Minimizar.setForeground(new java.awt.Color(255, 255, 255));
+        Minimizar.setText("-");
+        Minimizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Minimizar.setMaximumSize(new java.awt.Dimension(12, 47));
+        Minimizar.setMinimumSize(new java.awt.Dimension(12, 47));
+        Minimizar.setPreferredSize(new java.awt.Dimension(12, 47));
+        Minimizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MinimizarMouseClicked(evt);
+            }
+        });
+
+        Maximizar.setFont(new java.awt.Font("Segoe UI", 1, 42)); // NOI18N
+        Maximizar.setForeground(new java.awt.Color(255, 255, 255));
+        Maximizar.setText("▫");
+        Maximizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Maximizar.setMaximumSize(new java.awt.Dimension(32, 47));
+        Maximizar.setMinimumSize(new java.awt.Dimension(32, 47));
+        Maximizar.setPreferredSize(new java.awt.Dimension(32, 47));
+        Maximizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MaximizarMouseClicked(evt);
+            }
+        });
+
+        Cerrar.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        Cerrar.setForeground(new java.awt.Color(255, 255, 255));
+        Cerrar.setText("x");
+        Cerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Cerrar.setMaximumSize(new java.awt.Dimension(23, 47));
+        Cerrar.setMinimumSize(new java.awt.Dimension(23, 47));
+        Cerrar.setPreferredSize(new java.awt.Dimension(23, 47));
+        Cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CerrarMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout BarraArribaLayout = new javax.swing.GroupLayout(BarraArriba);
         BarraArriba.setLayout(BarraArribaLayout);
         BarraArribaLayout.setHorizontalGroup(
             BarraArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BarraArribaLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addContainerGap()
                 .addComponent(NombreVentanaVehiculos, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 714, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 672, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(43, 43, 43))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Minimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Maximizar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         BarraArribaLayout.setVerticalGroup(
             BarraArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BarraArribaLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(BarraArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(NombreVentanaVehiculos))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addGroup(BarraArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(BarraArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(Cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(BarraArribaLayout.createSequentialGroup()
+                            .addGap(6, 6, 6)
+                            .addGroup(BarraArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(Minimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Maximizar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(BarraArribaLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addGroup(BarraArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(NombreVentanaVehiculos))))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         Fondo.add(BarraArriba, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1210, 60));
@@ -340,11 +396,11 @@ public class Vehiculos extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Fondo, javax.swing.GroupLayout.DEFAULT_SIZE, 1212, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Fondo, javax.swing.GroupLayout.DEFAULT_SIZE, 702, Short.MAX_VALUE)
         );
 
         pack();
@@ -492,6 +548,25 @@ public class Vehiculos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_mmButtonMouseClicked
 
+    private void MinimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarMouseClicked
+        // TODO add your handling code here:
+        setState(java.awt.Frame.ICONIFIED);
+    }//GEN-LAST:event_MinimizarMouseClicked
+
+    private void MaximizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MaximizarMouseClicked
+        // TODO add your handling code here:
+        if ((getExtendedState() & Servicios.MAXIMIZED_BOTH) == Servicios.MAXIMIZED_BOTH) {
+            this.setExtendedState(Servicios.NORMAL);
+        } else {
+            setExtendedState(MAXIMIZED_BOTH);
+        }
+    }//GEN-LAST:event_MaximizarMouseClicked
+
+    private void CerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarMouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_CerrarMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -520,12 +595,15 @@ public class Vehiculos extends javax.swing.JFrame {
     private javax.swing.JLabel Ano;
     private javax.swing.JPanel BarraAbajo;
     private javax.swing.JPanel BarraArriba;
+    private javax.swing.JLabel Cerrar;
     private javax.swing.JLabel Chasis;
     private javax.swing.JLabel Cilindraje;
     private javax.swing.JLabel Color;
     private javax.swing.JPanel Fondo;
     private javax.swing.JLabel Kilometraje;
     private javax.swing.JLabel Marca;
+    private javax.swing.JLabel Maximizar;
+    private javax.swing.JLabel Minimizar;
     private javax.swing.JLabel Modelo;
     private javax.swing.JLabel Motor;
     private javax.swing.JLabel NombreVentanaVehiculos;
