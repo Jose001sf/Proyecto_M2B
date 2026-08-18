@@ -267,6 +267,9 @@ public class Menu extends javax.swing.JFrame {
         PanelOrdenesServicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 116, 78)));
         PanelOrdenesServicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelOrdenesServicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelOrdenesServicioMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelOrdenesServicioMouseEntered(evt);
             }
@@ -350,6 +353,9 @@ public class Menu extends javax.swing.JFrame {
         PanelPropietarios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 116, 78)));
         PanelPropietarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelPropietarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelPropietariosMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelPropietariosMouseEntered(evt);
             }
@@ -431,6 +437,9 @@ public class Menu extends javax.swing.JFrame {
         PanelRepuestos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         PanelRepuestos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelRepuestos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelRepuestosMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelRepuestosMouseEntered(evt);
             }
@@ -952,6 +961,27 @@ public class Menu extends javax.swing.JFrame {
         rp.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_PanelResiduosMouseClicked
+
+    private void PanelRepuestosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelRepuestosMouseClicked
+        // TODO add your handling code here:
+       Repuestos R=new Repuestos();
+       R.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_PanelRepuestosMouseClicked
+
+    private void PanelOrdenesServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelOrdenesServicioMouseClicked
+        // TODO add your handling code here:
+        OrdenesDeServicio OS=new OrdenesDeServicio();
+        OS.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_PanelOrdenesServicioMouseClicked
+
+    private void PanelPropietariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelPropietariosMouseClicked
+        // TODO add your handling code here:
+        Propietarios P=new Propietarios();
+        P.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_PanelPropietariosMouseClicked
 
     /**
      * @param args the command line arguments
