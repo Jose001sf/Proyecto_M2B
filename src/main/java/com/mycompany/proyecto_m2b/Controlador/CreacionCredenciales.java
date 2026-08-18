@@ -45,10 +45,14 @@ public class CreacionCredenciales {
         }
         return contrasena.toString();
     }
+    /*
+    hlaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    */
 }
 
 //hola
 //12
 //1233123
-
+//hola me llamo
 //321
+//Que pasa chavales

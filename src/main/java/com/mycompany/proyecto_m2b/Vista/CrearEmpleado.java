@@ -4,7 +4,13 @@
  */
 package com.mycompany.proyecto_m2b.Vista;
 
+import com.mycompany.proyecto_m2b.Controlador.Validaciones;
+import com.mycompany.proyecto_m2b.Controlador.CreacionCredenciales;
 import java.awt.Color;
+import java.time.ZoneId;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -20,6 +26,8 @@ public class CrearEmpleado extends javax.swing.JFrame {
     public CrearEmpleado() {
         initComponents();
         this.setLocationRelativeTo(null);
+        CalendarioRegistro.setDate(new Date());
+        CalendarioRegistro.setEnabled(false);
     }
     int xMouse, yMouse;
     /**
@@ -74,6 +82,12 @@ public class CrearEmpleado extends javax.swing.JFrame {
         PanelBuscar = new javax.swing.JPanel();
         Buscar = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        Telefono = new javax.swing.JLabel();
+        TXTTelefono = new javax.swing.JTextField();
+        Celular = new javax.swing.JLabel();
+        TXTCelular = new javax.swing.JTextField();
+        CorreoElectrocnico = new javax.swing.JLabel();
+        TXTCorreoElectronico = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -140,14 +154,24 @@ public class CrearEmpleado extends javax.swing.JFrame {
         );
 
         Cedula.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        Cedula.setText("Cédula");
+        Cedula.setText("Cédula:");
 
         TXTcedula.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         TXTcedula.setForeground(new java.awt.Color(94, 94, 94));
         TXTcedula.setText("Ingrese su cédula");
+        TXTcedula.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTcedulaFocusGained(evt);
+            }
+        });
         TXTcedula.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 TXTcedulaMousePressed(evt);
+            }
+        });
+        TXTcedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTcedulaKeyPressed(evt);
             }
         });
 
@@ -156,118 +180,206 @@ public class CrearEmpleado extends javax.swing.JFrame {
         Verificar.setText("VERIFICAR");
 
         Nombres.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        Nombres.setText("Nombres");
+        Nombres.setText("Nombres:");
 
         TXTnombre.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         TXTnombre.setForeground(new java.awt.Color(94, 94, 94));
         TXTnombre.setText("Primer nombre");
+        TXTnombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTnombreFocusGained(evt);
+            }
+        });
         TXTnombre.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 TXTnombreMousePressed(evt);
+            }
+        });
+        TXTnombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTnombreKeyPressed(evt);
             }
         });
 
         TXTnombre1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         TXTnombre1.setForeground(new java.awt.Color(94, 94, 94));
         TXTnombre1.setText("Segundo nombre");
+        TXTnombre1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTnombre1FocusGained(evt);
+            }
+        });
         TXTnombre1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 TXTnombre1MousePressed(evt);
             }
         });
+        TXTnombre1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTnombre1KeyPressed(evt);
+            }
+        });
 
         Apellidos.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        Apellidos.setText("Apellidos");
+        Apellidos.setText("Apellidos:");
 
         TXTapellido.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         TXTapellido.setForeground(new java.awt.Color(94, 94, 94));
         TXTapellido.setText("Primer apellido");
+        TXTapellido.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTapellidoFocusGained(evt);
+            }
+        });
         TXTapellido.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 TXTapellidoMousePressed(evt);
+            }
+        });
+        TXTapellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTapellidoKeyPressed(evt);
             }
         });
 
         TXTapellido1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         TXTapellido1.setForeground(new java.awt.Color(94, 94, 94));
         TXTapellido1.setText("Segundo apellido");
+        TXTapellido1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTapellido1FocusGained(evt);
+            }
+        });
         TXTapellido1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 TXTapellido1MousePressed(evt);
             }
         });
+        TXTapellido1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTapellido1KeyPressed(evt);
+            }
+        });
 
         FNacimiento.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        FNacimiento.setText("F. nacimiento");
+        FNacimiento.setText("F. nacimiento:");
 
         Genero.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        Genero.setText("Genero");
+        Genero.setText("Genero:");
 
         Generos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una opción", "M", "F" }));
         Generos.addActionListener(this::GenerosActionPerformed);
+        Generos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                GenerosKeyPressed(evt);
+            }
+        });
 
         Dirección.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        Dirección.setText("Dirección");
+        Dirección.setText("Dirección:");
 
         TXTcallePrincipal.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         TXTcallePrincipal.setForeground(new java.awt.Color(94, 94, 94));
         TXTcallePrincipal.setText("Calle principal");
+        TXTcallePrincipal.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTcallePrincipalFocusGained(evt);
+            }
+        });
         TXTcallePrincipal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 TXTcallePrincipalMousePressed(evt);
             }
         });
         TXTcallePrincipal.addActionListener(this::TXTcallePrincipalActionPerformed);
+        TXTcallePrincipal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTcallePrincipalKeyPressed(evt);
+            }
+        });
 
         TXTcalleSecundaria.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         TXTcalleSecundaria.setForeground(new java.awt.Color(94, 94, 94));
         TXTcalleSecundaria.setText("Calle secundaria");
+        TXTcalleSecundaria.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTcalleSecundariaFocusGained(evt);
+            }
+        });
         TXTcalleSecundaria.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 TXTcalleSecundariaMousePressed(evt);
+            }
+        });
+        TXTcalleSecundaria.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTcalleSecundariaKeyPressed(evt);
             }
         });
 
         TXTnumCasa.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         TXTnumCasa.setForeground(new java.awt.Color(94, 94, 94));
         TXTnumCasa.setText("Número de casa");
+        TXTnumCasa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTnumCasaFocusGained(evt);
+            }
+        });
         TXTnumCasa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 TXTnumCasaMousePressed(evt);
             }
         });
         TXTnumCasa.addActionListener(this::TXTnumCasaActionPerformed);
+        TXTnumCasa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTnumCasaKeyPressed(evt);
+            }
+        });
 
         TXTciudad.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         TXTciudad.setForeground(new java.awt.Color(94, 94, 94));
         TXTciudad.setText("Ciudad");
+        TXTciudad.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTciudadFocusGained(evt);
+            }
+        });
         TXTciudad.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 TXTciudadMousePressed(evt);
             }
         });
+        TXTciudad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTciudadKeyPressed(evt);
+            }
+        });
 
         Cargo.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        Cargo.setText("Cargo");
+        Cargo.setText("Cargo:");
 
         Cargos.setBackground(new java.awt.Color(247, 247, 247));
         Cargos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una opción", "Mecanico", "Latonero" }));
         Cargos.addActionListener(this::CargosActionPerformed);
 
         Especialidad.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        Especialidad.setText("Especialidad");
+        Especialidad.setText("Especialidad:");
 
         Especialidades.setBackground(new java.awt.Color(247, 247, 247));
         Especialidades.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una opción", "Pintura", "Motor", "Enderezado", "Cambio de aceites", "Cambio de pastillas" }));
         Especialidades.addActionListener(this::EspecialidadesActionPerformed);
 
         FRegistro.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        FRegistro.setText("F. registro");
+        FRegistro.setText("F. registro:");
 
         PanelNuevo.setBackground(new java.awt.Color(255, 255, 255));
         PanelNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
         PanelNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelNuevoMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelNuevoMouseEntered(evt);
             }
@@ -306,6 +418,9 @@ public class CrearEmpleado extends javax.swing.JFrame {
         PanelGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
         PanelGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelGuardarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelGuardarMouseEntered(evt);
             }
@@ -457,76 +572,151 @@ public class CrearEmpleado extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        Telefono.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        Telefono.setText("Telefono:");
+
+        TXTTelefono.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        TXTTelefono.setForeground(new java.awt.Color(94, 94, 94));
+        TXTTelefono.setText("Teléfono");
+        TXTTelefono.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTTelefonoFocusGained(evt);
+            }
+        });
+        TXTTelefono.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTTelefonoMousePressed(evt);
+            }
+        });
+        TXTTelefono.addActionListener(this::TXTTelefonoActionPerformed);
+        TXTTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTTelefonoKeyPressed(evt);
+            }
+        });
+
+        Celular.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        Celular.setText("Celular");
+
+        TXTCelular.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        TXTCelular.setForeground(new java.awt.Color(94, 94, 94));
+        TXTCelular.setText("Celular");
+        TXTCelular.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTCelularFocusGained(evt);
+            }
+        });
+        TXTCelular.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTCelularMousePressed(evt);
+            }
+        });
+        TXTCelular.addActionListener(this::TXTCelularActionPerformed);
+        TXTCelular.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTCelularKeyPressed(evt);
+            }
+        });
+
+        CorreoElectrocnico.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        CorreoElectrocnico.setText("Correo electrónico");
+
+        TXTCorreoElectronico.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        TXTCorreoElectronico.setForeground(new java.awt.Color(94, 94, 94));
+        TXTCorreoElectronico.setText("Correo");
+        TXTCorreoElectronico.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTCorreoElectronicoFocusGained(evt);
+            }
+        });
+        TXTCorreoElectronico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTCorreoElectronicoMousePressed(evt);
+            }
+        });
+        TXTCorreoElectronico.addActionListener(this::TXTCorreoElectronicoActionPerformed);
+        TXTCorreoElectronico.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTCorreoElectronicoKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout BGempleadosLayout = new javax.swing.GroupLayout(BGempleados);
         BGempleados.setLayout(BGempleadosLayout);
         BGempleadosLayout.setHorizontalGroup(
             BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Desplazar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(BGempleadosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(BGempleadosLayout.createSequentialGroup()
+                            .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(Cedula)
+                                .addGroup(BGempleadosLayout.createSequentialGroup()
+                                    .addComponent(TXTcedula, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(Verificar)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(Nombres)
+                                .addGroup(BGempleadosLayout.createSequentialGroup()
+                                    .addComponent(TXTnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(TXTnombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(152, 152, 152))
+                        .addGroup(BGempleadosLayout.createSequentialGroup()
+                            .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(Apellidos)
+                                .addGroup(BGempleadosLayout.createSequentialGroup()
+                                    .addComponent(TXTapellido, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(TXTapellido1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(55, 55, 55)
+                            .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(CalendarioNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(FNacimiento))
+                            .addGap(31, 31, 31)
+                            .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(Genero)
+                                .addComponent(Generos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(BGempleadosLayout.createSequentialGroup()
+                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(PanelNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(Cargo)
+                                .addComponent(Cargos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Cedula)
                             .addGroup(BGempleadosLayout.createSequentialGroup()
-                                .addComponent(TXTcedula, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Verificar)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Nombres)
-                            .addGroup(BGempleadosLayout.createSequentialGroup()
-                                .addComponent(TXTnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(TXTnombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(152, 152, 152))
-                    .addGroup(BGempleadosLayout.createSequentialGroup()
-                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Apellidos)
-                            .addGroup(BGempleadosLayout.createSequentialGroup()
-                                .addComponent(TXTapellido, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(PanelEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(TXTapellido1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(55, 55, 55)
-                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CalendarioNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(FNacimiento))
-                        .addGap(31, 31, 31)
-                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Genero)
-                            .addComponent(Generos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(BGempleadosLayout.createSequentialGroup()
-                .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Desplazar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(BGempleadosLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Dirección)
-                            .addGroup(BGempleadosLayout.createSequentialGroup()
-                                .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(PanelNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(Cargo)
-                                        .addComponent(Cargos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(BGempleadosLayout.createSequentialGroup()
-                                        .addGap(24, 24, 24)
-                                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(Especialidad)
-                                            .addComponent(Especialidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(34, 34, 34)
-                                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(CalendarioRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(FRegistro)))
-                                    .addGroup(BGempleadosLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(PanelEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(PanelDarBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(PanelDarBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(PanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(BGempleadosLayout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Especialidad)
+                                    .addComponent(Especialidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(34, 34, 34)
+                                .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(CalendarioRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(FRegistro))
+                                .addGap(18, 18, 18)
+                                .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Celular)
+                                    .addComponent(TXTCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(CorreoElectrocnico)
+                                    .addComponent(TXTCorreoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(BGempleadosLayout.createSequentialGroup()
+                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Dirección)
                             .addGroup(BGempleadosLayout.createSequentialGroup()
                                 .addComponent(TXTcallePrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -534,8 +724,11 @@ public class CrearEmpleado extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(TXTnumCasa, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(TXTciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(TXTciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Telefono)
+                            .addComponent(TXTTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
         BGempleadosLayout.setVerticalGroup(
             BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -570,30 +763,48 @@ public class CrearEmpleado extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(CalendarioNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(6, 6, 6)))
-                .addComponent(Dirección)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(BGempleadosLayout.createSequentialGroup()
-                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TXTcallePrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TXTcalleSecundaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TXTnumCasa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TXTciudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
                         .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(BGempleadosLayout.createSequentialGroup()
-                                .addComponent(Cargo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Cargos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(Dirección)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(TXTcallePrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(TXTcalleSecundaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(TXTnumCasa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(TXTciudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(BGempleadosLayout.createSequentialGroup()
-                                .addComponent(FRegistro)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(CalendarioRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(Telefono)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TXTTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(BGempleadosLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(BGempleadosLayout.createSequentialGroup()
+                                            .addComponent(Cargo)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(Cargos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(BGempleadosLayout.createSequentialGroup()
+                                            .addComponent(FRegistro)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(CalendarioRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(BGempleadosLayout.createSequentialGroup()
+                                        .addComponent(Especialidad)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(Especialidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BGempleadosLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(CorreoElectrocnico)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TXTCorreoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(BGempleadosLayout.createSequentialGroup()
-                        .addComponent(Especialidad)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Especialidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                        .addComponent(Celular)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TXTCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(PanelGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(PanelEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -748,6 +959,18 @@ public class CrearEmpleado extends javax.swing.JFrame {
             TXTciudad.setText("Ciudad");
             TXTciudad.setForeground(new Color(94, 94, 94));
         }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
     }//GEN-LAST:event_TXTcallePrincipalMousePressed
 
     private void TXTcalleSecundariaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTcalleSecundariaMousePressed
@@ -788,6 +1011,18 @@ public class CrearEmpleado extends javax.swing.JFrame {
             TXTciudad.setText("Ciudad");
             TXTciudad.setForeground(new Color(94, 94, 94));
         }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
     }//GEN-LAST:event_TXTcalleSecundariaMousePressed
 
     private void TXTnumCasaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTnumCasaMousePressed
@@ -827,6 +1062,18 @@ public class CrearEmpleado extends javax.swing.JFrame {
         if (TXTciudad.getText().isEmpty()){
             TXTciudad.setText("Ciudad");
             TXTciudad.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
         }
     }//GEN-LAST:event_TXTnumCasaMousePressed
 
@@ -872,6 +1119,18 @@ public class CrearEmpleado extends javax.swing.JFrame {
             TXTapellido1.setText("Segundo apellido");
             TXTapellido1.setForeground(new Color(94, 94, 94));
         }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
     }//GEN-LAST:event_TXTciudadMousePressed
 
     private void TXTcedulaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTcedulaMousePressed
@@ -912,8 +1171,50 @@ public class CrearEmpleado extends javax.swing.JFrame {
             TXTciudad.setText("Ciudad");
             TXTciudad.setForeground(new Color(94, 94, 94));
         }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
     }//GEN-LAST:event_TXTcedulaMousePressed
 
+    public void LimpiarDatos (){
+        TXTnombre.setText("Primer nombre");
+        TXTnombre.setForeground(new Color(94, 94, 94));
+        TXTnombre1.setText("Segundo nombre");
+        TXTnombre1.setForeground(new Color(94, 94, 94));
+        TXTapellido.setText("Primer apellido");
+        TXTapellido.setForeground(new Color(94, 94, 94));
+        TXTapellido1.setText("Segundo apellido");
+        TXTapellido1.setForeground(new Color(94, 94, 94));
+        TXTCelular.setText("Celular");
+        TXTCelular.setForeground(new Color(94, 94, 94));
+        TXTCorreoElectronico.setText("Correo");
+        TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        TXTTelefono.setText("Teléfono");
+        TXTTelefono.setForeground(new Color(94, 94, 94));
+        TXTcallePrincipal.setText("Calle principal");
+        TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        TXTcalleSecundaria.setText("Calle secundaria");
+        TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        TXTcedula.setText("Ingrese su cédula");
+        TXTcedula.setForeground(new Color(94, 94, 94));
+        TXTciudad.setText("Ciudad");
+        TXTciudad.setForeground(new Color(94, 94, 94));
+        TXTnumCasa.setText("Número de casa");
+        TXTnumCasa.setForeground(new Color(94, 94, 94));
+        Generos.setSelectedIndex(0);
+        Cargos.setSelectedIndex(0);
+        Especialidades.setSelectedIndex(0);
+        CalendarioNacimiento.setDate(null);
+    }
     private void TXTnombreMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTnombreMousePressed
         // TODO add your handling code here:
         if (TXTnombre.getText().equals("Primer nombre")){
@@ -951,6 +1252,18 @@ public class CrearEmpleado extends javax.swing.JFrame {
         if (TXTciudad.getText().isEmpty()){
             TXTciudad.setText("Ciudad");
             TXTciudad.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
         }
     }//GEN-LAST:event_TXTnombreMousePressed
 
@@ -992,6 +1305,18 @@ public class CrearEmpleado extends javax.swing.JFrame {
             TXTciudad.setText("Ciudad");
             TXTciudad.setForeground(new Color(94, 94, 94));
         }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
     }//GEN-LAST:event_TXTnombre1MousePressed
 
     private void TXTapellidoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTapellidoMousePressed
@@ -1031,6 +1356,18 @@ public class CrearEmpleado extends javax.swing.JFrame {
         if (TXTciudad.getText().isEmpty()){
             TXTciudad.setText("Ciudad");
             TXTciudad.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
         }
     }//GEN-LAST:event_TXTapellidoMousePressed
 
@@ -1072,11 +1409,1005 @@ public class CrearEmpleado extends javax.swing.JFrame {
             TXTciudad.setText("Ciudad");
             TXTciudad.setForeground(new Color(94, 94, 94));
         }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
     }//GEN-LAST:event_TXTapellido1MousePressed
 
     private void TXTnumCasaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTnumCasaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TXTnumCasaActionPerformed
+
+    private void TXTTelefonoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTTelefonoMousePressed
+        // TODO add your handling code here:
+        if (TXTTelefono.getText().equals("Teléfono")){
+            TXTTelefono.setText("");
+            TXTTelefono.setForeground(Color.BLACK);
+        }
+        if (TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese su cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Primer apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTTelefonoMousePressed
+
+    private void TXTTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTTelefonoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTTelefonoActionPerformed
+
+    private void TXTCelularMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTCelularMousePressed
+        // TODO add your handling code here:
+        if (TXTCelular.getText().equals("Celular")){
+            TXTCelular.setText("");
+            TXTCelular.setForeground(Color.BLACK);
+        }
+        if (TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese su cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Primer apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTCelularMousePressed
+
+    private void TXTCelularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTCelularActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTCelularActionPerformed
+
+    private void TXTCorreoElectronicoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTCorreoElectronicoMousePressed
+        // TODO add your handling code here:
+        if (TXTCorreoElectronico.getText().equals("Correo")){
+            TXTCorreoElectronico.setText("");
+            TXTCorreoElectronico.setForeground(Color.BLACK);
+        }
+        if (TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese su cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Primer apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Telefono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTCorreoElectronicoMousePressed
+
+    private void TXTCorreoElectronicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTCorreoElectronicoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTCorreoElectronicoActionPerformed
+    public void GuardarEmpleado (){
+        Validaciones V=new Validaciones();
+        
+        String Cedula=TXTcedula.getText().trim();
+        String PrimerNombre=TXTnombre.getText().trim().toUpperCase();
+        String SegundoNombre=TXTnombre1.getText().trim().toUpperCase();
+        String PrimerApellido=TXTapellido.getText().trim().toUpperCase();
+        String SegundoApellido=TXTapellido1.getText().trim().toUpperCase();
+        Date FechaNacimiento=CalendarioNacimiento.getDate();
+        String Genero = Generos.getSelectedItem().toString();
+        String CallePr = TXTcallePrincipal.getText().trim().toUpperCase();
+        String CalleSe = TXTcalleSecundaria.getText().trim().toUpperCase();
+        String NumCasa = TXTnumCasa.getText().trim().toUpperCase();
+        String Ciudad = TXTciudad.getText().trim().toUpperCase();
+        String Telefono = TXTTelefono.getText().trim().toUpperCase();
+        String Cargo = Cargos.getSelectedItem().toString();
+        String Especialidad = Especialidades.getSelectedItem().toString();        
+        String Celular = TXTCelular.getText().trim().toUpperCase();
+        String CorreoE = TXTCorreoElectronico.getText().trim().toUpperCase();
+        if (Cedula.isEmpty() || PrimerNombre.isEmpty() || SegundoNombre.isEmpty() || PrimerApellido.isEmpty() || SegundoApellido.isEmpty()
+                || Genero.isEmpty() || CallePr.isEmpty() || CalleSe.isEmpty() || NumCasa.isEmpty() || Ciudad.isEmpty() || Telefono.isEmpty()
+                        || Cargo.isEmpty() || Especialidad.isEmpty() || Celular.isEmpty() || CorreoE.isEmpty()){
+            JOptionPane.showMessageDialog (this, "Por favor complete los datos que faltan");
+            return;
+        }
+        if (Cedula.isBlank()|| PrimerNombre.isBlank()|| SegundoNombre.isBlank()|| PrimerApellido.isBlank()|| SegundoApellido.isBlank()
+                || Genero.isBlank()|| CallePr.isBlank()|| CalleSe.isBlank()|| NumCasa.isBlank()|| Ciudad.isBlank()|| Telefono.isBlank()
+                        || Cargo.isBlank()|| Especialidad.isBlank()|| Celular.isBlank()|| CorreoE.isBlank()){
+            JOptionPane.showMessageDialog (this, "Por favor complete los datos que faltan");
+            return;
+        }
+        if (Genero.equals("Seleccione una opción") || Cargo.equals("Seleccione una opción") || Especialidad.equals("Seleccione una opción")){
+            JOptionPane.showMessageDialog (this, "Por favor escoga una opción");
+            return;
+        }
+        if (!V.ValidarCedula(Cedula)){
+            JOptionPane.showMessageDialog (this, "La cédula esta incorrecta");
+            return;
+        }
+        if (!V.validarCorreo(CorreoE)){
+            JOptionPane.showMessageDialog(this, "Correo no valido");
+            return;
+        }
+        if (!V.validarNombre1(PrimerNombre)){
+            JOptionPane.showMessageDialog(this, "Por favor ingrese solo su primer nombre");
+            return;
+        }
+        if (!V.validarNombre2(SegundoNombre)){
+            JOptionPane.showMessageDialog(this, "Por favor ingrese solo su segundo nombre");
+            return;
+        }
+        if (!V.validarApellido1(PrimerApellido)){
+            JOptionPane.showMessageDialog(this, "Por favor ingrese solo su primer apellido");
+            return;
+        }
+        if (!V.validarApellido2(SegundoApellido)){
+            JOptionPane.showMessageDialog(this, "Por favor ingrese solo su segundo apellido");
+            return;
+        }
+        if (!V.validarCelular(Celular)){
+            JOptionPane.showMessageDialog (this, "El número celular esta incorrecto");
+            return;
+        }
+        if (!V.validarTelefono(Telefono)){
+            JOptionPane.showMessageDialog (this, "El número de teléfono esta incorrecto");
+            return;
+        }
+        java.sql.Date FechaNA=new java.sql.Date(FechaNacimiento.getTime());
+        if (!V.FechaNacimiento(FechaNA)){
+            JOptionPane.showMessageDialog(this, "La fecha esta incorrecta");
+            return;
+        }
+        //Se guardar al empleado
+        
+        //Se genera el usuarios
+        //Se debe verificar para que el usuario no se repita
+        
+        String Usuario = CreacionCredenciales.GenerarUsuario(PrimerNombre, PrimerApellido);
+        String contraseña = CreacionCredenciales.GenerarContraseña();
+        boolean Estado=true;
+        
+        
+        JOptionPane.showMessageDialog(this, "Su usuario es el siguiente: "+Usuario+"\n"
+                + "Y su contraseña es: "+contraseña+"\n"
+                +"Por favor, tome una foto o anótelas en un lugar seguro, no se podran modificar una vez cerrada la ventana");
+        //Se guarda en la tabla usuarios
+        LimpiarDatos();
+    }
+    private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
+        // TODO add your handling code here:
+        GuardarEmpleado();
+    }//GEN-LAST:event_PanelGuardarMouseClicked
+
+    private void TXTcedulaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTcedulaFocusGained
+        // TODO add your handling code here:
+        if (TXTcedula.getText().equals("Ingrese su cédula")){
+            TXTcedula.setText("");
+            TXTcedula.setForeground(Color.BLACK);
+        }
+        if (TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTcedulaFocusGained
+
+    private void TXTnombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTnombreFocusGained
+        // TODO add your handling code here:
+        if (TXTnombre.getText().equals("Primer nombre")){
+            TXTnombre.setText("");
+            TXTnombre.setForeground(Color.BLACK);
+        }
+        if (TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese su cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTnombreFocusGained
+
+    private void TXTnombre1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTnombre1FocusGained
+        // TODO add your handling code here:
+        if (TXTnombre1.getText().equals("Segundo nombre")){
+            TXTnombre1.setText("");
+            TXTnombre1.setForeground(Color.BLACK);
+        }
+        if (TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese su cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTnombre1FocusGained
+
+    private void TXTapellidoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTapellidoFocusGained
+        // TODO add your handling code here:
+        if (TXTapellido.getText().equals("Primer apellido")){
+            TXTapellido.setText("");
+            TXTapellido.setForeground(Color.BLACK);
+        }
+        if (TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese su cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTapellidoFocusGained
+
+    private void TXTapellido1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTapellido1FocusGained
+        // TODO add your handling code here:
+        if (TXTapellido1.getText().equals("Segundo apellido")){
+            TXTapellido1.setText("");
+            TXTapellido1.setForeground(Color.BLACK);
+        }
+        if (TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese su cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTapellido1FocusGained
+
+    private void TXTcallePrincipalFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTcallePrincipalFocusGained
+        // TODO add your handling code here:
+        if (TXTcallePrincipal.getText().equals("Calle principal")){
+            TXTcallePrincipal.setText("");
+            TXTcallePrincipal.setForeground(Color.BLACK);
+        }
+        if (TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese su cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTcallePrincipalFocusGained
+
+    private void TXTcalleSecundariaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTcalleSecundariaFocusGained
+        // TODO add your handling code here:
+        if (TXTcalleSecundaria.getText().equals("Calle secundaria")){
+            TXTcalleSecundaria.setText("");
+            TXTcalleSecundaria.setForeground(Color.BLACK);
+        }
+        if (TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese su cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTcalleSecundariaFocusGained
+
+    private void TXTnumCasaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTnumCasaFocusGained
+        // TODO add your handling code here:
+        if (TXTnumCasa.getText().equals("Número de casa")){
+            TXTnumCasa.setText("");
+            TXTnumCasa.setForeground(Color.BLACK);
+        }
+        if (TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese su cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTnumCasaFocusGained
+
+    private void TXTciudadFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTciudadFocusGained
+        // TODO add your handling code here:
+        if (TXTciudad.getText().equals("Ciudad")){
+            TXTciudad.setText("");
+            TXTciudad.setForeground(Color.BLACK);
+        }
+        if (TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese su cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTciudadFocusGained
+
+    private void TXTTelefonoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTTelefonoFocusGained
+        // TODO add your handling code here:
+        if (TXTTelefono.getText().equals("Teléfono")){
+            TXTTelefono.setText("");
+            TXTTelefono.setForeground(Color.BLACK);
+        }
+        if (TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese su cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Primer apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTTelefonoFocusGained
+
+    private void TXTCelularFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTCelularFocusGained
+        // TODO add your handling code here:
+        if (TXTCelular.getText().equals("Celular")){
+            TXTCelular.setText("");
+            TXTCelular.setForeground(Color.BLACK);
+        }
+        if (TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese su cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Primer apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTCelularFocusGained
+
+    private void TXTCorreoElectronicoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTCorreoElectronicoFocusGained
+        // TODO add your handling code here:
+        if (TXTCorreoElectronico.getText().equals("Correo")){
+            TXTCorreoElectronico.setText("");
+            TXTCorreoElectronico.setForeground(Color.BLACK);
+        }
+        if (TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese su cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Primer apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Telefono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTCorreoElectronicoFocusGained
+
+    private void PanelNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseClicked
+        // TODO add your handling code here:
+        LimpiarDatos();
+        JOptionPane.showMessageDialog(this, "Datos limpiados correctamente"+"\n"
+        +"Ingrese los datos");
+    }//GEN-LAST:event_PanelNuevoMouseClicked
+
+    private void TXTcedulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTcedulaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarEmpleado();
+        }
+    }//GEN-LAST:event_TXTcedulaKeyPressed
+
+    private void TXTnombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTnombreKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarEmpleado();
+        }
+    }//GEN-LAST:event_TXTnombreKeyPressed
+
+    private void TXTnombre1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTnombre1KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarEmpleado();
+        }
+    }//GEN-LAST:event_TXTnombre1KeyPressed
+
+    private void TXTapellidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTapellidoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarEmpleado();
+        }
+    }//GEN-LAST:event_TXTapellidoKeyPressed
+
+    private void TXTapellido1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTapellido1KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarEmpleado();
+        }
+    }//GEN-LAST:event_TXTapellido1KeyPressed
+
+    private void GenerosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_GenerosKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarEmpleado();
+        }
+    }//GEN-LAST:event_GenerosKeyPressed
+
+    private void TXTcallePrincipalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTcallePrincipalKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarEmpleado();
+        }
+    }//GEN-LAST:event_TXTcallePrincipalKeyPressed
+
+    private void TXTcalleSecundariaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTcalleSecundariaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarEmpleado();
+        }
+    }//GEN-LAST:event_TXTcalleSecundariaKeyPressed
+
+    private void TXTnumCasaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTnumCasaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarEmpleado();
+        }
+    }//GEN-LAST:event_TXTnumCasaKeyPressed
+
+    private void TXTciudadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTciudadKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarEmpleado();
+        }
+    }//GEN-LAST:event_TXTciudadKeyPressed
+
+    private void TXTTelefonoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTTelefonoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarEmpleado();
+        }
+    }//GEN-LAST:event_TXTTelefonoKeyPressed
+
+    private void TXTCelularKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTCelularKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarEmpleado();
+        }
+    }//GEN-LAST:event_TXTCelularKeyPressed
+
+    private void TXTCorreoElectronicoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTCorreoElectronicoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarEmpleado();
+        }
+    }//GEN-LAST:event_TXTCorreoElectronicoKeyPressed
 
     /**
      * @param args the command line arguments
@@ -1112,6 +2443,8 @@ public class CrearEmpleado extends javax.swing.JFrame {
     private javax.swing.JLabel Cargo;
     private javax.swing.JComboBox<String> Cargos;
     private javax.swing.JLabel Cedula;
+    private javax.swing.JLabel Celular;
+    private javax.swing.JLabel CorreoElectrocnico;
     private javax.swing.JLabel DarDeBaja;
     private javax.swing.JPanel Desplazar;
     private javax.swing.JLabel Dirección;
@@ -1134,6 +2467,9 @@ public class CrearEmpleado extends javax.swing.JFrame {
     private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JPanel PanelNuevo;
+    private javax.swing.JTextField TXTCelular;
+    private javax.swing.JTextField TXTCorreoElectronico;
+    private javax.swing.JTextField TXTTelefono;
     private javax.swing.JTextField TXTapellido;
     private javax.swing.JTextField TXTapellido1;
     private javax.swing.JTextField TXTcallePrincipal;
@@ -1143,6 +2479,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
     private javax.swing.JTextField TXTnombre;
     private javax.swing.JTextField TXTnombre1;
     private javax.swing.JTextField TXTnumCasa;
+    private javax.swing.JLabel Telefono;
     private javax.swing.JButton Verificar;
     private javax.swing.JLabel Volver;
     private javax.swing.JLabel jLabel1;

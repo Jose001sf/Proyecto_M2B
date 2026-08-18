@@ -44,6 +44,8 @@ public class Menu extends javax.swing.JFrame {
         Cerrar = new javax.swing.JLabel();
         Minimizar = new javax.swing.JLabel();
         Maximizar = new javax.swing.JLabel();
+        Usuarios = new javax.swing.JLabel();
+        Agregar = new javax.swing.JLabel();
         PanelOrdenesServicio = new javax.swing.JPanel();
         OrdenesDeServicio = new javax.swing.JLabel();
         ImagenOrdenesServicio = new javax.swing.JLabel();
@@ -174,6 +176,38 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        Usuarios.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
+        Usuarios.setForeground(new java.awt.Color(145, 145, 145));
+        Usuarios.setText("Usuarios");
+        Usuarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Usuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                UsuariosMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                UsuariosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                UsuariosMouseExited(evt);
+            }
+        });
+
+        Agregar.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
+        Agregar.setForeground(new java.awt.Color(145, 145, 145));
+        Agregar.setText("Agregar");
+        Agregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Agregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AgregarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                AgregarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                AgregarMouseExited(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelBarraLayout = new javax.swing.GroupLayout(PanelBarra);
         PanelBarra.setLayout(PanelBarraLayout);
         PanelBarraLayout.setHorizontalGroup(
@@ -183,13 +217,18 @@ public class Menu extends javax.swing.JFrame {
                 .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelBarraLayout.createSequentialGroup()
                         .addComponent(Talleres)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(110, 110, 110)
+                        .addComponent(Usuarios)
+                        .addGap(18, 18, 18)
+                        .addComponent(Agregar))
+                    .addComponent(MJ, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelBarraLayout.createSequentialGroup()
                         .addComponent(ImagenRegresar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Regresar))
-                    .addGroup(PanelBarraLayout.createSequentialGroup()
-                        .addComponent(MJ, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelBarraLayout.createSequentialGroup()
                         .addComponent(Minimizar)
                         .addGap(18, 18, 18)
                         .addComponent(Maximizar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -217,6 +256,9 @@ public class Menu extends javax.swing.JFrame {
                         .addGap(9, 9, 9)
                         .addComponent(ImagenRegresar))
                     .addComponent(Regresar, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(Usuarios)
+                        .addComponent(Agregar))
                     .addComponent(Talleres, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -225,6 +267,9 @@ public class Menu extends javax.swing.JFrame {
         PanelOrdenesServicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 116, 78)));
         PanelOrdenesServicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelOrdenesServicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelOrdenesServicioMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelOrdenesServicioMouseEntered(evt);
             }
@@ -352,9 +397,6 @@ public class Menu extends javax.swing.JFrame {
         PanelServicios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 116, 78)));
         PanelServicios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelServicios.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PanelServiciosMouseClicked(evt);
-            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelServiciosMouseEntered(evt);
             }
@@ -395,6 +437,9 @@ public class Menu extends javax.swing.JFrame {
         PanelRepuestos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         PanelRepuestos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelRepuestos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelRepuestosMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelRepuestosMouseEntered(evt);
             }
@@ -863,16 +908,45 @@ public class Menu extends javax.swing.JFrame {
         Estadisticas.setForeground(Color.black);
     }//GEN-LAST:event_PanelEstadisticasMouseExited
 
+    private void UsuariosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsuariosMouseEntered
+        // TODO add your handling code here:
+        Usuarios.setForeground(Color.white);
+        
+    }//GEN-LAST:event_UsuariosMouseEntered
+
+    private void UsuariosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsuariosMouseExited
+        // TODO add your handling code here:
+        Usuarios.setForeground(new Color (145, 145, 145));
+    }//GEN-LAST:event_UsuariosMouseExited
+
+    private void UsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsuariosMouseClicked
+        // TODO add your handling code here:
+        Usuarios U=new Usuarios();
+        U.setVisible(true);
+    }//GEN-LAST:event_UsuariosMouseClicked
+
+    private void AgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseClicked
+        // TODO add your handling code here:
+        Agregar A=new Agregar();
+        A.setVisible(true);
+    }//GEN-LAST:event_AgregarMouseClicked
+
+    private void AgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseEntered
+        // TODO add your handling code here:
+        Agregar.setForeground(Color.white);
+    }//GEN-LAST:event_AgregarMouseEntered
+
+    private void AgregarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseExited
+        // TODO add your handling code here:
+        Agregar.setForeground(new Color(145, 145, 145));
+    }//GEN-LAST:event_AgregarMouseExited
+
     private void PanelVehiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelVehiculosMouseClicked
         // TODO add your handling code here:
         Vehiculos rp = new Vehiculos();
         rp.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_PanelVehiculosMouseClicked
-
-    private void PanelPropietariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelPropietariosMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PanelPropietariosMouseClicked
 
     private void PanelProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelProveedoresMouseClicked
         // TODO add your handling code here:
@@ -888,12 +962,26 @@ public class Menu extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_PanelResiduosMouseClicked
 
-    private void PanelServiciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelServiciosMouseClicked
+    private void PanelRepuestosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelRepuestosMouseClicked
         // TODO add your handling code here:
-        Servicios ser = new Servicios();
-        ser.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_PanelServiciosMouseClicked
+       Repuestos R=new Repuestos();
+       R.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_PanelRepuestosMouseClicked
+
+    private void PanelOrdenesServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelOrdenesServicioMouseClicked
+        // TODO add your handling code here:
+        OrdenesDeServicio OS=new OrdenesDeServicio();
+        OS.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_PanelOrdenesServicioMouseClicked
+
+    private void PanelPropietariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelPropietariosMouseClicked
+        // TODO add your handling code here:
+        Propietarios P=new Propietarios();
+        P.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_PanelPropietariosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -922,6 +1010,7 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Accesos;
+    private javax.swing.JLabel Agregar;
     private javax.swing.JLabel Cerrar;
     private javax.swing.JLabel Estadisticas;
     private javax.swing.JLabel Imagen;
@@ -958,6 +1047,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel Residuos;
     private javax.swing.JLabel Servicios;
     private javax.swing.JLabel Talleres;
+    private javax.swing.JLabel Usuarios;
     private javax.swing.JLabel Vehiculos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

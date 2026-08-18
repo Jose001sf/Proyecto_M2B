@@ -86,12 +86,22 @@ public class Login extends javax.swing.JFrame {
         TXTusuario.setForeground(new java.awt.Color(121, 114, 108));
         TXTusuario.setText(" Ingrese su usuario");
         TXTusuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(67, 67, 67)));
+        TXTusuario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTusuarioFocusGained(evt);
+            }
+        });
         TXTusuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 TXTusuarioMousePressed(evt);
             }
         });
         TXTusuario.addActionListener(this::TXTusuarioActionPerformed);
+        TXTusuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTusuarioKeyPressed(evt);
+            }
+        });
 
         Contraseña.setFont(new java.awt.Font("Roboto", 1, 15)); // NOI18N
         Contraseña.setForeground(new java.awt.Color(193, 190, 181));
@@ -102,9 +112,19 @@ public class Login extends javax.swing.JFrame {
         TXTcontraseña.setForeground(new java.awt.Color(121, 114, 108));
         TXTcontraseña.setText(" ********");
         TXTcontraseña.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(67, 67, 67)));
+        TXTcontraseña.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTcontraseñaFocusGained(evt);
+            }
+        });
         TXTcontraseña.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 TXTcontraseñaMousePressed(evt);
+            }
+        });
+        TXTcontraseña.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTcontraseñaKeyPressed(evt);
             }
         });
 
@@ -121,6 +141,11 @@ public class Login extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 PanelIngresarMouseExited(evt);
+            }
+        });
+        PanelIngresar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                PanelIngresarKeyPressed(evt);
             }
         });
 
@@ -428,8 +453,7 @@ public class Login extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_PanelCrearUsuarioMouseClicked
 
-    private void PanelIngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelIngresarMouseClicked
-        // TODO add your handling code here:
+    public void IniciarSesion (){
         if (TXTusuario.getText().equals(" Ingrese su usuario")|| TXTusuario.getText().isEmpty()){
             JOptionPane.showMessageDialog(this, "NO SE HA INGRESADO EL USUARIO");
             return;
@@ -443,7 +467,56 @@ public class Login extends javax.swing.JFrame {
             M.setVisible(true);
             this.dispose();
         }
+    }
+    private void PanelIngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelIngresarMouseClicked
+        // TODO add your handling code here:
+        IniciarSesion();
     }//GEN-LAST:event_PanelIngresarMouseClicked
+
+    private void TXTusuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTusuarioFocusGained
+        // TODO add your handling code here:
+        if (TXTusuario.getText().equals(" Ingrese su usuario")){
+            TXTusuario.setText("");
+            TXTusuario.setForeground(new Color(176, 166, 157));
+        }
+        if (String.valueOf(TXTcontraseña.getPassword()).isEmpty()){
+            TXTcontraseña.setText(" ********");
+            TXTcontraseña.setForeground(new Color(121, 114, 108));
+        }
+    }//GEN-LAST:event_TXTusuarioFocusGained
+
+    private void TXTcontraseñaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTcontraseñaFocusGained
+        // TODO add your handling code here:
+        if (String.valueOf(TXTcontraseña.getPassword()).equals(" ********")){
+            TXTcontraseña.setText("");
+            TXTcontraseña.setForeground(new Color(176, 166, 157));
+        }
+        if (TXTusuario.getText().isEmpty()){
+            TXTusuario.setText(" Ingrese su usuario");
+            TXTusuario.setForeground(new Color(121, 114, 108));
+        }
+    }//GEN-LAST:event_TXTcontraseñaFocusGained
+
+    private void PanelIngresarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PanelIngresarKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            IniciarSesion();
+        }
+    }//GEN-LAST:event_PanelIngresarKeyPressed
+
+    private void TXTusuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTusuarioKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            IniciarSesion();
+        }
+    }//GEN-LAST:event_TXTusuarioKeyPressed
+
+    private void TXTcontraseñaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTcontraseñaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            IniciarSesion();
+        }
+    }//GEN-LAST:event_TXTcontraseñaKeyPressed
 
     /**
      * @param args the command line arguments

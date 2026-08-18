@@ -40,8 +40,8 @@ public class Vehiculos extends javax.swing.JFrame {
     txtCilindraje.setForeground(java.awt.Color.GRAY);
 
     txtPuertas.setText("Ingrese el N° de puertas del vehiculo");
-    txtPuertas.setForeground(java.awt.Color.GRAY);
-  
+    txtPuertas.setForeground(java.awt.Color.GRAY);    
+    this.setLocationRelativeTo(null);        
         
     }
 
@@ -96,6 +96,7 @@ public class Vehiculos extends javax.swing.JFrame {
         setResizable(false);
 
         Fondo.setBackground(new java.awt.Color(255, 255, 255));
+        Fondo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         Fondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         BarraArriba.setBackground(new java.awt.Color(0, 0, 0));
