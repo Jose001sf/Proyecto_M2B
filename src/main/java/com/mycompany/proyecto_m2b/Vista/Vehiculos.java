@@ -151,14 +151,14 @@ public class Vehiculos extends javax.swing.JFrame {
         BarraAbajo.setLayout(BarraAbajoLayout);
         BarraAbajoLayout.setHorizontalGroup(
             BarraAbajoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1220, Short.MAX_VALUE)
+            .addGap(0, 1240, Short.MAX_VALUE)
         );
         BarraAbajoLayout.setVerticalGroup(
             BarraAbajoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 70, Short.MAX_VALUE)
         );
 
-        Fondo.add(BarraAbajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 1220, 70));
+        Fondo.add(BarraAbajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 1240, 70));
 
         TituloFuncion1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         TituloFuncion1.setForeground(new java.awt.Color(153, 153, 153));
