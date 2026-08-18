@@ -204,6 +204,11 @@ public class CatalogoServicios extends javax.swing.JFrame {
 
         jTextField2.setBackground(new java.awt.Color(255, 255, 255));
         jTextField2.setSelectionColor(new java.awt.Color(102, 102, 102));
+        jTextField2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField2FocusGained(evt);
+            }
+        });
         jTextField2.addActionListener(this::jTextField2ActionPerformed);
 
         jTextField4.setBackground(new java.awt.Color(255, 255, 255));
@@ -623,6 +628,10 @@ public class CatalogoServicios extends javax.swing.JFrame {
         PanelBuscar.setBackground(Color.white);
         Buscar.setForeground(Color.black);
     }//GEN-LAST:event_PanelBuscarMouseExited
+
+    private void jTextField2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField2FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2FocusGained
 
     /**
      * @param args the command line arguments
