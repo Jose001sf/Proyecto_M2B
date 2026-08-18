@@ -99,7 +99,7 @@ public class Proveedores extends javax.swing.JFrame {
                 .addGroup(BarraArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegresar)
                     .addComponent(NombreVentanaProveedores))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         Fondo.add(BarraArriba, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1210, 60));
@@ -110,11 +110,11 @@ public class Proveedores extends javax.swing.JFrame {
         BarraAbajo.setLayout(BarraAbajoLayout);
         BarraAbajoLayout.setHorizontalGroup(
             BarraAbajoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1210, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         BarraAbajoLayout.setVerticalGroup(
             BarraAbajoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 70, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         Fondo.add(BarraAbajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 1210, 70));
@@ -196,6 +196,8 @@ public class Proveedores extends javax.swing.JFrame {
 
         comboRepuestos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un tipo de proveedor", "Item 2", "Item 3", "Item 4" }));
         Fondo.add(comboRepuestos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, 240, -1));
+
+        txtFactura.addActionListener(this::txtFacturaActionPerformed);
         Fondo.add(txtFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 200, 200, -1));
         Fondo.add(dateProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 200, -1));
 
@@ -276,6 +278,10 @@ public class Proveedores extends javax.swing.JFrame {
     private void txtPrecioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPrecioFocusLost
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPrecioFocusLost
+
+    private void txtFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFacturaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFacturaActionPerformed
 
     /**
      * @param args the command line arguments
