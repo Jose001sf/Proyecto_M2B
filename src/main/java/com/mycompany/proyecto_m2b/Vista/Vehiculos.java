@@ -87,9 +87,13 @@ public class Vehiculos extends javax.swing.JFrame {
         txtCilindraje = new javax.swing.JTextField();
         txtPuertas = new javax.swing.JTextField();
         mmButton = new javax.swing.JButton();
-        btnGuardar = new javax.swing.JButton();
-        btnModificar = new javax.swing.JButton();
         btnVerVR = new javax.swing.JButton();
+        PanelGuardar = new javax.swing.JPanel();
+        Guardar = new javax.swing.JLabel();
+        ImagenSAVE = new javax.swing.JLabel();
+        PanelEditar = new javax.swing.JPanel();
+        Editar = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -121,7 +125,7 @@ public class Vehiculos extends javax.swing.JFrame {
             .addGroup(BarraArribaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(NombreVentanaVehiculos, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 746, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 776, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(19, 19, 19))
         );
@@ -135,7 +139,7 @@ public class Vehiculos extends javax.swing.JFrame {
                 .addContainerGap(10, Short.MAX_VALUE))
         );
 
-        Fondo.add(BarraArriba, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1210, 60));
+        Fondo.add(BarraArriba, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1240, 60));
 
         BarraAbajo.setBackground(new java.awt.Color(227, 153, 106));
 
@@ -143,14 +147,14 @@ public class Vehiculos extends javax.swing.JFrame {
         BarraAbajo.setLayout(BarraAbajoLayout);
         BarraAbajoLayout.setHorizontalGroup(
             BarraAbajoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1210, Short.MAX_VALUE)
+            .addGap(0, 1220, Short.MAX_VALUE)
         );
         BarraAbajoLayout.setVerticalGroup(
             BarraAbajoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 70, Short.MAX_VALUE)
         );
 
-        Fondo.add(BarraAbajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 1210, 70));
+        Fondo.add(BarraAbajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 1220, 70));
 
         TituloFuncion1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         TituloFuncion1.setForeground(new java.awt.Color(153, 153, 153));
@@ -326,21 +330,100 @@ public class Vehiculos extends javax.swing.JFrame {
         mmButton.addActionListener(this::mmButtonActionPerformed);
         Fondo.add(mmButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 180, 170, 70));
 
-        btnGuardar.setText("Guardar");
-        Fondo.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 500, 140, 70));
-
-        btnModificar.setText("Modificar");
-        Fondo.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 500, 140, 70));
-
         btnVerVR.setText("Ver Vehiculos Registrados");
         btnVerVR.addActionListener(this::btnVerVRActionPerformed);
         Fondo.add(btnVerVR, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 500, 190, 70));
+
+        PanelGuardar.setBackground(new java.awt.Color(242, 101, 34));
+        PanelGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        PanelGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelGuardarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PanelGuardarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                PanelGuardarMouseExited(evt);
+            }
+        });
+
+        Guardar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        Guardar.setForeground(new java.awt.Color(255, 255, 255));
+        Guardar.setText("Guardar");
+
+        ImagenSAVE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/save_22dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+
+        javax.swing.GroupLayout PanelGuardarLayout = new javax.swing.GroupLayout(PanelGuardar);
+        PanelGuardar.setLayout(PanelGuardarLayout);
+        PanelGuardarLayout.setHorizontalGroup(
+            PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelGuardarLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(ImagenSAVE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Guardar)
+                .addContainerGap(36, Short.MAX_VALUE))
+        );
+        PanelGuardarLayout.setVerticalGroup(
+            PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelGuardarLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Guardar)
+                    .addComponent(ImagenSAVE))
+                .addContainerGap())
+        );
+
+        Fondo.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 520, -1, -1));
+
+        PanelEditar.setBackground(new java.awt.Color(255, 255, 255));
+        PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        PanelEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PanelEditarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                PanelEditarMouseExited(evt);
+            }
+        });
+
+        Editar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        Editar.setText("Editar");
+
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/edit_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+
+        javax.swing.GroupLayout PanelEditarLayout = new javax.swing.GroupLayout(PanelEditar);
+        PanelEditar.setLayout(PanelEditarLayout);
+        PanelEditarLayout.setHorizontalGroup(
+            PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelEditarLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Editar)
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
+        PanelEditarLayout.setVerticalGroup(
+            PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelEditarLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Editar)
+                    .addComponent(jLabel2))
+                .addContainerGap())
+        );
+
+        Fondo.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 520, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Fondo, javax.swing.GroupLayout.DEFAULT_SIZE, 1212, Short.MAX_VALUE)
+            .addComponent(Fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -492,6 +575,34 @@ public class Vehiculos extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
 
+    private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PanelGuardarMouseClicked
+
+    private void PanelGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseEntered
+        // TODO add your handling code here:
+        PanelGuardar.setBackground(new java.awt.Color(227, 95, 32));
+        Guardar.setForeground(new java.awt.Color(217, 217, 192));
+    }//GEN-LAST:event_PanelGuardarMouseEntered
+
+    private void PanelGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseExited
+        // TODO add your handling code here:
+        PanelGuardar.setBackground(new java.awt.Color(242,101,34));
+        Guardar.setForeground(java.awt.Color.white);
+    }//GEN-LAST:event_PanelGuardarMouseExited
+
+    private void PanelEditarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseEntered
+        // TODO add your handling code here:
+        PanelEditar.setBackground(new java.awt.Color(219,219,219));
+        Editar.setForeground(new java.awt.Color(66, 66, 66));
+    }//GEN-LAST:event_PanelEditarMouseEntered
+
+    private void PanelEditarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseExited
+        // TODO add your handling code here:
+        PanelEditar.setBackground(java.awt.Color.white);
+        Editar.setForeground(java.awt.Color.black);
+    }//GEN-LAST:event_PanelEditarMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -523,26 +634,30 @@ public class Vehiculos extends javax.swing.JFrame {
     private javax.swing.JLabel Chasis;
     private javax.swing.JLabel Cilindraje;
     private javax.swing.JLabel Color;
+    private javax.swing.JLabel Editar;
     private javax.swing.JPanel Fondo;
+    private javax.swing.JLabel Guardar;
+    private javax.swing.JLabel ImagenSAVE;
     private javax.swing.JLabel Kilometraje;
     private javax.swing.JLabel Marca;
     private javax.swing.JLabel Modelo;
     private javax.swing.JLabel Motor;
     private javax.swing.JLabel NombreVentanaVehiculos;
+    private javax.swing.JPanel PanelEditar;
+    private javax.swing.JPanel PanelGuardar;
     private javax.swing.JLabel Placa;
     private javax.swing.JLabel Propietario;
     private javax.swing.JLabel Puertas;
     private javax.swing.JLabel TituloFuncion1;
     private javax.swing.JLabel TituloFuncion2;
     private javax.swing.JLabel Transmicion;
-    private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnVerVR;
     private javax.swing.JComboBox<String> comboMarcas;
     private javax.swing.JComboBox<String> comboModelos;
     private javax.swing.JComboBox<String> comboPropietarios;
     private javax.swing.JComboBox<String> comboTransmicion;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JButton mmButton;
     private javax.swing.JTextField txtAnio;
