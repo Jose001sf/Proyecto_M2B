@@ -26,6 +26,19 @@ public class Menu extends javax.swing.JFrame {
     int xMouse;
     int yMouse;
     private Agregar AG = null;
+    private Cargos Car= null;
+    private CatalogoServicios Cata=null;
+    private CrearEmpleado CrearEmp=null;
+    private Especialidad Espe=null;
+    private Estadisticas Esta=null;
+    private OrdenesDeServicio OrdenesServ=null;
+    private Propietarios Prop=null;
+    private Proveedores Provee=null;
+    private Repuestos Repues=null;
+    private Residuos Resi=null;
+    private Vehiculos Vehi=null;
+    private Usuarios Usu=null;
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -928,8 +941,16 @@ public class Menu extends javax.swing.JFrame {
 
     private void UsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsuariosMouseClicked
         // TODO add your handling code here:
-        Usuarios U=new Usuarios();
-        U.setVisible(true);
+        if (Usu==null || !Usu.isVisible()){
+            Usu = new Usuarios();
+            Usu.setVisible(true);
+        }
+        else {
+            Usu.setState(java.awt.Frame.NORMAL);
+            Usu.toFront();
+            Usu.requestFocus();
+        }
+        
     }//GEN-LAST:event_UsuariosMouseClicked
 
     private void AgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseClicked
@@ -957,58 +978,106 @@ public class Menu extends javax.swing.JFrame {
 
     private void PanelVehiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelVehiculosMouseClicked
         // TODO add your handling code here:
-        Vehiculos rp = new Vehiculos();
-        rp.setVisible(true);
-        this.setVisible(false);
+        if (Vehi==null || !Vehi.isVisible()){
+            Vehi = new Vehiculos();
+            Vehi.setVisible(true);
+        }
+        else {
+            Vehi.setState(java.awt.Frame.NORMAL);
+            Vehi.toFront();
+            Vehi.requestFocus();
+        }
     }//GEN-LAST:event_PanelVehiculosMouseClicked
 
     private void PanelProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelProveedoresMouseClicked
         // TODO add your handling code here:
-        Proveedores rp = new Proveedores();
-        rp.setVisible(true);
-        this.setVisible(false);
+        if (Provee==null || !Provee.isVisible()){
+            Provee = new Proveedores();
+            Provee.setVisible(true);
+        }
+        else {
+            Provee.setState(java.awt.Frame.NORMAL);
+            Provee.toFront();
+            Provee.requestFocus();
+        }
     }//GEN-LAST:event_PanelProveedoresMouseClicked
 
     private void PanelResiduosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelResiduosMouseClicked
         // TODO add your handling code here:
-        Residuos rp = new Residuos();
-        rp.setVisible(true);
-        this.setVisible(false);
+        if (Resi==null || !Resi.isVisible()){
+            Resi = new Residuos();
+            Resi.setVisible(true);
+        }
+        else {
+            Resi.setState(java.awt.Frame.NORMAL);
+            Resi.toFront();
+            Resi.requestFocus();
+        }
     }//GEN-LAST:event_PanelResiduosMouseClicked
 
     private void PanelRepuestosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelRepuestosMouseClicked
         // TODO add your handling code here:
-       Repuestos R=new Repuestos();
-       R.setVisible(true);
-       this.dispose();
+       if (Repues==null || !Repues.isVisible()){
+            Repues = new Repuestos();
+            Repues.setVisible(true);
+        }
+        else {
+            Repues.setState(java.awt.Frame.NORMAL);
+            Repues.toFront();
+            Repues.requestFocus();
+        }
     }//GEN-LAST:event_PanelRepuestosMouseClicked
 
     private void PanelOrdenesServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelOrdenesServicioMouseClicked
         // TODO add your handling code here:
-        OrdenesDeServicio OS=new OrdenesDeServicio();
-        OS.setVisible(true);
-        this.dispose();
+        if (OrdenesServ==null || !OrdenesServ.isVisible()){
+            OrdenesServ = new OrdenesDeServicio();
+            OrdenesServ.setVisible(true);
+        }
+        else {
+            OrdenesServ.setState(java.awt.Frame.NORMAL);
+            OrdenesServ.toFront();
+            OrdenesServ.requestFocus();
+        }        
     }//GEN-LAST:event_PanelOrdenesServicioMouseClicked
 
     private void PanelPropietariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelPropietariosMouseClicked
         // TODO add your handling code here:
-        Propietarios P=new Propietarios();
-        P.setVisible(true);
-        this.dispose();
+        if (Prop==null || !Prop.isVisible()){
+            Prop = new Propietarios();
+            Prop.setVisible(true);
+        }
+        else {
+            Prop.setState(java.awt.Frame.NORMAL);
+            Prop.toFront();
+            Prop.requestFocus();
+        } 
     }//GEN-LAST:event_PanelPropietariosMouseClicked
 
     private void PanelServiciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelServiciosMouseClicked
         // TODO add your handling code here:
-        CatalogoServicios CS=new CatalogoServicios();
-        CS.setVisible(true);
-        this.dispose();
+        if (Cata==null || !Cata.isVisible()){
+            Cata = new CatalogoServicios();
+            Cata.setVisible(true);
+        }
+        else {
+            Cata.setState(java.awt.Frame.NORMAL);
+            Cata.toFront();
+            Cata.requestFocus();
+        }
     }//GEN-LAST:event_PanelServiciosMouseClicked
 
     private void PanelEstadisticasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEstadisticasMouseClicked
         // TODO add your handling code here:
-        Estadisticas Esta = new Estadisticas();
-        Esta.setVisible(true);
-        this.setVisible(false);
+        if (Esta==null || !Esta.isVisible()){
+            Esta = new Estadisticas();
+            Esta.setVisible(true);
+        }
+        else {
+            Esta.setState(java.awt.Frame.NORMAL);
+            Esta.toFront();
+            Esta.requestFocus();
+        }
     }//GEN-LAST:event_PanelEstadisticasMouseClicked
 
     /**
