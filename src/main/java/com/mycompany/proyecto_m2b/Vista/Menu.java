@@ -25,6 +25,7 @@ public class Menu extends javax.swing.JFrame {
     }
     int xMouse;
     int yMouse;
+    private Agregar AG = null;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -933,8 +934,15 @@ public class Menu extends javax.swing.JFrame {
 
     private void AgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseClicked
         // TODO add your handling code here:
-        Agregar A=new Agregar();
-        A.setVisible(true);
+        if (AG==null || !AG.isVisible()){
+            AG = new Agregar();
+            AG.setVisible(true);
+        }
+        else {
+            AG.setState(java.awt.Frame.NORMAL);
+            AG.toFront();
+            AG.requestFocus();
+        }
     }//GEN-LAST:event_AgregarMouseClicked
 
     private void AgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseEntered
