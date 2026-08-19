@@ -62,7 +62,7 @@ public class Validaciones {
             return false;
         }
         nombre1=nombre1.trim().toUpperCase(); 
-        Pattern pat=Pattern.compile("^[A-ZÁÉÍÓÚÑ]+");
+        Pattern pat=Pattern.compile("^[A-ZÁÉÍÓÚÑ]{1,50}");
         Matcher mat=pat.matcher(nombre1);                
        return mat.matches();                            
     }
@@ -71,7 +71,7 @@ public class Validaciones {
             return false;
         }
         nombre2=nombre2.trim().toUpperCase(); 
-        Pattern pat=Pattern.compile("^[A-ZÁÉÍÓÚÑ]+");
+        Pattern pat=Pattern.compile("^[A-ZÁÉÍÓÚÑ]{1,50}");
         Matcher mat=pat.matcher(nombre2);                
        return mat.matches();                            
     }
@@ -80,7 +80,7 @@ public class Validaciones {
             return false;
         }
         apellido1=apellido1.trim().toUpperCase(); 
-        Pattern pat=Pattern.compile("^[A-ZÁÉÍÓÚÑ]+");
+        Pattern pat=Pattern.compile("^[A-ZÁÉÍÓÚÑ]{1,50}");
         Matcher mat=pat.matcher(apellido1);                
        return mat.matches();                            
     }
@@ -89,7 +89,7 @@ public class Validaciones {
             return false;
         }
         apellido2=apellido2.trim().toUpperCase(); 
-        Pattern pat=Pattern.compile("^[A-ZÁÉÍÓÚÑ]+");
+        Pattern pat=Pattern.compile("^[A-ZÁÉÍÓÚÑ]{1,50}");
         Matcher mat=pat.matcher(apellido2);                
        return mat.matches();                            
     }
@@ -104,7 +104,7 @@ public class Validaciones {
             return false;
         }
         Correo=Correo.trim(); 
-        Pattern pat=Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+        Pattern pat=Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,60}$");
         Matcher mat=pat.matcher(Correo);                
        return mat.matches();                            
     }
@@ -191,5 +191,14 @@ public class Validaciones {
         Pattern pat=Pattern.compile("^[A-Za-zÁÉÍÓÚÑáéíóúñ0-9@$!%*?&._-]{8,12}$");
         Matcher mat=pat.matcher(Contrasena);                
        return mat.matches();                            
+    }
+    public boolean validarNombreUsuario(String Nombreusuario){
+        if(Nombreusuario == null){
+            return false;
+        }
+        Nombreusuario = Nombreusuario.trim();
+        Pattern pat = Pattern.compile("^[A-Za-z0-9._]{4,60}$");
+        Matcher mat = pat.matcher(Nombreusuario);
+        return mat.matches();
     }
 }
