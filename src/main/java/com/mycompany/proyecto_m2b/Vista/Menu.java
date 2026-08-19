@@ -141,10 +141,10 @@ public class Menu extends javax.swing.JFrame {
                 RegresarMouseExited(evt);
             }
         });
-        PanelBarra.add(Regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1500, 50, -1, -1));
+        PanelBarra.add(Regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1490, 60, -1, -1));
 
         ImagenRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/arrow_back_34dp_D9D9D9_FILL0_wght400_GRAD0_opsz40.png"))); // NOI18N
-        PanelBarra.add(ImagenRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1504, 59, -1, -1));
+        PanelBarra.add(ImagenRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1450, 70, -1, -1));
 
         Cerrar.setBackground(new java.awt.Color(255, 255, 255));
         Cerrar.setFont(new java.awt.Font("Roboto", 0, 36)); // NOI18N
@@ -485,9 +485,9 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(PanelProveedoresLayout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addComponent(ImagenProveedores)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(57, 57, 57)
                 .addComponent(Proveedores)
-                .addGap(54, 54, 54))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelProveedoresLayout.setVerticalGroup(
             PanelProveedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -569,17 +569,17 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelEstadisticasLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(68, 68, 68)
                 .addComponent(Estadisticas)
-                .addGap(51, 51, 51))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelEstadisticasLayout.setVerticalGroup(
             PanelEstadisticasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelEstadisticasLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(PanelEstadisticasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Estadisticas)
-                    .addComponent(jLabel1))
+                .addGroup(PanelEstadisticasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(Estadisticas))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
