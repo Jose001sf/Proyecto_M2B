@@ -1626,40 +1626,48 @@ public class CrearEmpleado extends javax.swing.JFrame {
             JOptionPane.showMessageDialog (this, "Por favor complete los datos que faltan");
             return;
         }
-        if (Genero.equals("Seleccione una opción") || Cargo.equals("Seleccione una opción") || Especialidad.equals("Seleccione una opción")){
+        if (Genero.equalsIgnoreCase("Seleccione una opción") || Cargo.equalsIgnoreCase("Seleccione una opción") || Especialidad.equalsIgnoreCase("Seleccione una opción")){
             JOptionPane.showMessageDialog (this, "Por favor escoga una opción");
             return;
         }
         if (!V.ValidarCedula(Cedula)){
             JOptionPane.showMessageDialog (this, "La cédula esta incorrecta");
+            TXTcedula.setText("");
             return;
         }
         if (!V.validarCorreo(CorreoE)){
             JOptionPane.showMessageDialog(this, "Correo no valido");
+            TXTCorreoElectronico.setText("");
             return;
         }
         if (!V.validarNombre1(PrimerNombre)){
             JOptionPane.showMessageDialog(this, "Por favor ingrese solo su primer nombre");
+            TXTnombre.setText("");
             return;
         }
         if (!V.validarNombre2(SegundoNombre)){
             JOptionPane.showMessageDialog(this, "Por favor ingrese solo su segundo nombre");
+            TXTnombre1.setText("");
             return;
         }
         if (!V.validarApellido1(PrimerApellido)){
             JOptionPane.showMessageDialog(this, "Por favor ingrese solo su primer apellido");
+            TXTapellido.setText("");
             return;
         }
         if (!V.validarApellido2(SegundoApellido)){
             JOptionPane.showMessageDialog(this, "Por favor ingrese solo su segundo apellido");
+            TXTapellido1.setText("");
             return;
         }
         if (!V.validarCelular(Celular)){
             JOptionPane.showMessageDialog (this, "El número celular esta incorrecto");
+            TXTCelular.setText("");
             return;
         }
         if (!V.validarTelefono(Telefono)){
             JOptionPane.showMessageDialog (this, "El número de teléfono esta incorrecto");
+            TXTTelefono.setText("");
             return;
         }
         java.sql.Date FechaNA=new java.sql.Date(FechaNacimiento.getTime());
