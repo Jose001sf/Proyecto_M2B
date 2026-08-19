@@ -62,9 +62,6 @@ public class CatalogoServicios extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         Talleres = new javax.swing.JLabel();
         MJ = new javax.swing.JLabel();
-        Minimizar = new javax.swing.JLabel();
-        Maximizar = new javax.swing.JLabel();
-        Cerrar = new javax.swing.JLabel();
         Regresar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -310,45 +307,6 @@ public class CatalogoServicios extends javax.swing.JFrame {
         MJ.setForeground(new java.awt.Color(152, 75, 45));
         MJ.setText("M&J");
 
-        Minimizar.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        Minimizar.setForeground(new java.awt.Color(255, 255, 255));
-        Minimizar.setText("-");
-        Minimizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Minimizar.setMaximumSize(new java.awt.Dimension(12, 47));
-        Minimizar.setMinimumSize(new java.awt.Dimension(12, 47));
-        Minimizar.setPreferredSize(new java.awt.Dimension(12, 47));
-        Minimizar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                MinimizarMouseClicked(evt);
-            }
-        });
-
-        Maximizar.setFont(new java.awt.Font("Segoe UI", 1, 42)); // NOI18N
-        Maximizar.setForeground(new java.awt.Color(255, 255, 255));
-        Maximizar.setText("▫");
-        Maximizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Maximizar.setMaximumSize(new java.awt.Dimension(32, 47));
-        Maximizar.setMinimumSize(new java.awt.Dimension(32, 47));
-        Maximizar.setPreferredSize(new java.awt.Dimension(32, 47));
-        Maximizar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                MaximizarMouseClicked(evt);
-            }
-        });
-
-        Cerrar.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        Cerrar.setForeground(new java.awt.Color(255, 255, 255));
-        Cerrar.setText("x");
-        Cerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Cerrar.setMaximumSize(new java.awt.Dimension(23, 47));
-        Cerrar.setMinimumSize(new java.awt.Dimension(23, 47));
-        Cerrar.setPreferredSize(new java.awt.Dimension(23, 47));
-        Cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                CerrarMouseClicked(evt);
-            }
-        });
-
         Regresar.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         Regresar.setForeground(new java.awt.Color(145, 145, 145));
         Regresar.setText("<- Regresar");
@@ -377,39 +335,23 @@ public class CatalogoServicios extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(MJ)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Minimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Maximizar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(Cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(373, 373, 373))
+                        .addGap(373, 1449, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(Talleres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 834, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(300, 300, 300))))
+                        .addGap(15, 15, 15))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(MJ, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Talleres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(Maximizar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(Cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(Minimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(14, 14, 14)
+                .addComponent(MJ, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Talleres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Regresar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(17, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(Regresar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -510,21 +452,9 @@ public class CatalogoServicios extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-//hhhjjhj
-    private void MinimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarMouseClicked
-        // TODO add your handling code here:
-        setState(java.awt.Frame.ICONIFIED);
-    }//GEN-LAST:event_MinimizarMouseClicked
-
-    private void CerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarMouseClicked
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_CerrarMouseClicked
 
     private void RegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegresarMouseClicked
-        // TODO add your handling code here:
-        Menu M = new Menu();
-        M.setVisible(true);
+        // TODO add your handling code here:        
         this.dispose();
     }//GEN-LAST:event_RegresarMouseClicked
 
@@ -537,15 +467,6 @@ public class CatalogoServicios extends javax.swing.JFrame {
         // TODO add your handling code here:
         Regresar.setForeground(new java.awt.Color(145, 145, 145));
     }//GEN-LAST:event_RegresarMouseExited
-
-    private void MaximizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MaximizarMouseClicked
-        // TODO add your handling code here:
-        if ((getExtendedState() & CatalogoServicios.MAXIMIZED_BOTH) == CatalogoServicios.MAXIMIZED_BOTH) {
-            this.setExtendedState(CatalogoServicios.NORMAL);
-        } else {
-            setExtendedState(MAXIMIZED_BOTH);
-        }
-    }//GEN-LAST:event_MaximizarMouseClicked
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
@@ -644,15 +565,12 @@ public class CatalogoServicios extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Buscar;
-    private javax.swing.JLabel Cerrar;
     private javax.swing.JLabel DarDeBaja;
     private javax.swing.JLabel Editar;
     private javax.swing.JLabel Guardar;
     private javax.swing.JLabel ImagenDarBaja;
     private javax.swing.JLabel ImagenSAVE;
     private javax.swing.JLabel MJ;
-    private javax.swing.JLabel Maximizar;
-    private javax.swing.JLabel Minimizar;
     private javax.swing.JPanel PanelBuscar;
     private javax.swing.JPanel PanelDarBaja;
     private javax.swing.JPanel PanelEditar;

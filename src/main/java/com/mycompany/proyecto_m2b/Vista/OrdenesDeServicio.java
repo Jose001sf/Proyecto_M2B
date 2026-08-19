@@ -396,8 +396,6 @@ int yMouse;
 
     private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
         // TODO add your handling code here:
-        Menu M=new Menu();
-        M.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel21MouseClicked
 

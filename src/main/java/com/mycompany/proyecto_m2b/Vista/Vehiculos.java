@@ -116,6 +116,7 @@ public class Vehiculos extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Regresar");
+        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel1MouseClicked(evt);
@@ -622,8 +623,6 @@ public class Vehiculos extends javax.swing.JFrame {
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // TODO add your handling code here:
-        Menu m = new Menu();
-        m.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
 
@@ -674,14 +673,14 @@ public class Vehiculos extends javax.swing.JFrame {
 
     private void PanelNuevo1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevo1MouseEntered
         // TODO add your handling code here:
-        PanelNuevo.setBackground(new java.awt.Color(219,219,219));
-        Nuevo.setForeground(new java.awt.Color(66, 66, 66));
+        PanelNuevo1.setBackground(new java.awt.Color(219,219,219));
+        Nuevo1.setForeground(new java.awt.Color(66, 66, 66));
     }//GEN-LAST:event_PanelNuevo1MouseEntered
 
     private void PanelNuevo1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevo1MouseExited
         // TODO add your handling code here:
-        PanelNuevo.setBackground(java.awt.Color.white);
-        Nuevo.setForeground(java.awt.Color.black);
+        PanelNuevo1.setBackground(java.awt.Color.white);
+        Nuevo1.setForeground(java.awt.Color.black);
     }//GEN-LAST:event_PanelNuevo1MouseExited
 
     private void txtPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlacaActionPerformed
@@ -723,7 +722,6 @@ public class Vehiculos extends javax.swing.JFrame {
     private javax.swing.JLabel Editar;
     private javax.swing.JPanel Fondo;
     private javax.swing.JLabel Guardar;
-    private javax.swing.JLabel ImagenADD;
     private javax.swing.JLabel ImagenADD1;
     private javax.swing.JLabel ImagenSAVE;
     private javax.swing.JLabel Kilometraje;
@@ -731,12 +729,10 @@ public class Vehiculos extends javax.swing.JFrame {
     private javax.swing.JLabel Modelo;
     private javax.swing.JLabel Motor;
     private javax.swing.JLabel NombreVentanaVehiculos;
-    private javax.swing.JLabel Nuevo;
     private javax.swing.JLabel Nuevo1;
     private javax.swing.JPanel PanelBuscar;
     private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelGuardar;
-    private javax.swing.JPanel PanelNuevo;
     private javax.swing.JPanel PanelNuevo1;
     private javax.swing.JLabel Placa;
     private javax.swing.JLabel Propietario;
