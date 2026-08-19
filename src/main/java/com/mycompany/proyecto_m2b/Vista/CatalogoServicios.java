@@ -34,9 +34,9 @@ public class CatalogoServicios extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        txtServicio = new javax.swing.JTextField();
+        txtPrecioBase = new javax.swing.JTextField();
+        txtTiempoEstimado = new javax.swing.JTextField();
         TxtCatalogoServicios = new javax.swing.JLabel();
         btnHistorial = new javax.swing.JButton();
         TxtBuscar = new javax.swing.JLabel();
@@ -69,8 +69,7 @@ public class CatalogoServicios extends javax.swing.JFrame {
         setUndecorated(true);
 
         PanelFondo.setBackground(new java.awt.Color(238, 238, 238));
-        PanelFondo.setPreferredSize(new java.awt.Dimension(1329, 663));
-        PanelFondo.setLayout(new java.awt.BorderLayout());
+        PanelFondo.setPreferredSize(new java.awt.Dimension(1210, 663));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 102, 0)));
@@ -82,18 +81,37 @@ public class CatalogoServicios extends javax.swing.JFrame {
 
         jLabel1.setText("Servicio:");
 
-        jTextField2.setSelectionColor(new java.awt.Color(102, 102, 102));
-        jTextField2.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtServicio.setSelectionColor(new java.awt.Color(102, 102, 102));
+        txtServicio.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextField2FocusGained(evt);
+                txtServicioFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtServicioFocusLost(evt);
             }
         });
-        jTextField2.addActionListener(this::jTextField2ActionPerformed);
+        txtServicio.addActionListener(this::txtServicioActionPerformed);
 
-        jTextField4.setSelectionColor(new java.awt.Color(102, 102, 102));
-        jTextField4.addActionListener(this::jTextField4ActionPerformed);
+        txtPrecioBase.setSelectionColor(new java.awt.Color(102, 102, 102));
+        txtPrecioBase.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPrecioBaseFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPrecioBaseFocusLost(evt);
+            }
+        });
+        txtPrecioBase.addActionListener(this::txtPrecioBaseActionPerformed);
 
-        jTextField3.setSelectionColor(new java.awt.Color(102, 102, 102));
+        txtTiempoEstimado.setSelectionColor(new java.awt.Color(102, 102, 102));
+        txtTiempoEstimado.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtTiempoEstimadoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtTiempoEstimadoFocusLost(evt);
+            }
+        });
 
         TxtCatalogoServicios.setFont(new java.awt.Font("Segoe UI", 1, 34)); // NOI18N
         TxtCatalogoServicios.setForeground(new java.awt.Color(120, 120, 120));
@@ -108,18 +126,18 @@ public class CatalogoServicios extends javax.swing.JFrame {
 
         tblCatalogo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "ID Servicio", "Tipo", "Precio base", "Tiempo estimado"
+                "Servicio", "Precio base", "Tiempo estimado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -333,14 +351,11 @@ public class CatalogoServicios extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(MJ)
-                        .addGap(373, 1449, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(Talleres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15))))
+                    .addComponent(MJ)
+                    .addComponent(Talleres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 589, Short.MAX_VALUE)
+                .addComponent(Regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(545, 545, 545))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,10 +363,12 @@ public class CatalogoServicios extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addComponent(MJ, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Talleres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Regresar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(Talleres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(17, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Regresar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -370,16 +387,16 @@ public class CatalogoServicios extends javax.swing.JFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel1))
                                         .addGap(87, 87, 87)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel2)
-                                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(txtPrecioBase, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(78, 78, 78)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel3)
-                                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(txtTiempoEstimado, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
@@ -423,9 +440,9 @@ public class CatalogoServicios extends javax.swing.JFrame {
                             .addComponent(jLabel5))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtServicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPrecioBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTiempoEstimado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(23, 23, 23)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -442,13 +459,33 @@ public class CatalogoServicios extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(PanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
-                .addGap(141, 141, 141))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(309, Short.MAX_VALUE))
         );
 
-        PanelFondo.add(jPanel2, java.awt.BorderLayout.PAGE_START);
+        javax.swing.GroupLayout PanelFondoLayout = new javax.swing.GroupLayout(PanelFondo);
+        PanelFondo.setLayout(PanelFondoLayout);
+        PanelFondoLayout.setHorizontalGroup(
+            PanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelFondoLayout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 328, Short.MAX_VALUE))
+        );
+        PanelFondoLayout.setVerticalGroup(
+            PanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
-        getContentPane().add(PanelFondo, java.awt.BorderLayout.CENTER);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(PanelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 1538, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(PanelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 936, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -468,13 +505,13 @@ public class CatalogoServicios extends javax.swing.JFrame {
         Regresar.setForeground(new java.awt.Color(145, 145, 145));
     }//GEN-LAST:event_RegresarMouseExited
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void txtServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtServicioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_txtServicioActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void txtPrecioBaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioBaseActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_txtPrecioBaseActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -534,9 +571,53 @@ public class CatalogoServicios extends javax.swing.JFrame {
         Buscar.setForeground(Color.black);
     }//GEN-LAST:event_PanelBuscarMouseExited
 
-    private void jTextField2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField2FocusGained
+    private void txtServicioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtServicioFocusGained
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2FocusGained
+        if (txtServicio.getText().equals("Ingrese el servicio")) {
+            txtServicio.setText("");
+            txtServicio.setForeground(java.awt.Color.BLACK);
+        }
+    }//GEN-LAST:event_txtServicioFocusGained
+
+    private void txtServicioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtServicioFocusLost
+        // TODO add your handling code here:
+        if (txtServicio.getText().trim().isEmpty()) {
+            txtServicio.setText("Ingrese el servicio");
+            txtServicio.setForeground(java.awt.Color.GRAY);
+        }
+    }//GEN-LAST:event_txtServicioFocusLost
+
+    private void txtPrecioBaseFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPrecioBaseFocusGained
+        // TODO add your handling code here:
+        if (txtPrecioBase.getText().equals("Ingrese el precio base")) {
+            txtPrecioBase.setText("");
+            txtPrecioBase.setForeground(java.awt.Color.BLACK);
+        }
+    }//GEN-LAST:event_txtPrecioBaseFocusGained
+
+    private void txtPrecioBaseFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPrecioBaseFocusLost
+        // TODO add your handling code here:
+        if (txtPrecioBase.getText().trim().isEmpty()) {
+            txtPrecioBase.setText("Ingrese el precio base");
+            txtPrecioBase.setForeground(java.awt.Color.GRAY);
+        }
+    }//GEN-LAST:event_txtPrecioBaseFocusLost
+
+    private void txtTiempoEstimadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTiempoEstimadoFocusGained
+        // TODO add your handling code here:
+        if (txtPrecioBase.getText().equals("Ingrese el tiempo estimado")) {
+            txtPrecioBase.setText("");
+            txtPrecioBase.setForeground(java.awt.Color.BLACK);
+        }
+    }//GEN-LAST:event_txtTiempoEstimadoFocusGained
+
+    private void txtTiempoEstimadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTiempoEstimadoFocusLost
+        // TODO add your handling code here:
+        if (txtPrecioBase.getText().trim().isEmpty()) {
+            txtPrecioBase.setText("Ingrese el tiempo estimado");
+            txtPrecioBase.setForeground(java.awt.Color.GRAY);
+        }
+    }//GEN-LAST:event_txtTiempoEstimadoFocusLost
 
     /**
      * @param args the command line arguments
@@ -593,10 +674,10 @@ public class CatalogoServicios extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTable tblCatalogo;
     private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtPrecioBase;
+    private javax.swing.JTextField txtServicio;
+    private javax.swing.JTextField txtTiempoEstimado;
     // End of variables declaration//GEN-END:variables
 }
