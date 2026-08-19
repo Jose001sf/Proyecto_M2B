@@ -150,15 +150,103 @@ int yMouse;
         jLabel12.setText("Detalle/Trabajo a realizar:");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
 
+        TXTplaca.setForeground(new java.awt.Color(153, 153, 153));
+        TXTplaca.setText("Ingrese la placa");
+        TXTplaca.setToolTipText("");
+        TXTplaca.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTplacaFocusGained(evt);
+            }
+        });
+        TXTplaca.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTplacaMousePressed(evt);
+            }
+        });
         TXTplaca.addActionListener(this::TXTplacaActionPerformed);
+        TXTplaca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTplacaKeyPressed(evt);
+            }
+        });
         jPanel1.add(TXTplaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 210, -1));
+
+        TXTcedula.setForeground(new java.awt.Color(153, 153, 153));
+        TXTcedula.setText("Ingrese la cédula");
+        TXTcedula.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTcedulaFocusGained(evt);
+            }
+        });
+        TXTcedula.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTcedulaMousePressed(evt);
+            }
+        });
+        TXTcedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTcedulaKeyPressed(evt);
+            }
+        });
         jPanel1.add(TXTcedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 210, -1));
 
+        TXTempleado.setForeground(new java.awt.Color(153, 153, 153));
+        TXTempleado.setText("Ingrese empleado");
+        TXTempleado.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTempleadoFocusGained(evt);
+            }
+        });
+        TXTempleado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTempleadoMousePressed(evt);
+            }
+        });
         TXTempleado.addActionListener(this::TXTempleadoActionPerformed);
+        TXTempleado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTempleadoKeyPressed(evt);
+            }
+        });
         jPanel1.add(TXTempleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 210, -1));
+
+        TXTcostoTotal.setForeground(new java.awt.Color(153, 153, 153));
+        TXTcostoTotal.setText("Costo Total");
+        TXTcostoTotal.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTcostoTotalFocusGained(evt);
+            }
+        });
+        TXTcostoTotal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTcostoTotalMousePressed(evt);
+            }
+        });
+        TXTcostoTotal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTcostoTotalKeyPressed(evt);
+            }
+        });
         jPanel1.add(TXTcostoTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, 250, -1));
 
+        Descripcion.setForeground(new java.awt.Color(153, 153, 153));
+        Descripcion.setText("Describa el trabajo a realizar");
+        Descripcion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                DescripcionFocusGained(evt);
+            }
+        });
+        Descripcion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                DescripcionMousePressed(evt);
+            }
+        });
         Descripcion.addActionListener(this::DescripcionActionPerformed);
+        Descripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                DescripcionKeyPressed(evt);
+            }
+        });
         jPanel1.add(Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 630, 70));
 
         PanelNuevo.setBackground(new java.awt.Color(255, 255, 255));
@@ -498,6 +586,366 @@ int yMouse;
         this.setLocation(x-xMouse, y-yMouse);
     }//GEN-LAST:event_jPanel2MouseDragged
 
+    private void TXTplacaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTplacaMousePressed
+        // TODO add your handling code here:
+        if (TXTplaca.getText().equals("Ingrese la placa")){
+            TXTplaca.setText("");
+            TXTplaca.setForeground(Color.BLACK);
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTempleado.getText().isEmpty()){
+            TXTempleado.setText("Ingrese empleado");
+            TXTempleado.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcostoTotal.getText().isEmpty()){
+            TXTcostoTotal.setText("Costo Total");
+            TXTcostoTotal.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Describa el trabajo a realizar");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTplacaMousePressed
+
+    private void TXTcedulaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTcedulaMousePressed
+        // TODO add your handling code here:
+        if (TXTcedula.getText().equals("Ingrese la cédula")){
+            TXTcedula.setText("");
+            TXTcedula.setForeground(Color.BLACK);
+        }
+        if (TXTplaca.getText().isEmpty()){
+            TXTplaca.setText("Ingrese la placa");
+            TXTplaca.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTempleado.getText().isEmpty()){
+            TXTempleado.setText("Ingrese empleado");
+            TXTempleado.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcostoTotal.getText().isEmpty()){
+            TXTcostoTotal.setText("Costo Total");
+            TXTcostoTotal.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Describa el trabajo a realizar");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTcedulaMousePressed
+
+    private void TXTempleadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTempleadoMousePressed
+        // TODO add your handling code here:
+        if (TXTempleado.getText().equals("Ingrese empleado")){
+            TXTempleado.setText("");
+            TXTempleado.setForeground(Color.BLACK);
+        }
+        if (TXTplaca.getText().isEmpty()){
+            TXTplaca.setText("Ingrese la placa");
+            TXTplaca.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcostoTotal.getText().isEmpty()){
+            TXTcostoTotal.setText("Costo Total");
+            TXTcostoTotal.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Describa el trabajo a realizar");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTempleadoMousePressed
+
+    private void TXTcostoTotalMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTcostoTotalMousePressed
+        // TODO add your handling code here:
+        if (TXTcostoTotal.getText().equals("Costo Total")){
+            TXTcostoTotal.setText("");
+            TXTcostoTotal.setForeground(Color.BLACK);
+        }
+        if (TXTplaca.getText().isEmpty()){
+            TXTplaca.setText("Ingrese la placa");
+            TXTplaca.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTempleado.getText().isEmpty()){
+            TXTempleado.setText("Ingrese empleado");
+            TXTempleado.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Describa el trabajo a realizar");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTcostoTotalMousePressed
+
+    private void DescripcionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DescripcionMousePressed
+        // TODO add your handling code here:
+        if (Descripcion.getText().equals("Describa el trabajo a realizar")){
+            Descripcion.setText("");
+            Descripcion.setForeground(Color.BLACK);
+        }
+        if (TXTplaca.getText().isEmpty()){
+            TXTplaca.setText("Ingrese la placa");
+            TXTplaca.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTempleado.getText().isEmpty()){
+            TXTempleado.setText("Ingrese empleado");
+            TXTempleado.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcostoTotal.getText().isEmpty()){
+            TXTcostoTotal.setText("Costo Total");
+            TXTcostoTotal.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_DescripcionMousePressed
+
+    private void TXTplacaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTplacaKeyPressed
+        // TODO add your handling code here:
+        if (TXTplaca.getText().equals("Ingrese la placa")){
+            TXTplaca.setText("");
+            TXTplaca.setForeground(Color.BLACK);
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTempleado.getText().isEmpty()){
+            TXTempleado.setText("Ingrese empleado");
+            TXTempleado.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcostoTotal.getText().isEmpty()){
+            TXTcostoTotal.setText("Costo Total");
+            TXTcostoTotal.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Costo Total");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTplacaKeyPressed
+
+    private void TXTcedulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTcedulaKeyPressed
+        // TODO add your handling code here:
+        if (TXTcedula.getText().equals("Ingrese la cédula")){
+            TXTcedula.setText("");
+            TXTcedula.setForeground(Color.BLACK);
+        }
+        if (TXTplaca.getText().isEmpty()){
+            TXTplaca.setText("Ingrese la placa");
+            TXTplaca.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTempleado.getText().isEmpty()){
+            TXTempleado.setText("Ingrese empleado");
+            TXTempleado.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcostoTotal.getText().isEmpty()){
+            TXTcostoTotal.setText("Costo Total");
+            TXTcostoTotal.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Costo Total");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTcedulaKeyPressed
+
+    private void TXTempleadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTempleadoKeyPressed
+        // TODO add your handling code here:
+         if (TXTempleado.getText().equals("Ingrese empleado")){
+            TXTempleado.setText("");
+            TXTempleado.setForeground(Color.BLACK);
+        }
+        if (TXTplaca.getText().isEmpty()){
+            TXTplaca.setText("Ingrese la placa");
+            TXTplaca.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcostoTotal.getText().isEmpty()){
+            TXTcostoTotal.setText("Costo Total");
+            TXTcostoTotal.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Costo Total");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTempleadoKeyPressed
+
+    private void TXTcostoTotalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTcostoTotalKeyPressed
+        // TODO add your handling code here:
+        if (TXTcostoTotal.getText().equals("Costo Total")){
+            TXTcostoTotal.setText("");
+            TXTcostoTotal.setForeground(Color.BLACK);
+        }
+        if (TXTplaca.getText().isEmpty()){
+            TXTplaca.setText("Ingrese la placa");
+            TXTplaca.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTempleado.getText().isEmpty()){
+            TXTempleado.setText("Ingrese empleado");
+            TXTempleado.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Costo Total");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTcostoTotalKeyPressed
+
+    private void DescripcionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DescripcionKeyPressed
+        // TODO add your handling code here:
+        if (Descripcion.getText().equals("Describa el trabajo a realizar")){
+            Descripcion.setText("");
+            Descripcion.setForeground(Color.BLACK);
+        }
+        if (TXTplaca.getText().isEmpty()){
+            TXTplaca.setText("Ingrese la placa");
+            TXTplaca.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTempleado.getText().isEmpty()){
+            TXTempleado.setText("Ingrese empleado");
+            TXTempleado.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcostoTotal.getText().isEmpty()){
+            TXTcostoTotal.setText("Costo Total");
+            TXTcostoTotal.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_DescripcionKeyPressed
+
+    private void TXTplacaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTplacaFocusGained
+        // TODO add your handling code here:
+        if (TXTplaca.getText().equals("Ingrese la placa")){
+            TXTplaca.setText("");
+            TXTplaca.setForeground(Color.BLACK);
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTempleado.getText().isEmpty()){
+            TXTempleado.setText("Ingrese empleado");
+            TXTempleado.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcostoTotal.getText().isEmpty()){
+            TXTcostoTotal.setText("Costo Total");
+            TXTcostoTotal.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Describa el trabajo a realizar");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTplacaFocusGained
+
+    private void TXTcedulaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTcedulaFocusGained
+        // TODO add your handling code here:
+        if (TXTcedula.getText().equals("Ingrese la cédula")){
+            TXTcedula.setText("");
+            TXTcedula.setForeground(Color.BLACK);
+        }
+        if (TXTplaca.getText().isEmpty()){
+            TXTplaca.setText("Ingrese la placa");
+            TXTplaca.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTempleado.getText().isEmpty()){
+            TXTempleado.setText("Ingrese empleado");
+            TXTempleado.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcostoTotal.getText().isEmpty()){
+            TXTcostoTotal.setText("Costo Total");
+            TXTcostoTotal.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Describa el trabajo a realizar");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTcedulaFocusGained
+
+    private void TXTempleadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTempleadoFocusGained
+        // TODO add your handling code here:
+        if (TXTempleado.getText().equals("Ingrese empleado")){
+            TXTempleado.setText("");
+            TXTempleado.setForeground(Color.BLACK);
+        }
+        if (TXTplaca.getText().isEmpty()){
+            TXTplaca.setText("Ingrese la placa");
+            TXTplaca.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcostoTotal.getText().isEmpty()){
+            TXTcostoTotal.setText("Costo Total");
+            TXTcostoTotal.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Describa el trabajo a realizar");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTempleadoFocusGained
+
+    private void TXTcostoTotalFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTcostoTotalFocusGained
+        // TODO add your handling code here:
+        if (TXTcostoTotal.getText().equals("Costo Total")){
+            TXTcostoTotal.setText("");
+            TXTcostoTotal.setForeground(Color.BLACK);
+        }
+        if (TXTplaca.getText().isEmpty()){
+            TXTplaca.setText("Ingrese la placa");
+            TXTplaca.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTempleado.getText().isEmpty()){
+            TXTempleado.setText("Ingrese empleado");
+            TXTempleado.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Describa el trabajo a realizar");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTcostoTotalFocusGained
+
+    private void DescripcionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_DescripcionFocusGained
+        // TODO add your handling code here:
+        if (Descripcion.getText().equals("Describa el trabajo a realizar")){
+            Descripcion.setText("");
+            Descripcion.setForeground(Color.BLACK);
+        }
+        if (TXTplaca.getText().isEmpty()){
+            TXTplaca.setText("Ingrese la placa");
+            TXTplaca.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTempleado.getText().isEmpty()){
+            TXTempleado.setText("Ingrese empleado");
+            TXTempleado.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcostoTotal.getText().isEmpty()){
+            TXTcostoTotal.setText("Costo Total");
+            TXTcostoTotal.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_DescripcionFocusGained
+
     /**
      * @param args the command line arguments
      */
@@ -573,11 +1021,7 @@ int yMouse;
         if (!V.FechaNacimiento(FechaENT)){
             JOptionPane.showMessageDialog(this, "La fecha de entrega esta incorrecta");
             return;
-        }
-        //Se guardar al empleado
-        
-        //Se genera el usuarios
-        //Se debe verificar para que el usuario no se repita  
+        }  
         LimpiarDatos();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

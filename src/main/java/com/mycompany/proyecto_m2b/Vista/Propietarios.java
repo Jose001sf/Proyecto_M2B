@@ -169,19 +169,133 @@ int yMouse;
 
         jLabel15.setText("Dirección:");
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 220, -1, -1));
+
+        TXTcedula.setForeground(new java.awt.Color(153, 153, 153));
+        TXTcedula.setText("Ingrese la cédula");
+        TXTcedula.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTcedulaFocusGained(evt);
+            }
+        });
+        TXTcedula.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTcedulaMousePressed(evt);
+            }
+        });
         jPanel1.add(TXTcedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 210, -1));
+
+        TXTnombre.setForeground(new java.awt.Color(153, 153, 153));
+        TXTnombre.setText("Primer Nombre");
+        TXTnombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTnombreFocusGained(evt);
+            }
+        });
+        TXTnombre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTnombreMousePressed(evt);
+            }
+        });
         jPanel1.add(TXTnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 210, -1));
 
+        TXTnombre1.setForeground(new java.awt.Color(153, 153, 153));
+        TXTnombre1.setText("Segundo Nombre");
+        TXTnombre1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTnombre1FocusGained(evt);
+            }
+        });
+        TXTnombre1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTnombre1MousePressed(evt);
+            }
+        });
         TXTnombre1.addActionListener(this::TXTnombre1ActionPerformed);
         jPanel1.add(TXTnombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 210, -1));
 
+        TXTapellido.setForeground(new java.awt.Color(153, 153, 153));
+        TXTapellido.setText("Primer Apellido");
+        TXTapellido.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTapellidoFocusGained(evt);
+            }
+        });
+        TXTapellido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTapellidoMousePressed(evt);
+            }
+        });
         TXTapellido.addActionListener(this::TXTapellidoActionPerformed);
         jPanel1.add(TXTapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 210, -1));
+
+        TXTapellido1.setForeground(new java.awt.Color(153, 153, 153));
+        TXTapellido1.setText("Segundo Apellido");
+        TXTapellido1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTapellido1FocusGained(evt);
+            }
+        });
+        TXTapellido1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTapellido1MousePressed(evt);
+            }
+        });
         jPanel1.add(TXTapellido1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 210, -1));
+
+        TXTCelular.setForeground(new java.awt.Color(153, 153, 153));
+        TXTCelular.setText("Ingrese el número de celular");
+        TXTCelular.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTCelularFocusGained(evt);
+            }
+        });
+        TXTCelular.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTCelularMousePressed(evt);
+            }
+        });
         jPanel1.add(TXTCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, 250, -1));
+
+        TXTCorreoElectronico.setForeground(new java.awt.Color(153, 153, 153));
+        TXTCorreoElectronico.setText("Ingrese dirección de correo");
+        TXTCorreoElectronico.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTCorreoElectronicoFocusGained(evt);
+            }
+        });
+        TXTCorreoElectronico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTCorreoElectronicoMousePressed(evt);
+            }
+        });
         jPanel1.add(TXTCorreoElectronico, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, 250, -1));
+
+        Direccion.setForeground(new java.awt.Color(153, 153, 153));
+        Direccion.setText("Ingrese dirección");
+        Direccion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                DireccionFocusGained(evt);
+            }
+        });
+        Direccion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                DireccionMousePressed(evt);
+            }
+        });
         jPanel1.add(Direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 220, 250, -1));
 
+        Descripcion.setForeground(new java.awt.Color(153, 153, 153));
+        Descripcion.setText("Indique observaciones");
+        Descripcion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                DescripcionFocusGained(evt);
+            }
+        });
+        Descripcion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                DescripcionMousePressed(evt);
+            }
+        });
         Descripcion.addActionListener(this::DescripcionActionPerformed);
         jPanel1.add(Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 260, 630, 70));
 
@@ -400,6 +514,19 @@ int yMouse;
 
         jLabel3.setText("Teléfono:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, -1, -1));
+
+        TXTTelefono.setForeground(new java.awt.Color(153, 153, 153));
+        TXTTelefono.setText("Ingrese el número de teléfono");
+        TXTTelefono.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTTelefonoFocusGained(evt);
+            }
+        });
+        TXTTelefono.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTTelefonoMousePressed(evt);
+            }
+        });
         jPanel1.add(TXTTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 250, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -522,6 +649,886 @@ int yMouse;
         this.setLocation(x-xMouse, y-yMouse);
     }//GEN-LAST:event_jPanel2MouseDragged
 
+    private void TXTcedulaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTcedulaMousePressed
+        // TODO add your handling code here:
+        if (TXTcedula.getText().equals("Ingrese la cédula")){
+            TXTcedula.setText("");
+            TXTcedula.setForeground(Color.BLACK);
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer Nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo Nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer Apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo Apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Ingrese el número de celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Ingrese el número de teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Ingrese dirección de correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+        if (Direccion.getText().isEmpty()){
+            Direccion.setText("Ingrese dirección");
+            Direccion.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Indique observaciones");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTcedulaMousePressed
+
+    private void TXTnombreMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTnombreMousePressed
+        // TODO add your handling code here:
+        if (TXTnombre.getText().equals("Primer Nombre")){
+            TXTnombre.setText("");
+            TXTnombre.setForeground(Color.BLACK);
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo Nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer Apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo Apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Ingrese el número de celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Ingrese el número de teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Ingrese dirección de correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+        if (Direccion.getText().isEmpty()){
+            Direccion.setText("Ingrese dirección");
+            Direccion.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Indique observaciones");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTnombreMousePressed
+
+    private void TXTnombre1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTnombre1MousePressed
+        // TODO add your handling code here:
+        if (TXTnombre1.getText().equals("Segundo Nombre")){
+            TXTnombre1.setText("");
+            TXTnombre1.setForeground(Color.BLACK);
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer Nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer Apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo Apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Ingrese el número de celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Ingrese el número de teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Ingrese dirección de correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+        if (Direccion.getText().isEmpty()){
+            Direccion.setText("Ingrese dirección");
+            Direccion.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Indique observaciones");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTnombre1MousePressed
+
+    private void TXTapellidoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTapellidoMousePressed
+        // TODO add your handling code here:
+        if (TXTapellido.getText().equals("Primer Apellido")){
+            TXTapellido.setText("");
+            TXTapellido.setForeground(Color.BLACK);
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo Nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer Nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo Apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Ingrese el número de celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Ingrese el número de teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Ingrese dirección de correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+        if (Direccion.getText().isEmpty()){
+            Direccion.setText("Ingrese dirección");
+            Direccion.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Indique observaciones");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTapellidoMousePressed
+
+    private void TXTapellido1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTapellido1MousePressed
+        // TODO add your handling code here:
+        if (TXTapellido1.getText().equals("Segundo Apellido")){
+            TXTapellido1.setText("");
+            TXTapellido1.setForeground(Color.BLACK);
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo Nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer Apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer Nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Ingrese el número de celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Ingrese el número de teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Ingrese dirección de correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+        if (Direccion.getText().isEmpty()){
+            Direccion.setText("Ingrese dirección");
+            Direccion.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Indique observaciones");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTapellido1MousePressed
+
+    private void TXTCelularMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTCelularMousePressed
+        // TODO add your handling code here:
+        if (TXTCelular.getText().equals("Ingrese el número de celular")){
+            TXTCelular.setText("");
+            TXTCelular.setForeground(Color.BLACK);
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo Nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer Apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo Apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer Nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Ingrese el número de teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Ingrese dirección de correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+        if (Direccion.getText().isEmpty()){
+            Direccion.setText("Ingrese dirección");
+            Direccion.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Indique observaciones");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTCelularMousePressed
+
+    private void TXTTelefonoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTTelefonoMousePressed
+        // TODO add your handling code here:
+        if (TXTTelefono.getText().equals("Ingrese el número de teléfono")){
+            TXTTelefono.setText("");
+            TXTTelefono.setForeground(Color.BLACK);
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo Nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer Apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo Apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Ingrese el número de celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer Nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Ingrese dirección de correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+        if (Direccion.getText().isEmpty()){
+            Direccion.setText("Ingrese dirección");
+            Direccion.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Indique observaciones");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTTelefonoMousePressed
+
+    private void TXTCorreoElectronicoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTCorreoElectronicoMousePressed
+        // TODO add your handling code here:
+        if (TXTCorreoElectronico.getText().equals("Ingrese dirección de correo")){
+            TXTCorreoElectronico.setText("");
+            TXTCorreoElectronico.setForeground(Color.BLACK);
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo Nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer Apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo Apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Ingrese el número de celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Ingrese el número de teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer Nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (Direccion.getText().isEmpty()){
+            Direccion.setText("Ingrese dirección");
+            Direccion.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Indique observaciones");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTCorreoElectronicoMousePressed
+
+    private void DireccionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DireccionMousePressed
+        // TODO add your handling code here:
+        if (Direccion.getText().equals("Ingrese dirección")){
+            Direccion.setText("");
+            Direccion.setForeground(Color.BLACK);
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo Nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer Apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo Apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Ingrese el número de celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Ingrese el número de teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Ingrese dirección de correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer Nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Indique observaciones");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_DireccionMousePressed
+
+    private void DescripcionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DescripcionMousePressed
+        // TODO add your handling code here:
+        if (Descripcion.getText().equals("Indique observaciones")){
+            Descripcion.setText("");
+            Descripcion.setForeground(Color.BLACK);
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo Nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer Apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo Apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Ingrese el número de celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Ingrese el número de teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Ingrese dirección de correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer Nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (Direccion.getText().isEmpty()){
+            Direccion.setText("Ingrese dirección");
+            Direccion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_DescripcionMousePressed
+
+    private void TXTcedulaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTcedulaFocusGained
+        // TODO add your handling code here:
+        if (TXTcedula.getText().equals("Ingrese la cédula")){
+            TXTcedula.setText("");
+            TXTcedula.setForeground(Color.BLACK);
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer Nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo Nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer Apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo Apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Ingrese el número de celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Ingrese el número de teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Ingrese dirección de correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+        if (Direccion.getText().isEmpty()){
+            Direccion.setText("Ingrese dirección");
+            Direccion.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Indique observaciones");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTcedulaFocusGained
+
+    private void TXTnombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTnombreFocusGained
+        // TODO add your handling code here:
+        if (TXTnombre.getText().equals("Primer Nombre")){
+            TXTnombre.setText("");
+            TXTnombre.setForeground(Color.BLACK);
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo Nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer Apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo Apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Ingrese el número de celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Ingrese el número de teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Ingrese dirección de correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+        if (Direccion.getText().isEmpty()){
+            Direccion.setText("Ingrese dirección");
+            Direccion.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Indique observaciones");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTnombreFocusGained
+
+    private void TXTnombre1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTnombre1FocusGained
+        // TODO add your handling code here:
+        if (TXTnombre1.getText().equals("Segundo Nombre")){
+            TXTnombre1.setText("");
+            TXTnombre1.setForeground(Color.BLACK);
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer Nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer Apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo Apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Ingrese el número de celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Ingrese el número de teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Ingrese dirección de correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+        if (Direccion.getText().isEmpty()){
+            Direccion.setText("Ingrese dirección");
+            Direccion.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Indique observaciones");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTnombre1FocusGained
+
+    private void TXTapellidoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTapellidoFocusGained
+        // TODO add your handling code here:
+        if (TXTapellido.getText().equals("Primer Apellido")){
+            TXTapellido.setText("");
+            TXTapellido.setForeground(Color.BLACK);
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo Nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer Nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo Apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Ingrese el número de celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Ingrese el número de teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Ingrese dirección de correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+        if (Direccion.getText().isEmpty()){
+            Direccion.setText("Ingrese dirección");
+            Direccion.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Indique observaciones");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTapellidoFocusGained
+
+    private void TXTapellido1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTapellido1FocusGained
+        // TODO add your handling code here:
+        if (TXTapellido1.getText().equals("Segundo Apellido")){
+            TXTapellido1.setText("");
+            TXTapellido1.setForeground(Color.BLACK);
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo Nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer Nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer Apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Ingrese el número de celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Ingrese el número de teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Ingrese dirección de correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+        if (Direccion.getText().isEmpty()){
+            Direccion.setText("Ingrese dirección");
+            Direccion.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Indique observaciones");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTapellido1FocusGained
+
+    private void TXTCelularFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTCelularFocusGained
+        // TODO add your handling code here:
+        if (TXTCelular.getText().equals("Ingrese el número de celular")){
+            TXTCelular.setText("");
+            TXTCelular.setForeground(Color.BLACK);
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo Nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer Apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo Apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer Nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Ingrese el número de teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Ingrese dirección de correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+        if (Direccion.getText().isEmpty()){
+            Direccion.setText("Ingrese dirección");
+            Direccion.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Indique observaciones");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTCelularFocusGained
+
+    private void TXTTelefonoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTTelefonoFocusGained
+        // TODO add your handling code here:
+        if (TXTTelefono.getText().equals("Ingrese el número de teléfono")){
+            TXTTelefono.setText("");
+            TXTTelefono.setForeground(Color.BLACK);
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo Nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer Apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo Apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Ingrese el número de celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer Nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Ingrese dirección de correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+        if (Direccion.getText().isEmpty()){
+            Direccion.setText("Ingrese dirección");
+            Direccion.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Indique observaciones");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTTelefonoFocusGained
+
+    private void TXTCorreoElectronicoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTCorreoElectronicoFocusGained
+        // TODO add your handling code here:
+        if (TXTCorreoElectronico.getText().equals("Ingrese dirección de correo")){
+            TXTCorreoElectronico.setText("");
+            TXTCorreoElectronico.setForeground(Color.BLACK);
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo Nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer Apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo Apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Ingrese el número de celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Ingrese el número de teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer Nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (Direccion.getText().isEmpty()){
+            Direccion.setText("Ingrese dirección");
+            Direccion.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Indique observaciones");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTCorreoElectronicoFocusGained
+
+    private void DireccionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_DireccionFocusGained
+        // TODO add your handling code here:
+        if (Direccion.getText().equals("Ingrese dirección")){
+            Direccion.setText("");
+            Direccion.setForeground(Color.BLACK);
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo Nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer Apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo Apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Ingrese el número de celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Ingrese el número de teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Ingrese dirección de correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer Nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Indique observaciones");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_DireccionFocusGained
+
+    private void DescripcionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_DescripcionFocusGained
+        // TODO add your handling code here:
+        if (Descripcion.getText().equals("Indique observaciones")){
+            Descripcion.setText("");
+            Descripcion.setForeground(Color.BLACK);
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo Nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer Apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo Apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Ingrese el número de celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Ingrese el número de teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Ingrese dirección de correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer Nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (Direccion.getText().isEmpty()){
+            Direccion.setText("Ingrese dirección");
+            Direccion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_DescripcionFocusGained
+
     /**
      * @param args the command line arguments
      */
@@ -632,23 +1639,9 @@ int yMouse;
         }
         java.sql.Date FechaNA=new java.sql.Date(FechaNacimiento.getTime());
         if (!V.FechaNacimiento(FechaNA)){
-            JOptionPane.showMessageDialog(this, "La fecha esta incorrecta");
+            JOptionPane.showMessageDialog(this, "La fecha es incorrecta");
             return;
         }
-        //Se guardar al empleado
-        
-        //Se genera el usuarios
-        //Se debe verificar para que el usuario no se repita
-        
-        String Usuario = CreacionCredenciales.GenerarUsuario(PrimerNombre, PrimerApellido);
-        String contraseña = CreacionCredenciales.GenerarContraseña();
-        boolean Estado=true;
-        
-        
-        JOptionPane.showMessageDialog(this, "Su usuario es el siguiente: "+Usuario+"\n"
-                + "Y su contraseña es: "+contraseña+"\n"
-                +"Por favor, tome una foto o anótelas en un lugar seguro, no se podran modificar una vez cerrada la ventana");
-        //Se guarda en la tabla usuarios
         LimpiarDatos();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
