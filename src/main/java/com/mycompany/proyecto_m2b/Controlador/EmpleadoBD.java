@@ -42,7 +42,7 @@ public class EmpleadoBD {
             "SELECT * "         
             + "FROM empleado ";
     
-    public List<Empleado> listarPacientes() {
+    public List<Empleado> listarEmpleados() {
     List<Empleado> lista = new ArrayList<>();
     try (Connection conn = ConexionBD.obtenerConexion();
              PreparedStatement ps = conn.prepareStatement(LISTAREMPLEADO);
