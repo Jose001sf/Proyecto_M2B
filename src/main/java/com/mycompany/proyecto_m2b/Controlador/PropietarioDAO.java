@@ -50,8 +50,8 @@ public class PropietarioDAO {
 
             while (rs.next()) {
                 Propietario p = new Propietario(
-                        rs.getString("id_propietario"),
-                        rs.getString("observaci_propietario"),                    
+                        rs.getString("ID_propietario"),
+                        rs.getString("Observaci_propietario"),                    
                         rs.getString("ced_perso")   
                 );
                 lista.add(p);
@@ -95,19 +95,19 @@ public class PropietarioDAO {
     }
     public List<Propietario> buscarPropietario(String criterio) {
     List<Propietario> lista = new ArrayList<>();
-    String sql = "SELECT * FROM propietario WHERE id_propietario ILIKE ? OR CAST(no AS TEXT) = ?";
+    String sql = "SELECT * FROM propietario WHERE id_propietario";
 
     try (Connection conn = ConexionBD.obtenerConexion();
          PreparedStatement ps = conn.prepareStatement(sql)) {
 
         ps.setString(1, "%" + criterio + "%");
-        ps.setString(3, criterio);
+        ps.setString(2, criterio);
 
         try (ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 Propietario p = new Propietario(
-                        rs.getString("id_propietario"),
-                        rs.getString("observaci_propietario"),                    
+                        rs.getString("ID_propietario"),
+                        rs.getString("Observaci_propietario"),                    
                         rs.getString("ced_perso")   
                 );
                 lista.add(p);
