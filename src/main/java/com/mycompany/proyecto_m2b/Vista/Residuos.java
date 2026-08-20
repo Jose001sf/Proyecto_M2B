@@ -54,7 +54,7 @@ public class Residuos extends javax.swing.JFrame {
         PanelNuevo1 = new javax.swing.JPanel();
         Nuevo1 = new javax.swing.JLabel();
         ImagenADD1 = new javax.swing.JLabel();
-        PanelNuevo2 = new javax.swing.JPanel();
+        PanelNuevaEmpresa = new javax.swing.JPanel();
         Nuevo2 = new javax.swing.JLabel();
         ImagenADD2 = new javax.swing.JLabel();
         PanelNuevo = new javax.swing.JPanel();
@@ -232,18 +232,18 @@ public class Residuos extends javax.swing.JFrame {
 
         Fondo.add(PanelNuevo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 280, -1, -1));
 
-        PanelNuevo2.setBackground(new java.awt.Color(255, 255, 255));
-        PanelNuevo2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelNuevo2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelNuevo2.addMouseListener(new java.awt.event.MouseAdapter() {
+        PanelNuevaEmpresa.setBackground(new java.awt.Color(255, 255, 255));
+        PanelNuevaEmpresa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        PanelNuevaEmpresa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelNuevaEmpresa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PanelNuevo2MouseClicked(evt);
+                PanelNuevaEmpresaMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelNuevo2MouseEntered(evt);
+                PanelNuevaEmpresaMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelNuevo2MouseExited(evt);
+                PanelNuevaEmpresaMouseExited(evt);
             }
         });
 
@@ -252,28 +252,28 @@ public class Residuos extends javax.swing.JFrame {
 
         ImagenADD2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
 
-        javax.swing.GroupLayout PanelNuevo2Layout = new javax.swing.GroupLayout(PanelNuevo2);
-        PanelNuevo2.setLayout(PanelNuevo2Layout);
-        PanelNuevo2Layout.setHorizontalGroup(
-            PanelNuevo2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNuevo2Layout.createSequentialGroup()
+        javax.swing.GroupLayout PanelNuevaEmpresaLayout = new javax.swing.GroupLayout(PanelNuevaEmpresa);
+        PanelNuevaEmpresa.setLayout(PanelNuevaEmpresaLayout);
+        PanelNuevaEmpresaLayout.setHorizontalGroup(
+            PanelNuevaEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelNuevaEmpresaLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(ImagenADD2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Nuevo2)
                 .addContainerGap(33, Short.MAX_VALUE))
         );
-        PanelNuevo2Layout.setVerticalGroup(
-            PanelNuevo2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNuevo2Layout.createSequentialGroup()
+        PanelNuevaEmpresaLayout.setVerticalGroup(
+            PanelNuevaEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelNuevaEmpresaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PanelNuevo2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelNuevaEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ImagenADD2)
                     .addComponent(Nuevo2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Fondo.add(PanelNuevo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 160, -1, -1));
+        Fondo.add(PanelNuevaEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 160, -1, -1));
 
         PanelNuevo.setBackground(new java.awt.Color(255, 255, 255));
         PanelNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -476,17 +476,21 @@ public class Residuos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_PanelNuevo1MouseExited
 
-    private void PanelNuevo2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevo2MouseClicked
+    private void PanelNuevaEmpresaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevaEmpresaMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_PanelNuevo2MouseClicked
+    NuevaEmpresaRecicladora panel = new NuevaEmpresaRecicladora();
+    javax.swing.JPopupMenu popup = new javax.swing.JPopupMenu();
+    popup.add(panel);
+    popup.show(PanelNuevaEmpresa, 0, PanelNuevaEmpresa.getHeight());
+    }//GEN-LAST:event_PanelNuevaEmpresaMouseClicked
 
-    private void PanelNuevo2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevo2MouseEntered
+    private void PanelNuevaEmpresaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevaEmpresaMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_PanelNuevo2MouseEntered
+    }//GEN-LAST:event_PanelNuevaEmpresaMouseEntered
 
-    private void PanelNuevo2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevo2MouseExited
+    private void PanelNuevaEmpresaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevaEmpresaMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_PanelNuevo2MouseExited
+    }//GEN-LAST:event_PanelNuevaEmpresaMouseExited
 
     private void PanelNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseClicked
         // TODO add your handling code here:
@@ -592,9 +596,9 @@ public class Residuos extends javax.swing.JFrame {
     private javax.swing.JPanel PanelBuscar;
     private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelGuardar;
+    private javax.swing.JPanel PanelNuevaEmpresa;
     private javax.swing.JPanel PanelNuevo;
     private javax.swing.JPanel PanelNuevo1;
-    private javax.swing.JPanel PanelNuevo2;
     private javax.swing.JLabel PrecioResiduos;
     private javax.swing.JLabel Residuo;
     private javax.swing.JLabel TituloFuncion1;
