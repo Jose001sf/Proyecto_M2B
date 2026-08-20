@@ -22,11 +22,15 @@ public class UsuarioDAO {
             "VALUES (?, ?, ?, ?, ?, ?)";
     
      public void insertar(Usuario usuario) {
-        try (Connection conn = ConexionBD.obtenerConexion();
-             PreparedStatement ps = conn.prepareStatement(INSERTARUSUARIO)) {
-
+        String IdGenerado=Generacion_id.generar_id("USU", "seq_usuario");
+        if (IdGenerado==null){
+            System.out.println("Error al generar ID");
+            return;
+        }
+         try (Connection conn = ConexionBD.obtenerConexion();
+            PreparedStatement ps = conn.prepareStatement(INSERTARUSUARIO)) {            
             ps.setString(1, usuario.getContra_usuario());
-            ps.setString(2, usuario.getID_usuario());
+            ps.setString(2, IdGenerado);
             ps.setString(3, usuario.getId_empleado());
             ps.setString(4, usuario.getNombre_usuario());
             ps.setString(5, usuario.getTip_usuario());
