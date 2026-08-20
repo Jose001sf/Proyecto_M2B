@@ -92,6 +92,8 @@ public class Menu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
+        setUndecorated(true);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         PanelFondoMenu.setBackground(new java.awt.Color(238, 238, 238));
@@ -703,14 +705,14 @@ public class Menu extends javax.swing.JFrame {
         PanelFondoBlanco.setLayout(PanelFondoBlancoLayout);
         PanelFondoBlancoLayout.setHorizontalGroup(
             PanelFondoBlancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1714, Short.MAX_VALUE)
+            .addGap(0, 1414, Short.MAX_VALUE)
         );
         PanelFondoBlancoLayout.setVerticalGroup(
             PanelFondoBlancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 824, Short.MAX_VALUE)
         );
 
-        PanelFondoMenu.add(PanelFondoBlanco, java.awt.BorderLayout.EAST);
+        PanelFondoMenu.add(PanelFondoBlanco, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(PanelFondoMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
