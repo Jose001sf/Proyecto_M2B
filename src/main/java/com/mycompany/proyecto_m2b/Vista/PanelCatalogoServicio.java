@@ -1,23 +1,22 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package com.mycompany.proyecto_m2b.Vista;
+
 import java.awt.Color;
-import javax.swing.JOptionPane;
+
 /**
  *
  * @author HP
  */
-public class CatalogoServicios extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CatalogoServicios.class.getName());
+public class PanelCatalogoServicio extends javax.swing.JPanel {
 
     /**
-     * Creates new form CatalogoServicios
+     * Creates new form PanelCatalogoServicio
      */
-    public CatalogoServicios() {
-        initComponents();        
+    public PanelCatalogoServicio() {
+        initComponents();
     }
 
     /**
@@ -29,7 +28,6 @@ public class CatalogoServicios extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        PanelFondo = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -63,13 +61,6 @@ public class CatalogoServicios extends javax.swing.JFrame {
         Talleres = new javax.swing.JLabel();
         MJ = new javax.swing.JLabel();
         Regresar = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setExtendedState(6);
-        setUndecorated(true);
-
-        PanelFondo.setBackground(new java.awt.Color(238, 238, 238));
-        PanelFondo.setPreferredSize(new java.awt.Dimension(1210, 663));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 102, 0)));
@@ -460,58 +451,78 @@ public class CatalogoServicios extends javax.swing.JFrame {
                 .addComponent(PanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(309, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout PanelFondoLayout = new javax.swing.GroupLayout(PanelFondo);
-        PanelFondo.setLayout(PanelFondoLayout);
-        PanelFondoLayout.setHorizontalGroup(
-            PanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelFondoLayout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 328, Short.MAX_VALUE))
-        );
-        PanelFondoLayout.setVerticalGroup(
-            PanelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 1538, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1007, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 936, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void RegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegresarMouseClicked
-        // TODO add your handling code here:        
-        this.dispose();
-    }//GEN-LAST:event_RegresarMouseClicked
-
-    private void RegresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegresarMouseEntered
+    private void txtServicioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtServicioFocusGained
         // TODO add your handling code here:
-        Regresar.setForeground(java.awt.Color.white);
-    }//GEN-LAST:event_RegresarMouseEntered
+        if (txtServicio.getText().equals("Ingrese el servicio")) {
+            txtServicio.setText("");
+            txtServicio.setForeground(java.awt.Color.BLACK);
+        }
+    }//GEN-LAST:event_txtServicioFocusGained
 
-    private void RegresarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegresarMouseExited
+    private void txtServicioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtServicioFocusLost
         // TODO add your handling code here:
-        Regresar.setForeground(new java.awt.Color(145, 145, 145));
-    }//GEN-LAST:event_RegresarMouseExited
+        if (txtServicio.getText().trim().isEmpty()) {
+            txtServicio.setText("Ingrese el servicio");
+            txtServicio.setForeground(java.awt.Color.GRAY);
+        }
+    }//GEN-LAST:event_txtServicioFocusLost
 
     private void txtServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtServicioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtServicioActionPerformed
 
+    private void txtPrecioBaseFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPrecioBaseFocusGained
+        // TODO add your handling code here:
+        if (txtPrecioBase.getText().equals("Ingrese el precio base")) {
+            txtPrecioBase.setText("");
+            txtPrecioBase.setForeground(java.awt.Color.BLACK);
+        }
+    }//GEN-LAST:event_txtPrecioBaseFocusGained
+
+    private void txtPrecioBaseFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPrecioBaseFocusLost
+        // TODO add your handling code here:
+        if (txtPrecioBase.getText().trim().isEmpty()) {
+            txtPrecioBase.setText("Ingrese el precio base");
+            txtPrecioBase.setForeground(java.awt.Color.GRAY);
+        }
+    }//GEN-LAST:event_txtPrecioBaseFocusLost
+
     private void txtPrecioBaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioBaseActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPrecioBaseActionPerformed
+
+    private void txtTiempoEstimadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTiempoEstimadoFocusGained
+        // TODO add your handling code here:
+        if (txtPrecioBase.getText().equals("Ingrese el tiempo estimado")) {
+            txtPrecioBase.setText("");
+            txtPrecioBase.setForeground(java.awt.Color.BLACK);
+        }
+    }//GEN-LAST:event_txtTiempoEstimadoFocusGained
+
+    private void txtTiempoEstimadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTiempoEstimadoFocusLost
+        // TODO add your handling code here:
+        if (txtPrecioBase.getText().trim().isEmpty()) {
+            txtPrecioBase.setText("Ingrese el tiempo estimado");
+            txtPrecioBase.setForeground(java.awt.Color.GRAY);
+        }
+    }//GEN-LAST:event_txtTiempoEstimadoFocusLost
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -571,78 +582,21 @@ public class CatalogoServicios extends javax.swing.JFrame {
         Buscar.setForeground(Color.black);
     }//GEN-LAST:event_PanelBuscarMouseExited
 
-    private void txtServicioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtServicioFocusGained
+    private void RegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegresarMouseClicked
         // TODO add your handling code here:
-        if (txtServicio.getText().equals("Ingrese el servicio")) {
-            txtServicio.setText("");
-            txtServicio.setForeground(java.awt.Color.BLACK);
-        }
-    }//GEN-LAST:event_txtServicioFocusGained
+        
+    }//GEN-LAST:event_RegresarMouseClicked
 
-    private void txtServicioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtServicioFocusLost
+    private void RegresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegresarMouseEntered
         // TODO add your handling code here:
-        if (txtServicio.getText().trim().isEmpty()) {
-            txtServicio.setText("Ingrese el servicio");
-            txtServicio.setForeground(java.awt.Color.GRAY);
-        }
-    }//GEN-LAST:event_txtServicioFocusLost
+        Regresar.setForeground(java.awt.Color.white);
+    }//GEN-LAST:event_RegresarMouseEntered
 
-    private void txtPrecioBaseFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPrecioBaseFocusGained
+    private void RegresarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegresarMouseExited
         // TODO add your handling code here:
-        if (txtPrecioBase.getText().equals("Ingrese el precio base")) {
-            txtPrecioBase.setText("");
-            txtPrecioBase.setForeground(java.awt.Color.BLACK);
-        }
-    }//GEN-LAST:event_txtPrecioBaseFocusGained
+        Regresar.setForeground(new java.awt.Color(145, 145, 145));
+    }//GEN-LAST:event_RegresarMouseExited
 
-    private void txtPrecioBaseFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPrecioBaseFocusLost
-        // TODO add your handling code here:
-        if (txtPrecioBase.getText().trim().isEmpty()) {
-            txtPrecioBase.setText("Ingrese el precio base");
-            txtPrecioBase.setForeground(java.awt.Color.GRAY);
-        }
-    }//GEN-LAST:event_txtPrecioBaseFocusLost
-
-    private void txtTiempoEstimadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTiempoEstimadoFocusGained
-        // TODO add your handling code here:
-        if (txtPrecioBase.getText().equals("Ingrese el tiempo estimado")) {
-            txtPrecioBase.setText("");
-            txtPrecioBase.setForeground(java.awt.Color.BLACK);
-        }
-    }//GEN-LAST:event_txtTiempoEstimadoFocusGained
-
-    private void txtTiempoEstimadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTiempoEstimadoFocusLost
-        // TODO add your handling code here:
-        if (txtPrecioBase.getText().trim().isEmpty()) {
-            txtPrecioBase.setText("Ingrese el tiempo estimado");
-            txtPrecioBase.setForeground(java.awt.Color.GRAY);
-        }
-    }//GEN-LAST:event_txtTiempoEstimadoFocusLost
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new CatalogoServicios().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Buscar;
@@ -655,7 +609,6 @@ public class CatalogoServicios extends javax.swing.JFrame {
     private javax.swing.JPanel PanelBuscar;
     private javax.swing.JPanel PanelDarBaja;
     private javax.swing.JPanel PanelEditar;
-    private javax.swing.JPanel PanelFondo;
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JLabel Regresar;
     private javax.swing.JLabel Talleres;
