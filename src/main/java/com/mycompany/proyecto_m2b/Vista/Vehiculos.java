@@ -4,6 +4,10 @@
  */
 package com.mycompany.proyecto_m2b.Vista;
 
+import com.mycompany.proyecto_m2b.Controlador.Validaciones;
+import java.awt.Color;
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -80,7 +84,7 @@ public class Vehiculos extends javax.swing.JFrame {
         Motor = new javax.swing.JLabel();
         Cilindraje = new javax.swing.JLabel();
         Puertas = new javax.swing.JLabel();
-        comboTransmicion = new javax.swing.JComboBox<>();
+        comboTransmision = new javax.swing.JComboBox<>();
         txtAnio = new javax.swing.JTextField();
         txtChasis = new javax.swing.JTextField();
         txtMotor = new javax.swing.JTextField();
@@ -256,7 +260,7 @@ public class Vehiculos extends javax.swing.JFrame {
 
         Transmicion.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         Transmicion.setForeground(new java.awt.Color(153, 153, 153));
-        Transmicion.setText("Transmicion:");
+        Transmicion.setText("Transmisión:");
         Fondo.add(Transmicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 350, -1, -1));
 
         Motor.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
@@ -274,8 +278,8 @@ public class Vehiculos extends javax.swing.JFrame {
         Puertas.setText("N° Puertas:");
         Fondo.add(Puertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 410, -1, -1));
 
-        comboTransmicion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un tipo de transmicion", "Item 2", "Item 3", "Item 4" }));
-        Fondo.add(comboTransmicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 370, 290, -1));
+        comboTransmision.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un tipo de transmicion", "Item 2", "Item 3", "Item 4" }));
+        Fondo.add(comboTransmision, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 370, 290, -1));
 
         txtAnio.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -628,6 +632,7 @@ public class Vehiculos extends javax.swing.JFrame {
 
     private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
         // TODO add your handling code here:
+        GuardarVehiculos();
     }//GEN-LAST:event_PanelGuardarMouseClicked
 
     private void PanelGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseEntered
@@ -686,28 +691,67 @@ public class Vehiculos extends javax.swing.JFrame {
     private void txtPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlacaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPlacaActionPerformed
+    public void LimpiarDatos (){
+        txtPlaca.setText("");
+        txtPlaca.setForeground(new Color(94, 94, 94));
+        txtColor.setText("");
+        txtColor.setForeground(new Color(94, 94, 94));
+        txtKilometraje.setText("");
+        txtKilometraje.setForeground(new Color(94, 94, 94));
+        txtAnio.setText("");
+        txtAnio.setForeground(new Color(94, 94, 94));
+        txtChasis.setText("");
+        txtChasis.setForeground(new Color(94, 94, 94));
+        txtMotor.setText("");
+        txtMotor.setForeground(new Color(94, 94, 94));
+        txtCilindraje.setText("");
+        txtCilindraje.setForeground(new Color(94, 94, 94));
+        txtPuertas.setText("");
+        txtPuertas.setForeground(new Color(94, 94, 94));
+        comboMarcas.setSelectedIndex(0);
+        comboPropietarios.setSelectedIndex(0);
+        comboModelos.setSelectedIndex(0);
+        comboTransmision.setSelectedIndex(0);
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
+    }
+    public void GuardarVehiculos (){        
+        String Placa=txtPlaca.getText().trim();
+        String Color=txtColor.getText().trim().toUpperCase();
+        String Kilometraje=txtKilometraje.getText().trim().toUpperCase();
+        String Anio=txtAnio.getText().trim().toUpperCase();
+        String Chasis=txtChasis.getText().trim().toUpperCase();
+        String Motor=txtMotor.getText().trim().toUpperCase();
+        String Cilindraje=txtCilindraje.getText().trim().toUpperCase();
+        String Puertas=txtPuertas.getText().trim().toUpperCase();
+        String Marcas = comboMarcas.getSelectedItem().toString();
+        String Propietarios= comboPropietarios.getSelectedItem().toString();
+        String Modelos= comboModelos.getSelectedItem().toString();
+        String Transmision= comboTransmision.getSelectedItem().toString();
+        if (Placa.isEmpty()|| Color.isEmpty()||Kilometraje.isEmpty()||Anio.isEmpty()||Chasis.isEmpty()||Motor.isEmpty()||Cilindraje.isEmpty()||Puertas.isEmpty()){
+            JOptionPane.showMessageDialog (this, "Por favor complete los datos que faltan");
+            return;
         }
-        //</editor-fold>
-
+        if (Placa.isEmpty()|| Color.isEmpty()||Kilometraje.isEmpty()||Anio.isEmpty()||Chasis.isEmpty()||Motor.isEmpty()||Cilindraje.isEmpty()||Puertas.isEmpty()){
+            JOptionPane.showMessageDialog (this, "Por favor complete los datos que faltan");
+            return;
+        }
+        if (Marcas.equals("Seleccione una opción") ){
+            JOptionPane.showMessageDialog (this, "Por favor escoga una opción");
+            return;
+        }
+         if (Propietarios.equals("Seleccione una opción") ){
+            JOptionPane.showMessageDialog (this, "Por favor escoga una opción");
+            return;
+        }
+         if (Transmision.equals("Seleccione una opción") ){
+            JOptionPane.showMessageDialog (this, "Por favor escoga una opción");
+            return;
+        }
+         if (Modelos.equals("Seleccione una opción") ){
+            JOptionPane.showMessageDialog (this, "Por favor escoga una opción");
+            return;
+        }
+        LimpiarDatos();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new Vehiculos().setVisible(true));  }
 
@@ -743,7 +787,7 @@ public class Vehiculos extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboMarcas;
     private javax.swing.JComboBox<String> comboModelos;
     private javax.swing.JComboBox<String> comboPropietarios;
-    private javax.swing.JComboBox<String> comboTransmicion;
+    private javax.swing.JComboBox<String> comboTransmision;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
