@@ -49,21 +49,20 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        PanelMenu = new javax.swing.JPanel();
+        PanelFondoMenu = new javax.swing.JPanel();
         PanelBarra = new javax.swing.JPanel();
-        MJ = new javax.swing.JLabel();
-        Talleres = new javax.swing.JLabel();
         Regresar = new javax.swing.JLabel();
         ImagenRegresar = new javax.swing.JLabel();
         Cerrar = new javax.swing.JLabel();
         Minimizar = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        Usuarios1 = new javax.swing.JLabel();
         Usuarios = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        MJ = new javax.swing.JLabel();
+        Talleres = new javax.swing.JLabel();
+        Titulo = new javax.swing.JLabel();
         Logo = new javax.swing.JLabel();
         PanelBarraInferior = new javax.swing.JPanel();
-        Imagen = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        PanelAccesos = new javax.swing.JPanel();
         PanelOrdenesServicio = new javax.swing.JPanel();
         OrdenesDeServicio = new javax.swing.JLabel();
         ImagenOrdenesServicio = new javax.swing.JLabel();
@@ -90,6 +89,7 @@ public class Menu extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         Accesos = new javax.swing.JLabel();
+        PanelFondoBlanco = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -97,11 +97,12 @@ public class Menu extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        PanelMenu.setBackground(new java.awt.Color(238, 238, 238));
-        PanelMenu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        PanelMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        PanelFondoMenu.setBackground(new java.awt.Color(238, 238, 238));
+        PanelFondoMenu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        PanelFondoMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         PanelBarra.setBackground(new java.awt.Color(0, 0, 0));
+        PanelBarra.setPreferredSize(new java.awt.Dimension(1710, 163));
         PanelBarra.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 PanelBarraMouseDragged(evt);
@@ -112,19 +113,6 @@ public class Menu extends javax.swing.JFrame {
                 PanelBarraMousePressed(evt);
             }
         });
-        PanelBarra.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        MJ.setBackground(new java.awt.Color(152, 75, 45));
-        MJ.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
-        MJ.setForeground(new java.awt.Color(152, 75, 45));
-        MJ.setText("M&J");
-        PanelBarra.add(MJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 15, 119, 27));
-
-        Talleres.setBackground(new java.awt.Color(152, 75, 45));
-        Talleres.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
-        Talleres.setForeground(new java.awt.Color(174, 63, 54));
-        Talleres.setText("TALLERES");
-        PanelBarra.add(Talleres, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 50, -1, 27));
 
         Regresar.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
         Regresar.setForeground(new java.awt.Color(145, 145, 145));
@@ -141,10 +129,8 @@ public class Menu extends javax.swing.JFrame {
                 RegresarMouseExited(evt);
             }
         });
-        PanelBarra.add(Regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1490, 60, -1, -1));
 
         ImagenRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/arrow_back_34dp_D9D9D9_FILL0_wght400_GRAD0_opsz40.png"))); // NOI18N
-        PanelBarra.add(ImagenRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1450, 70, -1, -1));
 
         Cerrar.setBackground(new java.awt.Color(255, 255, 255));
         Cerrar.setFont(new java.awt.Font("Roboto", 0, 36)); // NOI18N
@@ -162,7 +148,6 @@ public class Menu extends javax.swing.JFrame {
                 CerrarMouseExited(evt);
             }
         });
-        PanelBarra.add(Cerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1640, 10, -1, 36));
 
         Minimizar.setBackground(new java.awt.Color(255, 255, 255));
         Minimizar.setFont(new java.awt.Font("Roboto", 0, 36)); // NOI18N
@@ -180,27 +165,6 @@ public class Menu extends javax.swing.JFrame {
                 MinimizarMouseExited(evt);
             }
         });
-        PanelBarra.add(Minimizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1600, 10, -1, 36));
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/images (2).jpg"))); // NOI18N
-        PanelBarra.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(471, 0, -1, -1));
-
-        Usuarios1.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
-        Usuarios1.setForeground(new java.awt.Color(145, 145, 145));
-        Usuarios1.setText("Menú Principal");
-        Usuarios1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Usuarios1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Usuarios1MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                Usuarios1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                Usuarios1MouseExited(evt);
-            }
-        });
-        PanelBarra.add(Usuarios1, new org.netbeans.lib.awtextra.AbsoluteConstraints(177, 111, -1, -1));
 
         Usuarios.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
         Usuarios.setForeground(new java.awt.Color(145, 145, 145));
@@ -217,32 +181,106 @@ public class Menu extends javax.swing.JFrame {
                 UsuariosMouseExited(evt);
             }
         });
-        PanelBarra.add(Usuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(1016, 111, -1, -1));
 
-        PanelMenu.add(PanelBarra, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 1, 1710, 162));
-        PanelMenu.add(Logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1715, 220, -1, -1));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/images (2).jpg"))); // NOI18N
+
+        MJ.setBackground(new java.awt.Color(152, 75, 45));
+        MJ.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
+        MJ.setForeground(new java.awt.Color(152, 75, 45));
+        MJ.setText("M&J");
+
+        Talleres.setBackground(new java.awt.Color(152, 75, 45));
+        Talleres.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
+        Talleres.setForeground(new java.awt.Color(174, 63, 54));
+        Talleres.setText("TALLERES");
+
+        Titulo.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
+        Titulo.setForeground(new java.awt.Color(145, 145, 145));
+        Titulo.setText("Menú Principal");
+        Titulo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Titulo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TituloMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                TituloMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                TituloMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelBarraLayout = new javax.swing.GroupLayout(PanelBarra);
+        PanelBarra.setLayout(PanelBarraLayout);
+        PanelBarraLayout.setHorizontalGroup(
+            PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelBarraLayout.createSequentialGroup()
+                .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelBarraLayout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(MJ, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Talleres))
+                        .addGap(274, 274, 274))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelBarraLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Titulo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(74, 74, 74)
+                .addComponent(Usuarios)
+                .addGap(271, 271, 271)
+                .addComponent(ImagenRegresar)
+                .addGap(6, 6, 6)
+                .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelBarraLayout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addComponent(Minimizar)
+                        .addGap(19, 19, 19)
+                        .addComponent(Cerrar))
+                    .addComponent(Regresar)))
+        );
+        PanelBarraLayout.setVerticalGroup(
+            PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelBarraLayout.createSequentialGroup()
+                .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelBarraLayout.createSequentialGroup()
+                        .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelBarraLayout.createSequentialGroup()
+                                .addGap(111, 111, 111)
+                                .addComponent(Usuarios))
+                            .addGroup(PanelBarraLayout.createSequentialGroup()
+                                .addGap(70, 70, 70)
+                                .addComponent(ImagenRegresar))
+                            .addGroup(PanelBarraLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Minimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(14, 14, 14)
+                                .addComponent(Regresar)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(PanelBarraLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(MJ, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Talleres, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(Titulo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        PanelFondoMenu.add(PanelBarra, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 1, 1710, 162));
+        PanelFondoMenu.add(Logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1715, 220, -1, -1));
 
         PanelBarraInferior.setBackground(new java.awt.Color(227, 153, 106));
         PanelBarraInferior.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        PanelBarraInferior.setLayout(new java.awt.BorderLayout());
+        PanelFondoMenu.add(PanelBarraInferior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 910, 1714, 80));
 
-        javax.swing.GroupLayout PanelBarraInferiorLayout = new javax.swing.GroupLayout(PanelBarraInferior);
-        PanelBarraInferior.setLayout(PanelBarraInferiorLayout);
-        PanelBarraInferiorLayout.setHorizontalGroup(
-            PanelBarraInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1712, Short.MAX_VALUE)
-        );
-        PanelBarraInferiorLayout.setVerticalGroup(
-            PanelBarraInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 78, Short.MAX_VALUE)
-        );
-
-        PanelMenu.add(PanelBarraInferior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 910, 1714, 80));
-
-        Imagen.setBackground(new java.awt.Color(238, 238, 238));
-        Imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Cute_mechanic_holding_wrench_cartoon_icon_illustration___Premium_Vector-removebg-preview.png"))); // NOI18N
-        PanelMenu.add(Imagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(1600, 800, -1, -1));
-
-        jPanel1.setBackground(new java.awt.Color(79, 84, 90));
+        PanelAccesos.setBackground(new java.awt.Color(79, 84, 90));
 
         PanelOrdenesServicio.setBackground(new java.awt.Color(53, 58, 61));
         PanelOrdenesServicio.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 116, 78), 2, true));
@@ -606,13 +644,13 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout PanelAccesosLayout = new javax.swing.GroupLayout(PanelAccesos);
+        PanelAccesos.setLayout(PanelAccesosLayout);
+        PanelAccesosLayout.setHorizontalGroup(
+            PanelAccesosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelAccesosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelAccesosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(PanelProveedores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(PanelVehiculos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(PanelOrdenesServicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -622,13 +660,13 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(PanelEstadisticas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(PanelRepuestos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(PanelAccesosLayout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 23, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        PanelAccesosLayout.setVerticalGroup(
+            PanelAccesosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAccesosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -650,73 +688,27 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap(7, Short.MAX_VALUE))
         );
 
-        PanelMenu.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 300, 750));
+        PanelFondoMenu.add(PanelAccesos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 300, 750));
 
-        getContentPane().add(PanelMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        PanelFondoBlanco.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout PanelFondoBlancoLayout = new javax.swing.GroupLayout(PanelFondoBlanco);
+        PanelFondoBlanco.setLayout(PanelFondoBlancoLayout);
+        PanelFondoBlancoLayout.setHorizontalGroup(
+            PanelFondoBlancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1420, Short.MAX_VALUE)
+        );
+        PanelFondoBlancoLayout.setVerticalGroup(
+            PanelFondoBlancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 750, Short.MAX_VALUE)
+        );
+
+        PanelFondoMenu.add(PanelFondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 160, 1420, 750));
+
+        getContentPane().add(PanelFondoMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void PanelBarraMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBarraMousePressed
-        // TODO add your handling code here:
-        xMouse=evt.getX();
-        yMouse=evt.getY();
-    }//GEN-LAST:event_PanelBarraMousePressed
-
-    private void PanelBarraMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBarraMouseDragged
-        // TODO add your handling code here:
-        int x= evt.getXOnScreen();
-        int y= evt.getYOnScreen();
-        this.setLocation(x-xMouse, y-yMouse);
-    }//GEN-LAST:event_PanelBarraMouseDragged
-
-    private void RegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegresarMouseClicked
-        // TODO add your handling code here:
-        Login L=new Login();
-        L.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_RegresarMouseClicked
-
-    private void RegresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegresarMouseEntered
-        // TODO add your handling code here:
-        Regresar.setForeground(new Color(196, 196, 196));
-    }//GEN-LAST:event_RegresarMouseEntered
-
-    private void RegresarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegresarMouseExited
-        // TODO add your handling code here:
-        Regresar.setForeground(new Color(145, 145, 145));
-    }//GEN-LAST:event_RegresarMouseExited
-
-    private void CerrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarMouseEntered
-        // TODO add your handling code here:
-        Cerrar.setForeground(Color.red);
-    }//GEN-LAST:event_CerrarMouseEntered
-
-    private void CerrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarMouseExited
-        // TODO add your handling code here:
-        Cerrar.setForeground(Color.white);
-    }//GEN-LAST:event_CerrarMouseExited
-
-    private void CerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarMouseClicked
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "Gracias por usar este programa");
-        System.exit(0);
-    }//GEN-LAST:event_CerrarMouseClicked
-
-    private void MinimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarMouseClicked
-        // TODO add your handling code here:
-        this.setExtendedState(Menu.ICONIFIED);
-    }//GEN-LAST:event_MinimizarMouseClicked
-
-    private void MinimizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarMouseEntered
-        // TODO add your handling code here:
-        Minimizar.setForeground(Color.gray);
-    }//GEN-LAST:event_MinimizarMouseEntered
-
-    private void MinimizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarMouseExited
-        // TODO add your handling code here:
-        Minimizar.setForeground(Color.white);
-    }//GEN-LAST:event_MinimizarMouseExited
 
     private void PanelOrdenesServicioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelOrdenesServicioMouseEntered
         // TODO add your handling code here:
@@ -813,31 +805,6 @@ public class Menu extends javax.swing.JFrame {
         PanelEstadisticas.setBackground(Color.white);
         Estadisticas.setForeground(Color.black);
     }//GEN-LAST:event_PanelEstadisticasMouseExited
-
-    private void UsuariosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsuariosMouseEntered
-        // TODO add your handling code here:
-        Usuarios.setForeground(Color.white);
-        
-    }//GEN-LAST:event_UsuariosMouseEntered
-
-    private void UsuariosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsuariosMouseExited
-        // TODO add your handling code here:
-        Usuarios.setForeground(new Color (145, 145, 145));
-    }//GEN-LAST:event_UsuariosMouseExited
-
-    private void UsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsuariosMouseClicked
-        // TODO add your handling code here:
-        if (Usu==null || !Usu.isVisible()){
-            Usu = new Usuarios();
-            Usu.setVisible(true);
-        }
-        else {
-            Usu.setState(java.awt.Frame.NORMAL);
-            Usu.toFront();
-            Usu.requestFocus();
-        }
-        
-    }//GEN-LAST:event_UsuariosMouseClicked
 
     private void PanelVehiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelVehiculosMouseClicked
         // TODO add your handling code here:
@@ -943,17 +910,103 @@ public class Menu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_PanelEstadisticasMouseClicked
 
-    private void Usuarios1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Usuarios1MouseClicked
+    private void PanelBarraMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBarraMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Usuarios1MouseClicked
+        xMouse=evt.getX();
+        yMouse=evt.getY();
+    }//GEN-LAST:event_PanelBarraMousePressed
 
-    private void Usuarios1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Usuarios1MouseEntered
+    private void PanelBarraMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBarraMouseDragged
         // TODO add your handling code here:
-    }//GEN-LAST:event_Usuarios1MouseEntered
+        int x= evt.getXOnScreen();
+        int y= evt.getYOnScreen();
+        this.setLocation(x-xMouse, y-yMouse);
+    }//GEN-LAST:event_PanelBarraMouseDragged
 
-    private void Usuarios1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Usuarios1MouseExited
+    private void TituloMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TituloMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_Usuarios1MouseExited
+    }//GEN-LAST:event_TituloMouseExited
+
+    private void TituloMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TituloMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TituloMouseEntered
+
+    private void TituloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TituloMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TituloMouseClicked
+
+    private void UsuariosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsuariosMouseExited
+        // TODO add your handling code here:
+        Usuarios.setForeground(new Color (145, 145, 145));
+    }//GEN-LAST:event_UsuariosMouseExited
+
+    private void UsuariosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsuariosMouseEntered
+        // TODO add your handling code here:
+        Usuarios.setForeground(Color.white);
+
+    }//GEN-LAST:event_UsuariosMouseEntered
+
+    private void UsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsuariosMouseClicked
+        // TODO add your handling code here:
+        if (Usu==null || !Usu.isVisible()){
+            Usu = new Usuarios();
+            Usu.setVisible(true);
+        }
+        else {
+            Usu.setState(java.awt.Frame.NORMAL);
+            Usu.toFront();
+            Usu.requestFocus();
+        }
+
+    }//GEN-LAST:event_UsuariosMouseClicked
+
+    private void MinimizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarMouseExited
+        // TODO add your handling code here:
+        Minimizar.setForeground(Color.white);
+    }//GEN-LAST:event_MinimizarMouseExited
+
+    private void MinimizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarMouseEntered
+        // TODO add your handling code here:
+        Minimizar.setForeground(Color.gray);
+    }//GEN-LAST:event_MinimizarMouseEntered
+
+    private void MinimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarMouseClicked
+        // TODO add your handling code here:
+        this.setExtendedState(Menu.ICONIFIED);
+    }//GEN-LAST:event_MinimizarMouseClicked
+
+    private void CerrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarMouseExited
+        // TODO add your handling code here:
+        Cerrar.setForeground(Color.white);
+    }//GEN-LAST:event_CerrarMouseExited
+
+    private void CerrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarMouseEntered
+        // TODO add your handling code here:
+        Cerrar.setForeground(Color.red);
+    }//GEN-LAST:event_CerrarMouseEntered
+
+    private void CerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CerrarMouseClicked
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this, "Gracias por usar este programa");
+        System.exit(0);
+    }//GEN-LAST:event_CerrarMouseClicked
+
+    private void RegresarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegresarMouseExited
+        // TODO add your handling code here:
+        Regresar.setForeground(new Color(145, 145, 145));
+    }//GEN-LAST:event_RegresarMouseExited
+
+    private void RegresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegresarMouseEntered
+        // TODO add your handling code here:
+        Regresar.setForeground(new Color(196, 196, 196));
+    }//GEN-LAST:event_RegresarMouseEntered
+
+    private void RegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegresarMouseClicked
+        // TODO add your handling code here:
+        Login L=new Login();
+        L.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_RegresarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -984,7 +1037,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel Accesos;
     private javax.swing.JLabel Cerrar;
     private javax.swing.JLabel Estadisticas;
-    private javax.swing.JLabel Imagen;
     private javax.swing.JLabel ImagenOrdenesServicio;
     private javax.swing.JLabel ImagenPropietarios;
     private javax.swing.JLabel ImagenProveedores;
@@ -997,10 +1049,12 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel MJ;
     private javax.swing.JLabel Minimizar;
     private javax.swing.JLabel OrdenesDeServicio;
+    private javax.swing.JPanel PanelAccesos;
     private javax.swing.JPanel PanelBarra;
     private javax.swing.JPanel PanelBarraInferior;
     private javax.swing.JPanel PanelEstadisticas;
-    private javax.swing.JPanel PanelMenu;
+    private javax.swing.JPanel PanelFondoBlanco;
+    private javax.swing.JPanel PanelFondoMenu;
     private javax.swing.JPanel PanelOrdenesServicio;
     private javax.swing.JPanel PanelPropietarios;
     private javax.swing.JPanel PanelProveedores;
@@ -1015,12 +1069,11 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel Residuos;
     private javax.swing.JLabel Servicios;
     private javax.swing.JLabel Talleres;
+    private javax.swing.JLabel Titulo;
     private javax.swing.JLabel Usuarios;
-    private javax.swing.JLabel Usuarios1;
     private javax.swing.JLabel Vehiculos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }
