@@ -924,17 +924,17 @@ int yMouse;
         java.awt.EventQueue.invokeLater(() -> new Repuestos().setVisible(true));
     }
     public void LimpiarDatos (){
-        TXTrepuesto.setText("Ingrese la placa");
+        TXTrepuesto.setText("");
         TXTrepuesto.setForeground(new Color(94, 94, 94));
-        TXTprecio.setText("Ingrese empleado");
+        TXTprecio.setText("");
         TXTprecio.setForeground(new Color(94, 94, 94));
-        TXTstock.setText("Costo Total");
+        TXTstock.setText("");
         TXTstock.setForeground(new Color(94, 94, 94));
-        Descripcion.setText("Descripcion");
+        Descripcion.setText("");
         Descripcion.setForeground(new Color(94, 94, 94));
-        TXTcantidadMinima.setText("Ingrese su cédula");
+        TXTcantidadMinima.setText("");
         TXTcantidadMinima.setForeground(new Color(94, 94, 94));
-        TXTcantidadMaxima.setText("Ingrese su cédula");
+        TXTcantidadMaxima.setText("");
         TXTcantidadMaxima.setForeground(new Color(94, 94, 94));
         categorias.setSelectedIndex(0);
         marcas.setSelectedIndex(0);
