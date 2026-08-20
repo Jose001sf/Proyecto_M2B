@@ -368,7 +368,7 @@ public class Residuos extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        Fondo.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 410, -1, -1));
+        Fondo.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 380, -1, -1));
 
         PanelEditar.setBackground(new java.awt.Color(255, 255, 255));
         PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -409,7 +409,7 @@ public class Residuos extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        Fondo.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 410, -1, -1));
+        Fondo.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 380, -1, -1));
 
         PanelBuscar.setBackground(new java.awt.Color(255, 255, 255));
         PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -449,7 +449,7 @@ public class Residuos extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Fondo.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 410, -1, -1));
+        Fondo.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 380, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
