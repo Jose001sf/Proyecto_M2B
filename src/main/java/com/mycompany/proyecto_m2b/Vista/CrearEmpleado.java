@@ -6,6 +6,9 @@ package com.mycompany.proyecto_m2b.Vista;
 
 import com.mycompany.proyecto_m2b.Controlador.Validaciones;
 import com.mycompany.proyecto_m2b.Controlador.CreacionCredenciales;
+import com.mycompany.proyecto_m2b.Controlador.EmpleadoDAO;
+import com.mycompany.proyecto_m2b.Controlador.UsuarioDAO;
+import com.mycompany.proyecto_m2b.modelo.Empleado;
 import java.awt.Color;
 import java.time.ZoneId;
 import java.util.Date;
@@ -1597,7 +1600,8 @@ public class CrearEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_TXTCorreoElectronicoActionPerformed
     public void GuardarEmpleado (){
         Validaciones V=new Validaciones();
-        
+        Empleado empleado=new Empleado();
+        Usuarios usuario=new Usuarios();
         String Cedula=TXTcedula.getText().trim();
         String PrimerNombre=TXTnombre.getText().trim().toUpperCase();
         String SegundoNombre=TXTnombre1.getText().trim().toUpperCase();
@@ -1676,8 +1680,10 @@ public class CrearEmpleado extends javax.swing.JFrame {
             return;
         }
         //Se guardar al empleado
-        
+        EmpleadoDAO e = new EmpleadoDAO();
+        e.insertar(empleado);
         //Se genera el usuarios
+        UsuarioDAO u=new UsuarioDAO();
         //Se debe verificar para que el usuario no se repita
         
         String Usuario = CreacionCredenciales.GenerarUsuario(PrimerNombre, PrimerApellido);

@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author usuario
  */
-public class EmpleadoBD {
+public class EmpleadoDAO {
     private static final String INSERTAREMPLEADO =
     "INSERT INTO public.empleado (id_empleado, ced_perso, id_cargo, id_especialidad)" +
     "VALUES (?, ?, ?, ?)";
