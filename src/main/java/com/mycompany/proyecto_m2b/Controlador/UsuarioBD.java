@@ -4,7 +4,6 @@
  */
 package com.mycompany.proyecto_m2b.Controlador;
 
-import com.mycompany.proyecto_m2b.modelo.Propietario;
 import com.mycompany.proyecto_m2b.modelo.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
