@@ -4,7 +4,7 @@
  */
 package com.mycompany.proyecto_m2b.modelo;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *

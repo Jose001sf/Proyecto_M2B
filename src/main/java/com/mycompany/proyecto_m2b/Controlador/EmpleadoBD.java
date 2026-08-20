@@ -49,14 +49,14 @@ public class EmpleadoBD {
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                Empleado p = new Empleado(
+                Empleado e = new Empleado(
                         rs.getString("id_empleado"),
                         rs.getString("apellido"),                
                         rs.getString("genero"),
                         rs.getString("estado_civil")
                         
                 );
-                lista.add(p);
+                lista.add(e);
             }
 
         } catch (SQLException ex) {
