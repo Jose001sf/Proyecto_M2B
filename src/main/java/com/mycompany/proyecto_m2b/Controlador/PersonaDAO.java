@@ -25,7 +25,6 @@ public class PersonaDAO {
      public void insertar(Persona persona) {
         try (Connection conn = ConexionBD.obtenerConexion();
              PreparedStatement ps = conn.prepareStatement(INSERTARPERSONA)) {
-
             ps.setString(1, persona.getCed_perso());
             ps.setString(2, persona.getNom1_person());
             ps.setString(3, persona.getNom2_person());
@@ -40,7 +39,6 @@ public class PersonaDAO {
             ps.setString(12, persona.getId_direccion());
             ps.executeUpdate();
             System.out.println("PERSONA insertada correctamente");
-
         } catch (SQLException e) {
             System.out.println("Error al insertar PERSONA: " + e.getMessage());
         }
