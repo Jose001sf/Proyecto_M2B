@@ -17,8 +17,23 @@ import java.sql.SQLException;
 public class TipoServicioDAO {
     
     private  static final String INSERTARTIPOSERVICIO=
-            "INSERT INTO tipo_de_servicio (id_tipo_servicio, nom_tipo_servicio, desc_tipo_servicio ) " +
+            "INSERT INTO tipo_de_servicio (id_tipo_servicio, nom_tipo_servi, desc_tipo_servicio ) " +
             "VALUES (?,?, ?)";
     
+    public void insertar(Tipo_de_servicio tipoServicio) {
+    try (Connection conn = ConexionBD.obtenerConexion();
+         PreparedStatement ps = conn.prepareStatement(INSERTARTIPOSERVICIO)) {
+
+        ps.setString(1, tipoServicio.getID_tipo_servicio());
+        ps.setString(2, tipoServicio.getNom_tipo_servi());
+        ps.setString(3, tipoServicio.getDesc_tipo_servicio());
+
+        ps.executeUpdate();
+        System.out.println("Tipo de servicio insertado correctamente");
+
+    } catch (SQLException e) {
+        System.out.println("Error al insertar tipo de servicio: " + e.getMessage());
+    }
+}
     
 }
