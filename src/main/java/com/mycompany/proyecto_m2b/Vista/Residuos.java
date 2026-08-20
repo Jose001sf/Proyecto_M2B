@@ -17,6 +17,14 @@ public class Residuos extends javax.swing.JFrame {
      */
     public Residuos() {
         initComponents();
+    java.time.LocalDate fechaActual = java.time.LocalDate.now();
+    
+    dateReciclaje.setDate(java.sql.Date.valueOf(fechaActual));
+    dateReciclaje.setEnabled(false); 
+    txtNReciclaje.setText(generarNumeroFactura());
+    txtNReciclaje.setEditable(false); 
+
+    this.setLocationRelativeTo(null);
     this.setLocationRelativeTo(null);
     }
 
@@ -457,6 +465,12 @@ public class Residuos extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private String generarNumeroFactura() {
+    int ultimoNumero = 0;
+    int nuevoNumero = ultimoNumero + 1;
+    return String.format("FAC-%06d", nuevoNumero);
+}
+    
     private void btnRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseClicked
         // TODO add your handling code here:
         Menu m = new Menu();
