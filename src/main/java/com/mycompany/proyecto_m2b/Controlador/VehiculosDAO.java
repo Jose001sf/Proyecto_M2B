@@ -2,17 +2,14 @@
 package com.mycompany.proyecto_m2b.Controlador;
 
 import com.mycompany.proyecto_m2b.modelo.Vehiculos;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class VehiculosDAO {
         private static final String INSERTARVEHICULO =
             "INSERT INTO vehiculo (id_vehi, anio_sal_vehi, num_chasis_vehi, color_vehi, cilindraje_vehi, transmision_vehi, num_puertas_vehi, kilometraje_vehi, num_motor_vehi, placa_carro, id_propietario, id_mode) " +
             "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 
-    public void insertar(Vehiculos vehiculos) {
+    public void insertarVehiculos(Vehiculos vehiculos) {
         try (Connection conn = ConexionBD.obtenerConexion();
              PreparedStatement ps = conn.prepareStatement(INSERTARVEHICULO)) {
 
