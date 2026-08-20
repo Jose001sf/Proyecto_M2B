@@ -33,4 +33,18 @@ public class VehiculosDAO {
             System.out.println("Error 404: " + e.getMessage());
         }
     }
+        public boolean eliminarVehiculos(String idTipoServicio) {
+        String sql = "DELETE FROM tipo_de_servicio WHERE id_tipo_servicio = ?";
+
+        try (Connection conn = ConexionBD.obtenerConexion(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, idTipoServicio);
+            int filas = stmt.executeUpdate();
+            return filas > 0;
+
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar tipo de servicio: " + e.getMessage());
+            return false;
+        }
+    }
 }
