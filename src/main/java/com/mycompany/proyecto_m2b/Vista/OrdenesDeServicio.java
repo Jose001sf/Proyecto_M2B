@@ -706,122 +706,27 @@ int yMouse;
 
     private void TXTplacaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTplacaKeyPressed
         // TODO add your handling code here:
-        if (TXTplaca.getText().equals("Ingrese la placa")){
-            TXTplaca.setText("");
-            TXTplaca.setForeground(Color.BLACK);
-        }
-        if (TXTcedula.getText().isEmpty()){
-            TXTcedula.setText("Ingrese la cédula");
-            TXTcedula.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTempleado.getText().isEmpty()){
-            TXTempleado.setText("Ingrese empleado");
-            TXTempleado.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcostoTotal.getText().isEmpty()){
-            TXTcostoTotal.setText("Costo Total");
-            TXTcostoTotal.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Costo Total");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
+       
     }//GEN-LAST:event_TXTplacaKeyPressed
 
     private void TXTcedulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTcedulaKeyPressed
         // TODO add your handling code here:
-        if (TXTcedula.getText().equals("Ingrese la cédula")){
-            TXTcedula.setText("");
-            TXTcedula.setForeground(Color.BLACK);
-        }
-        if (TXTplaca.getText().isEmpty()){
-            TXTplaca.setText("Ingrese la placa");
-            TXTplaca.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTempleado.getText().isEmpty()){
-            TXTempleado.setText("Ingrese empleado");
-            TXTempleado.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcostoTotal.getText().isEmpty()){
-            TXTcostoTotal.setText("Costo Total");
-            TXTcostoTotal.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Costo Total");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
+        
     }//GEN-LAST:event_TXTcedulaKeyPressed
 
     private void TXTempleadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTempleadoKeyPressed
         // TODO add your handling code here:
-         if (TXTempleado.getText().equals("Ingrese empleado")){
-            TXTempleado.setText("");
-            TXTempleado.setForeground(Color.BLACK);
-        }
-        if (TXTplaca.getText().isEmpty()){
-            TXTplaca.setText("Ingrese la placa");
-            TXTplaca.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcedula.getText().isEmpty()){
-            TXTcedula.setText("Ingrese la cédula");
-            TXTcedula.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcostoTotal.getText().isEmpty()){
-            TXTcostoTotal.setText("Costo Total");
-            TXTcostoTotal.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Costo Total");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
+        
     }//GEN-LAST:event_TXTempleadoKeyPressed
 
     private void TXTcostoTotalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTcostoTotalKeyPressed
         // TODO add your handling code here:
-        if (TXTcostoTotal.getText().equals("Costo Total")){
-            TXTcostoTotal.setText("");
-            TXTcostoTotal.setForeground(Color.BLACK);
-        }
-        if (TXTplaca.getText().isEmpty()){
-            TXTplaca.setText("Ingrese la placa");
-            TXTplaca.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTempleado.getText().isEmpty()){
-            TXTempleado.setText("Ingrese empleado");
-            TXTempleado.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcedula.getText().isEmpty()){
-            TXTcedula.setText("Ingrese la cédula");
-            TXTcedula.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Costo Total");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
+        
     }//GEN-LAST:event_TXTcostoTotalKeyPressed
 
     private void DescripcionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DescripcionKeyPressed
         // TODO add your handling code here:
-        if (Descripcion.getText().equals("Describa el trabajo a realizar")){
-            Descripcion.setText("");
-            Descripcion.setForeground(Color.BLACK);
-        }
-        if (TXTplaca.getText().isEmpty()){
-            TXTplaca.setText("Ingrese la placa");
-            TXTplaca.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTempleado.getText().isEmpty()){
-            TXTempleado.setText("Ingrese empleado");
-            TXTempleado.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcostoTotal.getText().isEmpty()){
-            TXTcostoTotal.setText("Costo Total");
-            TXTcostoTotal.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcedula.getText().isEmpty()){
-            TXTcedula.setText("Ingrese la cédula");
-            TXTcedula.setForeground(new Color(94, 94, 94));
-        }
+        
     }//GEN-LAST:event_DescripcionKeyPressed
 
     private void TXTplacaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTplacaFocusGained
