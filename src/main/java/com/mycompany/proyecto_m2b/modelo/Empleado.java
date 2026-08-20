@@ -9,26 +9,76 @@ package com.mycompany.proyecto_m2b.modelo;
  * @author castr
  */
 public class Empleado {
-    private String ID_empleado;
+
+    private String id_empleado;
+    private String ced_perso;
+    private String id_cargo;
+    private String id_especialidad;
+    
+    /**
+     * @return the ced_perso
+     */
+    public String getCed_perso() {
+        return ced_perso;
+    }
+
+    /**
+     * @param ced_perso the ced_perso to set
+     */
+    public void setCed_perso(String ced_perso) {
+        this.ced_perso = ced_perso;
+    }
+
+    /**
+     * @return the id_cargo
+     */
+    public String getId_cargo() {
+        return id_cargo;
+    }
+
+    /**
+     * @param id_cargo the id_cargo to set
+     */
+    public void setId_cargo(String id_cargo) {
+        this.id_cargo = id_cargo;
+    }
+
+    /**
+     * @return the id_especialidad
+     */
+    public String getId_especialidad() {
+        return id_especialidad;
+    }
+
+    /**
+     * @param id_especialidad the id_especialidad to set
+     */
+    public void setId_especialidad(String id_especialidad) {
+        this.id_especialidad = id_especialidad;
+    }
+
+    public String getId_empleado() {
+        return id_empleado;
+    }
+
+    public void setId_empleado(String id_empleado) {
+        this.id_empleado = id_empleado;
+    }
 
     public Empleado() {
     }
 
-    public Empleado(String ID_empleado) {
-        this.ID_empleado = ID_empleado;
+    public Empleado(String id_empleado, String ced_perso, String id_cargo, String id_especialidad) {
+        this.id_empleado = id_empleado;
+        this.ced_perso = ced_perso;
+        this.id_cargo = id_cargo;
+        this.id_especialidad = id_especialidad;
     }
 
-    public String getID_empleado() {
-        return ID_empleado;
-    }
-
-    public void setID_empleado(String ID_empleado) {
-        this.ID_empleado = ID_empleado;
-    }
-
+    
     @Override
     public String toString() {
-        return "Empleado{" + "ID_empleado=" + ID_empleado + '}';
+        return "Empleado{" + "id_empleado=" + id_empleado + ", ced_perso=" + ced_perso + ", id_cargo=" + id_cargo + ", id_especialidad=" + id_especialidad + '}';
     }
-    
+        
 }
