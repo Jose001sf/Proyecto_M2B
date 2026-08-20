@@ -240,7 +240,7 @@ public class Menu extends javax.swing.JFrame {
 
         Imagen.setBackground(new java.awt.Color(238, 238, 238));
         Imagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Cute_mechanic_holding_wrench_cartoon_icon_illustration___Premium_Vector-removebg-preview.png"))); // NOI18N
-        PanelMenu.add(Imagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(1421, 643, -1, -1));
+        PanelMenu.add(Imagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(1600, 800, -1, -1));
 
         jPanel1.setBackground(new java.awt.Color(79, 84, 90));
 
