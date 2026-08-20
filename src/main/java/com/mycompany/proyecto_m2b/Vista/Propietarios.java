@@ -6,6 +6,8 @@
 package com.mycompany.proyecto_m2b.Vista;
 
 import com.mycompany.proyecto_m2b.Controlador.CreacionCredenciales;
+import com.mycompany.proyecto_m2b.Controlador.PersonaDAO;
+import com.mycompany.proyecto_m2b.Controlador.PropietarioDAO;
 import com.mycompany.proyecto_m2b.Controlador.Validaciones;
 import java.awt.Color;
 import java.util.Date;
