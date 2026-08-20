@@ -60,7 +60,6 @@ public class Menu extends javax.swing.JFrame {
         MJ = new javax.swing.JLabel();
         Talleres = new javax.swing.JLabel();
         Titulo = new javax.swing.JLabel();
-        Logo = new javax.swing.JLabel();
         PanelBarraInferior = new javax.swing.JPanel();
         PanelAccesos = new javax.swing.JPanel();
         PanelOrdenesServicio = new javax.swing.JPanel();
@@ -93,13 +92,11 @@ public class Menu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
-        setUndecorated(true);
-        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         PanelFondoMenu.setBackground(new java.awt.Color(238, 238, 238));
         PanelFondoMenu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        PanelFondoMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        PanelFondoMenu.setLayout(new java.awt.BorderLayout());
 
         PanelBarra.setBackground(new java.awt.Color(0, 0, 0));
         PanelBarra.setPreferredSize(new java.awt.Dimension(1710, 163));
@@ -272,13 +269,23 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        PanelFondoMenu.add(PanelBarra, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 1, 1710, 162));
-        PanelFondoMenu.add(Logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1715, 220, -1, -1));
+        PanelFondoMenu.add(PanelBarra, java.awt.BorderLayout.NORTH);
 
         PanelBarraInferior.setBackground(new java.awt.Color(227, 153, 106));
         PanelBarraInferior.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        PanelBarraInferior.setLayout(new java.awt.BorderLayout());
-        PanelFondoMenu.add(PanelBarraInferior, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 910, 1714, 80));
+
+        javax.swing.GroupLayout PanelBarraInferiorLayout = new javax.swing.GroupLayout(PanelBarraInferior);
+        PanelBarraInferior.setLayout(PanelBarraInferiorLayout);
+        PanelBarraInferiorLayout.setHorizontalGroup(
+            PanelBarraInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1712, Short.MAX_VALUE)
+        );
+        PanelBarraInferiorLayout.setVerticalGroup(
+            PanelBarraInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        PanelFondoMenu.add(PanelBarraInferior, java.awt.BorderLayout.SOUTH);
 
         PanelAccesos.setBackground(new java.awt.Color(79, 84, 90));
 
@@ -685,10 +692,10 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(PanelResiduos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(PanelEstadisticas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
-        PanelFondoMenu.add(PanelAccesos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 300, 750));
+        PanelFondoMenu.add(PanelAccesos, java.awt.BorderLayout.WEST);
 
         PanelFondoBlanco.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -696,14 +703,14 @@ public class Menu extends javax.swing.JFrame {
         PanelFondoBlanco.setLayout(PanelFondoBlancoLayout);
         PanelFondoBlancoLayout.setHorizontalGroup(
             PanelFondoBlancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1420, Short.MAX_VALUE)
+            .addGap(0, 1714, Short.MAX_VALUE)
         );
         PanelFondoBlancoLayout.setVerticalGroup(
             PanelFondoBlancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
+            .addGap(0, 824, Short.MAX_VALUE)
         );
 
-        PanelFondoMenu.add(PanelFondoBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 160, 1420, 750));
+        PanelFondoMenu.add(PanelFondoBlanco, java.awt.BorderLayout.EAST);
 
         getContentPane().add(PanelFondoMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -1045,7 +1052,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel ImagenResiduos;
     private javax.swing.JLabel ImagenServicios;
     private javax.swing.JLabel ImangenVehiculos;
-    private javax.swing.JLabel Logo;
     private javax.swing.JLabel MJ;
     private javax.swing.JLabel Minimizar;
     private javax.swing.JLabel OrdenesDeServicio;
