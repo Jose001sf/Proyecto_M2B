@@ -17,19 +17,13 @@ import javax.swing.JOptionPane;
  *
  * @author castr
  */
-public class CrearNuevaMarcaModelo extends javax.swing.JDialog {
+public class CrearNuevaMarcaModelo extends javax.swing.JFrame {
     private String idMarcaCreada = null;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CrearNuevaMarcaModelo.class.getName());
 
     /** Creates new form Propietario */
-    public CrearNuevaMarcaModelo(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        this.setLocationRelativeTo(parent);
-    }
     public CrearNuevaMarcaModelo() {
         initComponents();
-        this.setModal(true);
         this.setLocationRelativeTo(null);
     }
 int xMouse;
@@ -80,6 +74,7 @@ int yMouse;
         });
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(153, 153, 153));
         jLabel21.setText("<- REGRESAR");
         jLabel21.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel21.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -231,6 +226,8 @@ int yMouse;
 
     private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
         // TODO add your handling code here:
+        Vehiculos V=new Vehiculos();
+        V.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel21MouseClicked
 
