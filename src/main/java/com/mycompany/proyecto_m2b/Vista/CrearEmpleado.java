@@ -4,11 +4,22 @@
  */
 package com.mycompany.proyecto_m2b.Vista;
 
+import com.mycompany.proyecto_m2b.Controlador.CargoDAO;
 import com.mycompany.proyecto_m2b.Controlador.Validaciones;
 import com.mycompany.proyecto_m2b.Controlador.CreacionCredenciales;
+import com.mycompany.proyecto_m2b.Controlador.DireccionDAO;
 import com.mycompany.proyecto_m2b.Controlador.EmpleadoDAO;
+import com.mycompany.proyecto_m2b.Controlador.EspecialidadDAO;
+import com.mycompany.proyecto_m2b.Controlador.PersonaDAO;
+import com.mycompany.proyecto_m2b.Controlador.TipoUsuarioDAO;
 import com.mycompany.proyecto_m2b.Controlador.UsuarioDAO;
+import com.mycompany.proyecto_m2b.modelo.Cargo;
+import com.mycompany.proyecto_m2b.modelo.Direccion;
 import com.mycompany.proyecto_m2b.modelo.Empleado;
+import com.mycompany.proyecto_m2b.modelo.Persona;
+import com.mycompany.proyecto_m2b.modelo.Tipos_de_usuario;
+import com.mycompany.proyecto_m2b.modelo.Usuario;
+import com.mycompany.proyecto_m2b.modelo.Especialidad;
 import java.awt.Color;
 import java.time.ZoneId;
 import java.util.Date;
@@ -31,6 +42,12 @@ public class CrearEmpleado extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         CalendarioRegistro.setDate(new Date());
         CalendarioRegistro.setEnabled(false);
+        CargoDAO Ca=new CargoDAO();
+        Ca.cargarCargos(Cargos);
+        EspecialidadDAO Es=new EspecialidadDAO();
+        Es.cargarEspecialidades(Especialidades);
+        TipoUsuarioDAO Tip=new TipoUsuarioDAO();
+        Tip.cargarTiposUsuario(TiposUsuarios);
     }
     int xMouse, yMouse;
     /**
@@ -91,6 +108,8 @@ public class CrearEmpleado extends javax.swing.JFrame {
         TXTCelular = new javax.swing.JTextField();
         CorreoElectrocnico = new javax.swing.JLabel();
         TXTCorreoElectronico = new javax.swing.JTextField();
+        TipoUsuario = new javax.swing.JLabel();
+        TiposUsuarios = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -644,80 +663,17 @@ public class CrearEmpleado extends javax.swing.JFrame {
             }
         });
 
+        TipoUsuario.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        TipoUsuario.setText("Tipo de usuario:");
+
+        TiposUsuarios.setBackground(new java.awt.Color(247, 247, 247));
+        TiposUsuarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EMPLEADO" }));
+        TiposUsuarios.addActionListener(this::TiposUsuariosActionPerformed);
+
         javax.swing.GroupLayout BGempleadosLayout = new javax.swing.GroupLayout(BGempleados);
         BGempleados.setLayout(BGempleadosLayout);
         BGempleadosLayout.setHorizontalGroup(
             BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BGempleadosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(BGempleadosLayout.createSequentialGroup()
-                            .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(Cedula)
-                                .addGroup(BGempleadosLayout.createSequentialGroup()
-                                    .addComponent(TXTcedula, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(Verificar)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(Nombres)
-                                .addGroup(BGempleadosLayout.createSequentialGroup()
-                                    .addComponent(TXTnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(TXTnombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(152, 152, 152))
-                        .addGroup(BGempleadosLayout.createSequentialGroup()
-                            .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(Apellidos)
-                                .addGroup(BGempleadosLayout.createSequentialGroup()
-                                    .addComponent(TXTapellido, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(TXTapellido1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(55, 55, 55)
-                            .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(CalendarioNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(FNacimiento))
-                            .addGap(31, 31, 31)
-                            .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(Genero)
-                                .addComponent(Generos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(BGempleadosLayout.createSequentialGroup()
-                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Cargo)
-                            .addComponent(Cargos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(24, 24, 24)
-                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Especialidad)
-                            .addComponent(Especialidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 34, 34)
-                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CalendarioRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(FRegistro))
-                        .addGap(18, 18, 18)
-                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Celular)
-                            .addComponent(TXTCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CorreoElectrocnico)
-                            .addComponent(TXTCorreoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(BGempleadosLayout.createSequentialGroup()
-                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Dirección)
-                            .addGroup(BGempleadosLayout.createSequentialGroup()
-                                .addComponent(TXTcallePrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(TXTcalleSecundaria, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(TXTnumCasa, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(TXTciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Telefono)
-                            .addComponent(TXTTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))))
             .addGroup(BGempleadosLayout.createSequentialGroup()
                 .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Desplazar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -733,6 +689,83 @@ public class CrearEmpleado extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(PanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(BGempleadosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(BGempleadosLayout.createSequentialGroup()
+                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Cedula)
+                            .addGroup(BGempleadosLayout.createSequentialGroup()
+                                .addComponent(TXTcedula, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Verificar)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Nombres)
+                            .addGroup(BGempleadosLayout.createSequentialGroup()
+                                .addComponent(TXTnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TXTnombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(152, 152, 152))
+                    .addGroup(BGempleadosLayout.createSequentialGroup()
+                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Apellidos)
+                            .addGroup(BGempleadosLayout.createSequentialGroup()
+                                .addComponent(TXTapellido, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TXTapellido1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(55, 55, 55)
+                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(CalendarioNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(FNacimiento))
+                        .addGap(31, 31, 31)
+                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Genero)
+                            .addComponent(Generos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(BGempleadosLayout.createSequentialGroup()
+                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(BGempleadosLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(TipoUsuario)
+                                    .addComponent(TiposUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(BGempleadosLayout.createSequentialGroup()
+                                .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Cargo)
+                                    .addComponent(Cargos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(24, 24, 24)
+                                .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Especialidad)
+                                    .addComponent(Especialidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(34, 34, 34)
+                                .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(CalendarioRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(FRegistro))
+                                .addGap(18, 18, 18)
+                                .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Celular)
+                                    .addComponent(TXTCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(CorreoElectrocnico)
+                                    .addComponent(TXTCorreoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(BGempleadosLayout.createSequentialGroup()
+                                .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Dirección)
+                                    .addGroup(BGempleadosLayout.createSequentialGroup()
+                                        .addComponent(TXTcallePrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(TXTcalleSecundaria, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(TXTnumCasa, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(TXTciudad, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Telefono)
+                                    .addComponent(TXTTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         BGempleadosLayout.setVerticalGroup(
             BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -808,14 +841,18 @@ public class CrearEmpleado extends javax.swing.JFrame {
                         .addComponent(Celular)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(TXTCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(40, 40, 40)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(TipoUsuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TiposUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(PanelGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(PanelEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(PanelDarBaja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(PanelNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(PanelBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
         );
 
         getContentPane().add(BGempleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, 460));
@@ -1600,40 +1637,71 @@ public class CrearEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_TXTCorreoElectronicoActionPerformed
     public void GuardarEmpleado (){
         Validaciones V=new Validaciones();
-        Empleado empleado=new Empleado();
-        Usuarios usuario=new Usuarios();
+        //Guardar direcciones        
+        String CallePr = TXTcallePrincipal.getText().trim().toUpperCase();
+        String CalleSe = TXTcalleSecundaria.getText().trim().toUpperCase();
+        String NumCasa = TXTnumCasa.getText().trim().toUpperCase();
+        String Ciudad = TXTciudad.getText().trim().toUpperCase();
+        if (CallePr.isEmpty() || CalleSe.isEmpty() || Ciudad.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Por favor ingrese los datos correspondientes");
+            return;
+        }
+        if (CallePr.isBlank() || CalleSe.isBlank() || Ciudad.isBlank()){
+            JOptionPane.showMessageDialog(this, "Por favor ingrese los datos correspondientes");
+            return;
+        }
+        if (!V.validarCallePrincipal(CallePr)){
+            JOptionPane.showMessageDialog(this, "El número de caracteres de la calle principal en muy alto \n"
+                    + "(Máximo: 50 caracteres)");
+            return;
+        }
+        if (!V.validarCalleSecundaria(CalleSe)){
+            JOptionPane.showMessageDialog(this, "El número de caracteres de la calle secundaria en muy alto \n"
+                    + "(Máximo: 50 caracteres)");
+            return;
+        }
+        if (!V.validarNumeroCasa(NumCasa)){
+            JOptionPane.showMessageDialog(this, "El número de caracteres del número de casa en muy alto \n"
+                    + "(Máximo: 10 caracteres)");
+            return;
+        }
+        if (!V.validarCiudad(Ciudad)){
+            JOptionPane.showMessageDialog(this, "El número de caracteres de la ciudad en muy alto \n"
+                    + "(Máximo: 30 caracteres)");
+            return;
+        }
+        
+        //Guardar persona
         String Cedula=TXTcedula.getText().trim();
         String PrimerNombre=TXTnombre.getText().trim().toUpperCase();
         String SegundoNombre=TXTnombre1.getText().trim().toUpperCase();
         String PrimerApellido=TXTapellido.getText().trim().toUpperCase();
         String SegundoApellido=TXTapellido1.getText().trim().toUpperCase();
         Date FechaNacimiento=CalendarioNacimiento.getDate();
-        String Genero = Generos.getSelectedItem().toString();
-        String CallePr = TXTcallePrincipal.getText().trim().toUpperCase();
-        String CalleSe = TXTcalleSecundaria.getText().trim().toUpperCase();
-        String NumCasa = TXTnumCasa.getText().trim().toUpperCase();
-        String Ciudad = TXTciudad.getText().trim().toUpperCase();
+        String Genero = Generos.getSelectedItem().toString();        
         String Telefono = TXTTelefono.getText().trim().toUpperCase();
-        String Cargo = Cargos.getSelectedItem().toString();
-        String Especialidad = Especialidades.getSelectedItem().toString();        
+        Cargo cargoE = (Cargo) Cargos.getSelectedItem();
+        Especialidad especialidadE = (Especialidad) Especialidades.getSelectedItem();        
         String Celular = TXTCelular.getText().trim().toUpperCase();
-        String CorreoE = TXTCorreoElectronico.getText().trim().toUpperCase();
+        String CorreoE = TXTCorreoElectronico.getText().trim();
         if (Cedula.isEmpty() || PrimerNombre.isEmpty() || SegundoNombre.isEmpty() || PrimerApellido.isEmpty() || SegundoApellido.isEmpty()
-                || Genero.isEmpty() || CallePr.isEmpty() || CalleSe.isEmpty() || NumCasa.isEmpty() || Ciudad.isEmpty() || Telefono.isEmpty()
-                        || Cargo.isEmpty() || Especialidad.isEmpty() || Celular.isEmpty() || CorreoE.isEmpty()){
+                || Genero.isEmpty() || Telefono.isEmpty() || Celular.isEmpty() || CorreoE.isEmpty()){
             JOptionPane.showMessageDialog (this, "Por favor complete los datos que faltan");
             return;
         }
         if (Cedula.isBlank()|| PrimerNombre.isBlank()|| SegundoNombre.isBlank()|| PrimerApellido.isBlank()|| SegundoApellido.isBlank()
-                || Genero.isBlank()|| CallePr.isBlank()|| CalleSe.isBlank()|| NumCasa.isBlank()|| Ciudad.isBlank()|| Telefono.isBlank()
-                        || Cargo.isBlank()|| Especialidad.isBlank()|| Celular.isBlank()|| CorreoE.isBlank()){
+                || Genero.isBlank()|| Telefono.isBlank() || Celular.isBlank()|| CorreoE.isBlank()){
             JOptionPane.showMessageDialog (this, "Por favor complete los datos que faltan");
             return;
         }
-        if (Genero.equalsIgnoreCase("Seleccione una opción") || Cargo.equalsIgnoreCase("Seleccione una opción") || Especialidad.equalsIgnoreCase("Seleccione una opción")){
-            JOptionPane.showMessageDialog (this, "Por favor escoga una opción");
+        if (cargoE==null || especialidadE==null){
+            JOptionPane.showMessageDialog(this, "Escoga una opcion");
             return;
         }
+        if (FechaNacimiento==null){
+            JOptionPane.showMessageDialog(this, "Escoga una fecha");
+            return;
+        }        
         if (!V.ValidarCedula(Cedula)){
             JOptionPane.showMessageDialog (this, "La cédula esta incorrecta");
             TXTcedula.setText("");
@@ -1679,20 +1747,39 @@ public class CrearEmpleado extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "La fecha esta incorrecta");
             return;
         }
+        Date fecha=CalendarioRegistro.getDate();
+        java.sql.Date FechaRe= new java.sql.Date(fecha.getTime());
         //Se guardar al empleado
-        EmpleadoDAO e = new EmpleadoDAO();
+        //direccion
+        Direccion direccion=new Direccion(CallePr, CalleSe, NumCasa, Ciudad);
+        DireccionDAO d=new DireccionDAO();
+        d.insertar(direccion);
+        String id_direccion=direccion.getID_direccion();
+        //persona
+        Persona persona=new Persona (Cedula, PrimerNombre, SegundoNombre, PrimerApellido, SegundoApellido, Celular, Telefono, Genero, FechaNA, CorreoE, FechaRe, direccion.getID_direccion());
+        PersonaDAO p=new PersonaDAO();
+        p.insertar(persona);
+        //empleado
+        Empleado empleado=new Empleado(persona.getCed_perso(), cargoE.getID_cargo(), especialidadE.getID_especialidad());
+        EmpleadoDAO e = new EmpleadoDAO();        
         e.insertar(empleado);
         //Se genera el usuarios
-        UsuarioDAO u=new UsuarioDAO();
-        //Se debe verificar para que el usuario no se repita
-        
         String Usuario = CreacionCredenciales.GenerarUsuario(PrimerNombre, PrimerApellido);
-        String contraseña = CreacionCredenciales.GenerarContraseña();
-        boolean Estado=true;
-        
-        
+        String contrasena = CreacionCredenciales.GenerarContraseña();
+        boolean estado_acti_usuario=true;
+        //Se genera el tipo de usuario
+        Tipos_de_usuario TipE=(Tipos_de_usuario)TiposUsuarios.getSelectedItem();
+        if(TipE==null){
+            JOptionPane.showMessageDialog(this, "Por favor escoga una opcion");
+            return;
+        }               
+        //Se debe verificar para que el usuario no se repita
+        Usuario usuario=new Usuario(Usuario, contrasena, estado_acti_usuario, empleado.getId_empleado(), TipE.getId_tip_de_usuario());
+        UsuarioDAO u=new UsuarioDAO();
+        u.insertar(usuario);
+                
         JOptionPane.showMessageDialog(this, "Su usuario es el siguiente: "+Usuario+"\n"
-                + "Y su contraseña es: "+contraseña+"\n"
+                + "Y su contraseña es: "+contrasena+"\n"
                 +"Por favor, tome una foto o anótelas en un lugar seguro, no se podran modificar una vez cerrada la ventana");
         //Se guarda en la tabla usuarios
         LimpiarDatos();
@@ -2424,6 +2511,10 @@ public class CrearEmpleado extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_TXTCorreoElectronicoKeyPressed
 
+    private void TiposUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TiposUsuariosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TiposUsuariosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2495,6 +2586,8 @@ public class CrearEmpleado extends javax.swing.JFrame {
     private javax.swing.JTextField TXTnombre1;
     private javax.swing.JTextField TXTnumCasa;
     private javax.swing.JLabel Telefono;
+    private javax.swing.JLabel TipoUsuario;
+    private javax.swing.JComboBox<String> TiposUsuarios;
     private javax.swing.JButton Verificar;
     private javax.swing.JLabel Volver;
     private javax.swing.JLabel jLabel1;

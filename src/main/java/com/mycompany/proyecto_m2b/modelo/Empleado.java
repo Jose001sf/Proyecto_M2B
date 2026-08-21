@@ -75,6 +75,12 @@ public class Empleado {
         this.id_especialidad = id_especialidad;
     }
 
+    public Empleado(String ced_perso, String id_cargo, String id_especialidad) {
+        this.ced_perso = ced_perso;
+        this.id_cargo = id_cargo;
+        this.id_especialidad = id_especialidad;
+    }
+
     
     @Override
     public String toString() {
