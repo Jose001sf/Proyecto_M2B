@@ -25,6 +25,8 @@ public class Menu extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         PanelPaneles.add(new PanelBlanco(), "Blanco");
         PanelPaneles.add(new PanelVehiculos(), "VEHICULOS");
+        PanelPaneles.add(new PanelOrdenesServicio(), "ORDENES_SERVICIO");
+    
        
     }
     int xMouse;
@@ -922,17 +924,18 @@ public class Menu extends javax.swing.JFrame {
         OrdenesDeServicio.setForeground(Color.white);
     }//GEN-LAST:event_PanelOrdenesServicioMouseEntered
 
+    private boolean mostrandoOrdenes = false;
     private void PanelOrdenesServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelOrdenesServicioMouseClicked
         // TODO add your handling code here:
-        if (OrdenesServ==null || !OrdenesServ.isVisible()){
-            OrdenesServ = new OrdenesDeServicio();
-            OrdenesServ.setVisible(true);
-        }
-        else {
-            OrdenesServ.setState(java.awt.Frame.NORMAL);
-            OrdenesServ.toFront();
-            OrdenesServ.requestFocus();
-        }
+        CardLayout cl = (CardLayout) PanelPaneles.getLayout();
+    if (!mostrandoOrdenes) {
+        cl.show(PanelPaneles, "ORDENES_SERVICIO");
+    } else {
+        cl.show(PanelPaneles, "Blanco");
+    }
+    mostrandoVehiculos = !mostrandoOrdenes;
+        
+    
     }//GEN-LAST:event_PanelOrdenesServicioMouseClicked
 
     private void PanelBarraMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBarraMousePressed
