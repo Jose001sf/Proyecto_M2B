@@ -5,6 +5,8 @@
 package com.mycompany.proyecto_m2b.Vista;
 
 
+import com.mycompany.proyecto_m2b.Controlador.UsuarioDAO;
+import com.mycompany.proyecto_m2b.modelo.Usuario;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -22,6 +24,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         this.setLocationRelativeTo(null);
+        setState(MAXIMIZED_BOTH);
     }
 
     /**
@@ -463,6 +466,12 @@ public class Login extends javax.swing.JFrame {
             return;
         }
         else{
+            UsuarioDAO UD=new UsuarioDAO();
+            Usuario u= UD.permiterLogin(TXTusuario.getText(), String.valueOf(TXTcontraseña.getPassword()));
+            if(u==null){
+                JOptionPane.showMessageDialog(this, "Credenciales incorrectas");
+                return;
+            }
             Menu M=new Menu();
             M.setVisible(true);
             this.dispose();

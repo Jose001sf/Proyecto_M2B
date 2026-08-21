@@ -89,48 +89,72 @@ public class UsuarioDAO {
             "UPDATE usuario "
             + "SET nombre_usuario=?, contra_usuario=?, estado_acti_usuario=?, id_empleado=?, id_tip_usuario=?"
             + "WHERE id_usuario=?";
-    public boolean modificarUsuario (Usuario usuario){
-        try (Connection conn=ConexionBD.obtenerConexion();
-        PreparedStatement ps=conn.prepareStatement(MODIFICARUSUARIO)){
-            ps.setString(1, usuario.getContra_usuario());
-            ps.setString(2, usuario.getID_usuario());
-            ps.setString(3, usuario.getId_empleado());
-            ps.setString(4, usuario.getNombre_usuario());
-            ps.setString(5, usuario.getTip_usuario());
-            ps.setBoolean(6, usuario.isEstado_acti_usuario());
-            int filas=ps.executeUpdate();
-            return filas>0;
-        }catch (SQLException e){
-                System.out.println("Error al modificar usuario: "+e.getMessage());
-                return false;
-                }
-    }
-    public List<Usuario> buscarUsuario(String criterio) {
-    List<Usuario> lista = new ArrayList<>();
-    String sql = "SELECT * FROM usuario WHERE id_usuario";
-
-    try (Connection conn = ConexionBD.obtenerConexion();
-         PreparedStatement ps = conn.prepareStatement(sql)) {
-
-        ps.setString(1, "%" + criterio + "%");
-        ps.setString(2, criterio);
-
-        try (ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                Usuario u = new Usuario(
-                        rs.getString("ID_usuario"),
-                        rs.getString("Nombre_usuario"),                    
-                        rs.getString("Contra_usuario"),
-                        rs.getBoolean("Estado_acti_usuario"),
-                        rs.getString("id_empleado"),
-                        rs.getString("tip_usuario")  
-                );
-                lista.add(u);
-            }
+        public boolean modificarUsuario (Usuario usuario){
+            try (Connection conn=ConexionBD.obtenerConexion();
+            PreparedStatement ps=conn.prepareStatement(MODIFICARUSUARIO)){
+                ps.setString(1, usuario.getContra_usuario());
+                ps.setString(2, usuario.getID_usuario());
+                ps.setString(3, usuario.getId_empleado());
+                ps.setString(4, usuario.getNombre_usuario());
+                ps.setString(5, usuario.getTip_usuario());
+                ps.setBoolean(6, usuario.isEstado_acti_usuario());
+                int filas=ps.executeUpdate();
+                return filas>0;
+            }catch (SQLException e){
+                    System.out.println("Error al modificar usuario: "+e.getMessage());
+                    return false;
+                    }
         }
-    } catch (SQLException ex) {
-        System.out.println("Error al buscar usuario: " + ex.getMessage());
+        public List<Usuario> buscarUsuario(String criterio) {
+        List<Usuario> lista = new ArrayList<>();
+        String sql = "SELECT * FROM usuario WHERE id_usuario";
+
+        try (Connection conn = ConexionBD.obtenerConexion();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, "%" + criterio + "%");
+            ps.setString(2, criterio);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Usuario u = new Usuario(
+                            rs.getString("ID_usuario"),
+                            rs.getString("Nombre_usuario"),                    
+                            rs.getString("Contra_usuario"),
+                            rs.getBoolean("Estado_acti_usuario"),
+                            rs.getString("id_empleado"),
+                            rs.getString("tip_usuario")  
+                    );
+                    lista.add(u);
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al buscar usuario: " + ex.getMessage());
+        }
+        return lista;
     }
-    return lista;
-}
-}
+    public Usuario permiterLogin (String nombre_usuario, String contrasena){
+        String sql="SELECT id_usuario, nombre_usuario, contra_usuario, estado_acti_usuario, id_empleado, id_tip_usuario "
+                + "FROM usuario "
+                + "WHERE nombre_usuario=? AND contra_usuario=? AND estado_acti_usuario=true";
+        try (Connection conn = ConexionBD.obtenerConexion(); PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setString(1, nombre_usuario);
+            ps.setString(2, contrasena);
+            try(ResultSet rs=ps.executeQuery()){
+                if (rs.next()){
+                Usuario u = new Usuario();
+                u.setID_usuario(rs.getString("id_usuario"));
+                u.setNombre_usuario(rs.getString("nombre_usuario"));
+                u.setContra_usuario(rs.getString("contra_usuario"));
+                u.setEstado_acti_usuario(rs.getBoolean("estado_acti_usuario"));
+                u.setId_empleado(rs.getString("id_empleado"));
+                u.setTip_usuario(rs.getString("id_tip_usuario"));
+                return u;
+                }
+            }
+        }catch (SQLException e){
+            System.out.println("Error al ingresar el usuario: "+nombre_usuario+", error: "+e.getMessage());            
+        }
+        return null;
+    }
+ }        
