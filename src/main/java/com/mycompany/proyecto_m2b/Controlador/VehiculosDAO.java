@@ -248,4 +248,41 @@ public class VehiculosDAO {
     }
     return id;
 }
+    public String obtenerSiguienteIdMarca() {
+    String nuevoId = "MAR-001";
+    // Ajusta el nombre de la tabla o columna según tu esquema DB
+    String sql = "SELECT COUNT(*) FROM marca"; 
+
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+
+        if (rs.next()) {
+            int siguienteNumero = rs.getInt(1) + 1;
+            nuevoId = String.format("MAR-%03d", siguienteNumero);
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener ID de Marca: " + e.getMessage());
+    }
+    return nuevoId;
+}
+
+public String obtenerSiguienteIdModelo() {
+    String nuevoId = "MOD-001";
+    // Ajusta el nombre de la tabla o columna según tu esquema DB
+    String sql = "SELECT COUNT(*) FROM modelo"; 
+
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+
+        if (rs.next()) {
+            int siguienteNumero = rs.getInt(1) + 1;
+            nuevoId = String.format("MOD-%03d", siguienteNumero);
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener ID de Modelo: " + e.getMessage());
+    }
+    return nuevoId;
+}
 }

@@ -17,6 +17,5 @@ public class Proyecto_M2B {
         System.out.println("Hello World!");
         Login L=new Login();
         L.setVisible(true);
-
     }
 }
