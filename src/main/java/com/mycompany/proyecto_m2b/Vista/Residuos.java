@@ -77,6 +77,8 @@ public class Residuos extends javax.swing.JFrame {
         PanelBuscar = new javax.swing.JPanel();
         Buscar = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        txtTipoEmpresa = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -281,7 +283,7 @@ public class Residuos extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Fondo.add(PanelNuevaEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 160, -1, -1));
+        Fondo.add(PanelNuevaEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 190, -1, -1));
 
         PanelNuevo.setBackground(new java.awt.Color(255, 255, 255));
         PanelNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -450,6 +452,12 @@ public class Residuos extends javax.swing.JFrame {
         );
 
         Fondo.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 380, -1, -1));
+
+        jLabel1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel1.setText("Tipo de Empresa");
+        Fondo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 120, -1, -1));
+        Fondo.add(txtTipoEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 140, 200, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -621,6 +629,7 @@ public class Residuos extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboEmpresas;
     private javax.swing.JComboBox<String> comboResiduos;
     private com.toedter.calendar.JDateChooser dateReciclaje;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
@@ -628,5 +637,6 @@ public class Residuos extends javax.swing.JFrame {
     private javax.swing.JTextField txtKilos;
     private javax.swing.JTextField txtNReciclaje;
     private javax.swing.JTextField txtPrecio;
+    private javax.swing.JTextField txtTipoEmpresa;
     // End of variables declaration//GEN-END:variables
 }

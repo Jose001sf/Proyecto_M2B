@@ -22,11 +22,13 @@ public class PropietarioDAO {
             "VALUES (?, ?, ?)";
     
     
-     public void insertar(Propietario propietario) {
+     public void insertarPropietario(Propietario propietario) {
+         String IdProp=Generacion_id.generar_id("PROP", "seq_propietario");
+         propietario.setID_propietario(IdProp);
         try (Connection conn = ConexionBD.obtenerConexion();
              PreparedStatement ps = conn.prepareStatement(INSERTARPROPIETARIO)) {
 
-            ps.setString(1, propietario.getID_propietario());
+            ps.setString(1, IdProp);
             ps.setString(2, propietario.getObservaci_propietario());
             ps.setString(3, propietario.getCed_perso());
             ps.executeUpdate();

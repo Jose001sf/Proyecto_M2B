@@ -16,21 +16,26 @@ import java.util.List;
  *
  * @author usuario
  */
-public class UsuarioBD {
+public class UsuarioDAO {
     private  static final String INSERTARUSUARIO=
             "INSERT INTO public.usuario(id_usuario, nombre_usuario, contra_usuario, estado_acti_usuario, id_empleado, id_tip_usuario)" +
             "VALUES (?, ?, ?, ?, ?, ?)";
     
      public void insertar(Usuario usuario) {
-        try (Connection conn = ConexionBD.obtenerConexion();
-             PreparedStatement ps = conn.prepareStatement(INSERTARUSUARIO)) {
-
-            ps.setString(1, usuario.getContra_usuario());
-            ps.setString(2, usuario.getID_usuario());
-            ps.setString(3, usuario.getId_empleado());
-            ps.setString(4, usuario.getNombre_usuario());
-            ps.setString(5, usuario.getTip_usuario());
-            ps.setBoolean(6, usuario.isEstado_acti_usuario());
+        String IdGenerado=Generacion_id.generar_id("USU", "seq_usuario");
+        if (IdGenerado==null){
+            System.out.println("Error al generar ID");
+            return;
+        }
+        usuario.setID_usuario(IdGenerado);
+         try (Connection conn = ConexionBD.obtenerConexion();
+            PreparedStatement ps = conn.prepareStatement(INSERTARUSUARIO)) {            
+            ps.setString(1, IdGenerado);
+            ps.setString(2, usuario.getNombre_usuario());
+            ps.setString(3, usuario.getContra_usuario());
+            ps.setBoolean(4, usuario.isEstado_acti_usuario());
+            ps.setString(5, usuario.getId_empleado());
+            ps.setString(6, usuario.getTip_usuario());
             ps.executeUpdate();
             System.out.println("Usuario insertado correctamente");
 

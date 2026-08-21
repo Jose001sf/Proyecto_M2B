@@ -16,6 +16,11 @@ public class Propietario {
     public Propietario() {
     }
 
+    public Propietario(String Observaci_propietario, String ced_perso) {
+        this.Observaci_propietario = Observaci_propietario;
+        this.ced_perso = ced_perso;
+    }
+
     public Propietario(String ID_propietario, String Observaci_propietario, String ced_perso) {
         this.ID_propietario = ID_propietario;
         this.Observaci_propietario = Observaci_propietario;

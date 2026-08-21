@@ -6,9 +6,14 @@
 package com.mycompany.proyecto_m2b.Vista;
 
 import com.mycompany.proyecto_m2b.Controlador.CreacionCredenciales;
+import com.mycompany.proyecto_m2b.Controlador.DireccionDAO;
 import com.mycompany.proyecto_m2b.Controlador.PersonaDAO;
 import com.mycompany.proyecto_m2b.Controlador.PropietarioDAO;
 import com.mycompany.proyecto_m2b.Controlador.Validaciones;
+import com.mycompany.proyecto_m2b.modelo.Cargo;
+import com.mycompany.proyecto_m2b.modelo.Direccion;
+import com.mycompany.proyecto_m2b.modelo.Persona;
+import com.mycompany.proyecto_m2b.modelo.Propietario;
 import java.awt.Color;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -25,6 +30,8 @@ public class Propietarios extends javax.swing.JFrame {
     public Propietarios() {
         initComponents();
         this.setLocationRelativeTo(null);
+        CalendarioRegistro.setDate(new Date());
+        CalendarioRegistro.setEnabled(false);
     }
 int xMouse;
 int yMouse;
@@ -50,7 +57,7 @@ int yMouse;
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        Fecha_registro = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         TXTcedula = new javax.swing.JTextField();
@@ -60,7 +67,7 @@ int yMouse;
         TXTapellido1 = new javax.swing.JTextField();
         TXTCelular = new javax.swing.JTextField();
         TXTCorreoElectronico = new javax.swing.JTextField();
-        Direccion = new javax.swing.JTextField();
+        TXTciudad = new javax.swing.JTextField();
         Descripcion = new javax.swing.JTextField();
         PanelNuevo = new javax.swing.JPanel();
         Nuevo = new javax.swing.JLabel();
@@ -81,6 +88,11 @@ int yMouse;
         CalendarioNacimiento = new com.toedter.calendar.JDateChooser();
         jLabel3 = new javax.swing.JLabel();
         TXTTelefono = new javax.swing.JTextField();
+        TXTcallePrincipal = new javax.swing.JTextField();
+        TXTcalleSecundaria = new javax.swing.JTextField();
+        TXTnumCasa = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        CalendarioRegistro = new com.toedter.calendar.JDateChooser();
 
         jTextField2.setText("jTextField2");
 
@@ -161,16 +173,16 @@ int yMouse;
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, -1, 20));
 
         jLabel12.setText("Observaciones:");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, -1, -1));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
 
-        jLabel13.setText("Fecha de nacimiento:");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, -1, -1));
+        Fecha_registro.setText("Fecha de nacimiento:");
+        jPanel1.add(Fecha_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
 
         jLabel14.setText("Género:");
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 190, -1, -1));
 
         jLabel15.setText("Dirección:");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 220, -1, -1));
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, -1, -1));
 
         TXTcedula.setForeground(new java.awt.Color(153, 153, 153));
         TXTcedula.setText("Ingrese la cédula");
@@ -182,6 +194,11 @@ int yMouse;
         TXTcedula.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 TXTcedulaMousePressed(evt);
+            }
+        });
+        TXTcedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTcedulaKeyPressed(evt);
             }
         });
         jPanel1.add(TXTcedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 210, -1));
@@ -196,6 +213,11 @@ int yMouse;
         TXTnombre.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 TXTnombreMousePressed(evt);
+            }
+        });
+        TXTnombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTnombreKeyPressed(evt);
             }
         });
         jPanel1.add(TXTnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 210, -1));
@@ -213,6 +235,11 @@ int yMouse;
             }
         });
         TXTnombre1.addActionListener(this::TXTnombre1ActionPerformed);
+        TXTnombre1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTnombre1KeyPressed(evt);
+            }
+        });
         jPanel1.add(TXTnombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 210, -1));
 
         TXTapellido.setForeground(new java.awt.Color(153, 153, 153));
@@ -228,6 +255,11 @@ int yMouse;
             }
         });
         TXTapellido.addActionListener(this::TXTapellidoActionPerformed);
+        TXTapellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTapellidoKeyPressed(evt);
+            }
+        });
         jPanel1.add(TXTapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 210, -1));
 
         TXTapellido1.setForeground(new java.awt.Color(153, 153, 153));
@@ -240,6 +272,11 @@ int yMouse;
         TXTapellido1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 TXTapellido1MousePressed(evt);
+            }
+        });
+        TXTapellido1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTapellido1KeyPressed(evt);
             }
         });
         jPanel1.add(TXTapellido1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 210, -1));
@@ -256,6 +293,11 @@ int yMouse;
                 TXTCelularMousePressed(evt);
             }
         });
+        TXTCelular.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTCelularKeyPressed(evt);
+            }
+        });
         jPanel1.add(TXTCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, 250, -1));
 
         TXTCorreoElectronico.setForeground(new java.awt.Color(153, 153, 153));
@@ -270,21 +312,31 @@ int yMouse;
                 TXTCorreoElectronicoMousePressed(evt);
             }
         });
+        TXTCorreoElectronico.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTCorreoElectronicoKeyPressed(evt);
+            }
+        });
         jPanel1.add(TXTCorreoElectronico, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, 250, -1));
 
-        Direccion.setForeground(new java.awt.Color(153, 153, 153));
-        Direccion.setText("Ingrese dirección");
-        Direccion.addFocusListener(new java.awt.event.FocusAdapter() {
+        TXTciudad.setForeground(new java.awt.Color(153, 153, 153));
+        TXTciudad.setText("Ciudad");
+        TXTciudad.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                DireccionFocusGained(evt);
+                TXTciudadFocusGained(evt);
             }
         });
-        Direccion.addMouseListener(new java.awt.event.MouseAdapter() {
+        TXTciudad.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                DireccionMousePressed(evt);
+                TXTciudadMousePressed(evt);
             }
         });
-        jPanel1.add(Direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 220, 250, -1));
+        TXTciudad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTciudadKeyPressed(evt);
+            }
+        });
+        jPanel1.add(TXTciudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 220, 120, -1));
 
         Descripcion.setForeground(new java.awt.Color(153, 153, 153));
         Descripcion.setText("Indique observaciones");
@@ -299,7 +351,12 @@ int yMouse;
             }
         });
         Descripcion.addActionListener(this::DescripcionActionPerformed);
-        jPanel1.add(Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 260, 630, 70));
+        Descripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                DescripcionKeyPressed(evt);
+            }
+        });
+        jPanel1.add(Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, 630, 50));
 
         PanelNuevo.setBackground(new java.awt.Color(255, 255, 255));
         PanelNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -510,7 +567,7 @@ int yMouse;
 
         jPanel1.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 350, -1, -1));
 
-        Generos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno", "Masculino", "Femenino" }));
+        Generos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno", "M", "F" }));
         jPanel1.add(Generos, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 190, -1, -1));
         jPanel1.add(CalendarioNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 160, 200, -1));
 
@@ -529,7 +586,73 @@ int yMouse;
                 TXTTelefonoMousePressed(evt);
             }
         });
+        TXTTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTTelefonoKeyPressed(evt);
+            }
+        });
         jPanel1.add(TXTTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 250, -1));
+
+        TXTcallePrincipal.setForeground(new java.awt.Color(153, 153, 153));
+        TXTcallePrincipal.setText("Calle principal");
+        TXTcallePrincipal.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTcallePrincipalFocusGained(evt);
+            }
+        });
+        TXTcallePrincipal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTcallePrincipalMousePressed(evt);
+            }
+        });
+        TXTcallePrincipal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTcallePrincipalKeyPressed(evt);
+            }
+        });
+        jPanel1.add(TXTcallePrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 120, -1));
+
+        TXTcalleSecundaria.setForeground(new java.awt.Color(153, 153, 153));
+        TXTcalleSecundaria.setText("Calle secundaria");
+        TXTcalleSecundaria.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTcalleSecundariaFocusGained(evt);
+            }
+        });
+        TXTcalleSecundaria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTcalleSecundariaMousePressed(evt);
+            }
+        });
+        TXTcalleSecundaria.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTcalleSecundariaKeyPressed(evt);
+            }
+        });
+        jPanel1.add(TXTcalleSecundaria, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 220, 120, -1));
+
+        TXTnumCasa.setForeground(new java.awt.Color(153, 153, 153));
+        TXTnumCasa.setText("Número de casa");
+        TXTnumCasa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTnumCasaFocusGained(evt);
+            }
+        });
+        TXTnumCasa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTnumCasaMousePressed(evt);
+            }
+        });
+        TXTnumCasa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTnumCasaKeyPressed(evt);
+            }
+        });
+        jPanel1.add(TXTnumCasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 220, 120, -1));
+
+        jLabel16.setText("Fecha de nacimiento:");
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, -1, -1));
+        jPanel1.add(CalendarioRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 250, 160, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -683,13 +806,25 @@ int yMouse;
             TXTCorreoElectronico.setText("Ingrese dirección de correo");
             TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
         }
-        if (Direccion.getText().isEmpty()){
-            Direccion.setText("Ingrese dirección");
-            Direccion.setForeground(new Color(94, 94, 94));
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
         }
         if (Descripcion.getText().isEmpty()){
             Descripcion.setText("Indique observaciones");
             Descripcion.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
         }
     }//GEN-LAST:event_TXTcedulaMousePressed
 
@@ -698,6 +833,18 @@ int yMouse;
         if (TXTnombre.getText().equals("Primer Nombre")){
             TXTnombre.setText("");
             TXTnombre.setForeground(Color.BLACK);
+        }
+        if(TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
         }
         if (TXTcedula.getText().isEmpty()){
             TXTcedula.setText("Ingrese la cédula");
@@ -727,9 +874,9 @@ int yMouse;
             TXTCorreoElectronico.setText("Ingrese dirección de correo");
             TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
         }
-        if (Direccion.getText().isEmpty()){
-            Direccion.setText("Ingrese dirección");
-            Direccion.setForeground(new Color(94, 94, 94));
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
         }
         if (Descripcion.getText().isEmpty()){
             Descripcion.setText("Indique observaciones");
@@ -743,6 +890,18 @@ int yMouse;
             TXTnombre1.setText("");
             TXTnombre1.setForeground(Color.BLACK);
         }
+        if(TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
         if (TXTcedula.getText().isEmpty()){
             TXTcedula.setText("Ingrese la cédula");
             TXTcedula.setForeground(new Color(94, 94, 94));
@@ -771,9 +930,9 @@ int yMouse;
             TXTCorreoElectronico.setText("Ingrese dirección de correo");
             TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
         }
-        if (Direccion.getText().isEmpty()){
-            Direccion.setText("Ingrese dirección");
-            Direccion.setForeground(new Color(94, 94, 94));
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
         }
         if (Descripcion.getText().isEmpty()){
             Descripcion.setText("Indique observaciones");
@@ -787,6 +946,18 @@ int yMouse;
             TXTapellido.setText("");
             TXTapellido.setForeground(Color.BLACK);
         }
+        if(TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
         if (TXTcedula.getText().isEmpty()){
             TXTcedula.setText("Ingrese la cédula");
             TXTcedula.setForeground(new Color(94, 94, 94));
@@ -815,9 +986,9 @@ int yMouse;
             TXTCorreoElectronico.setText("Ingrese dirección de correo");
             TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
         }
-        if (Direccion.getText().isEmpty()){
-            Direccion.setText("Ingrese dirección");
-            Direccion.setForeground(new Color(94, 94, 94));
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
         }
         if (Descripcion.getText().isEmpty()){
             Descripcion.setText("Indique observaciones");
@@ -831,6 +1002,18 @@ int yMouse;
             TXTapellido1.setText("");
             TXTapellido1.setForeground(Color.BLACK);
         }
+        if(TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
         if (TXTcedula.getText().isEmpty()){
             TXTcedula.setText("Ingrese la cédula");
             TXTcedula.setForeground(new Color(94, 94, 94));
@@ -859,9 +1042,9 @@ int yMouse;
             TXTCorreoElectronico.setText("Ingrese dirección de correo");
             TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
         }
-        if (Direccion.getText().isEmpty()){
-            Direccion.setText("Ingrese dirección");
-            Direccion.setForeground(new Color(94, 94, 94));
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
         }
         if (Descripcion.getText().isEmpty()){
             Descripcion.setText("Indique observaciones");
@@ -875,6 +1058,18 @@ int yMouse;
             TXTCelular.setText("");
             TXTCelular.setForeground(Color.BLACK);
         }
+        if(TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
         if (TXTcedula.getText().isEmpty()){
             TXTcedula.setText("Ingrese la cédula");
             TXTcedula.setForeground(new Color(94, 94, 94));
@@ -903,9 +1098,9 @@ int yMouse;
             TXTCorreoElectronico.setText("Ingrese dirección de correo");
             TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
         }
-        if (Direccion.getText().isEmpty()){
-            Direccion.setText("Ingrese dirección");
-            Direccion.setForeground(new Color(94, 94, 94));
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
         }
         if (Descripcion.getText().isEmpty()){
             Descripcion.setText("Indique observaciones");
@@ -919,6 +1114,18 @@ int yMouse;
             TXTTelefono.setText("");
             TXTTelefono.setForeground(Color.BLACK);
         }
+        if(TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
         if (TXTcedula.getText().isEmpty()){
             TXTcedula.setText("Ingrese la cédula");
             TXTcedula.setForeground(new Color(94, 94, 94));
@@ -947,9 +1154,9 @@ int yMouse;
             TXTCorreoElectronico.setText("Ingrese dirección de correo");
             TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
         }
-        if (Direccion.getText().isEmpty()){
-            Direccion.setText("Ingrese dirección");
-            Direccion.setForeground(new Color(94, 94, 94));
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
         }
         if (Descripcion.getText().isEmpty()){
             Descripcion.setText("Indique observaciones");
@@ -963,6 +1170,18 @@ int yMouse;
             TXTCorreoElectronico.setText("");
             TXTCorreoElectronico.setForeground(Color.BLACK);
         }
+        if(TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
         if (TXTcedula.getText().isEmpty()){
             TXTcedula.setText("Ingrese la cédula");
             TXTcedula.setForeground(new Color(94, 94, 94));
@@ -991,9 +1210,9 @@ int yMouse;
             TXTnombre.setText("Primer Nombre");
             TXTnombre.setForeground(new Color(94, 94, 94));
         }
-        if (Direccion.getText().isEmpty()){
-            Direccion.setText("Ingrese dirección");
-            Direccion.setForeground(new Color(94, 94, 94));
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
         }
         if (Descripcion.getText().isEmpty()){
             Descripcion.setText("Indique observaciones");
@@ -1001,11 +1220,11 @@ int yMouse;
         }
     }//GEN-LAST:event_TXTCorreoElectronicoMousePressed
 
-    private void DireccionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DireccionMousePressed
+    private void TXTciudadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTciudadMousePressed
         // TODO add your handling code here:
-        if (Direccion.getText().equals("Ingrese dirección")){
-            Direccion.setText("");
-            Direccion.setForeground(Color.BLACK);
+        if (TXTciudad.getText().equals("Ingrese dirección")){
+            TXTciudad.setText("");
+            TXTciudad.setForeground(Color.BLACK);
         }
         if (TXTcedula.getText().isEmpty()){
             TXTcedula.setText("Ingrese la cédula");
@@ -1043,13 +1262,25 @@ int yMouse;
             Descripcion.setText("Indique observaciones");
             Descripcion.setForeground(new Color(94, 94, 94));
         }
-    }//GEN-LAST:event_DireccionMousePressed
+    }//GEN-LAST:event_TXTciudadMousePressed
 
     private void DescripcionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DescripcionMousePressed
         // TODO add your handling code here:
         if (Descripcion.getText().equals("Indique observaciones")){
             Descripcion.setText("");
             Descripcion.setForeground(Color.BLACK);
+        }
+        if(TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
         }
         if (TXTcedula.getText().isEmpty()){
             TXTcedula.setText("Ingrese la cédula");
@@ -1083,9 +1314,9 @@ int yMouse;
             TXTnombre.setText("Primer Nombre");
             TXTnombre.setForeground(new Color(94, 94, 94));
         }
-        if (Direccion.getText().isEmpty()){
-            Direccion.setText("Ingrese dirección");
-            Direccion.setForeground(new Color(94, 94, 94));
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
         }
     }//GEN-LAST:event_DescripcionMousePressed
 
@@ -1095,6 +1326,18 @@ int yMouse;
             TXTcedula.setText("");
             TXTcedula.setForeground(Color.BLACK);
         }
+        if(TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
         if (TXTnombre.getText().isEmpty()){
             TXTnombre.setText("Primer Nombre");
             TXTnombre.setForeground(new Color(94, 94, 94));
@@ -1123,9 +1366,9 @@ int yMouse;
             TXTCorreoElectronico.setText("Ingrese dirección de correo");
             TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
         }
-        if (Direccion.getText().isEmpty()){
-            Direccion.setText("Ingrese dirección");
-            Direccion.setForeground(new Color(94, 94, 94));
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
         }
         if (Descripcion.getText().isEmpty()){
             Descripcion.setText("Indique observaciones");
@@ -1139,6 +1382,18 @@ int yMouse;
             TXTnombre.setText("");
             TXTnombre.setForeground(Color.BLACK);
         }
+        if(TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
         if (TXTcedula.getText().isEmpty()){
             TXTcedula.setText("Ingrese la cédula");
             TXTcedula.setForeground(new Color(94, 94, 94));
@@ -1167,9 +1422,9 @@ int yMouse;
             TXTCorreoElectronico.setText("Ingrese dirección de correo");
             TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
         }
-        if (Direccion.getText().isEmpty()){
-            Direccion.setText("Ingrese dirección");
-            Direccion.setForeground(new Color(94, 94, 94));
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
         }
         if (Descripcion.getText().isEmpty()){
             Descripcion.setText("Indique observaciones");
@@ -1183,6 +1438,18 @@ int yMouse;
             TXTnombre1.setText("");
             TXTnombre1.setForeground(Color.BLACK);
         }
+        if(TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
         if (TXTcedula.getText().isEmpty()){
             TXTcedula.setText("Ingrese la cédula");
             TXTcedula.setForeground(new Color(94, 94, 94));
@@ -1211,9 +1478,9 @@ int yMouse;
             TXTCorreoElectronico.setText("Ingrese dirección de correo");
             TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
         }
-        if (Direccion.getText().isEmpty()){
-            Direccion.setText("Ingrese dirección");
-            Direccion.setForeground(new Color(94, 94, 94));
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
         }
         if (Descripcion.getText().isEmpty()){
             Descripcion.setText("Indique observaciones");
@@ -1227,6 +1494,18 @@ int yMouse;
             TXTapellido.setText("");
             TXTapellido.setForeground(Color.BLACK);
         }
+        if(TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
         if (TXTcedula.getText().isEmpty()){
             TXTcedula.setText("Ingrese la cédula");
             TXTcedula.setForeground(new Color(94, 94, 94));
@@ -1255,9 +1534,9 @@ int yMouse;
             TXTCorreoElectronico.setText("Ingrese dirección de correo");
             TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
         }
-        if (Direccion.getText().isEmpty()){
-            Direccion.setText("Ingrese dirección");
-            Direccion.setForeground(new Color(94, 94, 94));
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
         }
         if (Descripcion.getText().isEmpty()){
             Descripcion.setText("Indique observaciones");
@@ -1271,6 +1550,18 @@ int yMouse;
             TXTapellido1.setText("");
             TXTapellido1.setForeground(Color.BLACK);
         }
+        if(TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
         if (TXTcedula.getText().isEmpty()){
             TXTcedula.setText("Ingrese la cédula");
             TXTcedula.setForeground(new Color(94, 94, 94));
@@ -1299,9 +1590,9 @@ int yMouse;
             TXTCorreoElectronico.setText("Ingrese dirección de correo");
             TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
         }
-        if (Direccion.getText().isEmpty()){
-            Direccion.setText("Ingrese dirección");
-            Direccion.setForeground(new Color(94, 94, 94));
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
         }
         if (Descripcion.getText().isEmpty()){
             Descripcion.setText("Indique observaciones");
@@ -1315,6 +1606,18 @@ int yMouse;
             TXTCelular.setText("");
             TXTCelular.setForeground(Color.BLACK);
         }
+        if(TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
         if (TXTcedula.getText().isEmpty()){
             TXTcedula.setText("Ingrese la cédula");
             TXTcedula.setForeground(new Color(94, 94, 94));
@@ -1343,9 +1646,9 @@ int yMouse;
             TXTCorreoElectronico.setText("Ingrese dirección de correo");
             TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
         }
-        if (Direccion.getText().isEmpty()){
-            Direccion.setText("Ingrese dirección");
-            Direccion.setForeground(new Color(94, 94, 94));
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
         }
         if (Descripcion.getText().isEmpty()){
             Descripcion.setText("Indique observaciones");
@@ -1359,6 +1662,18 @@ int yMouse;
             TXTTelefono.setText("");
             TXTTelefono.setForeground(Color.BLACK);
         }
+        if(TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
         if (TXTcedula.getText().isEmpty()){
             TXTcedula.setText("Ingrese la cédula");
             TXTcedula.setForeground(new Color(94, 94, 94));
@@ -1387,9 +1702,9 @@ int yMouse;
             TXTCorreoElectronico.setText("Ingrese dirección de correo");
             TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
         }
-        if (Direccion.getText().isEmpty()){
-            Direccion.setText("Ingrese dirección");
-            Direccion.setForeground(new Color(94, 94, 94));
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
         }
         if (Descripcion.getText().isEmpty()){
             Descripcion.setText("Indique observaciones");
@@ -1403,6 +1718,18 @@ int yMouse;
             TXTCorreoElectronico.setText("");
             TXTCorreoElectronico.setForeground(Color.BLACK);
         }
+        if(TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
         if (TXTcedula.getText().isEmpty()){
             TXTcedula.setText("Ingrese la cédula");
             TXTcedula.setForeground(new Color(94, 94, 94));
@@ -1431,9 +1758,9 @@ int yMouse;
             TXTnombre.setText("Primer Nombre");
             TXTnombre.setForeground(new Color(94, 94, 94));
         }
-        if (Direccion.getText().isEmpty()){
-            Direccion.setText("Ingrese dirección");
-            Direccion.setForeground(new Color(94, 94, 94));
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
         }
         if (Descripcion.getText().isEmpty()){
             Descripcion.setText("Indique observaciones");
@@ -1441,11 +1768,23 @@ int yMouse;
         }
     }//GEN-LAST:event_TXTCorreoElectronicoFocusGained
 
-    private void DireccionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_DireccionFocusGained
+    private void TXTciudadFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTciudadFocusGained
         // TODO add your handling code here:
-        if (Direccion.getText().equals("Ingrese dirección")){
-            Direccion.setText("");
-            Direccion.setForeground(Color.BLACK);
+        if (TXTciudad.getText().equals("Ciudad")){
+            TXTciudad.setText("");
+            TXTciudad.setForeground(Color.BLACK);
+        }
+        if(TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
         }
         if (TXTcedula.getText().isEmpty()){
             TXTcedula.setText("Ingrese la cédula");
@@ -1483,13 +1822,25 @@ int yMouse;
             Descripcion.setText("Indique observaciones");
             Descripcion.setForeground(new Color(94, 94, 94));
         }
-    }//GEN-LAST:event_DireccionFocusGained
+    }//GEN-LAST:event_TXTciudadFocusGained
 
     private void DescripcionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_DescripcionFocusGained
         // TODO add your handling code here:
         if (Descripcion.getText().equals("Indique observaciones")){
             Descripcion.setText("");
             Descripcion.setForeground(Color.BLACK);
+        }
+        if(TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
         }
         if (TXTcedula.getText().isEmpty()){
             TXTcedula.setText("Ingrese la cédula");
@@ -1523,11 +1874,282 @@ int yMouse;
             TXTnombre.setText("Primer Nombre");
             TXTnombre.setForeground(new Color(94, 94, 94));
         }
-        if (Direccion.getText().isEmpty()){
-            Direccion.setText("Ingrese dirección");
-            Direccion.setForeground(new Color(94, 94, 94));
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
         }
     }//GEN-LAST:event_DescripcionFocusGained
+
+    private void TXTcallePrincipalFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTcallePrincipalFocusGained
+        // TODO add your handling code here:
+        if (TXTcallePrincipal.getText().equals("Calle principal")){
+            TXTcallePrincipal.setText("");
+            TXTcallePrincipal.setForeground(Color.BLACK);
+        }
+        if(TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Ingrese dirección de correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo Nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer Apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo Apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Ingrese el número de celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Ingrese el número de teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer Nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Indique observaciones");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTcallePrincipalFocusGained
+
+    private void TXTcallePrincipalMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTcallePrincipalMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTcallePrincipalMousePressed
+
+    private void TXTcalleSecundariaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTcalleSecundariaFocusGained
+        // TODO add your handling code here:
+        if (TXTcalleSecundaria.getText().equals("Calle secundaria")){
+            TXTcalleSecundaria.setText("");
+            TXTcalleSecundaria.setForeground(Color.BLACK);
+        }
+        if(TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Ingrese dirección de correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTnumCasa.getText().isEmpty()){
+            TXTnumCasa.setText("Número de casa");
+            TXTnumCasa.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo Nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer Apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo Apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Ingrese el número de celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Ingrese el número de teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer Nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Indique observaciones");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTcalleSecundariaFocusGained
+
+    private void TXTcalleSecundariaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTcalleSecundariaMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTcalleSecundariaMousePressed
+
+    private void TXTnumCasaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTnumCasaFocusGained
+        // TODO add your handling code here:
+        if (TXTnumCasa.getText().equals("Número de casa")){
+            TXTnumCasa.setText("");
+            TXTnumCasa.setForeground(Color.BLACK);
+        }
+        if(TXTCorreoElectronico.getText().isEmpty()){
+            TXTCorreoElectronico.setText("Ingrese dirección de correo");
+            TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTcallePrincipal.getText().isEmpty()){
+            TXTcallePrincipal.setText("Calle principal");
+            TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        }
+        if(TXTcalleSecundaria.getText().isEmpty()){
+            TXTcalleSecundaria.setText("Calle secundaria");
+            TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre1.getText().isEmpty()){
+            TXTnombre1.setText("Segundo Nombre");
+            TXTnombre1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido.getText().isEmpty()){
+            TXTapellido.setText("Primer Apellido");
+            TXTapellido.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTapellido1.getText().isEmpty()){
+            TXTapellido1.setText("Segundo Apellido");
+            TXTapellido1.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTCelular.getText().isEmpty()){
+            TXTCelular.setText("Ingrese el número de celular");
+            TXTCelular.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTTelefono.getText().isEmpty()){
+            TXTTelefono.setText("Ingrese el número de teléfono");
+            TXTTelefono.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTnombre.getText().isEmpty()){
+            TXTnombre.setText("Primer Nombre");
+            TXTnombre.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTciudad.getText().isEmpty()){
+            TXTciudad.setText("Ciudad");
+            TXTciudad.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Indique observaciones");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTnumCasaFocusGained
+
+    private void TXTnumCasaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTnumCasaMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTnumCasaMousePressed
+
+    private void TXTcedulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTcedulaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarPropietarios();
+        }
+    }//GEN-LAST:event_TXTcedulaKeyPressed
+
+    private void TXTCelularKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTCelularKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarPropietarios();
+        }
+    }//GEN-LAST:event_TXTCelularKeyPressed
+
+    private void TXTnombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTnombreKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarPropietarios();
+        }
+    }//GEN-LAST:event_TXTnombreKeyPressed
+
+    private void TXTTelefonoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTTelefonoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarPropietarios();
+        }
+    }//GEN-LAST:event_TXTTelefonoKeyPressed
+
+    private void TXTnombre1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTnombre1KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarPropietarios();
+        }
+    }//GEN-LAST:event_TXTnombre1KeyPressed
+
+    private void TXTCorreoElectronicoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTCorreoElectronicoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarPropietarios();
+        }
+    }//GEN-LAST:event_TXTCorreoElectronicoKeyPressed
+
+    private void TXTapellidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTapellidoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarPropietarios();
+        }
+    }//GEN-LAST:event_TXTapellidoKeyPressed
+
+    private void TXTapellido1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTapellido1KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarPropietarios();
+        }
+    }//GEN-LAST:event_TXTapellido1KeyPressed
+
+    private void TXTcallePrincipalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTcallePrincipalKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarPropietarios();
+        }
+    }//GEN-LAST:event_TXTcallePrincipalKeyPressed
+
+    private void TXTcalleSecundariaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTcalleSecundariaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarPropietarios();
+        }
+    }//GEN-LAST:event_TXTcalleSecundariaKeyPressed
+
+    private void TXTnumCasaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTnumCasaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarPropietarios();
+        }
+    }//GEN-LAST:event_TXTnumCasaKeyPressed
+
+    private void TXTciudadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTciudadKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarPropietarios();
+        }
+    }//GEN-LAST:event_TXTciudadKeyPressed
+
+    private void DescripcionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DescripcionKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarPropietarios();
+        }
+    }//GEN-LAST:event_DescripcionKeyPressed
 
     /**
      * @param args the command line arguments
@@ -1574,83 +2196,150 @@ int yMouse;
         CalendarioNacimiento.setDate(null);
         Descripcion.setText("");
         Descripcion.setForeground(new Color(94, 94, 94));
+        TXTcallePrincipal.setText("Calle principal");
+        TXTcallePrincipal.setForeground(new Color(94, 94, 94));
+        TXTcalleSecundaria.setText("Calle secundaria");
+        TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
+        TXTciudad.setText("Ciudad");
+        TXTciudad.setForeground(new Color(94, 94, 94));
     }
     public void GuardarPropietarios (){
         Validaciones V=new Validaciones();
-        
+        //Guardar direcciones        
+        String CallePr = TXTcallePrincipal.getText().trim().toUpperCase();
+        String CalleSe = TXTcalleSecundaria.getText().trim().toUpperCase();
+        String NumCasa = TXTnumCasa.getText().trim().toUpperCase();
+        String Ciudad = TXTciudad.getText().trim().toUpperCase();
+        if (CallePr.isEmpty() || CalleSe.isEmpty() || Ciudad.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Por favor ingrese los datos correspondientes");
+            return;
+        }
+        if (CallePr.isBlank() || CalleSe.isBlank() || Ciudad.isBlank()){
+            JOptionPane.showMessageDialog(this, "Por favor ingrese los datos correspondientes");
+            return;
+        }
+        if (!V.validarCallePrincipal(CallePr)){
+            JOptionPane.showMessageDialog(this, "El número de caracteres de la calle principal en muy alto \n"
+                    + "(Máximo: 50 caracteres)");
+            return;
+        }
+        if (!V.validarCalleSecundaria(CalleSe)){
+            JOptionPane.showMessageDialog(this, "El número de caracteres de la calle secundaria en muy alto \n"
+                    + "(Máximo: 50 caracteres)");
+            return;
+        }
+        if (!V.validarNumeroCasa(NumCasa)){
+            JOptionPane.showMessageDialog(this, "El número de caracteres del número de casa en muy alto \n"
+                    + "(Máximo: 10 caracteres)");
+            return;
+        }
+        if (!V.validarCiudad(Ciudad)){
+            JOptionPane.showMessageDialog(this, "El número de caracteres de la ciudad en muy alto \n"
+                    + "(Máximo: 30 caracteres)");
+            return;
+        }        
+        //Guardar persona
         String Cedula=TXTcedula.getText().trim();
         String PrimerNombre=TXTnombre.getText().trim().toUpperCase();
         String SegundoNombre=TXTnombre1.getText().trim().toUpperCase();
         String PrimerApellido=TXTapellido.getText().trim().toUpperCase();
         String SegundoApellido=TXTapellido1.getText().trim().toUpperCase();
         Date FechaNacimiento=CalendarioNacimiento.getDate();
-        String Genero = Generos.getSelectedItem().toString();
-        String Telefono = TXTTelefono.getText().trim().toUpperCase();
+        String Genero = Generos.getSelectedItem().toString();        
+        String Telefono = TXTTelefono.getText().trim().toUpperCase();                
         String Celular = TXTCelular.getText().trim().toUpperCase();
-        String CorreoP = TXTCorreoElectronico.getText().trim().toUpperCase();
-        String descripcion= Descripcion.getText().trim().toUpperCase();
+        String CorreoE = TXTCorreoElectronico.getText().trim();
         if (Cedula.isEmpty() || PrimerNombre.isEmpty() || SegundoNombre.isEmpty() || PrimerApellido.isEmpty() || SegundoApellido.isEmpty()
-                || Genero.isEmpty() ||  Telefono.isEmpty()
-                        || Celular.isEmpty() || CorreoP.isEmpty()|| descripcion.isEmpty()){
+                || Genero.isEmpty() || Telefono.isEmpty() || Celular.isEmpty() || CorreoE.isEmpty()){
             JOptionPane.showMessageDialog (this, "Por favor complete los datos que faltan");
             return;
         }
         if (Cedula.isBlank()|| PrimerNombre.isBlank()|| SegundoNombre.isBlank()|| PrimerApellido.isBlank()|| SegundoApellido.isBlank()
-                || Genero.isBlank()|| Telefono.isBlank()
-                        || Celular.isBlank()|| CorreoP.isBlank()|| descripcion.isBlank()){
+                || Genero.isBlank()|| Telefono.isBlank() || Celular.isBlank()|| CorreoE.isBlank()){
             JOptionPane.showMessageDialog (this, "Por favor complete los datos que faltan");
             return;
-        }
-        if (Genero.equals("Seleccione una opción") ){
-            JOptionPane.showMessageDialog (this, "Por favor escoga una opción");
+        }        
+        if (FechaNacimiento==null){
+            JOptionPane.showMessageDialog(this, "Escoga una fecha");
             return;
-        }
+        }        
         if (!V.ValidarCedula(Cedula)){
             JOptionPane.showMessageDialog (this, "La cédula esta incorrecta");
+            TXTcedula.setText("");
             return;
         }
-        if (!V.validarCorreo(CorreoP)){
+        if (!V.validarCorreo(CorreoE)){
             JOptionPane.showMessageDialog(this, "Correo no valido");
+            TXTCorreoElectronico.setText("");
             return;
         }
         if (!V.validarNombre1(PrimerNombre)){
             JOptionPane.showMessageDialog(this, "Por favor ingrese solo su primer nombre");
+            TXTnombre.setText("");
             return;
         }
         if (!V.validarNombre2(SegundoNombre)){
             JOptionPane.showMessageDialog(this, "Por favor ingrese solo su segundo nombre");
+            TXTnombre1.setText("");
             return;
         }
         if (!V.validarApellido1(PrimerApellido)){
             JOptionPane.showMessageDialog(this, "Por favor ingrese solo su primer apellido");
+            TXTapellido.setText("");
             return;
         }
         if (!V.validarApellido2(SegundoApellido)){
             JOptionPane.showMessageDialog(this, "Por favor ingrese solo su segundo apellido");
+            TXTapellido1.setText("");
             return;
         }
         if (!V.validarCelular(Celular)){
             JOptionPane.showMessageDialog (this, "El número celular esta incorrecto");
+            TXTCelular.setText("");
             return;
         }
         if (!V.validarTelefono(Telefono)){
             JOptionPane.showMessageDialog (this, "El número de teléfono esta incorrecto");
+            TXTTelefono.setText("");
             return;
         }
         java.sql.Date FechaNA=new java.sql.Date(FechaNacimiento.getTime());
         if (!V.FechaNacimiento(FechaNA)){
-            JOptionPane.showMessageDialog(this, "La fecha es incorrecta");
+            JOptionPane.showMessageDialog(this, "La fecha esta incorrecta");
             return;
         }
+        String observaciones=Descripcion.getText();
+        if(!V.validarObservaciones(observaciones)){
+            JOptionPane.showMessageDialog(this, "Obsrevaciones no validas");
+            Descripcion.setText("Indique observaciones");
+            return;
+        }                      
+        Date fecha=CalendarioRegistro.getDate();
+        java.sql.Date FechaRe= new java.sql.Date(fecha.getTime());
+        //Se guardar al empleado
+        //direccion
+        Direccion direccion=new Direccion(CallePr, CalleSe, NumCasa, Ciudad);
+        DireccionDAO d=new DireccionDAO();
+        d.insertar(direccion);
+        String id_direccion=direccion.getID_direccion();
+        //persona
+        Persona persona=new Persona (Cedula, PrimerNombre, SegundoNombre, PrimerApellido, SegundoApellido, Celular, Telefono, Genero, FechaNA, CorreoE, FechaRe, direccion.getID_direccion());
+        PersonaDAO p=new PersonaDAO();
+        p.insertar(persona);                
+        Propietario pro=new Propietario(observaciones, persona.getCed_perso());
+        PropietarioDAO pr=new PropietarioDAO();
+        pr.insertarPropietario(pro);
+        JOptionPane.showMessageDialog(this, "Propietario guardado de manera correcta");
         LimpiarDatos();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Buscar;
     private com.toedter.calendar.JDateChooser CalendarioNacimiento;
+    private com.toedter.calendar.JDateChooser CalendarioRegistro;
     private javax.swing.JLabel DarDeBaja;
     private javax.swing.JTextField Descripcion;
-    private javax.swing.JTextField Direccion;
     private javax.swing.JLabel Editar;
+    private javax.swing.JLabel Fecha_registro;
     private javax.swing.JComboBox<String> Generos;
     private javax.swing.JLabel Guardar;
     private javax.swing.JLabel ImagenADD;
@@ -1667,16 +2356,20 @@ int yMouse;
     private javax.swing.JTextField TXTTelefono;
     private javax.swing.JTextField TXTapellido;
     private javax.swing.JTextField TXTapellido1;
+    private javax.swing.JTextField TXTcallePrincipal;
+    private javax.swing.JTextField TXTcalleSecundaria;
     private javax.swing.JTextField TXTcedula;
+    private javax.swing.JTextField TXTciudad;
     private javax.swing.JTextField TXTnombre;
     private javax.swing.JTextField TXTnombre1;
+    private javax.swing.JTextField TXTnumCasa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
