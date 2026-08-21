@@ -27,8 +27,11 @@ public class Residuos extends javax.swing.JFrame {
     dateReciclaje.setEnabled(false); 
     txtNReciclaje.setText(generarNumeroFactura());
     txtNReciclaje.setEditable(false); 
+    
+    txtNReciclaje.setEnabled(false);
+    txtDireccion.setEnabled(false);
+    txtTipoEmpresa.setEnabled(false);
 
-    this.setLocationRelativeTo(null);
     this.setLocationRelativeTo(null);
     cargarEmpresasEnCombo();
     }
