@@ -57,23 +57,23 @@ public class NuevoResiduo extends javax.swing.JPanel {
         Titulo.setBackground(new java.awt.Color(0, 0, 0));
         Titulo.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         Titulo.setForeground(new java.awt.Color(255, 255, 255));
-        Titulo.setText("Registrar Nueva Empresa Recicladora");
+        Titulo.setText("Registrar Nuevo Tipo de Residuo");
 
         javax.swing.GroupLayout BarraArribaLayout = new javax.swing.GroupLayout(BarraArriba);
         BarraArriba.setLayout(BarraArribaLayout);
         BarraArribaLayout.setHorizontalGroup(
             BarraArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BarraArribaLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(18, 18, 18)
                 .addComponent(Titulo)
-                .addContainerGap(345, Short.MAX_VALUE))
+                .addContainerGap(395, Short.MAX_VALUE))
         );
         BarraArribaLayout.setVerticalGroup(
             BarraArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BarraArribaLayout.createSequentialGroup()
-                .addContainerGap(35, Short.MAX_VALUE)
+                .addContainerGap(33, Short.MAX_VALUE)
                 .addComponent(Titulo)
-                .addGap(14, 14, 14))
+                .addGap(16, 16, 16))
         );
 
         jLabel1.setForeground(new java.awt.Color(153, 153, 153));
@@ -239,7 +239,6 @@ public class NuevoResiduo extends javax.swing.JPanel {
                     .addGroup(FondoLayout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
                             .addComponent(jLabel7)
                             .addGroup(FondoLayout.createSequentialGroup()
                                 .addComponent(jLabel8)
@@ -256,8 +255,8 @@ public class NuevoResiduo extends javax.swing.JPanel {
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel4))
                                 .addGap(126, 126, 126)
-                                .addComponent(jLabel12)))
-                        .addGap(160, 160, 160))
+                                .addComponent(jLabel12))
+                            .addComponent(jLabel3)))
                     .addGroup(FondoLayout.createSequentialGroup()
                         .addGap(104, 104, 104)
                         .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
