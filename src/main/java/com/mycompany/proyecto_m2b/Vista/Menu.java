@@ -27,7 +27,9 @@ public class Menu extends javax.swing.JFrame {
         PanelPaneles.add(new PanelVehiculos(), "VEHICULOS");
         PanelPaneles.add(new PanelOrdenesServicio(), "ORDENES_SERVICIO");
         PanelPaneles.add(new PanelResiduos(), "RESIDUOS");
-        
+        PanelPaneles.add(new PanelPropietarios(), "PROPIETARIOS");
+        PanelPaneles.add(new PanelRepuestos(), "REPUESTOS");
+        PanelPaneles.add(new PanelProveedores(), "PROVEEDORES");
        
     }
     int xMouse;
@@ -221,7 +223,7 @@ public class Menu extends javax.swing.JFrame {
         PanelBarra.setLayout(PanelBarraLayout);
         PanelBarraLayout.setHorizontalGroup(
             PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelBarraLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelBarraLayout.createSequentialGroup()
                 .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelBarraLayout.createSequentialGroup()
                         .addGap(47, 47, 47)
@@ -236,38 +238,41 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(74, 74, 74)
                 .addComponent(Usuarios)
-                .addGap(271, 271, 271)
-                .addComponent(ImagenRegresar)
-                .addGap(6, 6, 6)
                 .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelBarraLayout.createSequentialGroup()
-                        .addGap(110, 110, 110)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelBarraLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Minimizar)
-                        .addGap(19, 19, 19)
+                        .addGap(18, 18, 18)
                         .addComponent(Cerrar))
-                    .addComponent(Regresar)))
+                    .addGroup(PanelBarraLayout.createSequentialGroup()
+                        .addGap(258, 258, 258)
+                        .addComponent(ImagenRegresar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Regresar)))
+                .addGap(234, 234, 234))
         );
         PanelBarraLayout.setVerticalGroup(
             PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelBarraLayout.createSequentialGroup()
                 .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelBarraLayout.createSequentialGroup()
-                        .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(111, 111, 111)
+                        .addComponent(Usuarios)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelBarraLayout.createSequentialGroup()
+                        .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(PanelBarraLayout.createSequentialGroup()
-                                .addGap(111, 111, 111)
-                                .addComponent(Usuarios))
-                            .addGroup(PanelBarraLayout.createSequentialGroup()
-                                .addGap(70, 70, 70)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(ImagenRegresar))
                             .addGroup(PanelBarraLayout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Minimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(14, 14, 14)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(Cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Minimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
                                 .addComponent(Regresar)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(34, 34, 34)))
                 .addContainerGap())
             .addGroup(PanelBarraLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
@@ -800,17 +805,16 @@ public class Menu extends javax.swing.JFrame {
         Proveedores.setForeground(Color.white);
     }//GEN-LAST:event_PanelProveedoresMouseEntered
 
+    private boolean mostrandoProveedores = false;
     private void PanelProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelProveedoresMouseClicked
-        // TODO add your handling code here:
-        if (Provee==null || !Provee.isVisible()){
-            Provee = new Proveedores();
-            Provee.setVisible(true);
+
+        CardLayout cl = (CardLayout) PanelPaneles.getLayout();
+        if (!mostrandoProveedores) {
+            cl.show(PanelPaneles, "PROVEEDORES");
+        } else {
+            cl.show(PanelPaneles, "Blanco");
         }
-        else {
-            Provee.setState(java.awt.Frame.NORMAL);
-            Provee.toFront();
-            Provee.requestFocus();
-        }
+        mostrandoProveedores = !mostrandoProveedores;        
     }//GEN-LAST:event_PanelProveedoresMouseClicked
 
     private void PanelRepuestosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelRepuestosMouseExited
@@ -825,17 +829,17 @@ public class Menu extends javax.swing.JFrame {
         Repuestos.setForeground(Color.white);
     }//GEN-LAST:event_PanelRepuestosMouseEntered
 
+    private boolean mostrandoRepuestos = false;
     private void PanelRepuestosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelRepuestosMouseClicked
+                                           
         // TODO add your handling code here:
-        if (Repues==null || !Repues.isVisible()){
-            Repues = new Repuestos();
-            Repues.setVisible(true);
+        CardLayout cl = (CardLayout) PanelPaneles.getLayout();
+        if (!mostrandoRepuestos) {
+            cl.show(PanelPaneles, "REPUESTOS");
+        } else {
+            cl.show(PanelPaneles, "Blanco");
         }
-        else {
-            Repues.setState(java.awt.Frame.NORMAL);
-            Repues.toFront();
-            Repues.requestFocus();
-        }
+        mostrandoRepuestos = !mostrandoRepuestos;        
     }//GEN-LAST:event_PanelRepuestosMouseClicked
 
     private void PanelServiciosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelServiciosMouseReleased
@@ -876,17 +880,18 @@ public class Menu extends javax.swing.JFrame {
         Propietarios.setForeground(Color.WHITE);
     }//GEN-LAST:event_PanelPropietariosMouseEntered
 
+    private boolean mostrandoPropietarios = false;
     private void PanelPropietariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelPropietariosMouseClicked
         // TODO add your handling code here:
-        if (Prop==null || !Prop.isVisible()){
-            Prop = new Propietarios();
-            Prop.setVisible(true);
+                                            
+        // TODO add your handling code here:
+        CardLayout cl = (CardLayout) PanelPaneles.getLayout();
+        if (!mostrandoPropietarios) {
+            cl.show(PanelPaneles, "PROPIETARIOS");
+        } else {
+            cl.show(PanelPaneles, "Blanco");
         }
-        else {
-            Prop.setState(java.awt.Frame.NORMAL);
-            Prop.toFront();
-            Prop.requestFocus();
-        }
+        mostrandoPropietarios = !mostrandoPropietarios;
     }//GEN-LAST:event_PanelPropietariosMouseClicked
 
     private void PanelVehiculosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelVehiculosMouseExited
@@ -926,18 +931,16 @@ public class Menu extends javax.swing.JFrame {
         OrdenesDeServicio.setForeground(Color.white);
     }//GEN-LAST:event_PanelOrdenesServicioMouseEntered
 
-    private boolean mostrandoOrdenes = false;
+    private boolean mostrandoOrdenesServicio = false;
     private void PanelOrdenesServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelOrdenesServicioMouseClicked
-        // TODO add your handling code here:
+                                             
         CardLayout cl = (CardLayout) PanelPaneles.getLayout();
-    if (!mostrandoOrdenes) {
-        cl.show(PanelPaneles, "ORDENES_SERVICIO");
-    } else {
-        cl.show(PanelPaneles, "Blanco");
-    }
-    mostrandoVehiculos = !mostrandoOrdenes;
-        
-    
+        if (!mostrandoOrdenesServicio) {
+            cl.show(PanelPaneles, "ORDENES_SERVICIO");
+        } else {
+            cl.show(PanelPaneles, "Blanco");
+        }
+        mostrandoOrdenesServicio = !mostrandoOrdenesServicio;
     }//GEN-LAST:event_PanelOrdenesServicioMouseClicked
 
     private void PanelBarraMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBarraMousePressed
