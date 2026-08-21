@@ -287,8 +287,16 @@
         <Component class="javax.swing.JTextField" name="txtIDDireccionNuevaEmpresa">
         </Component>
         <Component class="javax.swing.JTextField" name="txtCiudadNuevaEmpresa">
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtCiudadNuevaEmpresaFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtCiudadNuevaEmpresaFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCallesNuevaEmpresa">
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtCallesNuevaEmpresaFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtCallesNuevaEmpresaFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtIDTipoNuevaEmpresa">
         </Component>

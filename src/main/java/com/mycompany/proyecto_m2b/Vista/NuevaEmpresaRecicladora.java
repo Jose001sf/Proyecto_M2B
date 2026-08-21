@@ -27,6 +27,12 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
         txtDescripcionNuevaEmpresa.setText("Ingrese una descripcion");
         txtDescripcionNuevaEmpresa.setForeground(java.awt.Color.GRAY);
         
+        txtCiudadNuevaEmpresa.setText("Ingrese la ciudad");
+        txtCiudadNuevaEmpresa.setForeground(java.awt.Color.GRAY);
+        
+        txtCallesNuevaEmpresa.setText("Ingrese calles");
+        txtCallesNuevaEmpresa.setForeground(java.awt.Color.GRAY);
+        
         txtIDNuevaEmpresa.setText("");
         txtIDNuevaEmpresa.setForeground(java.awt.Color.GRAY);
         
@@ -167,6 +173,24 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtTelefonoNuevaEmpresaFocusLost(evt);
+            }
+        });
+
+        txtCiudadNuevaEmpresa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCiudadNuevaEmpresaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCiudadNuevaEmpresaFocusLost(evt);
+            }
+        });
+
+        txtCallesNuevaEmpresa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCallesNuevaEmpresaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCallesNuevaEmpresaFocusLost(evt);
             }
         });
 
@@ -532,6 +556,34 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
             txtDescripcionNuevaEmpresa.setForeground(java.awt.Color.GRAY);
         }
     }//GEN-LAST:event_txtDescripcionNuevaEmpresaFocusLost
+
+    private void txtCiudadNuevaEmpresaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCiudadNuevaEmpresaFocusGained
+                if (txtCiudadNuevaEmpresa.getText().equals("Ingrese la ciudad")) {
+            txtCiudadNuevaEmpresa.setText("");
+            txtCiudadNuevaEmpresa.setForeground(java.awt.Color.BLACK);
+                }  
+    }//GEN-LAST:event_txtCiudadNuevaEmpresaFocusGained
+
+    private void txtCiudadNuevaEmpresaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCiudadNuevaEmpresaFocusLost
+                if (txtCiudadNuevaEmpresa.getText().trim().isEmpty()) {
+            txtCiudadNuevaEmpresa.setText("Ingrese la ciudad");
+            txtCiudadNuevaEmpresa.setForeground(java.awt.Color.GRAY);
+        }
+    }//GEN-LAST:event_txtCiudadNuevaEmpresaFocusLost
+
+    private void txtCallesNuevaEmpresaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCallesNuevaEmpresaFocusGained
+                if (txtCallesNuevaEmpresa.getText().equals("Ingrese calles")) {
+            txtCallesNuevaEmpresa.setText("");
+            txtCallesNuevaEmpresa.setForeground(java.awt.Color.BLACK);
+                }
+    }//GEN-LAST:event_txtCallesNuevaEmpresaFocusGained
+
+    private void txtCallesNuevaEmpresaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCallesNuevaEmpresaFocusLost
+                if (txtCallesNuevaEmpresa.getText().trim().isEmpty()) {
+            txtCallesNuevaEmpresa.setText("Ingrese calles");
+            txtCallesNuevaEmpresa.setForeground(java.awt.Color.GRAY);
+        }
+    }//GEN-LAST:event_txtCallesNuevaEmpresaFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
