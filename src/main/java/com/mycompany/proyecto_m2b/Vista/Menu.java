@@ -30,6 +30,7 @@ public class Menu extends javax.swing.JFrame {
         PanelPaneles.add(new PanelPropietarios(), "PROPIETARIOS");
         PanelPaneles.add(new PanelRepuestos(), "REPUESTOS");
         PanelPaneles.add(new PanelProveedores(), "PROVEEDORES");
+        PanelPaneles.add(new PanelCatalogoServicio(), "CATALOGO_SERVICIOS");
        
     }
     int xMouse;
@@ -863,9 +864,17 @@ public class Menu extends javax.swing.JFrame {
         PanelServicios.setBackground(new Color (252, 170, 118));
         Servicios.setForeground(Color.white);
     }//GEN-LAST:event_PanelServiciosMouseEntered
-
+    
+    private boolean mostrandoCatalogoServicios = false;
     private void PanelServiciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelServiciosMouseClicked
-        
+
+        CardLayout cl = (CardLayout) PanelPaneles.getLayout();
+        if (!mostrandoCatalogoServicios) {
+            cl.show(PanelPaneles, "CATALOGO_SERVICIOS");
+        } else {
+            cl.show(PanelPaneles, "Blanco");
+        }
+        mostrandoCatalogoServicios = !mostrandoCatalogoServicios;
     }//GEN-LAST:event_PanelServiciosMouseClicked
 
     private void PanelPropietariosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelPropietariosMouseExited
