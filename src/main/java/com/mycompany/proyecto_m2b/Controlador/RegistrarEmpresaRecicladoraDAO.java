@@ -1,9 +1,12 @@
 package com.mycompany.proyecto_m2b.Controlador;
 
+import com.mycompany.proyecto_m2b.modelo.Empresa_recicladora;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RegistrarEmpresaRecicladoraDAO {
 
@@ -82,5 +85,33 @@ public class RegistrarEmpresaRecicladoraDAO {
         System.err.println("Error al generar ID para " + tabla + ": " + e.getMessage());
     }
     return prefijo + "0000001";
+}
+    
+    public List<Empresa_recicladora> obtenerEmpresasParaCombo() {
+    List<Empresa_recicladora> lista = new ArrayList<>();
+    String sql = "SELECT e.id_empresa_rec, e.nom_empresa_rec, t.desc_emp, "
+               + "CONCAT(d.nom_ciudad_dir_emp, ' - ', d.nom_calles_dir_emp) AS direccion_completa "
+               + "FROM empresa_recicladora e "
+               + "JOIN tipo_empresa t ON e.id_tipo_emp = t.id_tipo_emp "
+               + "JOIN direccion_empresa_recicladora d ON e.id_direccion_empresa_recicladora = d.id_direccion_empresa_recicladora "
+               + "ORDER BY e.nom_empresa_rec ASC";
+
+    try (Connection conn = ConexionBD.obtenerConexion();
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            Empresa_recicladora emp = new Empresa_recicladora(
+                rs.getString("id_empresa_rec"),
+                rs.getString("nom_empresa_rec"),
+                rs.getString("desc_emp"),
+                rs.getString("direccion_completa")
+            );
+            lista.add(emp);
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener lista de empresas: " + e.getMessage());
+    }
+    return lista;
 }
 }
