@@ -196,6 +196,11 @@ int yMouse;
                 TXTcedulaMousePressed(evt);
             }
         });
+        TXTcedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTcedulaKeyPressed(evt);
+            }
+        });
         jPanel1.add(TXTcedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 210, -1));
 
         TXTnombre.setForeground(new java.awt.Color(153, 153, 153));
@@ -208,6 +213,11 @@ int yMouse;
         TXTnombre.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 TXTnombreMousePressed(evt);
+            }
+        });
+        TXTnombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTnombreKeyPressed(evt);
             }
         });
         jPanel1.add(TXTnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 210, -1));
@@ -225,6 +235,11 @@ int yMouse;
             }
         });
         TXTnombre1.addActionListener(this::TXTnombre1ActionPerformed);
+        TXTnombre1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTnombre1KeyPressed(evt);
+            }
+        });
         jPanel1.add(TXTnombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 210, -1));
 
         TXTapellido.setForeground(new java.awt.Color(153, 153, 153));
@@ -240,6 +255,11 @@ int yMouse;
             }
         });
         TXTapellido.addActionListener(this::TXTapellidoActionPerformed);
+        TXTapellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTapellidoKeyPressed(evt);
+            }
+        });
         jPanel1.add(TXTapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 210, -1));
 
         TXTapellido1.setForeground(new java.awt.Color(153, 153, 153));
@@ -252,6 +272,11 @@ int yMouse;
         TXTapellido1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 TXTapellido1MousePressed(evt);
+            }
+        });
+        TXTapellido1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTapellido1KeyPressed(evt);
             }
         });
         jPanel1.add(TXTapellido1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 210, -1));
@@ -268,6 +293,11 @@ int yMouse;
                 TXTCelularMousePressed(evt);
             }
         });
+        TXTCelular.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTCelularKeyPressed(evt);
+            }
+        });
         jPanel1.add(TXTCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, 250, -1));
 
         TXTCorreoElectronico.setForeground(new java.awt.Color(153, 153, 153));
@@ -282,6 +312,11 @@ int yMouse;
                 TXTCorreoElectronicoMousePressed(evt);
             }
         });
+        TXTCorreoElectronico.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTCorreoElectronicoKeyPressed(evt);
+            }
+        });
         jPanel1.add(TXTCorreoElectronico, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, 250, -1));
 
         TXTciudad.setForeground(new java.awt.Color(153, 153, 153));
@@ -294,6 +329,11 @@ int yMouse;
         TXTciudad.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 TXTciudadMousePressed(evt);
+            }
+        });
+        TXTciudad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTciudadKeyPressed(evt);
             }
         });
         jPanel1.add(TXTciudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 220, 120, -1));
@@ -311,6 +351,11 @@ int yMouse;
             }
         });
         Descripcion.addActionListener(this::DescripcionActionPerformed);
+        Descripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                DescripcionKeyPressed(evt);
+            }
+        });
         jPanel1.add(Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, 630, 50));
 
         PanelNuevo.setBackground(new java.awt.Color(255, 255, 255));
@@ -541,6 +586,11 @@ int yMouse;
                 TXTTelefonoMousePressed(evt);
             }
         });
+        TXTTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTTelefonoKeyPressed(evt);
+            }
+        });
         jPanel1.add(TXTTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 250, -1));
 
         TXTcallePrincipal.setForeground(new java.awt.Color(153, 153, 153));
@@ -553,6 +603,11 @@ int yMouse;
         TXTcallePrincipal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 TXTcallePrincipalMousePressed(evt);
+            }
+        });
+        TXTcallePrincipal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTcallePrincipalKeyPressed(evt);
             }
         });
         jPanel1.add(TXTcallePrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 120, -1));
@@ -569,6 +624,11 @@ int yMouse;
                 TXTcalleSecundariaMousePressed(evt);
             }
         });
+        TXTcalleSecundaria.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTcalleSecundariaKeyPressed(evt);
+            }
+        });
         jPanel1.add(TXTcalleSecundaria, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 220, 120, -1));
 
         TXTnumCasa.setForeground(new java.awt.Color(153, 153, 153));
@@ -581,6 +641,11 @@ int yMouse;
         TXTnumCasa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 TXTnumCasaMousePressed(evt);
+            }
+        });
+        TXTnumCasa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTnumCasaKeyPressed(evt);
             }
         });
         jPanel1.add(TXTnumCasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 220, 120, -1));
@@ -1994,6 +2059,97 @@ int yMouse;
     private void TXTnumCasaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTnumCasaMousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_TXTnumCasaMousePressed
+
+    private void TXTcedulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTcedulaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarPropietarios();
+        }
+    }//GEN-LAST:event_TXTcedulaKeyPressed
+
+    private void TXTCelularKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTCelularKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarPropietarios();
+        }
+    }//GEN-LAST:event_TXTCelularKeyPressed
+
+    private void TXTnombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTnombreKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarPropietarios();
+        }
+    }//GEN-LAST:event_TXTnombreKeyPressed
+
+    private void TXTTelefonoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTTelefonoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarPropietarios();
+        }
+    }//GEN-LAST:event_TXTTelefonoKeyPressed
+
+    private void TXTnombre1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTnombre1KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarPropietarios();
+        }
+    }//GEN-LAST:event_TXTnombre1KeyPressed
+
+    private void TXTCorreoElectronicoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTCorreoElectronicoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarPropietarios();
+        }
+    }//GEN-LAST:event_TXTCorreoElectronicoKeyPressed
+
+    private void TXTapellidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTapellidoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarPropietarios();
+        }
+    }//GEN-LAST:event_TXTapellidoKeyPressed
+
+    private void TXTapellido1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTapellido1KeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarPropietarios();
+        }
+    }//GEN-LAST:event_TXTapellido1KeyPressed
+
+    private void TXTcallePrincipalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTcallePrincipalKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarPropietarios();
+        }
+    }//GEN-LAST:event_TXTcallePrincipalKeyPressed
+
+    private void TXTcalleSecundariaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTcalleSecundariaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarPropietarios();
+        }
+    }//GEN-LAST:event_TXTcalleSecundariaKeyPressed
+
+    private void TXTnumCasaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTnumCasaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarPropietarios();
+        }
+    }//GEN-LAST:event_TXTnumCasaKeyPressed
+
+    private void TXTciudadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTciudadKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarPropietarios();
+        }
+    }//GEN-LAST:event_TXTciudadKeyPressed
+
+    private void DescripcionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DescripcionKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            GuardarPropietarios();
+        }
+    }//GEN-LAST:event_DescripcionKeyPressed
 
     /**
      * @param args the command line arguments
