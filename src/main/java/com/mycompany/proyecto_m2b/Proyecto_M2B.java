@@ -12,9 +12,10 @@ import com.mycompany.proyecto_m2b.Vista.Login;
 public class Proyecto_M2B {
 
     public static void main(String[] args) {        
-        System.out.println("Hello World!");
+        System.out.println("Funciona Pibe");
         Login L=new Login();
         L.setVisible(true);
         //siso
+        //good
     }
 }
