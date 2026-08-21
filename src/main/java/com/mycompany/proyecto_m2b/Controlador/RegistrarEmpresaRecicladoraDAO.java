@@ -6,11 +6,7 @@ import java.sql.SQLException;
 
 public class RegistrarEmpresaRecicladoraDAO {
 
-    public boolean guardarEmpresaCompleta(
-        String idDir, String ciudad, String calles,
-        String idTipo, String descTipo,
-        String idEmpresa, String nombreEmpresa, String telefono
-    ) {
+    public boolean guardarEmpresaCompleta(String idDir, String ciudad, String calles,String idTipo, String descTipo,String idEmpresa, String nombreEmpresa, String telefono) {
         Connection conn = null;
         try {
             conn = ConexionBD.obtenerConexion();
@@ -26,7 +22,6 @@ public class RegistrarEmpresaRecicladoraDAO {
                 psDir.executeUpdate();
             }
 
-            // 2. Insertar en tipo_empresa
             String sqlTipo = "INSERT INTO tipo_empresa (id_tipo_emp, desc_emp) VALUES (?, ?)";
             try (PreparedStatement psTipo = conn.prepareStatement(sqlTipo)) {
                 psTipo.setString(1, idTipo);
@@ -34,7 +29,6 @@ public class RegistrarEmpresaRecicladoraDAO {
                 psTipo.executeUpdate();
             }
 
-            // 3. Insertar en empresa_recicladora
             String sqlEmp = "INSERT INTO empresa_recicladora "
                     + "(id_empresa_rec, nom_empresa_rec, telf_empresa_rec, id_direccion_empresa_recicladora, id_tipo_emp) "
                     + "VALUES (?, ?, ?, ?, ?)";
@@ -42,12 +36,11 @@ public class RegistrarEmpresaRecicladoraDAO {
                 psEmp.setString(1, idEmpresa);
                 psEmp.setString(2, nombreEmpresa);
                 psEmp.setString(3, telefono);
-                psEmp.setString(4, idDir);      // FK dirección
-                psEmp.setString(5, idTipo);     // FK tipo
+                psEmp.setString(4, idDir);    
+                psEmp.setString(5, idTipo);     
                 psEmp.executeUpdate();
             }
 
-            // Confirmar transacción
             conn.commit();
             return true;
 
@@ -55,7 +48,7 @@ public class RegistrarEmpresaRecicladoraDAO {
             System.err.println("Error en la transacción: " + e.getMessage());
             if (conn != null) {
                 try {
-                    conn.rollback(); // Reversión si falla algo
+                    conn.rollback(); 
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
