@@ -228,7 +228,7 @@ public class Vehiculos extends javax.swing.JFrame {
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/images (2).jpg"))); // NOI18N
         Fondo.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 70, -1, -1));
 
-        comboMarcas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una marca", "Item 2", "Item 3", "Item 4" }));
+        comboMarcas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una marca", " " }));
         comboMarcas.addActionListener(this::comboMarcasActionPerformed);
         Fondo.add(comboMarcas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 210, -1));
 
@@ -789,7 +789,7 @@ public class Vehiculos extends javax.swing.JFrame {
 
     private void PanelNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseClicked
         // TODO add your handling code here:
-        CrearNuevaMarcaModelo CMM= new CrearNuevaMarcaModelo();
+        CrearNuevaMarcaModelo CMM= new CrearNuevaMarcaModelo(this, true);
         CMM.setVisible(true);
         this.dispose();
         cargarComboMarcas();
