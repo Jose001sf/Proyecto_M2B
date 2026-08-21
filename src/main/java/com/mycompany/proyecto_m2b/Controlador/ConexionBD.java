@@ -13,9 +13,9 @@ import java.sql.SQLException;
  * @author usuario
  */
 public class ConexionBD {
-   private static final String URL = "jdbc:postgresql://localhost:5432/Proyecto_M2B";
-    private static final String USER = "postgres";
-    private static final String PASSWORD = "hola";
+    private static final String URL = "jdbc:postgresql://aws-0-us-east-2.pooler.supabase.com:5432/postgres";
+    private static final String USER = "postgres.nysvznvdbwwihcqxpcxt"; 
+    private static final String PASSWORD = "Proyecto_123";
 
     public static Connection obtenerConexion() {
         Connection conexion = null;
