@@ -150,6 +150,39 @@ public class VehiculosDAO {
         }
         return lista;
     }
+    public boolean insertarMarca(Marca m) {
+    String sql = "INSERT INTO marca (id_mar, nom_mar, pais_origen_mar, empresa_mar) VALUES (?, ?, ?, ?)";
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        
+        ps.setString(1, m.getID_mar());
+        ps.setString(2, m.getNom_mar());
+        ps.setString(3, m.getPais_origen_mar());
+        ps.setString(4, m.getEmpresa_mar());
+        
+        return ps.executeUpdate() > 0;
+    } catch (SQLException e) {
+        System.err.println("Error al insertar marca: " + e.getMessage());
+        return false;
+    }
+}
+
+    public boolean insertarModelo(Modelo mod) {
+    String sql = "INSERT INTO modelo (id_mode, nom_mode, id_mar, id_tipo) VALUES (?, ?, ?, ?)";
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        
+        ps.setString(1, mod.getID_mode());
+        ps.setString(2, mod.getNom_mode());
+        ps.setString(3, mod.getID_mar_mode());
+        ps.setString(4, mod.getID_tipo_mode());
+        
+        return ps.executeUpdate() > 0;
+    } catch (SQLException e) {
+        System.err.println("Error al insertar modelo: " + e.getMessage());
+        return false;
+    }
+}
     // Obtener Marcas
     public List<Marca> listarMarcas() {
         List<Marca> lista = new ArrayList<>();
@@ -176,7 +209,7 @@ public class VehiculosDAO {
     // Obtener Modelos filtrados según la Marca seleccionada
     public List<Modelo> listarModelosPorMarca(String idMarca) {
         List<Modelo> lista = new ArrayList<>();
-        String sql = "SELECT id_mode, nom_mode, id_mar_mode, id_tipo_mode FROM modelo WHERE id_mar_mode = ? ORDER BY nom_mode ASC";
+        String sql = "SELECT id_mode, nom_mode, id_mar, id_tipo FROM modelo WHERE id_mar = ? ORDER BY nom_mode ASC";
 
         try (Connection conn = ConexionBD.obtenerConexion();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -187,8 +220,8 @@ public class VehiculosDAO {
                     Modelo mod = new Modelo();
                     mod.setID_mode(rs.getString("id_mode"));
                     mod.setNom_mode(rs.getString("nom_mode"));
-                    mod.setID_mar_mode(rs.getString("id_mar_mode"));
-                    mod.setID_tipo_mode(rs.getString("id_tipo_mode"));
+                    mod.setID_mar_mode(rs.getString("id_mar"));
+                    mod.setID_tipo_mode(rs.getString("id_tipo"));
                     lista.add(mod);
                 }
             }
@@ -197,4 +230,22 @@ public class VehiculosDAO {
         }
         return lista;
     }
+    public String obtenerIdMarcaPorNombre(String nombreMarca) {
+    String id = "";
+    String sql = "SELECT ID_mar FROM marca WHERE Nom_mar = ?";
+    
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        
+        ps.setString(1, nombreMarca);
+        ResultSet rs = ps.executeQuery();
+        
+        if (rs.next()) {
+            id = rs.getString("ID_mar");
+        }
+    } catch (SQLException e) {
+        System.out.println("Error al buscar ID de la marca: " + e.getMessage());
+    }
+    return id;
+}
 }

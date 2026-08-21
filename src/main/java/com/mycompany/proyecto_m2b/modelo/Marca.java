@@ -58,7 +58,7 @@ public class Marca {
 
     @Override
     public String toString() {
-        return "Marca{" + "ID_mar=" + ID_mar + ", Nom_mar=" + Nom_mar + ", Pais_origen_mar=" + Pais_origen_mar + ", Empresa_mar=" + Empresa_mar + '}';
+        return this.Nom_mar;
     }
     
 }
