@@ -2,6 +2,7 @@ package com.mycompany.proyecto_m2b.Controlador;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class RegistrarEmpresaRecicladoraDAO {
@@ -65,4 +66,21 @@ public class RegistrarEmpresaRecicladoraDAO {
             }
         }
     }
+    
+    public String generarSiguienteID(String tabla, String columna, String prefijo) {
+    String sql = "SELECT " + columna + " FROM " + tabla + " ORDER BY " + columna + " DESC LIMIT 1";
+    try (Connection conn = ConexionBD.obtenerConexion();
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+
+        if (rs.next()) {
+            String ultimoId = rs.getString(1); 
+            int numero = Integer.parseInt(ultimoId.substring(prefijo.length()));
+            return String.format("%s%07d", prefijo, numero + 1);
+        }
+    } catch (Exception e) {
+        System.err.println("Error al generar ID para " + tabla + ": " + e.getMessage());
+    }
+    return prefijo + "0000001";
+}
 }
