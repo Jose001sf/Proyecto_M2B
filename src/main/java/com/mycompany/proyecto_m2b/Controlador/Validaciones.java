@@ -237,4 +237,13 @@ public class Validaciones {
         Matcher mat = pat.matcher(Ciudad);
         return mat.matches();
     }
+    public boolean validarObservaciones(String observaciones){
+        if(observaciones == null){
+            return false;
+        }
+        observaciones = observaciones.trim();
+        Pattern pat = Pattern.compile("^[A-Za-z0-9._ #áéíóúÁÉÍÓÚñÑ-]{2,100}$");
+        Matcher mat = pat.matcher(observaciones);
+        return mat.matches();
+    }
 }
