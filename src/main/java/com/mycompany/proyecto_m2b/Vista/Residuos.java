@@ -196,7 +196,6 @@ public class Residuos extends javax.swing.JFrame {
         PrecioResiduos.setText("Precio Unitario:");
         Fondo.add(PrecioResiduos, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 280, -1, -1));
 
-        comboEmpresas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una empresa recicladora", "Item 2", "Item 3", "Item 4" }));
         comboEmpresas.addActionListener(this::comboEmpresasActionPerformed);
         Fondo.add(comboEmpresas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 260, -1));
 
