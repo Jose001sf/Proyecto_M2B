@@ -201,4 +201,40 @@ public class Validaciones {
         Matcher mat = pat.matcher(Nombreusuario);
         return mat.matches();
     }
+    public boolean validarCallePrincipal(String CallePr){
+        if(CallePr == null){
+            return false;
+        }
+        CallePr = CallePr.trim();
+        Pattern pat = Pattern.compile("^[A-Za-z0-9._ #áéíóúÁÉÍÓÚñÑ-]{2,50}$");
+        Matcher mat = pat.matcher(CallePr);
+        return mat.matches();
+    }
+    public boolean validarCalleSecundaria(String CalleSe){
+        if(CalleSe == null){
+            return false;
+        }
+        CalleSe = CalleSe.trim();
+        Pattern pat = Pattern.compile("^[A-Za-z0-9._ #áéíóúÁÉÍÓÚñÑ-]{2,50}$");
+        Matcher mat = pat.matcher(CalleSe);
+        return mat.matches();
+    }
+    public boolean validarNumeroCasa(String Numcasa){
+        if(Numcasa == null){
+            return false;
+        }
+        Numcasa = Numcasa.trim();
+        Pattern pat = Pattern.compile("^[A-Za-z0-9._ #áéíóúÁÉÍÓÚñÑ-]{2,10}$");
+        Matcher mat = pat.matcher(Numcasa);
+        return mat.matches();
+    }
+    public boolean validarCiudad(String Ciudad){
+        if(Ciudad == null){
+            return false;
+        }
+        Ciudad = Ciudad.trim();
+        Pattern pat = Pattern.compile("^[A-Za-z0-9._ #áéíóúÁÉÍÓÚñÑ-]{2,30}$");
+        Matcher mat = pat.matcher(Ciudad);
+        return mat.matches();
+    }
 }

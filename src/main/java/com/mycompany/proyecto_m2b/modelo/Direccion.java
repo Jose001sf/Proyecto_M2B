@@ -18,6 +18,14 @@ public class Direccion {
     public Direccion() {
     }
 
+    public Direccion(String Calle_principal, String Calle_secundaria, String Numero_casa, String Ciudad) {
+        this.Calle_principal = Calle_principal;
+        this.Calle_secundaria = Calle_secundaria;
+        this.Numero_casa = Numero_casa;
+        this.Ciudad = Ciudad;
+    }
+
+    
     public Direccion(String ID_direccion, String Calle_principal, String Calle_secundaria, String Numero_casa, String Ciudad) {
         this.ID_direccion = ID_direccion;
         this.Calle_principal = Calle_principal;

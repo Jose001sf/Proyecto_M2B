@@ -16,17 +16,19 @@ import java.util.List;
  *
  * @author usuario
  */
-public class EmpleadoBD {
+public class EmpleadoDAO {
     private static final String INSERTAREMPLEADO =
     "INSERT INTO public.empleado (id_empleado, ced_perso, id_cargo, id_especialidad)" +
     "VALUES (?, ?, ?, ?)";
     
     
      public void insertar(Empleado empleado) {
+        String IdEmpe=Generacion_id.generar_id("EMP", "seq_empleado");
+        empleado.setId_empleado(IdEmpe);
         try (Connection conn = ConexionBD.obtenerConexion();
              PreparedStatement ps = conn.prepareStatement(INSERTAREMPLEADO)) {
 
-            ps.setString(1, empleado.getId_empleado());
+            ps.setString(1, IdEmpe);
             ps.setString(2, empleado.getCed_perso());
             ps.setString(3, empleado.getId_cargo());
             ps.setString(4, empleado.getId_especialidad());            

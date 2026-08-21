@@ -19,6 +19,14 @@ public class Usuario {
     public Usuario() {
     }
 
+    public Usuario(String Nombre_usuario, String contra_usuario, boolean Estado_acti_usuario, String id_empleado, String tip_usuario) {
+        this.Nombre_usuario = Nombre_usuario;
+        this.contra_usuario = contra_usuario;
+        this.Estado_acti_usuario = Estado_acti_usuario;
+        this.id_empleado = id_empleado;
+        this.tip_usuario = tip_usuario;
+    }
+
     public Usuario(String ID_usuario, String Nombre_usuario, String contra_usuario, boolean Estado_acti_usuario, String id_empleado, String tip_usuario) {
         this.ID_usuario = ID_usuario;
         this.Nombre_usuario = Nombre_usuario;
