@@ -4,6 +4,11 @@
  */
 package com.mycompany.proyecto_m2b.Vista;
 
+import com.mycompany.proyecto_m2b.Controlador.Validaciones;
+import java.awt.Color;
+import java.util.Date;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author HP
@@ -26,19 +31,900 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        TXTplaca = new javax.swing.JTextField();
+        TXTcedula = new javax.swing.JTextField();
+        TXTempleado = new javax.swing.JTextField();
+        TXTcostoTotal = new javax.swing.JTextField();
+        Descripcion = new javax.swing.JTextField();
+        PanelNuevo = new javax.swing.JPanel();
+        Nuevo = new javax.swing.JLabel();
+        ImagenADD = new javax.swing.JLabel();
+        PanelGuardar = new javax.swing.JPanel();
+        Guardar = new javax.swing.JLabel();
+        ImagenSAVE = new javax.swing.JLabel();
+        PanelEditar = new javax.swing.JPanel();
+        Editar = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        PanelDarBaja = new javax.swing.JPanel();
+        DarDeBaja = new javax.swing.JLabel();
+        ImagenDarBaja = new javax.swing.JLabel();
+        PanelBuscar = new javax.swing.JPanel();
+        Buscar = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        Estados = new javax.swing.JComboBox<>();
+        CalendarioFechaIngreso = new com.toedter.calendar.JDateChooser();
+        CalendarioFechaEntrega = new com.toedter.calendar.JDateChooser();
+
+        jPanel1.setBackground(new java.awt.Color(238, 238, 238));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel2MouseDragged(evt);
+            }
+        });
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel2MousePressed(evt);
+            }
+        });
+
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel21.setText("<- REGRESAR");
+        jLabel21.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel21.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel21MouseClicked(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("ORDENES DE SERVICIO");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 386, Short.MAX_VALUE)
+                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31))
+        );
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 60));
+
+        jLabel5.setText("Placa del vehiculo:");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
+
+        jLabel6.setText("Cedula del cliente:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
+
+        jLabel7.setText("Empleado asignado:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
+
+        jLabel8.setText("Estado de Orden:");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
+
+        jLabel10.setText("Fecha de ingreso:");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, -1, -1));
+
+        jLabel11.setText("Costo Total:");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, -1, 20));
+
+        jLabel12.setText("Detalle/Trabajo a realizar:");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
+
+        TXTplaca.setForeground(new java.awt.Color(153, 153, 153));
+        TXTplaca.setText("Ingrese la placa");
+        TXTplaca.setToolTipText("");
+        TXTplaca.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTplacaFocusGained(evt);
+            }
+        });
+        TXTplaca.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTplacaMousePressed(evt);
+            }
+        });
+        TXTplaca.addActionListener(this::TXTplacaActionPerformed);
+        TXTplaca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTplacaKeyPressed(evt);
+            }
+        });
+        jPanel1.add(TXTplaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 210, -1));
+
+        TXTcedula.setForeground(new java.awt.Color(153, 153, 153));
+        TXTcedula.setText("Ingrese la cédula");
+        TXTcedula.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTcedulaFocusGained(evt);
+            }
+        });
+        TXTcedula.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTcedulaMousePressed(evt);
+            }
+        });
+        TXTcedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTcedulaKeyPressed(evt);
+            }
+        });
+        jPanel1.add(TXTcedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 210, -1));
+
+        TXTempleado.setForeground(new java.awt.Color(153, 153, 153));
+        TXTempleado.setText("Ingrese empleado");
+        TXTempleado.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTempleadoFocusGained(evt);
+            }
+        });
+        TXTempleado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTempleadoMousePressed(evt);
+            }
+        });
+        TXTempleado.addActionListener(this::TXTempleadoActionPerformed);
+        TXTempleado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTempleadoKeyPressed(evt);
+            }
+        });
+        jPanel1.add(TXTempleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 210, -1));
+
+        TXTcostoTotal.setForeground(new java.awt.Color(153, 153, 153));
+        TXTcostoTotal.setText("Costo Total");
+        TXTcostoTotal.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTcostoTotalFocusGained(evt);
+            }
+        });
+        TXTcostoTotal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTcostoTotalMousePressed(evt);
+            }
+        });
+        TXTcostoTotal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTcostoTotalKeyPressed(evt);
+            }
+        });
+        jPanel1.add(TXTcostoTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, 250, -1));
+
+        Descripcion.setForeground(new java.awt.Color(153, 153, 153));
+        Descripcion.setText("Describa el trabajo a realizar");
+        Descripcion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                DescripcionFocusGained(evt);
+            }
+        });
+        Descripcion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                DescripcionMousePressed(evt);
+            }
+        });
+        Descripcion.addActionListener(this::DescripcionActionPerformed);
+        Descripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                DescripcionKeyPressed(evt);
+            }
+        });
+        jPanel1.add(Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 630, 70));
+
+        PanelNuevo.setBackground(new java.awt.Color(255, 255, 255));
+        PanelNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        PanelNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelNuevoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PanelNuevoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                PanelNuevoMouseExited(evt);
+            }
+        });
+
+        Nuevo.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        Nuevo.setText("Nuevo");
+
+        ImagenADD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+
+        javax.swing.GroupLayout PanelNuevoLayout = new javax.swing.GroupLayout(PanelNuevo);
+        PanelNuevo.setLayout(PanelNuevoLayout);
+        PanelNuevoLayout.setHorizontalGroup(
+            PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelNuevoLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(ImagenADD)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Nuevo)
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
+        PanelNuevoLayout.setVerticalGroup(
+            PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelNuevoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ImagenADD)
+                    .addComponent(Nuevo))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(PanelNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, -1, -1));
+
+        PanelGuardar.setBackground(new java.awt.Color(242, 101, 34));
+        PanelGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        PanelGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelGuardarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PanelGuardarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                PanelGuardarMouseExited(evt);
+            }
+        });
+
+        Guardar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        Guardar.setForeground(new java.awt.Color(255, 255, 255));
+        Guardar.setText("Guardar");
+
+        ImagenSAVE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/save_22dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+
+        javax.swing.GroupLayout PanelGuardarLayout = new javax.swing.GroupLayout(PanelGuardar);
+        PanelGuardar.setLayout(PanelGuardarLayout);
+        PanelGuardarLayout.setHorizontalGroup(
+            PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelGuardarLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(ImagenSAVE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Guardar)
+                .addContainerGap(36, Short.MAX_VALUE))
+        );
+        PanelGuardarLayout.setVerticalGroup(
+            PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelGuardarLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Guardar)
+                    .addComponent(ImagenSAVE))
+                .addContainerGap())
+        );
+
+        jPanel1.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, -1, -1));
+
+        PanelEditar.setBackground(new java.awt.Color(255, 255, 255));
+        PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        PanelEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PanelEditarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                PanelEditarMouseExited(evt);
+            }
+        });
+
+        Editar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        Editar.setText("Editar");
+
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/edit_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+
+        javax.swing.GroupLayout PanelEditarLayout = new javax.swing.GroupLayout(PanelEditar);
+        PanelEditar.setLayout(PanelEditarLayout);
+        PanelEditarLayout.setHorizontalGroup(
+            PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelEditarLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Editar)
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
+        PanelEditarLayout.setVerticalGroup(
+            PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelEditarLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Editar)
+                    .addComponent(jLabel2))
+                .addContainerGap())
+        );
+
+        jPanel1.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 310, -1, -1));
+
+        PanelDarBaja.setBackground(new java.awt.Color(255, 255, 255));
+        PanelDarBaja.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(215, 106, 106)));
+        PanelDarBaja.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelDarBaja.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PanelDarBajaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                PanelDarBajaMouseExited(evt);
+            }
+        });
+
+        DarDeBaja.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        DarDeBaja.setForeground(new java.awt.Color(215, 106, 106));
+        DarDeBaja.setText("Dar de baja");
+
+        ImagenDarBaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/person_cancel_22dp_EA3323_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+
+        javax.swing.GroupLayout PanelDarBajaLayout = new javax.swing.GroupLayout(PanelDarBaja);
+        PanelDarBaja.setLayout(PanelDarBajaLayout);
+        PanelDarBajaLayout.setHorizontalGroup(
+            PanelDarBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelDarBajaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ImagenDarBaja)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(DarDeBaja)
+                .addGap(30, 30, 30))
+        );
+        PanelDarBajaLayout.setVerticalGroup(
+            PanelDarBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelDarBajaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelDarBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(DarDeBaja)
+                    .addComponent(ImagenDarBaja))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(PanelDarBaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 310, -1, -1));
+
+        PanelBuscar.setBackground(new java.awt.Color(255, 255, 255));
+        PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        PanelBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PanelBuscarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                PanelBuscarMouseExited(evt);
+            }
+        });
+
+        Buscar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        Buscar.setText("Buscar");
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/person_search_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+
+        javax.swing.GroupLayout PanelBuscarLayout = new javax.swing.GroupLayout(PanelBuscar);
+        PanelBuscar.setLayout(PanelBuscarLayout);
+        PanelBuscarLayout.setHorizontalGroup(
+            PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelBuscarLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Buscar)
+                .addContainerGap(31, Short.MAX_VALUE))
+        );
+        PanelBuscarLayout.setVerticalGroup(
+            PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelBuscarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Buscar)
+                    .addComponent(jLabel1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 310, -1, -1));
+
+        jLabel3.setText("Fecha de entrega:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, -1, -1));
+
+        Estados.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno", "Ingresado", "En Proceso", "Terminado", "Entregado" }));
+        jPanel1.add(Estados, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, -1, -1));
+        jPanel1.add(CalendarioFechaIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, 250, -1));
+        jPanel1.add(CalendarioFechaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 250, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 797, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
+        // TODO add your handling code here:
 
+    }//GEN-LAST:event_jLabel21MouseClicked
+
+    private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
+
+    }//GEN-LAST:event_jPanel2MouseDragged
+
+    private void jPanel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MousePressed
+        // TODO add your handling code here:
+   
+    }//GEN-LAST:event_jPanel2MousePressed
+
+    private void TXTplacaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTplacaFocusGained
+        // TODO add your handling code here:
+        if (TXTplaca.getText().equals("Ingrese la placa")){
+            TXTplaca.setText("");
+            TXTplaca.setForeground(Color.BLACK);
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTempleado.getText().isEmpty()){
+            TXTempleado.setText("Ingrese empleado");
+            TXTempleado.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcostoTotal.getText().isEmpty()){
+            TXTcostoTotal.setText("Costo Total");
+            TXTcostoTotal.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Describa el trabajo a realizar");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTplacaFocusGained
+
+    private void TXTplacaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTplacaMousePressed
+        // TODO add your handling code here:
+        if (TXTplaca.getText().equals("Ingrese la placa")){
+            TXTplaca.setText("");
+            TXTplaca.setForeground(Color.BLACK);
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTempleado.getText().isEmpty()){
+            TXTempleado.setText("Ingrese empleado");
+            TXTempleado.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcostoTotal.getText().isEmpty()){
+            TXTcostoTotal.setText("Costo Total");
+            TXTcostoTotal.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Describa el trabajo a realizar");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTplacaMousePressed
+
+    private void TXTplacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTplacaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTplacaActionPerformed
+
+    private void TXTplacaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTplacaKeyPressed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_TXTplacaKeyPressed
+
+    private void TXTcedulaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTcedulaFocusGained
+        // TODO add your handling code here:
+        if (TXTcedula.getText().equals("Ingrese la cédula")){
+            TXTcedula.setText("");
+            TXTcedula.setForeground(Color.BLACK);
+        }
+        if (TXTplaca.getText().isEmpty()){
+            TXTplaca.setText("Ingrese la placa");
+            TXTplaca.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTempleado.getText().isEmpty()){
+            TXTempleado.setText("Ingrese empleado");
+            TXTempleado.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcostoTotal.getText().isEmpty()){
+            TXTcostoTotal.setText("Costo Total");
+            TXTcostoTotal.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Describa el trabajo a realizar");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTcedulaFocusGained
+
+    private void TXTcedulaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTcedulaMousePressed
+        // TODO add your handling code here:
+        if (TXTcedula.getText().equals("Ingrese la cédula")){
+            TXTcedula.setText("");
+            TXTcedula.setForeground(Color.BLACK);
+        }
+        if (TXTplaca.getText().isEmpty()){
+            TXTplaca.setText("Ingrese la placa");
+            TXTplaca.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTempleado.getText().isEmpty()){
+            TXTempleado.setText("Ingrese empleado");
+            TXTempleado.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcostoTotal.getText().isEmpty()){
+            TXTcostoTotal.setText("Costo Total");
+            TXTcostoTotal.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Describa el trabajo a realizar");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTcedulaMousePressed
+
+    private void TXTcedulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTcedulaKeyPressed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_TXTcedulaKeyPressed
+
+    private void TXTempleadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTempleadoFocusGained
+        // TODO add your handling code here:
+        if (TXTempleado.getText().equals("Ingrese empleado")){
+            TXTempleado.setText("");
+            TXTempleado.setForeground(Color.BLACK);
+        }
+        if (TXTplaca.getText().isEmpty()){
+            TXTplaca.setText("Ingrese la placa");
+            TXTplaca.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcostoTotal.getText().isEmpty()){
+            TXTcostoTotal.setText("Costo Total");
+            TXTcostoTotal.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Describa el trabajo a realizar");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTempleadoFocusGained
+
+    private void TXTempleadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTempleadoMousePressed
+        // TODO add your handling code here:
+        if (TXTempleado.getText().equals("Ingrese empleado")){
+            TXTempleado.setText("");
+            TXTempleado.setForeground(Color.BLACK);
+        }
+        if (TXTplaca.getText().isEmpty()){
+            TXTplaca.setText("Ingrese la placa");
+            TXTplaca.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcostoTotal.getText().isEmpty()){
+            TXTcostoTotal.setText("Costo Total");
+            TXTcostoTotal.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Describa el trabajo a realizar");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTempleadoMousePressed
+
+    private void TXTempleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTempleadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTempleadoActionPerformed
+
+    private void TXTempleadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTempleadoKeyPressed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_TXTempleadoKeyPressed
+
+    private void TXTcostoTotalFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTcostoTotalFocusGained
+        // TODO add your handling code here:
+        if (TXTcostoTotal.getText().equals("Costo Total")){
+            TXTcostoTotal.setText("");
+            TXTcostoTotal.setForeground(Color.BLACK);
+        }
+        if (TXTplaca.getText().isEmpty()){
+            TXTplaca.setText("Ingrese la placa");
+            TXTplaca.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTempleado.getText().isEmpty()){
+            TXTempleado.setText("Ingrese empleado");
+            TXTempleado.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Describa el trabajo a realizar");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTcostoTotalFocusGained
+
+    private void TXTcostoTotalMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTcostoTotalMousePressed
+        // TODO add your handling code here:
+        if (TXTcostoTotal.getText().equals("Costo Total")){
+            TXTcostoTotal.setText("");
+            TXTcostoTotal.setForeground(Color.BLACK);
+        }
+        if (TXTplaca.getText().isEmpty()){
+            TXTplaca.setText("Ingrese la placa");
+            TXTplaca.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTempleado.getText().isEmpty()){
+            TXTempleado.setText("Ingrese empleado");
+            TXTempleado.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion.getText().isEmpty()){
+            Descripcion.setText("Describa el trabajo a realizar");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTcostoTotalMousePressed
+
+    private void TXTcostoTotalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTcostoTotalKeyPressed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_TXTcostoTotalKeyPressed
+
+    private void DescripcionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_DescripcionFocusGained
+        // TODO add your handling code here:
+        if (Descripcion.getText().equals("Describa el trabajo a realizar")){
+            Descripcion.setText("");
+            Descripcion.setForeground(Color.BLACK);
+        }
+        if (TXTplaca.getText().isEmpty()){
+            TXTplaca.setText("Ingrese la placa");
+            TXTplaca.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTempleado.getText().isEmpty()){
+            TXTempleado.setText("Ingrese empleado");
+            TXTempleado.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcostoTotal.getText().isEmpty()){
+            TXTcostoTotal.setText("Costo Total");
+            TXTcostoTotal.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_DescripcionFocusGained
+
+    private void DescripcionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DescripcionMousePressed
+        // TODO add your handling code here:
+        if (Descripcion.getText().equals("Describa el trabajo a realizar")){
+            Descripcion.setText("");
+            Descripcion.setForeground(Color.BLACK);
+        }
+        if (TXTplaca.getText().isEmpty()){
+            TXTplaca.setText("Ingrese la placa");
+            TXTplaca.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTempleado.getText().isEmpty()){
+            TXTempleado.setText("Ingrese empleado");
+            TXTempleado.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcostoTotal.getText().isEmpty()){
+            TXTcostoTotal.setText("Costo Total");
+            TXTcostoTotal.setForeground(new Color(94, 94, 94));
+        }
+        if (TXTcedula.getText().isEmpty()){
+            TXTcedula.setText("Ingrese la cédula");
+            TXTcedula.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_DescripcionMousePressed
+
+    private void DescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DescripcionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DescripcionActionPerformed
+
+    private void DescripcionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DescripcionKeyPressed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_DescripcionKeyPressed
+
+    private void PanelNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseClicked
+        // TODO add your handling code here:
+        LimpiarDatos();
+        JOptionPane.showMessageDialog(this, "Datos limpiados correctamente"+"\n"
+            +"Ingrese los datos");
+    }//GEN-LAST:event_PanelNuevoMouseClicked
+
+    private void PanelNuevoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseEntered
+        // TODO add your handling code here:
+        PanelNuevo.setBackground(new Color(219,219,219));
+        Nuevo.setForeground(new Color(66, 66, 66));
+    }//GEN-LAST:event_PanelNuevoMouseEntered
+
+    private void PanelNuevoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseExited
+        // TODO add your handling code here:
+        PanelNuevo.setBackground(Color.white);
+        Nuevo.setForeground(Color.black);
+    }//GEN-LAST:event_PanelNuevoMouseExited
+
+    private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
+        // TODO add your handling code here:
+        GuardarOrdenDeServicio();
+    }//GEN-LAST:event_PanelGuardarMouseClicked
+
+    private void PanelGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseEntered
+        // TODO add your handling code here:
+        PanelGuardar.setBackground(new Color(227, 95, 32));
+        Guardar.setForeground(new Color(217, 217, 192));
+    }//GEN-LAST:event_PanelGuardarMouseEntered
+
+    private void PanelGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseExited
+        // TODO add your handling code here:
+        PanelGuardar.setBackground(new Color(242,101,34));
+        Guardar.setForeground(Color.white);
+    }//GEN-LAST:event_PanelGuardarMouseExited
+
+    private void PanelEditarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseEntered
+        // TODO add your handling code here:
+        PanelEditar.setBackground(new Color(219,219,219));
+        Editar.setForeground(new Color(66, 66, 66));
+    }//GEN-LAST:event_PanelEditarMouseEntered
+
+    private void PanelEditarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseExited
+        // TODO add your handling code here:
+        PanelEditar.setBackground(Color.white);
+        Editar.setForeground(Color.black);
+    }//GEN-LAST:event_PanelEditarMouseExited
+
+    private void PanelDarBajaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarBajaMouseEntered
+        // TODO add your handling code here:
+        PanelDarBaja.setBackground(new Color (252, 168, 168));
+        DarDeBaja.setForeground(Color.white);
+    }//GEN-LAST:event_PanelDarBajaMouseEntered
+
+    private void PanelDarBajaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarBajaMouseExited
+        // TODO add your handling code here:
+        PanelDarBaja.setBackground(Color.white);
+        DarDeBaja.setForeground(new Color(215, 106, 106));
+    }//GEN-LAST:event_PanelDarBajaMouseExited
+
+    private void PanelBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseEntered
+        // TODO add your handling code here:
+        PanelBuscar.setBackground(new Color(219,219,219));
+        Buscar.setForeground(new Color(66, 66, 66));
+    }//GEN-LAST:event_PanelBuscarMouseEntered
+
+    private void PanelBuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseExited
+        // TODO add your handling code here:
+        PanelBuscar.setBackground(Color.white);
+        Buscar.setForeground(Color.black);
+    }//GEN-LAST:event_PanelBuscarMouseExited
+
+
+    public void LimpiarDatos (){
+        TXTplaca.setText("");
+        TXTplaca.setForeground(new Color(94, 94, 94));
+        TXTempleado.setText("");
+        TXTempleado.setForeground(new Color(94, 94, 94));
+        TXTcostoTotal.setText("");
+        TXTcostoTotal.setForeground(new Color(94, 94, 94));
+        Descripcion.setText("");
+        Descripcion.setForeground(new Color(94, 94, 94));
+        TXTcedula.setText("");
+        TXTcedula.setForeground(new Color(94, 94, 94));
+        Estados.setSelectedIndex(0);
+        CalendarioFechaEntrega.setDate(null);
+        CalendarioFechaIngreso.setDate(null);
+    }
+    public void GuardarOrdenDeServicio (){
+        Validaciones V=new Validaciones();
+        
+        String Cedula=TXTcedula.getText().trim();
+        String Placa=TXTplaca.getText().trim().toUpperCase();
+        String Empleado=TXTempleado.getText().trim().toUpperCase();
+        String costoTotal=TXTcostoTotal.getText().trim().toUpperCase();
+        String descripcion=Descripcion.getText().trim().toUpperCase();
+        Date FechaIngreso=CalendarioFechaIngreso.getDate();
+        Date FechaEntrega=CalendarioFechaEntrega.getDate();
+        String Estado = Estados.getSelectedItem().toString();
+        if (Cedula.isEmpty()|| Placa.isEmpty()||Empleado.isEmpty()||costoTotal.isEmpty()||descripcion.isEmpty()||Estado.isEmpty()){
+            JOptionPane.showMessageDialog (this, "Por favor complete los datos que faltan");
+            return;
+        }
+        if (Cedula.isBlank()|| Placa.isBlank()||Empleado.isBlank()||costoTotal.isBlank()||descripcion.isBlank()||Estado.isBlank()){
+            JOptionPane.showMessageDialog (this, "Por favor complete los datos que faltan");
+            return;
+        }
+        if (Estado.equals("Seleccione una opción") ){
+            JOptionPane.showMessageDialog (this, "Por favor escoga una opción");
+            return;
+        }
+        if (!V.ValidarCedula(Cedula)){
+            JOptionPane.showMessageDialog (this, "La cédula esta incorrecta");
+            return;
+        }
+        java.sql.Date FechaIN=new java.sql.Date(FechaIngreso.getTime());
+        if (!V.FechaNacimiento(FechaIN)){
+            JOptionPane.showMessageDialog(this, "La fecha de ingreso esta incorrecta");
+            return;
+        }
+        java.sql.Date FechaENT=new java.sql.Date(FechaEntrega.getTime());
+        if (!V.FechaNacimiento(FechaENT)){
+            JOptionPane.showMessageDialog(this, "La fecha de entrega esta incorrecta");
+            return;
+        }  
+        LimpiarDatos();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Buscar;
+    private com.toedter.calendar.JDateChooser CalendarioFechaEntrega;
+    private com.toedter.calendar.JDateChooser CalendarioFechaIngreso;
+    private javax.swing.JLabel DarDeBaja;
+    private javax.swing.JTextField Descripcion;
+    private javax.swing.JLabel Editar;
+    private javax.swing.JComboBox<String> Estados;
+    private javax.swing.JLabel Guardar;
+    private javax.swing.JLabel ImagenADD;
+    private javax.swing.JLabel ImagenDarBaja;
+    private javax.swing.JLabel ImagenSAVE;
+    private javax.swing.JLabel Nuevo;
+    private javax.swing.JPanel PanelBuscar;
+    private javax.swing.JPanel PanelDarBaja;
+    private javax.swing.JPanel PanelEditar;
+    private javax.swing.JPanel PanelGuardar;
+    private javax.swing.JPanel PanelNuevo;
+    private javax.swing.JTextField TXTcedula;
+    private javax.swing.JTextField TXTcostoTotal;
+    private javax.swing.JTextField TXTempleado;
+    private javax.swing.JTextField TXTplaca;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }

@@ -25,6 +25,9 @@ public class Menu extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         PanelPaneles.add(new PanelBlanco(), "Blanco");
         PanelPaneles.add(new PanelVehiculos(), "VEHICULOS");
+        PanelPaneles.add(new PanelOrdenesServicio(), "ORDENES_SERVICIO");
+        PanelPaneles.add(new PanelResiduos(), "RESIDUOS");
+        
        
     }
     int xMouse;
@@ -770,18 +773,19 @@ public class Menu extends javax.swing.JFrame {
         PanelResiduos.setBackground(new Color(179, 179, 179));
         Residuos.setForeground(Color.white);
     }//GEN-LAST:event_PanelResiduosMouseEntered
-
+    
+    private boolean mostrandoresiduos = false;
     private void PanelResiduosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelResiduosMouseClicked
+                                            
         // TODO add your handling code here:
-        if (Resi==null || !Resi.isVisible()){
-            Resi = new Residuos();
-            Resi.setVisible(true);
+        CardLayout cl = (CardLayout) PanelPaneles.getLayout();
+        if (!mostrandoresiduos) {
+            cl.show(PanelPaneles, "RESIDUOS");
+        } else {
+            cl.show(PanelPaneles, "Blanco");
         }
-        else {
-            Resi.setState(java.awt.Frame.NORMAL);
-            Resi.toFront();
-            Resi.requestFocus();
-        }
+        mostrandoresiduos = !mostrandoresiduos;
+
     }//GEN-LAST:event_PanelResiduosMouseClicked
 
     private void PanelProveedoresMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelProveedoresMouseExited
@@ -836,7 +840,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void PanelServiciosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelServiciosMouseReleased
         // TODO add your handling code here:
-
+        
     }//GEN-LAST:event_PanelServiciosMouseReleased
 
     private void PanelServiciosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelServiciosMousePressed
@@ -857,7 +861,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_PanelServiciosMouseEntered
 
     private void PanelServiciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelServiciosMouseClicked
-
+        
     }//GEN-LAST:event_PanelServiciosMouseClicked
 
     private void PanelPropietariosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelPropietariosMouseExited
@@ -922,17 +926,18 @@ public class Menu extends javax.swing.JFrame {
         OrdenesDeServicio.setForeground(Color.white);
     }//GEN-LAST:event_PanelOrdenesServicioMouseEntered
 
+    private boolean mostrandoOrdenes = false;
     private void PanelOrdenesServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelOrdenesServicioMouseClicked
         // TODO add your handling code here:
-        if (OrdenesServ==null || !OrdenesServ.isVisible()){
-            OrdenesServ = new OrdenesDeServicio();
-            OrdenesServ.setVisible(true);
-        }
-        else {
-            OrdenesServ.setState(java.awt.Frame.NORMAL);
-            OrdenesServ.toFront();
-            OrdenesServ.requestFocus();
-        }
+        CardLayout cl = (CardLayout) PanelPaneles.getLayout();
+    if (!mostrandoOrdenes) {
+        cl.show(PanelPaneles, "ORDENES_SERVICIO");
+    } else {
+        cl.show(PanelPaneles, "Blanco");
+    }
+    mostrandoVehiculos = !mostrandoOrdenes;
+        
+    
     }//GEN-LAST:event_PanelOrdenesServicioMouseClicked
 
     private void PanelBarraMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBarraMousePressed

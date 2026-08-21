@@ -3,9 +3,7 @@
  */
 
 package com.mycompany.proyecto_m2b;
-import com.mycompany.proyecto_m2b.Controlador.TipoServicioDAO;
 import com.mycompany.proyecto_m2b.Vista.Login;
-import com.mycompany.proyecto_m2b.modelo.Tipo_de_servicio;
 
 /**
  *
@@ -13,7 +11,7 @@ import com.mycompany.proyecto_m2b.modelo.Tipo_de_servicio;
  */
 public class Proyecto_M2B {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) {        
         System.out.println("Hello World!");
         Login L=new Login();
         L.setVisible(true);

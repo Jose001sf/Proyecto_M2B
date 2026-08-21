@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package com.mycompany.proyecto_m2b.Vista;
 
@@ -10,18 +10,16 @@ import java.util.List;
 
 /**
  *
- * @author jose
+ * @author HP
  */
-public class Residuos extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Residuos.class.getName());
+public class PanelResiduos extends javax.swing.JPanel {
 
     /**
-     * Creates new form Residuos
+     * Creates new form PanelResiduos
      */
-    public Residuos() {
+    public PanelResiduos() {
         initComponents();
-    java.time.LocalDate fechaActual = java.time.LocalDate.now();
+        java.time.LocalDate fechaActual = java.time.LocalDate.now();
     
     dateReciclaje.setDate(java.sql.Date.valueOf(fechaActual));
     dateReciclaje.setEnabled(false); 
@@ -31,8 +29,6 @@ public class Residuos extends javax.swing.JFrame {
     txtNReciclaje.setEnabled(false);
     txtDireccion.setEnabled(false);
     txtTipoEmpresa.setEnabled(false);
-
-    this.setLocationRelativeTo(null);
 
     cargarEmpresasEnCombo();
     }
@@ -49,7 +45,11 @@ public class Residuos extends javax.swing.JFrame {
         comboEmpresas.addItem((Object) emp);
     }
     }
-
+    private String generarNumeroFactura() {
+    int ultimoNumero = 0;
+    int nuevoNumero = ultimoNumero + 1;
+    return String.format("FAC-%06d", nuevoNumero);
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -102,10 +102,6 @@ public class Residuos extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtTipoEmpresa = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
-        setResizable(false);
-
         Fondo.setBackground(new java.awt.Color(255, 255, 255));
         Fondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -131,7 +127,7 @@ public class Residuos extends javax.swing.JFrame {
             .addGroup(BarraArribaLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(NombreVentanaResiduos, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 417, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 419, Short.MAX_VALUE)
                 .addComponent(btnRegresar)
                 .addGap(43, 43, 43))
         );
@@ -481,8 +477,8 @@ public class Residuos extends javax.swing.JFrame {
         Fondo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 120, -1, -1));
         Fondo.add(txtTipoEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 140, 200, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(Fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -491,21 +487,25 @@ public class Residuos extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(Fondo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private String generarNumeroFactura() {
-    int ultimoNumero = 0;
-    int nuevoNumero = ultimoNumero + 1;
-    return String.format("FAC-%06d", nuevoNumero);
-}
-    
     private void btnRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseClicked
-        Menu m = new Menu();
-        m.setVisible(true);
-        this.dispose();
+
     }//GEN-LAST:event_btnRegresarMouseClicked
+
+    private void comboEmpresasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEmpresasActionPerformed
+        Object seleccionado = comboEmpresas.getSelectedItem();
+
+        if (seleccionado instanceof Empresa_recicladora) {
+            Empresa_recicladora emp = (Empresa_recicladora) seleccionado;
+
+            txtTipoEmpresa.setText(emp.getDescTipoEmp());
+            txtDireccion.setText(emp.getDireccionCompleta());
+        } else {
+            txtTipoEmpresa.setText("");
+            txtDireccion.setText("");
+        }
+    }//GEN-LAST:event_comboEmpresasActionPerformed
 
     private void PanelNuevo1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevo1MouseClicked
         // TODO add your handling code here:
@@ -521,10 +521,10 @@ public class Residuos extends javax.swing.JFrame {
 
     private void PanelNuevaEmpresaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevaEmpresaMouseClicked
         // TODO add your handling code here:
-    NuevaEmpresaRecicladora panel = new NuevaEmpresaRecicladora();
-    javax.swing.JPopupMenu popup = new javax.swing.JPopupMenu();
-    popup.add(panel);
-    popup.show(PanelNuevaEmpresa, 0, PanelNuevaEmpresa.getHeight());
+        NuevaEmpresaRecicladora panel = new NuevaEmpresaRecicladora();
+        javax.swing.JPopupMenu popup = new javax.swing.JPopupMenu();
+        popup.add(panel);
+        popup.show(PanelNuevaEmpresa, 0, PanelNuevaEmpresa.getHeight());
     }//GEN-LAST:event_PanelNuevaEmpresaMouseClicked
 
     private void PanelNuevaEmpresaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevaEmpresaMouseEntered
@@ -591,44 +591,6 @@ public class Residuos extends javax.swing.JFrame {
         Buscar.setForeground(java.awt.Color.black);
     }//GEN-LAST:event_PanelBuscarMouseExited
 
-    private void comboEmpresasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEmpresasActionPerformed
-        Object seleccionado = comboEmpresas.getSelectedItem();
-
-    if (seleccionado instanceof Empresa_recicladora) {
-        Empresa_recicladora emp = (Empresa_recicladora) seleccionado;
-        
-        txtTipoEmpresa.setText(emp.getDescTipoEmp());
-        txtDireccion.setText(emp.getDireccionCompleta());
-    } else {
-        txtTipoEmpresa.setText("");
-        txtDireccion.setText("");
-    }
-    }//GEN-LAST:event_comboEmpresasActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Residuos().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BarraAbajo;
