@@ -4,6 +4,7 @@
  */
 package com.mycompany.proyecto_m2b.Controlador;
 
+import com.mycompany.proyecto_m2b.modelo.Cargo;
 import com.mycompany.proyecto_m2b.modelo.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -28,9 +30,10 @@ public class UsuarioDAO {
             return;
         }
         usuario.setID_usuario(IdGenerado);
+         System.out.println(IdGenerado);
          try (Connection conn = ConexionBD.obtenerConexion();
             PreparedStatement ps = conn.prepareStatement(INSERTARUSUARIO)) {            
-            ps.setString(1, IdGenerado);
+            ps.setString(1, usuario.getID_usuario());
             ps.setString(2, usuario.getNombre_usuario());
             ps.setString(3, usuario.getContra_usuario());
             ps.setBoolean(4, usuario.isEstado_acti_usuario());
@@ -156,5 +159,35 @@ public class UsuarioDAO {
             System.out.println("Error al ingresar el usuario: "+nombre_usuario+", error: "+e.getMessage());            
         }
         return null;
+    }
+    public void cargarIDusuarios (JComboBox Usuarios) {
+
+        String sql = """
+            SELECT id_usuario, nombre_usuario, contra_usuario, estado_acti_usuario, id_empleado, id_tip_usuario
+            FROM usuario
+            ORDER BY nombre_usuario
+            """;
+
+        try (Connection con = ConexionBD.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            Usuarios.removeAllItems();
+
+            while (rs.next()) {
+
+                String id_usuario = rs.getString("id_usuario");
+                String nombre_usuario = rs.getString("nombre_usuario");
+                boolean estado_acti_usuario= rs.getBoolean("estado_acti_usuario");
+                String id_tip_usuario= rs.getString("id_tip_usuario");
+                String id_empleado= rs.getString("id_empleado");
+                Usuario usuario= new Usuario(nombre_usuario, nombre_usuario, estado_acti_usuario, id_usuario, id_usuario);
+
+                Usuarios.addItem(usuario);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error");        
+        }
     }
  }        

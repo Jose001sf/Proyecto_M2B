@@ -33,6 +33,7 @@ public class Residuos extends javax.swing.JFrame {
     txtTipoEmpresa.setEnabled(false);
 
     this.setLocationRelativeTo(null);
+
     cargarEmpresasEnCombo();
     }
     
