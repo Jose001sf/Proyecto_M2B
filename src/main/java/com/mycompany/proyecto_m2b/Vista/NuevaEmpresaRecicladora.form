@@ -293,6 +293,10 @@
         <Component class="javax.swing.JTextField" name="txtIDTipoNuevaEmpresa">
         </Component>
         <Component class="javax.swing.JTextField" name="txtNombreNuevaEmpresa">
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNombreNuevaEmpresaFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNombreNuevaEmpresaFocusLost"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JPanel" name="PanelGuardar">
           <Properties>
@@ -504,6 +508,10 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtDescripcionNuevaEmpresa">
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtDescripcionNuevaEmpresaFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtDescripcionNuevaEmpresaFocusLost"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

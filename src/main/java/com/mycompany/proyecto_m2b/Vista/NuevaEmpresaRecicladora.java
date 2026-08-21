@@ -20,10 +20,25 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
 
         txtTelefonoNuevaEmpresa.setText("Ingrese el telefono de la empresa");
         txtTelefonoNuevaEmpresa.setForeground(java.awt.Color.GRAY);
-
-        txtIDNuevaEmpresa.setEditable(false);
-        txtIDTipoNuevaEmpresa.setEditable(false);
-        txtIDDireccionNuevaEmpresa.setEditable(false);
+        
+        txtNombreNuevaEmpresa.setText("Ingrese el nombre de la empresa");
+        txtNombreNuevaEmpresa.setForeground(java.awt.Color.GRAY);
+        
+        txtDescripcionNuevaEmpresa.setText("Ingrese una descripcion");
+        txtDescripcionNuevaEmpresa.setForeground(java.awt.Color.GRAY);
+        
+        txtIDNuevaEmpresa.setText("");
+        txtIDNuevaEmpresa.setForeground(java.awt.Color.GRAY);
+        
+        txtIDTipoNuevaEmpresa.setText("");
+        txtIDTipoNuevaEmpresa.setForeground(java.awt.Color.GRAY);
+        
+        txtIDDireccionNuevaEmpresa.setText("");
+        txtIDDireccionNuevaEmpresa.setForeground(java.awt.Color.GRAY);
+        
+        txtIDNuevaEmpresa.setEnabled(false);
+        txtIDTipoNuevaEmpresa.setEnabled(false);
+        txtIDDireccionNuevaEmpresa.setEnabled(false);
 
         cargarIDsAutomaticos();
     }
@@ -155,6 +170,15 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
             }
         });
 
+        txtNombreNuevaEmpresa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNombreNuevaEmpresaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNombreNuevaEmpresaFocusLost(evt);
+            }
+        });
+
         PanelGuardar.setBackground(new java.awt.Color(242, 101, 34));
         PanelGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
         PanelGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -276,6 +300,15 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
 
         jLabel12.setForeground(new java.awt.Color(153, 153, 153));
         jLabel12.setText("Descripcion:");
+
+        txtDescripcionNuevaEmpresa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDescripcionNuevaEmpresaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDescripcionNuevaEmpresaFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout FondoLayout = new javax.swing.GroupLayout(Fondo);
         Fondo.setLayout(FondoLayout);
@@ -471,6 +504,34 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
             txtTelefonoNuevaEmpresa.setForeground(java.awt.Color.GRAY);
         }
     }//GEN-LAST:event_txtTelefonoNuevaEmpresaFocusLost
+
+    private void txtNombreNuevaEmpresaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreNuevaEmpresaFocusGained
+                if (txtNombreNuevaEmpresa.getText().equals("Ingrese el nombre de la empresa")) {
+            txtNombreNuevaEmpresa.setText("");
+            txtNombreNuevaEmpresa.setForeground(java.awt.Color.BLACK);
+                }
+    }//GEN-LAST:event_txtNombreNuevaEmpresaFocusGained
+
+    private void txtNombreNuevaEmpresaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreNuevaEmpresaFocusLost
+               if (txtNombreNuevaEmpresa.getText().trim().isEmpty()) {
+            txtNombreNuevaEmpresa.setText("Ingrese el nombre de la empresa");
+            txtNombreNuevaEmpresa.setForeground(java.awt.Color.GRAY);
+        }
+    }//GEN-LAST:event_txtNombreNuevaEmpresaFocusLost
+
+    private void txtDescripcionNuevaEmpresaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDescripcionNuevaEmpresaFocusGained
+                if (txtDescripcionNuevaEmpresa.getText().equals("Ingrese una descripcion")) {
+            txtDescripcionNuevaEmpresa.setText("");
+            txtDescripcionNuevaEmpresa.setForeground(java.awt.Color.BLACK);
+                }       
+    }//GEN-LAST:event_txtDescripcionNuevaEmpresaFocusGained
+
+    private void txtDescripcionNuevaEmpresaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDescripcionNuevaEmpresaFocusLost
+                if (txtDescripcionNuevaEmpresa.getText().trim().isEmpty()) {
+            txtDescripcionNuevaEmpresa.setText("Ingrese una descripcion");
+            txtDescripcionNuevaEmpresa.setForeground(java.awt.Color.GRAY);
+        }
+    }//GEN-LAST:event_txtDescripcionNuevaEmpresaFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
