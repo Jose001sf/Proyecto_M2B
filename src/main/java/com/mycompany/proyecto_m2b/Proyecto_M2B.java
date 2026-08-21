@@ -17,18 +17,6 @@ public class Proyecto_M2B {
         System.out.println("Hello World!");
         Login L=new Login();
         L.setVisible(true);
-        /*
-        ghgvhhububyuhbuugbuy
-        */
-        
-        
-        //HOla
-        Tipo_de_servicio nuevoServicio = new Tipo_de_servicio("TS001", "Mantenimiento", "Servicio de mantenimiento preventivo");
 
-        // 3. Crear una instancia del DAO
-        TipoServicioDAO servicioDAO = new TipoServicioDAO();
-
-        // 4. Llamar al método para insertar el registro en la base de datos
-        servicioDAO.insertar(nuevoServicio);
     }
 }
