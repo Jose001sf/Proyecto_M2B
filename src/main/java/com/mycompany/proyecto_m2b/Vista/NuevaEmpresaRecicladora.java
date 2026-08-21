@@ -17,21 +17,39 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
      */
     public NuevaEmpresaRecicladora() {
         initComponents();
-        
-    txtTelefonoNuevaEmpresa.setText("Ingrese el telefono de la empresa");
-    txtTelefonoNuevaEmpresa.setForeground(java.awt.Color.GRAY);
+
+        txtTelefonoNuevaEmpresa.setText("Ingrese el telefono de la empresa");
+        txtTelefonoNuevaEmpresa.setForeground(java.awt.Color.GRAY);
+
+        txtIDNuevaEmpresa.setEditable(false);
+        txtIDTipoNuevaEmpresa.setEditable(false);
+        txtIDDireccionNuevaEmpresa.setEditable(false);
+
+        cargarIDsAutomaticos();
     }
-    
-        private void limpiarCampos() {
-    txtIDNuevaEmpresa.setText("");
-    txtNombreNuevaEmpresa.setText("");
-    txtTelefonoNuevaEmpresa.setText("");
-    txtTipoNuevaEmpresa.setText("");
-    txtDescripcionNuevaEmpresa.setText("");
-    txtIDDireccionNuevaEmpresa.setText("");
-    txtCiudadNuevaEmpresa.setText("");
-    txtCallesNuevaEmpresa.setText(""); 
-}
+
+    private void cargarIDsAutomaticos() {
+        RegistrarEmpresaRecicladoraDAO dao = new RegistrarEmpresaRecicladoraDAO();
+
+        String nuevoIdEmpresa = dao.generarSiguienteID("empresa_recicladora", "id_empresa_rec", "ER-");
+        String nuevoIdTipo = dao.generarSiguienteID("tipo_empresa", "id_tipo_emp", "TER-");
+        String nuevoIdDireccion = dao.generarSiguienteID("direccion_empresa_recicladora", "id_direccion_empresa_recicladora", "DER-");
+
+        txtIDNuevaEmpresa.setText(nuevoIdEmpresa);
+        txtIDTipoNuevaEmpresa.setText(nuevoIdTipo);
+        txtIDDireccionNuevaEmpresa.setText(nuevoIdDireccion);
+    }
+
+    private void limpiarCampos() {
+        cargarIDsAutomaticos();
+
+        txtNombreNuevaEmpresa.setText("");
+        txtTelefonoNuevaEmpresa.setText("Ingrese el telefono de la empresa");
+        txtTelefonoNuevaEmpresa.setForeground(java.awt.Color.GRAY);
+        txtDescripcionNuevaEmpresa.setText("");
+        txtCiudadNuevaEmpresa.setText("");
+        txtCallesNuevaEmpresa.setText("");
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -58,7 +76,7 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
         txtIDDireccionNuevaEmpresa = new javax.swing.JTextField();
         txtCiudadNuevaEmpresa = new javax.swing.JTextField();
         txtCallesNuevaEmpresa = new javax.swing.JTextField();
-        txtTipoNuevaEmpresa = new javax.swing.JTextField();
+        txtIDTipoNuevaEmpresa = new javax.swing.JTextField();
         txtNombreNuevaEmpresa = new javax.swing.JTextField();
         PanelGuardar = new javax.swing.JPanel();
         Guardar = new javax.swing.JLabel();
@@ -113,7 +131,7 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
         jLabel5.setText("Telefono de Contacto:");
 
         jLabel6.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel6.setText("Tipo de Empresa");
+        jLabel6.setText("ID tipo de Empresa");
 
         jLabel7.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(153, 153, 153));
@@ -298,7 +316,7 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel4)
                                     .addComponent(txtNombreNuevaEmpresa)
-                                    .addComponent(txtTipoNuevaEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtIDTipoNuevaEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(27, 27, 27)
                                 .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtDescripcionNuevaEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -335,7 +353,7 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTelefonoNuevaEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTipoNuevaEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIDTipoNuevaEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDescripcionNuevaEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
@@ -373,7 +391,7 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
     String idEmp = txtIDNuevaEmpresa.getText().trim();
     String nomEmp = txtNombreNuevaEmpresa.getText().trim();
     String telf = txtTelefonoNuevaEmpresa.getText().trim();
-    String idTipo = txtTipoNuevaEmpresa.getText().trim();                       
+    String idTipo = txtIDTipoNuevaEmpresa.getText().trim();                       
     String descTipo = txtDescripcionNuevaEmpresa.getText().trim();           
     String idDir = txtIDDireccionNuevaEmpresa.getText().trim();                          
     String ciudad = txtCiudadNuevaEmpresa.getText().trim();
@@ -483,8 +501,8 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
     private javax.swing.JTextField txtDescripcionNuevaEmpresa;
     private javax.swing.JTextField txtIDDireccionNuevaEmpresa;
     private javax.swing.JTextField txtIDNuevaEmpresa;
+    private javax.swing.JTextField txtIDTipoNuevaEmpresa;
     private javax.swing.JTextField txtNombreNuevaEmpresa;
     private javax.swing.JTextField txtTelefonoNuevaEmpresa;
-    private javax.swing.JTextField txtTipoNuevaEmpresa;
     // End of variables declaration//GEN-END:variables
 }

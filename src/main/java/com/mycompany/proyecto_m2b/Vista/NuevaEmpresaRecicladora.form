@@ -78,7 +78,7 @@
                                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                       <Component id="txtNombreNuevaEmpresa" max="32767" attributes="0"/>
-                                      <Component id="txtTipoNuevaEmpresa" alignment="0" min="-2" pref="212" max="-2" attributes="0"/>
+                                      <Component id="txtIDTipoNuevaEmpresa" alignment="0" min="-2" pref="212" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -127,7 +127,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtTelefonoNuevaEmpresa" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtTipoNuevaEmpresa" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtIDTipoNuevaEmpresa" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtDescripcionNuevaEmpresa" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -240,7 +240,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="99" green="99" red="99" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Tipo de Empresa"/>
+            <Property name="text" type="java.lang.String" value="ID tipo de Empresa"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
@@ -290,7 +290,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtCallesNuevaEmpresa">
         </Component>
-        <Component class="javax.swing.JTextField" name="txtTipoNuevaEmpresa">
+        <Component class="javax.swing.JTextField" name="txtIDTipoNuevaEmpresa">
         </Component>
         <Component class="javax.swing.JTextField" name="txtNombreNuevaEmpresa">
         </Component>
