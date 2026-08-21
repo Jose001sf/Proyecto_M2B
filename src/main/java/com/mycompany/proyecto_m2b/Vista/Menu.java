@@ -28,6 +28,7 @@ public class Menu extends javax.swing.JFrame {
         PanelPaneles.add(new PanelOrdenesServicio(), "ORDENES_SERVICIO");
         PanelPaneles.add(new PanelResiduos(), "RESIDUOS");
         PanelPaneles.add(new PanelPropietarios(), "PROPIETARIOS");
+        PanelPaneles.add(new PanelRepuestos(), "REPUESTOS");
        
     }
     int xMouse;
@@ -828,17 +829,17 @@ public class Menu extends javax.swing.JFrame {
         Repuestos.setForeground(Color.white);
     }//GEN-LAST:event_PanelRepuestosMouseEntered
 
+    private boolean mostrandoRepuestos = false;
     private void PanelRepuestosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelRepuestosMouseClicked
+                                           
         // TODO add your handling code here:
-        if (Repues==null || !Repues.isVisible()){
-            Repues = new Repuestos();
-            Repues.setVisible(true);
+        CardLayout cl = (CardLayout) PanelPaneles.getLayout();
+        if (!mostrandoRepuestos) {
+            cl.show(PanelPaneles, "REPUESTOS");
+        } else {
+            cl.show(PanelPaneles, "Blanco");
         }
-        else {
-            Repues.setState(java.awt.Frame.NORMAL);
-            Repues.toFront();
-            Repues.requestFocus();
-        }
+        mostrandoRepuestos = !mostrandoRepuestos;        
     }//GEN-LAST:event_PanelRepuestosMouseClicked
 
     private void PanelServiciosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelServiciosMouseReleased
