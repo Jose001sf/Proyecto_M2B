@@ -4,6 +4,8 @@
  */
 package com.mycompany.proyecto_m2b.Vista;
 
+import com.mycompany.proyecto_m2b.Controlador.RegistrarEmpresaRecicladoraDAO;
+
 /**
  *
  * @author jose
@@ -19,7 +21,18 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
     txtTelefonoNuevaEmpresa.setText("Ingrese el telefono de la empresa");
     txtTelefonoNuevaEmpresa.setForeground(java.awt.Color.GRAY);
     }
-
+    
+        private void limpiarCampos() {
+    txtIDNuevaEmpresa.setText("");
+    txtNombreNuevaEmpresa.setText("");
+    txtTelefonoNuevaEmpresa.setText("");
+    txtTipoNuevaEmpresa.setText("");
+    txtDescripcionNuevaEmpresa.setText("");
+    txtIDDireccionNuevaEmpresa.setText("");
+    txtCiudadNuevaEmpresa.setText("");
+    txtCallesNuevaEmpresa.setText(""); 
+}
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,6 +70,8 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
         Buscar = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         txtIDNuevaEmpresa = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        txtDescripcionNuevaEmpresa = new javax.swing.JTextField();
 
         Fondo.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -241,6 +256,9 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabel12.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel12.setText("Descripcion:");
+
         javax.swing.GroupLayout FondoLayout = new javax.swing.GroupLayout(Fondo);
         Fondo.setLayout(FondoLayout);
         FondoLayout.setHorizontalGroup(
@@ -256,23 +274,6 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
                             .addComponent(jLabel3)
                             .addComponent(jLabel7)
                             .addGroup(FondoLayout.createSequentialGroup()
-                                .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(FondoLayout.createSequentialGroup()
-                                        .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel1)
-                                            .addComponent(jLabel5))
-                                        .addGap(91, 91, 91))
-                                    .addGroup(FondoLayout.createSequentialGroup()
-                                        .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(txtIDNuevaEmpresa, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtTelefonoNuevaEmpresa))
-                                        .addGap(61, 61, 61)))
-                                .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel4)
-                                    .addComponent(txtNombreNuevaEmpresa, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
-                                    .addComponent(txtTipoNuevaEmpresa)))
-                            .addGroup(FondoLayout.createSequentialGroup()
                                 .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(FondoLayout.createSequentialGroup()
                                         .addComponent(txtIDDireccionNuevaEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -285,7 +286,23 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel10)
-                                    .addComponent(txtCallesNuevaEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(txtCallesNuevaEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(FondoLayout.createSequentialGroup()
+                                .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel5)
+                                    .addComponent(txtIDNuevaEmpresa)
+                                    .addComponent(txtTelefonoNuevaEmpresa, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(18, 18, 18)
+                                .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel4)
+                                    .addComponent(txtNombreNuevaEmpresa)
+                                    .addComponent(txtTipoNuevaEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(27, 27, 27)
+                                .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtDescripcionNuevaEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel12)))))
                     .addGroup(FondoLayout.createSequentialGroup()
                         .addGap(104, 104, 104)
                         .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -313,11 +330,13 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
                 .addGap(8, 8, 8)
                 .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTelefonoNuevaEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTipoNuevaEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTipoNuevaEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDescripcionNuevaEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -351,7 +370,38 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
-        // TODO add your handling code here:
+    String idEmp = txtIDNuevaEmpresa.getText().trim();
+    String nomEmp = txtNombreNuevaEmpresa.getText().trim();
+    String telf = txtTelefonoNuevaEmpresa.getText().trim();
+    String idTipo = txtTipoNuevaEmpresa.getText().trim();                       
+    String descTipo = txtDescripcionNuevaEmpresa.getText().trim();           
+    String idDir = txtIDDireccionNuevaEmpresa.getText().trim();                          
+    String ciudad = txtCiudadNuevaEmpresa.getText().trim();
+    String calles = txtCallesNuevaEmpresa.getText().trim();
+
+    if (idEmp.isEmpty() || nomEmp.isEmpty() || idDir.isEmpty() || idTipo.isEmpty() || descTipo.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, 
+                "Por favor complete todos los campos", 
+                "Campos incompletos", 
+                javax.swing.JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    RegistrarEmpresaRecicladoraDAO dao = new RegistrarEmpresaRecicladoraDAO();
+    boolean guardado = dao.guardarEmpresaCompleta(idDir, ciudad, calles, idTipo, descTipo, idEmp, nomEmp, telf);
+
+    if (guardado) {
+        javax.swing.JOptionPane.showMessageDialog(this, 
+                "Empresa recicladora registrada exitosamente en la base de datos", 
+                "Exito", 
+                javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        limpiarCampos();
+    } else {
+        javax.swing.JOptionPane.showMessageDialog(this, 
+                "Error al guardar", 
+                "Error de Base de Datos", 
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
+                
     }//GEN-LAST:event_PanelGuardarMouseClicked
 
     private void PanelGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseEntered
@@ -419,6 +469,7 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -429,6 +480,7 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField txtCallesNuevaEmpresa;
     private javax.swing.JTextField txtCiudadNuevaEmpresa;
+    private javax.swing.JTextField txtDescripcionNuevaEmpresa;
     private javax.swing.JTextField txtIDDireccionNuevaEmpresa;
     private javax.swing.JTextField txtIDNuevaEmpresa;
     private javax.swing.JTextField txtNombreNuevaEmpresa;
