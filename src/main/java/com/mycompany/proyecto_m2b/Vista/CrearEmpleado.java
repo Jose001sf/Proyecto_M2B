@@ -2526,6 +2526,10 @@ public class CrearEmpleado extends javax.swing.JFrame {
 
     private void VerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerificarActionPerformed
         // TODO add your handling code here:
+        TXTcallePrincipal.setText("");
+        TXTcalleSecundaria.setText("");
+        TXTnumCasa.setText("");
+        TXTciudad.setText("");
         String ced_perso=TXTcedula.getText().trim();
         PersonaDAO pd=new PersonaDAO();
         Persona persona=pd.buscarPorCedula(ced_perso);
@@ -2545,7 +2549,17 @@ public class CrearEmpleado extends javax.swing.JFrame {
                 CalendarioRegistro.setDate(persona.getFech_registro_person());
             }
             //conseguir las direcciones
-            
+            if (persona.getId_direccion() != null && !persona.getId_direccion().isEmpty()) {
+            DireccionDAO dd = new DireccionDAO();
+            Direccion dir = dd.buscarIDDir(persona.getId_direccion());
+
+            if (dir != null) {
+                TXTcallePrincipal.setText(dir.getCalle_principal());
+                TXTcalleSecundaria.setText(dir.getCalle_secundaria());
+                TXTnumCasa.setText(dir.getNumero_casa());
+                TXTciudad.setText(dir.getCiudad());
+            }
+        }
             JOptionPane.showMessageDialog(this, "Persona encontrada correctamente");
         }
         else{
