@@ -789,10 +789,7 @@ public class Vehiculos extends javax.swing.JFrame {
 
     private void PanelNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseClicked
         // TODO add your handling code here:
-        CrearNuevaMarcaModelo CMM= new CrearNuevaMarcaModelo(this, true);
-        CMM.setVisible(true);
-        this.dispose();
-        cargarComboMarcas();
+
     }//GEN-LAST:event_PanelNuevoMouseClicked
 
     private void PanelNuevoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseEntered
