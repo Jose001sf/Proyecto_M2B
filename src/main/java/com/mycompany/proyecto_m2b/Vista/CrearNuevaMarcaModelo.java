@@ -14,14 +14,15 @@ import javax.swing.JOptionPane;
  *
  * @author castr
  */
-public class CrearNuevaMarcaModelo extends javax.swing.JFrame {
+public class CrearNuevaMarcaModelo extends javax.swing.JDialog {
     private String idMarcaCreada = null;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CrearNuevaMarcaModelo.class.getName());
 
     /** Creates new form Propietario */
-    public CrearNuevaMarcaModelo() {
+    public CrearNuevaMarcaModelo(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
-        this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(parent);
     }
     
 int xMouse;
@@ -348,7 +349,6 @@ int yMouse;
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new CrearNuevaMarcaModelo().setVisible(true));
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Guardar;
