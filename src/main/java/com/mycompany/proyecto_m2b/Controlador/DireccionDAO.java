@@ -8,6 +8,7 @@ import com.mycompany.proyecto_m2b.modelo.Direccion;
 import com.mycompany.proyecto_m2b.modelo.Tipos_de_usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -37,4 +38,25 @@ public class DireccionDAO {
             System.out.println("Error al insertar la Direccion: " + e.getMessage());
         }
     }
+    public Direccion buscarIDDir(String id_direccion){        
+        String sql= "SELECT * FROM public.direccion WHERE id_direccion=?";
+        try(Connection conn=ConexionBD.obtenerConexion();PreparedStatement ps=conn.prepareStatement(sql)){
+            ps.setString(1, id_direccion);
+            try(ResultSet rs=ps.executeQuery()){
+                if(rs.next()){
+                Direccion dir = new Direccion();
+                dir.setID_direccion(rs.getString("id_direccion"));
+                dir.setCalle_principal(rs.getString("calle_principal"));
+                dir.setCalle_secundaria(rs.getString("calle_secundaria"));
+                dir.setNumero_casa(rs.getString("numero_casa"));
+                dir.setCiudad(rs.getString("ciudad"));
+                return dir;
+            }
+            }
+        }catch(SQLException e){
+            System.out.println("Error al bucar: "+id_direccion+", ");
+        }
+        return null;
+    }
+    
 }
