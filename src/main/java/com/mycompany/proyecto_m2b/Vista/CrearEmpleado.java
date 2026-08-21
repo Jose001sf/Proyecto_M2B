@@ -20,6 +20,7 @@ import com.mycompany.proyecto_m2b.modelo.Persona;
 import com.mycompany.proyecto_m2b.modelo.Tipos_de_usuario;
 import com.mycompany.proyecto_m2b.modelo.Usuario;
 import com.mycompany.proyecto_m2b.modelo.Especialidad;
+import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
 import java.time.ZoneId;
 import java.util.Date;
@@ -48,6 +49,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
         Es.cargarEspecialidades(Especialidades);
         TipoUsuarioDAO Tip=new TipoUsuarioDAO();
         Tip.cargarTiposUsuario(TiposUsuarios);
+        ((JTextFieldDateEditor) CalendarioRegistro.getDateEditor()).setDisabledTextColor(java.awt.Color.BLACK);
     }
     int xMouse, yMouse;
     /**
@@ -200,6 +202,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
         Verificar.setBackground(new java.awt.Color(247, 247, 247));
         Verificar.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         Verificar.setText("VERIFICAR");
+        Verificar.addActionListener(this::VerificarActionPerformed);
 
         Nombres.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         Nombres.setText("Nombres:");
@@ -1747,6 +1750,11 @@ public class CrearEmpleado extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "La fecha esta incorrecta");
             return;
         }
+        PersonaDAO p=new PersonaDAO();
+        if(p.existeCedula(Genero)){
+            JOptionPane.showMessageDialog(this, "Esa cédula ya esta registrada");
+            return;
+        }
         Date fecha=CalendarioRegistro.getDate();
         java.sql.Date FechaRe= new java.sql.Date(fecha.getTime());
         //Se guardar al empleado
@@ -1757,7 +1765,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
         String id_direccion=direccion.getID_direccion();
         //persona
         Persona persona=new Persona (Cedula, PrimerNombre, SegundoNombre, PrimerApellido, SegundoApellido, Celular, Telefono, Genero, FechaNA, CorreoE, FechaRe, direccion.getID_direccion());
-        PersonaDAO p=new PersonaDAO();
+        
         p.insertar(persona);
         //empleado
         Empleado empleado=new Empleado(persona.getCed_perso(), cargoE.getID_cargo(), especialidadE.getID_especialidad());
@@ -2415,6 +2423,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
 
     private void PanelNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseClicked
         // TODO add your handling code here:
+        TXTcedula.setEditable(true);
         LimpiarDatos();
         JOptionPane.showMessageDialog(this, "Datos limpiados correctamente"+"\n"
         +"Ingrese los datos");
@@ -2514,6 +2523,35 @@ public class CrearEmpleado extends javax.swing.JFrame {
     private void TiposUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TiposUsuariosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TiposUsuariosActionPerformed
+
+    private void VerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerificarActionPerformed
+        // TODO add your handling code here:
+        String ced_perso=TXTcedula.getText().trim();
+        PersonaDAO pd=new PersonaDAO();
+        Persona persona=pd.buscarPorCedula(ced_perso);
+        if(persona!=null){
+            TXTcedula.setEditable(false);
+            TXTnombre.setText(persona.getNom1_person());
+            TXTnombre1.setText(persona.getNom2_person());
+            TXTapellido.setText(persona.getApell1_person());
+            TXTapellido1.setText(persona.getApell2_person());
+            TXTCelular.setText(persona.getNum_celu_person());
+            TXTTelefono.setText(persona.getNum_tel_person());
+            TXTCorreoElectronico.setText(persona.getCorr_elec_perso());
+            if(CalendarioNacimiento!=null){
+                CalendarioNacimiento.setDate(persona.getFech_nac_perso());
+            }
+            if (CalendarioRegistro!=null){
+                CalendarioRegistro.setDate(persona.getFech_registro_person());
+            }
+            //conseguir las direcciones
+            
+            JOptionPane.showMessageDialog(this, "Persona encontrada correctamente");
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "No se puedo encontrar a la persona");
+        }
+    }//GEN-LAST:event_VerificarActionPerformed
 
     /**
      * @param args the command line arguments

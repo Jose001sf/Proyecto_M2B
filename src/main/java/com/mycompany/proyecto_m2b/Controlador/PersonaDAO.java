@@ -78,4 +78,48 @@ public class PersonaDAO {
 
         return lista;
     }
+    public Persona buscarPorCedula(String cedula) {
+        String sql = "SELECT ced_perso, nom1_person, nom2_person, apell1_person, apell2_person, num_celu_person, num_tel_person, gene_person, fech_nac_perso, corr_elec_perso, fech_registro_person, id_direccion "
+                   + "FROM persona WHERE ced_perso = ?";
+        try (Connection conn = ConexionBD.obtenerConexion();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+ 
+            ps.setString(1, cedula);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Persona p = new Persona();
+                    p.setCed_perso(rs.getString("ced_perso"));
+                    p.setNom1_person(rs.getString("nom1_person"));
+                    p.setNom2_person(rs.getString("nom2_person"));
+                    p.setApell1_person(rs.getString("apell1_person"));
+                    p.setApell2_person(rs.getString("apell2_person"));
+                    p.setNum_celu_person(rs.getString("num_celu_person"));
+                    p.setNum_tel_person(rs.getString("num_tel_person"));
+                    p.setGene_person(rs.getString("gene_person"));
+                    p.setFech_nac_perso(rs.getDate("fech_nac_perso"));
+                    p.setCorr_elec_perso(rs.getString("corr_elec_perso"));
+                    p.setId_direccion(rs.getString("id_direccion"));
+                    return p;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al buscar persona por cedula: " + e.getMessage());
+        }
+        return null;
+    }
+    public boolean existeCedula (String ced_perso){
+        String sql = "SELECT 1 FROM persona WHERE ced_perso = ?";
+        try (Connection conn = ConexionBD.obtenerConexion();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+ 
+            ps.setString(1, ced_perso);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al verificar cedula: " + e.getMessage());
+            return false;
+        }
+    }
+    
 }
