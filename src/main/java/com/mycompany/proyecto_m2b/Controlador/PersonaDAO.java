@@ -98,6 +98,7 @@ public class PersonaDAO {
                     p.setGene_person(rs.getString("gene_person"));
                     p.setFech_nac_perso(rs.getDate("fech_nac_perso"));
                     p.setCorr_elec_perso(rs.getString("corr_elec_perso"));
+                    p.setFech_registro_person(rs.getDate("fech_registro_person"));
                     p.setId_direccion(rs.getString("id_direccion"));
                     return p;
                 }
