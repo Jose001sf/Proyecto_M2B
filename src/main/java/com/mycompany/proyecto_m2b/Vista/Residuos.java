@@ -4,6 +4,10 @@
  */
 package com.mycompany.proyecto_m2b.Vista;
 
+import com.mycompany.proyecto_m2b.Controlador.RegistrarEmpresaRecicladoraDAO;
+import com.mycompany.proyecto_m2b.modelo.Empresa_recicladora;
+import java.util.List;
+
 /**
  *
  * @author jose
@@ -26,6 +30,20 @@ public class Residuos extends javax.swing.JFrame {
 
     this.setLocationRelativeTo(null);
     this.setLocationRelativeTo(null);
+    cargarEmpresasEnCombo();
+    }
+    
+    private void cargarEmpresasEnCombo() {
+    comboEmpresas.removeAllItems();
+
+    comboEmpresas.addItem((Object) "Seleccione una empresa recicladora");
+
+    RegistrarEmpresaRecicladoraDAO dao = new RegistrarEmpresaRecicladoraDAO();
+    List<Empresa_recicladora> empresas = dao.obtenerEmpresasParaCombo();
+
+    for (Empresa_recicladora emp : empresas) {
+        comboEmpresas.addItem((Object) emp);
+    }
     }
 
     /**
@@ -179,6 +197,7 @@ public class Residuos extends javax.swing.JFrame {
         Fondo.add(PrecioResiduos, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 280, -1, -1));
 
         comboEmpresas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una empresa recicladora", "Item 2", "Item 3", "Item 4" }));
+        comboEmpresas.addActionListener(this::comboEmpresasActionPerformed);
         Fondo.add(comboEmpresas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 260, -1));
 
         Empresa.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
@@ -480,7 +499,6 @@ public class Residuos extends javax.swing.JFrame {
 }
     
     private void btnRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseClicked
-        // TODO add your handling code here:
         Menu m = new Menu();
         m.setVisible(true);
         this.dispose();
@@ -570,6 +588,20 @@ public class Residuos extends javax.swing.JFrame {
         Buscar.setForeground(java.awt.Color.black);
     }//GEN-LAST:event_PanelBuscarMouseExited
 
+    private void comboEmpresasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEmpresasActionPerformed
+        Object seleccionado = comboEmpresas.getSelectedItem();
+
+    if (seleccionado instanceof Empresa_recicladora) {
+        Empresa_recicladora emp = (Empresa_recicladora) seleccionado;
+        
+        txtTipoEmpresa.setText(emp.getDescTipoEmp());
+        txtDireccion.setText(emp.getDireccionCompleta());
+    } else {
+        txtTipoEmpresa.setText("");
+        txtDireccion.setText("");
+    }
+    }//GEN-LAST:event_comboEmpresasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -626,7 +658,7 @@ public class Residuos extends javax.swing.JFrame {
     private javax.swing.JLabel TituloFuncion1;
     private javax.swing.JLabel TituloFuncion2;
     private javax.swing.JLabel btnRegresar;
-    private javax.swing.JComboBox<String> comboEmpresas;
+    private javax.swing.JComboBox<Object> comboEmpresas;
     private javax.swing.JComboBox<String> comboResiduos;
     private com.toedter.calendar.JDateChooser dateReciclaje;
     private javax.swing.JLabel jLabel1;
