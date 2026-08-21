@@ -874,15 +874,15 @@ int yMouse;
         java.awt.EventQueue.invokeLater(() -> new OrdenesDeServicio().setVisible(true));
     }
     public void LimpiarDatos (){
-        TXTplaca.setText("Ingrese la placa");
+        TXTplaca.setText("");
         TXTplaca.setForeground(new Color(94, 94, 94));
-        TXTempleado.setText("Ingrese empleado");
+        TXTempleado.setText("");
         TXTempleado.setForeground(new Color(94, 94, 94));
-        TXTcostoTotal.setText("Costo Total");
+        TXTcostoTotal.setText("");
         TXTcostoTotal.setForeground(new Color(94, 94, 94));
-        Descripcion.setText("Descripcion");
+        Descripcion.setText("");
         Descripcion.setForeground(new Color(94, 94, 94));
-        TXTcedula.setText("Ingrese su cédula");
+        TXTcedula.setText("");
         TXTcedula.setForeground(new Color(94, 94, 94));
         Estados.setSelectedIndex(0);
         CalendarioFechaEntrega.setDate(null);

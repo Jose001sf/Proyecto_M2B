@@ -6,6 +6,8 @@
 package com.mycompany.proyecto_m2b.Vista;
 
 import com.mycompany.proyecto_m2b.Controlador.CreacionCredenciales;
+import com.mycompany.proyecto_m2b.Controlador.PersonaDAO;
+import com.mycompany.proyecto_m2b.Controlador.PropietarioDAO;
 import com.mycompany.proyecto_m2b.Controlador.Validaciones;
 import java.awt.Color;
 import java.util.Date;
@@ -1552,25 +1554,25 @@ int yMouse;
         java.awt.EventQueue.invokeLater(() -> new Propietarios().setVisible(true));
     }
     public void LimpiarDatos (){
-        TXTnombre.setText("Primer nombre");
+        TXTnombre.setText("");
         TXTnombre.setForeground(new Color(94, 94, 94));
-        TXTnombre1.setText("Segundo nombre");
+        TXTnombre1.setText("");
         TXTnombre1.setForeground(new Color(94, 94, 94));
-        TXTapellido.setText("Primer apellido");
+        TXTapellido.setText("");
         TXTapellido.setForeground(new Color(94, 94, 94));
-        TXTapellido1.setText("Segundo apellido");
+        TXTapellido1.setText("");
         TXTapellido1.setForeground(new Color(94, 94, 94));
-        TXTCelular.setText("Celular");
+        TXTCelular.setText("");
         TXTCelular.setForeground(new Color(94, 94, 94));
-        TXTCorreoElectronico.setText("Correo");
+        TXTCorreoElectronico.setText("");
         TXTCorreoElectronico.setForeground(new Color(94, 94, 94));
-        TXTTelefono.setText("Teléfono");
+        TXTTelefono.setText("");
         TXTTelefono.setForeground(new Color(94, 94, 94));
-        TXTcedula.setText("Ingrese su cédula");
+        TXTcedula.setText("");
         TXTcedula.setForeground(new Color(94, 94, 94));
         Generos.setSelectedIndex(0);
         CalendarioNacimiento.setDate(null);
-        Descripcion.setText("Descripcion");
+        Descripcion.setText("");
         Descripcion.setForeground(new Color(94, 94, 94));
     }
     public void GuardarPropietarios (){

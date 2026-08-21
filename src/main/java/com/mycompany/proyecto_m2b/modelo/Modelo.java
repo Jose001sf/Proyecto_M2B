@@ -7,6 +7,9 @@ public class Modelo {
     private String ID_mar_mode;
     private String ID_tipo_mode;
 
+    public Modelo() {
+    }
+    
     public Modelo(String ID_mode, String Nom_mode, String ID_mar_mode, String ID_tipo_mode) {
         this.ID_mode = ID_mode;
         this.Nom_mode = Nom_mode;

@@ -23,10 +23,7 @@ public class Menu extends javax.swing.JFrame {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
-        PanelContenido.add(new PanelVacio(), "BLANCO");
-        CardLayout cl = (CardLayout) PanelContenido.getLayout();
-        cl.show(PanelContenido, "BLANCO");
-        PanelContenido.add(new PanelCatalogoServicio(), "CATALOGO_SERVICIO");       
+       
     }
     int xMouse;
     int yMouse;
@@ -94,7 +91,6 @@ public class Menu extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         Accesos = new javax.swing.JLabel();
         PanelFondoBlanco = new javax.swing.JPanel();
-        PanelContenido = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -661,7 +657,7 @@ public class Menu extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Accesos)
+                .addComponent(Accesos, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -713,121 +709,23 @@ public class Menu extends javax.swing.JFrame {
 
         PanelFondoBlanco.setBackground(new java.awt.Color(255, 255, 255));
 
-        PanelContenido.setLayout(new java.awt.CardLayout());
-
         javax.swing.GroupLayout PanelFondoBlancoLayout = new javax.swing.GroupLayout(PanelFondoBlanco);
         PanelFondoBlanco.setLayout(PanelFondoBlancoLayout);
         PanelFondoBlancoLayout.setHorizontalGroup(
             PanelFondoBlancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelFondoBlancoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(PanelContenido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(384, Short.MAX_VALUE))
+            .addGap(0, 1643, Short.MAX_VALUE)
         );
         PanelFondoBlancoLayout.setVerticalGroup(
             PanelFondoBlancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelFondoBlancoLayout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(PanelContenido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(712, Short.MAX_VALUE))
+            .addGap(0, 749, Short.MAX_VALUE)
         );
 
-        PanelFondoMenu.add(PanelFondoBlanco, java.awt.BorderLayout.EAST);
+        PanelFondoMenu.add(PanelFondoBlanco, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(PanelFondoMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void PanelOrdenesServicioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelOrdenesServicioMouseEntered
-        // TODO add your handling code here:
-        PanelOrdenesServicio.setBackground(new Color (252, 170, 118));
-        OrdenesDeServicio.setForeground(Color.white);
-    }//GEN-LAST:event_PanelOrdenesServicioMouseEntered
-
-    private void PanelOrdenesServicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelOrdenesServicioMouseExited
-        // TODO add your handling code here:
-        PanelOrdenesServicio.setBackground(Color.white);
-        OrdenesDeServicio.setForeground(Color.black);
-    }//GEN-LAST:event_PanelOrdenesServicioMouseExited
-
-    private void PanelVehiculosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelVehiculosMouseEntered
-        // TODO add your handling code here:
-    PanelVehiculos.setBackground(new Color(53, 58, 61));
-    Vehiculos.setForeground(Color.white);
-    }//GEN-LAST:event_PanelVehiculosMouseEntered
-
-    private void PanelVehiculosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelVehiculosMouseExited
-        // TODO add your handling code here:
-        PanelVehiculos.setBackground(Color.white);
-        Vehiculos.setForeground(Color.black);
-    }//GEN-LAST:event_PanelVehiculosMouseExited
-
-    private void PanelPropietariosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelPropietariosMouseEntered
-        // TODO add your handling code here:
-        PanelPropietarios.setBackground(new Color (252, 170, 118));
-        Propietarios.setForeground(Color.WHITE);
-    }//GEN-LAST:event_PanelPropietariosMouseEntered
-
-    private void PanelPropietariosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelPropietariosMouseExited
-        // TODO add your handling code here:
-        PanelPropietarios.setBackground(Color.white);
-        Propietarios.setForeground(Color.black);
-    }//GEN-LAST:event_PanelPropietariosMouseExited
-
-    private void PanelServiciosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelServiciosMouseEntered
-        // TODO add your handling code here:
-        PanelServicios.setBackground(new Color (252, 170, 118));
-        Servicios.setForeground(Color.white);
-    }//GEN-LAST:event_PanelServiciosMouseEntered
-
-    private void PanelServiciosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelServiciosMouseExited
-        // TODO add your handling code here:
-        PanelServicios.setBackground(Color.white);
-        Servicios.setForeground(Color.black);
-    }//GEN-LAST:event_PanelServiciosMouseExited
-
-    private void PanelRepuestosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelRepuestosMouseEntered
-        // TODO add your handling code here:
-        PanelRepuestos.setBackground(new Color(179, 179, 179));
-        Repuestos.setForeground(Color.white);
-    }//GEN-LAST:event_PanelRepuestosMouseEntered
-
-    private void PanelProveedoresMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelProveedoresMouseEntered
-        // TODO add your handling code here:
-        PanelProveedores.setBackground(new Color(179, 179, 179));
-        Proveedores.setForeground(Color.white);
-    }//GEN-LAST:event_PanelProveedoresMouseEntered
-
-    private void PanelResiduosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelResiduosMouseEntered
-        // TODO add your handling code here:
-        PanelResiduos.setBackground(new Color(179, 179, 179));
-        Residuos.setForeground(Color.white);
-    }//GEN-LAST:event_PanelResiduosMouseEntered
-
-    private void PanelEstadisticasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEstadisticasMouseEntered
-        // TODO add your handling code here:
-        PanelEstadisticas.setBackground(new Color(179, 179, 179));
-        Estadisticas.setForeground(Color.white);
-    }//GEN-LAST:event_PanelEstadisticasMouseEntered
-
-    private void PanelRepuestosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelRepuestosMouseExited
-        // TODO add your handling code here:
-        PanelRepuestos.setBackground(Color.white);
-        Repuestos.setForeground(Color.black);
-    }//GEN-LAST:event_PanelRepuestosMouseExited
-
-    private void PanelProveedoresMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelProveedoresMouseExited
-        // TODO add your handling code here:
-        PanelProveedores.setBackground(Color.white);
-        Proveedores.setForeground(Color.black);
-    }//GEN-LAST:event_PanelProveedoresMouseExited
-
-    private void PanelResiduosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelResiduosMouseExited
-        // TODO add your handling code here:
-        PanelResiduos.setBackground(Color.white);
-        Residuos.setForeground(Color.black);
-    }//GEN-LAST:event_PanelResiduosMouseExited
 
     private void PanelEstadisticasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEstadisticasMouseExited
         // TODO add your handling code here:
@@ -835,31 +733,36 @@ public class Menu extends javax.swing.JFrame {
         Estadisticas.setForeground(Color.black);
     }//GEN-LAST:event_PanelEstadisticasMouseExited
 
-    private void PanelVehiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelVehiculosMouseClicked
+    private void PanelEstadisticasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEstadisticasMouseEntered
         // TODO add your handling code here:
-        if (Vehi==null || !Vehi.isVisible()){
-            Vehi = new Vehiculos();
-            Vehi.setVisible(true);
-        }
-        else {
-            Vehi.setState(java.awt.Frame.NORMAL);
-            Vehi.toFront();
-            Vehi.requestFocus();
-        }
-    }//GEN-LAST:event_PanelVehiculosMouseClicked
+        PanelEstadisticas.setBackground(new Color(179, 179, 179));
+        Estadisticas.setForeground(Color.white);
+    }//GEN-LAST:event_PanelEstadisticasMouseEntered
 
-    private void PanelProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelProveedoresMouseClicked
+    private void PanelEstadisticasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEstadisticasMouseClicked
         // TODO add your handling code here:
-        if (Provee==null || !Provee.isVisible()){
-            Provee = new Proveedores();
-            Provee.setVisible(true);
+        if (Esta==null || !Esta.isVisible()){
+            Esta = new Estadisticas();
+            Esta.setVisible(true);
         }
         else {
-            Provee.setState(java.awt.Frame.NORMAL);
-            Provee.toFront();
-            Provee.requestFocus();
+            Esta.setState(java.awt.Frame.NORMAL);
+            Esta.toFront();
+            Esta.requestFocus();
         }
-    }//GEN-LAST:event_PanelProveedoresMouseClicked
+    }//GEN-LAST:event_PanelEstadisticasMouseClicked
+
+    private void PanelResiduosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelResiduosMouseExited
+        // TODO add your handling code here:
+        PanelResiduos.setBackground(Color.white);
+        Residuos.setForeground(Color.black);
+    }//GEN-LAST:event_PanelResiduosMouseExited
+
+    private void PanelResiduosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelResiduosMouseEntered
+        // TODO add your handling code here:
+        PanelResiduos.setBackground(new Color(179, 179, 179));
+        Residuos.setForeground(Color.white);
+    }//GEN-LAST:event_PanelResiduosMouseEntered
 
     private void PanelResiduosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelResiduosMouseClicked
         // TODO add your handling code here:
@@ -874,9 +777,46 @@ public class Menu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_PanelResiduosMouseClicked
 
+    private void PanelProveedoresMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelProveedoresMouseExited
+        // TODO add your handling code here:
+        PanelProveedores.setBackground(Color.white);
+        Proveedores.setForeground(Color.black);
+    }//GEN-LAST:event_PanelProveedoresMouseExited
+
+    private void PanelProveedoresMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelProveedoresMouseEntered
+        // TODO add your handling code here:
+        PanelProveedores.setBackground(new Color(179, 179, 179));
+        Proveedores.setForeground(Color.white);
+    }//GEN-LAST:event_PanelProveedoresMouseEntered
+
+    private void PanelProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelProveedoresMouseClicked
+        // TODO add your handling code here:
+        if (Provee==null || !Provee.isVisible()){
+            Provee = new Proveedores();
+            Provee.setVisible(true);
+        }
+        else {
+            Provee.setState(java.awt.Frame.NORMAL);
+            Provee.toFront();
+            Provee.requestFocus();
+        }
+    }//GEN-LAST:event_PanelProveedoresMouseClicked
+
+    private void PanelRepuestosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelRepuestosMouseExited
+        // TODO add your handling code here:
+        PanelRepuestos.setBackground(Color.white);
+        Repuestos.setForeground(Color.black);
+    }//GEN-LAST:event_PanelRepuestosMouseExited
+
+    private void PanelRepuestosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelRepuestosMouseEntered
+        // TODO add your handling code here:
+        PanelRepuestos.setBackground(new Color(179, 179, 179));
+        Repuestos.setForeground(Color.white);
+    }//GEN-LAST:event_PanelRepuestosMouseEntered
+
     private void PanelRepuestosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelRepuestosMouseClicked
         // TODO add your handling code here:
-       if (Repues==null || !Repues.isVisible()){
+        if (Repues==null || !Repues.isVisible()){
             Repues = new Repuestos();
             Repues.setVisible(true);
         }
@@ -887,18 +827,43 @@ public class Menu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_PanelRepuestosMouseClicked
 
-    private void PanelOrdenesServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelOrdenesServicioMouseClicked
+    private void PanelServiciosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelServiciosMouseReleased
         // TODO add your handling code here:
-        if (OrdenesServ==null || !OrdenesServ.isVisible()){
-            OrdenesServ = new OrdenesDeServicio();
-            OrdenesServ.setVisible(true);
-        }
-        else {
-            OrdenesServ.setState(java.awt.Frame.NORMAL);
-            OrdenesServ.toFront();
-            OrdenesServ.requestFocus();
-        }        
-    }//GEN-LAST:event_PanelOrdenesServicioMouseClicked
+
+    }//GEN-LAST:event_PanelServiciosMouseReleased
+
+    private void PanelServiciosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelServiciosMousePressed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_PanelServiciosMousePressed
+
+    private void PanelServiciosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelServiciosMouseExited
+        // TODO add your handling code here:
+        PanelServicios.setBackground(Color.white);
+        Servicios.setForeground(Color.black);
+    }//GEN-LAST:event_PanelServiciosMouseExited
+
+    private void PanelServiciosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelServiciosMouseEntered
+        // TODO add your handling code here:
+        PanelServicios.setBackground(new Color (252, 170, 118));
+        Servicios.setForeground(Color.white);
+    }//GEN-LAST:event_PanelServiciosMouseEntered
+
+    private void PanelServiciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelServiciosMouseClicked
+
+    }//GEN-LAST:event_PanelServiciosMouseClicked
+
+    private void PanelPropietariosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelPropietariosMouseExited
+        // TODO add your handling code here:
+        PanelPropietarios.setBackground(Color.white);
+        Propietarios.setForeground(Color.black);
+    }//GEN-LAST:event_PanelPropietariosMouseExited
+
+    private void PanelPropietariosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelPropietariosMouseEntered
+        // TODO add your handling code here:
+        PanelPropietarios.setBackground(new Color (252, 170, 118));
+        Propietarios.setForeground(Color.WHITE);
+    }//GEN-LAST:event_PanelPropietariosMouseEntered
 
     private void PanelPropietariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelPropietariosMouseClicked
         // TODO add your handling code here:
@@ -910,33 +875,58 @@ public class Menu extends javax.swing.JFrame {
             Prop.setState(java.awt.Frame.NORMAL);
             Prop.toFront();
             Prop.requestFocus();
-        } 
+        }
     }//GEN-LAST:event_PanelPropietariosMouseClicked
 
-    private void PanelServiciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelServiciosMouseClicked
-      CardLayout cl = (CardLayout) PanelContenido.getLayout();
-
-        if (catalogoAbierto) {
-            cl.show(PanelContenido, "BLANCO");
-            catalogoAbierto = false;
-        } else {
-            cl.show(PanelContenido, "CATALOGO_SERVICIO");
-            catalogoAbierto = true;
-        }
-    }//GEN-LAST:event_PanelServiciosMouseClicked
-
-    private void PanelEstadisticasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEstadisticasMouseClicked
+    private void PanelVehiculosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelVehiculosMouseExited
         // TODO add your handling code here:
-        if (Esta==null || !Esta.isVisible()){
-            Esta = new Estadisticas();
-            Esta.setVisible(true);
+        PanelVehiculos.setBackground(Color.white);
+        Vehiculos.setForeground(Color.black);
+    }//GEN-LAST:event_PanelVehiculosMouseExited
+
+    private void PanelVehiculosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelVehiculosMouseEntered
+        // TODO add your handling code here:
+        PanelVehiculos.setBackground(new Color(53, 58, 61));
+        Vehiculos.setForeground(Color.white);
+    }//GEN-LAST:event_PanelVehiculosMouseEntered
+
+    private void PanelVehiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelVehiculosMouseClicked
+        // TODO add your handling code here:
+        if (Vehi==null || !Vehi.isVisible()){
+            Vehi = new Vehiculos();
+            Vehi.setVisible(true);
         }
         else {
-            Esta.setState(java.awt.Frame.NORMAL);
-            Esta.toFront();
-            Esta.requestFocus();
+            Vehi.setState(java.awt.Frame.NORMAL);
+            Vehi.toFront();
+            Vehi.requestFocus();
         }
-    }//GEN-LAST:event_PanelEstadisticasMouseClicked
+    }//GEN-LAST:event_PanelVehiculosMouseClicked
+
+    private void PanelOrdenesServicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelOrdenesServicioMouseExited
+        // TODO add your handling code here:
+        PanelOrdenesServicio.setBackground(Color.white);
+        OrdenesDeServicio.setForeground(Color.black);
+    }//GEN-LAST:event_PanelOrdenesServicioMouseExited
+
+    private void PanelOrdenesServicioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelOrdenesServicioMouseEntered
+        // TODO add your handling code here:
+        PanelOrdenesServicio.setBackground(new Color (252, 170, 118));
+        OrdenesDeServicio.setForeground(Color.white);
+    }//GEN-LAST:event_PanelOrdenesServicioMouseEntered
+
+    private void PanelOrdenesServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelOrdenesServicioMouseClicked
+        // TODO add your handling code here:
+        if (OrdenesServ==null || !OrdenesServ.isVisible()){
+            OrdenesServ = new OrdenesDeServicio();
+            OrdenesServ.setVisible(true);
+        }
+        else {
+            OrdenesServ.setState(java.awt.Frame.NORMAL);
+            OrdenesServ.toFront();
+            OrdenesServ.requestFocus();
+        }
+    }//GEN-LAST:event_PanelOrdenesServicioMouseClicked
 
     private void PanelBarraMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBarraMousePressed
         // TODO add your handling code here:
@@ -971,7 +961,6 @@ public class Menu extends javax.swing.JFrame {
     private void UsuariosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsuariosMouseEntered
         // TODO add your handling code here:
         Usuarios.setForeground(Color.white);
-
     }//GEN-LAST:event_UsuariosMouseEntered
 
     private void UsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsuariosMouseClicked
@@ -985,7 +974,6 @@ public class Menu extends javax.swing.JFrame {
             Usu.toFront();
             Usu.requestFocus();
         }
-
     }//GEN-LAST:event_UsuariosMouseClicked
 
     private void MinimizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizarMouseExited
@@ -1036,16 +1024,6 @@ public class Menu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_RegresarMouseClicked
 
-    private void PanelServiciosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelServiciosMousePressed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_PanelServiciosMousePressed
-
-    private void PanelServiciosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelServiciosMouseReleased
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_PanelServiciosMouseReleased
-
     /**
      * @param args the command line arguments
      */
@@ -1089,7 +1067,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JPanel PanelAccesos;
     private javax.swing.JPanel PanelBarra;
     private javax.swing.JPanel PanelBarraInferior;
-    private javax.swing.JPanel PanelContenido;
     private javax.swing.JPanel PanelEstadisticas;
     private javax.swing.JPanel PanelFondoBlanco;
     private javax.swing.JPanel PanelFondoMenu;
