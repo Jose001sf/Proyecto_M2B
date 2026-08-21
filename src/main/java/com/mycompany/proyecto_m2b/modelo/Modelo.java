@@ -51,6 +51,6 @@ public class Modelo {
 
     @Override
     public String toString() {
-        return "Modelo{" + "ID_mode=" + ID_mode + ", Nom_mode=" + Nom_mode + ", ID_mar_mode=" + ID_mar_mode + ", ID_tipo_mode=" + ID_tipo_mode + '}';
+        return this.Nom_mode;
     }
 }
