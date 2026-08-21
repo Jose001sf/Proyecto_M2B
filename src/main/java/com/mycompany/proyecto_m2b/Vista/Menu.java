@@ -23,6 +23,8 @@ public class Menu extends javax.swing.JFrame {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
+        PanelPaneles.add(new PanelBlanco(), "Blanco");
+        PanelPaneles.add(new PanelVehiculos(), "VEHICULOS");
        
     }
     int xMouse;
@@ -91,6 +93,7 @@ public class Menu extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         Accesos = new javax.swing.JLabel();
         PanelFondoBlanco = new javax.swing.JPanel();
+        PanelPaneles = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -709,15 +712,19 @@ public class Menu extends javax.swing.JFrame {
 
         PanelFondoBlanco.setBackground(new java.awt.Color(255, 255, 255));
 
+        PanelPaneles.setLayout(new java.awt.CardLayout());
+
         javax.swing.GroupLayout PanelFondoBlancoLayout = new javax.swing.GroupLayout(PanelFondoBlanco);
         PanelFondoBlanco.setLayout(PanelFondoBlancoLayout);
         PanelFondoBlancoLayout.setHorizontalGroup(
             PanelFondoBlancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1643, Short.MAX_VALUE)
+            .addGroup(PanelFondoBlancoLayout.createSequentialGroup()
+                .addComponent(PanelPaneles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 1634, Short.MAX_VALUE))
         );
         PanelFondoBlancoLayout.setVerticalGroup(
             PanelFondoBlancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 749, Short.MAX_VALUE)
+            .addComponent(PanelPaneles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         PanelFondoMenu.add(PanelFondoBlanco, java.awt.BorderLayout.CENTER);
@@ -889,18 +896,18 @@ public class Menu extends javax.swing.JFrame {
         PanelVehiculos.setBackground(new Color(53, 58, 61));
         Vehiculos.setForeground(Color.white);
     }//GEN-LAST:event_PanelVehiculosMouseEntered
-
+    
+    private boolean mostrandoVehiculos = false;
     private void PanelVehiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelVehiculosMouseClicked
         // TODO add your handling code here:
-        if (Vehi==null || !Vehi.isVisible()){
-            Vehi = new Vehiculos();
-            Vehi.setVisible(true);
+        CardLayout cl = (CardLayout) PanelPaneles.getLayout();
+        if (!mostrandoVehiculos) {
+            cl.show(PanelPaneles, "VEHICULOS");
+        } else {
+            cl.show(PanelPaneles, "Blanco");
         }
-        else {
-            Vehi.setState(java.awt.Frame.NORMAL);
-            Vehi.toFront();
-            Vehi.requestFocus();
-        }
+        mostrandoVehiculos = !mostrandoVehiculos;
+        
     }//GEN-LAST:event_PanelVehiculosMouseClicked
 
     private void PanelOrdenesServicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelOrdenesServicioMouseExited
@@ -1071,6 +1078,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JPanel PanelFondoBlanco;
     private javax.swing.JPanel PanelFondoMenu;
     private javax.swing.JPanel PanelOrdenesServicio;
+    private javax.swing.JPanel PanelPaneles;
     private javax.swing.JPanel PanelPropietarios;
     private javax.swing.JPanel PanelProveedores;
     private javax.swing.JPanel PanelRepuestos;
