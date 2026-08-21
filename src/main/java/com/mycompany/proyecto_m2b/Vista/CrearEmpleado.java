@@ -1794,7 +1794,15 @@ public class CrearEmpleado extends javax.swing.JFrame {
     }
     private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
         // TODO add your handling code here:
-        GuardarEmpleado();
+        if (persona != null){
+            GuardarEmpleadoYaregistrada(persona);
+        }
+        else if (persona==null){
+            GuardarEmpleado();
+        }
+        else{
+         JOptionPane.showMessageDialog(this, "Ya esta registrado");
+        }        
     }//GEN-LAST:event_PanelGuardarMouseClicked
 
     private void TXTcedulaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTcedulaFocusGained
@@ -2524,6 +2532,36 @@ public class CrearEmpleado extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TiposUsuariosActionPerformed
 
+    public void GuardarEmpleadoYaregistrada (Persona persona){
+        Cargo cargoE = (Cargo) Cargos.getSelectedItem();
+        Especialidad especialidadE = (Especialidad) Especialidades.getSelectedItem();        
+        Empleado empleado=new Empleado(persona.getCed_perso(), cargoE.getID_cargo(), especialidadE.getID_especialidad());
+        EmpleadoDAO e = new EmpleadoDAO();        
+        e.insertar(empleado);
+        
+        
+        //Se genera el usuarios
+        String Usuario = CreacionCredenciales.GenerarUsuario(persona.getNom1_person(), persona.getApell1_person());
+        String contrasena = CreacionCredenciales.GenerarContraseña();
+        boolean estado_acti_usuario=true;
+        //Se genera el tipo de usuario
+        Tipos_de_usuario TipE=(Tipos_de_usuario)TiposUsuarios.getSelectedItem();
+        if(TipE==null){
+            JOptionPane.showMessageDialog(this, "Por favor escoga una opcion");
+            return;
+        }               
+        //Se debe verificar para que el usuario no se repita
+        Usuario usuario=new Usuario(Usuario, contrasena, estado_acti_usuario, empleado.getId_empleado(), TipE.getId_tip_de_usuario());
+        UsuarioDAO u=new UsuarioDAO();
+        u.insertar(usuario);
+                
+        JOptionPane.showMessageDialog(this, "Su usuario es el siguiente: "+Usuario+"\n"
+                + "Y su contraseña es: "+contrasena+"\n"
+                +"Por favor, tome una foto o anótelas en un lugar seguro, no se podran modificar una vez cerrada la ventana");
+        //Se guarda en la tabla usuarios
+        LimpiarDatos();
+    }
+    private Persona persona;
     private void VerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerificarActionPerformed
         // TODO add your handling code here:
         TXTcallePrincipal.setText("");
@@ -2532,7 +2570,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
         TXTciudad.setText("");
         String ced_perso=TXTcedula.getText().trim();
         PersonaDAO pd=new PersonaDAO();
-        Persona persona=pd.buscarPorCedula(ced_perso);
+        persona=pd.buscarPorCedula(ced_perso);
         if(persona!=null){
             TXTcedula.setEditable(false);
             TXTnombre.setText(persona.getNom1_person());
@@ -2548,6 +2586,8 @@ public class CrearEmpleado extends javax.swing.JFrame {
             if (CalendarioRegistro!=null){
                 CalendarioRegistro.setDate(persona.getFech_registro_person());
             }
+            String genero=persona.getGene_person();
+            Generos.setSelectedItem(genero);
             //conseguir las direcciones
             if (persona.getId_direccion() != null && !persona.getId_direccion().isEmpty()) {
             DireccionDAO dd = new DireccionDAO();
