@@ -67,4 +67,18 @@ public class EmpleadoDAO {
 
         return lista;
     }
+    public boolean existeCedula (String ced_perso){
+        String sql = "SELECT 1 FROM persona WHERE ced_perso = ?";
+        try (Connection conn = ConexionBD.obtenerConexion();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+ 
+            ps.setString(1, ced_perso);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al verificar cedula: " + e.getMessage());
+            return false;
+        }
+    }
 }

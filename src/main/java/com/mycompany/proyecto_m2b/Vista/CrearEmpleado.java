@@ -485,6 +485,9 @@ public class CrearEmpleado extends javax.swing.JFrame {
         PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
         PanelEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelEditarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelEditarMouseEntered(evt);
             }
@@ -1751,7 +1754,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
             return;
         }
         PersonaDAO p=new PersonaDAO();
-        if(p.existeCedula(Genero)){
+        if(p.existeCedula(Cedula)){
             JOptionPane.showMessageDialog(this, "Esa cédula ya esta registrada");
             return;
         }
@@ -1794,15 +1797,28 @@ public class CrearEmpleado extends javax.swing.JFrame {
     }
     private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
         // TODO add your handling code here:
-        if (persona != null){
-            GuardarEmpleadoYaregistrada(persona);
-        }
-        else if (persona==null){
-            GuardarEmpleado();
+        PersonaDAO pd=new PersonaDAO();
+        String ced_person= TXTcedula.getText().trim();
+        boolean si=pd.existeCedula(ced_person);
+        if (si==true){
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Quiere convertir a la persona con cédula: "+ced_person+" a empleado?"+JOptionPane.YES_NO_OPTION);
+            if (opcion==JOptionPane.YES_OPTION){
+                if (persona != null){
+                GuardarEmpleadoYaregistrada(persona);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Debe primero verificar usuario"+JOptionPane.ERROR_MESSAGE);
+                }
+            }
         }
         else{
-         JOptionPane.showMessageDialog(this, "Ya esta registrado");
-        }        
+            if (persona==null){
+                GuardarEmpleado();
+                }
+            else{
+             JOptionPane.showMessageDialog(this, "Ya esta registrado");
+            }   
+        }             
     }//GEN-LAST:event_PanelGuardarMouseClicked
 
     private void TXTcedulaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTcedulaFocusGained
@@ -2440,91 +2456,364 @@ public class CrearEmpleado extends javax.swing.JFrame {
     private void TXTcedulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTcedulaKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
-            GuardarEmpleado();
+            PersonaDAO pd=new PersonaDAO();
+        String ced_person= TXTcedula.getText().trim();
+        boolean si=pd.existeCedula(ced_person);
+        if (si==true){
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Quiere convertir a la persona con cédula: "+ced_person+" a empleado?"+JOptionPane.YES_NO_OPTION);
+            if (opcion==JOptionPane.YES_OPTION){
+                if (persona != null){
+                GuardarEmpleadoYaregistrada(persona);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Debe primero verificar usuario"+JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        else{
+            if (persona==null){
+                GuardarEmpleado();
+                }
+            else{
+             JOptionPane.showMessageDialog(this, "Ya esta registrado");
+            }   
+        }   
         }
     }//GEN-LAST:event_TXTcedulaKeyPressed
 
     private void TXTnombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTnombreKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
-            GuardarEmpleado();
+            PersonaDAO pd=new PersonaDAO();
+        String ced_person= TXTcedula.getText().trim();
+        boolean si=pd.existeCedula(ced_person);
+        if (si==true){
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Quiere convertir a la persona con cédula: "+ced_person+" a empleado?"+JOptionPane.YES_NO_OPTION);
+            if (opcion==JOptionPane.YES_OPTION){
+                if (persona != null){
+                GuardarEmpleadoYaregistrada(persona);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Debe primero verificar usuario"+JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        else{
+            if (persona==null){
+                GuardarEmpleado();
+                }
+            else{
+             JOptionPane.showMessageDialog(this, "Ya esta registrado");
+            }   
+        }
         }
     }//GEN-LAST:event_TXTnombreKeyPressed
 
     private void TXTnombre1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTnombre1KeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
-            GuardarEmpleado();
+            PersonaDAO pd=new PersonaDAO();
+        String ced_person= TXTcedula.getText().trim();
+        boolean si=pd.existeCedula(ced_person);
+        if (si==true){
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Quiere convertir a la persona con cédula: "+ced_person+" a empleado?"+JOptionPane.YES_NO_OPTION);
+            if (opcion==JOptionPane.YES_OPTION){
+                if (persona != null){
+                GuardarEmpleadoYaregistrada(persona);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Debe primero verificar usuario"+JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        else{
+            if (persona==null){
+                GuardarEmpleado();
+                }
+            else{
+             JOptionPane.showMessageDialog(this, "Ya esta registrado");
+            }   
+        }
         }
     }//GEN-LAST:event_TXTnombre1KeyPressed
 
     private void TXTapellidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTapellidoKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
-            GuardarEmpleado();
+            PersonaDAO pd=new PersonaDAO();
+        String ced_person= TXTcedula.getText().trim();
+        boolean si=pd.existeCedula(ced_person);
+        if (si==true){
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Quiere convertir a la persona con cédula: "+ced_person+" a empleado?"+JOptionPane.YES_NO_OPTION);
+            if (opcion==JOptionPane.YES_OPTION){
+                if (persona != null){
+                GuardarEmpleadoYaregistrada(persona);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Debe primero verificar usuario"+JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        else{
+            if (persona==null){
+                GuardarEmpleado();
+                }
+            else{
+             JOptionPane.showMessageDialog(this, "Ya esta registrado");
+            }   
+        }
         }
     }//GEN-LAST:event_TXTapellidoKeyPressed
 
     private void TXTapellido1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTapellido1KeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
-            GuardarEmpleado();
+            PersonaDAO pd=new PersonaDAO();
+        String ced_person= TXTcedula.getText().trim();
+        boolean si=pd.existeCedula(ced_person);
+        if (si==true){
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Quiere convertir a la persona con cédula: "+ced_person+" a empleado?"+JOptionPane.YES_NO_OPTION);
+            if (opcion==JOptionPane.YES_OPTION){
+                if (persona != null){
+                GuardarEmpleadoYaregistrada(persona);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Debe primero verificar usuario"+JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        else{
+            if (persona==null){
+                GuardarEmpleado();
+                }
+            else{
+             JOptionPane.showMessageDialog(this, "Ya esta registrado");
+            }   
+        }
         }
     }//GEN-LAST:event_TXTapellido1KeyPressed
 
     private void GenerosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_GenerosKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
-            GuardarEmpleado();
+            PersonaDAO pd=new PersonaDAO();
+        String ced_person= TXTcedula.getText().trim();
+        boolean si=pd.existeCedula(ced_person);
+        if (si==true){
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Quiere convertir a la persona con cédula: "+ced_person+" a empleado?"+JOptionPane.YES_NO_OPTION);
+            if (opcion==JOptionPane.YES_OPTION){
+                if (persona != null){
+                GuardarEmpleadoYaregistrada(persona);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Debe primero verificar usuario"+JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        else{
+            if (persona==null){
+                GuardarEmpleado();
+                }
+            else{
+             JOptionPane.showMessageDialog(this, "Ya esta registrado");
+            }   
+        }
         }
     }//GEN-LAST:event_GenerosKeyPressed
 
     private void TXTcallePrincipalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTcallePrincipalKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
-            GuardarEmpleado();
+            PersonaDAO pd=new PersonaDAO();
+        String ced_person= TXTcedula.getText().trim();
+        boolean si=pd.existeCedula(ced_person);
+        if (si==true){
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Quiere convertir a la persona con cédula: "+ced_person+" a empleado?"+JOptionPane.YES_NO_OPTION);
+            if (opcion==JOptionPane.YES_OPTION){
+                if (persona != null){
+                GuardarEmpleadoYaregistrada(persona);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Debe primero verificar usuario"+JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        else{
+            if (persona==null){
+                GuardarEmpleado();
+                }
+            else{
+             JOptionPane.showMessageDialog(this, "Ya esta registrado");
+            }   
+        }
         }
     }//GEN-LAST:event_TXTcallePrincipalKeyPressed
 
     private void TXTcalleSecundariaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTcalleSecundariaKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
-            GuardarEmpleado();
+            PersonaDAO pd=new PersonaDAO();
+        String ced_person= TXTcedula.getText().trim();
+        boolean si=pd.existeCedula(ced_person);
+        if (si==true){
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Quiere convertir a la persona con cédula: "+ced_person+" a empleado?"+JOptionPane.YES_NO_OPTION);
+            if (opcion==JOptionPane.YES_OPTION){
+                if (persona != null){
+                GuardarEmpleadoYaregistrada(persona);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Debe primero verificar usuario"+JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        else{
+            if (persona==null){
+                GuardarEmpleado();
+                }
+            else{
+             JOptionPane.showMessageDialog(this, "Ya esta registrado");
+            }   
+        }
         }
     }//GEN-LAST:event_TXTcalleSecundariaKeyPressed
 
     private void TXTnumCasaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTnumCasaKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
-            GuardarEmpleado();
+            PersonaDAO pd=new PersonaDAO();
+        String ced_person= TXTcedula.getText().trim();
+        boolean si=pd.existeCedula(ced_person);
+        if (si==true){
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Quiere convertir a la persona con cédula: "+ced_person+" a empleado?"+JOptionPane.YES_NO_OPTION);
+            if (opcion==JOptionPane.YES_OPTION){
+                if (persona != null){
+                GuardarEmpleadoYaregistrada(persona);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Debe primero verificar usuario"+JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        else{
+            if (persona==null){
+                GuardarEmpleado();
+                }
+            else{
+             JOptionPane.showMessageDialog(this, "Ya esta registrado");
+            }   
+        }
         }
     }//GEN-LAST:event_TXTnumCasaKeyPressed
 
     private void TXTciudadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTciudadKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
-            GuardarEmpleado();
+            PersonaDAO pd=new PersonaDAO();
+        String ced_person= TXTcedula.getText().trim();
+        boolean si=pd.existeCedula(ced_person);
+        if (si==true){
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Quiere convertir a la persona con cédula: "+ced_person+" a empleado?"+JOptionPane.YES_NO_OPTION);
+            if (opcion==JOptionPane.YES_OPTION){
+                if (persona != null){
+                GuardarEmpleadoYaregistrada(persona);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Debe primero verificar usuario"+JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        else{
+            if (persona==null){
+                GuardarEmpleado();
+                }
+            else{
+             JOptionPane.showMessageDialog(this, "Ya esta registrado");
+            }   
+        }
         }
     }//GEN-LAST:event_TXTciudadKeyPressed
 
     private void TXTTelefonoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTTelefonoKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
-            GuardarEmpleado();
+            PersonaDAO pd=new PersonaDAO();
+        String ced_person= TXTcedula.getText().trim();
+        boolean si=pd.existeCedula(ced_person);
+        if (si==true){
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Quiere convertir a la persona con cédula: "+ced_person+" a empleado?"+JOptionPane.YES_NO_OPTION);
+            if (opcion==JOptionPane.YES_OPTION){
+                if (persona != null){
+                GuardarEmpleadoYaregistrada(persona);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Debe primero verificar usuario"+JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        else{
+            if (persona==null){
+                GuardarEmpleado();
+                }
+            else{
+             JOptionPane.showMessageDialog(this, "Ya esta registrado");
+            }   
+        }
         }
     }//GEN-LAST:event_TXTTelefonoKeyPressed
 
     private void TXTCelularKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTCelularKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
-            GuardarEmpleado();
+            PersonaDAO pd=new PersonaDAO();
+        String ced_person= TXTcedula.getText().trim();
+        boolean si=pd.existeCedula(ced_person);
+        if (si==true){
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Quiere convertir a la persona con cédula: "+ced_person+" a empleado?"+JOptionPane.YES_NO_OPTION);
+            if (opcion==JOptionPane.YES_OPTION){
+                if (persona != null){
+                GuardarEmpleadoYaregistrada(persona);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Debe primero verificar usuario"+JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        else{
+            if (persona==null){
+                GuardarEmpleado();
+                }
+            else{
+             JOptionPane.showMessageDialog(this, "Ya esta registrado");
+            }   
+        }
         }
     }//GEN-LAST:event_TXTCelularKeyPressed
 
     private void TXTCorreoElectronicoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTCorreoElectronicoKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
-            GuardarEmpleado();
+            PersonaDAO pd=new PersonaDAO();
+        String ced_person= TXTcedula.getText().trim();
+        boolean si=pd.existeCedula(ced_person);
+        if (si==true){
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Quiere convertir a la persona con cédula: "+ced_person+" a empleado?"+JOptionPane.YES_NO_OPTION);
+            if (opcion==JOptionPane.YES_OPTION){
+                if (persona != null){
+                GuardarEmpleadoYaregistrada(persona);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Debe primero verificar usuario"+JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        else{
+            if (persona==null){
+                GuardarEmpleado();
+                }
+            else{
+             JOptionPane.showMessageDialog(this, "Ya esta registrado");
+            }   
+        }
         }
     }//GEN-LAST:event_TXTCorreoElectronicoKeyPressed
 
@@ -2533,10 +2822,24 @@ public class CrearEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_TiposUsuariosActionPerformed
 
     public void GuardarEmpleadoYaregistrada (Persona persona){
+        EmpleadoDAO e = new EmpleadoDAO();
+        if (e.existeCedula(persona.getCed_perso())){
+            JOptionPane.showMessageDialog(this, "Esa persona ya esta registrada");
+            return;
+        }
         Cargo cargoE = (Cargo) Cargos.getSelectedItem();
-        Especialidad especialidadE = (Especialidad) Especialidades.getSelectedItem();        
-        Empleado empleado=new Empleado(persona.getCed_perso(), cargoE.getID_cargo(), especialidadE.getID_especialidad());
-        EmpleadoDAO e = new EmpleadoDAO();        
+        Especialidad especialidadE = (Especialidad) Especialidades.getSelectedItem();
+        Tipos_de_usuario TipE = (Tipos_de_usuario) TiposUsuarios.getSelectedItem();        
+        if (cargoE==null || especialidadE==null || TipE==null){
+            JOptionPane.showMessageDialog(this, "Por favor escoga una opción");
+            return;
+        }        
+        Empleado empleado=new Empleado();
+        empleado.setCed_perso(persona.getCed_perso());
+        empleado.setId_cargo(cargoE.getID_cargo());
+        empleado.setId_especialidad(especialidadE.getID_especialidad());
+        
+        
         e.insertar(empleado);
         
         
@@ -2544,14 +2847,11 @@ public class CrearEmpleado extends javax.swing.JFrame {
         String Usuario = CreacionCredenciales.GenerarUsuario(persona.getNom1_person(), persona.getApell1_person());
         String contrasena = CreacionCredenciales.GenerarContraseña();
         boolean estado_acti_usuario=true;
-        //Se genera el tipo de usuario
-        Tipos_de_usuario TipE=(Tipos_de_usuario)TiposUsuarios.getSelectedItem();
-        if(TipE==null){
-            JOptionPane.showMessageDialog(this, "Por favor escoga una opcion");
-            return;
-        }               
+        //Se genera el tipo de usuario              
         //Se debe verificar para que el usuario no se repita
-        Usuario usuario=new Usuario(Usuario, contrasena, estado_acti_usuario, empleado.getId_empleado(), TipE.getId_tip_de_usuario());
+        String id_empleado=empleado.getId_empleado();
+        System.out.println(id_empleado);
+        Usuario usuario=new Usuario(Usuario, contrasena, true, id_empleado, TipE.getId_tip_de_usuario());
         UsuarioDAO u=new UsuarioDAO();
         u.insertar(usuario);
                 
@@ -2561,13 +2861,21 @@ public class CrearEmpleado extends javax.swing.JFrame {
         //Se guarda en la tabla usuarios
         LimpiarDatos();
     }
-    private Persona persona;
+    Persona persona;
     private void VerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerificarActionPerformed
         // TODO add your handling code here:
+        TXTnombre.setText("");
+        TXTnombre1.setText("");
+        TXTapellido.setText("");
+        TXTapellido1.setText("");
+        TXTCelular.setText("");
+        TXTTelefono.setText("");
+        TXTCorreoElectronico.setText("");
         TXTcallePrincipal.setText("");
         TXTcalleSecundaria.setText("");
         TXTnumCasa.setText("");
         TXTciudad.setText("");
+        TXTcedula.setEditable(true);
         String ced_perso=TXTcedula.getText().trim();
         PersonaDAO pd=new PersonaDAO();
         persona=pd.buscarPorCedula(ced_perso);
@@ -2606,6 +2914,44 @@ public class CrearEmpleado extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No se puedo encontrar a la persona");
         }
     }//GEN-LAST:event_VerificarActionPerformed
+
+    private void PanelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseClicked
+        // TODO add your handling code here:
+        String ced_perso=TXTcedula.getText().trim();
+        if (ced_perso.isEmpty() || ced_perso.equals("Ingrese su cédula")){
+            JOptionPane.showMessageDialog(this, "Debe ingresar primero una cédula para buscar");
+            return;
+        }
+        PersonaDAO PD=new PersonaDAO();
+        boolean si=PD.existeCedula(ced_perso);
+        if (si==true){
+            int option = JOptionPane.showConfirmDialog(
+                this, 
+                "¿Esta seguro de eliminar a la persona con cedula "+ced_perso+"?",
+                "Confirmar eliminacion",
+                JOptionPane.YES_NO_OPTION
+            );
+            if (option ==JOptionPane.YES_OPTION){
+                JOptionPane.showMessageDialog(this, "Ingrese los datos a modificar");                
+                TXTcedula.setEditable(false);
+                
+                
+                
+                
+                
+                
+                
+            }
+            else{
+                TXTcedula.setEditable(true);
+                JOptionPane.showMessageDialog(this, "Gracias por confirmar");
+            }
+        }
+        else{
+            TXTcedula.setEditable(true);
+            JOptionPane.showMessageDialog(this, "No existe esa persona");
+        }
+    }//GEN-LAST:event_PanelEditarMouseClicked
 
     /**
      * @param args the command line arguments
