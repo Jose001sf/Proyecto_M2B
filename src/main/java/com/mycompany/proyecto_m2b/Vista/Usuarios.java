@@ -6,6 +6,7 @@ package com.mycompany.proyecto_m2b.Vista;
 
 import com.mycompany.proyecto_m2b.Controlador.Validaciones;
 import com.mycompany.proyecto_m2b.Controlador.CreacionCredenciales;
+import com.mycompany.proyecto_m2b.Controlador.UsuarioDAO;
 import java.awt.Color;
 import java.time.ZoneId;
 import java.util.Date;
@@ -28,6 +29,8 @@ public class Usuarios extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         TXTnombreDeUsuario.setEnabled(false);
         Estados.setEnabled(false);
+        UsuarioDAO ud=new UsuarioDAO();
+        ud.cargarIDusuarios(Usuarios);
     }
     int xMouse, yMouse;
     /**

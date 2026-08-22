@@ -41,12 +41,12 @@ public class Menu extends javax.swing.JFrame {
     private CrearEmpleado CrearEmp=null;
     private Especialidad Espe=null;
     private Estadisticas Esta=null;
-    private OrdenesDeServicio OrdenesServ=null;
-    private Propietarios Prop=null;
-    private Proveedores Provee=null;
-    private Repuestos Repues=null;
-    private Residuos Resi=null;
-    private Vehiculos Vehi=null;
+    private PanelOrdenesServicio OrdenesServ=null;
+    private PanelPropietarios Prop=null;
+    private PanelProveedores Provee=null;
+    private PanelRepuestos Repues=null;
+    private PanelResiduos Resi=null;
+    private PanelVehiculos Vehi=null;
     private Usuarios Usu=null;
     
     private boolean catalogoAbierto = false;
@@ -262,12 +262,10 @@ public class Menu extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelBarraLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(ImagenRegresar)
                             .addGroup(PanelBarraLayout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(ImagenRegresar))
-                            .addGroup(PanelBarraLayout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(Cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(Minimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -719,7 +717,7 @@ public class Menu extends javax.swing.JFrame {
 
         PanelFondoMenu.add(PanelAccesos, java.awt.BorderLayout.WEST);
 
-        PanelFondoBlanco.setBackground(new java.awt.Color(255, 255, 255));
+        PanelFondoBlanco.setBackground(new java.awt.Color(102, 102, 102));
 
         PanelPaneles.setLayout(new java.awt.CardLayout());
 

@@ -226,7 +226,7 @@ int yMouse;
 
     private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
         // TODO add your handling code here:
-        Vehiculos V=new Vehiculos();
+        PanelVehiculos V=new PanelVehiculos();
         V.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel21MouseClicked

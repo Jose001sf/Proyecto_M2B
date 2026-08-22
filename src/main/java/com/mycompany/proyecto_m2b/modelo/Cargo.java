@@ -16,6 +16,11 @@ public class Cargo {
     public Cargo() {
     }
 
+    public Cargo(String Nom_cargo, String Descrip_cargo) {
+        this.Nom_cargo = Nom_cargo;
+        this.Descrip_cargo = Descrip_cargo;
+    }
+
     public Cargo(String ID_cargo, String Nom_cargo, String Descrip_cargo) {
         this.ID_cargo = ID_cargo;
         this.Nom_cargo = Nom_cargo;
