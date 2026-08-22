@@ -78,6 +78,36 @@ public class PersonaDAO {
 
         return lista;
     }
+    private static final String MODIFICARPERSONA =
+            "UPDATE persona "
+            + "SET nom1_person = ?, nom2_person = ?, apell1_person = ?, apell2_person = ?, num_celu_person = ?, num_tel_person = ?, gene_person = ?, fech_nac_perso = ?, corr_elec_perso = ? "
+            + "WHERE ced_perso=?";
+    
+    public void modificarPersona (Persona persona){
+        try (Connection conn=ConexionBD.obtenerConexion();
+        PreparedStatement ps=conn.prepareStatement(MODIFICARPERSONA)){
+            ps.setString(1, persona.getNom1_person());
+            ps.setString(2, persona.getNom2_person());
+            ps.setString(3, persona.getApell1_person());
+            ps.setString(4, persona.getApell2_person());
+            ps.setString(5, persona.getNum_celu_person());
+            ps.setString(6, persona.getNum_tel_person());
+            ps.setString(7, persona.getGene_person());
+            ps.setDate(8, persona.getFech_nac_perso());
+            ps.setString(9, persona.getCorr_elec_perso());
+            ps.setString(10, persona.getCed_perso());            
+            ps.executeUpdate();
+            System.out.println("Persona modificada de manera correcta");
+        }
+    catch (SQLException e){
+            System.out.println("Error al modificar persona: "+e.getMessage());
+        }
+    }
+    
+    
+    
+    
+    
     public Persona buscarPorCedula(String cedula) {
         String sql = "SELECT ced_perso, nom1_person, nom2_person, apell1_person, apell2_person, num_celu_person, num_tel_person, gene_person, fech_nac_perso, corr_elec_perso, fech_registro_person, id_direccion "
                    + "FROM persona WHERE ced_perso = ?";

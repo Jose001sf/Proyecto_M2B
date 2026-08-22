@@ -4,7 +4,9 @@
  */
 package com.mycompany.proyecto_m2b.Vista;
 
+import com.mycompany.proyecto_m2b.Controlador.CargoDAO;
 import com.mycompany.proyecto_m2b.Controlador.Validaciones;
+import com.mycompany.proyecto_m2b.modelo.Cargo;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -230,6 +232,9 @@ public class Cargos extends javax.swing.JFrame {
         PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
         PanelEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelEditarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelEditarMouseEntered(evt);
             }
@@ -495,8 +500,8 @@ public class Cargos extends javax.swing.JFrame {
 
     public void GuardarCargo (){
         Validaciones V=new Validaciones();
-        String Cargo=TXTCargo.getText().trim().toUpperCase();
-        String Descripcion=TXTDescripcion.getText().trim().toUpperCase();
+        String Cargo=TXTCargo.getText().trim();
+        String Descripcion=TXTDescripcion.getText().trim();
         if (Cargo.isEmpty() || Descripcion.isEmpty()){
             JOptionPane.showMessageDialog (this, "Por favor ingrese los datos correspondientes");
             return;
@@ -515,7 +520,9 @@ public class Cargos extends javax.swing.JFrame {
             return;
         }
         //Se guarda el cargo en la base
-        
+        Cargo cargo=new Cargo(Cargo, Descripcion);
+        CargoDAO cd=new CargoDAO();
+        cd.insertarCargo(cargo);
         JOptionPane.showMessageDialog(this, "Se ha guardado correctamente el cargo");
         LimpiarDatos();
     }
@@ -594,6 +601,40 @@ public class Cargos extends javax.swing.JFrame {
         int y=evt.getYOnScreen();
         this.setLocation(x-xMouse, y-yMouse);
     }//GEN-LAST:event_BarraMouseDragged
+
+    public void ModificarCargos (){
+        Validaciones V=new Validaciones();
+        String Cargo=TXTCargo.getText().trim();
+        String Descripcion=TXTDescripcion.getText().trim();
+        if (Cargo.isEmpty() || Descripcion.isEmpty()){
+            JOptionPane.showMessageDialog (this, "Por favor ingrese los datos correspondientes");
+            return;
+        }
+        if (Cargo.isBlank() || Descripcion.isBlank()){
+            JOptionPane.showMessageDialog (this, "Por favor ingrese los datos correspondientes");
+            return;
+        }
+        if(!V.validarCargo(Cargo) || !V.validarDescripcionCargo(Descripcion)){
+            LimpiarDatos();
+            JOptionPane.showMessageDialog(this, "Por favor ingrese los datos de manera correcta");
+            return;
+        }
+        if (Cargo.equalsIgnoreCase("Cargo") || Descripcion.equalsIgnoreCase("Descripción")){
+            JOptionPane.showMessageDialog(this, "Pro favor ingrese los datos de manera correcta");
+            return;
+        }
+        Cargo cargo=new Cargo();
+        cargo.setNom_cargo(Cargo);
+        cargo.setDescrip_cargo(Descripcion);
+        CargoDAO cd=new CargoDAO();
+        cd.modificarCargo(cargo);
+        JOptionPane.showMessageDialog(this, "Se ha actualizado de manera correcta");
+    }
+    private void PanelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseClicked
+        // TODO add your handling code here:
+        
+        ModificarCargos();
+    }//GEN-LAST:event_PanelEditarMouseClicked
 
     /**
      * @param args the command line arguments

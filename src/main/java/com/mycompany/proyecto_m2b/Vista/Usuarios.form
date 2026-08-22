@@ -91,10 +91,7 @@
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="NombreDeUsuario" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="347" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="NombreDeUsuario" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="TXTnombreDeUsuario" alignment="0" min="-2" pref="468" max="-2" attributes="0"/>
                           </Group>
                       </Group>

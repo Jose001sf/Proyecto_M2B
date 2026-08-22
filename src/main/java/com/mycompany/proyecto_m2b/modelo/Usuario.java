@@ -15,7 +15,6 @@ public class Usuario {
     private boolean Estado_acti_usuario;
     private String id_empleado;
     private String tip_usuario;
-
     public Usuario() {
     }
 
@@ -86,7 +85,7 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario{" + "ID_usuario=" + ID_usuario + ", Nombre_usuario=" + Nombre_usuario + ", contra_usuario=" + contra_usuario + ", Estado_acti_usuario=" + Estado_acti_usuario + ", id_empleado=" + id_empleado + ", tip_usuario=" + tip_usuario + '}';
+        return Nombre_usuario+", Estado del usuario=" + Estado_acti_usuario;
     }
     
 }

@@ -67,4 +67,36 @@ public class EmpleadoDAO {
 
         return lista;
     }
+    public boolean existeCedula (String ced_perso){
+        String sql = "SELECT 1 FROM persona WHERE ced_perso = ?";
+        try (Connection conn = ConexionBD.obtenerConexion();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+ 
+            ps.setString(1, ced_perso);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al verificar cedula: " + e.getMessage());
+            return false;
+        }
+    }
+    private static final String MODIFICAREMPLEADO =
+            "UPDATE empleado "
+            + "SET id_cargo = ?, id_especialidad = ? "
+            + "WHERE id_empleado=?";
+    
+    public boolean modificarEmpleado (Empleado empleado){
+        try (Connection conn=ConexionBD.obtenerConexion();
+        PreparedStatement ps=conn.prepareStatement(MODIFICAREMPLEADO)){
+            ps.setString(1, empleado.getId_cargo());
+            ps.setString(2, empleado.getId_especialidad());
+            ps.setString(3, empleado.getId_empleado());
+            return ps.executeUpdate() > 0;
+        }
+    catch (SQLException e){
+            System.out.println("Error al actualizar empleado: " + e.getMessage());
+            return false;
+        }
+    }    
 }
