@@ -117,7 +117,7 @@ public class UsuarioDAO {
     public boolean DarDeBaja (Usuario usuario){
         try (Connection conn=ConexionBD.obtenerConexion();
             PreparedStatement ps=conn.prepareStatement(CambiarEstadoUsuario)){
-                ps.setBoolean(1, usuario.isEstado_acti_usuario());
+                ps.setBoolean(1, false);
                 int filas=ps.executeUpdate();
                 return filas>0;
             }
@@ -199,7 +199,8 @@ public class UsuarioDAO {
                 boolean estado_acti_usuario= rs.getBoolean("estado_acti_usuario");
                 String id_tip_usuario= rs.getString("id_tip_usuario");
                 String id_empleado= rs.getString("id_empleado");
-                Usuario usuario= new Usuario(nombre_usuario, nombre_usuario, estado_acti_usuario, id_usuario, id_usuario);
+                String contrasena=rs.getString("contra_usuario");
+                Usuario usuario= new Usuario(nombre_usuario, contrasena, estado_acti_usuario, id_empleado, id_tip_usuario);
 
                 Usuarios.addItem(usuario);
             }

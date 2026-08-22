@@ -19,7 +19,7 @@ import javax.swing.JComboBox;
  */
 public class CargoDAO {
     
-    public class EmpleadoDAO {
+
     private static final String INSERTARCARGO =
     "INSERT INTO public.cargo(id_cargo, nom_cargo, descrip_cargo)" +
     "VALUES (?, ?, ?)";
@@ -41,7 +41,6 @@ public class CargoDAO {
                 System.out.println("Error al insertar CARGO: " + e.getMessage());
             }      
         }
-    }
         public void cargarCargos(JComboBox Cargos) {
 
         String sql = """
@@ -70,6 +69,23 @@ public class CargoDAO {
             System.err.println("Error");
         
     
+        }
+    }
+        private static final String MODIFICARCARGO =
+            "UPDATE cargo "
+            + "SET nom_cargo = ?, descrip_cargo = ? "
+            + "WHERE id_cargo=?";
+    
+    public boolean modificarCargo (Cargo cargo){
+        try (Connection conn=ConexionBD.obtenerConexion();
+        PreparedStatement ps=conn.prepareStatement(MODIFICARCARGO)){
+            ps.setString(1, cargo.getNom_cargo());
+            ps.setString(2, cargo.getDescrip_cargo());
+            return ps.executeUpdate() > 0;
+        }
+    catch (SQLException e){
+            System.out.println("Error al actualizar cargo: " + e.getMessage());
+            return false;
         }
     }
 }

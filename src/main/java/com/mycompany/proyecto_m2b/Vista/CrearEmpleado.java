@@ -3088,8 +3088,6 @@ public class CrearEmpleado extends javax.swing.JFrame {
 
     private void PanelDarBajaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarBajaMouseClicked
         // TODO add your handling code here:
-        persona.getCed_perso();
-        
     }//GEN-LAST:event_PanelDarBajaMouseClicked
 
     /**
