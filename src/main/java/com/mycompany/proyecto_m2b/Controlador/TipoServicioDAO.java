@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.proyecto_m2b.Controlador;
 
 import com.mycompany.proyecto_m2b.modelo.Persona;
@@ -13,17 +10,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author HP
- */
 public class TipoServicioDAO {
     
     private  static final String INSERTARTIPOSERVICIO=
             "INSERT INTO tipo_de_servicio (id_tipo_servicio, nom_tipo_servi, desc_tipo_servicio ) " +
             "VALUES (?,?, ?)";
     
-    public void insertar(Tipo_de_servicio tipoServicio) {
+    public void insertarTipoServicio(Tipo_de_servicio tipoServicio) {
         try (Connection conn = ConexionBD.obtenerConexion();
              PreparedStatement ps = conn.prepareStatement(INSERTARTIPOSERVICIO)) {
 
@@ -39,7 +32,7 @@ public class TipoServicioDAO {
         }
     }
     
-    private static final String LISTARTIPOSERVICIO = "SELECT id_tipo_servicio, nom_tipo_servicio, desc_tipo_servicio FROM tipo_de_servicio";
+    private static final String LISTARTIPOSERVICIO = "SELECT id_tipo_servicio, nom_tipo_servi, desc_tipo_servicio FROM tipo_de_servicio";
     public List<Tipo_de_servicio> listarTipoServicio() {
         List<Tipo_de_servicio> lista = new ArrayList<>();
 
@@ -73,15 +66,15 @@ public class TipoServicioDAO {
             return filas > 0;
 
         } catch (SQLException e) {
-            System.out.println("Error al eliminar tipo de servicio: " + e.getMessage());
+            System.out.println("No se puede eliminar el tipo de servicio porque tiene servicios asociados. Elimine o reasigne esos servicios antes de continuar. " + e.getMessage());
             return false;
         }
     }
     
     private static final String ACTUALIZARTIPOSERVICIO
-            = "UPDATE tipo_de_servicio SET nom_tipo_servicio = ?, desc_tipo_servicio = ? WHERE id_tipo_servicio = ?";
+            = "UPDATE tipo_de_servicio SET nom_tipo_servi = ?, desc_tipo_servicio = ? WHERE id_tipo_servicio = ?";
 
-    public boolean actualizar(Tipo_de_servicio tipoServicio) {
+    public boolean actualizarTipoServicio(Tipo_de_servicio tipoServicio) {
         try (Connection conn = ConexionBD.obtenerConexion(); PreparedStatement ps = conn.prepareStatement(ACTUALIZARTIPOSERVICIO)) {
 
             ps.setString(1, tipoServicio.getNom_tipo_servi());
