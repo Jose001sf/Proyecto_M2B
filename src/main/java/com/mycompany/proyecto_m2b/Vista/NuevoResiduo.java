@@ -81,7 +81,7 @@ public class NuevoResiduo extends javax.swing.JPanel {
 
         jLabel3.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel3.setText("Datos de la Empresa");
+        jLabel3.setText("Datos");
 
         jLabel4.setForeground(new java.awt.Color(153, 153, 153));
         jLabel4.setText("Nombre Empresa:");
