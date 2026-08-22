@@ -90,7 +90,7 @@ public class PanelProveedores extends javax.swing.JPanel {
             .addGroup(BarraArribaLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(NombreVentanaProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 419, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 529, Short.MAX_VALUE)
                 .addComponent(btnRegresar)
                 .addGap(43, 43, 43))
         );
@@ -104,7 +104,7 @@ public class PanelProveedores extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Fondo.add(BarraArriba, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1210, 60));
+        Fondo.add(BarraArriba, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 60));
 
         BarraAbajo.setBackground(new java.awt.Color(227, 153, 106));
 
@@ -147,7 +147,7 @@ public class PanelProveedores extends javax.swing.JPanel {
         Fondo.add(Fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, -1, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/images (2).jpg"))); // NOI18N
-        Fondo.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 70, -1, -1));
+        Fondo.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 60, -1, -1));
 
         comboProveedores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un proveedor", "Item 2", "Item 3", "Item 4" }));
         Fondo.add(comboProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 240, -1));

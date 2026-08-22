@@ -151,7 +151,7 @@ public class PanelVehiculos extends javax.swing.JPanel {
             .addGroup(BarraArribaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(NombreVentanaVehiculos, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 778, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 858, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(19, 19, 19))
         );
@@ -165,7 +165,7 @@ public class PanelVehiculos extends javax.swing.JPanel {
                 .addContainerGap(10, Short.MAX_VALUE))
         );
 
-        Fondo.add(BarraArriba, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1240, 60));
+        Fondo.add(BarraArriba, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 60));
 
         BarraAbajo.setBackground(new java.awt.Color(227, 153, 106));
 
@@ -173,14 +173,14 @@ public class PanelVehiculos extends javax.swing.JPanel {
         BarraAbajo.setLayout(BarraAbajoLayout);
         BarraAbajoLayout.setHorizontalGroup(
             BarraAbajoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1240, Short.MAX_VALUE)
+            .addGap(0, 1320, Short.MAX_VALUE)
         );
         BarraAbajoLayout.setVerticalGroup(
             BarraAbajoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 70, Short.MAX_VALUE)
         );
 
-        Fondo.add(BarraAbajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 1240, 70));
+        Fondo.add(BarraAbajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 1320, 70));
 
         TituloFuncion1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         TituloFuncion1.setForeground(new java.awt.Color(153, 153, 153));
