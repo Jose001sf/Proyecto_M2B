@@ -108,7 +108,25 @@ public class UsuarioDAO {
                     return false;
                     }
         }
-        public List<Usuario> buscarUsuario(String criterio) {
+    
+    private static final String CambiarEstadoUsuario=
+            "UPDATE usuario "
+            +"SET estado_acti_usuario=?"
+            +"WHERE id_usuario=?";
+        
+    public boolean DarDeBaja (Usuario usuario){
+        try (Connection conn=ConexionBD.obtenerConexion();
+            PreparedStatement ps=conn.prepareStatement(CambiarEstadoUsuario)){
+                ps.setBoolean(1, usuario.isEstado_acti_usuario());
+                int filas=ps.executeUpdate();
+                return filas>0;
+            }
+        catch (SQLException e){
+            System.out.println("Error al cambiar estado del usuario: "+e.getMessage());
+            return false;
+        }
+    }
+    public List<Usuario> buscarUsuario(String criterio) {
         List<Usuario> lista = new ArrayList<>();
         String sql = "SELECT * FROM usuario WHERE id_usuario";
 

@@ -527,6 +527,9 @@ public class CrearEmpleado extends javax.swing.JFrame {
         PanelDarBaja.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(215, 106, 106)));
         PanelDarBaja.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelDarBaja.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelDarBajaMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelDarBajaMouseEntered(evt);
             }
@@ -1641,6 +1644,140 @@ public class CrearEmpleado extends javax.swing.JFrame {
     private void TXTCorreoElectronicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTCorreoElectronicoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TXTCorreoElectronicoActionPerformed
+    public void EditarEmpleado (){
+        Validaciones V = new Validaciones();
+        
+        String CallePr = TXTcallePrincipal.getText().trim().toUpperCase();
+        String CalleSe = TXTcalleSecundaria.getText().trim().toUpperCase();
+        String NumCasa = TXTnumCasa.getText().trim().toUpperCase();
+        String Ciudad = TXTciudad.getText().trim().toUpperCase();
+        if (CallePr.isEmpty() || CalleSe.isEmpty() || Ciudad.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese los datos correspondientes");
+            return;
+        }
+        if (CallePr.isBlank() || CalleSe.isBlank() || Ciudad.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese los datos correspondientes");
+            return;
+        }
+        if (!V.validarCallePrincipal(CallePr)) {
+            JOptionPane.showMessageDialog(this, "El número de caracteres de la calle principal en muy alto \n(Máximo: 50 caracteres)");
+            return;
+        }
+        if (!V.validarCalleSecundaria(CalleSe)) {
+            JOptionPane.showMessageDialog(this, "El número de caracteres de la calle secundaria en muy alto \n(Máximo: 50 caracteres)");
+            return;
+        }
+        if (!V.validarNumeroCasa(NumCasa)) {
+            JOptionPane.showMessageDialog(this, "El número de caracteres del número de casa en muy alto \n(Máximo: 10 caracteres)");
+            return;
+        }
+        if (!V.validarCiudad(Ciudad)) {
+            JOptionPane.showMessageDialog(this, "El número de caracteres de la ciudad en muy alto \n(Máximo: 30 caracteres)");
+            return;
+        }
+        
+        String PrimerNombre = TXTnombre.getText().trim().toUpperCase();
+        String SegundoNombre = TXTnombre1.getText().trim().toUpperCase();
+        String PrimerApellido = TXTapellido.getText().trim().toUpperCase();
+        String SegundoApellido = TXTapellido1.getText().trim().toUpperCase();
+        Date FechaNacimiento = CalendarioNacimiento.getDate();
+        String Genero = Generos.getSelectedItem().toString();
+        String Telefono = TXTTelefono.getText().trim().toUpperCase();
+        Cargo cargoE = (Cargo) Cargos.getSelectedItem();
+        Especialidad especialidadE = (Especialidad) Especialidades.getSelectedItem();
+        String Celular = TXTCelular.getText().trim().toUpperCase();
+        String CorreoE = TXTCorreoElectronico.getText().trim();
+        if (PrimerNombre.isEmpty() || SegundoNombre.isEmpty() || PrimerApellido.isEmpty() || SegundoApellido.isEmpty() || Genero.isEmpty() || Telefono.isEmpty() || Celular.isEmpty() || CorreoE.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor complete los datos que faltan");
+            return;
+        }
+        if (PrimerNombre.isBlank() || SegundoNombre.isBlank() || PrimerApellido.isBlank() || SegundoApellido.isBlank()
+                || Genero.isBlank() || Telefono.isBlank() || Celular.isBlank() || CorreoE.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Por favor complete los datos que faltan");
+            return;
+        }
+        if (cargoE == null || especialidadE == null) {
+            JOptionPane.showMessageDialog(this, "Escoja una opcion");
+            return;
+        }
+        if (FechaNacimiento == null) {
+            JOptionPane.showMessageDialog(this, "Escoja una fecha");
+            return;
+        }
+        if (!V.validarCorreo(CorreoE)) {
+            JOptionPane.showMessageDialog(this, "Correo no valido");
+            TXTCorreoElectronico.setText("");
+            return;
+        }
+        if (!V.validarNombre1(PrimerNombre)) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese solo su primer nombre");
+            TXTnombre.setText("");
+            return;
+        }
+        if (!V.validarNombre2(SegundoNombre)) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese solo su segundo nombre");
+            TXTnombre1.setText("");
+            return;
+        }
+        if (!V.validarApellido1(PrimerApellido)) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese solo su primer apellido");
+            TXTapellido.setText("");
+            return;
+        }
+        if (!V.validarApellido2(SegundoApellido)) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese solo su segundo apellido");
+            TXTapellido1.setText("");
+            return;
+        }
+        if (!V.validarCelular(Celular)) {
+            JOptionPane.showMessageDialog(this, "El número celular esta incorrecto");
+            TXTCelular.setText("");
+            return;
+        }
+        if (!V.validarTelefono(Telefono)) {
+            JOptionPane.showMessageDialog(this, "El número de teléfono esta incorrecto");
+            TXTTelefono.setText("");
+            return;
+        }
+        java.sql.Date FechaNA = new java.sql.Date(FechaNacimiento.getTime());
+        if (!V.FechaNacimiento(FechaNA)) {
+            JOptionPane.showMessageDialog(this, "La fecha esta incorrecta");
+            return;
+        }
+        
+        Direccion direccion=new Direccion();
+        direccion.setCalle_principal(CallePr);
+        direccion.setCalle_secundaria(CalleSe);
+        direccion.setNumero_casa(NumCasa);
+        direccion.setCiudad(Ciudad);
+        
+        DireccionDAO da=new DireccionDAO();
+        da.modificarDireccion(direccion);
+        
+        persona.setNom1_person(PrimerNombre);
+        persona.setNom2_person(SegundoNombre);
+        persona.setApell1_person(PrimerApellido);
+        persona.setApell2_person(SegundoApellido);
+        persona.setNum_celu_person(Celular);
+        persona.setNum_tel_person(Telefono);
+        persona.setGene_person(Genero);
+        persona.setFech_nac_perso(FechaNA);
+        persona.setCorr_elec_perso(CorreoE);
+        
+        PersonaDAO pd=new PersonaDAO();
+        pd.modificarPersona(persona);
+        
+        Empleado empleado=new Empleado();
+        empleado.setId_cargo(cargoE.getID_cargo());
+        empleado.setId_especialidad(especialidadE.getID_especialidad());
+        
+        EmpleadoDAO ed=new EmpleadoDAO();
+        ed.modificarEmpleado(empleado);
+        JOptionPane.showMessageDialog(this, "Se ha actualizado correctamente el empleado");
+        LimpiarDatos();
+    }    
+    
+    
     public void GuardarEmpleado (){
         Validaciones V=new Validaciones();
         //Guardar direcciones        
@@ -2911,7 +3048,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Persona encontrada correctamente");
         }
         else{
-            JOptionPane.showMessageDialog(this, "No se puedo encontrar a la persona");
+            JOptionPane.showMessageDialog(this, "No se pudo encontrar a la persona");
         }
     }//GEN-LAST:event_VerificarActionPerformed
 
@@ -2927,20 +3064,16 @@ public class CrearEmpleado extends javax.swing.JFrame {
         if (si==true){
             int option = JOptionPane.showConfirmDialog(
                 this, 
-                "¿Esta seguro de eliminar a la persona con cedula "+ced_perso+"?",
-                "Confirmar eliminacion",
+                "¿Esta seguro de editar a la persona con cedula "+ced_perso+"?",
+                "Asegurese de haber ingresado los datos antes de continuar",
                 JOptionPane.YES_NO_OPTION
             );
             if (option ==JOptionPane.YES_OPTION){
-                JOptionPane.showMessageDialog(this, "Ingrese los datos a modificar");                
+                JOptionPane.showMessageDialog(this, "Asegurese de haber ingresado los datos antes de continuar"+"\n"
+                        + "o de haber verificado la cédula");                
                 TXTcedula.setEditable(false);
-                
-                
-                
-                
-                
-                
-                
+                EditarEmpleado();
+                TXTcedula.setEditable(true);
             }
             else{
                 TXTcedula.setEditable(true);
@@ -2952,6 +3085,12 @@ public class CrearEmpleado extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No existe esa persona");
         }
     }//GEN-LAST:event_PanelEditarMouseClicked
+
+    private void PanelDarBajaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarBajaMouseClicked
+        // TODO add your handling code here:
+        persona.getCed_perso();
+        
+    }//GEN-LAST:event_PanelDarBajaMouseClicked
 
     /**
      * @param args the command line arguments

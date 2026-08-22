@@ -59,4 +59,24 @@ public class DireccionDAO {
         return null;
     }
     
+    private static final String MODIFICARDIRECCION =
+            "UPDATE direccion "
+            + "SET calle_principal = ?, calle_secundaria = ?, numero_casa = ?, ciudad = ? "
+            + "WHERE id_direccion=?";
+    
+    public void modificarDireccion (Direccion direccion){
+        try (Connection conn=ConexionBD.obtenerConexion();
+        PreparedStatement ps=conn.prepareStatement(MODIFICARDIRECCION)){
+            ps.setString(1, direccion.getCalle_principal());
+            ps.setString(2, direccion.getCalle_secundaria());
+            ps.setString(3, direccion.getNumero_casa());
+            ps.setString(4, direccion.getCiudad());
+            ps.setString(5, direccion.getID_direccion());            
+            ps.executeUpdate();
+            System.out.println("Direccion modificada de manera correcta");
+        }
+    catch (SQLException e){
+            System.out.println("Error al modificar direccion: "+e.getMessage());
+        }
+    }
 }
