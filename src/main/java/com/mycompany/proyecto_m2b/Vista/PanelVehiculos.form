@@ -887,6 +887,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="A&#xf1;adir marca/modelo"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="NuevoMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="ImagenADD">
               <Properties>

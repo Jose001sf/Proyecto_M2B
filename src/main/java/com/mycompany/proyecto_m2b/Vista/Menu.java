@@ -41,12 +41,12 @@ public class Menu extends javax.swing.JFrame {
     private CrearEmpleado CrearEmp=null;
     private Especialidad Espe=null;
     private Estadisticas Esta=null;
-    private OrdenesDeServicio OrdenesServ=null;
-    private Propietarios Prop=null;
-    private Proveedores Provee=null;
-    private Repuestos Repues=null;
-    private Residuos Resi=null;
-    private Vehiculos Vehi=null;
+    private PanelOrdenesServicio OrdenesServ=null;
+    private PanelPropietarios Prop=null;
+    private PanelProveedores Provee=null;
+    private PanelRepuestos Repues=null;
+    private PanelResiduos Resi=null;
+    private PanelVehiculos Vehi=null;
     private Usuarios Usu=null;
     
     private boolean catalogoAbierto = false;

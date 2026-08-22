@@ -534,6 +534,11 @@ public class PanelVehiculos extends javax.swing.JPanel {
 
         Nuevo.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         Nuevo.setText("Añadir marca/modelo");
+        Nuevo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                NuevoMouseClicked(evt);
+            }
+        });
 
         ImagenADD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
 
@@ -791,6 +796,12 @@ public class PanelVehiculos extends javax.swing.JPanel {
         PanelNuevo.setBackground(java.awt.Color.white);
         Nuevo.setForeground(java.awt.Color.black);
     }//GEN-LAST:event_PanelNuevoMouseExited
+
+    private void NuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NuevoMouseClicked
+        // TODO add your handling code here:
+        CrearNuevaMarcaModelo marcanueva=new CrearNuevaMarcaModelo();
+        marcanueva.setVisible(true);
+    }//GEN-LAST:event_NuevoMouseClicked
     
     public void LimpiarDatos (){
         txtPlaca.setText("");
