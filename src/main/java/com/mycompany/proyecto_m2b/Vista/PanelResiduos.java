@@ -73,7 +73,7 @@ public class PanelResiduos extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         TituloFuncion2 = new javax.swing.JLabel();
         Residuo = new javax.swing.JLabel();
-        Kilos = new javax.swing.JLabel();
+        PrecioUnitario = new javax.swing.JLabel();
         comboEmpresas = new javax.swing.JComboBox<>();
         Empresa = new javax.swing.JLabel();
         FechaResiduos = new javax.swing.JLabel();
@@ -103,6 +103,8 @@ public class PanelResiduos extends javax.swing.JPanel {
         txtTotal = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        TotalPrecio = new javax.swing.JLabel();
+        Kilos2 = new javax.swing.JLabel();
 
         Fondo.setBackground(new java.awt.Color(255, 255, 255));
         Fondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -188,10 +190,10 @@ public class PanelResiduos extends javax.swing.JPanel {
         Residuo.setText("Residuo / Tipo:");
         Fondo.add(Residuo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, -1, -1));
 
-        Kilos.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
-        Kilos.setForeground(new java.awt.Color(153, 153, 153));
-        Kilos.setText("Cantidad (Kg/L):");
-        Fondo.add(Kilos, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 280, -1, -1));
+        PrecioUnitario.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        PrecioUnitario.setForeground(new java.awt.Color(153, 153, 153));
+        PrecioUnitario.setText("Precio Unitario:");
+        Fondo.add(PrecioUnitario, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 280, -1, -1));
 
         comboEmpresas.addActionListener(this::comboEmpresasActionPerformed);
         Fondo.add(comboEmpresas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 260, -1));
@@ -447,6 +449,16 @@ public class PanelResiduos extends javax.swing.JPanel {
 
         Fondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 430, 470, 60));
 
+        TotalPrecio.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        TotalPrecio.setForeground(new java.awt.Color(153, 153, 153));
+        TotalPrecio.setText("Total:");
+        Fondo.add(TotalPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 320, -1, -1));
+
+        Kilos2.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        Kilos2.setForeground(new java.awt.Color(153, 153, 153));
+        Kilos2.setText("Cantidad (Kg/L):");
+        Fondo.add(Kilos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 280, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -613,7 +625,7 @@ public class PanelResiduos extends javax.swing.JPanel {
     private javax.swing.JLabel ImagenADD2;
     private javax.swing.JLabel ImagenADD3;
     private javax.swing.JLabel ImagenSAVE;
-    private javax.swing.JLabel Kilos;
+    private javax.swing.JLabel Kilos2;
     private javax.swing.JLabel NombreVentanaResiduos;
     private javax.swing.JLabel Nuevo1;
     private javax.swing.JLabel Nuevo2;
@@ -622,9 +634,11 @@ public class PanelResiduos extends javax.swing.JPanel {
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JPanel PanelNuevaEmpresa;
     private javax.swing.JPanel PanelNuevoResiduo;
+    private javax.swing.JLabel PrecioUnitario;
     private javax.swing.JLabel Residuo;
     private javax.swing.JLabel TituloFuncion1;
     private javax.swing.JLabel TituloFuncion2;
+    private javax.swing.JLabel TotalPrecio;
     private javax.swing.JLabel btnRegresar;
     private javax.swing.JComboBox<Object> comboEmpresas;
     private javax.swing.JComboBox<String> comboVentaResiduo;
