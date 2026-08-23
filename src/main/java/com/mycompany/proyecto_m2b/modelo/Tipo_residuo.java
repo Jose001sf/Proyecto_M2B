@@ -57,8 +57,7 @@ public class Tipo_residuo {
     }
 
     @Override
-    public String toString() {
-        return "Tipo_residuo{" + "ID_tipo_resi=" + ID_tipo_resi + ", Nom_tipo_resi=" + Nom_tipo_resi + ", grado_riesgo=" + grado_riesgo + ", Desc_tipo_resi=" + Desc_tipo_resi + '}';
-    }
-    
+        public String toString() {
+        return Nom_tipo_resi;
+}   
 }
