@@ -5,9 +5,7 @@
 package com.mycompany.proyecto_m2b.Vista;
 
 import com.mycompany.proyecto_m2b.Controlador.RegistrarEmpresaRecicladoraDAO;
-import com.mycompany.proyecto_m2b.Controlador.ResiduoDAO;
 import com.mycompany.proyecto_m2b.modelo.Empresa_recicladora;
-import com.mycompany.proyecto_m2b.modelo.Residuos;
 import java.util.List;
 
 /**
@@ -21,8 +19,6 @@ public class PanelResiduos extends javax.swing.JPanel {
      */
     public PanelResiduos() {
     initComponents();
-    cargarComboTiposResiduo();
-    cargarComboEstados(); 
 
     java.time.LocalDate fechaActual = java.time.LocalDate.now();
     dateReciclaje.setDate(java.sql.Date.valueOf(fechaActual));
@@ -54,80 +50,8 @@ public class PanelResiduos extends javax.swing.JPanel {
     int nuevoNumero = ultimoNumero + 1;
     return String.format("FAC-%06d", nuevoNumero);
 }
-    
-    public void cargarComboTiposResiduo() {
-    comboResiduos.removeAllItems();
-    comboResiduos.addItem("Seleccione un tipo de residuo");
-    
-    ResiduoDAO dao = new ResiduoDAO();
-    List<String> lista = dao.obtenerNombresTiposResiduo();
-    
-    for (String nombre : lista) {
-        comboResiduos.addItem(nombre);
-    }
-}
-    
-    public void cargarComboEstados() {
-    comboEstadoResiduo.removeAllItems();
-    comboEstadoResiduo.addItem("Seleccione un estado");
-    comboEstadoResiduo.addItem("Sólido");
-    comboEstadoResiduo.addItem("Líquido");
-    comboEstadoResiduo.addItem("Gaseoso");
-    comboEstadoResiduo.addItem("Pastoso / Semisólido");
-}
-    
-    public void procesarRegistroResiduo() {
-        final int CANTIDAD_MAXIMA_PERMITIDA = 1000;
 
-    if (comboResiduos.getSelectedIndex() <= 0 || comboEstadoResiduo.getSelectedIndex() <= 0) {
-        javax.swing.JOptionPane.showMessageDialog(this, 
-            "Debe seleccionar un tipo de residuo y su estado físico.", 
-            "Campos Incompletos", javax.swing.JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
-    String tipoSeleccionado = comboResiduos.getSelectedItem().toString();
-    String estadoSeleccionado = comboEstadoResiduo.getSelectedItem().toString();
-    int cantidadIngresada;
-
-    try {
-        cantidadIngresada = Integer.parseInt(txtCantidad.getText().trim());
-    } catch (NumberFormatException e) {
-        javax.swing.JOptionPane.showMessageDialog(this, 
-            "Ingrese una cantidad numérica válida.", 
-            "Error de Formato", javax.swing.JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    if (cantidadIngresada > CANTIDAD_MAXIMA_PERMITIDA) {
-        javax.swing.JOptionPane.showMessageDialog(this, 
-            "La cantidad ingresada (" + cantidadIngresada + ") excede el límite máximo permitido por registro (" + CANTIDAD_MAXIMA_PERMITIDA + ").",
-            "Límite Excedido", javax.swing.JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
-    ResiduoDAO dao = new ResiduoDAO();
-    String idGenerado = dao.generarIdResiduo();
-    String idTipoFk = dao.obtenerIdTipoResiduosPorNombre(tipoSeleccionado);
     
-    Residuos nuevoResiduo = new Residuos(
-        idGenerado,
-        tipoSeleccionado,
-        estadoSeleccionado,
-        idTipoFk,
-        cantidadIngresada,
-        CANTIDAD_MAXIMA_PERMITIDA
-    );
-
-    if (dao.registrarResiduo(nuevoResiduo)) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Residuo registrado correctamente con ID: " + idGenerado);
-        txtCantidad.setText("");
-        comboResiduos.setSelectedIndex(0);
-        comboEstadoResiduo.setSelectedIndex(0);
-    } else {
-        javax.swing.JOptionPane.showMessageDialog(this, "Error al guardar el residuo en la base de datos.", "Error BD", javax.swing.JOptionPane.ERROR_MESSAGE);
-    }
-}
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -156,9 +80,7 @@ public class PanelResiduos extends javax.swing.JPanel {
         dateReciclaje = new com.toedter.calendar.JDateChooser();
         txtDireccion = new javax.swing.JTextField();
         txtNReciclaje = new javax.swing.JTextField();
-        comboResiduos = new javax.swing.JComboBox<>();
-        txtCantidad = new javax.swing.JTextField();
-        PanelNuevoTipoResiduo = new javax.swing.JPanel();
+        PanelNuevoResiduo = new javax.swing.JPanel();
         Nuevo1 = new javax.swing.JLabel();
         ImagenADD1 = new javax.swing.JLabel();
         PanelNuevaEmpresa = new javax.swing.JPanel();
@@ -176,7 +98,6 @@ public class PanelResiduos extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         txtTipoEmpresa = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        comboEstadoResiduo = new javax.swing.JComboBox<>();
 
         Fondo.setBackground(new java.awt.Color(255, 255, 255));
         Fondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -283,22 +204,18 @@ public class PanelResiduos extends javax.swing.JPanel {
         Fondo.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 200, 200, -1));
         Fondo.add(txtNReciclaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 260, -1));
 
-        comboResiduos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccion un tipo de residuo", "Item 2", "Item 3", "Item 4" }));
-        Fondo.add(comboResiduos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 240, -1));
-        Fondo.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, 240, -1));
-
-        PanelNuevoTipoResiduo.setBackground(new java.awt.Color(255, 255, 255));
-        PanelNuevoTipoResiduo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelNuevoTipoResiduo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelNuevoTipoResiduo.addMouseListener(new java.awt.event.MouseAdapter() {
+        PanelNuevoResiduo.setBackground(new java.awt.Color(255, 255, 255));
+        PanelNuevoResiduo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        PanelNuevoResiduo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelNuevoResiduo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PanelNuevoTipoResiduoMouseClicked(evt);
+                PanelNuevoResiduoMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelNuevoTipoResiduoMouseEntered(evt);
+                PanelNuevoResiduoMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelNuevoTipoResiduoMouseExited(evt);
+                PanelNuevoResiduoMouseExited(evt);
             }
         });
 
@@ -307,28 +224,28 @@ public class PanelResiduos extends javax.swing.JPanel {
 
         ImagenADD1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
 
-        javax.swing.GroupLayout PanelNuevoTipoResiduoLayout = new javax.swing.GroupLayout(PanelNuevoTipoResiduo);
-        PanelNuevoTipoResiduo.setLayout(PanelNuevoTipoResiduoLayout);
-        PanelNuevoTipoResiduoLayout.setHorizontalGroup(
-            PanelNuevoTipoResiduoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNuevoTipoResiduoLayout.createSequentialGroup()
+        javax.swing.GroupLayout PanelNuevoResiduoLayout = new javax.swing.GroupLayout(PanelNuevoResiduo);
+        PanelNuevoResiduo.setLayout(PanelNuevoResiduoLayout);
+        PanelNuevoResiduoLayout.setHorizontalGroup(
+            PanelNuevoResiduoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelNuevoResiduoLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(ImagenADD1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Nuevo1)
                 .addContainerGap(33, Short.MAX_VALUE))
         );
-        PanelNuevoTipoResiduoLayout.setVerticalGroup(
-            PanelNuevoTipoResiduoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNuevoTipoResiduoLayout.createSequentialGroup()
+        PanelNuevoResiduoLayout.setVerticalGroup(
+            PanelNuevoResiduoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelNuevoResiduoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PanelNuevoTipoResiduoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelNuevoResiduoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ImagenADD1)
                     .addComponent(Nuevo1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Fondo.add(PanelNuevoTipoResiduo, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 280, -1, -1));
+        Fondo.add(PanelNuevoResiduo, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 280, -1, -1));
 
         PanelNuevaEmpresa.setBackground(new java.awt.Color(255, 255, 255));
         PanelNuevaEmpresa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -508,9 +425,6 @@ public class PanelResiduos extends javax.swing.JPanel {
         jLabel7.setText("Estado del Residuo");
         Fondo.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 280, -1, -1));
 
-        comboEstadoResiduo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        Fondo.add(comboEstadoResiduo, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 300, 240, -1));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -542,63 +456,67 @@ public class PanelResiduos extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_comboEmpresasActionPerformed
 
-    private void PanelNuevoTipoResiduoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoTipoResiduoMouseClicked
-            NuevoTipoResiduo panel = new NuevoTipoResiduo();
+    private void PanelNuevoResiduoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoResiduoMouseClicked
+        NuevoResiduo panel = new NuevoResiduo();
 
-    java.awt.Window parentWindow = javax.swing.SwingUtilities.getWindowAncestor(this);
-    javax.swing.JDialog dialog;
+        java.awt.Window parentWindow = javax.swing.SwingUtilities.getWindowAncestor(this);
+        javax.swing.JDialog dialog;
 
-    if (parentWindow instanceof java.awt.Frame) {
-        dialog = new javax.swing.JDialog((java.awt.Frame) parentWindow);
-    } else if (parentWindow instanceof java.awt.Dialog) {
-        dialog = new javax.swing.JDialog((java.awt.Dialog) parentWindow);
-    } else {
-        dialog = new javax.swing.JDialog();
-    }
+        if (parentWindow instanceof java.awt.Frame) {
+            dialog = new javax.swing.JDialog((java.awt.Frame) parentWindow);
+        } else if (parentWindow instanceof java.awt.Dialog) {
+            dialog = new javax.swing.JDialog((java.awt.Dialog) parentWindow);
+        } else {
+            dialog = new javax.swing.JDialog();
+        }
 
-    dialog.setUndecorated(true);
-    dialog.add(panel);
-    dialog.pack();
+        dialog.setUndecorated(true);
+        dialog.add(panel);
+        dialog.pack();
 
-    java.awt.Point location = new java.awt.Point(0, PanelNuevoTipoResiduo.getHeight());
-    javax.swing.SwingUtilities.convertPointToScreen(location, PanelNuevoTipoResiduo);
+        java.awt.Point location = new java.awt.Point(0, PanelNuevoResiduo.getHeight());
+        javax.swing.SwingUtilities.convertPointToScreen(location, PanelNuevoResiduo);
 
-    java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-    int dialogWidth = dialog.getWidth();
-    int dialogHeight = dialog.getHeight();
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        int dialogWidth = dialog.getWidth();
+        int dialogHeight = dialog.getHeight();
 
-    if (location.x + dialogWidth > screenSize.width) {
-        location.x = location.x + PanelNuevoTipoResiduo.getWidth() - dialogWidth;
-    }
+        if (location.x + dialogWidth > screenSize.width) {
+            location.x = location.x + PanelNuevoResiduo.getWidth() - dialogWidth;
+        }
 
-    if (location.y + dialogHeight > screenSize.height) {
-        java.awt.Point locationAbove = new java.awt.Point(0, -dialogHeight);
-        javax.swing.SwingUtilities.convertPointToScreen(locationAbove, PanelNuevoTipoResiduo);
-        location.y = locationAbove.y;
-    }
-
-    dialog.setLocation(location);
+        if (location.y + dialogHeight > screenSize.height) {
+            java.awt.Point locationAbove = new java.awt.Point(0, -dialogHeight);
+            javax.swing.SwingUtilities.convertPointToScreen(locationAbove, PanelNuevoResiduo);
+            location.y = locationAbove.y;
+        }
 
     dialog.addWindowFocusListener(new java.awt.event.WindowFocusListener() {
-        @Override
-        public void windowGainedFocus(java.awt.event.WindowEvent e) {}
+    @Override
+    public void windowGainedFocus(java.awt.event.WindowEvent e) {}
 
-        @Override
-        public void windowLostFocus(java.awt.event.WindowEvent e) {
-            dialog.dispose();
+    @Override
+    public void windowLostFocus(java.awt.event.WindowEvent e) {
+        java.awt.Window opposite = e.getOppositeWindow();
+        
+        if (opposite != null && opposite.getOwner() == dialog) {
+            return; 
         }
-    });
+        
+        dialog.dispose();
+    }
+});
 
-    dialog.setVisible(true);
-    }//GEN-LAST:event_PanelNuevoTipoResiduoMouseClicked
+        dialog.setVisible(true);
+    }//GEN-LAST:event_PanelNuevoResiduoMouseClicked
 
-    private void PanelNuevoTipoResiduoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoTipoResiduoMouseEntered
+    private void PanelNuevoResiduoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoResiduoMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_PanelNuevoTipoResiduoMouseEntered
+    }//GEN-LAST:event_PanelNuevoResiduoMouseEntered
 
-    private void PanelNuevoTipoResiduoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoTipoResiduoMouseExited
+    private void PanelNuevoResiduoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoResiduoMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_PanelNuevoTipoResiduoMouseExited
+    }//GEN-LAST:event_PanelNuevoResiduoMouseExited
 
     private void PanelNuevaEmpresaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevaEmpresaMouseClicked
         // TODO add your handling code here:
@@ -618,7 +536,7 @@ public class PanelResiduos extends javax.swing.JPanel {
 
     private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
         // TODO add your handling code here:
-        procesarRegistroResiduo();
+
     }//GEN-LAST:event_PanelGuardarMouseClicked
 
     private void PanelGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseEntered
@@ -680,21 +598,18 @@ public class PanelResiduos extends javax.swing.JPanel {
     private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JPanel PanelNuevaEmpresa;
-    private javax.swing.JPanel PanelNuevoTipoResiduo;
+    private javax.swing.JPanel PanelNuevoResiduo;
     private javax.swing.JLabel Residuo;
     private javax.swing.JLabel TituloFuncion1;
     private javax.swing.JLabel TituloFuncion2;
     private javax.swing.JLabel btnRegresar;
     private javax.swing.JComboBox<Object> comboEmpresas;
-    private javax.swing.JComboBox<String> comboEstadoResiduo;
-    private javax.swing.JComboBox<String> comboResiduos;
     private com.toedter.calendar.JDateChooser dateReciclaje;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtNReciclaje;
     private javax.swing.JTextField txtTipoEmpresa;
