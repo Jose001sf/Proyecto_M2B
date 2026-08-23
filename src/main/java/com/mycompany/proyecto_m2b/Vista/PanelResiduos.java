@@ -81,7 +81,7 @@ public class PanelResiduos extends javax.swing.JPanel {
         txtPrecio = new javax.swing.JTextField();
         comboResiduos = new javax.swing.JComboBox<>();
         txtKilos = new javax.swing.JTextField();
-        PanelNuevoResiduo = new javax.swing.JPanel();
+        PanelNuevoTipoResiduo = new javax.swing.JPanel();
         Nuevo1 = new javax.swing.JLabel();
         ImagenADD1 = new javax.swing.JLabel();
         PanelNuevaEmpresa = new javax.swing.JPanel();
@@ -217,18 +217,18 @@ public class PanelResiduos extends javax.swing.JPanel {
         Fondo.add(comboResiduos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 240, -1));
         Fondo.add(txtKilos, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 300, 240, -1));
 
-        PanelNuevoResiduo.setBackground(new java.awt.Color(255, 255, 255));
-        PanelNuevoResiduo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelNuevoResiduo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelNuevoResiduo.addMouseListener(new java.awt.event.MouseAdapter() {
+        PanelNuevoTipoResiduo.setBackground(new java.awt.Color(255, 255, 255));
+        PanelNuevoTipoResiduo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        PanelNuevoTipoResiduo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelNuevoTipoResiduo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PanelNuevoResiduoMouseClicked(evt);
+                PanelNuevoTipoResiduoMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelNuevoResiduoMouseEntered(evt);
+                PanelNuevoTipoResiduoMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelNuevoResiduoMouseExited(evt);
+                PanelNuevoTipoResiduoMouseExited(evt);
             }
         });
 
@@ -237,28 +237,28 @@ public class PanelResiduos extends javax.swing.JPanel {
 
         ImagenADD1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
 
-        javax.swing.GroupLayout PanelNuevoResiduoLayout = new javax.swing.GroupLayout(PanelNuevoResiduo);
-        PanelNuevoResiduo.setLayout(PanelNuevoResiduoLayout);
-        PanelNuevoResiduoLayout.setHorizontalGroup(
-            PanelNuevoResiduoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNuevoResiduoLayout.createSequentialGroup()
+        javax.swing.GroupLayout PanelNuevoTipoResiduoLayout = new javax.swing.GroupLayout(PanelNuevoTipoResiduo);
+        PanelNuevoTipoResiduo.setLayout(PanelNuevoTipoResiduoLayout);
+        PanelNuevoTipoResiduoLayout.setHorizontalGroup(
+            PanelNuevoTipoResiduoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelNuevoTipoResiduoLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(ImagenADD1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Nuevo1)
                 .addContainerGap(33, Short.MAX_VALUE))
         );
-        PanelNuevoResiduoLayout.setVerticalGroup(
-            PanelNuevoResiduoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNuevoResiduoLayout.createSequentialGroup()
+        PanelNuevoTipoResiduoLayout.setVerticalGroup(
+            PanelNuevoTipoResiduoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelNuevoTipoResiduoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PanelNuevoResiduoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelNuevoTipoResiduoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ImagenADD1)
                     .addComponent(Nuevo1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Fondo.add(PanelNuevoResiduo, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 280, -1, -1));
+        Fondo.add(PanelNuevoTipoResiduo, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 280, -1, -1));
 
         PanelNuevaEmpresa.setBackground(new java.awt.Color(255, 255, 255));
         PanelNuevaEmpresa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -507,21 +507,63 @@ public class PanelResiduos extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_comboEmpresasActionPerformed
 
-    private void PanelNuevoResiduoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoResiduoMouseClicked
-        // TODO add your handling code here:
-        NuevoResiduo panel = new NuevoResiduo();
-        javax.swing.JPopupMenu popup = new javax.swing.JPopupMenu();
-        popup.add(panel);
-        popup.show(PanelNuevoResiduo, 0, PanelNuevoResiduo.getHeight());
-    }//GEN-LAST:event_PanelNuevoResiduoMouseClicked
+    private void PanelNuevoTipoResiduoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoTipoResiduoMouseClicked
+            NuevoTipoResiduo panel = new NuevoTipoResiduo();
 
-    private void PanelNuevoResiduoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoResiduoMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PanelNuevoResiduoMouseEntered
+    java.awt.Window parentWindow = javax.swing.SwingUtilities.getWindowAncestor(this);
+    javax.swing.JDialog dialog;
 
-    private void PanelNuevoResiduoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoResiduoMouseExited
+    if (parentWindow instanceof java.awt.Frame) {
+        dialog = new javax.swing.JDialog((java.awt.Frame) parentWindow);
+    } else if (parentWindow instanceof java.awt.Dialog) {
+        dialog = new javax.swing.JDialog((java.awt.Dialog) parentWindow);
+    } else {
+        dialog = new javax.swing.JDialog();
+    }
+
+    dialog.setUndecorated(true);
+    dialog.add(panel);
+    dialog.pack();
+
+    java.awt.Point location = new java.awt.Point(0, PanelNuevoTipoResiduo.getHeight());
+    javax.swing.SwingUtilities.convertPointToScreen(location, PanelNuevoTipoResiduo);
+
+    java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+    int dialogWidth = dialog.getWidth();
+    int dialogHeight = dialog.getHeight();
+
+    if (location.x + dialogWidth > screenSize.width) {
+        location.x = location.x + PanelNuevoTipoResiduo.getWidth() - dialogWidth;
+    }
+
+    if (location.y + dialogHeight > screenSize.height) {
+        java.awt.Point locationAbove = new java.awt.Point(0, -dialogHeight);
+        javax.swing.SwingUtilities.convertPointToScreen(locationAbove, PanelNuevoTipoResiduo);
+        location.y = locationAbove.y;
+    }
+
+    dialog.setLocation(location);
+
+    dialog.addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+        @Override
+        public void windowGainedFocus(java.awt.event.WindowEvent e) {}
+
+        @Override
+        public void windowLostFocus(java.awt.event.WindowEvent e) {
+            dialog.dispose();
+        }
+    });
+
+    dialog.setVisible(true);
+    }//GEN-LAST:event_PanelNuevoTipoResiduoMouseClicked
+
+    private void PanelNuevoTipoResiduoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoTipoResiduoMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_PanelNuevoResiduoMouseExited
+    }//GEN-LAST:event_PanelNuevoTipoResiduoMouseEntered
+
+    private void PanelNuevoTipoResiduoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoTipoResiduoMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PanelNuevoTipoResiduoMouseExited
 
     private void PanelNuevaEmpresaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevaEmpresaMouseClicked
         // TODO add your handling code here:
@@ -621,7 +663,7 @@ public class PanelResiduos extends javax.swing.JPanel {
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JPanel PanelNuevaEmpresa;
     private javax.swing.JPanel PanelNuevo;
-    private javax.swing.JPanel PanelNuevoResiduo;
+    private javax.swing.JPanel PanelNuevoTipoResiduo;
     private javax.swing.JLabel PrecioResiduos;
     private javax.swing.JLabel Residuo;
     private javax.swing.JLabel TituloFuncion1;
