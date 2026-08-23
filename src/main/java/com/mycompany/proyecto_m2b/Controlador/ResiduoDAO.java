@@ -142,4 +142,24 @@ public class ResiduoDAO {
             return false;
         }
     }
+    
+    public List<Residuos> listarResiduos() {
+        List<Residuos> lista = new ArrayList<>();
+        String sql = "SELECT id_residuos, nom_residuo FROM residuos ORDER BY nom_residuo ASC";
+
+        try (Connection con = ConexionBD.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Residuos r = new Residuos();
+                r.setID_resiudos(rs.getString("id_residuos"));
+                r.setNom_residuo(rs.getString("nom_residuo"));
+                lista.add(r);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al listar residuos: " + e.getMessage());
+        }
+        return lista;
+    }
 }

@@ -5,8 +5,14 @@
 package com.mycompany.proyecto_m2b.Vista;
 
 import com.mycompany.proyecto_m2b.Controlador.RegistrarEmpresaRecicladoraDAO;
+import com.mycompany.proyecto_m2b.Controlador.ResiduoDAO;
+import com.mycompany.proyecto_m2b.Controlador.VentaDAO;
+import com.mycompany.proyecto_m2b.modelo.DetalleVenta;
 import com.mycompany.proyecto_m2b.modelo.Empresa_recicladora;
+import com.mycompany.proyecto_m2b.modelo.EncabezadoVenta;
+import com.mycompany.proyecto_m2b.modelo.Residuos;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -30,6 +36,7 @@ public class PanelResiduos extends javax.swing.JPanel {
     txtDireccion.setEnabled(false);
     txtTipoEmpresa.setEnabled(false);
 
+    cargarComboResiduos();
     cargarEmpresasEnCombo();
     }
     
@@ -51,6 +58,17 @@ public class PanelResiduos extends javax.swing.JPanel {
     return String.format("FAC-%06d", nuevoNumero);
 }
 
+    public void cargarComboResiduos() {
+    comboVentaResiduo.removeAllItems();
+    comboVentaResiduo.addItem("Seleccione un residuo...");
+
+    ResiduoDAO dao = new ResiduoDAO();
+    List<Residuos> lista = dao.listarResiduos();
+
+    for (Residuos r : lista) {
+        comboVentaResiduo.addItem(r.getID_resiudos() + " - " + r.getNom_residuo());
+    }
+}
     
     
     /**
@@ -386,6 +404,9 @@ public class PanelResiduos extends javax.swing.JPanel {
         PanelAgregar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
         PanelAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelAgregarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelAgregarMouseEntered(evt);
             }
@@ -429,10 +450,10 @@ public class PanelResiduos extends javax.swing.JPanel {
         Fondo.add(txtTipoEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 140, 200, -1));
 
         comboVentaResiduo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        Fondo.add(comboVentaResiduo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, -1));
-        Fondo.add(txtCantidadVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, -1, -1));
-        Fondo.add(txtPrecioUnitario, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 300, -1, -1));
-        Fondo.add(txtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 340, -1, -1));
+        Fondo.add(comboVentaResiduo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 120, -1));
+        Fondo.add(txtCantidadVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, 120, -1));
+        Fondo.add(txtPrecioUnitario, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 300, 120, -1));
+        Fondo.add(txtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 340, 140, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -447,7 +468,7 @@ public class PanelResiduos extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        Fondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 430, 470, 60));
+        Fondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 430, 470, 190));
 
         TotalPrecio.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         TotalPrecio.setForeground(new java.awt.Color(153, 153, 153));
@@ -570,7 +591,54 @@ public class PanelResiduos extends javax.swing.JPanel {
 
     private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
         // TODO add your handling code here:
+    Object empSel = comboEmpresas.getSelectedItem();
+    if (!(empSel instanceof Empresa_recicladora)) {
+        JOptionPane.showMessageDialog(this, "Debe seleccionar una empresa recicladora válida.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    Empresa_recicladora empresa = (Empresa_recicladora) empSel;
+    String idEmpresa = empresa.getID_empresa_rec();
+    javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
 
+    java.util.List<DetalleVenta> detalles = new java.util.ArrayList<>();
+    String idEncab = txtNReciclaje.getText().trim();
+
+    for (int i = 0; i < model.getRowCount(); i++) {
+        Object objIdRes = model.getValueAt(i, 0);
+        
+        if (objIdRes != null && !objIdRes.toString().trim().isEmpty()) {
+            String timeStr = String.valueOf(System.currentTimeMillis());
+            String idDet = "DET-" + timeStr.substring(timeStr.length() - 7) + "-" + i;
+            
+            String idRes = objIdRes.toString().trim();
+            
+            int cant = (int) Double.parseDouble(model.getValueAt(i, 2).toString().replace(",", "."));
+            double subtotal = Double.parseDouble(model.getValueAt(i, 4).toString().replace(",", "."));
+
+            detalles.add(new DetalleVenta(idDet, idEncab, idRes, cant, subtotal));
+        }
+    }
+
+    if (detalles.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Debe agregar al menos un residuo a la tabla antes de guardar.", "Tabla Vacía", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    java.sql.Date fecha = new java.sql.Date(System.currentTimeMillis());
+    double total = Double.parseDouble(txtTotal.getText().trim().replace(",", "."));
+    EncabezadoVenta encab = new EncabezadoVenta(idEncab, idEmpresa, fecha, total);
+
+    VentaDAO dao = new VentaDAO();
+    if (dao.registrarVenta(encab, detalles)) {
+        JOptionPane.showMessageDialog(this, "¡Venta y detalles registrados con éxito!", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        
+        model.setRowCount(0);
+        txtTotal.setText("0.00");
+        txtNReciclaje.setText(generarNumeroFactura());
+        comboEmpresas.setSelectedIndex(0);
+    } else {
+        JOptionPane.showMessageDialog(this, "Error al guardar la transacción en la base de datos.", "Error SQL", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_PanelGuardarMouseClicked
 
     private void PanelGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseEntered
@@ -609,6 +677,85 @@ public class PanelResiduos extends javax.swing.JPanel {
         Buscar.setForeground(java.awt.Color.black);
     }//GEN-LAST:event_PanelAgregarMouseExited
 
+    private void PanelAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelAgregarMouseClicked
+        if (comboVentaResiduo.getSelectedIndex() <= 0) {
+        JOptionPane.showMessageDialog(this, "Seleccione un residuo válido.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    if (txtCantidadVenta.getText().trim().isEmpty() || txtPrecioUnitario.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Por favor ingrese la cantidad y el precio unitario.", "Campos vacíos", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    try {
+        String itemSel = comboVentaResiduo.getSelectedItem().toString(); 
+        String[] partes = itemSel.split(" - ");
+        String idResiduo = partes[0].trim();
+        String nombreResiduo = partes[1].trim();
+
+        // Manejo de decimales para cantidad y precio
+        double cantidadNueva = Double.parseDouble(txtCantidadVenta.getText().trim().replace(",", "."));
+        double precioUnitario = Double.parseDouble(txtPrecioUnitario.getText().trim().replace(",", "."));
+
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+        boolean encontrado = false;
+
+        for (int i = 0; i < model.getRowCount(); i++) {
+            Object objId = model.getValueAt(i, 0);
+
+            if (objId != null && objId.toString().trim().equals(idResiduo)) {
+                // Lectura segura de la cantidad previa como Double
+                Object objCant = model.getValueAt(i, 2);
+                double cantidadExistente = Double.parseDouble(objCant.toString().trim().replace(",", "."));
+
+                double cantidadTotal = cantidadExistente + cantidadNueva;
+                double nuevoSubtotal = cantidadTotal * precioUnitario;
+
+                // Actualizar la fila con decimales
+                model.setValueAt(cantidadTotal, i, 2);
+                model.setValueAt(precioUnitario, i, 3);
+                model.setValueAt(nuevoSubtotal, i, 4);
+
+                encontrado = true;
+                break;
+            }
+        }
+
+        if (!encontrado) {
+            double subtotal = cantidadNueva * precioUnitario;
+            model.addRow(new Object[]{idResiduo, nombreResiduo, cantidadNueva, precioUnitario, subtotal});
+        }
+
+        calcularTotalVenta();
+
+        txtCantidadVenta.setText("");
+        txtPrecioUnitario.setText("");
+        comboVentaResiduo.setSelectedIndex(0);
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Ingrese valores numéricos válidos en Cantidad y Precio.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_PanelAgregarMouseClicked
+    
+    public void calcularTotalVenta() {
+    javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+    double totalAcumulado = 0.0;
+
+    for (int i = 0; i < model.getRowCount(); i++) {
+        Object valorSubtotal = model.getValueAt(i, 4); 
+        
+        if (valorSubtotal != null && !valorSubtotal.toString().trim().isEmpty()) {
+            try {
+                totalAcumulado += Double.parseDouble(valorSubtotal.toString().trim().replace(",", "."));
+            } catch (NumberFormatException e) {
+                System.err.println("Error al parsear subtotal en la fila " + i + ": " + e.getMessage());
+            }
+        }
+    }
+
+    txtTotal.setText(String.format(java.util.Locale.US, "%.2f", totalAcumulado));
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BarraAbajo;
