@@ -1,6 +1,7 @@
 
 package com.mycompany.proyecto_m2b.Controlador;
 
+import com.mycompany.proyecto_m2b.modelo.Residuos;
 import com.mycompany.proyecto_m2b.modelo.Tipo_residuo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -83,4 +84,62 @@ public class ResiduoDAO {
     }
     return lista;
 }
+    
+    public String generarIdResiduo() {
+    String sql = "SELECT id_residuos FROM residuos ORDER BY id_residuos DESC LIMIT 1";
+    String nuevoId = "RES-0001";
+    
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+        
+        if (rs.next()) {
+            String ultimoId = rs.getString("id_residuos"); // Ej: "RES-0005"
+            int numero = Integer.parseInt(ultimoId.substring(4)) + 1;
+            nuevoId = String.format("RES-%04d", numero);
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al generar ID: " + e.getMessage());
+    }
+    return nuevoId;
+}
+    
+    public String obtenerIdTipoResiduosPorNombre(String nomTipoResi) {
+    String idTipo = "";
+    String sql = "SELECT id_tipo_resi FROM tipo_residuo WHERE nom_tipo_resi = ?";
+    
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        
+        ps.setString(1, nomTipoResi);
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                idTipo = rs.getString("id_tipo_resi");
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener ID del tipo: " + e.getMessage());
+    }
+    return idTipo;
+}
+    
+    public boolean registrarResiduo(Residuos r) {
+        String sql = "INSERT INTO residuos (id_residuos, nom_residuo, estado_residuo, id_tipo_resi, cantidad_actual, cantidad_max) VALUES (?, ?, ?, ?, ?, ?)";
+        
+        try (Connection con = ConexionBD.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, r.getID_resiudos());
+            ps.setString(2, r.getNom_residuo());
+            ps.setString(3, r.getEstado_residuo());
+            ps.setString(4, r.getID_tipo_resi());
+            ps.setInt(5, r.getCantidad_actual());
+            ps.setInt(6, r.getCantidad_max());
+
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al guardar residuo: " + e.getMessage());
+            return false;
+        }
+    }
 }

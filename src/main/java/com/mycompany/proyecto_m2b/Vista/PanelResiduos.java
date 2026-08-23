@@ -7,6 +7,7 @@ package com.mycompany.proyecto_m2b.Vista;
 import com.mycompany.proyecto_m2b.Controlador.RegistrarEmpresaRecicladoraDAO;
 import com.mycompany.proyecto_m2b.Controlador.ResiduoDAO;
 import com.mycompany.proyecto_m2b.modelo.Empresa_recicladora;
+import com.mycompany.proyecto_m2b.modelo.Residuos;
 import java.util.List;
 
 /**
@@ -19,15 +20,16 @@ public class PanelResiduos extends javax.swing.JPanel {
      * Creates new form PanelResiduos
      */
     public PanelResiduos() {
-        initComponents();
-        cargarComboTiposResiduo();
-        java.time.LocalDate fechaActual = java.time.LocalDate.now();
-    
+    initComponents();
+    cargarComboTiposResiduo();
+    cargarComboEstados(); 
+
+    java.time.LocalDate fechaActual = java.time.LocalDate.now();
     dateReciclaje.setDate(java.sql.Date.valueOf(fechaActual));
     dateReciclaje.setEnabled(false); 
+
     txtNReciclaje.setText(generarNumeroFactura());
     txtNReciclaje.setEditable(false); 
-    
     txtNReciclaje.setEnabled(false);
     txtDireccion.setEnabled(false);
     txtTipoEmpresa.setEnabled(false);
@@ -65,6 +67,68 @@ public class PanelResiduos extends javax.swing.JPanel {
     }
 }
     
+    public void cargarComboEstados() {
+    comboEstadoResiduo.removeAllItems();
+    comboEstadoResiduo.addItem("Seleccione un estado");
+    comboEstadoResiduo.addItem("Sólido");
+    comboEstadoResiduo.addItem("Líquido");
+    comboEstadoResiduo.addItem("Gaseoso");
+    comboEstadoResiduo.addItem("Pastoso / Semisólido");
+}
+    
+    public void procesarRegistroResiduo() {
+        final int CANTIDAD_MAXIMA_PERMITIDA = 1000;
+
+    if (comboResiduos.getSelectedIndex() <= 0 || comboEstadoResiduo.getSelectedIndex() <= 0) {
+        javax.swing.JOptionPane.showMessageDialog(this, 
+            "Debe seleccionar un tipo de residuo y su estado físico.", 
+            "Campos Incompletos", javax.swing.JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    String tipoSeleccionado = comboResiduos.getSelectedItem().toString();
+    String estadoSeleccionado = comboEstadoResiduo.getSelectedItem().toString();
+    int cantidadIngresada;
+
+    try {
+        cantidadIngresada = Integer.parseInt(txtCantidad.getText().trim());
+    } catch (NumberFormatException e) {
+        javax.swing.JOptionPane.showMessageDialog(this, 
+            "Ingrese una cantidad numérica válida.", 
+            "Error de Formato", javax.swing.JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    if (cantidadIngresada > CANTIDAD_MAXIMA_PERMITIDA) {
+        javax.swing.JOptionPane.showMessageDialog(this, 
+            "La cantidad ingresada (" + cantidadIngresada + ") excede el límite máximo permitido por registro (" + CANTIDAD_MAXIMA_PERMITIDA + ").",
+            "Límite Excedido", javax.swing.JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    ResiduoDAO dao = new ResiduoDAO();
+    String idGenerado = dao.generarIdResiduo();
+    String idTipoFk = dao.obtenerIdTipoResiduosPorNombre(tipoSeleccionado);
+    
+    Residuos nuevoResiduo = new Residuos(
+        idGenerado,
+        tipoSeleccionado,
+        estadoSeleccionado,
+        idTipoFk,
+        cantidadIngresada,
+        CANTIDAD_MAXIMA_PERMITIDA
+    );
+
+    if (dao.registrarResiduo(nuevoResiduo)) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Residuo registrado correctamente con ID: " + idGenerado);
+        txtCantidad.setText("");
+        comboResiduos.setSelectedIndex(0);
+        comboEstadoResiduo.setSelectedIndex(0);
+    } else {
+        javax.swing.JOptionPane.showMessageDialog(this, "Error al guardar el residuo en la base de datos.", "Error BD", javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
+}
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -86,25 +150,20 @@ public class PanelResiduos extends javax.swing.JPanel {
         TituloFuncion2 = new javax.swing.JLabel();
         Residuo = new javax.swing.JLabel();
         Kilos = new javax.swing.JLabel();
-        PrecioResiduos = new javax.swing.JLabel();
         comboEmpresas = new javax.swing.JComboBox<>();
         Empresa = new javax.swing.JLabel();
         FechaResiduos = new javax.swing.JLabel();
         dateReciclaje = new com.toedter.calendar.JDateChooser();
         txtDireccion = new javax.swing.JTextField();
         txtNReciclaje = new javax.swing.JTextField();
-        txtPrecio = new javax.swing.JTextField();
         comboResiduos = new javax.swing.JComboBox<>();
-        txtKilos = new javax.swing.JTextField();
+        txtCantidad = new javax.swing.JTextField();
         PanelNuevoTipoResiduo = new javax.swing.JPanel();
         Nuevo1 = new javax.swing.JLabel();
         ImagenADD1 = new javax.swing.JLabel();
         PanelNuevaEmpresa = new javax.swing.JPanel();
         Nuevo2 = new javax.swing.JLabel();
         ImagenADD2 = new javax.swing.JLabel();
-        PanelNuevo = new javax.swing.JPanel();
-        Nuevo = new javax.swing.JLabel();
-        ImagenADD = new javax.swing.JLabel();
         PanelGuardar = new javax.swing.JPanel();
         Guardar = new javax.swing.JLabel();
         ImagenSAVE = new javax.swing.JLabel();
@@ -208,11 +267,6 @@ public class PanelResiduos extends javax.swing.JPanel {
         Kilos.setText("Cantidad (Kg/L):");
         Fondo.add(Kilos, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 280, -1, -1));
 
-        PrecioResiduos.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
-        PrecioResiduos.setForeground(new java.awt.Color(153, 153, 153));
-        PrecioResiduos.setText("Precio Unitario:");
-        Fondo.add(PrecioResiduos, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 280, -1, -1));
-
         comboEmpresas.addActionListener(this::comboEmpresasActionPerformed);
         Fondo.add(comboEmpresas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 260, -1));
 
@@ -228,11 +282,10 @@ public class PanelResiduos extends javax.swing.JPanel {
         Fondo.add(dateReciclaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 200, -1));
         Fondo.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 200, 200, -1));
         Fondo.add(txtNReciclaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 260, -1));
-        Fondo.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 300, 240, -1));
 
         comboResiduos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccion un tipo de residuo", "Item 2", "Item 3", "Item 4" }));
         Fondo.add(comboResiduos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 240, -1));
-        Fondo.add(txtKilos, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, 240, -1));
+        Fondo.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, 240, -1));
 
         PanelNuevoTipoResiduo.setBackground(new java.awt.Color(255, 255, 255));
         PanelNuevoTipoResiduo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -319,49 +372,6 @@ public class PanelResiduos extends javax.swing.JPanel {
         );
 
         Fondo.add(PanelNuevaEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 190, -1, -1));
-
-        PanelNuevo.setBackground(new java.awt.Color(255, 255, 255));
-        PanelNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PanelNuevoMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelNuevoMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelNuevoMouseExited(evt);
-            }
-        });
-
-        Nuevo.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        Nuevo.setText("Agregar");
-
-        ImagenADD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-
-        javax.swing.GroupLayout PanelNuevoLayout = new javax.swing.GroupLayout(PanelNuevo);
-        PanelNuevo.setLayout(PanelNuevoLayout);
-        PanelNuevoLayout.setHorizontalGroup(
-            PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNuevoLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(ImagenADD)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Nuevo)
-                .addContainerGap(33, Short.MAX_VALUE))
-        );
-        PanelNuevoLayout.setVerticalGroup(
-            PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNuevoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ImagenADD)
-                    .addComponent(Nuevo))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        Fondo.add(PanelNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 330, -1, -1));
 
         PanelGuardar.setBackground(new java.awt.Color(242, 101, 34));
         PanelGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -496,10 +506,10 @@ public class PanelResiduos extends javax.swing.JPanel {
 
         jLabel7.setForeground(new java.awt.Color(153, 153, 153));
         jLabel7.setText("Estado del Residuo");
-        Fondo.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, -1, -1));
+        Fondo.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 280, -1, -1));
 
         comboEstadoResiduo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        Fondo.add(comboEstadoResiduo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 240, -1));
+        Fondo.add(comboEstadoResiduo, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 300, 240, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -606,24 +616,9 @@ public class PanelResiduos extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_PanelNuevaEmpresaMouseExited
 
-    private void PanelNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PanelNuevoMouseClicked
-
-    private void PanelNuevoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseEntered
-        // TODO add your handling code here:
-        PanelNuevo.setBackground(new java.awt.Color(219,219,219));
-        Nuevo.setForeground(new java.awt.Color(66, 66, 66));
-    }//GEN-LAST:event_PanelNuevoMouseEntered
-
-    private void PanelNuevoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseExited
-        // TODO add your handling code here:
-        PanelNuevo.setBackground(java.awt.Color.white);
-        Nuevo.setForeground(java.awt.Color.black);
-    }//GEN-LAST:event_PanelNuevoMouseExited
-
     private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
         // TODO add your handling code here:
+        procesarRegistroResiduo();
     }//GEN-LAST:event_PanelGuardarMouseClicked
 
     private void PanelGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseEntered
@@ -674,22 +669,18 @@ public class PanelResiduos extends javax.swing.JPanel {
     private javax.swing.JLabel FechaResiduos;
     private javax.swing.JPanel Fondo;
     private javax.swing.JLabel Guardar;
-    private javax.swing.JLabel ImagenADD;
     private javax.swing.JLabel ImagenADD1;
     private javax.swing.JLabel ImagenADD2;
     private javax.swing.JLabel ImagenSAVE;
     private javax.swing.JLabel Kilos;
     private javax.swing.JLabel NombreVentanaResiduos;
-    private javax.swing.JLabel Nuevo;
     private javax.swing.JLabel Nuevo1;
     private javax.swing.JLabel Nuevo2;
     private javax.swing.JPanel PanelBuscar;
     private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JPanel PanelNuevaEmpresa;
-    private javax.swing.JPanel PanelNuevo;
     private javax.swing.JPanel PanelNuevoTipoResiduo;
-    private javax.swing.JLabel PrecioResiduos;
     private javax.swing.JLabel Residuo;
     private javax.swing.JLabel TituloFuncion1;
     private javax.swing.JLabel TituloFuncion2;
@@ -703,10 +694,9 @@ public class PanelResiduos extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtKilos;
     private javax.swing.JTextField txtNReciclaje;
-    private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txtTipoEmpresa;
     // End of variables declaration//GEN-END:variables
 }
