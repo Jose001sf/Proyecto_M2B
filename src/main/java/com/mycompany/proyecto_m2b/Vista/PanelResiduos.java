@@ -53,9 +53,8 @@ public class PanelResiduos extends javax.swing.JPanel {
     }
     }
     private String generarNumeroFactura() {
-    int ultimoNumero = 0;
-    int nuevoNumero = ultimoNumero + 1;
-    return String.format("FAC-%06d", nuevoNumero);
+    VentaDAO dao = new VentaDAO();
+    return dao.obtenerSiguienteNumeroFactura();
 }
 
     public void cargarComboResiduos() {
