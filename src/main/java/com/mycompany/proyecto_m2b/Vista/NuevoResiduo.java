@@ -426,11 +426,53 @@ public class NuevoResiduo extends javax.swing.JPanel {
     }//GEN-LAST:event_PanelBuscarMouseExited
 
     private void PanelNuevoTipoResiduoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoTipoResiduoMouseClicked
-        // TODO add your handling code here:
-        NuevoTipoResiduo panel = new NuevoTipoResiduo();
-        javax.swing.JPopupMenu popup = new javax.swing.JPopupMenu();
-        popup.add(panel);
-        popup.show(PanelNuevoTipoResiduo, 0, PanelNuevoTipoResiduo.getHeight());
+    NuevoTipoResiduo panel = new NuevoTipoResiduo();
+
+    java.awt.Window parentWindow = javax.swing.SwingUtilities.getWindowAncestor(this);
+    javax.swing.JDialog dialog;
+
+    if (parentWindow instanceof java.awt.Frame) {
+        dialog = new javax.swing.JDialog((java.awt.Frame) parentWindow);
+    } else if (parentWindow instanceof java.awt.Dialog) {
+        dialog = new javax.swing.JDialog((java.awt.Dialog) parentWindow);
+    } else {
+        dialog = new javax.swing.JDialog();
+    }
+
+    dialog.setUndecorated(true);
+    dialog.add(panel);
+    dialog.pack();
+
+    java.awt.Point location = new java.awt.Point(0, PanelNuevoTipoResiduo.getHeight());
+    javax.swing.SwingUtilities.convertPointToScreen(location, PanelNuevoTipoResiduo);
+
+    java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+    int dialogWidth = dialog.getWidth();
+    int dialogHeight = dialog.getHeight();
+
+    if (location.x + dialogWidth > screenSize.width) {
+        location.x = location.x + PanelNuevoTipoResiduo.getWidth() - dialogWidth;
+    }
+
+    if (location.y + dialogHeight > screenSize.height) {
+        java.awt.Point locationAbove = new java.awt.Point(0, -dialogHeight);
+        javax.swing.SwingUtilities.convertPointToScreen(locationAbove, PanelNuevoTipoResiduo);
+        location.y = locationAbove.y;
+    }
+
+    dialog.setLocation(location);
+
+    dialog.addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+        @Override
+        public void windowGainedFocus(java.awt.event.WindowEvent e) {}
+
+        @Override
+        public void windowLostFocus(java.awt.event.WindowEvent e) {
+            dialog.dispose();
+        }
+    });
+
+    dialog.setVisible(true);
     }//GEN-LAST:event_PanelNuevoTipoResiduoMouseClicked
 
     private void PanelNuevoTipoResiduoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoTipoResiduoMouseEntered

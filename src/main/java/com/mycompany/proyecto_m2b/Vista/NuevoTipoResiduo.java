@@ -4,6 +4,10 @@
  */
 package com.mycompany.proyecto_m2b.Vista;
 
+import com.mycompany.proyecto_m2b.Controlador.ResiduoDAO;
+import com.mycompany.proyecto_m2b.modelo.Tipo_residuo;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author jose
@@ -15,6 +19,29 @@ public class NuevoTipoResiduo extends javax.swing.JPanel {
      */
     public NuevoTipoResiduo() {
         initComponents();
+        txtIDTipoResiduo.setEnabled(false);
+        cargarGradosRiesgo();
+        generarIDAutomatico();
+    }
+    
+    private void cargarGradosRiesgo() {
+        comboGradoRiesgo.removeAllItems();
+        comboGradoRiesgo.addItem("Seleccione...");
+        comboGradoRiesgo.addItem("Bajo");
+        comboGradoRiesgo.addItem("Medio");
+        comboGradoRiesgo.addItem("Alto");
+        comboGradoRiesgo.addItem("Peligroso");
+    }
+    private void generarIDAutomatico() {
+        ResiduoDAO dao = new ResiduoDAO();
+        String idGenerado = dao.generarSiguienteID("tipo_residuo", "id_tipo_resi", "TR-");
+        txtIDTipoResiduo.setText(idGenerado);
+    }
+    private void limpiarFormulario() {
+        generarIDAutomatico();
+        txtNombreTipo.setText("");
+        txtDescripcionTipo.setText("");
+        comboGradoRiesgo.setSelectedIndex(0);
     }
 
     /**
@@ -292,7 +319,31 @@ public class NuevoTipoResiduo extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
+        String id = txtIDTipoResiduo.getText().trim();
+        String nombre = txtNombreTipo.getText().trim();
+        String desc = txtDescripcionTipo.getText().trim();
+        
+        if (comboGradoRiesgo.getSelectedIndex() <= 0) {
+            JOptionPane.showMessageDialog(this, "Seleccione un grado de riesgo válido.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        String grado = comboGradoRiesgo.getSelectedItem().toString();
 
+        if (nombre.isEmpty() || desc.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor llene todos los campos.", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        Tipo_residuo tipo = new Tipo_residuo(id, nombre, grado, desc);
+        ResiduoDAO dao = new ResiduoDAO();
+
+        if (dao.guardarTipoResiduo(tipo)) {
+            JOptionPane.showMessageDialog(this, "Tipo de residuo guardado con éxito.", "Operación exitosa", JOptionPane.INFORMATION_MESSAGE);
+            limpiarFormulario();
+        } else {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error al guardar el registro.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_PanelGuardarMouseClicked
 
     private void PanelGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseEntered
