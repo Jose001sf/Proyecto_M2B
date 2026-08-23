@@ -66,4 +66,21 @@ public class ResiduoDAO {
         }
         return lista;
     }
+    
+    public List<String> obtenerNombresTiposResiduo() {
+    List<String> lista = new ArrayList<>();
+    String sql = "SELECT nom_tipo_resi FROM tipo_residuo ORDER BY nom_tipo_resi ASC";
+    
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+        
+        while (rs.next()) {
+            lista.add(rs.getString("nom_tipo_resi"));
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener tipos de residuos: " + e.getMessage());
+    }
+    return lista;
+}
 }

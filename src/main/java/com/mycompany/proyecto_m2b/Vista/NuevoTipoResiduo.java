@@ -74,8 +74,6 @@ public class NuevoTipoResiduo extends javax.swing.JPanel {
         txtNombreTipo = new javax.swing.JTextField();
         comboGradoRiesgo = new javax.swing.JComboBox<>();
         txtDescripcionTipo = new javax.swing.JTextField();
-        comboEstadoResiduo = new javax.swing.JComboBox<>();
-        jLabel7 = new javax.swing.JLabel();
 
         Fondo.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -240,11 +238,6 @@ public class NuevoTipoResiduo extends javax.swing.JPanel {
 
         comboGradoRiesgo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        comboEstadoResiduo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel7.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel7.setText("Estado del Residuo");
-
         javax.swing.GroupLayout FondoLayout = new javax.swing.GroupLayout(Fondo);
         Fondo.setLayout(FondoLayout);
         FondoLayout.setHorizontalGroup(
@@ -268,12 +261,9 @@ public class NuevoTipoResiduo extends javax.swing.JPanel {
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtNombreTipo)
-                                    .addComponent(txtDescripcionTipo))
-                                .addGap(27, 27, 27)
-                                .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(comboEstadoResiduo, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel3)))
+                                    .addComponent(txtDescripcionTipo)))
+                            .addComponent(jLabel3))
+                        .addGap(228, 228, 228))
                     .addGroup(FondoLayout.createSequentialGroup()
                         .addGap(104, 104, 104)
                         .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -301,13 +291,11 @@ public class NuevoTipoResiduo extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboGradoRiesgo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDescripcionTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboEstadoResiduo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDescripcionTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(121, 121, 121)
                 .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -406,7 +394,6 @@ public class NuevoTipoResiduo extends javax.swing.JPanel {
     private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JLabel Titulo;
-    private javax.swing.JComboBox<String> comboEstadoResiduo;
     private javax.swing.JComboBox<String> comboGradoRiesgo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
@@ -415,7 +402,6 @@ public class NuevoTipoResiduo extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField txtDescripcionTipo;
     private javax.swing.JTextField txtIDTipoResiduo;
     private javax.swing.JTextField txtNombreTipo;
