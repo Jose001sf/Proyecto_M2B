@@ -677,7 +677,7 @@ public class PanelResiduos extends javax.swing.JPanel {
     }//GEN-LAST:event_PanelAgregarMouseExited
 
     private void PanelAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelAgregarMouseClicked
-        if (comboVentaResiduo.getSelectedIndex() <= 0) {
+       if (comboVentaResiduo.getSelectedIndex() <= 0) {
         JOptionPane.showMessageDialog(this, "Seleccione un residuo válido.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         return;
     }
@@ -693,9 +693,16 @@ public class PanelResiduos extends javax.swing.JPanel {
         String idResiduo = partes[0].trim();
         String nombreResiduo = partes[1].trim();
 
-        // Manejo de decimales para cantidad y precio
         double cantidadNueva = Double.parseDouble(txtCantidadVenta.getText().trim().replace(",", "."));
         double precioUnitario = Double.parseDouble(txtPrecioUnitario.getText().trim().replace(",", "."));
+
+        if (cantidadNueva <= 0) {
+            JOptionPane.showMessageDialog(this, "La cantidad debe ser mayor a 0.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        ResiduoDAO dao = new ResiduoDAO();
+        double stockDisponible = dao.obtenerStockActual(idResiduo); 
 
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
         boolean encontrado = false;
@@ -704,14 +711,20 @@ public class PanelResiduos extends javax.swing.JPanel {
             Object objId = model.getValueAt(i, 0);
 
             if (objId != null && objId.toString().trim().equals(idResiduo)) {
-                // Lectura segura de la cantidad previa como Double
                 Object objCant = model.getValueAt(i, 2);
                 double cantidadExistente = Double.parseDouble(objCant.toString().trim().replace(",", "."));
-
                 double cantidadTotal = cantidadExistente + cantidadNueva;
+
+                if (cantidadTotal > stockDisponible) {
+                    JOptionPane.showMessageDialog(this, 
+                        "Stock insuficiente. Stock actual: " + stockDisponible + 
+                        " | Ya tiene " + cantidadExistente + " en la tabla.", 
+                        "Stock Excedido", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
                 double nuevoSubtotal = cantidadTotal * precioUnitario;
 
-                // Actualizar la fila con decimales
                 model.setValueAt(cantidadTotal, i, 2);
                 model.setValueAt(precioUnitario, i, 3);
                 model.setValueAt(nuevoSubtotal, i, 4);
@@ -722,6 +735,13 @@ public class PanelResiduos extends javax.swing.JPanel {
         }
 
         if (!encontrado) {
+            if (cantidadNueva > stockDisponible) {
+                JOptionPane.showMessageDialog(this, 
+                    "Stock insuficiente. Solo quedan " + stockDisponible + " unidades disponibles.", 
+                    "Stock Excedido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
             double subtotal = cantidadNueva * precioUnitario;
             model.addRow(new Object[]{idResiduo, nombreResiduo, cantidadNueva, precioUnitario, subtotal});
         }

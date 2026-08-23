@@ -162,4 +162,21 @@ public class ResiduoDAO {
         }
         return lista;
     }
+    
+    public double obtenerStockActual(String idResiduo) {
+    String sql = "SELECT cantidad_actual FROM residuos WHERE id_residuos = ?";
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        
+        ps.setString(1, idResiduo);
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getDouble("cantidad_actual");
+            }
+        }
+    } catch (SQLException e) {
+        System.out.println("Error al consultar el stock: " + e.getMessage());
+    }
+    return 0.0;
+}
 }
