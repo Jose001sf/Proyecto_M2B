@@ -8,12 +8,12 @@ package com.mycompany.proyecto_m2b.Vista;
  *
  * @author jose
  */
-public class NuevoResiduo extends javax.swing.JPanel {
+public class NuevoTipoResiduo extends javax.swing.JPanel {
 
     /**
-     * Creates new form NuevoResiduo
+     * Creates new form NuevoTipoResiduo
      */
-    public NuevoResiduo() {
+    public NuevoTipoResiduo() {
         initComponents();
     }
 
@@ -26,7 +26,6 @@ public class NuevoResiduo extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         Fondo = new javax.swing.JPanel();
         BarraArriba = new javax.swing.JPanel();
         Titulo = new javax.swing.JLabel();
@@ -35,10 +34,6 @@ public class NuevoResiduo extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         PanelGuardar = new javax.swing.JPanel();
         Guardar = new javax.swing.JLabel();
         ImagenSAVE = new javax.swing.JLabel();
@@ -48,13 +43,10 @@ public class NuevoResiduo extends javax.swing.JPanel {
         PanelBuscar = new javax.swing.JPanel();
         Buscar = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        txtIDResiduo = new javax.swing.JTextField();
-        txtNomResiduo = new javax.swing.JTextField();
-        comboEstadoResiduo = new javax.swing.JComboBox<>();
-        txtIDTipoResiduo = new javax.swing.JComboBox<>();
-        PanelNuevoTipoResiduo = new javax.swing.JPanel();
-        Nuevo2 = new javax.swing.JLabel();
-        ImagenADD2 = new javax.swing.JLabel();
+        txtIDTipoResiduo = new javax.swing.JTextField();
+        txtNombreTipo = new javax.swing.JTextField();
+        comboGradoRiesgo = new javax.swing.JComboBox<>();
+        txtDescripcionTipo = new javax.swing.JTextField();
 
         Fondo.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -63,7 +55,7 @@ public class NuevoResiduo extends javax.swing.JPanel {
         Titulo.setBackground(new java.awt.Color(0, 0, 0));
         Titulo.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         Titulo.setForeground(new java.awt.Color(255, 255, 255));
-        Titulo.setText("Registrar Nuevo Residuo");
+        Titulo.setText("Registrar Nuevo Tipo de Residuo");
 
         javax.swing.GroupLayout BarraArribaLayout = new javax.swing.GroupLayout(BarraArriba);
         BarraArriba.setLayout(BarraArribaLayout);
@@ -83,33 +75,20 @@ public class NuevoResiduo extends javax.swing.JPanel {
         );
 
         jLabel1.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel1.setText("ID_Nueva Residuo:");
+        jLabel1.setText("ID_Nueva Tipo deResiduo:");
 
         jLabel3.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(153, 153, 153));
         jLabel3.setText("Datos");
 
         jLabel4.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel4.setText("Nombre Residuo:");
+        jLabel4.setText("Nombre Tipo Residuo:");
 
         jLabel5.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel5.setText("Estado Residuo");
+        jLabel5.setText("Grado de Riesgo:");
 
         jLabel6.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel6.setText("Tipo de Residuo");
-
-        jLabel7.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel7.setText("Direccion");
-
-        jLabel8.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel8.setText("ID_Direccion:");
-
-        jLabel9.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel9.setText("Ciudad:");
-
-        jLabel10.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel10.setText("Calles");
+        jLabel6.setText("Descripcion Tipo de Residuo:");
 
         PanelGuardar.setBackground(new java.awt.Color(242, 101, 34));
         PanelGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -230,50 +209,7 @@ public class NuevoResiduo extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        comboEstadoResiduo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        txtIDTipoResiduo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        PanelNuevoTipoResiduo.setBackground(new java.awt.Color(255, 255, 255));
-        PanelNuevoTipoResiduo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelNuevoTipoResiduo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelNuevoTipoResiduo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PanelNuevoTipoResiduoMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelNuevoTipoResiduoMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelNuevoTipoResiduoMouseExited(evt);
-            }
-        });
-
-        Nuevo2.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        Nuevo2.setText("Nuevo");
-
-        ImagenADD2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-
-        javax.swing.GroupLayout PanelNuevoTipoResiduoLayout = new javax.swing.GroupLayout(PanelNuevoTipoResiduo);
-        PanelNuevoTipoResiduo.setLayout(PanelNuevoTipoResiduoLayout);
-        PanelNuevoTipoResiduoLayout.setHorizontalGroup(
-            PanelNuevoTipoResiduoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNuevoTipoResiduoLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(ImagenADD2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Nuevo2)
-                .addContainerGap(33, Short.MAX_VALUE))
-        );
-        PanelNuevoTipoResiduoLayout.setVerticalGroup(
-            PanelNuevoTipoResiduoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNuevoTipoResiduoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelNuevoTipoResiduoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ImagenADD2)
-                    .addComponent(Nuevo2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        comboGradoRiesgo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout FondoLayout = new javax.swing.GroupLayout(Fondo);
         Fondo.setLayout(FondoLayout);
@@ -287,30 +223,20 @@ public class NuevoResiduo extends javax.swing.JPanel {
                     .addGroup(FondoLayout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addGroup(FondoLayout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(158, 158, 158)
-                                .addComponent(jLabel9)
-                                .addGap(179, 179, 179)
-                                .addComponent(jLabel10))
                             .addGroup(FondoLayout.createSequentialGroup()
                                 .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
                                     .addComponent(jLabel5)
-                                    .addComponent(txtIDResiduo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(comboEstadoResiduo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtIDTipoResiduo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comboGradoRiesgo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
-                                    .addComponent(txtNomResiduo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(FondoLayout.createSequentialGroup()
-                                        .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel6)
-                                            .addComponent(txtIDTipoResiduo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(72, 72, 72)
-                                        .addComponent(PanelNuevoTipoResiduo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jLabel3)))
+                                    .addComponent(txtNombreTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(txtDescripcionTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel3))
+                        .addGap(217, 217, 217))
                     .addGroup(FondoLayout.createSequentialGroup()
                         .addGap(104, 104, 104)
                         .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -333,27 +259,17 @@ public class NuevoResiduo extends javax.swing.JPanel {
                     .addComponent(jLabel4))
                 .addGap(2, 2, 2)
                 .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtIDResiduo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNomResiduo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIDTipoResiduo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombreTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(FondoLayout.createSequentialGroup()
-                        .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(comboEstadoResiduo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtIDTipoResiduo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(PanelNuevoTipoResiduo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel7)
+                .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10))
-                .addGap(59, 59, 59)
+                    .addComponent(comboGradoRiesgo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDescripcionTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(121, 121, 121)
                 .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(PanelEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -361,35 +277,21 @@ public class NuevoResiduo extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(Fondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(73, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(Fondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
-
 
     }//GEN-LAST:event_PanelGuardarMouseClicked
 
@@ -429,22 +331,6 @@ public class NuevoResiduo extends javax.swing.JPanel {
         Buscar.setForeground(java.awt.Color.black);
     }//GEN-LAST:event_PanelBuscarMouseExited
 
-    private void PanelNuevoTipoResiduoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoTipoResiduoMouseClicked
-        // TODO add your handling code here:
-        NuevoTipoResiduo panel = new NuevoTipoResiduo();
-        javax.swing.JPopupMenu popup = new javax.swing.JPopupMenu();
-        popup.add(panel);
-        popup.show(PanelNuevoTipoResiduo, 0, PanelNuevoTipoResiduo.getHeight());
-    }//GEN-LAST:event_PanelNuevoTipoResiduoMouseClicked
-
-    private void PanelNuevoTipoResiduoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoTipoResiduoMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PanelNuevoTipoResiduoMouseEntered
-
-    private void PanelNuevoTipoResiduoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoTipoResiduoMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PanelNuevoTipoResiduoMouseExited
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BarraArriba;
@@ -452,29 +338,21 @@ public class NuevoResiduo extends javax.swing.JPanel {
     private javax.swing.JLabel Editar;
     private javax.swing.JPanel Fondo;
     private javax.swing.JLabel Guardar;
-    private javax.swing.JLabel ImagenADD2;
     private javax.swing.JLabel ImagenSAVE;
-    private javax.swing.JLabel Nuevo2;
     private javax.swing.JPanel PanelBuscar;
     private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelGuardar;
-    private javax.swing.JPanel PanelNuevoTipoResiduo;
     private javax.swing.JLabel Titulo;
-    private javax.swing.JComboBox<String> comboEstadoResiduo;
+    private javax.swing.JComboBox<String> comboGradoRiesgo;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtIDResiduo;
-    private javax.swing.JComboBox<String> txtIDTipoResiduo;
-    private javax.swing.JTextField txtNomResiduo;
+    private javax.swing.JTextField txtDescripcionTipo;
+    private javax.swing.JTextField txtIDTipoResiduo;
+    private javax.swing.JTextField txtNombreTipo;
     // End of variables declaration//GEN-END:variables
 }
