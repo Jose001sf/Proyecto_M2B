@@ -28,7 +28,6 @@ public class ResiduoDAO {
         return prefijo + "001";
     }
 
-    // Guardar usando el objeto Tipo_residuo
     public boolean guardarTipoResiduo(Tipo_residuo tipo) {
         String sql = "INSERT INTO tipo_residuo (id_tipo_resi, nom_tipo_resi, grado_riesgo, desc_tipo_resi) VALUES (?, ?, ?, ?)";
         try (Connection con = ConexionBD.obtenerConexion();
@@ -46,7 +45,6 @@ public class ResiduoDAO {
         }
     }
 
-    // Obtener la lista de objetos Tipo_residuo para la otra ventana
     public List<Tipo_residuo> obtenerTiposResiduo() {
         List<Tipo_residuo> lista = new ArrayList<>();
         String sql = "SELECT id_tipo_resi, nom_tipo_resi, grado_riesgo, desc_tipo_resi FROM tipo_residuo ORDER BY nom_tipo_resi ASC";
