@@ -92,13 +92,17 @@ public class PanelResiduos extends javax.swing.JPanel {
         PanelEditar = new javax.swing.JPanel();
         Editar = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        PanelBuscar = new javax.swing.JPanel();
+        PanelAgregar = new javax.swing.JPanel();
         Buscar = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        ImagenADD3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         txtTipoEmpresa = new javax.swing.JTextField();
         comboVentaResiduo = new javax.swing.JComboBox<>();
         txtCantidadVenta = new javax.swing.JTextField();
+        txtPrecioUnitario = new javax.swing.JTextField();
+        txtTotal = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         Fondo.setBackground(new java.awt.Color(255, 255, 255));
         Fondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -376,45 +380,45 @@ public class PanelResiduos extends javax.swing.JPanel {
 
         Fondo.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 380, -1, -1));
 
-        PanelBuscar.setBackground(new java.awt.Color(255, 255, 255));
-        PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+        PanelAgregar.setBackground(new java.awt.Color(255, 255, 255));
+        PanelAgregar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        PanelAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelBuscarMouseEntered(evt);
+                PanelAgregarMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelBuscarMouseExited(evt);
+                PanelAgregarMouseExited(evt);
             }
         });
 
         Buscar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        Buscar.setText("Buscar");
+        Buscar.setText("Agregar");
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/person_search_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+        ImagenADD3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
 
-        javax.swing.GroupLayout PanelBuscarLayout = new javax.swing.GroupLayout(PanelBuscar);
-        PanelBuscar.setLayout(PanelBuscarLayout);
-        PanelBuscarLayout.setHorizontalGroup(
-            PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelBuscarLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        javax.swing.GroupLayout PanelAgregarLayout = new javax.swing.GroupLayout(PanelAgregar);
+        PanelAgregar.setLayout(PanelAgregarLayout);
+        PanelAgregarLayout.setHorizontalGroup(
+            PanelAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAgregarLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(ImagenADD3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Buscar)
                 .addContainerGap(31, Short.MAX_VALUE))
         );
-        PanelBuscarLayout.setVerticalGroup(
-            PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelBuscarLayout.createSequentialGroup()
+        PanelAgregarLayout.setVerticalGroup(
+            PanelAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelAgregarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Buscar)
-                    .addComponent(jLabel3))
+                .addGroup(PanelAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ImagenADD3)
+                    .addComponent(Buscar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Fondo.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 380, -1, -1));
+        Fondo.add(PanelAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 290, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 153, 153));
@@ -425,6 +429,23 @@ public class PanelResiduos extends javax.swing.JPanel {
         comboVentaResiduo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         Fondo.add(comboVentaResiduo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, -1));
         Fondo.add(txtCantidadVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, -1, -1));
+        Fondo.add(txtPrecioUnitario, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 300, -1, -1));
+        Fondo.add(txtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 340, -1, -1));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ID Residuo", "Nombre Residuo", "Cantidad", "Precio U.", "Subtotal"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        Fondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 430, 470, 60));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -564,17 +585,17 @@ public class PanelResiduos extends javax.swing.JPanel {
         Editar.setForeground(java.awt.Color.black);
     }//GEN-LAST:event_PanelEditarMouseExited
 
-    private void PanelBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseEntered
+    private void PanelAgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelAgregarMouseEntered
         // TODO add your handling code here:
-        PanelBuscar.setBackground(new java.awt.Color(219,219,219));
+        PanelAgregar.setBackground(new java.awt.Color(219,219,219));
         Buscar.setForeground(new java.awt.Color(66, 66, 66));
-    }//GEN-LAST:event_PanelBuscarMouseEntered
+    }//GEN-LAST:event_PanelAgregarMouseEntered
 
-    private void PanelBuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseExited
+    private void PanelAgregarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelAgregarMouseExited
         // TODO add your handling code here:
-        PanelBuscar.setBackground(java.awt.Color.white);
+        PanelAgregar.setBackground(java.awt.Color.white);
         Buscar.setForeground(java.awt.Color.black);
-    }//GEN-LAST:event_PanelBuscarMouseExited
+    }//GEN-LAST:event_PanelAgregarMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -590,12 +611,13 @@ public class PanelResiduos extends javax.swing.JPanel {
     private javax.swing.JLabel Guardar;
     private javax.swing.JLabel ImagenADD1;
     private javax.swing.JLabel ImagenADD2;
+    private javax.swing.JLabel ImagenADD3;
     private javax.swing.JLabel ImagenSAVE;
     private javax.swing.JLabel Kilos;
     private javax.swing.JLabel NombreVentanaResiduos;
     private javax.swing.JLabel Nuevo1;
     private javax.swing.JLabel Nuevo2;
-    private javax.swing.JPanel PanelBuscar;
+    private javax.swing.JPanel PanelAgregar;
     private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JPanel PanelNuevaEmpresa;
@@ -609,11 +631,14 @@ public class PanelResiduos extends javax.swing.JPanel {
     private com.toedter.calendar.JDateChooser dateReciclaje;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtCantidadVenta;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtNReciclaje;
+    private javax.swing.JTextField txtPrecioUnitario;
     private javax.swing.JTextField txtTipoEmpresa;
+    private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
 }
