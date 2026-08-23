@@ -17,5 +17,6 @@ public class Proyecto_M2B {
         L.setVisible(true);
         //siso
         //good
+        //Jovenes trabajen
     }
 }
