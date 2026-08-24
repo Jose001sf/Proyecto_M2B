@@ -71,49 +71,5 @@ public class ProveedorDAO {
         }
         return "PRO-001";
     }
-    
-    public List<TipoProveedor> obtenerTiposProveedores(Connection con) {
-    List<TipoProveedor> lista = new ArrayList<>();
-    String sql = "SELECT id_tipo_proveedor, nom_tip_proveedor, descrip_tipo_proveedor FROM tipos_de_proveedores";
-    try (Statement st = con.createStatement(); ResultSet rs = st.executeQuery(sql)) {
-        while (rs.next()) {
-            lista.add(new TipoProveedor(
-                rs.getString("id_tipo_proveedor"),
-                rs.getString("nom_tip_proveedor"),
-                rs.getString("descrip_tipo_proveedor")
-            ));
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    return lista;
-}
-
-public boolean insertarTipoProveedor(Connection con, TipoProveedor tipo) {
-    String sql = "INSERT INTO tipos_de_proveedores (id_tipo_proveedor, nom_tip_proveedor, descrip_tipo_proveedor) VALUES (?, ?, ?)";
-    try (PreparedStatement ps = con.prepareStatement(sql)) {
-        ps.setString(1, tipo.getIdTipoProveedor());
-        ps.setString(2, tipo.getNomTipProveedor());
-        ps.setString(3, tipo.getDescripTipoProveedor());
-        ps.executeUpdate();
-        return true;
-    } catch (SQLException e) {
-        e.printStackTrace();
-        return false;
-    }
-}
-    public boolean guardarTipoProveedor(TipoProveedor tipo, Connection con) {
-    String sql = "INSERT INTO public.tipos_de_proveedores (id_tipo_proveedor, nom_tip_proveedor, descrip_tipo_proveedor) VALUES (?, ?, ?)";
-    try (PreparedStatement ps = con.prepareStatement(sql)) {
-        ps.setString(1, tipo.getIdTipoProveedor());
-        ps.setString(2, tipo.getNomTipProveedor());
-        ps.setString(3, tipo.getDescripTipoProveedor());
-        ps.executeUpdate();
-        return true;
-    } catch (SQLException e) {
-        System.err.println("Error al guardar tipo de proveedor: " + e.getMessage());
-        e.printStackTrace();
-        return false;
-    }
-}
+   
 }
