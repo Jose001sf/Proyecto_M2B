@@ -383,33 +383,67 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
     try {
         String id = txtIdRepuesto.getText().trim();
         String nombre = txtNomRepuesto.getText().trim();
-        int stockActual = Integer.parseInt(txtStockActual.getText().trim());
-        int stockMin = Integer.parseInt(txtCantidadMinima.getText().trim());
-        int stockMax = Integer.parseInt(txtCantidadMaxima.getText().trim());
-        double precio = Double.parseDouble(txtPrecioBase.getText().trim());
-        String descripcion = txtDescripRepuesto.getText().trim();
-
+        
         TipoRepuesto tipoSel = (TipoRepuesto) cbxTipoRepuesto.getSelectedItem();
         MarcaRepuesto marcaSel = (MarcaRepuesto) cbxMarcaRepuesto.getSelectedItem();
 
-        if (id.isEmpty() || nombre.isEmpty() || tipoSel == null || marcaSel == null) {
-            JOptionPane.showMessageDialog(this, "Por favor complete los campos obligatorios.", "Campos vacíos", JOptionPane.WARNING_MESSAGE);
+        if (nombre.isEmpty() || tipoSel == null || marcaSel == null) {
+            javax.swing.JOptionPane.showMessageDialog(
+                this, 
+                "Por favor complete el nombre, tipo y marca del repuesto.", 
+                "Campos Incompletos", 
+                javax.swing.JOptionPane.WARNING_MESSAGE
+            );
             return;
         }
 
+        int stockActual = Integer.parseInt(txtStockActual.getText().trim());
+        int stockMin = Integer.parseInt(txtCantidadMinima.getText().trim());
+        int stockMax = Integer.parseInt(txtCantidadMaxima.getText().trim());
+        
+        String textoPrecio = txtPrecioBase.getText().trim().replace(',', '.');
+        double precio = Double.parseDouble(textoPrecio);
+
+        String descripcion = txtDescripRepuesto.getText().trim();
+
         Repuesto repuesto = new Repuesto(
-            id, nombre, stockMax, stockMin, stockActual, 
-            precio, descripcion, tipoSel.getIdTipRepuesto(), marcaSel.getIdMarcaRepuesto()
+            id, 
+            nombre, 
+            stockMax, 
+            stockMin, 
+            stockActual, 
+            precio, 
+            descripcion, 
+            tipoSel.getIdTipRepuesto(), 
+            marcaSel.getIdMarcaRepuesto()
         );
 
         RepuestoDAO dao = new RepuestoDAO();
         if (dao.guardarRepuesto(repuesto, miConexion)) {
-            JOptionPane.showMessageDialog(this, "¡Repuesto guardado en la base de datos!", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            limpiarCampos();
+            javax.swing.JOptionPane.showMessageDialog(
+                this, 
+                "¡Repuesto registrado exitosamente!", 
+                "Éxito", 
+                javax.swing.JOptionPane.INFORMATION_MESSAGE
+            );
+            
+            limpiarCampos(); 
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(
+                this, 
+                "No se pudo guardar el registro en la base de datos.", 
+                "Error de Inserción", 
+                javax.swing.JOptionPane.ERROR_MESSAGE
+            );
         }
 
     } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Asegúrese de ingresar números válidos en los Stocks y Precio.", "Error de entrada", JOptionPane.ERROR_MESSAGE);
+        javax.swing.JOptionPane.showMessageDialog(
+            this, 
+            "Asegúrese de ingresar números enteros en los Stocks y un valor numérico/decimal válido en el Precio (ej. 12.50).", 
+            "Error de Formato Numérico", 
+            javax.swing.JOptionPane.ERROR_MESSAGE
+        );
     }
     }//GEN-LAST:event_btnGuardarMouseClicked
 

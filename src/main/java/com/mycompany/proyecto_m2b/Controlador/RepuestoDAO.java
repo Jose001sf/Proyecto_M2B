@@ -24,7 +24,7 @@ public class RepuestoDAO {
         try (PreparedStatement ps = conexion.prepareStatement(sql)) {
             ps.setString(1, repuesto.getIdRepuestos());
             ps.setString(2, repuesto.getNomRepuesto());
-            ps.setInt(3, repuesto.getCantidadMaxRepuesto());
+            ps.setFloat(6, (float) repuesto.getPrecioRepuestoUnit());
             ps.setInt(4, repuesto.getCantidadMinRepuesto());
             ps.setInt(5, repuesto.getCantidadActualRepuesto());
             ps.setDouble(6, repuesto.getPrecioRepuestoUnit());
