@@ -4,7 +4,6 @@
  */
 package com.mycompany.proyecto_m2b.Vista;
 
-import com.mycompany.proyecto_m2b.Controlador.Validaciones;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -42,13 +41,6 @@ public class PanelRepuestos extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        marcas = new javax.swing.JComboBox<>();
-        categorias = new javax.swing.JComboBox<>();
-        TXTrepuesto = new javax.swing.JTextField();
-        TXTprecio = new javax.swing.JTextField();
-        TXTstock = new javax.swing.JTextField();
-        TXTcantidadMinima = new javax.swing.JTextField();
-        TXTcantidadMaxima = new javax.swing.JTextField();
         Descripcion = new javax.swing.JTextField();
         PanelNuevo = new javax.swing.JPanel();
         Nuevo = new javax.swing.JLabel();
@@ -65,6 +57,21 @@ public class PanelRepuestos extends javax.swing.JPanel {
         PanelBuscar = new javax.swing.JPanel();
         Buscar = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtIdRepuesto = new javax.swing.JTextField();
+        txtNomRepuesto = new javax.swing.JTextField();
+        cbxTipoRepuesto = new javax.swing.JComboBox<>();
+        cbxMarcaRepuesto = new javax.swing.JComboBox<>();
+        txtStockActual = new javax.swing.JTextField();
+        txtCantidadMinima = new javax.swing.JTextField();
+        txtCantidadMaxima = new javax.swing.JTextField();
+        txtPrecioBase = new javax.swing.JTextField();
+        btnAgregarMarca = new javax.swing.JPanel();
+        Nuevo2 = new javax.swing.JLabel();
+        ImagenADD2 = new javax.swing.JLabel();
+        btnAgregarTipo = new javax.swing.JPanel();
+        Nuevo3 = new javax.swing.JLabel();
+        ImagenADD3 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(238, 238, 238));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -117,110 +124,29 @@ public class PanelRepuestos extends javax.swing.JPanel {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 50));
 
-        jLabel5.setText("Nombre Repuesto:");
+        jLabel5.setText("ID Repuesto");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
-        jLabel6.setText("Tipo/Categoría:");
+        jLabel6.setText("Nombre Repueseto");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
 
-        jLabel7.setText("Marca:");
+        jLabel7.setText("Tipo:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
-        jLabel8.setText("Precio Base:");
+        jLabel8.setText("Marca:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
 
         jLabel10.setText("Stock Actual:");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 70, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, -1, -1));
 
         jLabel11.setText("Cantidad Mínima:");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 100, -1, 20));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 100, -1, 20));
 
         jLabel12.setText("Descripción del repuesto:");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
 
         jLabel13.setText("Cantidad Máxima:");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 130, -1, -1));
-
-        marcas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno", "Chevrolet", "Kia", "Suzuki", "Toyota", "Hyundai" }));
-        marcas.setBorder(null);
-        jPanel1.add(marcas, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, -1, -1));
-
-        categorias.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno", "Sedán", "Hatchback", "SUV", "Coupé", "Pick-up" }));
-        categorias.setBorder(null);
-        jPanel1.add(categorias, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, -1, -1));
-
-        TXTrepuesto.setForeground(new java.awt.Color(153, 153, 153));
-        TXTrepuesto.setText("Ingrese el nombre del repuesto");
-        TXTrepuesto.setToolTipText("");
-        TXTrepuesto.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                TXTrepuestoFocusGained(evt);
-            }
-        });
-        TXTrepuesto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                TXTrepuestoMousePressed(evt);
-            }
-        });
-        jPanel1.add(TXTrepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 220, -1));
-
-        TXTprecio.setForeground(new java.awt.Color(153, 153, 153));
-        TXTprecio.setText("Indique el precio base");
-        TXTprecio.setToolTipText("");
-        TXTprecio.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                TXTprecioFocusGained(evt);
-            }
-        });
-        TXTprecio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                TXTprecioMousePressed(evt);
-            }
-        });
-        jPanel1.add(TXTprecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 170, -1));
-
-        TXTstock.setForeground(new java.awt.Color(153, 153, 153));
-        TXTstock.setText("Indique Stock");
-        TXTstock.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                TXTstockFocusGained(evt);
-            }
-        });
-        TXTstock.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                TXTstockMousePressed(evt);
-            }
-        });
-        jPanel1.add(TXTstock, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 70, 190, -1));
-
-        TXTcantidadMinima.setForeground(new java.awt.Color(153, 153, 153));
-        TXTcantidadMinima.setText("Indique Cantidad Mínima");
-        TXTcantidadMinima.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                TXTcantidadMinimaFocusGained(evt);
-            }
-        });
-        TXTcantidadMinima.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                TXTcantidadMinimaMousePressed(evt);
-            }
-        });
-        TXTcantidadMinima.addActionListener(this::TXTcantidadMinimaActionPerformed);
-        jPanel1.add(TXTcantidadMinima, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 100, 190, -1));
-
-        TXTcantidadMaxima.setForeground(new java.awt.Color(153, 153, 153));
-        TXTcantidadMaxima.setText("Indique Cantidad Máxima");
-        TXTcantidadMaxima.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                TXTcantidadMaximaFocusGained(evt);
-            }
-        });
-        TXTcantidadMaxima.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                TXTcantidadMaximaMousePressed(evt);
-            }
-        });
-        jPanel1.add(TXTcantidadMaxima, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 130, 190, -1));
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, -1, -1));
 
         Descripcion.setForeground(new java.awt.Color(153, 153, 153));
         Descripcion.setText("Describa el repuesto");
@@ -445,6 +371,107 @@ public class PanelRepuestos extends javax.swing.JPanel {
 
         jPanel1.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 350, -1, -1));
 
+        jLabel3.setText("Precio Base:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 160, -1, -1));
+        jPanel1.add(txtIdRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, 160, -1));
+        jPanel1.add(txtNomRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 160, -1));
+
+        cbxTipoRepuesto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(cbxTipoRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 170, -1));
+
+        cbxMarcaRepuesto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(cbxMarcaRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 170, -1));
+        jPanel1.add(txtStockActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 70, 170, -1));
+        jPanel1.add(txtCantidadMinima, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, 170, -1));
+        jPanel1.add(txtCantidadMaxima, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 130, 170, -1));
+        jPanel1.add(txtPrecioBase, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 160, 170, -1));
+
+        btnAgregarMarca.setBackground(new java.awt.Color(255, 255, 255));
+        btnAgregarMarca.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        btnAgregarMarca.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgregarMarca.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgregarMarcaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAgregarMarcaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAgregarMarcaMouseExited(evt);
+            }
+        });
+
+        Nuevo2.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        Nuevo2.setText("Nuevo");
+
+        ImagenADD2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+
+        javax.swing.GroupLayout btnAgregarMarcaLayout = new javax.swing.GroupLayout(btnAgregarMarca);
+        btnAgregarMarca.setLayout(btnAgregarMarcaLayout);
+        btnAgregarMarcaLayout.setHorizontalGroup(
+            btnAgregarMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnAgregarMarcaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ImagenADD2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Nuevo2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        btnAgregarMarcaLayout.setVerticalGroup(
+            btnAgregarMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnAgregarMarcaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(btnAgregarMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ImagenADD2)
+                    .addComponent(Nuevo2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(btnAgregarMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, -1, -1));
+
+        btnAgregarTipo.setBackground(new java.awt.Color(255, 255, 255));
+        btnAgregarTipo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        btnAgregarTipo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgregarTipo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgregarTipoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAgregarTipoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAgregarTipoMouseExited(evt);
+            }
+        });
+
+        Nuevo3.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        Nuevo3.setText("Nuevo");
+
+        ImagenADD3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+
+        javax.swing.GroupLayout btnAgregarTipoLayout = new javax.swing.GroupLayout(btnAgregarTipo);
+        btnAgregarTipo.setLayout(btnAgregarTipoLayout);
+        btnAgregarTipoLayout.setHorizontalGroup(
+            btnAgregarTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnAgregarTipoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ImagenADD3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Nuevo3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        btnAgregarTipoLayout.setVerticalGroup(
+            btnAgregarTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnAgregarTipoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(btnAgregarTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ImagenADD3)
+                    .addComponent(Nuevo3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(btnAgregarTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -472,344 +499,14 @@ public class PanelRepuestos extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jPanel2MousePressed
 
-    private void TXTrepuestoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTrepuestoFocusGained
-        // TODO add your handling code here:
-        if (TXTrepuesto.getText().equals("Ingrese el nombre del repuesto")){
-            TXTrepuesto.setText("");
-            TXTrepuesto.setForeground(Color.BLACK);
-        }
-        if (TXTprecio.getText().isEmpty()){
-            TXTprecio.setText("Indique el precio base");
-            TXTprecio.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTstock.getText().isEmpty()){
-            TXTstock.setText("Indique Stock");
-            TXTstock.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMinima.getText().isEmpty()){
-            TXTcantidadMinima.setText("Indique Cantidad Mínima");
-            TXTcantidadMinima.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMaxima.getText().isEmpty()){
-            TXTcantidadMaxima.setText("Indique Cantidad Máxima");
-            TXTcantidadMaxima.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Describa el repuesto");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_TXTrepuestoFocusGained
-
-    private void TXTrepuestoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTrepuestoMousePressed
-        // TODO add your handling code here:
-        if (TXTrepuesto.getText().equals("Ingrese el nombre del repuesto")){
-            TXTrepuesto.setText("");
-            TXTrepuesto.setForeground(Color.BLACK);
-        }
-        if (TXTprecio.getText().isEmpty()){
-            TXTprecio.setText("Indique el precio base");
-            TXTprecio.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTstock.getText().isEmpty()){
-            TXTstock.setText("Indique Stock");
-            TXTstock.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMinima.getText().isEmpty()){
-            TXTcantidadMinima.setText("Indique Cantidad Mínima");
-            TXTcantidadMinima.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMaxima.getText().isEmpty()){
-            TXTcantidadMaxima.setText("Indique Cantidad Máxima");
-            TXTcantidadMaxima.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Describa el repuesto");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_TXTrepuestoMousePressed
-
-    private void TXTprecioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTprecioFocusGained
-        // TODO add your handling code here:
-        if (TXTprecio.getText().equals("Indique el precio base")){
-            TXTprecio.setText("");
-            TXTprecio.setForeground(Color.BLACK);
-        }
-        if (TXTrepuesto.getText().isEmpty()){
-            TXTrepuesto.setText("Ingrese el nombre del repuesto");
-            TXTrepuesto.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTstock.getText().isEmpty()){
-            TXTstock.setText("Indique Stock");
-            TXTstock.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMinima.getText().isEmpty()){
-            TXTcantidadMinima.setText("Indique Cantidad Mínima");
-            TXTcantidadMinima.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMaxima.getText().isEmpty()){
-            TXTcantidadMaxima.setText("Indique Cantidad Máxima");
-            TXTcantidadMaxima.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Describa el repuesto");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_TXTprecioFocusGained
-
-    private void TXTprecioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTprecioMousePressed
-        // TODO add your handling code here:
-        if (TXTprecio.getText().equals("Indique el precio base")){
-            TXTprecio.setText("");
-            TXTprecio.setForeground(Color.BLACK);
-        }
-        if (TXTrepuesto.getText().isEmpty()){
-            TXTrepuesto.setText("Ingrese el nombre del repuesto");
-            TXTrepuesto.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTstock.getText().isEmpty()){
-            TXTstock.setText("Indique Stock");
-            TXTstock.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMinima.getText().isEmpty()){
-            TXTcantidadMinima.setText("Indique Cantidad Mínima");
-            TXTcantidadMinima.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMaxima.getText().isEmpty()){
-            TXTcantidadMaxima.setText("Indique Cantidad Máxima");
-            TXTcantidadMaxima.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Describa el repuesto");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_TXTprecioMousePressed
-
-    private void TXTstockFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTstockFocusGained
-        // TODO add your handling code here:
-        if (TXTstock.getText().equals("Indique Stock")){
-            TXTstock.setText("");
-            TXTstock.setForeground(Color.BLACK);
-        }
-        if (TXTrepuesto.getText().isEmpty()){
-            TXTrepuesto.setText("Ingrese el nombre del repuesto");
-            TXTrepuesto.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTprecio.getText().isEmpty()){
-            TXTprecio.setText("Indique el precio base");
-            TXTprecio.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMinima.getText().isEmpty()){
-            TXTcantidadMinima.setText("Indique Cantidad Mínima");
-            TXTcantidadMinima.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMaxima.getText().isEmpty()){
-            TXTcantidadMaxima.setText("Indique Cantidad Máxima");
-            TXTcantidadMaxima.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Describa el repuesto");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_TXTstockFocusGained
-
-    private void TXTstockMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTstockMousePressed
-        // TODO add your handling code here:
-        if (TXTstock.getText().equals("Indique Stock")){
-            TXTstock.setText("");
-            TXTstock.setForeground(Color.BLACK);
-        }
-        if (TXTrepuesto.getText().isEmpty()){
-            TXTrepuesto.setText("Ingrese el nombre del repuesto");
-            TXTrepuesto.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTprecio.getText().isEmpty()){
-            TXTprecio.setText("Indique el precio base");
-            TXTprecio.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMinima.getText().isEmpty()){
-            TXTcantidadMinima.setText("Indique Cantidad Mínima");
-            TXTcantidadMinima.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMaxima.getText().isEmpty()){
-            TXTcantidadMaxima.setText("Indique Cantidad Máxima");
-            TXTcantidadMaxima.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Describa el repuesto");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_TXTstockMousePressed
-
-    private void TXTcantidadMinimaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTcantidadMinimaFocusGained
-        // TODO add your handling code here:
-        if (TXTcantidadMinima.getText().equals("Indique Cantidad Mínima")){
-            TXTcantidadMinima.setText("");
-            TXTcantidadMinima.setForeground(Color.BLACK);
-        }
-        if (TXTrepuesto.getText().isEmpty()){
-            TXTrepuesto.setText("Ingrese el nombre del repuesto");
-            TXTrepuesto.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTstock.getText().isEmpty()){
-            TXTstock.setText("Indique Stock");
-            TXTstock.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTprecio.getText().isEmpty()){
-            TXTprecio.setText("Indique el precio base");
-            TXTprecio.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMaxima.getText().isEmpty()){
-            TXTcantidadMaxima.setText("Indique Cantidad Máxima");
-            TXTcantidadMaxima.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Describa el repuesto");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_TXTcantidadMinimaFocusGained
-
-    private void TXTcantidadMinimaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTcantidadMinimaMousePressed
-        // TODO add your handling code here:
-        if (TXTcantidadMinima.getText().equals("Indique Cantidad Mínima")){
-            TXTcantidadMinima.setText("");
-            TXTcantidadMinima.setForeground(Color.BLACK);
-        }
-        if (TXTrepuesto.getText().isEmpty()){
-            TXTrepuesto.setText("Ingrese el nombre del repuesto");
-            TXTrepuesto.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTstock.getText().isEmpty()){
-            TXTstock.setText("Indique Stock");
-            TXTstock.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTprecio.getText().isEmpty()){
-            TXTprecio.setText("Indique el precio base");
-            TXTprecio.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMaxima.getText().isEmpty()){
-            TXTcantidadMaxima.setText("Indique Cantidad Máxima");
-            TXTcantidadMaxima.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Describa el repuesto");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_TXTcantidadMinimaMousePressed
-
-    private void TXTcantidadMinimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTcantidadMinimaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TXTcantidadMinimaActionPerformed
-
-    private void TXTcantidadMaximaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTcantidadMaximaFocusGained
-        // TODO add your handling code here:
-        if (TXTcantidadMaxima.getText().equals("Indique Cantidad Máxima")){
-            TXTcantidadMaxima.setText("");
-            TXTcantidadMaxima.setForeground(Color.BLACK);
-        }
-        if (TXTrepuesto.getText().isEmpty()){
-            TXTrepuesto.setText("Ingrese el nombre del repuesto");
-            TXTrepuesto.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTstock.getText().isEmpty()){
-            TXTstock.setText("Indique Stock");
-            TXTstock.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMinima.getText().isEmpty()){
-            TXTcantidadMinima.setText("Indique Cantidad Mínima");
-            TXTcantidadMinima.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTprecio.getText().isEmpty()){
-            TXTprecio.setText("Indique el precio base");
-            TXTprecio.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Describa el repuesto");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_TXTcantidadMaximaFocusGained
-
-    private void TXTcantidadMaximaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTcantidadMaximaMousePressed
-        // TODO add your handling code here:
-        if (TXTcantidadMaxima.getText().equals("Indique Cantidad Máxima")){
-            TXTcantidadMaxima.setText("");
-            TXTcantidadMaxima.setForeground(Color.BLACK);
-        }
-        if (TXTrepuesto.getText().isEmpty()){
-            TXTrepuesto.setText("Ingrese el nombre del repuesto");
-            TXTrepuesto.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTstock.getText().isEmpty()){
-            TXTstock.setText("Indique Stock");
-            TXTstock.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMinima.getText().isEmpty()){
-            TXTcantidadMinima.setText("Indique Cantidad Mínima");
-            TXTcantidadMinima.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTprecio.getText().isEmpty()){
-            TXTprecio.setText("Indique el precio base");
-            TXTprecio.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Describa el repuesto");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_TXTcantidadMaximaMousePressed
-
     private void DescripcionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_DescripcionFocusGained
         // TODO add your handling code here:
-        if (Descripcion.getText().equals("Describa el repuesto")){
-            Descripcion.setText("");
-            Descripcion.setForeground(Color.BLACK);
-        }
-        if (TXTrepuesto.getText().isEmpty()){
-            TXTrepuesto.setText("Ingrese el nombre del repuesto");
-            TXTrepuesto.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTstock.getText().isEmpty()){
-            TXTstock.setText("Indique Stock");
-            TXTstock.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMinima.getText().isEmpty()){
-            TXTcantidadMinima.setText("Indique Cantidad Mínima");
-            TXTcantidadMinima.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMaxima.getText().isEmpty()){
-            TXTcantidadMaxima.setText("Indique Cantidad Máxima");
-            TXTcantidadMaxima.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTprecio.getText().isEmpty()){
-            TXTprecio.setText("Indique el precio base");
-            TXTprecio.setForeground(new Color(94, 94, 94));
-        }
+
     }//GEN-LAST:event_DescripcionFocusGained
 
     private void DescripcionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DescripcionMousePressed
         // TODO add your handling code here:
-        if (Descripcion.getText().equals("Describa el repuesto")){
-            Descripcion.setText("");
-            Descripcion.setForeground(Color.BLACK);
-        }
-        if (TXTrepuesto.getText().isEmpty()){
-            TXTrepuesto.setText("Ingrese el nombre del repuesto");
-            TXTrepuesto.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTstock.getText().isEmpty()){
-            TXTstock.setText("Indique Stock");
-            TXTstock.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMinima.getText().isEmpty()){
-            TXTcantidadMinima.setText("Indique Cantidad Mínima");
-            TXTcantidadMinima.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMaxima.getText().isEmpty()){
-            TXTcantidadMaxima.setText("Indique Cantidad Máxima");
-            TXTcantidadMaxima.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTprecio.getText().isEmpty()){
-            TXTprecio.setText("Indique el precio base");
-            TXTprecio.setForeground(new Color(94, 94, 94));
-        }
+
     }//GEN-LAST:event_DescripcionMousePressed
 
     private void PanelNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseClicked
@@ -882,55 +579,40 @@ public class PanelRepuestos extends javax.swing.JPanel {
         PanelBuscar.setBackground(Color.white);
         Buscar.setForeground(Color.black);
     }//GEN-LAST:event_PanelBuscarMouseExited
+
+    private void btnAgregarMarcaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMarcaMouseClicked
+        // TODO add your handling code here:
+        NuevaEmpresaRecicladora panel = new NuevaEmpresaRecicladora();
+        javax.swing.JPopupMenu popup = new javax.swing.JPopupMenu();
+        popup.add(panel);
+        popup.show(btnAgregarMarca, 0, btnAgregarMarca.getHeight());
+    }//GEN-LAST:event_btnAgregarMarcaMouseClicked
+
+    private void btnAgregarMarcaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMarcaMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarMarcaMouseEntered
+
+    private void btnAgregarMarcaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMarcaMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarMarcaMouseExited
+
+    private void btnAgregarTipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarTipoMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarTipoMouseClicked
+
+    private void btnAgregarTipoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarTipoMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarTipoMouseEntered
+
+    private void btnAgregarTipoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarTipoMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarTipoMouseExited
     
     public void LimpiarDatos (){
-        TXTrepuesto.setText("");
-        TXTrepuesto.setForeground(new Color(94, 94, 94));
-        TXTprecio.setText("");
-        TXTprecio.setForeground(new Color(94, 94, 94));
-        TXTstock.setText("");
-        TXTstock.setForeground(new Color(94, 94, 94));
-        Descripcion.setText("");
-        Descripcion.setForeground(new Color(94, 94, 94));
-        TXTcantidadMinima.setText("");
-        TXTcantidadMinima.setForeground(new Color(94, 94, 94));
-        TXTcantidadMaxima.setText("");
-        TXTcantidadMaxima.setForeground(new Color(94, 94, 94));
-        categorias.setSelectedIndex(0);
-        marcas.setSelectedIndex(0);
+
     }
     public void GuardarRepuestos (){
-        Validaciones V=new Validaciones();
-        
-        String Cedula=TXTrepuesto.getText().trim();
-        String Precio=TXTprecio.getText().trim().toUpperCase();
-        String stock=TXTstock.getText().trim().toUpperCase();
-        String cantidadMin=TXTcantidadMinima.getText().trim().toUpperCase();
-        String cantidadMax=TXTcantidadMaxima.getText().trim().toUpperCase();
-        String descripcion=Descripcion.getText().trim().toUpperCase();
-        String categoria = categorias.getSelectedItem().toString();
-        String marca = marcas.getSelectedItem().toString();
-        if (Cedula.isEmpty()|| Precio.isEmpty()||stock.isEmpty()||cantidadMin.isEmpty()||cantidadMax.isEmpty()||descripcion.isEmpty()||categoria.isEmpty()||marca.isEmpty()){
-            JOptionPane.showMessageDialog (this, "Por favor complete los datos que faltan");
-            return;
-        }
-        if (Cedula.isBlank()|| Precio.isBlank()||stock.isBlank()||cantidadMin.isBlank()||cantidadMax.isBlank()||descripcion.isBlank()||categoria.isBlank()||marca.isBlank()){
-            JOptionPane.showMessageDialog (this, "Por favor complete los datos que faltan");
-            return;
-        }
-        if (categoria.equals("Seleccione una opción") ){
-            JOptionPane.showMessageDialog (this, "Por favor escoga una opción");
-            return;
-        }
-         if (marca.equals("Seleccione una opción") ){
-            JOptionPane.showMessageDialog (this, "Por favor escoga una opción");
-            return;
-        }
-        if (!V.ValidarCedula(Cedula)){
-            JOptionPane.showMessageDialog (this, "La cédula esta incorrecta");
-            return;
-        }
-        LimpiarDatos();
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -940,20 +622,22 @@ public class PanelRepuestos extends javax.swing.JPanel {
     private javax.swing.JLabel Editar;
     private javax.swing.JLabel Guardar;
     private javax.swing.JLabel ImagenADD;
+    private javax.swing.JLabel ImagenADD2;
+    private javax.swing.JLabel ImagenADD3;
     private javax.swing.JLabel ImagenDarBaja;
     private javax.swing.JLabel ImagenSAVE;
     private javax.swing.JLabel Nuevo;
+    private javax.swing.JLabel Nuevo2;
+    private javax.swing.JLabel Nuevo3;
     private javax.swing.JPanel PanelBuscar;
     private javax.swing.JPanel PanelDarBaja;
     private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JPanel PanelNuevo;
-    private javax.swing.JTextField TXTcantidadMaxima;
-    private javax.swing.JTextField TXTcantidadMinima;
-    private javax.swing.JTextField TXTprecio;
-    private javax.swing.JTextField TXTrepuesto;
-    private javax.swing.JTextField TXTstock;
-    private javax.swing.JComboBox<String> categorias;
+    private javax.swing.JPanel btnAgregarMarca;
+    private javax.swing.JPanel btnAgregarTipo;
+    private javax.swing.JComboBox<String> cbxMarcaRepuesto;
+    private javax.swing.JComboBox<String> cbxTipoRepuesto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -961,6 +645,7 @@ public class PanelRepuestos extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -968,6 +653,11 @@ public class PanelRepuestos extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JComboBox<String> marcas;
+    private javax.swing.JTextField txtCantidadMaxima;
+    private javax.swing.JTextField txtCantidadMinima;
+    private javax.swing.JTextField txtIdRepuesto;
+    private javax.swing.JTextField txtNomRepuesto;
+    private javax.swing.JTextField txtPrecioBase;
+    private javax.swing.JTextField txtStockActual;
     // End of variables declaration//GEN-END:variables
 }
