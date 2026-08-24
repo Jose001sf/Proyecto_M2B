@@ -832,8 +832,7 @@ public class PanelRepuestos extends javax.swing.JPanel {
     }//GEN-LAST:event_PanelNuevoMouseExited
 
     private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
-        // TODO add your handling code here:
-        GuardarRepuestos();
+        
     }//GEN-LAST:event_PanelGuardarMouseClicked
 
     private void PanelGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseEntered

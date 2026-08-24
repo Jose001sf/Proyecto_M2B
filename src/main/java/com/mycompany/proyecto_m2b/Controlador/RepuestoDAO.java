@@ -1,7 +1,9 @@
 
 package com.mycompany.proyecto_m2b.Controlador;
 
+import com.mycompany.proyecto_m2b.modelo.MarcaRepuesto;
 import com.mycompany.proyecto_m2b.modelo.Repuesto;
+import com.mycompany.proyecto_m2b.modelo.TipoRepuesto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -28,7 +30,32 @@ public class RepuestoDAO {
 
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.err.println("Error al guardar en la base de datos: " + e.getMessage());
+            System.err.println("Error al guardar repuesto: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean guardarMarca(MarcaRepuesto marca, Connection conexion) {
+        String sql = "INSERT INTO public.marca_repuesto (id_marca_repuesto, nombre_marca_repuesto) VALUES (?, ?)";
+        try (PreparedStatement ps = conexion.prepareStatement(sql)) {
+            ps.setString(1, marca.getIdMarcaRepuesto());
+            ps.setString(2, marca.getNombreMarcaRepuesto());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al guardar marca: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean guardarTipo(TipoRepuesto tipo, Connection conexion) {
+        String sql = "INSERT INTO public.tipo_de_repuesto (id_tip_repuesto, nom_tip_repuesto, descrip_tip_repuesto) VALUES (?, ?, ?)";
+        try (PreparedStatement ps = conexion.prepareStatement(sql)) {
+            ps.setString(1, tipo.getIdTipRepuesto());
+            ps.setString(2, tipo.getNomTipRepuesto());
+            ps.setString(3, "Registrado desde interfaz");
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al guardar tipo: " + e.getMessage());
             return false;
         }
     }
