@@ -103,8 +103,8 @@ public class Repuesto {
     }
 
     @Override
-    public String toString() {
-        return "Repuesto{" + "idRepuestos=" + idRepuestos + ", nomRepuesto=" + nomRepuesto + ", cantidadMaxRepuesto=" + cantidadMaxRepuesto + ", cantidadMinRepuesto=" + cantidadMinRepuesto + ", cantidadActualRepuesto=" + cantidadActualRepuesto + ", precioRepuestoUnit=" + precioRepuestoUnit + ", descripRepuesto=" + descripRepuesto + ", idTipRepuesto=" + idTipRepuesto + ", idMarcaRepuesto=" + idMarcaRepuesto + '}';
-    }
+        public String toString() {
+        return nomRepuesto;     
+}
     
 }

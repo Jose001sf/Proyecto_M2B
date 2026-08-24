@@ -10,11 +10,14 @@ import com.mycompany.proyecto_m2b.Controlador.ProveedorDAO;
 import com.mycompany.proyecto_m2b.Controlador.RepuestoDAO;
 import com.mycompany.proyecto_m2b.modelo.Proveedor;
 import com.mycompany.proyecto_m2b.modelo.Repuesto;
+import com.mycompany.proyecto_m2b.modelo.TipoProveedor;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -660,6 +663,43 @@ if (fechaSeleccionada != null) {
 
     private void btnAgregarProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarProveedorMouseClicked
         // TODO add your handling code here:
+    JTextField txtRuc = new JTextField();
+    JTextField txtNombre = new JTextField();
+    JTextField txtTelefono = new JTextField();
+    JComboBox<TipoProveedor> cbxTipoProvPop = new JComboBox<>();
+
+    for (TipoProveedor tp : proveedorDAO.obtenerTiposProveedor(miConexion)) {
+        cbxTipoProvPop.addItem(tp);
+    }
+
+    Object[] formulario = {
+        "RUC / Identificación:", txtRuc,
+        "Nombre Empresa:", txtNombre,
+        "Teléfono:", txtTelefono,
+        "Tipo de Proveedor:", cbxTipoProvPop
+    };
+
+    int opcion = JOptionPane.showConfirmDialog(this, formulario, "Registrar Nuevo Proveedor", JOptionPane.OK_CANCEL_OPTION);
+
+    if (opcion == JOptionPane.OK_OPTION) {
+        String ruc = txtRuc.getText().trim();
+        String nombre = txtNombre.getText().trim();
+        String telefono = txtTelefono.getText().trim();
+        TipoProveedor tipoSel = (TipoProveedor) cbxTipoProvPop.getSelectedItem();
+
+        if (!ruc.isEmpty() && !nombre.isEmpty() && tipoSel != null) {
+            String idProv = proveedorDAO.obtenerSiguienteIdProveedor(miConexion);
+            Proveedor nuevoProv = new Proveedor(idProv, ruc, nombre, telefono, tipoSel.getIdTipoProveedor());
+
+            if (proveedorDAO.guardarProveedor(nuevoProv, miConexion)) {
+                cbxProveedor.addItem(nuevoProv);
+                cbxProveedor.setSelectedItem(nuevoProv);
+                JOptionPane.showMessageDialog(this, "Proveedor guardado exitosamente.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "RUC y Nombre son obligatorios.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }
     }//GEN-LAST:event_btnAgregarProveedorMouseClicked
 
     private void btnAgregarProveedorMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarProveedorMouseEntered
