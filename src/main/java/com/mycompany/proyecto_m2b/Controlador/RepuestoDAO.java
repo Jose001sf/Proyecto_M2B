@@ -15,28 +15,28 @@ import java.util.List;
 public class RepuestoDAO {
 
     public boolean guardarRepuesto(Repuesto repuesto, Connection conexion) {
-        String sql = "INSERT INTO public.repuestos ("
-                   + "id_repuestos, nom_repuesto, cantidad_max_repuesto, cantidad_min_repuesto, "
-                   + "cantidad_actual_repuesto, precio_repuesto_unit, descrip_repuesto, "
-                   + "id_tip_repuesto, id_marca_repuesto) "
-                   + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    String sql = "INSERT INTO public.repuestos ("
+               + "id_repuestos, nom_repuesto, cantidad_max_repuesto, cantidad_min_repuesto, "
+               + "cantidad_actual_repuesto, precio_repuesto_unit, descrip_repuesto, "
+               + "id_tip_repuesto, id_marca_repuesto) "
+               + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try (PreparedStatement ps = conexion.prepareStatement(sql)) {
-            ps.setString(1, repuesto.getIdRepuestos());
-            ps.setString(2, repuesto.getNomRepuesto());
-            ps.setFloat(6, (float) repuesto.getPrecioRepuestoUnit());
-            ps.setInt(4, repuesto.getCantidadMinRepuesto());
-            ps.setInt(5, repuesto.getCantidadActualRepuesto());
-            ps.setDouble(6, repuesto.getPrecioRepuestoUnit());
-            ps.setString(7, repuesto.getDescripRepuesto());
-            ps.setString(8, repuesto.getIdTipRepuesto());
-            ps.setString(9, repuesto.getIdMarcaRepuesto());
+    try (PreparedStatement ps = conexion.prepareStatement(sql)) {
+        ps.setString(1, repuesto.getIdRepuestos());
+        ps.setString(2, repuesto.getNomRepuesto());
+        ps.setInt(3, repuesto.getCantidadMaxRepuesto());          
+        ps.setInt(4, repuesto.getCantidadMinRepuesto());
+        ps.setInt(5, repuesto.getCantidadActualRepuesto());
+        ps.setFloat(6, (float) repuesto.getPrecioRepuestoUnit()); 
+        ps.setString(7, repuesto.getDescripRepuesto());
+        ps.setString(8, repuesto.getIdTipRepuesto());
+        ps.setString(9, repuesto.getIdMarcaRepuesto());
 
-            return ps.executeUpdate() > 0;
-        } catch (SQLException e) {
-            System.err.println("Error al guardar repuesto: " + e.getMessage());
-            return false;
-        }
+        return ps.executeUpdate() > 0;
+    } catch (SQLException e) {
+        System.err.println("Error al guardar repuesto: " + e.getMessage());
+        return false;
+    }
     }
 
     public boolean guardarMarca(MarcaRepuesto marca, Connection conexion) {
