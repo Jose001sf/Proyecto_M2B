@@ -160,9 +160,33 @@ int yMouse;
 
         jPanel1.add(PanelGuardarMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
 
+        TXTmarca.setForeground(new java.awt.Color(153, 153, 153));
+        TXTmarca.setText("Ingrese Marca");
+        TXTmarca.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTmarcaFocusGained(evt);
+            }
+        });
+        TXTmarca.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTmarcaMousePressed(evt);
+            }
+        });
         TXTmarca.addActionListener(this::TXTmarcaActionPerformed);
         jPanel1.add(TXTmarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 190, -1));
 
+        TXTmodelo.setForeground(new java.awt.Color(153, 153, 153));
+        TXTmodelo.setText("Ingrese Modelo");
+        TXTmodelo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTmodeloFocusGained(evt);
+            }
+        });
+        TXTmodelo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTmodeloMousePressed(evt);
+            }
+        });
         TXTmodelo.addActionListener(this::TXTmodeloActionPerformed);
         jPanel1.add(TXTmodelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 160, 190, -1));
 
@@ -332,6 +356,54 @@ int yMouse;
     private void TXTmarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTmarcaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TXTmarcaActionPerformed
+
+    private void TXTmarcaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTmarcaMousePressed
+        // TODO add your handling code here:
+        if (TXTmarca.getText().equals("Ingrese Marca")){
+            TXTmarca.setText("");
+            TXTmarca.setForeground(Color.BLACK);
+        }
+        if (TXTmodelo.getText().isEmpty()){
+            TXTmodelo.setText("Ingrese Modelo");
+            TXTmodelo.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTmarcaMousePressed
+
+    private void TXTmodeloMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTmodeloMousePressed
+        // TODO add your handling code here:
+        if (TXTmodelo.getText().equals("Ingrese Modelo")){
+            TXTmodelo.setText("");
+            TXTmodelo.setForeground(Color.BLACK);
+        }
+        if (TXTmarca.getText().isEmpty()){
+            TXTmarca.setText("Ingrese Marca");
+            TXTmarca.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTmodeloMousePressed
+
+    private void TXTmarcaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTmarcaFocusGained
+        // TODO add your handling code here:
+        if (TXTmarca.getText().equals("Ingrese Marca")){
+            TXTmarca.setText("");
+            TXTmarca.setForeground(Color.BLACK);
+        }
+        if (TXTmodelo.getText().isEmpty()){
+            TXTmodelo.setText("Ingrese Modelo");
+            TXTmodelo.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTmarcaFocusGained
+
+    private void TXTmodeloFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTmodeloFocusGained
+        // TODO add your handling code here:
+        if (TXTmodelo.getText().equals("Ingrese Modelo")){
+            TXTmodelo.setText("");
+            TXTmodelo.setForeground(Color.BLACK);
+        }
+        if (TXTmarca.getText().isEmpty()){
+            TXTmarca.setText("Ingrese Marca");
+            TXTmarca.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTmodeloFocusGained
 
     /**
      * @param args the command line arguments
