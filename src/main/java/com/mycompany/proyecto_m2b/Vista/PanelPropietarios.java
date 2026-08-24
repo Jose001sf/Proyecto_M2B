@@ -5,10 +5,12 @@
 package com.mycompany.proyecto_m2b.Vista;
 
 import com.mycompany.proyecto_m2b.Controlador.DireccionDAO;
+import com.mycompany.proyecto_m2b.Controlador.EmpleadoDAO;
 import com.mycompany.proyecto_m2b.Controlador.PersonaDAO;
 import com.mycompany.proyecto_m2b.Controlador.PropietarioDAO;
 import com.mycompany.proyecto_m2b.Controlador.Validaciones;
 import com.mycompany.proyecto_m2b.modelo.Direccion;
+import com.mycompany.proyecto_m2b.modelo.Empleado;
 import com.mycompany.proyecto_m2b.modelo.Persona;
 import com.mycompany.proyecto_m2b.modelo.Propietario;
 import java.awt.Color;
@@ -85,6 +87,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
         TXTnumCasa = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         CalendarioRegistro = new com.toedter.calendar.JDateChooser();
+        Verificar = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(238, 238, 238));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -154,7 +157,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
 
         jLabel10.setText("Celular:");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, -1, -1));
 
         jLabel11.setText("Correo Electrónico:");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, -1, 20));
@@ -183,12 +186,13 @@ public class PanelPropietarios extends javax.swing.JPanel {
                 TXTcedulaMousePressed(evt);
             }
         });
+        TXTcedula.addActionListener(this::TXTcedulaActionPerformed);
         TXTcedula.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 TXTcedulaKeyPressed(evt);
             }
         });
-        jPanel1.add(TXTcedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 210, -1));
+        jPanel1.add(TXTcedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 180, -1));
 
         TXTnombre.setForeground(new java.awt.Color(153, 153, 153));
         TXTnombre.setText("Primer Nombre");
@@ -559,7 +563,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
         jPanel1.add(CalendarioNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 160, 200, -1));
 
         jLabel3.setText("Teléfono:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, -1, -1));
 
         TXTTelefono.setForeground(new java.awt.Color(153, 153, 153));
         TXTTelefono.setText("Ingrese el número de teléfono");
@@ -641,13 +645,17 @@ public class PanelPropietarios extends javax.swing.JPanel {
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, -1, -1));
         jPanel1.add(CalendarioRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 250, 160, -1));
 
+        Verificar.setBackground(new java.awt.Color(247, 247, 247));
+        Verificar.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
+        Verificar.setText("VERIFICAR");
+        Verificar.addActionListener(this::VerificarActionPerformed);
+        jPanel1.add(Verificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 80, 20));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 797, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 844, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1760,7 +1768,28 @@ public class PanelPropietarios extends javax.swing.JPanel {
 
     private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
         // TODO add your handling code here:
-        GuardarPropietarios();
+        PersonaDAO pd=new PersonaDAO();
+        String ced_person= TXTcedula.getText().trim();
+        boolean si=pd.existeCedula(ced_person);
+        if (si==true){
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Quiere convertir a la persona con cédula: "+ced_person+" a empleado?"+JOptionPane.YES_NO_OPTION);
+            if (opcion==JOptionPane.YES_OPTION){
+                if (persona != null){
+                GuardarYaExistentes(persona);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Debe primero verificar usuario"+JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        else{
+            if (persona==null){
+                GuardarPropietarios();
+                }
+            else{
+             JOptionPane.showMessageDialog(this, "Ya esta registrado");
+            }
+        }
     }//GEN-LAST:event_PanelGuardarMouseClicked
 
     private void PanelGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseEntered
@@ -2130,6 +2159,63 @@ public class PanelPropietarios extends javax.swing.JPanel {
             GuardarPropietarios();
         }
     }//GEN-LAST:event_TXTnumCasaKeyPressed
+    Persona persona;
+    private void VerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerificarActionPerformed
+        // TODO add your handling code here:
+        TXTnombre.setText("");
+        TXTnombre1.setText("");
+        TXTapellido.setText("");
+        TXTapellido1.setText("");
+        TXTCelular.setText("");
+        TXTTelefono.setText("");
+        TXTCorreoElectronico.setText("");
+        TXTcallePrincipal.setText("");
+        TXTcalleSecundaria.setText("");
+        TXTnumCasa.setText("");
+        TXTciudad.setText("");
+        TXTcedula.setEditable(true);
+        String ced_perso=TXTcedula.getText().trim();
+        PersonaDAO pd=new PersonaDAO();
+        persona=pd.buscarPorCedula(ced_perso);
+        if(persona!=null){
+            TXTcedula.setEditable(false);
+            TXTnombre.setText(persona.getNom1_person());
+            TXTnombre1.setText(persona.getNom2_person());
+            TXTapellido.setText(persona.getApell1_person());
+            TXTapellido1.setText(persona.getApell2_person());
+            TXTCelular.setText(persona.getNum_celu_person());
+            TXTTelefono.setText(persona.getNum_tel_person());
+            TXTCorreoElectronico.setText(persona.getCorr_elec_perso());
+            if(CalendarioNacimiento!=null){
+                CalendarioNacimiento.setDate(persona.getFech_nac_perso());
+            }
+            if (CalendarioRegistro!=null){
+                CalendarioRegistro.setDate(persona.getFech_registro_person());
+            }
+            String genero=persona.getGene_person();
+            Generos.setSelectedItem(genero);
+            //conseguir las direcciones
+            if (persona.getId_direccion() != null && !persona.getId_direccion().isEmpty()) {
+                DireccionDAO dd = new DireccionDAO();
+                Direccion dir = dd.buscarIDDir(persona.getId_direccion());
+
+                if (dir != null) {
+                    TXTcallePrincipal.setText(dir.getCalle_principal());
+                    TXTcalleSecundaria.setText(dir.getCalle_secundaria());
+                    TXTnumCasa.setText(dir.getNumero_casa());
+                    TXTciudad.setText(dir.getCiudad());
+                }
+            }
+            JOptionPane.showMessageDialog(this, "Persona encontrada correctamente");
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "No se pudo encontrar a la persona");
+        }
+    }//GEN-LAST:event_VerificarActionPerformed
+
+    private void TXTcedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTcedulaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTcedulaActionPerformed
 
     public void LimpiarDatos (){
         TXTnombre.setText("");
@@ -2159,6 +2245,23 @@ public class PanelPropietarios extends javax.swing.JPanel {
         TXTciudad.setText("Ciudad");
         TXTciudad.setForeground(new Color(94, 94, 94));
     }
+    public void GuardarYaExistentes (Persona persona){
+        Propietario p=new Propietario();
+        EmpleadoDAO e=new EmpleadoDAO ();        
+        if (e.existeCedula(persona.getCed_perso())){
+            JOptionPane.showMessageDialog(this, "Esa persona ya esta registrada");
+            return;
+        }
+        String Observaciones = Descripcion.getText().trim().toUpperCase();
+        p.setObservaci_propietario(Observaciones);
+        p.setCed_perso(persona.getCed_perso());
+        PropietarioDAO pd=new PropietarioDAO();
+        pd.insertarPropietario(p);
+        LimpiarDatos();
+    }
+    
+    
+    
     public void GuardarPropietarios (){
         Validaciones V=new Validaciones();
         //Guardar direcciones        
@@ -2320,6 +2423,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
     private javax.swing.JTextField TXTnombre;
     private javax.swing.JTextField TXTnombre1;
     private javax.swing.JTextField TXTnumCasa;
+    private javax.swing.JButton Verificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
