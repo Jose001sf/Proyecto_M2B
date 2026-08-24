@@ -3,8 +3,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.proyecto_m2b.Vista;
+import com.mycompany.proyecto_m2b.Controlador.TipoServicioDAO;
+import com.mycompany.proyecto_m2b.Controlador.Validaciones;
+import com.mycompany.proyecto_m2b.modelo.Tipo_de_servicio;
 import java.awt.Color;
+import java.util.List;
+import java.util.function.Predicate;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author HP
@@ -18,8 +29,78 @@ public class TipoServicio extends javax.swing.JFrame {
      */
     public TipoServicio() {
         initComponents();
+        cargarTabla();
+        
+        tblTipoServicio.getSelectionModel().addListSelectionListener(evt -> {
+                    if (!evt.getValueIsAdjusting()) {
+                        int fila = tblTipoServicio.getSelectedRow();
+                        if (fila >= 0 && fila < lista.size()) {
+                            Tipo_de_servicio seleccionado = lista.get(fila);
+                            idSeleccionado = seleccionado.getID_tipo_servicio();
+                            txtTipoDeServicio.setText(seleccionado.getNom_tipo_servi());
+                            txtDescripcion.setText(seleccionado.getDesc_tipo_servicio());
+                        }
+                    }
+                });
+        validarEnTiempoReal(txtTipoDeServicio, txtErrorNombre, Validaciones::validarDescripTipoServicio, "Nombre invalido (Ej: Mantenimiento)");
+        validarEnTiempoReal(txtDescripcion, txtErrorDescripcion, Validaciones::validarNombreTipoServicio, "Descripcion invalida (Ej: Servicio de mantenimiento preventivo)");
     }
+    
+    //variables
+    TipoServicioDAO dao = new TipoServicioDAO();
+    List<Tipo_de_servicio> lista = dao.listarTipoServicio();
+    private String idSeleccionado = null;
+    
+    
+    private void limpiarCampos() {
+        txtTipoDeServicio.setText("");
+        txtDescripcion.setText("");
+    }
+    
+    private void validarEnTiempoReal(JTextField campo, JLabel labelError, Predicate<String> metodoValidacion, String mensajeError) {
+        labelError.setText("");
+        labelError.setForeground(Color.RED);
 
+        campo.getDocument().addDocumentListener(new DocumentListener() {
+            private void evaluar() {
+                String texto = campo.getText().trim();
+                if (texto.isEmpty()) {
+                    labelError.setText("Campo obligatorio");
+                } else if (!metodoValidacion.test(texto)) {
+                    labelError.setText(mensajeError);
+                } else {
+                    labelError.setText(""); 
+                }
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) { evaluar(); }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) { evaluar(); }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) { evaluar(); }
+        });
+    
+    }
+    
+    private void cargarTabla(){
+        DefaultTableModel modelo = (DefaultTableModel) tblTipoServicio.getModel();
+        modelo.setRowCount(0);
+        
+        lista = dao.listarTipoServicio();
+        for(Tipo_de_servicio t:lista){
+            Object[] fila = {
+                t.getNom_tipo_servi(),
+                t.getDesc_tipo_servicio()
+                
+            };
+            modelo.addRow(fila);
+        }
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,12 +114,12 @@ public class TipoServicio extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        txtTipoDeServicio = new javax.swing.JTextField();
+        txtDescripcion = new javax.swing.JTextField();
         TxtBuscar = new javax.swing.JLabel();
-        txtBuscar = new javax.swing.JTextField();
+        txtBuscarTServicio = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblCatalogo = new javax.swing.JTable();
+        tblTipoServicio = new javax.swing.JTable();
         Titulo = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         PanelGuardar = new javax.swing.JPanel();
@@ -50,12 +131,11 @@ public class TipoServicio extends javax.swing.JFrame {
         PanelBuscar = new javax.swing.JPanel();
         Buscar = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        PanelNuevo = new javax.swing.JPanel();
-        Nuevo = new javax.swing.JLabel();
-        ImagenADD = new javax.swing.JLabel();
         PanelDarBaja = new javax.swing.JPanel();
         DarDeBaja = new javax.swing.JLabel();
         ImagenDarBaja = new javax.swing.JLabel();
+        txtErrorNombre = new javax.swing.JLabel();
+        txtErrorDescripcion = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         Regresar = new javax.swing.JLabel();
 
@@ -79,42 +159,30 @@ public class TipoServicio extends javax.swing.JFrame {
         jLabel1.setText("Nombre del servicio :");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 65, 121, -1));
 
-        jTextField2.setSelectionColor(new java.awt.Color(102, 102, 102));
-        jTextField2.addActionListener(this::jTextField2ActionPerformed);
-        jPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 99, 186, -1));
+        txtTipoDeServicio.setSelectionColor(new java.awt.Color(102, 102, 102));
+        txtTipoDeServicio.addActionListener(this::txtTipoDeServicioActionPerformed);
+        jPanel2.add(txtTipoDeServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 99, 186, -1));
 
-        jTextField4.setSelectionColor(new java.awt.Color(102, 102, 102));
-        jTextField4.addActionListener(this::jTextField4ActionPerformed);
-        jPanel2.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(251, 99, 402, 80));
+        txtDescripcion.setSelectionColor(new java.awt.Color(102, 102, 102));
+        txtDescripcion.addActionListener(this::txtDescripcionActionPerformed);
+        jPanel2.add(txtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(251, 99, 380, 80));
 
         TxtBuscar.setBackground(new java.awt.Color(0, 0, 0));
         TxtBuscar.setText("Buscar:");
-        jPanel2.add(TxtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 232, -1, -1));
+        jPanel2.add(TxtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, -1, -1));
 
-        txtBuscar.setSelectionColor(new java.awt.Color(102, 102, 102));
-        jPanel2.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 254, 180, -1));
+        txtBuscarTServicio.setSelectionColor(new java.awt.Color(102, 102, 102));
+        jPanel2.add(txtBuscarTServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 180, -1));
 
-        tblCatalogo.setModel(new javax.swing.table.DefaultTableModel(
+        tblTipoServicio.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "ID Servicio", "Tipo", "Precio base", "Tiempo estimado"
+                "Tipo de Servicio", "Descripcion"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tblCatalogo);
+        ));
+        jScrollPane1.setViewportView(tblTipoServicio);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 600, 218));
 
@@ -169,12 +237,15 @@ public class TipoServicio extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel2.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 190, -1, -1));
+        jPanel2.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, -1, -1));
 
         PanelEditar.setBackground(new java.awt.Color(255, 255, 255));
         PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
         PanelEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelEditarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelEditarMouseEntered(evt);
             }
@@ -198,7 +269,7 @@ public class TipoServicio extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Editar)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         PanelEditarLayout.setVerticalGroup(
             PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,7 +281,7 @@ public class TipoServicio extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel2.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 190, -1, -1));
+        jPanel2.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 210, 140, -1));
 
         PanelBuscar.setBackground(new java.awt.Color(255, 255, 255));
         PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -250,55 +321,15 @@ public class TipoServicio extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, -1, -1));
-
-        PanelNuevo.setBackground(new java.awt.Color(255, 255, 255));
-        PanelNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PanelNuevoMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelNuevoMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelNuevoMouseExited(evt);
-            }
-        });
-
-        Nuevo.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        Nuevo.setText("Nuevo");
-
-        ImagenADD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-
-        javax.swing.GroupLayout PanelNuevoLayout = new javax.swing.GroupLayout(PanelNuevo);
-        PanelNuevo.setLayout(PanelNuevoLayout);
-        PanelNuevoLayout.setHorizontalGroup(
-            PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNuevoLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(ImagenADD)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Nuevo)
-                .addContainerGap(33, Short.MAX_VALUE))
-        );
-        PanelNuevoLayout.setVerticalGroup(
-            PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNuevoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ImagenADD)
-                    .addComponent(Nuevo))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel2.add(PanelNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
+        jPanel2.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, -1, -1));
 
         PanelDarBaja.setBackground(new java.awt.Color(255, 255, 255));
         PanelDarBaja.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(215, 106, 106)));
         PanelDarBaja.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelDarBaja.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelDarBajaMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelDarBajaMouseEntered(evt);
             }
@@ -334,7 +365,13 @@ public class TipoServicio extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.add(PanelDarBaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, -1, -1));
+        jPanel2.add(PanelDarBaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 210, -1, -1));
+
+        txtErrorNombre.setBackground(new java.awt.Color(255, 0, 51));
+        jPanel2.add(txtErrorNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 190, 20));
+
+        txtErrorDescripcion.setBackground(new java.awt.Color(255, 0, 0));
+        jPanel2.add(txtErrorDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 380, 20));
 
         PanelFondo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 700, 630));
 
@@ -407,17 +444,33 @@ public class TipoServicio extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_RegresarMouseClicked
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void txtDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescripcionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_txtDescripcionActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void txtTipoDeServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTipoDeServicioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_txtTipoDeServicioActionPerformed
 
     private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
         // TODO add your handling code here:
-
+        String nombre = txtTipoDeServicio.getText().trim();
+        String descrip = txtDescripcion.getText().trim();
+        
+        if (nombre.isEmpty() || descrip.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Complete todos los campos.");
+            return;
+        }
+        TipoServicioDAO dao =new TipoServicioDAO();
+        String id = dao.generarNuevoId();
+        if (id == null){
+            JOptionPane.showMessageDialog(this, "No se pudo generar un nuevo ID.");
+            return;
+        }
+        Tipo_de_servicio nuevo = new Tipo_de_servicio(id, nombre, descrip);
+        dao.insertarTipoServicio(nuevo);
+        limpiarCampos();
+        cargarTabla();
     }//GEN-LAST:event_PanelGuardarMouseClicked
 
     private void PanelGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseEntered
@@ -456,25 +509,6 @@ public class TipoServicio extends javax.swing.JFrame {
         Buscar.setForeground(Color.black);
     }//GEN-LAST:event_PanelBuscarMouseExited
 
-    private void PanelNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseClicked
-        // TODO add your handling code here:
-
-        JOptionPane.showMessageDialog(this, "Datos limpiados correctamente"+"\n"
-            +"Ingrese los datos");
-    }//GEN-LAST:event_PanelNuevoMouseClicked
-
-    private void PanelNuevoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseEntered
-        // TODO add your handling code here:
-        PanelNuevo.setBackground(new Color(219,219,219));
-        Nuevo.setForeground(new Color(66, 66, 66));
-    }//GEN-LAST:event_PanelNuevoMouseEntered
-
-    private void PanelNuevoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseExited
-        // TODO add your handling code here:
-        PanelNuevo.setBackground(Color.white);
-        Nuevo.setForeground(Color.black);
-    }//GEN-LAST:event_PanelNuevoMouseExited
-
     private void PanelDarBajaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarBajaMouseEntered
         // TODO add your handling code here:
         PanelDarBaja.setBackground(new Color (252, 168, 168));
@@ -487,6 +521,52 @@ public class TipoServicio extends javax.swing.JFrame {
         DarDeBaja.setForeground(new Color(215, 106, 106));
     }//GEN-LAST:event_PanelDarBajaMouseExited
 
+    private void PanelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseClicked
+        // TODO add your handling code here:
+        if(idSeleccionado == null){
+            JOptionPane.showMessageDialog(this, "Seleccione algun tipo de servicio.");
+            return;
+        }
+        String nombre = txtTipoDeServicio.getText().trim();
+        String descrip = txtDescripcion.getText().trim();
+        if (nombre.isEmpty() || descrip.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Complete todos los campos.");
+            return;
+        }
+        Tipo_de_servicio actualizado = new Tipo_de_servicio(idSeleccionado, nombre, descrip);
+        boolean logro = dao.actualizarTipoServicio(actualizado);
+        
+        if(logro){
+            JOptionPane.showMessageDialog(this, "Actualizado correctamente.");
+            limpiarCampos();
+            cargarTabla();
+        } else{
+            JOptionPane.showMessageDialog(this, "No se ha actualizado correctamente.");
+        }
+    }//GEN-LAST:event_PanelEditarMouseClicked
+
+    private void PanelDarBajaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarBajaMouseClicked
+        // TODO add your handling code here:
+        if(idSeleccionado==null){
+            JOptionPane.showMessageDialog(this, "Seleccione algun tipo de servicio.");
+            return;
+        }
+        int Ysisi = JOptionPane.showConfirmDialog(this,
+            "¿Seguro que deseas eliminar este tipo de servicio?","Confirmar eleccion", JOptionPane.YES_NO_OPTION);
+        if(Ysisi != JOptionPane.YES_OPTION){
+            return;
+        }
+        boolean logro = dao.eliminarTipoServicio(idSeleccionado);
+        
+        if(logro){
+            JOptionPane.showMessageDialog(this, "Eliminado correctamente.");
+            limpiarCampos();
+            cargarTabla();
+        } else{
+            JOptionPane.showMessageDialog(this, "No se ha eliminado correctamente.");
+        }
+    }//GEN-LAST:event_PanelDarBajaMouseClicked
+    
     /**
      * @param args the command line arguments
      */
@@ -517,16 +597,13 @@ public class TipoServicio extends javax.swing.JFrame {
     private javax.swing.JLabel DarDeBaja;
     private javax.swing.JLabel Editar;
     private javax.swing.JLabel Guardar;
-    private javax.swing.JLabel ImagenADD;
     private javax.swing.JLabel ImagenDarBaja;
     private javax.swing.JLabel ImagenSAVE;
-    private javax.swing.JLabel Nuevo;
     private javax.swing.JPanel PanelBuscar;
     private javax.swing.JPanel PanelDarBaja;
     private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelFondo;
     private javax.swing.JPanel PanelGuardar;
-    private javax.swing.JPanel PanelNuevo;
     private javax.swing.JLabel Regresar;
     private javax.swing.JLabel Titulo;
     private javax.swing.JLabel TxtBuscar;
@@ -538,9 +615,11 @@ public class TipoServicio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTable tblCatalogo;
-    private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTable tblTipoServicio;
+    private javax.swing.JTextField txtBuscarTServicio;
+    private javax.swing.JTextField txtDescripcion;
+    private javax.swing.JLabel txtErrorDescripcion;
+    private javax.swing.JLabel txtErrorNombre;
+    private javax.swing.JTextField txtTipoDeServicio;
     // End of variables declaration//GEN-END:variables
 }

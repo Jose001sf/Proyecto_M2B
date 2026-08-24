@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.proyecto_m2b.Controlador;
 
 import java.sql.Date;
@@ -11,11 +8,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- *
- * @author usuario
- */
 public class Validaciones {
+    
     public boolean ValidarCedula(String cedula) {
         if (cedula == null) {
             return false;
@@ -245,5 +239,20 @@ public class Validaciones {
         Pattern pat = Pattern.compile("^[A-Za-z0-9._ #áéíóúÁÉÍÓÚñÑ-]{2,100}$");
         Matcher mat = pat.matcher(observaciones);
         return mat.matches();
+    }
+    //VALIDACIONES TIPO DE SERVICIO
+    public static boolean validarNombreTipoServicio(String cadena){
+        if(cadena == null) {
+            return false;
+        }
+        Pattern pat = Pattern.compile("^[A-Za-zÁÉÍÓÚÑáéíóúñ ]{3,60}$");
+        return pat.matcher(cadena).matches();
+    }
+    public static boolean validarDescripTipoServicio(String cadena){
+        if(cadena == null){
+            return false;
+        }
+        Pattern pat=Pattern.compile("^[A-Za-zÁÉÍÓÚÑáéíóúñ0-9 .,-]{5,90}$");
+        return pat.matcher(cadena).matches();
     }
 }
