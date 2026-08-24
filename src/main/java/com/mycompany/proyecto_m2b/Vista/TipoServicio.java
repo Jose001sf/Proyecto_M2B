@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.mycompany.proyecto_m2b.Vista;
 import com.mycompany.proyecto_m2b.Controlador.TipoServicioDAO;
 import com.mycompany.proyecto_m2b.Controlador.Validaciones;
@@ -9,6 +6,7 @@ import com.mycompany.proyecto_m2b.modelo.Tipo_de_servicio;
 import java.awt.Color;
 import java.util.List;
 import java.util.function.Predicate;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -16,17 +14,11 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
-/**
- *
- * @author HP
- */
+
 public class TipoServicio extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TipoServicio.class.getName());
 
-    /**
-     * Creates new form TipoServicio
-     */
     public TipoServicio() {
         initComponents();
         cargarTabla();
@@ -99,6 +91,7 @@ public class TipoServicio extends javax.swing.JFrame {
             modelo.addRow(fila);
         }
     }
+        
     
     
     /**
