@@ -23,7 +23,13 @@ public class Repuesto {
         this.idTipRepuesto = idTipRepuesto;
         this.idMarcaRepuesto = idMarcaRepuesto;
     }
-
+    
+    public Repuesto(String idRepuestos, String nomRepuesto, double precioRepuestoUnit) {
+        this.idRepuestos = idRepuestos;
+        this.nomRepuesto = nomRepuesto;
+        this.precioRepuestoUnit = precioRepuestoUnit;
+}
+    
     public String getIdRepuestos() {
         return idRepuestos;
     }

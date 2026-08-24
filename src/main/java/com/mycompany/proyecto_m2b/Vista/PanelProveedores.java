@@ -4,18 +4,81 @@
  */
 package com.mycompany.proyecto_m2b.Vista;
 
+import com.mycompany.proyecto_m2b.Controlador.CompraDAO;
+import com.mycompany.proyecto_m2b.Controlador.ConexionBD;
+import com.mycompany.proyecto_m2b.Controlador.ProveedorDAO;
+import com.mycompany.proyecto_m2b.Controlador.RepuestoDAO;
+import com.mycompany.proyecto_m2b.modelo.Proveedor;
+import com.mycompany.proyecto_m2b.modelo.Repuesto;
+import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author HP
  */
 public class PanelProveedores extends javax.swing.JPanel {
-
+    private Connection miConexion;
+    private DefaultTableModel modeloTabla;
+    private CompraDAO compraDAO = new CompraDAO();
+    private ProveedorDAO proveedorDAO = new ProveedorDAO();
+    private RepuestoDAO repuestoDAO = new RepuestoDAO();
     /**
      * Creates new form PanelProveedores
      */
     public PanelProveedores() {
-        initComponents();
+    this.miConexion = ConexionBD.obtenerConexion();
+    initComponents();
+    txtIdCompra.setEditable(false);
+    txtFechaCompra.setEnabled(false);
+    txtTotalCompra.setEditable(false);
+    txtFechaCompra.setDate(new Date());
+
+    inicializarTabla();
+    cargarCombos();
+    generarSiguienteIdCompra();
     }
+    
+    private void inicializarTabla() {
+    modeloTabla = new DefaultTableModel(
+        new Object[]{"ID Repuesto", "Nombre Repuesto", "Cantidad", "Precio Unit.", "Subtotal"}, 0
+    ) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+    tblDetalleCompra.setModel(modeloTabla);
+}
+
+private void cargarCombos() {
+    cbxProveedor.removeAllItems();
+    List<Proveedor> proveedores = proveedorDAO.obtenerProveedores(miConexion);
+    for (Proveedor p : proveedores) {
+        cbxProveedor.addItem(p);
+    }
+
+    cbxRepuesto.removeAllItems();
+    List<Repuesto> repuestos = repuestoDAO.obtenerRepuestos(miConexion);
+    for (Repuesto r : repuestos) {
+        cbxRepuesto.addItem(r);
+    }
+}
+
+private void generarSiguienteIdCompra() {
+    txtIdCompra.setText(compraDAO.obtenerSiguienteIdCompra(miConexion));
+}
+    private void limpiarFormulario() {
+    modeloTabla.setRowCount(0);
+    txtTotalCompra.setText("");
+    txtCantidadCompra.setText("");
+    txtPrecioUnitarioCompra.setText("");
+    generarSiguienteIdCompra();
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,25 +96,23 @@ public class PanelProveedores extends javax.swing.JPanel {
         BarraAbajo = new javax.swing.JPanel();
         TituloFuncion1 = new javax.swing.JLabel();
         Proveedor = new javax.swing.JLabel();
-        Tipo = new javax.swing.JLabel();
         Factura = new javax.swing.JLabel();
         Fecha = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        comboProveedores = new javax.swing.JComboBox<>();
+        cbxProveedor = new javax.swing.JComboBox<>();
         TituloFuncion2 = new javax.swing.JLabel();
         Repuesto = new javax.swing.JLabel();
         Cantidad = new javax.swing.JLabel();
         Precio = new javax.swing.JLabel();
-        txtCantidad = new javax.swing.JTextField();
-        comboRepuestos = new javax.swing.JComboBox<>();
-        txtFactura = new javax.swing.JTextField();
-        dateProveedores = new com.toedter.calendar.JDateChooser();
-        txtPrecio = new javax.swing.JTextField();
-        comboTipoProvee = new javax.swing.JComboBox<>();
-        PanelNuevo = new javax.swing.JPanel();
+        txtCantidadCompra = new javax.swing.JTextField();
+        cbxRepuesto = new javax.swing.JComboBox<>();
+        txtIdCompra = new javax.swing.JTextField();
+        txtFechaCompra = new com.toedter.calendar.JDateChooser();
+        txtPrecioUnitarioCompra = new javax.swing.JTextField();
+        btnAgregarItem = new javax.swing.JPanel();
         Nuevo = new javax.swing.JLabel();
         ImagenADD = new javax.swing.JLabel();
-        PanelGuardar = new javax.swing.JPanel();
+        btnGuardarCompra = new javax.swing.JPanel();
         Guardar = new javax.swing.JLabel();
         ImagenSAVE = new javax.swing.JLabel();
         PanelEditar = new javax.swing.JPanel();
@@ -60,9 +121,12 @@ public class PanelProveedores extends javax.swing.JPanel {
         PanelBuscar = new javax.swing.JPanel();
         Buscar = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        PanelNuevo1 = new javax.swing.JPanel();
+        btnAgregarProveedor = new javax.swing.JPanel();
         Nuevo1 = new javax.swing.JLabel();
         ImagenADD1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblDetalleCompra = new javax.swing.JTable();
+        txtTotalCompra = new javax.swing.JTextField();
 
         Fondo.setBackground(new java.awt.Color(255, 255, 255));
         Fondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -131,26 +195,21 @@ public class PanelProveedores extends javax.swing.JPanel {
         Proveedor.setText("Proveedor (RUC / Nombre)::");
         Fondo.add(Proveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
 
-        Tipo.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
-        Tipo.setForeground(new java.awt.Color(153, 153, 153));
-        Tipo.setText("Tipo de Proveedor:");
-        Fondo.add(Tipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
-
         Factura.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         Factura.setForeground(new java.awt.Color(153, 153, 153));
         Factura.setText("N° Factura / Referencia:");
-        Fondo.add(Factura, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 180, -1, -1));
+        Fondo.add(Factura, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, -1, -1));
 
         Fecha.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         Fecha.setForeground(new java.awt.Color(153, 153, 153));
         Fecha.setText("Fecha de Envío:");
-        Fondo.add(Fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, -1, -1));
+        Fondo.add(Fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, -1, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/images (2).jpg"))); // NOI18N
         Fondo.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 60, -1, -1));
 
-        comboProveedores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un proveedor", "Item 2", "Item 3", "Item 4" }));
-        Fondo.add(comboProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 240, -1));
+        cbxProveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 2", "Item 3", "Item 4" }));
+        Fondo.add(cbxProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 240, -1));
 
         TituloFuncion2.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         TituloFuncion2.setForeground(new java.awt.Color(153, 153, 153));
@@ -172,48 +231,46 @@ public class PanelProveedores extends javax.swing.JPanel {
         Precio.setText("Precio Unitario:");
         Fondo.add(Precio, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 290, -1, -1));
 
-        txtCantidad.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtCantidadCompra.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtCantidadFocusGained(evt);
+                txtCantidadCompraFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtCantidadFocusLost(evt);
+                txtCantidadCompraFocusLost(evt);
             }
         });
-        Fondo.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 310, 270, -1));
+        Fondo.add(txtCantidadCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 310, 270, -1));
 
-        comboRepuestos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un tipo de proveedor", "Item 2", "Item 3", "Item 4" }));
-        Fondo.add(comboRepuestos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, 240, -1));
+        cbxRepuesto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 2", "Item 3", "Item 4" }));
+        cbxRepuesto.addActionListener(this::cbxRepuestoActionPerformed);
+        Fondo.add(cbxRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, 240, -1));
 
-        txtFactura.addActionListener(this::txtFacturaActionPerformed);
-        Fondo.add(txtFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 200, 200, -1));
-        Fondo.add(dateProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 200, -1));
+        txtIdCompra.addActionListener(this::txtIdCompraActionPerformed);
+        Fondo.add(txtIdCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 140, 200, -1));
+        Fondo.add(txtFechaCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 190, 200, -1));
 
-        txtPrecio.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtPrecioUnitarioCompra.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtPrecioFocusGained(evt);
+                txtPrecioUnitarioCompraFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtPrecioFocusLost(evt);
+                txtPrecioUnitarioCompraFocusLost(evt);
             }
         });
-        Fondo.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 310, 270, -1));
+        Fondo.add(txtPrecioUnitarioCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 310, 270, -1));
 
-        comboTipoProvee.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un tipo de proveedor", "Item 2", "Item 3", "Item 4" }));
-        Fondo.add(comboTipoProvee, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 240, -1));
-
-        PanelNuevo.setBackground(new java.awt.Color(255, 255, 255));
-        PanelNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnAgregarItem.setBackground(new java.awt.Color(255, 255, 255));
+        btnAgregarItem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        btnAgregarItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgregarItem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PanelNuevoMouseClicked(evt);
+                btnAgregarItemMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelNuevoMouseEntered(evt);
+                btnAgregarItemMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelNuevoMouseExited(evt);
+                btnAgregarItemMouseExited(evt);
             }
         });
 
@@ -222,41 +279,41 @@ public class PanelProveedores extends javax.swing.JPanel {
 
         ImagenADD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
 
-        javax.swing.GroupLayout PanelNuevoLayout = new javax.swing.GroupLayout(PanelNuevo);
-        PanelNuevo.setLayout(PanelNuevoLayout);
-        PanelNuevoLayout.setHorizontalGroup(
-            PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNuevoLayout.createSequentialGroup()
+        javax.swing.GroupLayout btnAgregarItemLayout = new javax.swing.GroupLayout(btnAgregarItem);
+        btnAgregarItem.setLayout(btnAgregarItemLayout);
+        btnAgregarItemLayout.setHorizontalGroup(
+            btnAgregarItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnAgregarItemLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(ImagenADD)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Nuevo)
                 .addContainerGap(33, Short.MAX_VALUE))
         );
-        PanelNuevoLayout.setVerticalGroup(
-            PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNuevoLayout.createSequentialGroup()
+        btnAgregarItemLayout.setVerticalGroup(
+            btnAgregarItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnAgregarItemLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(btnAgregarItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ImagenADD)
                     .addComponent(Nuevo))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Fondo.add(PanelNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 310, -1, -1));
+        Fondo.add(btnAgregarItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 310, -1, -1));
 
-        PanelGuardar.setBackground(new java.awt.Color(242, 101, 34));
-        PanelGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnGuardarCompra.setBackground(new java.awt.Color(242, 101, 34));
+        btnGuardarCompra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        btnGuardarCompra.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGuardarCompra.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PanelGuardarMouseClicked(evt);
+                btnGuardarCompraMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelGuardarMouseEntered(evt);
+                btnGuardarCompraMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelGuardarMouseExited(evt);
+                btnGuardarCompraMouseExited(evt);
             }
         });
 
@@ -266,28 +323,28 @@ public class PanelProveedores extends javax.swing.JPanel {
 
         ImagenSAVE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/save_22dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
 
-        javax.swing.GroupLayout PanelGuardarLayout = new javax.swing.GroupLayout(PanelGuardar);
-        PanelGuardar.setLayout(PanelGuardarLayout);
-        PanelGuardarLayout.setHorizontalGroup(
-            PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelGuardarLayout.createSequentialGroup()
+        javax.swing.GroupLayout btnGuardarCompraLayout = new javax.swing.GroupLayout(btnGuardarCompra);
+        btnGuardarCompra.setLayout(btnGuardarCompraLayout);
+        btnGuardarCompraLayout.setHorizontalGroup(
+            btnGuardarCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnGuardarCompraLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(ImagenSAVE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Guardar)
                 .addContainerGap(36, Short.MAX_VALUE))
         );
-        PanelGuardarLayout.setVerticalGroup(
-            PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelGuardarLayout.createSequentialGroup()
+        btnGuardarCompraLayout.setVerticalGroup(
+            btnGuardarCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnGuardarCompraLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(btnGuardarCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Guardar)
                     .addComponent(ImagenSAVE))
                 .addContainerGap())
         );
 
-        Fondo.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 410, -1, -1));
+        Fondo.add(btnGuardarCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 410, -1, -1));
 
         PanelEditar.setBackground(new java.awt.Color(255, 255, 255));
         PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -370,18 +427,18 @@ public class PanelProveedores extends javax.swing.JPanel {
 
         Fondo.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 410, -1, -1));
 
-        PanelNuevo1.setBackground(new java.awt.Color(255, 255, 255));
-        PanelNuevo1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelNuevo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelNuevo1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnAgregarProveedor.setBackground(new java.awt.Color(255, 255, 255));
+        btnAgregarProveedor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        btnAgregarProveedor.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgregarProveedor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PanelNuevo1MouseClicked(evt);
+                btnAgregarProveedorMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelNuevo1MouseEntered(evt);
+                btnAgregarProveedorMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelNuevo1MouseExited(evt);
+                btnAgregarProveedorMouseExited(evt);
             }
         });
 
@@ -390,28 +447,44 @@ public class PanelProveedores extends javax.swing.JPanel {
 
         ImagenADD1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
 
-        javax.swing.GroupLayout PanelNuevo1Layout = new javax.swing.GroupLayout(PanelNuevo1);
-        PanelNuevo1.setLayout(PanelNuevo1Layout);
-        PanelNuevo1Layout.setHorizontalGroup(
-            PanelNuevo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNuevo1Layout.createSequentialGroup()
+        javax.swing.GroupLayout btnAgregarProveedorLayout = new javax.swing.GroupLayout(btnAgregarProveedor);
+        btnAgregarProveedor.setLayout(btnAgregarProveedorLayout);
+        btnAgregarProveedorLayout.setHorizontalGroup(
+            btnAgregarProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnAgregarProveedorLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(ImagenADD1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Nuevo1)
                 .addContainerGap(33, Short.MAX_VALUE))
         );
-        PanelNuevo1Layout.setVerticalGroup(
-            PanelNuevo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNuevo1Layout.createSequentialGroup()
+        btnAgregarProveedorLayout.setVerticalGroup(
+            btnAgregarProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnAgregarProveedorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PanelNuevo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(btnAgregarProveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ImagenADD1)
                     .addComponent(Nuevo1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Fondo.add(PanelNuevo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 160, -1, -1));
+        Fondo.add(btnAgregarProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, -1, -1));
+
+        tblDetalleCompra.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ID Repuesto", "Nombre Repuesto", "Cantidad", "Precio Unit.", "Subtotal"
+            }
+        ));
+        jScrollPane1.setViewportView(tblDetalleCompra);
+
+        Fondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 480, 380, 100));
+        Fondo.add(txtTotalCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 400, 110, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -430,63 +503,136 @@ public class PanelProveedores extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnRegresarMouseClicked
 
-    private void txtCantidadFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCantidadFocusGained
-        if (txtCantidad.getText().equals("Ingrese la cantidad a solicitar")) {
-            txtCantidad.setText("");
-            txtCantidad.setForeground(java.awt.Color.BLACK);
+    private void txtCantidadCompraFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCantidadCompraFocusGained
+        if (txtCantidadCompra.getText().equals("Ingrese la cantidad a solicitar")) {
+            txtCantidadCompra.setText("");
+            txtCantidadCompra.setForeground(java.awt.Color.BLACK);
         }
-    }//GEN-LAST:event_txtCantidadFocusGained
+    }//GEN-LAST:event_txtCantidadCompraFocusGained
 
-    private void txtCantidadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCantidadFocusLost
-        if (txtCantidad.getText().trim().isEmpty()) {
-            txtCantidad.setText("Ingrese la cantidad a solicitar");
-            txtCantidad.setForeground(java.awt.Color.GRAY);
+    private void txtCantidadCompraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCantidadCompraFocusLost
+        if (txtCantidadCompra.getText().trim().isEmpty()) {
+            txtCantidadCompra.setText("Ingrese la cantidad a solicitar");
+            txtCantidadCompra.setForeground(java.awt.Color.GRAY);
         }
-    }//GEN-LAST:event_txtCantidadFocusLost
+    }//GEN-LAST:event_txtCantidadCompraFocusLost
 
-    private void txtFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFacturaActionPerformed
+    private void txtIdCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdCompraActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFacturaActionPerformed
+    }//GEN-LAST:event_txtIdCompraActionPerformed
 
-    private void txtPrecioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPrecioFocusGained
+    private void txtPrecioUnitarioCompraFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPrecioUnitarioCompraFocusGained
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtPrecioFocusGained
+    }//GEN-LAST:event_txtPrecioUnitarioCompraFocusGained
 
-    private void txtPrecioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPrecioFocusLost
+    private void txtPrecioUnitarioCompraFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPrecioUnitarioCompraFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtPrecioFocusLost
+    }//GEN-LAST:event_txtPrecioUnitarioCompraFocusLost
 
-    private void PanelNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseClicked
+    private void btnAgregarItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarItemMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_PanelNuevoMouseClicked
+        try {
+        Repuesto repuestoSel = (Repuesto) cbxRepuesto.getSelectedItem();
+        int cantidad = Integer.parseInt(txtCantidadCompra.getText().trim());
+        double precio = Double.parseDouble(txtPrecioUnitarioCompra.getText().trim().replace(',', '.'));
 
-    private void PanelNuevoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseEntered
+        if (repuestoSel == null || cantidad <= 0 || precio <= 0) {
+            JOptionPane.showMessageDialog(this, "Seleccione un repuesto e ingrese valores válidos.", "Validación", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        double subtotal = cantidad * precio;
+
+        modeloTabla.addRow(new Object[]{
+            repuestoSel.getIdRepuestos(),
+            repuestoSel.getNomRepuesto(),
+            cantidad,
+            precio,
+            subtotal
+        });
+
+        calcularTotal();
+
+        txtCantidadCompra.setText("");
+        txtPrecioUnitarioCompra.setText("");
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Ingrese una cantidad y precio válidos.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+private void calcularTotal() {
+    double total = 0.0;
+    for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+        total += (double) modeloTabla.getValueAt(i, 4);
+    }
+    txtTotalCompra.setText(String.format("%.2f", total).replace(',', '.'));
+    }//GEN-LAST:event_btnAgregarItemMouseClicked
+
+    private void btnAgregarItemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarItemMouseEntered
         // TODO add your handling code here:
-        PanelNuevo.setBackground(new java.awt.Color(219,219,219));
+        btnAgregarItem.setBackground(new java.awt.Color(219,219,219));
         Nuevo.setForeground(new java.awt.Color(66, 66, 66));
-    }//GEN-LAST:event_PanelNuevoMouseEntered
+    }//GEN-LAST:event_btnAgregarItemMouseEntered
 
-    private void PanelNuevoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseExited
+    private void btnAgregarItemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarItemMouseExited
         // TODO add your handling code here:
-        PanelNuevo.setBackground(java.awt.Color.white);
+        btnAgregarItem.setBackground(java.awt.Color.white);
         Nuevo.setForeground(java.awt.Color.black);
-    }//GEN-LAST:event_PanelNuevoMouseExited
+    }//GEN-LAST:event_btnAgregarItemMouseExited
 
-    private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
+    private void btnGuardarCompraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarCompraMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_PanelGuardarMouseClicked
+    if (modeloTabla.getRowCount() == 0) {
+        JOptionPane.showMessageDialog(this, "Debe agregar al menos un repuesto a la compra.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
 
-    private void PanelGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseEntered
+    Proveedor provSel = (Proveedor) cbxProveedor.getSelectedItem();
+    if (provSel == null) {
+        JOptionPane.showMessageDialog(this, "Seleccione un proveedor.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    String idCompra = txtIdCompra.getText().trim();
+    Date fechaSeleccionada = txtFechaCompra.getDate();
+String fecha = "";
+if (fechaSeleccionada != null) {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
+    fecha = sdf.format(fechaSeleccionada);
+}
+    double total = Double.parseDouble(txtTotalCompra.getText().trim().replace(',', '.'));
+
+    if (compraDAO.guardarEncabezadoCompra(idCompra, fecha, total, provSel.getIdProveedor(), miConexion)) {
+
+        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+            String idDetalle = "DET-" + System.currentTimeMillis() + "-" + i;
+            String idRepuesto = (String) modeloTabla.getValueAt(i, 0);
+            int cantidad = (int) modeloTabla.getValueAt(i, 2);
+            double subtotal = (double) modeloTabla.getValueAt(i, 4);
+
+            compraDAO.guardarDetalleCompra(idDetalle, cantidad, subtotal, idRepuesto, idCompra, miConexion);
+            compraDAO.actualizarStockRepuesto(idRepuesto, cantidad, miConexion);
+        }
+
+        JOptionPane.showMessageDialog(this, "¡Compra registrada y stock actualizado exitosamente!");
+        limpiarFormulario();
+    } else {
+        JOptionPane.showMessageDialog(this, "Error al guardar la compra.", "Error SQL", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_btnGuardarCompraMouseClicked
+
+    private void btnGuardarCompraMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarCompraMouseEntered
         // TODO add your handling code here:
-        PanelGuardar.setBackground(new java.awt.Color(227, 95, 32));
+        btnGuardarCompra.setBackground(new java.awt.Color(227, 95, 32));
         Guardar.setForeground(new java.awt.Color(217, 217, 192));
-    }//GEN-LAST:event_PanelGuardarMouseEntered
+    }//GEN-LAST:event_btnGuardarCompraMouseEntered
 
-    private void PanelGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseExited
+    private void btnGuardarCompraMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarCompraMouseExited
         // TODO add your handling code here:
-        PanelGuardar.setBackground(new java.awt.Color(242,101,34));
+        btnGuardarCompra.setBackground(new java.awt.Color(242,101,34));
         Guardar.setForeground(java.awt.Color.white);
-    }//GEN-LAST:event_PanelGuardarMouseExited
+    }//GEN-LAST:event_btnGuardarCompraMouseExited
 
     private void PanelEditarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseEntered
         // TODO add your handling code here:
@@ -512,17 +658,28 @@ public class PanelProveedores extends javax.swing.JPanel {
         Buscar.setForeground(java.awt.Color.black);
     }//GEN-LAST:event_PanelBuscarMouseExited
 
-    private void PanelNuevo1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevo1MouseClicked
+    private void btnAgregarProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarProveedorMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_PanelNuevo1MouseClicked
+    }//GEN-LAST:event_btnAgregarProveedorMouseClicked
 
-    private void PanelNuevo1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevo1MouseEntered
+    private void btnAgregarProveedorMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarProveedorMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_PanelNuevo1MouseEntered
+    }//GEN-LAST:event_btnAgregarProveedorMouseEntered
 
-    private void PanelNuevo1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevo1MouseExited
+    private void btnAgregarProveedorMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarProveedorMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_PanelNuevo1MouseExited
+    }//GEN-LAST:event_btnAgregarProveedorMouseExited
+
+    private void cbxRepuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxRepuestoActionPerformed
+        // TODO add your handling code here:
+    Repuesto repuestoSel = (Repuesto) cbxRepuesto.getSelectedItem();
+    if (repuestoSel != null) {
+        txtPrecioUnitarioCompra.setText(String.valueOf(repuestoSel.getPrecioRepuestoUnit()));
+    } else {
+        txtPrecioUnitarioCompra.setText("");
+    }
+
+    }//GEN-LAST:event_cbxRepuestoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -543,25 +700,26 @@ public class PanelProveedores extends javax.swing.JPanel {
     private javax.swing.JLabel Nuevo1;
     private javax.swing.JPanel PanelBuscar;
     private javax.swing.JPanel PanelEditar;
-    private javax.swing.JPanel PanelGuardar;
-    private javax.swing.JPanel PanelNuevo;
-    private javax.swing.JPanel PanelNuevo1;
     private javax.swing.JLabel Precio;
     private javax.swing.JLabel Proveedor;
     private javax.swing.JLabel Repuesto;
-    private javax.swing.JLabel Tipo;
     private javax.swing.JLabel TituloFuncion1;
     private javax.swing.JLabel TituloFuncion2;
+    private javax.swing.JPanel btnAgregarItem;
+    private javax.swing.JPanel btnAgregarProveedor;
+    private javax.swing.JPanel btnGuardarCompra;
     private javax.swing.JLabel btnRegresar;
-    private javax.swing.JComboBox<String> comboProveedores;
-    private javax.swing.JComboBox<String> comboRepuestos;
-    private javax.swing.JComboBox<String> comboTipoProvee;
-    private com.toedter.calendar.JDateChooser dateProveedores;
+    private javax.swing.JComboBox<Object> cbxProveedor;
+    private javax.swing.JComboBox<Object> cbxRepuesto;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JTextField txtCantidad;
-    private javax.swing.JTextField txtFactura;
-    private javax.swing.JTextField txtPrecio;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblDetalleCompra;
+    private javax.swing.JTextField txtCantidadCompra;
+    private com.toedter.calendar.JDateChooser txtFechaCompra;
+    private javax.swing.JTextField txtIdCompra;
+    private javax.swing.JTextField txtPrecioUnitarioCompra;
+    private javax.swing.JTextField txtTotalCompra;
     // End of variables declaration//GEN-END:variables
 }

@@ -105,4 +105,21 @@ public class RepuestoDAO {
     
     return "REP-001"; 
 }
+    
+    public List<Repuesto> obtenerRepuestos(Connection con) {
+    List<Repuesto> lista = new ArrayList<>();
+    String sql = "SELECT id_repuestos, nom_repuesto, precio_repuesto_unit FROM public.repuestos";
+    try (Statement st = con.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+        while (rs.next()) {
+            lista.add(new Repuesto(
+                rs.getString("id_repuestos"),
+                rs.getString("nom_repuesto"),
+                rs.getDouble("precio_repuesto_unit")
+            ));
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener repuestos: " + e.getMessage());
+    }
+    return lista;
+}
 }
