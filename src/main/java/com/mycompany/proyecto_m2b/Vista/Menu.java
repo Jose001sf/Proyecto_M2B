@@ -306,6 +306,13 @@ public class Menu extends javax.swing.JFrame {
 
         PanelPaneles.setLayout(new java.awt.CardLayout());
 
+        jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jScrollPane1MouseExited(evt);
+            }
+        });
+
         PanelAccesos.setBackground(new java.awt.Color(79, 84, 90));
 
         PanelOrdenesServicio.setBackground(new java.awt.Color(53, 58, 61));
@@ -1049,6 +1056,10 @@ public class Menu extends javax.swing.JFrame {
         L.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_RegresarMouseClicked
+
+    private void jScrollPane1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jScrollPane1MouseExited
 
     /**
      * @param args the command line arguments
