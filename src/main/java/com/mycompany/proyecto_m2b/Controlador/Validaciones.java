@@ -245,7 +245,7 @@ public class Validaciones {
         if(cadena == null) {
             return false;
         }
-        Pattern pat = Pattern.compile("^[A-Za-zÁÉÍÓÚÑáéíóúñ ]{3,60}$");
+        Pattern pat = Pattern.compile("^(?!.*(.)\\1{3,})[A-Za-zÁÉÍÓÚÑáéíóúñ ]{3,60}$");
         return pat.matcher(cadena).matches();
     }
     public static boolean validarDescripTipoServicio(String cadena){
@@ -254,5 +254,34 @@ public class Validaciones {
         }
         Pattern pat=Pattern.compile("^[A-Za-zÁÉÍÓÚÑáéíóúñ0-9 .,-]{5,90}$");
         return pat.matcher(cadena).matches();
+    }
+    
+    //validaciones servicios
+    public static boolean validarNombreServicio(String cadena){
+        if(cadena == null) {
+            return false;
+        }
+        Pattern pat = Pattern.compile("^(?!.*(.)\\1{3,})[A-Za-zÁÉÍÓÚÑáéíóúñ ]{3,60}$");
+        return pat.matcher(cadena).matches();
+    }
+    public static boolean validarPrecio(String cadena){
+        if(cadena == null) {
+            return false;
+        }
+        cadena = cadena.trim();
+        Pattern pat = Pattern.compile("^\\d{1,6}(\\.\\d{1,2})?$");
+        if(!pat.matcher(cadena).matches()) return false;
+        float valor = Float.parseFloat(cadena);
+        return valor > 0;
+    }
+    public static boolean validarTiempo(String cadena){
+        if(cadena == null) {
+            return false;
+        }
+        cadena = cadena.trim();
+        Pattern pat = Pattern.compile("^\\d{1,4}");
+        if(!pat.matcher(cadena).matches()) return false;
+        int valor = Integer.parseInt(cadena);
+        return valor > 0;
     }
 }

@@ -1,13 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.proyecto_m2b.modelo;
 
-/**
- *
- * @author castr
- */
 public class Tipo_de_servicio {
     private String ID_tipo_servicio;
     private String Nom_tipo_servi;
@@ -48,7 +41,8 @@ public class Tipo_de_servicio {
 
     @Override
     public String toString() {
-        return "Tipo_de_servicio{" + "ID_tipo_servicio=" + ID_tipo_servicio + ", Nom_tipo_servi=" + Nom_tipo_servi + ", Desc_tipo_servicio=" + Desc_tipo_servicio + '}';
+        return Nom_tipo_servi;
     }
+    
     
 }
