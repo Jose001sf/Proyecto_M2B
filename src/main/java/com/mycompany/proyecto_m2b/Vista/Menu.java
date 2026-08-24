@@ -106,7 +106,6 @@ public class Menu extends javax.swing.JFrame {
         setLocationByPlatform(true);
         setUndecorated(true);
         setResizable(false);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         PanelFondoMenu.setBackground(new java.awt.Color(238, 238, 238));
         PanelFondoMenu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -293,7 +292,7 @@ public class Menu extends javax.swing.JFrame {
         PanelBarraInferior.setLayout(PanelBarraInferiorLayout);
         PanelBarraInferiorLayout.setHorizontalGroup(
             PanelBarraInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 2301, Short.MAX_VALUE)
+            .addGap(0, 1821, Short.MAX_VALUE)
         );
         PanelBarraInferiorLayout.setVerticalGroup(
             PanelBarraInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -701,7 +700,7 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(PanelAccesosLayout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 53, Short.MAX_VALUE))
+                .addGap(0, 55, Short.MAX_VALUE))
         );
         PanelAccesosLayout.setVerticalGroup(
             PanelAccesosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -737,17 +736,17 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PanelPaneles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1965, Short.MAX_VALUE))
+                .addGap(0, 1485, Short.MAX_VALUE))
         );
         PanelFondoBlancoLayout.setVerticalGroup(
             PanelFondoBlancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(PanelPaneles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 743, Short.MAX_VALUE)
         );
 
         PanelFondoMenu.add(PanelFondoBlanco, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(PanelFondoMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(PanelFondoMenu, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
