@@ -312,7 +312,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="1941" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="1963" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -995,7 +995,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="PanelPaneles" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="1634" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="1665" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

@@ -5,8 +5,14 @@
 package com.mycompany.proyecto_m2b.Vista;
 
 import com.mycompany.proyecto_m2b.Controlador.RegistrarEmpresaRecicladoraDAO;
+import com.mycompany.proyecto_m2b.Controlador.ResiduoDAO;
+import com.mycompany.proyecto_m2b.Controlador.VentaDAO;
+import com.mycompany.proyecto_m2b.modelo.DetalleVenta;
 import com.mycompany.proyecto_m2b.modelo.Empresa_recicladora;
+import com.mycompany.proyecto_m2b.modelo.EncabezadoVenta;
+import com.mycompany.proyecto_m2b.modelo.Residuos;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,18 +24,19 @@ public class PanelResiduos extends javax.swing.JPanel {
      * Creates new form PanelResiduos
      */
     public PanelResiduos() {
-        initComponents();
-        java.time.LocalDate fechaActual = java.time.LocalDate.now();
-    
+    initComponents();
+
+    java.time.LocalDate fechaActual = java.time.LocalDate.now();
     dateReciclaje.setDate(java.sql.Date.valueOf(fechaActual));
     dateReciclaje.setEnabled(false); 
+
     txtNReciclaje.setText(generarNumeroFactura());
     txtNReciclaje.setEditable(false); 
-    
     txtNReciclaje.setEnabled(false);
     txtDireccion.setEnabled(false);
     txtTipoEmpresa.setEnabled(false);
 
+    cargarComboResiduos();
     cargarEmpresasEnCombo();
     }
     
@@ -46,10 +53,23 @@ public class PanelResiduos extends javax.swing.JPanel {
     }
     }
     private String generarNumeroFactura() {
-    int ultimoNumero = 0;
-    int nuevoNumero = ultimoNumero + 1;
-    return String.format("FAC-%06d", nuevoNumero);
+    VentaDAO dao = new VentaDAO();
+    return dao.obtenerSiguienteNumeroFactura();
 }
+
+    public void cargarComboResiduos() {
+    comboVentaResiduo.removeAllItems();
+    comboVentaResiduo.addItem("Seleccione un residuo...");
+
+    ResiduoDAO dao = new ResiduoDAO();
+    List<Residuos> lista = dao.listarResiduos();
+
+    for (Residuos r : lista) {
+        comboVentaResiduo.addItem(r.getID_resiudos() + " - " + r.getNom_residuo());
+    }
+}
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,37 +90,38 @@ public class PanelResiduos extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         TituloFuncion2 = new javax.swing.JLabel();
         Residuo = new javax.swing.JLabel();
-        Kilos = new javax.swing.JLabel();
-        PrecioResiduos = new javax.swing.JLabel();
+        PrecioUnitario = new javax.swing.JLabel();
         comboEmpresas = new javax.swing.JComboBox<>();
         Empresa = new javax.swing.JLabel();
         FechaResiduos = new javax.swing.JLabel();
         dateReciclaje = new com.toedter.calendar.JDateChooser();
         txtDireccion = new javax.swing.JTextField();
         txtNReciclaje = new javax.swing.JTextField();
-        txtPrecio = new javax.swing.JTextField();
-        comboResiduos = new javax.swing.JComboBox<>();
-        txtKilos = new javax.swing.JTextField();
-        PanelNuevo1 = new javax.swing.JPanel();
+        PanelNuevoResiduo = new javax.swing.JPanel();
         Nuevo1 = new javax.swing.JLabel();
         ImagenADD1 = new javax.swing.JLabel();
         PanelNuevaEmpresa = new javax.swing.JPanel();
         Nuevo2 = new javax.swing.JLabel();
         ImagenADD2 = new javax.swing.JLabel();
-        PanelNuevo = new javax.swing.JPanel();
-        Nuevo = new javax.swing.JLabel();
-        ImagenADD = new javax.swing.JLabel();
         PanelGuardar = new javax.swing.JPanel();
         Guardar = new javax.swing.JLabel();
         ImagenSAVE = new javax.swing.JLabel();
         PanelEditar = new javax.swing.JPanel();
         Editar = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        PanelBuscar = new javax.swing.JPanel();
+        PanelAgregar = new javax.swing.JPanel();
         Buscar = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        ImagenADD3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         txtTipoEmpresa = new javax.swing.JTextField();
+        comboVentaResiduo = new javax.swing.JComboBox<>();
+        txtCantidadVenta = new javax.swing.JTextField();
+        txtPrecioUnitario = new javax.swing.JTextField();
+        txtTotal = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        TotalPrecio = new javax.swing.JLabel();
+        Kilos2 = new javax.swing.JLabel();
 
         Fondo.setBackground(new java.awt.Color(255, 255, 255));
         Fondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -186,15 +207,10 @@ public class PanelResiduos extends javax.swing.JPanel {
         Residuo.setText("Residuo / Tipo:");
         Fondo.add(Residuo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, -1, -1));
 
-        Kilos.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
-        Kilos.setForeground(new java.awt.Color(153, 153, 153));
-        Kilos.setText("Cantidad (Kg/L):");
-        Fondo.add(Kilos, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 280, -1, -1));
-
-        PrecioResiduos.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
-        PrecioResiduos.setForeground(new java.awt.Color(153, 153, 153));
-        PrecioResiduos.setText("Precio Unitario:");
-        Fondo.add(PrecioResiduos, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 280, -1, -1));
+        PrecioUnitario.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        PrecioUnitario.setForeground(new java.awt.Color(153, 153, 153));
+        PrecioUnitario.setText("Precio Unitario:");
+        Fondo.add(PrecioUnitario, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 280, -1, -1));
 
         comboEmpresas.addActionListener(this::comboEmpresasActionPerformed);
         Fondo.add(comboEmpresas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 260, -1));
@@ -211,54 +227,49 @@ public class PanelResiduos extends javax.swing.JPanel {
         Fondo.add(dateReciclaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 200, -1));
         Fondo.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 200, 200, -1));
         Fondo.add(txtNReciclaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 260, -1));
-        Fondo.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 300, 240, -1));
 
-        comboResiduos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccion un tipo de residuo", "Item 2", "Item 3", "Item 4" }));
-        Fondo.add(comboResiduos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 240, -1));
-        Fondo.add(txtKilos, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 300, 240, -1));
-
-        PanelNuevo1.setBackground(new java.awt.Color(255, 255, 255));
-        PanelNuevo1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelNuevo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelNuevo1.addMouseListener(new java.awt.event.MouseAdapter() {
+        PanelNuevoResiduo.setBackground(new java.awt.Color(255, 255, 255));
+        PanelNuevoResiduo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        PanelNuevoResiduo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelNuevoResiduo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PanelNuevo1MouseClicked(evt);
+                PanelNuevoResiduoMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelNuevo1MouseEntered(evt);
+                PanelNuevoResiduoMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelNuevo1MouseExited(evt);
+                PanelNuevoResiduoMouseExited(evt);
             }
         });
 
         Nuevo1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        Nuevo1.setText("Nuevo");
+        Nuevo1.setText("Nuevo Residuo");
 
         ImagenADD1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
 
-        javax.swing.GroupLayout PanelNuevo1Layout = new javax.swing.GroupLayout(PanelNuevo1);
-        PanelNuevo1.setLayout(PanelNuevo1Layout);
-        PanelNuevo1Layout.setHorizontalGroup(
-            PanelNuevo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNuevo1Layout.createSequentialGroup()
+        javax.swing.GroupLayout PanelNuevoResiduoLayout = new javax.swing.GroupLayout(PanelNuevoResiduo);
+        PanelNuevoResiduo.setLayout(PanelNuevoResiduoLayout);
+        PanelNuevoResiduoLayout.setHorizontalGroup(
+            PanelNuevoResiduoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelNuevoResiduoLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(ImagenADD1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Nuevo1)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        PanelNuevo1Layout.setVerticalGroup(
-            PanelNuevo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNuevo1Layout.createSequentialGroup()
+        PanelNuevoResiduoLayout.setVerticalGroup(
+            PanelNuevoResiduoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelNuevoResiduoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PanelNuevo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelNuevoResiduoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ImagenADD1)
                     .addComponent(Nuevo1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Fondo.add(PanelNuevo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 280, -1, -1));
+        Fondo.add(PanelNuevoResiduo, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 270, -1, -1));
 
         PanelNuevaEmpresa.setBackground(new java.awt.Color(255, 255, 255));
         PanelNuevaEmpresa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -276,7 +287,7 @@ public class PanelResiduos extends javax.swing.JPanel {
         });
 
         Nuevo2.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        Nuevo2.setText("Nuevo");
+        Nuevo2.setText("Nueva Empresa");
 
         ImagenADD2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
 
@@ -289,7 +300,7 @@ public class PanelResiduos extends javax.swing.JPanel {
                 .addComponent(ImagenADD2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Nuevo2)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelNuevaEmpresaLayout.setVerticalGroup(
             PanelNuevaEmpresaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -302,49 +313,6 @@ public class PanelResiduos extends javax.swing.JPanel {
         );
 
         Fondo.add(PanelNuevaEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 190, -1, -1));
-
-        PanelNuevo.setBackground(new java.awt.Color(255, 255, 255));
-        PanelNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PanelNuevoMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelNuevoMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelNuevoMouseExited(evt);
-            }
-        });
-
-        Nuevo.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        Nuevo.setText("Agregar");
-
-        ImagenADD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-
-        javax.swing.GroupLayout PanelNuevoLayout = new javax.swing.GroupLayout(PanelNuevo);
-        PanelNuevo.setLayout(PanelNuevoLayout);
-        PanelNuevoLayout.setHorizontalGroup(
-            PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNuevoLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(ImagenADD)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Nuevo)
-                .addContainerGap(33, Short.MAX_VALUE))
-        );
-        PanelNuevoLayout.setVerticalGroup(
-            PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNuevoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ImagenADD)
-                    .addComponent(Nuevo))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        Fondo.add(PanelNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 330, -1, -1));
 
         PanelGuardar.setBackground(new java.awt.Color(242, 101, 34));
         PanelGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -431,51 +399,85 @@ public class PanelResiduos extends javax.swing.JPanel {
 
         Fondo.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 380, -1, -1));
 
-        PanelBuscar.setBackground(new java.awt.Color(255, 255, 255));
-        PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+        PanelAgregar.setBackground(new java.awt.Color(255, 255, 255));
+        PanelAgregar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        PanelAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelAgregarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelBuscarMouseEntered(evt);
+                PanelAgregarMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelBuscarMouseExited(evt);
+                PanelAgregarMouseExited(evt);
             }
         });
 
         Buscar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        Buscar.setText("Buscar");
+        Buscar.setText("Agregar");
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/person_search_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+        ImagenADD3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
 
-        javax.swing.GroupLayout PanelBuscarLayout = new javax.swing.GroupLayout(PanelBuscar);
-        PanelBuscar.setLayout(PanelBuscarLayout);
-        PanelBuscarLayout.setHorizontalGroup(
-            PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelBuscarLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        javax.swing.GroupLayout PanelAgregarLayout = new javax.swing.GroupLayout(PanelAgregar);
+        PanelAgregar.setLayout(PanelAgregarLayout);
+        PanelAgregarLayout.setHorizontalGroup(
+            PanelAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAgregarLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(ImagenADD3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Buscar)
                 .addContainerGap(31, Short.MAX_VALUE))
         );
-        PanelBuscarLayout.setVerticalGroup(
-            PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelBuscarLayout.createSequentialGroup()
+        PanelAgregarLayout.setVerticalGroup(
+            PanelAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelAgregarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Buscar)
-                    .addComponent(jLabel3))
+                .addGroup(PanelAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ImagenADD3)
+                    .addComponent(Buscar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Fondo.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 380, -1, -1));
+        Fondo.add(PanelAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 290, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 153, 153));
         jLabel1.setText("Tipo de Empresa");
         Fondo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 120, -1, -1));
         Fondo.add(txtTipoEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 140, 200, -1));
+
+        comboVentaResiduo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Fondo.add(comboVentaResiduo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 120, -1));
+        Fondo.add(txtCantidadVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, 120, -1));
+        Fondo.add(txtPrecioUnitario, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 300, 120, -1));
+        Fondo.add(txtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 340, 140, -1));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ID Residuo", "Nombre Residuo", "Cantidad", "Precio U.", "Subtotal"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        Fondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 430, 470, 190));
+
+        TotalPrecio.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        TotalPrecio.setForeground(new java.awt.Color(153, 153, 153));
+        TotalPrecio.setText("Total:");
+        Fondo.add(TotalPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 320, -1, -1));
+
+        Kilos2.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        Kilos2.setForeground(new java.awt.Color(153, 153, 153));
+        Kilos2.setText("Cantidad (Kg/L):");
+        Fondo.add(Kilos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 280, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -493,6 +495,7 @@ public class PanelResiduos extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnRegresarMouseClicked
 
+    
     private void comboEmpresasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEmpresasActionPerformed
         Object seleccionado = comboEmpresas.getSelectedItem();
 
@@ -507,17 +510,67 @@ public class PanelResiduos extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_comboEmpresasActionPerformed
 
-    private void PanelNuevo1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevo1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PanelNuevo1MouseClicked
+    private void PanelNuevoResiduoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoResiduoMouseClicked
+        NuevoResiduo panel = new NuevoResiduo();
 
-    private void PanelNuevo1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevo1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PanelNuevo1MouseEntered
+        java.awt.Window parentWindow = javax.swing.SwingUtilities.getWindowAncestor(this);
+        javax.swing.JDialog dialog;
 
-    private void PanelNuevo1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevo1MouseExited
+        if (parentWindow instanceof java.awt.Frame) {
+            dialog = new javax.swing.JDialog((java.awt.Frame) parentWindow);
+        } else if (parentWindow instanceof java.awt.Dialog) {
+            dialog = new javax.swing.JDialog((java.awt.Dialog) parentWindow);
+        } else {
+            dialog = new javax.swing.JDialog();
+        }
+
+        dialog.setUndecorated(true);
+        dialog.add(panel);
+        dialog.pack();
+
+        java.awt.Point location = new java.awt.Point(0, PanelNuevoResiduo.getHeight());
+        javax.swing.SwingUtilities.convertPointToScreen(location, PanelNuevoResiduo);
+
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        int dialogWidth = dialog.getWidth();
+        int dialogHeight = dialog.getHeight();
+
+        if (location.x + dialogWidth > screenSize.width) {
+            location.x = location.x + PanelNuevoResiduo.getWidth() - dialogWidth;
+        }
+
+        if (location.y + dialogHeight > screenSize.height) {
+            java.awt.Point locationAbove = new java.awt.Point(0, -dialogHeight);
+            javax.swing.SwingUtilities.convertPointToScreen(locationAbove, PanelNuevoResiduo);
+            location.y = locationAbove.y;
+        }
+
+    dialog.addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+    @Override
+    public void windowGainedFocus(java.awt.event.WindowEvent e) {}
+
+    @Override
+    public void windowLostFocus(java.awt.event.WindowEvent e) {
+        java.awt.Window opposite = e.getOppositeWindow();
+        
+        if (opposite != null && opposite.getOwner() == dialog) {
+            return; 
+        }
+        
+        dialog.dispose();
+    }
+});
+
+        dialog.setVisible(true);
+    }//GEN-LAST:event_PanelNuevoResiduoMouseClicked
+
+    private void PanelNuevoResiduoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoResiduoMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_PanelNuevo1MouseExited
+    }//GEN-LAST:event_PanelNuevoResiduoMouseEntered
+
+    private void PanelNuevoResiduoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoResiduoMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PanelNuevoResiduoMouseExited
 
     private void PanelNuevaEmpresaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevaEmpresaMouseClicked
         // TODO add your handling code here:
@@ -535,24 +588,56 @@ public class PanelResiduos extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_PanelNuevaEmpresaMouseExited
 
-    private void PanelNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PanelNuevoMouseClicked
-
-    private void PanelNuevoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseEntered
-        // TODO add your handling code here:
-        PanelNuevo.setBackground(new java.awt.Color(219,219,219));
-        Nuevo.setForeground(new java.awt.Color(66, 66, 66));
-    }//GEN-LAST:event_PanelNuevoMouseEntered
-
-    private void PanelNuevoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseExited
-        // TODO add your handling code here:
-        PanelNuevo.setBackground(java.awt.Color.white);
-        Nuevo.setForeground(java.awt.Color.black);
-    }//GEN-LAST:event_PanelNuevoMouseExited
-
     private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
         // TODO add your handling code here:
+    Object empSel = comboEmpresas.getSelectedItem();
+    if (!(empSel instanceof Empresa_recicladora)) {
+        JOptionPane.showMessageDialog(this, "Debe seleccionar una empresa recicladora válida.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    Empresa_recicladora empresa = (Empresa_recicladora) empSel;
+    String idEmpresa = empresa.getID_empresa_rec();
+    javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+
+    java.util.List<DetalleVenta> detalles = new java.util.ArrayList<>();
+    String idEncab = txtNReciclaje.getText().trim();
+
+    for (int i = 0; i < model.getRowCount(); i++) {
+        Object objIdRes = model.getValueAt(i, 0);
+        
+        if (objIdRes != null && !objIdRes.toString().trim().isEmpty()) {
+            String timeStr = String.valueOf(System.currentTimeMillis());
+            String idDet = "DET-" + timeStr.substring(timeStr.length() - 7) + "-" + i;
+            
+            String idRes = objIdRes.toString().trim();
+            
+            int cant = (int) Double.parseDouble(model.getValueAt(i, 2).toString().replace(",", "."));
+            double subtotal = Double.parseDouble(model.getValueAt(i, 4).toString().replace(",", "."));
+
+            detalles.add(new DetalleVenta(idDet, idEncab, idRes, cant, subtotal));
+        }
+    }
+
+    if (detalles.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Debe agregar al menos un residuo a la tabla antes de guardar.", "Tabla Vacía", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    java.sql.Date fecha = new java.sql.Date(System.currentTimeMillis());
+    double total = Double.parseDouble(txtTotal.getText().trim().replace(",", "."));
+    EncabezadoVenta encab = new EncabezadoVenta(idEncab, idEmpresa, fecha, total);
+
+    VentaDAO dao = new VentaDAO();
+    if (dao.registrarVenta(encab, detalles)) {
+        JOptionPane.showMessageDialog(this, "¡Venta y detalles registrados con éxito!", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        
+        model.setRowCount(0);
+        txtTotal.setText("0.00");
+        txtNReciclaje.setText(generarNumeroFactura());
+        comboEmpresas.setSelectedIndex(0);
+    } else {
+        JOptionPane.showMessageDialog(this, "Error al guardar la transacción en la base de datos.", "Error SQL", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_PanelGuardarMouseClicked
 
     private void PanelGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseEntered
@@ -579,18 +664,117 @@ public class PanelResiduos extends javax.swing.JPanel {
         Editar.setForeground(java.awt.Color.black);
     }//GEN-LAST:event_PanelEditarMouseExited
 
-    private void PanelBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseEntered
+    private void PanelAgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelAgregarMouseEntered
         // TODO add your handling code here:
-        PanelBuscar.setBackground(new java.awt.Color(219,219,219));
+        PanelAgregar.setBackground(new java.awt.Color(219,219,219));
         Buscar.setForeground(new java.awt.Color(66, 66, 66));
-    }//GEN-LAST:event_PanelBuscarMouseEntered
+    }//GEN-LAST:event_PanelAgregarMouseEntered
 
-    private void PanelBuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseExited
+    private void PanelAgregarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelAgregarMouseExited
         // TODO add your handling code here:
-        PanelBuscar.setBackground(java.awt.Color.white);
+        PanelAgregar.setBackground(java.awt.Color.white);
         Buscar.setForeground(java.awt.Color.black);
-    }//GEN-LAST:event_PanelBuscarMouseExited
+    }//GEN-LAST:event_PanelAgregarMouseExited
 
+    private void PanelAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelAgregarMouseClicked
+       if (comboVentaResiduo.getSelectedIndex() <= 0) {
+        JOptionPane.showMessageDialog(this, "Seleccione un residuo válido.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    if (txtCantidadVenta.getText().trim().isEmpty() || txtPrecioUnitario.getText().trim().isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Por favor ingrese la cantidad y el precio unitario.", "Campos vacíos", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    try {
+        String itemSel = comboVentaResiduo.getSelectedItem().toString(); 
+        String[] partes = itemSel.split(" - ");
+        String idResiduo = partes[0].trim();
+        String nombreResiduo = partes[1].trim();
+
+        double cantidadNueva = Double.parseDouble(txtCantidadVenta.getText().trim().replace(",", "."));
+        double precioUnitario = Double.parseDouble(txtPrecioUnitario.getText().trim().replace(",", "."));
+
+        if (cantidadNueva <= 0) {
+            JOptionPane.showMessageDialog(this, "La cantidad debe ser mayor a 0.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        ResiduoDAO dao = new ResiduoDAO();
+        double stockDisponible = dao.obtenerStockActual(idResiduo); 
+
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+        boolean encontrado = false;
+
+        for (int i = 0; i < model.getRowCount(); i++) {
+            Object objId = model.getValueAt(i, 0);
+
+            if (objId != null && objId.toString().trim().equals(idResiduo)) {
+                Object objCant = model.getValueAt(i, 2);
+                double cantidadExistente = Double.parseDouble(objCant.toString().trim().replace(",", "."));
+                double cantidadTotal = cantidadExistente + cantidadNueva;
+
+                if (cantidadTotal > stockDisponible) {
+                    JOptionPane.showMessageDialog(this, 
+                        "Stock insuficiente. Stock actual: " + stockDisponible + 
+                        " | Ya tiene " + cantidadExistente + " en la tabla.", 
+                        "Stock Excedido", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                double nuevoSubtotal = cantidadTotal * precioUnitario;
+
+                model.setValueAt(cantidadTotal, i, 2);
+                model.setValueAt(precioUnitario, i, 3);
+                model.setValueAt(nuevoSubtotal, i, 4);
+
+                encontrado = true;
+                break;
+            }
+        }
+
+        if (!encontrado) {
+            if (cantidadNueva > stockDisponible) {
+                JOptionPane.showMessageDialog(this, 
+                    "Stock insuficiente. Solo quedan " + stockDisponible + " unidades disponibles.", 
+                    "Stock Excedido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            double subtotal = cantidadNueva * precioUnitario;
+            model.addRow(new Object[]{idResiduo, nombreResiduo, cantidadNueva, precioUnitario, subtotal});
+        }
+
+        calcularTotalVenta();
+
+        txtCantidadVenta.setText("");
+        txtPrecioUnitario.setText("");
+        comboVentaResiduo.setSelectedIndex(0);
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Ingrese valores numéricos válidos en Cantidad y Precio.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_PanelAgregarMouseClicked
+    
+    public void calcularTotalVenta() {
+    javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
+    double totalAcumulado = 0.0;
+
+    for (int i = 0; i < model.getRowCount(); i++) {
+        Object valorSubtotal = model.getValueAt(i, 4); 
+        
+        if (valorSubtotal != null && !valorSubtotal.toString().trim().isEmpty()) {
+            try {
+                totalAcumulado += Double.parseDouble(valorSubtotal.toString().trim().replace(",", "."));
+            } catch (NumberFormatException e) {
+                System.err.println("Error al parsear subtotal en la fila " + i + ": " + e.getMessage());
+            }
+        }
+    }
+
+    txtTotal.setText(String.format(java.util.Locale.US, "%.2f", totalAcumulado));
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BarraAbajo;
@@ -603,37 +787,38 @@ public class PanelResiduos extends javax.swing.JPanel {
     private javax.swing.JLabel FechaResiduos;
     private javax.swing.JPanel Fondo;
     private javax.swing.JLabel Guardar;
-    private javax.swing.JLabel ImagenADD;
     private javax.swing.JLabel ImagenADD1;
     private javax.swing.JLabel ImagenADD2;
+    private javax.swing.JLabel ImagenADD3;
     private javax.swing.JLabel ImagenSAVE;
-    private javax.swing.JLabel Kilos;
+    private javax.swing.JLabel Kilos2;
     private javax.swing.JLabel NombreVentanaResiduos;
-    private javax.swing.JLabel Nuevo;
     private javax.swing.JLabel Nuevo1;
     private javax.swing.JLabel Nuevo2;
-    private javax.swing.JPanel PanelBuscar;
+    private javax.swing.JPanel PanelAgregar;
     private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JPanel PanelNuevaEmpresa;
-    private javax.swing.JPanel PanelNuevo;
-    private javax.swing.JPanel PanelNuevo1;
-    private javax.swing.JLabel PrecioResiduos;
+    private javax.swing.JPanel PanelNuevoResiduo;
+    private javax.swing.JLabel PrecioUnitario;
     private javax.swing.JLabel Residuo;
     private javax.swing.JLabel TituloFuncion1;
     private javax.swing.JLabel TituloFuncion2;
+    private javax.swing.JLabel TotalPrecio;
     private javax.swing.JLabel btnRegresar;
     private javax.swing.JComboBox<Object> comboEmpresas;
-    private javax.swing.JComboBox<String> comboResiduos;
+    private javax.swing.JComboBox<String> comboVentaResiduo;
     private com.toedter.calendar.JDateChooser dateReciclaje;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField txtCantidadVenta;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtKilos;
     private javax.swing.JTextField txtNReciclaje;
-    private javax.swing.JTextField txtPrecio;
+    private javax.swing.JTextField txtPrecioUnitario;
     private javax.swing.JTextField txtTipoEmpresa;
+    private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
 }

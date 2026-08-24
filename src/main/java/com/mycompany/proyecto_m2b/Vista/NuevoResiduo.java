@@ -4,6 +4,10 @@
  */
 package com.mycompany.proyecto_m2b.Vista;
 
+import com.mycompany.proyecto_m2b.Controlador.ResiduoDAO;
+import com.mycompany.proyecto_m2b.modelo.Residuos;
+import java.util.List;
+
 /**
  *
  * @author jose
@@ -15,7 +19,85 @@ public class NuevoResiduo extends javax.swing.JPanel {
      */
     public NuevoResiduo() {
         initComponents();
+        cargarComboTiposResiduo();
+        cargarComboEstados(); 
     }
+    
+        
+    public void cargarComboTiposResiduo() {
+    comboResiduos.removeAllItems();
+    comboResiduos.addItem("Seleccione un tipo de residuo");
+    
+    ResiduoDAO dao = new ResiduoDAO();
+    List<String> lista = dao.obtenerNombresTiposResiduo();
+    
+    for (String nombre : lista) {
+        comboResiduos.addItem(nombre);
+    }
+}
+    
+    public void cargarComboEstados() {
+    comboEstadoResiduo.removeAllItems();
+    comboEstadoResiduo.addItem("Seleccione un estado");
+    comboEstadoResiduo.addItem("Sólido");
+    comboEstadoResiduo.addItem("Líquido");
+    comboEstadoResiduo.addItem("Gaseoso");
+    comboEstadoResiduo.addItem("Pastoso / Semisólido");
+}
+    
+    
+        public void procesarRegistroResiduo() {
+        final int CANTIDAD_MAXIMA_PERMITIDA = 1000;
+
+    if (comboResiduos.getSelectedIndex() <= 0 || comboEstadoResiduo.getSelectedIndex() <= 0) {
+        javax.swing.JOptionPane.showMessageDialog(this, 
+            "Debe seleccionar un tipo de residuo y su estado físico.", 
+            "Campos Incompletos", javax.swing.JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    String tipoSeleccionado = comboResiduos.getSelectedItem().toString();
+    String estadoSeleccionado = comboEstadoResiduo.getSelectedItem().toString();
+    int cantidadIngresada;
+
+    try {
+        cantidadIngresada = Integer.parseInt(txtCantidad.getText().trim());
+    } catch (NumberFormatException e) {
+        javax.swing.JOptionPane.showMessageDialog(this, 
+            "Ingrese una cantidad numérica válida.", 
+            "Error de Formato", javax.swing.JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    if (cantidadIngresada > CANTIDAD_MAXIMA_PERMITIDA) {
+        javax.swing.JOptionPane.showMessageDialog(this, 
+            "La cantidad ingresada (" + cantidadIngresada + ") excede el límite máximo permitido por registro (" + CANTIDAD_MAXIMA_PERMITIDA + ").",
+            "Límite Excedido", javax.swing.JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    ResiduoDAO dao = new ResiduoDAO();
+    String idGenerado = dao.generarIdResiduo();
+    String idTipoFk = dao.obtenerIdTipoResiduosPorNombre(tipoSeleccionado);
+    
+    Residuos nuevoResiduo = new Residuos(
+        idGenerado,
+        tipoSeleccionado,
+        estadoSeleccionado,
+        idTipoFk,
+        cantidadIngresada,
+        CANTIDAD_MAXIMA_PERMITIDA
+    );
+
+    if (dao.registrarResiduo(nuevoResiduo)) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Residuo registrado correctamente con ID: " + idGenerado);
+        txtCantidad.setText("");
+        comboResiduos.setSelectedIndex(0);
+        comboEstadoResiduo.setSelectedIndex(0);
+    } else {
+        javax.swing.JOptionPane.showMessageDialog(this, "Error al guardar el residuo en la base de datos.", "Error BD", javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,84 +108,112 @@ public class NuevoResiduo extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         Fondo = new javax.swing.JPanel();
         BarraArriba = new javax.swing.JPanel();
-        Titulo = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        NombreVentanaResiduos = new javax.swing.JLabel();
+        TituloFuncion2 = new javax.swing.JLabel();
+        Residuo = new javax.swing.JLabel();
+        Kilos = new javax.swing.JLabel();
+        comboResiduos = new javax.swing.JComboBox<>();
+        txtCantidad = new javax.swing.JTextField();
+        PanelNuevoTipoResiduo = new javax.swing.JPanel();
+        Nuevo1 = new javax.swing.JLabel();
+        ImagenADD1 = new javax.swing.JLabel();
         PanelGuardar = new javax.swing.JPanel();
         Guardar = new javax.swing.JLabel();
         ImagenSAVE = new javax.swing.JLabel();
-        PanelEditar = new javax.swing.JPanel();
-        Editar = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        PanelBuscar = new javax.swing.JPanel();
-        Buscar = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        comboEstadoResiduo = new javax.swing.JComboBox<>();
 
         Fondo.setBackground(new java.awt.Color(255, 255, 255));
+        Fondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         BarraArriba.setBackground(new java.awt.Color(0, 0, 0));
 
-        Titulo.setBackground(new java.awt.Color(0, 0, 0));
-        Titulo.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
-        Titulo.setForeground(new java.awt.Color(255, 255, 255));
-        Titulo.setText("Registrar Nuevo Tipo de Residuo");
+        NombreVentanaResiduos.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        NombreVentanaResiduos.setForeground(new java.awt.Color(255, 255, 255));
+        NombreVentanaResiduos.setText("Registrar Nuevo Residuo");
 
         javax.swing.GroupLayout BarraArribaLayout = new javax.swing.GroupLayout(BarraArriba);
         BarraArriba.setLayout(BarraArribaLayout);
         BarraArribaLayout.setHorizontalGroup(
             BarraArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BarraArribaLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(Titulo)
-                .addContainerGap(395, Short.MAX_VALUE))
+                .addGap(14, 14, 14)
+                .addComponent(NombreVentanaResiduos, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         BarraArribaLayout.setVerticalGroup(
             BarraArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BarraArribaLayout.createSequentialGroup()
-                .addContainerGap(33, Short.MAX_VALUE)
-                .addComponent(Titulo)
-                .addGap(16, 16, 16))
+            .addGroup(BarraArribaLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(NombreVentanaResiduos)
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
-        jLabel1.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel1.setText("ID_Nueva Empresa Reciladora:");
+        Fondo.add(BarraArriba, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 690, 60));
 
-        jLabel3.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel3.setText("Datos de la Empresa");
+        TituloFuncion2.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        TituloFuncion2.setForeground(new java.awt.Color(153, 153, 153));
+        TituloFuncion2.setText("REGISTRO DE RESIDUOS A ENTREGAR");
+        Fondo.add(TituloFuncion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
 
-        jLabel4.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel4.setText("Nombre Empresa:");
+        Residuo.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        Residuo.setForeground(new java.awt.Color(153, 153, 153));
+        Residuo.setText("Residuo / Tipo:");
+        Fondo.add(Residuo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
 
-        jLabel5.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel5.setText("Telefono de Contacto:");
+        Kilos.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        Kilos.setForeground(new java.awt.Color(153, 153, 153));
+        Kilos.setText("Cantidad (Kg/L):");
+        Fondo.add(Kilos, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, -1, -1));
 
-        jLabel6.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel6.setText("ID tipo de Empresa");
+        comboResiduos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccion un tipo de residuo", "Item 2", "Item 3", "Item 4" }));
+        Fondo.add(comboResiduos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 240, -1));
+        Fondo.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 130, 240, -1));
 
-        jLabel7.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel7.setText("Direccion");
+        PanelNuevoTipoResiduo.setBackground(new java.awt.Color(255, 255, 255));
+        PanelNuevoTipoResiduo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        PanelNuevoTipoResiduo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelNuevoTipoResiduo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelNuevoTipoResiduoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PanelNuevoTipoResiduoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                PanelNuevoTipoResiduoMouseExited(evt);
+            }
+        });
 
-        jLabel8.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel8.setText("ID_Direccion:");
+        Nuevo1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        Nuevo1.setText("Nuevo");
 
-        jLabel9.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel9.setText("Ciudad:");
+        ImagenADD1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
 
-        jLabel10.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel10.setText("Calles");
+        javax.swing.GroupLayout PanelNuevoTipoResiduoLayout = new javax.swing.GroupLayout(PanelNuevoTipoResiduo);
+        PanelNuevoTipoResiduo.setLayout(PanelNuevoTipoResiduoLayout);
+        PanelNuevoTipoResiduoLayout.setHorizontalGroup(
+            PanelNuevoTipoResiduoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelNuevoTipoResiduoLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(ImagenADD1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Nuevo1)
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
+        PanelNuevoTipoResiduoLayout.setVerticalGroup(
+            PanelNuevoTipoResiduoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelNuevoTipoResiduoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelNuevoTipoResiduoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ImagenADD1)
+                    .addComponent(Nuevo1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        Fondo.add(PanelNuevoTipoResiduo, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 190, -1, -1));
 
         PanelGuardar.setBackground(new java.awt.Color(242, 101, 34));
         PanelGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -147,189 +257,26 @@ public class NuevoResiduo extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        PanelEditar.setBackground(new java.awt.Color(255, 255, 255));
-        PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelEditar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelEditarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelEditarMouseExited(evt);
-            }
-        });
+        Fondo.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, -1, -1));
 
-        Editar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        Editar.setText("Editar");
+        jLabel7.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel7.setText("Estado del Residuo");
+        Fondo.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
 
-        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/edit_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-
-        javax.swing.GroupLayout PanelEditarLayout = new javax.swing.GroupLayout(PanelEditar);
-        PanelEditar.setLayout(PanelEditarLayout);
-        PanelEditarLayout.setHorizontalGroup(
-            PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelEditarLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Editar)
-                .addContainerGap(33, Short.MAX_VALUE))
-        );
-        PanelEditarLayout.setVerticalGroup(
-            PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelEditarLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Editar)
-                    .addComponent(jLabel2))
-                .addContainerGap())
-        );
-
-        PanelBuscar.setBackground(new java.awt.Color(255, 255, 255));
-        PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelBuscarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelBuscarMouseExited(evt);
-            }
-        });
-
-        Buscar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        Buscar.setText("Buscar");
-
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/person_search_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-
-        javax.swing.GroupLayout PanelBuscarLayout = new javax.swing.GroupLayout(PanelBuscar);
-        PanelBuscar.setLayout(PanelBuscarLayout);
-        PanelBuscarLayout.setHorizontalGroup(
-            PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelBuscarLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Buscar)
-                .addContainerGap(31, Short.MAX_VALUE))
-        );
-        PanelBuscarLayout.setVerticalGroup(
-            PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelBuscarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Buscar)
-                    .addComponent(jLabel11))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jLabel12.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel12.setText("Descripcion:");
-
-        javax.swing.GroupLayout FondoLayout = new javax.swing.GroupLayout(Fondo);
-        Fondo.setLayout(FondoLayout);
-        FondoLayout.setHorizontalGroup(
-            FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(FondoLayout.createSequentialGroup()
-                .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(FondoLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(BarraArriba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(FondoLayout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addGroup(FondoLayout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(158, 158, 158)
-                                .addComponent(jLabel9)
-                                .addGap(179, 179, 179)
-                                .addComponent(jLabel10))
-                            .addGroup(FondoLayout.createSequentialGroup()
-                                .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel5))
-                                .addGap(18, 18, 18)
-                                .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel4))
-                                .addGap(126, 126, 126)
-                                .addComponent(jLabel12))
-                            .addComponent(jLabel3)))
-                    .addGroup(FondoLayout.createSequentialGroup()
-                        .addGap(104, 104, 104)
-                        .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(PanelEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(PanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        FondoLayout.setVerticalGroup(
-            FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(FondoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(BarraArriba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel4))
-                .addGap(37, 37, 37)
-                .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel12))
-                .addGap(47, 47, 47)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10))
-                .addGap(59, 59, 59)
-                .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PanelEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Fondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        comboEstadoResiduo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Fondo.add(comboEstadoResiduo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 240, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Fondo, javax.swing.GroupLayout.PREFERRED_SIZE, 708, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Fondo, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
-
-
-    }//GEN-LAST:event_PanelGuardarMouseClicked
-
-    private void PanelGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseEntered
-        // TODO add your handling code here:
-        PanelGuardar.setBackground(new java.awt.Color(227, 95, 32));
-        Guardar.setForeground(new java.awt.Color(217, 217, 192));
-    }//GEN-LAST:event_PanelGuardarMouseEntered
 
     private void PanelGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseExited
         // TODO add your handling code here:
@@ -337,54 +284,82 @@ public class NuevoResiduo extends javax.swing.JPanel {
         Guardar.setForeground(java.awt.Color.white);
     }//GEN-LAST:event_PanelGuardarMouseExited
 
-    private void PanelEditarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseEntered
+    private void PanelGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseEntered
         // TODO add your handling code here:
-        PanelEditar.setBackground(new java.awt.Color(219,219,219));
-        Editar.setForeground(new java.awt.Color(66, 66, 66));
-    }//GEN-LAST:event_PanelEditarMouseEntered
+        PanelGuardar.setBackground(new java.awt.Color(227, 95, 32));
+        Guardar.setForeground(new java.awt.Color(217, 217, 192));
+    }//GEN-LAST:event_PanelGuardarMouseEntered
 
-    private void PanelEditarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseExited
+    private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
         // TODO add your handling code here:
-        PanelEditar.setBackground(java.awt.Color.white);
-        Editar.setForeground(java.awt.Color.black);
-    }//GEN-LAST:event_PanelEditarMouseExited
+           procesarRegistroResiduo();
+    }//GEN-LAST:event_PanelGuardarMouseClicked
 
-    private void PanelBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseEntered
+    private void PanelNuevoTipoResiduoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoTipoResiduoMouseExited
         // TODO add your handling code here:
-        PanelBuscar.setBackground(new java.awt.Color(219,219,219));
-        Buscar.setForeground(new java.awt.Color(66, 66, 66));
-    }//GEN-LAST:event_PanelBuscarMouseEntered
+    }//GEN-LAST:event_PanelNuevoTipoResiduoMouseExited
 
-    private void PanelBuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseExited
+    private void PanelNuevoTipoResiduoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoTipoResiduoMouseEntered
         // TODO add your handling code here:
-        PanelBuscar.setBackground(java.awt.Color.white);
-        Buscar.setForeground(java.awt.Color.black);
-    }//GEN-LAST:event_PanelBuscarMouseExited
+    }//GEN-LAST:event_PanelNuevoTipoResiduoMouseEntered
+
+    private void PanelNuevoTipoResiduoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoTipoResiduoMouseClicked
+     NuevoTipoResiduo panel = new NuevoTipoResiduo();
+
+    java.awt.Window parentWindow = javax.swing.SwingUtilities.getWindowAncestor(this);
+    javax.swing.JDialog dialog;
+
+    if (parentWindow instanceof java.awt.Frame) {
+        dialog = new javax.swing.JDialog((java.awt.Frame) parentWindow, true); // true = Modal
+    } else if (parentWindow instanceof java.awt.Dialog) {
+        dialog = new javax.swing.JDialog((java.awt.Dialog) parentWindow, true);
+    } else {
+        dialog = new javax.swing.JDialog();
+        dialog.setModal(true);
+    }
+
+    dialog.setUndecorated(true);
+    dialog.add(panel);
+    dialog.pack();
+
+    java.awt.Point location = new java.awt.Point(0, PanelNuevoTipoResiduo.getHeight());
+    javax.swing.SwingUtilities.convertPointToScreen(location, PanelNuevoTipoResiduo);
+
+    java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+    int dialogWidth = dialog.getWidth();
+    int dialogHeight = dialog.getHeight();
+
+    if (location.x + dialogWidth > screenSize.width) {
+        location.x = location.x + PanelNuevoTipoResiduo.getWidth() - dialogWidth;
+    }
+
+    if (location.y + dialogHeight > screenSize.height) {
+        java.awt.Point locationAbove = new java.awt.Point(0, -dialogHeight);
+        javax.swing.SwingUtilities.convertPointToScreen(locationAbove, PanelNuevoTipoResiduo);
+        location.y = locationAbove.y;
+    }
+
+    dialog.setLocation(location);
+    dialog.setVisible(true);
+    }//GEN-LAST:event_PanelNuevoTipoResiduoMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BarraArriba;
-    private javax.swing.JLabel Buscar;
-    private javax.swing.JLabel Editar;
     private javax.swing.JPanel Fondo;
     private javax.swing.JLabel Guardar;
+    private javax.swing.JLabel ImagenADD1;
     private javax.swing.JLabel ImagenSAVE;
-    private javax.swing.JPanel PanelBuscar;
-    private javax.swing.JPanel PanelEditar;
+    private javax.swing.JLabel Kilos;
+    private javax.swing.JLabel NombreVentanaResiduos;
+    private javax.swing.JLabel Nuevo1;
     private javax.swing.JPanel PanelGuardar;
-    private javax.swing.JLabel Titulo;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel PanelNuevoTipoResiduo;
+    private javax.swing.JLabel Residuo;
+    private javax.swing.JLabel TituloFuncion2;
+    private javax.swing.JComboBox<String> comboEstadoResiduo;
+    private javax.swing.JComboBox<String> comboResiduos;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField txtCantidad;
     // End of variables declaration//GEN-END:variables
 }

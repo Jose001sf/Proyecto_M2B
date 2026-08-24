@@ -8,6 +8,9 @@ public class Residuos {
     private String ID_tipo_resi;
     private int cantidad_actual;
     private int cantidad_max;
+    
+    public Residuos() {
+}
 
     public Residuos(String ID_resiudos, String Nom_residuo, String Estado_residuo, String ID_tipo_resi, int cantidad_actual, int cantidad_max) {
         this.ID_resiudos = ID_resiudos;

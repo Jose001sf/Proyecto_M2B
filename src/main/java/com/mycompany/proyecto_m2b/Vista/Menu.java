@@ -292,7 +292,7 @@ public class Menu extends javax.swing.JFrame {
         PanelBarraInferior.setLayout(PanelBarraInferiorLayout);
         PanelBarraInferiorLayout.setHorizontalGroup(
             PanelBarraInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1941, Short.MAX_VALUE)
+            .addGap(0, 1963, Short.MAX_VALUE)
         );
         PanelBarraInferiorLayout.setVerticalGroup(
             PanelBarraInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -727,7 +727,7 @@ public class Menu extends javax.swing.JFrame {
             PanelFondoBlancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelFondoBlancoLayout.createSequentialGroup()
                 .addComponent(PanelPaneles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1634, Short.MAX_VALUE))
+                .addGap(0, 1665, Short.MAX_VALUE))
         );
         PanelFondoBlancoLayout.setVerticalGroup(
             PanelFondoBlancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -903,14 +903,14 @@ public class Menu extends javax.swing.JFrame {
 
     private void PanelVehiculosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelVehiculosMouseExited
         // TODO add your handling code here:
-        PanelVehiculos.setBackground(Color.white);
+        PanelVehiculos.setBackground(Color.gray);
         Vehiculos.setForeground(Color.black);
     }//GEN-LAST:event_PanelVehiculosMouseExited
 
     private void PanelVehiculosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelVehiculosMouseEntered
         // TODO add your handling code here:
         PanelVehiculos.setBackground(new Color(53, 58, 61));
-        Vehiculos.setForeground(Color.white);
+        Vehiculos.setForeground(Color.gray);
     }//GEN-LAST:event_PanelVehiculosMouseEntered
     
     private boolean mostrandoVehiculos = false;
