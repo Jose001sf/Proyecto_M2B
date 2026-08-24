@@ -191,7 +191,7 @@ public class Validaciones {
             return false;
         }
         Nombreusuario = Nombreusuario.trim();
-        Pattern pat = Pattern.compile("^[A-Za-z0-9._]{4,60}$");
+        Pattern pat = Pattern.compile("[A-Za-zÁÉÍÓÚÑáéíóúñ0-9@$!%*?&._-]{8,60}$");
         Matcher mat = pat.matcher(Nombreusuario);
         return mat.matches();
     }

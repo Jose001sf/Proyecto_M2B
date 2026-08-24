@@ -47,9 +47,12 @@ public class UsuarioDAO {
         }
       
     }
-    private static final String LISTARUSUARIO =
-            "SELECT *"         
-            + "FROM usuario ";
+    private static final String LISTARUSUARIO = ""
+            + "SELECT u.ID_usuario, u.Nombre_usuario, u.Contra_usuario, u.Estado_acti_usuario, u.id_empleado, u.id_tip_usuario, "
+            +"p.nom1_person, p.apell1_person, p.ced_perso "
+            +"FROM Usuario u "
+            +"LEFT JOIN Empleado e ON u.id_empleado = e.id_empleado "
+            +"LEFT JOIN Persona p ON p.ced_perso = e.ced_perso";
     
     public List<Usuario> listarUsuario() {
     List<Usuario> lista = new ArrayList<>();
@@ -65,8 +68,24 @@ public class UsuarioDAO {
                         rs.getString("Contra_usuario"),
                         rs.getBoolean("Estado_acti_usuario"),
                         rs.getString("id_empleado"),
-                        rs.getString("tip_usuario")
+                        rs.getString("id_tip_usuario")
                 );
+                String nom=rs.getString("nom1_person");
+                String apell=rs.getString("apell1_person");
+                String ced=rs.getString("ced_perso");
+                if (nom!=null && apell!=null){
+                    u.setNombre_completo(nom+" "+apell);
+                }
+                else if (nom!=null && apell==null){
+                    u.setNombre_completo(nom);
+                }
+                else if (apell!=null && nom==null){
+                    u.setNombre_completo(apell);
+                }
+                else{
+                    u.setNombre_completo("No hay");
+                }
+                u.setCed_perso(ced);
                 lista.add(u);
             }
 
@@ -76,31 +95,18 @@ public class UsuarioDAO {
 
         return lista;
     }
-    public boolean eliminarUsuario (String id_usuario) {
-        String sql="DELETE FROM usuario WHERE id_usuario=?";
-        try(Connection conn = ConexionBD.obtenerConexion();
-                PreparedStatement stmt=conn.prepareStatement(sql)){
-            stmt.setString(1, id_usuario);
-            int filas=stmt.executeUpdate();
-            return filas>0;
-        } catch (Exception e){
-            System.out.println("Error al eliminar usuario: "+e.getMessage());
-            return false;
-        }
-    }
+    
     private static final String MODIFICARUSUARIO =
             "UPDATE usuario "
-            + "SET nombre_usuario=?, contra_usuario=?, estado_acti_usuario=?, id_empleado=?, id_tip_usuario=?"
+            + "SET nombre_usuario=?, contra_usuario=?, id_tip_usuario=? "
             + "WHERE id_usuario=?";
         public boolean modificarUsuario (Usuario usuario){
             try (Connection conn=ConexionBD.obtenerConexion();
             PreparedStatement ps=conn.prepareStatement(MODIFICARUSUARIO)){
-                ps.setString(1, usuario.getContra_usuario());
-                ps.setString(2, usuario.getID_usuario());
-                ps.setString(3, usuario.getId_empleado());
-                ps.setString(4, usuario.getNombre_usuario());
-                ps.setString(5, usuario.getTip_usuario());
-                ps.setBoolean(6, usuario.isEstado_acti_usuario());
+                ps.setString(1, usuario.getNombre_usuario());
+                ps.setString(2, usuario.getContra_usuario());
+                ps.setString(3, usuario.getTip_usuario());
+                ps.setString(4, usuario.getID_usuario());                                
                 int filas=ps.executeUpdate();
                 return filas>0;
             }catch (SQLException e){
@@ -109,15 +115,33 @@ public class UsuarioDAO {
                     }
         }
     
-    private static final String CambiarEstadoUsuario=
+    private static final String DarDeAlta=
             "UPDATE usuario "
-            +"SET estado_acti_usuario=?"
+            +"SET estado_acti_usuario=true "
             +"WHERE id_usuario=?";
         
-    public boolean DarDeBaja (Usuario usuario){
+    public boolean DarDeAlta (String id_usuario){
         try (Connection conn=ConexionBD.obtenerConexion();
-            PreparedStatement ps=conn.prepareStatement(CambiarEstadoUsuario)){
-                ps.setBoolean(1, false);
+            PreparedStatement ps=conn.prepareStatement(DarDeAlta)){
+                ps.setString(1, id_usuario);
+                int filas=ps.executeUpdate();
+                return filas>0;
+            }
+        catch (SQLException e){
+            System.out.println("Error al cambiar estado del usuario: "+e.getMessage());
+            return false;
+        }
+    }
+    
+    private static final String DarDeBaja=
+            "UPDATE usuario "
+            +"SET estado_acti_usuario=false "
+            +"WHERE id_usuario=?";
+        
+    public boolean DarDeBaja (String id_usuario){
+        try (Connection conn=ConexionBD.obtenerConexion();
+            PreparedStatement ps=conn.prepareStatement(DarDeBaja)){
+                ps.setString(1, id_usuario);
                 int filas=ps.executeUpdate();
                 return filas>0;
             }
@@ -181,9 +205,10 @@ public class UsuarioDAO {
     public void cargarIDusuarios (JComboBox Usuarios) {
 
         String sql = """
-            SELECT id_usuario, nombre_usuario, contra_usuario, estado_acti_usuario, id_empleado, id_tip_usuario
-            FROM usuario
-            ORDER BY nombre_usuario
+            SELECT u.id_usuario, u.nombre_usuario, u.contra_usuario, u.estado_acti_usuario, u.id_empleado, u.id_tip_usuario, e.ced_perso
+            FROM usuario u
+            INNER JOIN empleado e ON e.id_empleado = u.id_empleado
+            ORDER BY u.nombre_usuario
             """;
 
         try (Connection con = ConexionBD.obtenerConexion();
@@ -193,20 +218,20 @@ public class UsuarioDAO {
             Usuarios.removeAllItems();
 
             while (rs.next()) {
-
-                String id_usuario = rs.getString("id_usuario");
-                String nombre_usuario = rs.getString("nombre_usuario");
-                boolean estado_acti_usuario= rs.getBoolean("estado_acti_usuario");
-                String id_tip_usuario= rs.getString("id_tip_usuario");
-                String id_empleado= rs.getString("id_empleado");
-                String contrasena=rs.getString("contra_usuario");
-                Usuario usuario= new Usuario(nombre_usuario, contrasena, estado_acti_usuario, id_empleado, id_tip_usuario);
-
-                Usuarios.addItem(usuario);
+                Usuario u=new Usuario();
+                u.setID_usuario(rs.getString("id_usuario"));
+                u.setNombre_usuario(rs.getString("nombre_usuario"));
+                u.setEstado_acti_usuario(rs.getBoolean("estado_acti_usuario")); 
+                u.setTip_usuario(rs.getString("id_tip_usuario")); 
+                u.setId_empleado(rs.getString("id_empleado")); 
+                u.setContra_usuario(rs.getString("contra_usuario"));
+                u.setCed_perso(rs.getString("ced_perso"));
+                
+                Usuarios.addItem(u);
             }
 
         } catch (SQLException e) {
-            System.err.println("Error");        
+            System.err.println("Error al cargar usuario: "+e.getMessage());        
         }
     }
  }        

@@ -15,9 +15,25 @@ public class Usuario {
     private boolean Estado_acti_usuario;
     private String id_empleado;
     private String tip_usuario;
+    //Atributos auxiliares
+    private String ced_perso;
+    private String nombre_completo;
     public Usuario() {
     }
 
+    public String getCed_perso() {
+        return ced_perso;
+    }
+
+    public String getNombre_completo() {
+        return nombre_completo;
+    }
+
+    public void setNombre_completo(String nombre_completo) {
+        this.nombre_completo = nombre_completo;
+    }
+
+    
     public Usuario(String Nombre_usuario, String contra_usuario, boolean Estado_acti_usuario, String id_empleado, String tip_usuario) {
         this.Nombre_usuario = Nombre_usuario;
         this.contra_usuario = contra_usuario;
@@ -83,9 +99,13 @@ public class Usuario {
         this.tip_usuario = tip_usuario;
     }
 
+    public void setCed_perso(String ced_perso) {
+        this.ced_perso = ced_perso;
+    }
+
     @Override
     public String toString() {
-        return Nombre_usuario+", Estado del usuario=" + Estado_acti_usuario;
+        return getNombre_usuario() + "-CI: "+ced_perso;
     }
     
 }
