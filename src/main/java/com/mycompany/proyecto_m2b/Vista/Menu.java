@@ -71,6 +71,9 @@ public class Menu extends javax.swing.JFrame {
         Talleres = new javax.swing.JLabel();
         Titulo = new javax.swing.JLabel();
         PanelBarraInferior = new javax.swing.JPanel();
+        PanelFondoBlanco = new javax.swing.JPanel();
+        PanelPaneles = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
         PanelAccesos = new javax.swing.JPanel();
         PanelOrdenesServicio = new javax.swing.JPanel();
         OrdenesDeServicio = new javax.swing.JLabel();
@@ -98,8 +101,6 @@ public class Menu extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         Accesos = new javax.swing.JLabel();
-        PanelFondoBlanco = new javax.swing.JPanel();
-        PanelPaneles = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -292,7 +293,7 @@ public class Menu extends javax.swing.JFrame {
         PanelBarraInferior.setLayout(PanelBarraInferiorLayout);
         PanelBarraInferiorLayout.setHorizontalGroup(
             PanelBarraInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1963, Short.MAX_VALUE)
+            .addGap(0, 2301, Short.MAX_VALUE)
         );
         PanelBarraInferiorLayout.setVerticalGroup(
             PanelBarraInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,6 +301,10 @@ public class Menu extends javax.swing.JFrame {
         );
 
         PanelFondoMenu.add(PanelBarraInferior, java.awt.BorderLayout.SOUTH);
+
+        PanelFondoBlanco.setBackground(new java.awt.Color(102, 102, 102));
+
+        PanelPaneles.setLayout(new java.awt.CardLayout());
 
         PanelAccesos.setBackground(new java.awt.Color(79, 84, 90));
 
@@ -689,7 +694,7 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(PanelAccesosLayout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 23, Short.MAX_VALUE))
+                .addGap(0, 53, Short.MAX_VALUE))
         );
         PanelAccesosLayout.setVerticalGroup(
             PanelAccesosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -715,23 +720,22 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        PanelFondoMenu.add(PanelAccesos, java.awt.BorderLayout.WEST);
-
-        PanelFondoBlanco.setBackground(new java.awt.Color(102, 102, 102));
-
-        PanelPaneles.setLayout(new java.awt.CardLayout());
+        jScrollPane1.setViewportView(PanelAccesos);
 
         javax.swing.GroupLayout PanelFondoBlancoLayout = new javax.swing.GroupLayout(PanelFondoBlanco);
         PanelFondoBlanco.setLayout(PanelFondoBlancoLayout);
         PanelFondoBlancoLayout.setHorizontalGroup(
             PanelFondoBlancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelFondoBlancoLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PanelPaneles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1665, Short.MAX_VALUE))
+                .addGap(0, 1965, Short.MAX_VALUE))
         );
         PanelFondoBlancoLayout.setVerticalGroup(
             PanelFondoBlancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(PanelPaneles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
 
         PanelFondoMenu.add(PanelFondoBlanco, java.awt.BorderLayout.CENTER);
@@ -1113,5 +1117,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
