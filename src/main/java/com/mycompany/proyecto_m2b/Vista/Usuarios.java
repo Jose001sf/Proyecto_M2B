@@ -6,7 +6,9 @@ package com.mycompany.proyecto_m2b.Vista;
 
 import com.mycompany.proyecto_m2b.Controlador.Validaciones;
 import com.mycompany.proyecto_m2b.Controlador.CreacionCredenciales;
+import com.mycompany.proyecto_m2b.Controlador.TipoUsuarioDAO;
 import com.mycompany.proyecto_m2b.Controlador.UsuarioDAO;
+import com.mycompany.proyecto_m2b.modelo.Usuario;
 import java.awt.Color;
 import java.time.ZoneId;
 import java.util.Date;
@@ -27,10 +29,11 @@ public class Usuarios extends javax.swing.JFrame {
     public Usuarios() {
         initComponents();
         this.setLocationRelativeTo(null);
-        TXTnombreDeUsuario.setEnabled(false);
         Estados.setEnabled(false);
         UsuarioDAO ud=new UsuarioDAO();
-        ud.cargarIDusuarios(Usuarios);
+        ud.cargarIDusuarios(this.Usuarios);
+        TipoUsuarioDAO Tip=new TipoUsuarioDAO();
+        Tip.cargarTiposUsuario(TiposDeUsuario);
     }
     int xMouse, yMouse;
     /**
@@ -49,7 +52,6 @@ public class Usuarios extends javax.swing.JFrame {
         NombreDeUsuario = new javax.swing.JLabel();
         TXTnombreDeUsuario = new javax.swing.JTextField();
         Contrasena = new javax.swing.JLabel();
-        TXTContrasena = new javax.swing.JTextField();
         Estado = new javax.swing.JLabel();
         Estados = new javax.swing.JComboBox<>();
         TiposUsuario = new javax.swing.JLabel();
@@ -70,6 +72,10 @@ public class Usuarios extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         Usuariostext = new javax.swing.JLabel();
         Usuarios = new javax.swing.JComboBox<>();
+        TXTcontraseña = new javax.swing.JPasswordField();
+        PanelDarDeAlta = new javax.swing.JPanel();
+        DarDeAlta = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -145,6 +151,9 @@ public class Usuarios extends javax.swing.JFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 TXTnombreDeUsuarioFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TXTnombreDeUsuarioFocusLost(evt);
+            }
         });
         TXTnombreDeUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -154,25 +163,6 @@ public class Usuarios extends javax.swing.JFrame {
 
         Contrasena.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         Contrasena.setText("Contraseña de usuario:");
-
-        TXTContrasena.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        TXTContrasena.setForeground(new java.awt.Color(94, 94, 94));
-        TXTContrasena.setText("Contraseña");
-        TXTContrasena.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                TXTContrasenaFocusGained(evt);
-            }
-        });
-        TXTContrasena.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                TXTContrasenaMousePressed(evt);
-            }
-        });
-        TXTContrasena.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                TXTContrasenaKeyPressed(evt);
-            }
-        });
 
         Estado.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         Estado.setText("Estado:");
@@ -240,6 +230,9 @@ public class Usuarios extends javax.swing.JFrame {
         PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
         PanelEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelEditarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelEditarMouseEntered(evt);
             }
@@ -359,6 +352,63 @@ public class Usuarios extends javax.swing.JFrame {
         Usuariostext.setText("Usuarios:");
 
         Usuarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Usuarios.addItemListener(this::UsuariosItemStateChanged);
+
+        TXTcontraseña.setText("********");
+        TXTcontraseña.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTcontraseñaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TXTcontraseñaFocusLost(evt);
+            }
+        });
+        TXTcontraseña.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TXTcontraseñaMouseClicked(evt);
+            }
+        });
+
+        PanelDarDeAlta.setBackground(new java.awt.Color(255, 255, 255));
+        PanelDarDeAlta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        PanelDarDeAlta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelDarDeAlta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelDarDeAltaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PanelDarDeAltaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                PanelDarDeAltaMouseExited(evt);
+            }
+        });
+
+        DarDeAlta.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        DarDeAlta.setText("Dar de alta");
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+
+        javax.swing.GroupLayout PanelDarDeAltaLayout = new javax.swing.GroupLayout(PanelDarDeAlta);
+        PanelDarDeAlta.setLayout(PanelDarDeAltaLayout);
+        PanelDarDeAltaLayout.setHorizontalGroup(
+            PanelDarDeAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelDarDeAltaLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(DarDeAlta)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        PanelDarDeAltaLayout.setVerticalGroup(
+            PanelDarDeAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelDarDeAltaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelDarDeAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(DarDeAlta)
+                    .addComponent(jLabel3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout BGempleadosLayout = new javax.swing.GroupLayout(BGempleados);
         BGempleados.setLayout(BGempleadosLayout);
@@ -368,41 +418,43 @@ public class Usuarios extends javax.swing.JFrame {
             .addGroup(BGempleadosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(BGempleadosLayout.createSequentialGroup()
-                            .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(PanelEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(PanelDarBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(PanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(BGempleadosLayout.createSequentialGroup()
-                            .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(BGempleadosLayout.createSequentialGroup()
+                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(BGempleadosLayout.createSequentialGroup()
                                 .addComponent(Contrasena)
-                                .addComponent(TXTContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(Estado)
-                                .addComponent(Estados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(TiposUsuario)
-                                .addComponent(TiposDeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(Permisos)
-                                .addComponent(Permiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(232, 232, 232))
+                            .addGroup(BGempleadosLayout.createSequentialGroup()
+                                .addComponent(TXTcontraseña)
+                                .addGap(166, 166, 166)))
+                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Estado)
+                            .addComponent(Estados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TiposUsuario)
+                            .addComponent(TiposDeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Permisos)
+                            .addComponent(Permiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(BGempleadosLayout.createSequentialGroup()
                         .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Usuariostext)
                             .addComponent(Usuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(BGempleadosLayout.createSequentialGroup()
-                                .addComponent(NombreDeUsuario)
-                                .addGap(347, 347, 347))
-                            .addComponent(TXTnombreDeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(NombreDeUsuario)
+                            .addComponent(TXTnombreDeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, BGempleadosLayout.createSequentialGroup()
+                        .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(PanelEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(PanelDarBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(PanelDarDeAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(PanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(111, Short.MAX_VALUE))
         );
         BGempleadosLayout.setVerticalGroup(
@@ -422,7 +474,8 @@ public class Usuarios extends javax.swing.JFrame {
                     .addGroup(BGempleadosLayout.createSequentialGroup()
                         .addComponent(Contrasena)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TXTContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(TXTcontraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6))
                     .addGroup(BGempleadosLayout.createSequentialGroup()
                         .addComponent(Estado)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -436,11 +489,13 @@ public class Usuarios extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Permiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(PanelGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(PanelEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(PanelDarBaja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(PanelBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(PanelGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(PanelEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(PanelDarBaja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(PanelBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(PanelDarDeAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(215, Short.MAX_VALUE))
         );
 
@@ -527,13 +582,14 @@ public class Usuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_PanelDarBajaMouseExited
 
     public void LimpiarDatos (){
-        TXTnombreDeUsuario.setText("Primer nombre");
+        TXTnombreDeUsuario.setText("Nombre de usuario");
         TXTnombreDeUsuario.setForeground(new Color(94, 94, 94));        
-        TXTContrasena.setText("Primer apellido");
-        TXTContrasena.setForeground(new Color(94, 94, 94));        
+        TXTcontraseña.setText("********");
+        TXTcontraseña.setForeground(new Color(94, 94, 94));        
         Estados.setSelectedIndex(0);
         TiposDeUsuario.setSelectedIndex(0);
         Permiso.setSelectedIndex(0);
+        
     }
     private void TXTnombreDeUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTnombreDeUsuarioMousePressed
         // TODO add your handling code here:
@@ -541,23 +597,11 @@ public class Usuarios extends javax.swing.JFrame {
             TXTnombreDeUsuario.setText("");
             TXTnombreDeUsuario.setForeground(Color.BLACK);
         }        
-        if (TXTContrasena.getText().isEmpty()){
-            TXTContrasena.setText("Contraseña");
-            TXTContrasena.setForeground(new Color(94, 94, 94));
+        if (String.valueOf(TXTcontraseña.getPassword()).isEmpty()){
+            TXTcontraseña.setText("********");
+            TXTcontraseña.setForeground(new Color(94, 94, 94));
         }        
     }//GEN-LAST:event_TXTnombreDeUsuarioMousePressed
-
-    private void TXTContrasenaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTContrasenaMousePressed
-        // TODO add your handling code here:
-        if (TXTContrasena.getText().equals("Contraseña")){
-            TXTContrasena.setText("");
-            TXTContrasena.setForeground(Color.BLACK);
-        }        
-        if (TXTnombreDeUsuario.getText().isEmpty()){
-            TXTnombreDeUsuario.setText("Nombre de usuario");
-            TXTnombreDeUsuario.setForeground(new Color(94, 94, 94));
-        }        
-    }//GEN-LAST:event_TXTContrasenaMousePressed
 
     private void TXTnombreDeUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTnombreDeUsuarioFocusGained
         // TODO add your handling code here:
@@ -565,23 +609,166 @@ public class Usuarios extends javax.swing.JFrame {
             TXTnombreDeUsuario.setText("");
             TXTnombreDeUsuario.setForeground(Color.BLACK);
         }        
-        if (TXTContrasena.getText().isEmpty()){
-            TXTContrasena.setText("Contraseña");
-            TXTContrasena.setForeground(new Color(94, 94, 94));
+        if (String.valueOf(TXTcontraseña.getPassword()).isEmpty()){
+            TXTcontraseña.setText("********");
+            TXTcontraseña.setForeground(new Color(94, 94, 94));
         }        
     }//GEN-LAST:event_TXTnombreDeUsuarioFocusGained
 
-    private void TXTContrasenaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTContrasenaFocusGained
+    public void GuardarCambios (){
+        String contrasena=String.valueOf(TXTcontraseña.getPassword());
+        String nombre_usuario=TXTnombreDeUsuario.getText().trim();
+        Validaciones V=new Validaciones();
+        if (!V.validarContrasena(contrasena)){
+            JOptionPane.showMessageDialog(this, "Contraseña no valida");            
+            TXTcontraseña.setText("********");
+            return;
+        }
+        if (!V.validarNombreUsuario(nombre_usuario)){
+            JOptionPane.showMessageDialog(this, "Nombre de usuario no valido");
+            TXTnombreDeUsuario.setText("Nombre de usuario");
+            return;
+        }
+        if (contrasena.equals("********") || nombre_usuario.equals("Nombre de usuario")){
+            JOptionPane.showMessageDialog(this, "Escoga un nombre de usuario, y una contraseña");
+            return;
+        }
+        JOptionPane.showMessageDialog(this, "Cambio guardado con éxito");
+        
+        TXTcontraseña.setText("********");
+        TXTnombreDeUsuario.setText("Nombre de usuario");
+    }
+    private void PanelDarBajaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarBajaMouseClicked
         // TODO add your handling code here:
-        if (TXTContrasena.getText().equals("Contraseña")){
-            TXTContrasena.setText("");
-            TXTContrasena.setForeground(Color.BLACK);
-        }        
+        Usuario selecc=(Usuario) Usuarios.getSelectedItem();
+        if (selecc!=null){
+            int opcion=JOptionPane.showConfirmDialog(this, "¿Esta seguro de dar de baja a este empleado?"+JOptionPane.YES_NO_OPTION);
+            if (opcion==JOptionPane.YES_OPTION){
+                    String id_selecc=selecc.getID_usuario();
+                    UsuarioDAO u=new UsuarioDAO();
+                    boolean exito=u.DarDeBaja(id_selecc);
+                    if (exito){
+                        Estados.setSelectedItem("En pausa");                        
+                        JOptionPane.showMessageDialog(this, "Modificado de manera correcta");
+                        u.cargarIDusuarios(this.Usuarios);
+                        LimpiarDatos();
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this, "Error al modificar al usuario: "+selecc.getNombre_usuario());
+                    }
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Gracias por confirmar");
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Por favor escoga a un usuario");
+        }
+    }//GEN-LAST:event_PanelDarBajaMouseClicked
+
+    private void UsuariosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_UsuariosItemStateChanged
+        // TODO add your handling code here:
+        Usuario selecc=(Usuario) Usuarios.getSelectedItem();
+        if (selecc !=null){
+            TXTnombreDeUsuario.setText(selecc.getNombre_usuario());
+            TXTnombreDeUsuario.setText(selecc.getNombre_usuario());
+            TXTcontraseña.setText(selecc.getContra_usuario());
+            if(selecc.isEstado_acti_usuario()){
+                Estados.setSelectedItem("Activo");
+            }
+            else{
+                Estados.setSelectedItem("En pausa");
+            }
+        }
+    }//GEN-LAST:event_UsuariosItemStateChanged
+
+    private void TXTcontraseñaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTcontraseñaFocusGained
+        // TODO add your handling code here:
+        if (String.valueOf(TXTcontraseña.getPassword()).equals("********")){
+            TXTcontraseña.setText("");
+            TXTcontraseña.setForeground(new Color(176, 166, 157));
+        }
         if (TXTnombreDeUsuario.getText().isEmpty()){
             TXTnombreDeUsuario.setText("Nombre de usuario");
             TXTnombreDeUsuario.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTcontraseñaFocusGained
+
+    private void TXTcontraseñaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTcontraseñaMouseClicked
+        // TODO add your handling code here:
+        if (String.valueOf(TXTcontraseña.getPassword()).equals("********")){
+            TXTcontraseña.setText("");
+            TXTcontraseña.setForeground(new Color(176, 166, 157));
+        }
+        if (TXTnombreDeUsuario.getText().isEmpty()){
+            TXTnombreDeUsuario.setText("Nombre de usuario");
+            TXTnombreDeUsuario.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTcontraseñaMouseClicked
+
+    private void TXTcontraseñaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTcontraseñaFocusLost
+        // TODO add your handling code here:
+        if (TXTnombreDeUsuario.getText().equals("Nombre de usuario")){
+            TXTnombreDeUsuario.setText("");
+            TXTnombreDeUsuario.setForeground(Color.BLACK);
         }        
-    }//GEN-LAST:event_TXTContrasenaFocusGained
+        if (String.valueOf(TXTcontraseña.getPassword()).isEmpty()){
+            TXTcontraseña.setText("********");
+            TXTcontraseña.setForeground(new Color(94, 94, 94));
+        }  
+    }//GEN-LAST:event_TXTcontraseñaFocusLost
+
+    private void TXTnombreDeUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTnombreDeUsuarioFocusLost
+        // TODO add your handling code here:
+        if (TXTnombreDeUsuario.getText().equals("Nombre de usuario")){
+            TXTnombreDeUsuario.setText("");
+            TXTnombreDeUsuario.setForeground(Color.BLACK);
+        }        
+        if (String.valueOf(TXTcontraseña.getPassword()).isEmpty()){
+            TXTcontraseña.setText("********");
+            TXTcontraseña.setForeground(new Color(94, 94, 94));
+        }   
+    }//GEN-LAST:event_TXTnombreDeUsuarioFocusLost
+
+    private void PanelDarDeAltaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarDeAltaMouseEntered
+        // TODO add your handling code here:
+        PanelDarDeAlta.setBackground(new Color(219,219,219));
+        PanelDarDeAlta.setForeground(new Color(66, 66, 66));
+    }//GEN-LAST:event_PanelDarDeAltaMouseEntered
+
+    private void PanelDarDeAltaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarDeAltaMouseExited
+        // TODO add your handling code here:
+        PanelDarDeAlta.setBackground(Color.white);
+        PanelDarDeAlta.setForeground(Color.black);
+    }//GEN-LAST:event_PanelDarDeAltaMouseExited
+
+    private void PanelDarDeAltaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarDeAltaMouseClicked
+        // TODO add your handling code here:
+        Usuario selecc=(Usuario) Usuarios.getSelectedItem();
+        if (selecc!=null){
+            int opcion=JOptionPane.showConfirmDialog(this, "¿Esta seguro de dar de alta a este empleado?"+JOptionPane.YES_NO_OPTION);
+            if (opcion==JOptionPane.YES_OPTION){
+                    String id_selecc=selecc.getID_usuario();
+                    UsuarioDAO u=new UsuarioDAO();
+                    boolean exito=u.DarDeAlta(id_selecc);
+                    if (exito){
+                        Estados.setSelectedItem("Activo");                        
+                        JOptionPane.showMessageDialog(this, "Modificado de manera correcta");
+                        u.cargarIDusuarios(this.Usuarios);
+                        LimpiarDatos();
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this, "Error al modificar al usuario: "+selecc.getNombre_usuario());
+                    }
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Gracias por confirmar");
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Por favor escoga a un usuario");
+        }
+    }//GEN-LAST:event_PanelDarDeAltaMouseClicked
 
     private void PanelGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseExited
         // TODO add your handling code here:
@@ -595,34 +782,53 @@ public class Usuarios extends javax.swing.JFrame {
         Guardar.setForeground(new Color(217, 217, 192));
     }//GEN-LAST:event_PanelGuardarMouseEntered
 
-    public void GuardarCambios (){
-        String contrasena=TXTContrasena.getText().trim();
-        Validaciones V=new Validaciones();
-        if (!V.validarContrasena(contrasena)){
-            JOptionPane.showMessageDialog(this, "Contraseña no valida");
-            TXTContrasena.setText("");
-            return;
-        }
-        JOptionPane.showMessageDialog(this, "Cambio guardado con éxito");
-        TXTContrasena.setText("");
-    }
     private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
         // TODO add your handling code here:
         GuardarCambios();
     }//GEN-LAST:event_PanelGuardarMouseClicked
 
-    private void PanelDarBajaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarBajaMouseClicked
+    private void PanelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseClicked
         // TODO add your handling code here:
-        Estados.setSelectedIndex(2);
-        JOptionPane.showMessageDialog(this, "Estado cambiado correctamente");
-    }//GEN-LAST:event_PanelDarBajaMouseClicked
-
-    private void TXTContrasenaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTContrasenaKeyPressed
-        // TODO add your handling code here:
-        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
-            GuardarCambios();
+        Usuario selecc= (Usuario) Usuarios.getSelectedItem();
+        if (selecc!=null){
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Esta seguro de modificar al usuario con nombre: "+selecc.getNombre_usuario()+"?"+"\n"
+                    + "Confirmar su respuesta", "Condirmar", JOptionPane.YES_NO_OPTION);
+            if (opcion==JOptionPane.YES_OPTION){
+            Validaciones V=new Validaciones();
+            String NomNuevo = TXTnombreDeUsuario.getText();
+            String ContraNuevo=String.valueOf(TXTcontraseña.getPassword());
+            if (!V.validarNombreUsuario(NomNuevo)){
+                JOptionPane.showMessageDialog(this, "Este nombre no es valido");
+                return;
+            }
+            if (!V.validarContrasena(ContraNuevo)){
+                JOptionPane.showMessageDialog(this, "Esta contraseña no es valida");
+                return;
+            }
+            Usuario u=new Usuario();
+            u.setNombre_usuario(NomNuevo);
+            u.setContra_usuario(ContraNuevo);
+            u.setTip_usuario(selecc.getTip_usuario());
+            u.setID_usuario(selecc.getID_usuario().toString());
+            UsuarioDAO ud=new UsuarioDAO();
+            boolean exist = ud.modificarUsuario(u);
+            if (exist){
+                JOptionPane.showMessageDialog(this, "Se ha modificado de manera correcta");
+                ud.cargarIDusuarios(this.Usuarios);
+                LimpiarDatos();
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Error al modificar al usaurio");
+            }
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Gracias por su confirmación");
+            }            
         }
-    }//GEN-LAST:event_TXTContrasenaKeyPressed
+        else{
+            JOptionPane.showMessageDialog(this, "Error al escoger el usuario");
+        }        
+    }//GEN-LAST:event_PanelEditarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -653,6 +859,7 @@ public class Usuarios extends javax.swing.JFrame {
     private javax.swing.JPanel BGempleados;
     private javax.swing.JLabel Buscar;
     private javax.swing.JLabel Contrasena;
+    private javax.swing.JLabel DarDeAlta;
     private javax.swing.JLabel DarDeBaja;
     private javax.swing.JPanel Desplazar;
     private javax.swing.JLabel Editar;
@@ -665,11 +872,12 @@ public class Usuarios extends javax.swing.JFrame {
     private javax.swing.JLabel NombreDeUsuario;
     private javax.swing.JPanel PanelBuscar;
     private javax.swing.JPanel PanelDarBaja;
+    private javax.swing.JPanel PanelDarDeAlta;
     private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JComboBox<String> Permiso;
     private javax.swing.JLabel Permisos;
-    private javax.swing.JTextField TXTContrasena;
+    private javax.swing.JPasswordField TXTcontraseña;
     private javax.swing.JTextField TXTnombreDeUsuario;
     private javax.swing.JComboBox<String> TiposDeUsuario;
     private javax.swing.JLabel TiposUsuario;
@@ -678,5 +886,6 @@ public class Usuarios extends javax.swing.JFrame {
     private javax.swing.JLabel Volver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }

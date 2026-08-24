@@ -15,6 +15,7 @@ public class Usuario {
     private boolean Estado_acti_usuario;
     private String id_empleado;
     private String tip_usuario;
+    private String ced_perso;
     public Usuario() {
     }
 
@@ -83,9 +84,13 @@ public class Usuario {
         this.tip_usuario = tip_usuario;
     }
 
+    public void setCed_perso(String ced_perso) {
+        this.ced_perso = ced_perso;
+    }
+
     @Override
     public String toString() {
-        return Nombre_usuario+", Estado del usuario=" + Estado_acti_usuario;
+        return getNombre_usuario() + "-CI: "+ced_perso;
     }
     
 }
