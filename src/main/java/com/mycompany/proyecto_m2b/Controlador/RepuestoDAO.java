@@ -6,7 +6,11 @@ import com.mycompany.proyecto_m2b.modelo.Repuesto;
 import com.mycompany.proyecto_m2b.modelo.TipoRepuesto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RepuestoDAO {
 
@@ -59,4 +63,30 @@ public class RepuestoDAO {
             return false;
         }
     }
+    
+    public List<TipoRepuesto> obtenerTipos(Connection conexion) {
+    List<TipoRepuesto> lista = new ArrayList<>();
+    String sql = "SELECT id_tip_repuesto, nom_tip_repuesto FROM public.tipo_de_repuesto";
+    try (Statement st = conexion.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+        while (rs.next()) {
+            lista.add(new TipoRepuesto(rs.getString("id_tip_repuesto"), rs.getString("nom_tip_repuesto")));
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al cargar tipos: " + e.getMessage());
+    }
+    return lista;
+}
+
+    public List<MarcaRepuesto> obtenerMarcas(Connection conexion) {
+    List<MarcaRepuesto> lista = new ArrayList<>();
+    String sql = "SELECT id_marca_repuesto, nombre_marca_repuesto FROM public.marca_repuesto";
+    try (Statement st = conexion.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+        while (rs.next()) {
+            lista.add(new MarcaRepuesto(rs.getString("id_marca_repuesto"), rs.getString("nombre_marca_repuesto")));
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al cargar marcas: " + e.getMessage());
+    }
+    return lista;
+}
 }

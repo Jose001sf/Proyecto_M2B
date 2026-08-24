@@ -4,6 +4,11 @@
  */
 package com.mycompany.proyecto_m2b.Vista;
 
+import com.mycompany.proyecto_m2b.Controlador.ConexionBD;
+import com.mycompany.proyecto_m2b.Controlador.RepuestoDAO;
+import com.mycompany.proyecto_m2b.modelo.MarcaRepuesto;
+import com.mycompany.proyecto_m2b.modelo.Repuesto;
+import com.mycompany.proyecto_m2b.modelo.TipoRepuesto;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -12,14 +17,47 @@ import javax.swing.JOptionPane;
  * @author HP
  */
 public class PanelRepuestos extends javax.swing.JPanel {
+private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
 
     /**
      * Creates new form PanelRepuestos
      */
     public PanelRepuestos() {
-        initComponents();
+    initComponents();
+    cargarCombos();
+}
+    private void cargarCombos() {
+        cbxTipoRepuesto.removeAllItems();
+        cbxMarcaRepuesto.removeAllItems();
+
+        RepuestoDAO dao = new RepuestoDAO();
+        for (TipoRepuesto t : dao.obtenerTipos(miConexion)) {
+            cbxTipoRepuesto.addItem(t);
+        }
+        for (MarcaRepuesto m : dao.obtenerMarcas(miConexion)) {
+            cbxMarcaRepuesto.addItem(m);
+        }
+    }
+    
+    private void limpiarCampos() {
+    txtIdRepuesto.setText("");
+    txtNomRepuesto.setText("");
+    txtStockActual.setText("");
+    txtCantidadMinima.setText("");
+    txtCantidadMaxima.setText("");
+    txtPrecioBase.setText("");
+    txtDescripRepuesto.setText("");
+
+    if (cbxTipoRepuesto.getItemCount() > 0) {
+        cbxTipoRepuesto.setSelectedIndex(0);
+    }
+    if (cbxMarcaRepuesto.getItemCount() > 0) {
+        cbxMarcaRepuesto.setSelectedIndex(0);
     }
 
+    txtIdRepuesto.requestFocus();
+}
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,22 +79,10 @@ public class PanelRepuestos extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        Descripcion = new javax.swing.JTextField();
-        PanelNuevo = new javax.swing.JPanel();
-        Nuevo = new javax.swing.JLabel();
-        ImagenADD = new javax.swing.JLabel();
-        PanelGuardar = new javax.swing.JPanel();
+        txtDescripRepuesto = new javax.swing.JTextField();
+        btnGuardar = new javax.swing.JPanel();
         Guardar = new javax.swing.JLabel();
         ImagenSAVE = new javax.swing.JLabel();
-        PanelEditar = new javax.swing.JPanel();
-        Editar = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        PanelDarBaja = new javax.swing.JPanel();
-        DarDeBaja = new javax.swing.JLabel();
-        ImagenDarBaja = new javax.swing.JLabel();
-        PanelBuscar = new javax.swing.JPanel();
-        Buscar = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtIdRepuesto = new javax.swing.JTextField();
         txtNomRepuesto = new javax.swing.JTextField();
@@ -148,75 +174,32 @@ public class PanelRepuestos extends javax.swing.JPanel {
         jLabel13.setText("Cantidad Máxima:");
         jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, -1, -1));
 
-        Descripcion.setForeground(new java.awt.Color(153, 153, 153));
-        Descripcion.setText("Describa el repuesto");
-        Descripcion.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtDescripRepuesto.setForeground(new java.awt.Color(153, 153, 153));
+        txtDescripRepuesto.setText("Describa el repuesto");
+        txtDescripRepuesto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                DescripcionFocusGained(evt);
+                txtDescripRepuestoFocusGained(evt);
             }
         });
-        Descripcion.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtDescripRepuesto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                DescripcionMousePressed(evt);
+                txtDescripRepuestoMousePressed(evt);
             }
         });
-        jPanel1.add(Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 690, 70));
+        jPanel1.add(txtDescripRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 690, 70));
 
-        PanelNuevo.setBackground(new java.awt.Color(255, 255, 255));
-        PanelNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnGuardar.setBackground(new java.awt.Color(242, 101, 34));
+        btnGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PanelNuevoMouseClicked(evt);
+                btnGuardarMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelNuevoMouseEntered(evt);
+                btnGuardarMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelNuevoMouseExited(evt);
-            }
-        });
-
-        Nuevo.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        Nuevo.setText("Nuevo");
-
-        ImagenADD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-
-        javax.swing.GroupLayout PanelNuevoLayout = new javax.swing.GroupLayout(PanelNuevo);
-        PanelNuevo.setLayout(PanelNuevoLayout);
-        PanelNuevoLayout.setHorizontalGroup(
-            PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNuevoLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(ImagenADD)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Nuevo)
-                .addContainerGap(33, Short.MAX_VALUE))
-        );
-        PanelNuevoLayout.setVerticalGroup(
-            PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNuevoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ImagenADD)
-                    .addComponent(Nuevo))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel1.add(PanelNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, -1, -1));
-
-        PanelGuardar.setBackground(new java.awt.Color(242, 101, 34));
-        PanelGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PanelGuardarMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelGuardarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelGuardarMouseExited(evt);
+                btnGuardarMouseExited(evt);
             }
         });
 
@@ -226,150 +209,28 @@ public class PanelRepuestos extends javax.swing.JPanel {
 
         ImagenSAVE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/save_22dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
 
-        javax.swing.GroupLayout PanelGuardarLayout = new javax.swing.GroupLayout(PanelGuardar);
-        PanelGuardar.setLayout(PanelGuardarLayout);
-        PanelGuardarLayout.setHorizontalGroup(
-            PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelGuardarLayout.createSequentialGroup()
+        javax.swing.GroupLayout btnGuardarLayout = new javax.swing.GroupLayout(btnGuardar);
+        btnGuardar.setLayout(btnGuardarLayout);
+        btnGuardarLayout.setHorizontalGroup(
+            btnGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnGuardarLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(ImagenSAVE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Guardar)
                 .addContainerGap(36, Short.MAX_VALUE))
         );
-        PanelGuardarLayout.setVerticalGroup(
-            PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelGuardarLayout.createSequentialGroup()
+        btnGuardarLayout.setVerticalGroup(
+            btnGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnGuardarLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(btnGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Guardar)
                     .addComponent(ImagenSAVE))
                 .addContainerGap())
         );
 
-        jPanel1.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 350, -1, -1));
-
-        PanelEditar.setBackground(new java.awt.Color(255, 255, 255));
-        PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelEditar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelEditarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelEditarMouseExited(evt);
-            }
-        });
-
-        Editar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        Editar.setText("Editar");
-
-        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/edit_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-
-        javax.swing.GroupLayout PanelEditarLayout = new javax.swing.GroupLayout(PanelEditar);
-        PanelEditar.setLayout(PanelEditarLayout);
-        PanelEditarLayout.setHorizontalGroup(
-            PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelEditarLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Editar)
-                .addContainerGap(33, Short.MAX_VALUE))
-        );
-        PanelEditarLayout.setVerticalGroup(
-            PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelEditarLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Editar)
-                    .addComponent(jLabel2))
-                .addContainerGap())
-        );
-
-        jPanel1.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 350, -1, -1));
-
-        PanelDarBaja.setBackground(new java.awt.Color(255, 255, 255));
-        PanelDarBaja.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(215, 106, 106)));
-        PanelDarBaja.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelDarBaja.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelDarBajaMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelDarBajaMouseExited(evt);
-            }
-        });
-
-        DarDeBaja.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        DarDeBaja.setForeground(new java.awt.Color(215, 106, 106));
-        DarDeBaja.setText("Dar de baja");
-
-        ImagenDarBaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/person_cancel_22dp_EA3323_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-
-        javax.swing.GroupLayout PanelDarBajaLayout = new javax.swing.GroupLayout(PanelDarBaja);
-        PanelDarBaja.setLayout(PanelDarBajaLayout);
-        PanelDarBajaLayout.setHorizontalGroup(
-            PanelDarBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelDarBajaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ImagenDarBaja)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(DarDeBaja)
-                .addGap(30, 30, 30))
-        );
-        PanelDarBajaLayout.setVerticalGroup(
-            PanelDarBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelDarBajaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelDarBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(DarDeBaja)
-                    .addComponent(ImagenDarBaja))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel1.add(PanelDarBaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 350, -1, -1));
-
-        PanelBuscar.setBackground(new java.awt.Color(255, 255, 255));
-        PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelBuscarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelBuscarMouseExited(evt);
-            }
-        });
-
-        Buscar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        Buscar.setText("Buscar");
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/person_search_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-
-        javax.swing.GroupLayout PanelBuscarLayout = new javax.swing.GroupLayout(PanelBuscar);
-        PanelBuscar.setLayout(PanelBuscarLayout);
-        PanelBuscarLayout.setHorizontalGroup(
-            PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelBuscarLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Buscar)
-                .addContainerGap(31, Short.MAX_VALUE))
-        );
-        PanelBuscarLayout.setVerticalGroup(
-            PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelBuscarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Buscar)
-                    .addComponent(jLabel1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel1.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 350, -1, -1));
+        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 350, -1, -1));
 
         jLabel3.setText("Precio Base:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 160, -1, -1));
@@ -499,93 +360,77 @@ public class PanelRepuestos extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jPanel2MousePressed
 
-    private void DescripcionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_DescripcionFocusGained
+    private void txtDescripRepuestoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDescripRepuestoFocusGained
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_DescripcionFocusGained
+    }//GEN-LAST:event_txtDescripRepuestoFocusGained
 
-    private void DescripcionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DescripcionMousePressed
+    private void txtDescripRepuestoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDescripRepuestoMousePressed
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_DescripcionMousePressed
+    }//GEN-LAST:event_txtDescripRepuestoMousePressed
 
-    private void PanelNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseClicked
+    private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
+    try {
+        String id = txtIdRepuesto.getText().trim();
+        String nombre = txtNomRepuesto.getText().trim();
+        int stockActual = Integer.parseInt(txtStockActual.getText().trim());
+        int stockMin = Integer.parseInt(txtCantidadMinima.getText().trim());
+        int stockMax = Integer.parseInt(txtCantidadMaxima.getText().trim());
+        double precio = Double.parseDouble(txtPrecioBase.getText().trim());
+        String descripcion = txtDescripRepuesto.getText().trim();
+
+        TipoRepuesto tipoSel = (TipoRepuesto) cbxTipoRepuesto.getSelectedItem();
+        MarcaRepuesto marcaSel = (MarcaRepuesto) cbxMarcaRepuesto.getSelectedItem();
+
+        if (id.isEmpty() || nombre.isEmpty() || tipoSel == null || marcaSel == null) {
+            JOptionPane.showMessageDialog(this, "Por favor complete los campos obligatorios.", "Campos vacíos", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        Repuesto repuesto = new Repuesto(
+            id, nombre, stockMax, stockMin, stockActual, 
+            precio, descripcion, tipoSel.getIdTipRepuesto(), marcaSel.getIdMarcaRepuesto()
+        );
+
+        RepuestoDAO dao = new RepuestoDAO();
+        if (dao.guardarRepuesto(repuesto, miConexion)) {
+            JOptionPane.showMessageDialog(this, "¡Repuesto guardado en la base de datos!", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            limpiarCampos();
+        }
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Asegúrese de ingresar números válidos en los Stocks y Precio.", "Error de entrada", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_btnGuardarMouseClicked
+
+    private void btnGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseEntered
         // TODO add your handling code here:
-        LimpiarDatos();
-        JOptionPane.showMessageDialog(this, "Datos limpiados correctamente"+"\n"
-            +"Ingrese los datos");
-    }//GEN-LAST:event_PanelNuevoMouseClicked
-
-    private void PanelNuevoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseEntered
-        // TODO add your handling code here:
-        PanelNuevo.setBackground(new Color(219,219,219));
-        Nuevo.setForeground(new Color(66, 66, 66));
-    }//GEN-LAST:event_PanelNuevoMouseEntered
-
-    private void PanelNuevoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseExited
-        // TODO add your handling code here:
-        PanelNuevo.setBackground(Color.white);
-        Nuevo.setForeground(Color.black);
-    }//GEN-LAST:event_PanelNuevoMouseExited
-
-    private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
-        
-    }//GEN-LAST:event_PanelGuardarMouseClicked
-
-    private void PanelGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseEntered
-        // TODO add your handling code here:
-        PanelGuardar.setBackground(new Color(227, 95, 32));
+        btnGuardar.setBackground(new Color(227, 95, 32));
         Guardar.setForeground(new Color(217, 217, 192));
-    }//GEN-LAST:event_PanelGuardarMouseEntered
+    }//GEN-LAST:event_btnGuardarMouseEntered
 
-    private void PanelGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseExited
+    private void btnGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseExited
         // TODO add your handling code here:
-        PanelGuardar.setBackground(new Color(242,101,34));
+        btnGuardar.setBackground(new Color(242,101,34));
         Guardar.setForeground(Color.white);
-    }//GEN-LAST:event_PanelGuardarMouseExited
-
-    private void PanelEditarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseEntered
-        // TODO add your handling code here:
-        PanelEditar.setBackground(new Color(219,219,219));
-        Editar.setForeground(new Color(66, 66, 66));
-    }//GEN-LAST:event_PanelEditarMouseEntered
-
-    private void PanelEditarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseExited
-        // TODO add your handling code here:
-        PanelEditar.setBackground(Color.white);
-        Editar.setForeground(Color.black);
-    }//GEN-LAST:event_PanelEditarMouseExited
-
-    private void PanelDarBajaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarBajaMouseEntered
-        // TODO add your handling code here:
-        PanelDarBaja.setBackground(new Color (252, 168, 168));
-        DarDeBaja.setForeground(Color.white);
-    }//GEN-LAST:event_PanelDarBajaMouseEntered
-
-    private void PanelDarBajaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarBajaMouseExited
-        // TODO add your handling code here:
-        PanelDarBaja.setBackground(Color.white);
-        DarDeBaja.setForeground(new Color(215, 106, 106));
-    }//GEN-LAST:event_PanelDarBajaMouseExited
-
-    private void PanelBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseEntered
-        // TODO add your handling code here:
-        PanelBuscar.setBackground(new Color(219,219,219));
-        Buscar.setForeground(new Color(66, 66, 66));
-    }//GEN-LAST:event_PanelBuscarMouseEntered
-
-    private void PanelBuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseExited
-        // TODO add your handling code here:
-        PanelBuscar.setBackground(Color.white);
-        Buscar.setForeground(Color.black);
-    }//GEN-LAST:event_PanelBuscarMouseExited
+    }//GEN-LAST:event_btnGuardarMouseExited
 
     private void btnAgregarMarcaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMarcaMouseClicked
         // TODO add your handling code here:
-        NuevaEmpresaRecicladora panel = new NuevaEmpresaRecicladora();
-        javax.swing.JPopupMenu popup = new javax.swing.JPopupMenu();
-        popup.add(panel);
-        popup.show(btnAgregarMarca, 0, btnAgregarMarca.getHeight());
+        String nombreMarca = JOptionPane.showInputDialog(this, "Ingrese el nombre de la nueva marca:", "Nueva Marca", JOptionPane.QUESTION_MESSAGE);
+    if (nombreMarca != null && !nombreMarca.trim().isEmpty()) {
+        String idMarca = "MAR-" + (System.currentTimeMillis() % 10000);
+        MarcaRepuesto nuevaMarca = new MarcaRepuesto(idMarca, nombreMarca.trim());
+
+        RepuestoDAO dao = new RepuestoDAO();
+        if (dao.guardarMarca(nuevaMarca, miConexion)) {
+            cbxMarcaRepuesto.addItem(nuevaMarca);
+            cbxMarcaRepuesto.setSelectedItem(nuevaMarca);
+            JOptionPane.showMessageDialog(this, "Marca registrada con éxito.");
+        }
+    }
+
     }//GEN-LAST:event_btnAgregarMarcaMouseClicked
 
     private void btnAgregarMarcaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMarcaMouseEntered
@@ -598,6 +443,19 @@ public class PanelRepuestos extends javax.swing.JPanel {
 
     private void btnAgregarTipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarTipoMouseClicked
         // TODO add your handling code here:
+    String nombreTipo = JOptionPane.showInputDialog(this, "Ingrese el nombre del nuevo tipo:", "Nuevo Tipo", JOptionPane.QUESTION_MESSAGE);
+    if (nombreTipo != null && !nombreTipo.trim().isEmpty()) {
+        String idTipo = "TIP-" + (System.currentTimeMillis() % 10000);
+        TipoRepuesto nuevoTipo = new TipoRepuesto(idTipo, nombreTipo.trim());
+
+        RepuestoDAO dao = new RepuestoDAO();
+        if (dao.guardarTipo(nuevoTipo, miConexion)) {
+            cbxTipoRepuesto.addItem(nuevoTipo);
+            cbxTipoRepuesto.setSelectedItem(nuevoTipo);
+            JOptionPane.showMessageDialog(this, "Tipo registrado con éxito.");
+        }
+    }
+
     }//GEN-LAST:event_btnAgregarTipoMouseClicked
 
     private void btnAgregarTipoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarTipoMouseEntered
@@ -616,34 +474,21 @@ public class PanelRepuestos extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Buscar;
-    private javax.swing.JLabel DarDeBaja;
-    private javax.swing.JTextField Descripcion;
-    private javax.swing.JLabel Editar;
     private javax.swing.JLabel Guardar;
-    private javax.swing.JLabel ImagenADD;
     private javax.swing.JLabel ImagenADD2;
     private javax.swing.JLabel ImagenADD3;
-    private javax.swing.JLabel ImagenDarBaja;
     private javax.swing.JLabel ImagenSAVE;
-    private javax.swing.JLabel Nuevo;
     private javax.swing.JLabel Nuevo2;
     private javax.swing.JLabel Nuevo3;
-    private javax.swing.JPanel PanelBuscar;
-    private javax.swing.JPanel PanelDarBaja;
-    private javax.swing.JPanel PanelEditar;
-    private javax.swing.JPanel PanelGuardar;
-    private javax.swing.JPanel PanelNuevo;
     private javax.swing.JPanel btnAgregarMarca;
     private javax.swing.JPanel btnAgregarTipo;
-    private javax.swing.JComboBox<String> cbxMarcaRepuesto;
-    private javax.swing.JComboBox<String> cbxTipoRepuesto;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel btnGuardar;
+    private javax.swing.JComboBox<Object> cbxMarcaRepuesto;
+    private javax.swing.JComboBox<Object> cbxTipoRepuesto;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -655,6 +500,7 @@ public class PanelRepuestos extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtCantidadMaxima;
     private javax.swing.JTextField txtCantidadMinima;
+    private javax.swing.JTextField txtDescripRepuesto;
     private javax.swing.JTextField txtIdRepuesto;
     private javax.swing.JTextField txtNomRepuesto;
     private javax.swing.JTextField txtPrecioBase;
