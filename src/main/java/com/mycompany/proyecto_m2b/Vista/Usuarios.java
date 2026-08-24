@@ -12,8 +12,10 @@ import com.mycompany.proyecto_m2b.modelo.Usuario;
 import java.awt.Color;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -34,6 +36,9 @@ public class Usuarios extends javax.swing.JFrame {
         ud.cargarIDusuarios(this.Usuarios);
         TipoUsuarioDAO Tip=new TipoUsuarioDAO();
         Tip.cargarTiposUsuario(TiposDeUsuario);
+        PanelBuscarTabla.setVisible(false);
+        cargarTablaUsuario();
+        TablaUsuario.setEnabled(false);
     }
     int xMouse, yMouse;
     /**
@@ -45,6 +50,8 @@ public class Usuarios extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         BGempleados = new javax.swing.JPanel();
         Desplazar = new javax.swing.JPanel();
         NomVentana = new javax.swing.JLabel();
@@ -76,6 +83,30 @@ public class Usuarios extends javax.swing.JFrame {
         PanelDarDeAlta = new javax.swing.JPanel();
         DarDeAlta = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        PanelBuscarTabla = new javax.swing.JPanel();
+        Empleado = new javax.swing.JLabel();
+        TXTEmpleado = new javax.swing.JTextField();
+        Cedula = new javax.swing.JLabel();
+        TXTCedula = new javax.swing.JTextField();
+        TXTEstado = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TablaUsuario = new javax.swing.JTable();
+        OtroNombreUsuario = new javax.swing.JLabel();
+        TXTNombreUsuario = new javax.swing.JTextField();
+        estado = new javax.swing.JLabel();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -314,6 +345,9 @@ public class Usuarios extends javax.swing.JFrame {
         PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
         PanelBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelBuscarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelBuscarMouseEntered(evt);
             }
@@ -410,6 +444,172 @@ public class Usuarios extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        PanelBuscarTabla.setBackground(new java.awt.Color(255, 213, 158));
+        PanelBuscarTabla.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+
+        Empleado.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        Empleado.setText("Empleado:");
+
+        TXTEmpleado.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        TXTEmpleado.setForeground(new java.awt.Color(94, 94, 94));
+        TXTEmpleado.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTEmpleadoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TXTEmpleadoFocusLost(evt);
+            }
+        });
+        TXTEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTEmpleadoMousePressed(evt);
+            }
+        });
+        TXTEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                TXTEmpleadoKeyReleased(evt);
+            }
+        });
+
+        Cedula.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        Cedula.setText("Cedula:");
+
+        TXTCedula.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        TXTCedula.setForeground(new java.awt.Color(94, 94, 94));
+        TXTCedula.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTCedulaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TXTCedulaFocusLost(evt);
+            }
+        });
+        TXTCedula.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTCedulaMousePressed(evt);
+            }
+        });
+        TXTCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                TXTCedulaKeyReleased(evt);
+            }
+        });
+
+        TXTEstado.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        TXTEstado.setForeground(new java.awt.Color(94, 94, 94));
+        TXTEstado.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTEstadoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TXTEstadoFocusLost(evt);
+            }
+        });
+        TXTEstado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTEstadoMousePressed(evt);
+            }
+        });
+        TXTEstado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                TXTEstadoKeyReleased(evt);
+            }
+        });
+
+        TablaUsuario.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(TablaUsuario);
+
+        OtroNombreUsuario.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        OtroNombreUsuario.setText("Nombre de usuario:");
+
+        TXTNombreUsuario.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        TXTNombreUsuario.setForeground(new java.awt.Color(94, 94, 94));
+        TXTNombreUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTNombreUsuarioFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TXTNombreUsuarioFocusLost(evt);
+            }
+        });
+        TXTNombreUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTNombreUsuarioMousePressed(evt);
+            }
+        });
+        TXTNombreUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                TXTNombreUsuarioKeyReleased(evt);
+            }
+        });
+
+        estado.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        estado.setText("Estado:");
+
+        javax.swing.GroupLayout PanelBuscarTablaLayout = new javax.swing.GroupLayout(PanelBuscarTabla);
+        PanelBuscarTabla.setLayout(PanelBuscarTablaLayout);
+        PanelBuscarTablaLayout.setHorizontalGroup(
+            PanelBuscarTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelBuscarTablaLayout.createSequentialGroup()
+                .addGroup(PanelBuscarTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelBuscarTablaLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(PanelBuscarTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TXTCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Cedula))
+                        .addGap(18, 18, 18)
+                        .addGroup(PanelBuscarTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Empleado)
+                            .addComponent(TXTEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(PanelBuscarTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TXTNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(OtroNombreUsuario))
+                        .addGap(18, 18, 18)
+                        .addGroup(PanelBuscarTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(estado)
+                            .addComponent(TXTEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(PanelBuscarTablaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 748, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(38, Short.MAX_VALUE))
+        );
+        PanelBuscarTablaLayout.setVerticalGroup(
+            PanelBuscarTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelBuscarTablaLayout.createSequentialGroup()
+                .addContainerGap(30, Short.MAX_VALUE)
+                .addGroup(PanelBuscarTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelBuscarTablaLayout.createSequentialGroup()
+                        .addGroup(PanelBuscarTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Empleado)
+                            .addComponent(Cedula))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PanelBuscarTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TXTEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TXTCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelBuscarTablaLayout.createSequentialGroup()
+                        .addGroup(PanelBuscarTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(OtroNombreUsuario)
+                            .addComponent(estado))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PanelBuscarTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TXTNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TXTEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28))
+        );
+
         javax.swing.GroupLayout BGempleadosLayout = new javax.swing.GroupLayout(BGempleados);
         BGempleados.setLayout(BGempleadosLayout);
         BGempleadosLayout.setHorizontalGroup(
@@ -417,44 +617,46 @@ public class Usuarios extends javax.swing.JFrame {
             .addComponent(Desplazar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(BGempleadosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(BGempleadosLayout.createSequentialGroup()
-                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(BGempleadosLayout.createSequentialGroup()
-                                .addComponent(Contrasena)
-                                .addGap(232, 232, 232))
-                            .addGroup(BGempleadosLayout.createSequentialGroup()
-                                .addComponent(TXTcontraseña)
-                                .addGap(166, 166, 166)))
-                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Estado)
-                            .addComponent(Estados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TiposUsuario)
-                            .addComponent(TiposDeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Permisos)
-                            .addComponent(Permiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(BGempleadosLayout.createSequentialGroup()
-                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Usuariostext)
-                            .addComponent(Usuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(NombreDeUsuario)
-                            .addComponent(TXTnombreDeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, BGempleadosLayout.createSequentialGroup()
-                        .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PanelEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PanelDarBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PanelDarDeAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(BGempleadosLayout.createSequentialGroup()
+                            .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(BGempleadosLayout.createSequentialGroup()
+                                    .addComponent(Contrasena)
+                                    .addGap(232, 232, 232))
+                                .addGroup(BGempleadosLayout.createSequentialGroup()
+                                    .addComponent(TXTcontraseña)
+                                    .addGap(166, 166, 166)))
+                            .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(Estado)
+                                .addComponent(Estados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)
+                            .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(TiposUsuario)
+                                .addComponent(TiposDeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)
+                            .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(Permisos)
+                                .addComponent(Permiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(BGempleadosLayout.createSequentialGroup()
+                            .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(Usuariostext)
+                                .addComponent(Usuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(NombreDeUsuario)
+                                .addComponent(TXTnombreDeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, BGempleadosLayout.createSequentialGroup()
+                            .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(PanelEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(PanelDarBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(PanelDarDeAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(PanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(PanelBuscarTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(111, Short.MAX_VALUE))
         );
         BGempleadosLayout.setVerticalGroup(
@@ -496,10 +698,12 @@ public class Usuarios extends javax.swing.JFrame {
                         .addComponent(PanelDarBaja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(PanelBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(PanelDarDeAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(215, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(PanelBuscarTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        getContentPane().add(BGempleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, 460));
+        getContentPane().add(BGempleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, 570));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -615,6 +819,37 @@ public class Usuarios extends javax.swing.JFrame {
         }        
     }//GEN-LAST:event_TXTnombreDeUsuarioFocusGained
 
+    public void Dinamico (){
+        String cedula=TXTCedula.getText().trim();
+        String empleado=TXTEmpleado.getText().trim();
+        String usuario=TXTNombreUsuario.getText().trim();
+        String estado=TXTEstado.getText().trim();
+        cargarTablaUsuario(cedula, empleado, usuario, estado);
+    }
+    public void cargarTablaUsuario(){
+        cargarTablaUsuario("", "", "", "");
+    }
+    public void cargarTablaUsuario (String cedula, String empleado, String usuario, String estado){        
+        UsuarioDAO ud=new UsuarioDAO();
+        List<Usuario> lista= ud.listarUsuario();
+        String columnas []={"Cédula","ID","Nombre usuario","Empleado", "Tipo usuario", "Estado"};
+        DefaultTableModel modelo = new DefaultTableModel (null, columnas);
+        modelo.setRowCount(0);
+        System.out.println(lista.size());
+        for (Usuario u : lista){
+            Object [] fila={
+                u.getCed_perso(),
+                u.getID_usuario(),
+                u.getNombre_usuario(),
+                u.getNombre_completo(),
+                u.getTip_usuario(),
+                u.isEstado_acti_usuario()?"Activo":"En pausa"
+            };
+            modelo.addRow(fila);
+        }
+        // table nombre asignado a la tabla
+        TablaUsuario.setModel(modelo);
+    }
     public void GuardarCambios (){
         String contrasena=String.valueOf(TXTcontraseña.getPassword());
         String nombre_usuario=TXTnombreDeUsuario.getText().trim();
@@ -652,6 +887,7 @@ public class Usuarios extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "Modificado de manera correcta");
                         u.cargarIDusuarios(this.Usuarios);
                         LimpiarDatos();
+                        cargarTablaUsuario();
                     }
                     else{
                         JOptionPane.showMessageDialog(this, "Error al modificar al usuario: "+selecc.getNombre_usuario());
@@ -756,6 +992,7 @@ public class Usuarios extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "Modificado de manera correcta");
                         u.cargarIDusuarios(this.Usuarios);
                         LimpiarDatos();
+                        cargarTablaUsuario();
                     }
                     else{
                         JOptionPane.showMessageDialog(this, "Error al modificar al usuario: "+selecc.getNombre_usuario());
@@ -816,6 +1053,7 @@ public class Usuarios extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Se ha modificado de manera correcta");
                 ud.cargarIDusuarios(this.Usuarios);
                 LimpiarDatos();
+                cargarTablaUsuario();
             }
             else{
                 JOptionPane.showMessageDialog(this, "Error al modificar al usaurio");
@@ -829,6 +1067,84 @@ public class Usuarios extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error al escoger el usuario");
         }        
     }//GEN-LAST:event_PanelEditarMouseClicked
+
+    private void PanelBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseClicked
+        // TODO add your handling code here:
+        if (PanelBuscarTabla.isVisible()==false){
+            PanelBuscarTabla.setVisible(true);
+        }
+        else{
+            PanelBuscarTabla.setVisible(false);
+        }
+    }//GEN-LAST:event_PanelBuscarMouseClicked
+
+    private void TXTEmpleadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTEmpleadoFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTEmpleadoFocusGained
+
+    private void TXTEmpleadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTEmpleadoFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTEmpleadoFocusLost
+
+    private void TXTEmpleadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTEmpleadoMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTEmpleadoMousePressed
+
+    private void TXTCedulaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTCedulaFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTCedulaFocusGained
+
+    private void TXTCedulaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTCedulaFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTCedulaFocusLost
+
+    private void TXTCedulaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTCedulaMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTCedulaMousePressed
+
+    private void TXTEstadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTEstadoFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTEstadoFocusGained
+
+    private void TXTEstadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTEstadoFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTEstadoFocusLost
+
+    private void TXTEstadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTEstadoMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTEstadoMousePressed
+
+    private void TXTNombreUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTNombreUsuarioFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTNombreUsuarioFocusGained
+
+    private void TXTNombreUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTNombreUsuarioFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTNombreUsuarioFocusLost
+
+    private void TXTNombreUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTNombreUsuarioMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTNombreUsuarioMousePressed
+
+    private void TXTCedulaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTCedulaKeyReleased
+        // TODO add your handling code here:
+        //Dinamico();
+    }//GEN-LAST:event_TXTCedulaKeyReleased
+
+    private void TXTEmpleadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTEmpleadoKeyReleased
+        // TODO add your handling code here:
+        //Dinamico();
+    }//GEN-LAST:event_TXTEmpleadoKeyReleased
+
+    private void TXTNombreUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTNombreUsuarioKeyReleased
+        // TODO add your handling code here:
+        //Dinamico();
+    }//GEN-LAST:event_TXTNombreUsuarioKeyReleased
+
+    private void TXTEstadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTEstadoKeyReleased
+        // TODO add your handling code here:
+        //Dinamico();
+    }//GEN-LAST:event_TXTEstadoKeyReleased
 
     /**
      * @param args the command line arguments
@@ -858,11 +1174,13 @@ public class Usuarios extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BGempleados;
     private javax.swing.JLabel Buscar;
+    private javax.swing.JLabel Cedula;
     private javax.swing.JLabel Contrasena;
     private javax.swing.JLabel DarDeAlta;
     private javax.swing.JLabel DarDeBaja;
     private javax.swing.JPanel Desplazar;
     private javax.swing.JLabel Editar;
+    private javax.swing.JLabel Empleado;
     private javax.swing.JLabel Estado;
     private javax.swing.JComboBox<String> Estados;
     private javax.swing.JLabel Guardar;
@@ -870,22 +1188,33 @@ public class Usuarios extends javax.swing.JFrame {
     private javax.swing.JLabel ImagenSAVE;
     private javax.swing.JLabel NomVentana;
     private javax.swing.JLabel NombreDeUsuario;
+    private javax.swing.JLabel OtroNombreUsuario;
     private javax.swing.JPanel PanelBuscar;
+    private javax.swing.JPanel PanelBuscarTabla;
     private javax.swing.JPanel PanelDarBaja;
     private javax.swing.JPanel PanelDarDeAlta;
     private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JComboBox<String> Permiso;
     private javax.swing.JLabel Permisos;
+    private javax.swing.JTextField TXTCedula;
+    private javax.swing.JTextField TXTEmpleado;
+    private javax.swing.JTextField TXTEstado;
+    private javax.swing.JTextField TXTNombreUsuario;
     private javax.swing.JPasswordField TXTcontraseña;
     private javax.swing.JTextField TXTnombreDeUsuario;
+    private javax.swing.JTable TablaUsuario;
     private javax.swing.JComboBox<String> TiposDeUsuario;
     private javax.swing.JLabel TiposUsuario;
     private javax.swing.JComboBox<String> Usuarios;
     private javax.swing.JLabel Usuariostext;
     private javax.swing.JLabel Volver;
+    private javax.swing.JLabel estado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

@@ -47,9 +47,12 @@ public class UsuarioDAO {
         }
       
     }
-    private static final String LISTARUSUARIO =
-            "SELECT *"         
-            + "FROM usuario ";
+    private static final String LISTARUSUARIO = ""
+            + "SELECT u.ID_usuario, u.Nombre_usuario, u.Contra_usuario, u.Estado_acti_usuario, u.id_empleado, u.id_tip_usuario, "
+            +"p.nom1_person, p.apell1_person, p.ced_perso "
+            +"FROM Usuario u "
+            +"LEFT JOIN Empleado e ON u.id_empleado = e.id_empleado "
+            +"LEFT JOIN Persona p ON p.ced_perso = e.ced_perso";
     
     public List<Usuario> listarUsuario() {
     List<Usuario> lista = new ArrayList<>();
@@ -65,8 +68,24 @@ public class UsuarioDAO {
                         rs.getString("Contra_usuario"),
                         rs.getBoolean("Estado_acti_usuario"),
                         rs.getString("id_empleado"),
-                        rs.getString("tip_usuario")
+                        rs.getString("id_tip_usuario")
                 );
+                String nom=rs.getString("nom1_person");
+                String apell=rs.getString("apell1_person");
+                String ced=rs.getString("ced_perso");
+                if (nom!=null && apell!=null){
+                    u.setNombre_completo(nom+" "+apell);
+                }
+                else if (nom!=null && apell==null){
+                    u.setNombre_completo(nom);
+                }
+                else if (apell!=null && nom==null){
+                    u.setNombre_completo(apell);
+                }
+                else{
+                    u.setNombre_completo("No hay");
+                }
+                u.setCed_perso(ced);
                 lista.add(u);
             }
 
@@ -76,18 +95,7 @@ public class UsuarioDAO {
 
         return lista;
     }
-    public boolean eliminarUsuario (String id_usuario) {
-        String sql="DELETE FROM usuario WHERE id_usuario=?";
-        try(Connection conn = ConexionBD.obtenerConexion();
-                PreparedStatement stmt=conn.prepareStatement(sql)){
-            stmt.setString(1, id_usuario);
-            int filas=stmt.executeUpdate();
-            return filas>0;
-        } catch (Exception e){
-            System.out.println("Error al eliminar usuario: "+e.getMessage());
-            return false;
-        }
-    }
+    
     private static final String MODIFICARUSUARIO =
             "UPDATE usuario "
             + "SET nombre_usuario=?, contra_usuario=?, id_tip_usuario=? "
