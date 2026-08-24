@@ -410,23 +410,17 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="PanelProveedores" max="32767" attributes="0"/>
-                                  <Component id="PanelVehiculos" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="PanelOrdenesServicio" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="PanelPropietarios" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="PanelServicios" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="PanelResiduos" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="PanelEstadisticas" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="PanelRepuestos" alignment="1" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
                               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="55" max="32767" attributes="0"/>
                           </Group>
+                          <Component id="PanelProveedores" max="32767" attributes="0"/>
+                          <Component id="PanelVehiculos" alignment="0" max="32767" attributes="0"/>
+                          <Component id="PanelOrdenesServicio" alignment="0" max="32767" attributes="0"/>
+                          <Component id="PanelPropietarios" alignment="0" max="32767" attributes="0"/>
+                          <Component id="PanelServicios" alignment="0" max="32767" attributes="0"/>
+                          <Component id="PanelResiduos" alignment="0" max="32767" attributes="0"/>
+                          <Component id="PanelEstadisticas" alignment="0" max="32767" attributes="0"/>
+                          <Component id="PanelRepuestos" alignment="1" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -450,7 +444,7 @@
                               <Component id="PanelResiduos" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="PanelEstadisticas" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="37" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1018,18 +1012,17 @@
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                                   <Component id="Accesos" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="29" max="32767" attributes="0"/>
+                                  <EmptySpace pref="35" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="Accesos" min="-2" pref="58" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="Accesos" min="-2" pref="58" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
