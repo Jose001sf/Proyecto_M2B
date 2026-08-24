@@ -72,4 +72,18 @@ public class ProveedorDAO {
         return "PRO-001";
     }
    
+    public boolean guardarTipoProveedor(TipoProveedor tipo, Connection con) {
+    String sql = "INSERT INTO public.tipos_de_proveedores (id_tipo_proveedor, nom_tip_proveedor, descrip_tipo_proveedor) VALUES (?, ?, ?)";
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setString(1, tipo.getIdTipoProveedor());
+        ps.setString(2, tipo.getNomTipProveedor());
+        ps.setString(3, tipo.getDescripTipoProveedor());
+        ps.executeUpdate();
+        return true;
+    } catch (SQLException e) {
+        System.err.println("Error al guardar tipo de proveedor: " + e.getMessage());
+        return false;
+    }
+}
+    
 }

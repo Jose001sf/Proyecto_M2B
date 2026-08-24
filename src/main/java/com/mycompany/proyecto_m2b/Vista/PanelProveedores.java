@@ -11,12 +11,18 @@ import com.mycompany.proyecto_m2b.Controlador.RepuestoDAO;
 import com.mycompany.proyecto_m2b.modelo.Proveedor;
 import com.mycompany.proyecto_m2b.modelo.Repuesto;
 import com.mycompany.proyecto_m2b.modelo.TipoProveedor;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -662,24 +668,74 @@ if (fechaSeleccionada != null) {
     }//GEN-LAST:event_PanelBuscarMouseExited
 
     private void btnAgregarProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarProveedorMouseClicked
-        // TODO add your handling code here:
-    JTextField txtRuc = new JTextField();
+        JTextField txtRuc = new JTextField();
     JTextField txtNombre = new JTextField();
     JTextField txtTelefono = new JTextField();
     JComboBox<TipoProveedor> cbxTipoProvPop = new JComboBox<>();
 
-    for (TipoProveedor tp : proveedorDAO.obtenerTiposProveedor(miConexion)) {
-        cbxTipoProvPop.addItem(tp);
-    }
-
-    Object[] formulario = {
-        "RUC / Identificación:", txtRuc,
-        "Nombre Empresa:", txtNombre,
-        "Teléfono:", txtTelefono,
-        "Tipo de Proveedor:", cbxTipoProvPop
+    Runnable cargarTipos = () -> {
+        cbxTipoProvPop.removeAllItems();
+        for (TipoProveedor tp : proveedorDAO.obtenerTiposProveedor(miConexion)) {
+            cbxTipoProvPop.addItem(tp);
+        }
     };
 
-    int opcion = JOptionPane.showConfirmDialog(this, formulario, "Registrar Nuevo Proveedor", JOptionPane.OK_CANCEL_OPTION);
+    cargarTipos.run();
+    
+    JPanel panel = new JPanel(new GridLayout(5, 2, 5, 5));
+    panel.setPreferredSize(new Dimension(420, 180));
+    panel.add(new JLabel("RUC / Identificación:"));
+    panel.add(txtRuc);
+    panel.add(new JLabel("Nombre Empresa:"));
+    panel.add(txtNombre);
+    panel.add(new JLabel("Teléfono:"));
+    panel.add(txtTelefono);
+    panel.add(new JLabel("Tipo de Proveedor:"));
+    
+    JPanel panelTipo = new JPanel(new BorderLayout(5, 0));
+    panelTipo.add(cbxTipoProvPop, BorderLayout.CENTER);
+    
+    JButton btnNuevoTipo = new JButton("+ Tipo");
+    panelTipo.add(btnNuevoTipo, BorderLayout.EAST);
+    
+    panel.add(panelTipo);
+
+    btnNuevoTipo.addActionListener(e -> {
+        int aleatorio = (int) (Math.random() * 9000) + 1000;
+        JTextField txtIdTipo = new JTextField("TP-" + aleatorio);
+        JTextField txtNomTip = new JTextField();
+        JTextField txtDescripTip = new JTextField();
+
+        Object[] formTipo = {
+            "ID Tipo Proveedor:", txtIdTipo,
+            "Nombre del Tipo:", txtNomTip,
+            "Descripción:", txtDescripTip
+        };
+
+        int resTipo = JOptionPane.showConfirmDialog(this, formTipo, "Registrar Nuevo Tipo de Proveedor", JOptionPane.OK_CANCEL_OPTION);
+
+        if (resTipo == JOptionPane.OK_OPTION) {
+            String idTipo = txtIdTipo.getText().trim();
+            String nomTip = txtNomTip.getText().trim();
+            String descrip = txtDescripTip.getText().trim();
+
+            if (!idTipo.isEmpty() && !nomTip.isEmpty()) {
+                TipoProveedor nuevoTp = new TipoProveedor(idTipo, nomTip, descrip);
+                
+                if (proveedorDAO.guardarTipoProveedor(nuevoTp, miConexion)) {
+                    JOptionPane.showMessageDialog(this, "Tipo de proveedor guardado con éxito.");
+                    cargarTipos.run();
+                    cbxTipoProvPop.setSelectedItem(nuevoTp);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error al guardar el tipo de proveedor.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "El ID y el Nombre del tipo son obligatorios.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    });
+
+    int opcion = JOptionPane.showConfirmDialog(this, panel, "Registrar Nuevo Proveedor", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
     if (opcion == JOptionPane.OK_OPTION) {
         String ruc = txtRuc.getText().trim();
@@ -697,7 +753,7 @@ if (fechaSeleccionada != null) {
                 JOptionPane.showMessageDialog(this, "Proveedor guardado exitosamente.");
             }
         } else {
-            JOptionPane.showMessageDialog(this, "RUC y Nombre son obligatorios.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "RUC, Nombre y Tipo de Proveedor son obligatorios.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
     }
     }//GEN-LAST:event_btnAgregarProveedorMouseClicked
