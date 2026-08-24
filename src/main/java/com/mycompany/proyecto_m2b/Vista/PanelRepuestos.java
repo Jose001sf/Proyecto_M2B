@@ -25,6 +25,8 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
     public PanelRepuestos() {
     initComponents();
     cargarCombos();
+    txtIdRepuesto.setEditable(false);
+    generarIdAutomatico();
 }
     private void cargarCombos() {
         cbxTipoRepuesto.removeAllItems();
@@ -47,6 +49,7 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
     txtCantidadMaxima.setText("");
     txtPrecioBase.setText("");
     txtDescripRepuesto.setText("");
+    generarIdAutomatico();
 
     if (cbxTipoRepuesto.getItemCount() > 0) {
         cbxTipoRepuesto.setSelectedIndex(0);
@@ -56,6 +59,12 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
     }
 
     txtIdRepuesto.requestFocus();
+}
+    
+    private void generarIdAutomatico() {
+    RepuestoDAO dao = new RepuestoDAO();
+    String nuevoId = dao.obtenerSiguienteIdRepuesto(miConexion);
+    txtIdRepuesto.setText(nuevoId);
 }
     
     /**
@@ -443,17 +452,44 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
 
     private void btnAgregarTipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarTipoMouseClicked
         // TODO add your handling code here:
-    String nombreTipo = JOptionPane.showInputDialog(this, "Ingrese el nombre del nuevo tipo:", "Nuevo Tipo", JOptionPane.QUESTION_MESSAGE);
-    if (nombreTipo != null && !nombreTipo.trim().isEmpty()) {
-        String idTipo = "TIP-" + (System.currentTimeMillis() % 10000);
-        TipoRepuesto nuevoTipo = new TipoRepuesto(idTipo, nombreTipo.trim());
+    javax.swing.JTextField txtNombre = new javax.swing.JTextField();
+    javax.swing.JTextField txtDescripcion = new javax.swing.JTextField();
 
-        RepuestoDAO dao = new RepuestoDAO();
-        if (dao.guardarTipo(nuevoTipo, miConexion)) {
-            cbxTipoRepuesto.addItem(nuevoTipo);
-            cbxTipoRepuesto.setSelectedItem(nuevoTipo);
-            JOptionPane.showMessageDialog(this, "Tipo registrado con éxito.");
+    Object[] formulario = {
+        "Nombre del Tipo:", txtNombre,
+        "Descripción:", txtDescripcion
+    };
+
+    int opcion = javax.swing.JOptionPane.showConfirmDialog(
+        this, 
+        formulario, 
+        "Registrar Nuevo Tipo de Repuesto", 
+        javax.swing.JOptionPane.OK_CANCEL_OPTION
+    );
+
+    if (opcion == javax.swing.JOptionPane.OK_OPTION) {
+        String nombre = txtNombre.getText().trim();
+        String descripcion = txtDescripcion.getText().trim();
+
+        if (!nombre.isEmpty()) {
+            String idTipo = "TIP-" + (System.currentTimeMillis() % 10000);
+            
+            if (descripcion.isEmpty()) {
+                descripcion = "Sin descripción";
+            }
+
+            TipoRepuesto nuevoTipo = new TipoRepuesto(idTipo, nombre, descripcion);
+
+            RepuestoDAO dao = new RepuestoDAO();
+            if (dao.guardarTipo(nuevoTipo, miConexion)) {
+                cbxTipoRepuesto.addItem(nuevoTipo);
+                cbxTipoRepuesto.setSelectedItem(nuevoTipo);
+                javax.swing.JOptionPane.showMessageDialog(this, "Tipo guardado exitosamente.");
+            }
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "El nombre del tipo no puede estar vacío.", "Advertencia", javax.swing.JOptionPane.WARNING_MESSAGE);
         }
+    
     }
 
     }//GEN-LAST:event_btnAgregarTipoMouseClicked

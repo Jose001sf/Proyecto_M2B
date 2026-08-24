@@ -52,17 +52,17 @@ public class RepuestoDAO {
     }
 
     public boolean guardarTipo(TipoRepuesto tipo, Connection conexion) {
-        String sql = "INSERT INTO public.tipo_de_repuesto (id_tip_repuesto, nom_tip_repuesto, descrip_tip_repuesto) VALUES (?, ?, ?)";
-        try (PreparedStatement ps = conexion.prepareStatement(sql)) {
-            ps.setString(1, tipo.getIdTipRepuesto());
-            ps.setString(2, tipo.getNomTipRepuesto());
-            ps.setString(3, "Registrado desde interfaz");
-            return ps.executeUpdate() > 0;
-        } catch (SQLException e) {
-            System.err.println("Error al guardar tipo: " + e.getMessage());
-            return false;
-        }
+    String sql = "INSERT INTO public.tipo_de_repuesto (id_tip_repuesto, nom_tip_repuesto, descrip_tip_repuesto) VALUES (?, ?, ?)";
+    try (PreparedStatement ps = conexion.prepareStatement(sql)) {
+        ps.setString(1, tipo.getIdTipRepuesto());
+        ps.setString(2, tipo.getNomTipRepuesto());
+        ps.setString(3, tipo.getDescripTipRepuesto()); 
+        return ps.executeUpdate() > 0;
+    } catch (SQLException e) {
+        System.err.println("Error al guardar tipo: " + e.getMessage());
+        return false;
     }
+}
     
     public List<TipoRepuesto> obtenerTipos(Connection conexion) {
     List<TipoRepuesto> lista = new ArrayList<>();
@@ -88,5 +88,21 @@ public class RepuestoDAO {
         System.err.println("Error al cargar marcas: " + e.getMessage());
     }
     return lista;
+}
+    
+    public String obtenerSiguienteIdRepuesto(Connection conexion) {
+    String sql = "SELECT COALESCE(MAX(CAST(SUBSTRING(id_repuestos FROM 5) AS INTEGER)), 0) + 1 AS siguiente "
+               + "FROM public.repuestos WHERE id_repuestos LIKE 'REP-%'";
+    
+    try (Statement st = conexion.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+        if (rs.next()) {
+            int siguienteNum = rs.getInt("siguiente");
+            return String.format("REP-%03d", siguienteNum);
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al generar siguiente ID: " + e.getMessage());
+    }
+    
+    return "REP-001"; 
 }
 }
