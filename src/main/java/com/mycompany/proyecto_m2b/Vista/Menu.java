@@ -306,6 +306,8 @@ public class Menu extends javax.swing.JFrame {
         PanelPaneles.setLayout(new java.awt.CardLayout());
 
         jScrollPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jScrollPane1.setHorizontalScrollBar(null);
+        jScrollPane1.setOpaque(false);
         jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jScrollPane1MouseExited(evt);
