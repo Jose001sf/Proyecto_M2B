@@ -93,7 +93,7 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jLabel4" min="-2" pref="37" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="jComboBox1" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
+                                      <Component id="cbTiposServicios" alignment="0" min="-2" pref="147" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -134,7 +134,7 @@
                               <Component id="txtServicio" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtPrecioBase" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtTiempoEstimado" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cbTiposServicios" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
@@ -275,7 +275,7 @@
             <Property name="text" type="java.lang.String" value="Tipo de servicio:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBox1">
+        <Component class="javax.swing.JComboBox" name="cbTiposServicios">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="4">

@@ -43,7 +43,7 @@ public class TipoServicioDAO {
             while (rs.next()) {
                 Tipo_de_servicio servicio = new Tipo_de_servicio(
                     rs.getString("id_tipo_servicio"),
-                    rs.getString("nom_tipo_servicio"),
+                    rs.getString("nom_tipo_servi"),
                     rs.getString("desc_tipo_servicio")
                 );
                 lista.add(servicio);
@@ -94,6 +94,27 @@ public class TipoServicioDAO {
         } catch (SQLException e) {
             System.out.println("Error al actualizar el tipo de servicio: " + e.getMessage());
             return false;
+        }
+    }
+    
+    private static final String OBTENERULTIMOID
+            = "SELECT id_tipo_servicio FROM tipo_de_servicio ORDER BY id_tipo_servicio DESC LIMIT 1";
+
+    public String generarNuevoId() {
+        try (Connection conn = ConexionBD.obtenerConexion(); PreparedStatement ps = conn.prepareStatement(OBTENERULTIMOID); ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) {
+                String ultimoId = rs.getString("id_tipo_servicio"); 
+                int numero = Integer.parseInt(ultimoId.substring(2));
+                numero++;
+                return String.format("TS%03d", numero);
+            } else {
+                return "TS001"; 
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al generar nuevo ID: " + e.getMessage());
+            return null;
         }
     }
 }

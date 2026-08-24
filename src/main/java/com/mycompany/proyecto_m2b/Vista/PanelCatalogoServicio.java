@@ -18,7 +18,8 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
     public PanelCatalogoServicio() {
         initComponents();
     }
-
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,7 +44,7 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
         tblCatalogo = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbTiposServicios = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         PanelGuardar = new javax.swing.JPanel();
         Guardar = new javax.swing.JLabel();
@@ -140,7 +141,7 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
 
         jLabel5.setText("Tipo de servicio:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona un tipo:", "Item 2", "Item 3", "Item 4" }));
+        cbTiposServicios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona un tipo:", "Item 2", "Item 3", "Item 4" }));
 
         jButton1.setText("Agregar servicio");
         jButton1.addActionListener(this::jButton1ActionPerformed);
@@ -403,7 +404,7 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
                                         .addComponent(jLabel5)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(cbTiposServicios, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(TxtBuscar)
                                 .addGap(18, 18, 18)
@@ -434,7 +435,7 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
                             .addComponent(txtServicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtPrecioBase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtTiempoEstimado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbTiposServicios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(23, 23, 23)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -615,8 +616,8 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
     private javax.swing.JLabel TxtBuscar;
     private javax.swing.JLabel TxtCatalogoServicios;
     private javax.swing.JButton btnHistorial;
+    private javax.swing.JComboBox<String> cbTiposServicios;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

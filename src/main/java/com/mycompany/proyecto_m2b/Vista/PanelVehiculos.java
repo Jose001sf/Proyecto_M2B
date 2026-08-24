@@ -225,6 +225,7 @@ public class PanelVehiculos extends javax.swing.JPanel {
         Fondo.add(comboMarcas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 210, -1));
 
         comboModelos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccion un modelo", "Item 2", "Item 3", "Item 4" }));
+        comboModelos.addActionListener(this::comboModelosActionPerformed);
         Fondo.add(comboModelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 200, 240, -1));
 
         comboPropietarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione al propietario", "Item 2", "Item 3", "Item 4" }));
@@ -802,6 +803,10 @@ public class PanelVehiculos extends javax.swing.JPanel {
         CrearNuevaMarcaModelo marcanueva=new CrearNuevaMarcaModelo();
         marcanueva.setVisible(true);
     }//GEN-LAST:event_NuevoMouseClicked
+
+    private void comboModelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboModelosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboModelosActionPerformed
     
     public void LimpiarDatos (){
         txtPlaca.setText("");
