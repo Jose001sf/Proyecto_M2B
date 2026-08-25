@@ -117,6 +117,14 @@ public class CrearEmpleado extends javax.swing.JFrame {
         JPanelBuscar = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaEmpleados = new javax.swing.JTable();
+        Empleado = new javax.swing.JLabel();
+        TXTEmpleado = new javax.swing.JTextField();
+        Cedula1 = new javax.swing.JLabel();
+        TXTCedula = new javax.swing.JTextField();
+        estado = new javax.swing.JLabel();
+        TXTEstado = new javax.swing.JTextField();
+        OtroNombreUsuario = new javax.swing.JLabel();
+        TXTNombreUsuario = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -661,19 +669,150 @@ public class CrearEmpleado extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(TablaEmpleados);
 
+        Empleado.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        Empleado.setText("Empleado:");
+
+        TXTEmpleado.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        TXTEmpleado.setForeground(new java.awt.Color(94, 94, 94));
+        TXTEmpleado.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTEmpleadoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TXTEmpleadoFocusLost(evt);
+            }
+        });
+        TXTEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTEmpleadoMousePressed(evt);
+            }
+        });
+        TXTEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                TXTEmpleadoKeyReleased(evt);
+            }
+        });
+
+        Cedula1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        Cedula1.setText("Cedula:");
+
+        TXTCedula.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        TXTCedula.setForeground(new java.awt.Color(94, 94, 94));
+        TXTCedula.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTCedulaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TXTCedulaFocusLost(evt);
+            }
+        });
+        TXTCedula.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTCedulaMousePressed(evt);
+            }
+        });
+        TXTCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                TXTCedulaKeyReleased(evt);
+            }
+        });
+
+        estado.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        estado.setText("Estado:");
+
+        TXTEstado.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        TXTEstado.setForeground(new java.awt.Color(94, 94, 94));
+        TXTEstado.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTEstadoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TXTEstadoFocusLost(evt);
+            }
+        });
+        TXTEstado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTEstadoMousePressed(evt);
+            }
+        });
+        TXTEstado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                TXTEstadoKeyReleased(evt);
+            }
+        });
+
+        OtroNombreUsuario.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        OtroNombreUsuario.setText("Nombre de usuario:");
+
+        TXTNombreUsuario.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        TXTNombreUsuario.setForeground(new java.awt.Color(94, 94, 94));
+        TXTNombreUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTNombreUsuarioFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TXTNombreUsuarioFocusLost(evt);
+            }
+        });
+        TXTNombreUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTNombreUsuarioMousePressed(evt);
+            }
+        });
+        TXTNombreUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                TXTNombreUsuarioKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout JPanelBuscarLayout = new javax.swing.GroupLayout(JPanelBuscar);
         JPanelBuscar.setLayout(JPanelBuscarLayout);
         JPanelBuscarLayout.setHorizontalGroup(
             JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JPanelBuscarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 785, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 785, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(JPanelBuscarLayout.createSequentialGroup()
+                        .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TXTCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Cedula1))
+                        .addGap(18, 18, 18)
+                        .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Empleado)
+                            .addComponent(TXTEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TXTNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(OtroNombreUsuario))
+                        .addGap(18, 18, 18)
+                        .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(estado)
+                            .addComponent(TXTEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(68, Short.MAX_VALUE))
         );
         JPanelBuscarLayout.setVerticalGroup(
             JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPanelBuscarLayout.createSequentialGroup()
-                .addContainerGap(67, Short.MAX_VALUE)
+                .addContainerGap(26, Short.MAX_VALUE)
+                .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPanelBuscarLayout.createSequentialGroup()
+                        .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Empleado)
+                            .addComponent(Cedula1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TXTEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TXTCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPanelBuscarLayout.createSequentialGroup()
+                        .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(OtroNombreUsuario)
+                            .addComponent(estado))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TXTNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TXTEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -858,7 +997,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
                     .addComponent(PanelBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(JPanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         getContentPane().add(BGempleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, 710));
@@ -3006,10 +3145,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
         EmpleadoDAO ed=new EmpleadoDAO();
         empleado=ed.buscarPorCedula(ced_perso);        
         persona=pd.buscarPorCedula(ced_perso);
-        if(empleado==null){
-            JOptionPane.showMessageDialog(this, "No está guardado como empleado");
-            return;
-        }
+        
         if(persona!=null){
             TXTcedula.setEditable(false);
             TXTnombre.setText(persona.getNom1_person());
@@ -3112,6 +3248,74 @@ public void cargarTablaUsuario(){
         }
     }//GEN-LAST:event_PanelBuscarMouseClicked
 
+    private void TXTEmpleadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTEmpleadoFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTEmpleadoFocusGained
+
+    private void TXTEmpleadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTEmpleadoFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTEmpleadoFocusLost
+
+    private void TXTEmpleadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTEmpleadoMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTEmpleadoMousePressed
+
+    private void TXTEmpleadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTEmpleadoKeyReleased
+        // TODO add your handling code here:
+        //Dinamico();
+    }//GEN-LAST:event_TXTEmpleadoKeyReleased
+
+    private void TXTCedulaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTCedulaFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTCedulaFocusGained
+
+    private void TXTCedulaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTCedulaFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTCedulaFocusLost
+
+    private void TXTCedulaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTCedulaMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTCedulaMousePressed
+
+    private void TXTCedulaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTCedulaKeyReleased
+        // TODO add your handling code here:
+        //Dinamico();
+    }//GEN-LAST:event_TXTCedulaKeyReleased
+
+    private void TXTEstadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTEstadoFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTEstadoFocusGained
+
+    private void TXTEstadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTEstadoFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTEstadoFocusLost
+
+    private void TXTEstadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTEstadoMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTEstadoMousePressed
+
+    private void TXTEstadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTEstadoKeyReleased
+        // TODO add your handling code here:
+        //Dinamico();
+    }//GEN-LAST:event_TXTEstadoKeyReleased
+
+    private void TXTNombreUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTNombreUsuarioFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTNombreUsuarioFocusGained
+
+    private void TXTNombreUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTNombreUsuarioFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTNombreUsuarioFocusLost
+
+    private void TXTNombreUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTNombreUsuarioMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTNombreUsuarioMousePressed
+
+    private void TXTNombreUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTNombreUsuarioKeyReleased
+        // TODO add your handling code here:
+        //Dinamico();
+    }//GEN-LAST:event_TXTNombreUsuarioKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -3146,11 +3350,13 @@ public void cargarTablaUsuario(){
     private javax.swing.JLabel Cargo;
     private javax.swing.JComboBox<String> Cargos;
     private javax.swing.JLabel Cedula;
+    private javax.swing.JLabel Cedula1;
     private javax.swing.JLabel Celular;
     private javax.swing.JLabel CorreoElectrocnico;
     private javax.swing.JPanel Desplazar;
     private javax.swing.JLabel Dirección;
     private javax.swing.JLabel Editar;
+    private javax.swing.JLabel Empleado;
     private javax.swing.JLabel Especialidad;
     private javax.swing.JComboBox<String> Especialidades;
     private javax.swing.JLabel FNacimiento;
@@ -3164,12 +3370,17 @@ public void cargarTablaUsuario(){
     private javax.swing.JLabel NomVentana;
     private javax.swing.JLabel Nombres;
     private javax.swing.JLabel Nuevo;
+    private javax.swing.JLabel OtroNombreUsuario;
     private javax.swing.JPanel PanelBuscar;
     private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JPanel PanelNuevo;
+    private javax.swing.JTextField TXTCedula;
     private javax.swing.JTextField TXTCelular;
     private javax.swing.JTextField TXTCorreoElectronico;
+    private javax.swing.JTextField TXTEmpleado;
+    private javax.swing.JTextField TXTEstado;
+    private javax.swing.JTextField TXTNombreUsuario;
     private javax.swing.JTextField TXTTelefono;
     private javax.swing.JTextField TXTapellido;
     private javax.swing.JTextField TXTapellido1;
@@ -3186,6 +3397,7 @@ public void cargarTablaUsuario(){
     private javax.swing.JComboBox<String> TiposUsuarios;
     private javax.swing.JButton Verificar;
     private javax.swing.JLabel Volver;
+    private javax.swing.JLabel estado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

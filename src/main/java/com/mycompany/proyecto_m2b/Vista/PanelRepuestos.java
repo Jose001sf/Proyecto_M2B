@@ -25,8 +25,61 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
     public PanelRepuestos() {
     initComponents();
     cargarCombos();
-    txtIdRepuesto.setEditable(false);
+    txtIdRepuesto.setEditable(false); 
+    txtIdRepuesto.setEnabled(false);
     generarIdAutomatico();
+    
+        txtNomRepuesto.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { validarNombreRepuesto(); }
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { validarNombreRepuesto(); }
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { validarNombreRepuesto(); }
+        });
+        
+        txtStockActual.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { validarStockActual(); }
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { validarStockActual(); }
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { validarStockActual(); }
+        });
+
+        txtCantidadMinima.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { validarStockMinimo(); }
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { validarStockMinimo(); }
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { validarStockMinimo(); }
+        });
+
+        txtCantidadMaxima.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { validarStockMaximo(); }
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { validarStockMaximo(); }
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { validarStockMaximo(); }
+        });
+
+        txtPrecioBase.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { validarPrecioBase(); }
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { validarPrecioBase(); }
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { validarPrecioBase(); }
+        });
+        
+        lblErrorTipoRepuesto.setText("");
+        lblErrorStockActual.setText("");
+        lblErrorStockMinimo.setText("");
+        lblErrorStockMaximo.setText("");
+        lblErrorPrecioBase.setText("");
+    
 }
     private void cargarCombos() {
         cbxTipoRepuesto.removeAllItems();
@@ -66,6 +119,100 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
     String nuevoId = dao.obtenerSiguienteIdRepuesto(miConexion);
     txtIdRepuesto.setText(nuevoId);
 }
+    
+    private boolean validarNombreRepuesto() {
+        String texto = txtNomRepuesto.getText().trim();
+        
+        if (texto.isEmpty()) {
+            lblErrorTipoRepuesto.setText("El campo no puede estar vacío.");
+            return false;
+        }
+        
+        if (texto.length() > 30) {
+            lblErrorTipoRepuesto.setText("Máximo 30 caracteres.");
+            return false;
+        }
+        
+        if (!Character.isUpperCase(texto.charAt(0))) {
+            lblErrorTipoRepuesto.setText("Debe iniciar con mayúscula.");
+            return false;
+        }
+        
+        if (texto.matches("\\d+")) {
+            lblErrorTipoRepuesto.setText("No puede contener solo números.");
+            return false;
+        }
+        
+        if (texto.matches(".*(.)\\1{3,}.*")) {
+            lblErrorTipoRepuesto.setText("Demasiadas letras repetidas.");
+            return false;
+        }
+        
+        String textoMinus = texto.toLowerCase();
+        if (textoMinus.contains("asdf") || textoMinus.contains("ghjk") || textoMinus.contains("qwer") || textoMinus.contains("zxcv")) {
+            lblErrorTipoRepuesto.setText("Texto no válido o aleatorio.");
+            return false;
+        }
+        
+        lblErrorTipoRepuesto.setText("");
+        return true;
+    }
+    
+    private boolean validarStockActual() {
+        String texto = txtStockActual.getText().trim();
+        if (texto.isEmpty()) {
+            lblErrorStockActual.setText("El campo no puede estar vacío.");
+            return false;
+        }
+        if (!texto.matches("\\d+")) {
+            lblErrorStockActual.setText("Solo se permiten números enteros.");
+            return false;
+        }
+        lblErrorStockActual.setText("");
+        return true;
+    }
+
+    private boolean validarStockMinimo() {
+        String texto = txtCantidadMinima.getText().trim();
+        if (texto.isEmpty()) {
+            lblErrorStockMinimo.setText("El campo no puede estar vacío.");
+            return false;
+        }
+        if (!texto.matches("\\d+")) {
+            lblErrorStockMinimo.setText("Solo se permiten números enteros.");
+            return false;
+        }
+        lblErrorStockMinimo.setText("");
+        return true;
+    }
+
+    private boolean validarStockMaximo() {
+        String texto = txtCantidadMaxima.getText().trim();
+        if (texto.isEmpty()) {
+            lblErrorStockMaximo.setText("El campo no puede estar vacío.");
+            return false;
+        }
+        if (!texto.matches("\\d+")) {
+            lblErrorStockMaximo.setText("Solo se permiten números enteros.");
+            return false;
+        }
+        lblErrorStockMaximo.setText("");
+        return true;
+    }
+
+    private boolean validarPrecioBase() {
+        String texto = txtPrecioBase.getText().trim().replace(',', '.');
+        if (texto.isEmpty()) {
+            lblErrorPrecioBase.setText("El campo no puede estar vacío.");
+            return false;
+        }
+        if (!texto.matches("^\\d+(\\.\\d+)?$")) {
+            lblErrorPrecioBase.setText("Ingrese un número válido (ej. 12.50).");
+            return false;
+        }
+        lblErrorPrecioBase.setText("");
+        return true;
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -107,6 +254,11 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
         btnAgregarTipo = new javax.swing.JPanel();
         Nuevo3 = new javax.swing.JLabel();
         ImagenADD3 = new javax.swing.JLabel();
+        lblErrorTipoRepuesto = new javax.swing.JLabel();
+        lblErrorStockActual = new javax.swing.JLabel();
+        lblErrorStockMinimo = new javax.swing.JLabel();
+        lblErrorStockMaximo = new javax.swing.JLabel();
+        lblErrorPrecioBase = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(238, 238, 238));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -172,32 +324,32 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
         jLabel7.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(153, 153, 153));
         jLabel7.setText("Tipo:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(153, 153, 153));
         jLabel8.setText("Marca:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(153, 153, 153));
         jLabel10.setText("Stock Actual:");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, -1, -1));
 
         jLabel11.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(153, 153, 153));
         jLabel11.setText("Cantidad Mínima:");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 100, -1, 20));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 110, -1, 20));
 
         jLabel12.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(153, 153, 153));
         jLabel12.setText("Descripción del repuesto:");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
 
         jLabel13.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(153, 153, 153));
         jLabel13.setText("Cantidad Máxima:");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, -1, -1));
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 160, -1, -1));
 
         txtDescripRepuesto.setForeground(new java.awt.Color(153, 153, 153));
         txtDescripRepuesto.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -210,7 +362,7 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
                 txtDescripRepuestoMousePressed(evt);
             }
         });
-        jPanel1.add(txtDescripRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 690, 70));
+        jPanel1.add(txtDescripRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 690, 70));
 
         btnGuardar.setBackground(new java.awt.Color(242, 101, 34));
         btnGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -259,19 +411,19 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
         jLabel3.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(153, 153, 153));
         jLabel3.setText("Precio Base:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 160, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 210, -1, -1));
         jPanel1.add(txtIdRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, 160, -1));
         jPanel1.add(txtNomRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 160, -1));
 
         cbxTipoRepuesto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbxTipoRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 170, -1));
+        jPanel1.add(cbxTipoRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, 170, -1));
 
         cbxMarcaRepuesto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbxMarcaRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 170, -1));
-        jPanel1.add(txtStockActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 70, 170, -1));
-        jPanel1.add(txtCantidadMinima, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, 170, -1));
-        jPanel1.add(txtCantidadMaxima, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 130, 170, -1));
-        jPanel1.add(txtPrecioBase, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 160, 170, -1));
+        jPanel1.add(cbxMarcaRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 170, -1));
+        jPanel1.add(txtStockActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 60, 170, -1));
+        jPanel1.add(txtCantidadMinima, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 110, 170, -1));
+        jPanel1.add(txtCantidadMaxima, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 160, 170, -1));
+        jPanel1.add(txtPrecioBase, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 210, 170, -1));
 
         btnAgregarMarca.setBackground(new java.awt.Color(255, 255, 255));
         btnAgregarMarca.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -319,7 +471,7 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(btnAgregarMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, -1, -1));
+        jPanel1.add(btnAgregarMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, -1, -1));
 
         btnAgregarTipo.setBackground(new java.awt.Color(255, 255, 255));
         btnAgregarTipo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -362,7 +514,32 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(btnAgregarTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, -1, -1));
+        jPanel1.add(btnAgregarTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, -1, -1));
+
+        lblErrorTipoRepuesto.setFont(new java.awt.Font("Helvetica Neue", 2, 13)); // NOI18N
+        lblErrorTipoRepuesto.setForeground(new java.awt.Color(255, 51, 51));
+        lblErrorTipoRepuesto.setText("jLabel1");
+        jPanel1.add(lblErrorTipoRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, 220, -1));
+
+        lblErrorStockActual.setFont(new java.awt.Font("Helvetica Neue", 2, 13)); // NOI18N
+        lblErrorStockActual.setForeground(new java.awt.Color(255, 51, 51));
+        lblErrorStockActual.setText("jLabel1");
+        jPanel1.add(lblErrorStockActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 90, -1, -1));
+
+        lblErrorStockMinimo.setFont(new java.awt.Font("Helvetica Neue", 2, 13)); // NOI18N
+        lblErrorStockMinimo.setForeground(new java.awt.Color(255, 51, 51));
+        lblErrorStockMinimo.setText("jLabel2");
+        jPanel1.add(lblErrorStockMinimo, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 140, -1, -1));
+
+        lblErrorStockMaximo.setFont(new java.awt.Font("Helvetica Neue", 2, 13)); // NOI18N
+        lblErrorStockMaximo.setForeground(new java.awt.Color(255, 51, 51));
+        lblErrorStockMaximo.setText("jLabel9");
+        jPanel1.add(lblErrorStockMaximo, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, -1, -1));
+
+        lblErrorPrecioBase.setFont(new java.awt.Font("Helvetica Neue", 2, 13)); // NOI18N
+        lblErrorPrecioBase.setForeground(new java.awt.Color(255, 51, 51));
+        lblErrorPrecioBase.setText("jLabel14");
+        jPanel1.add(lblErrorPrecioBase, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 240, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -402,7 +579,17 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
     }//GEN-LAST:event_txtDescripRepuestoMousePressed
 
     private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
-    try {
+        boolean v1 = validarNombreRepuesto();
+        boolean v2 = validarStockActual();
+        boolean v3 = validarStockMinimo();
+        boolean v4 = validarStockMaximo();
+        boolean v5 = validarPrecioBase();
+
+        if (!v1 || !v2 || !v3 || !v4 || !v5) {
+            JOptionPane.showMessageDialog(this, "Por favor corrija los errores marcados en rojo.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
+            return; 
+        }
+        try {
         String id = txtIdRepuesto.getText().trim();
         String nombre = txtNomRepuesto.getText().trim();
         
@@ -552,67 +739,104 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
     }//GEN-LAST:event_btnAgregarMarcaMouseExited
 
     private void btnAgregarTipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarTipoMouseClicked
-        javax.swing.JTextField txtNombreMarca = new javax.swing.JTextField(20);
+        javax.swing.JTextField txtNombre = new javax.swing.JTextField(15);
+        javax.swing.JTextField txtDescripcion = new javax.swing.JTextField(15);
 
-    javax.swing.JPanel panel = new javax.swing.JPanel();
-    panel.setBackground(java.awt.Color.WHITE);
-    panel.setLayout(new java.awt.GridLayout(0, 1, 5, 5));
-    panel.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15));
-    
-    panel.add(new javax.swing.JLabel("Ingrese el nombre de la nueva marca:"));
-    panel.add(txtNombreMarca);
+        javax.swing.JPanel panel = new javax.swing.JPanel(new java.awt.GridBagLayout());
+        panel.setBackground(java.awt.Color.WHITE);
+        panel.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 15, 20));
 
-    javax.swing.JDialog dialog = new javax.swing.JDialog((java.awt.Frame) null, "Nueva Marca", true);
-    dialog.setUndecorated(true);
-    dialog.setBackground(java.awt.Color.WHITE);
+        java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints();
+        gbc.insets = new java.awt.Insets(5, 5, 5, 5);
+        gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
 
-    javax.swing.JButton btnAceptar = new javax.swing.JButton("Aceptar");
-    javax.swing.JButton btnCancelar = new javax.swing.JButton("Cancelar");
-    
-    final boolean[] confirmado = {false};
+        gbc.gridx = 0; gbc.gridy = 0; gbc.anchor = java.awt.GridBagConstraints.WEST;
+        javax.swing.JLabel lblNombre = new javax.swing.JLabel("Nombre del Tipo:");
+        lblNombre.setForeground(java.awt.Color.DARK_GRAY);
+        panel.add(lblNombre, gbc);
 
-    btnAceptar.addActionListener(e -> {
-        confirmado[0] = true;
-        dialog.dispose();
-    });
+        gbc.gridx = 1; gbc.weightx = 1.0;
+        panel.add(txtNombre, gbc);
 
-    btnCancelar.addActionListener(e -> {
-        confirmado[0] = false;
-        dialog.dispose();
-    });
+        gbc.gridx = 0; gbc.gridy = 1; gbc.weightx = 0.0;
+        javax.swing.JLabel lblDesc = new javax.swing.JLabel("Descripción:");
+        lblDesc.setForeground(java.awt.Color.DARK_GRAY);
+        panel.add(lblDesc, gbc);
 
-    javax.swing.JPanel panelBotones = new javax.swing.JPanel();
-    panelBotones.setBackground(java.awt.Color.WHITE);
-    panelBotones.add(btnAceptar);
-    panelBotones.add(btnCancelar);
+        gbc.gridx = 1; gbc.weightx = 1.0;
+        panel.add(txtDescripcion, gbc);
 
-    dialog.setLayout(new java.awt.BorderLayout());
-    dialog.add(panel, java.awt.BorderLayout.CENTER);
-    dialog.add(panelBotones, java.awt.BorderLayout.SOUTH);
-    
-    dialog.pack();
-    dialog.setLocationRelativeTo(this);
-    dialog.setVisible(true);
+        javax.swing.JButton btnAceptar = new javax.swing.JButton("Aceptar");
+        javax.swing.JButton btnCancelar = new javax.swing.JButton("Cancelar");
 
-    if (confirmado[0]) {
-        String nombreMarca = txtNombreMarca.getText().trim();
+        final int[] opcion = {javax.swing.JOptionPane.CANCEL_OPTION};
+
+        javax.swing.JDialog dialogo;
+        java.awt.Window ventanaPrincipal = javax.swing.SwingUtilities.getWindowAncestor(this);
         
-        if (!nombreMarca.isEmpty()) {
-            RepuestoDAO dao = new RepuestoDAO();
-            
-            String idMarca = dao.obtenerSiguienteIdMarca(miConexion);
-            
-            MarcaRepuesto nuevaMarca = new MarcaRepuesto(idMarca, nombreMarca);
-
-            if (dao.guardarMarca(nuevaMarca, miConexion)) {
-                cbxMarcaRepuesto.addItem(nuevaMarca);
-                cbxMarcaRepuesto.setSelectedItem(nuevaMarca);
-                JOptionPane.showMessageDialog(this, "Marca registrada con éxito.");
-            }
+        if (ventanaPrincipal instanceof java.awt.Frame) {
+            dialogo = new javax.swing.JDialog((java.awt.Frame) ventanaPrincipal, "Registrar Nuevo Tipo de Repuesto", true);
         } else {
-            JOptionPane.showMessageDialog(this, "El nombre de la marca no puede estar vacío.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            dialogo = new javax.swing.JDialog((java.awt.Dialog) ventanaPrincipal, "Registrar Nuevo Tipo de Repuesto", true);
         }
-    }
+
+        dialogo.setUndecorated(true); 
+        
+        dialogo.getRootPane().setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(180, 180, 180), 1));
+
+        btnAceptar.addActionListener(e -> {
+            opcion[0] = javax.swing.JOptionPane.OK_OPTION;
+            dialogo.dispose();
+        });
+
+        btnCancelar.addActionListener(e -> {
+            opcion[0] = javax.swing.JOptionPane.CANCEL_OPTION;
+            dialogo.dispose();
+        });
+
+        javax.swing.JPanel panelBotones = new javax.swing.JPanel();
+        panelBotones.setBackground(java.awt.Color.WHITE);
+        panelBotones.add(btnCancelar);
+        panelBotones.add(btnAceptar);
+
+        dialogo.setLayout(new java.awt.BorderLayout());
+        dialogo.add(panel, java.awt.BorderLayout.CENTER);
+        dialogo.add(panelBotones, java.awt.BorderLayout.SOUTH);
+        dialogo.pack();
+        dialogo.setLocationRelativeTo(this);
+
+        dialogo.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowOpened(java.awt.event.WindowEvent e) {
+                txtNombre.requestFocusInWindow();
+            }
+        });
+
+        dialogo.setVisible(true);
+
+        if (opcion[0] == javax.swing.JOptionPane.OK_OPTION) {
+            String nombre = txtNombre.getText().trim();
+            String descripcion = txtDescripcion.getText().trim();
+
+            if (!nombre.isEmpty()) {
+                String idTipo = "TIP-" + (System.currentTimeMillis() % 10000);
+                
+                if (descripcion.isEmpty()) {
+                    descripcion = "Sin descripción";
+                }
+
+                TipoRepuesto nuevoTipo = new TipoRepuesto(idTipo, nombre, descripcion);
+
+                RepuestoDAO dao = new RepuestoDAO();
+                if (dao.guardarTipo(nuevoTipo, miConexion)) {
+                    cbxTipoRepuesto.addItem(nuevoTipo);
+                    cbxTipoRepuesto.setSelectedItem(nuevoTipo);
+                    javax.swing.JOptionPane.showMessageDialog(this, "Tipo guardado exitosamente.");
+                }
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "El nombre del tipo no puede estar vacío.", "Advertencia", javax.swing.JOptionPane.WARNING_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_btnAgregarTipoMouseClicked
 
     private void btnAgregarTipoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarTipoMouseEntered
@@ -659,6 +883,11 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblErrorPrecioBase;
+    private javax.swing.JLabel lblErrorStockActual;
+    private javax.swing.JLabel lblErrorStockMaximo;
+    private javax.swing.JLabel lblErrorStockMinimo;
+    private javax.swing.JLabel lblErrorTipoRepuesto;
     private javax.swing.JTextField txtCantidadMaxima;
     private javax.swing.JTextField txtCantidadMinima;
     private javax.swing.JTextField txtDescripRepuesto;

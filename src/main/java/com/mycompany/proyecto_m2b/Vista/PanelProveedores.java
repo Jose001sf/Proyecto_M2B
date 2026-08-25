@@ -45,10 +45,12 @@ public class PanelProveedores extends javax.swing.JPanel {
     public PanelProveedores() {
     this.miConexion = ConexionBD.obtenerConexion();
     initComponents();
-    txtIdCompra.setEditable(false);
     txtFechaCompra.setEnabled(false);
     txtTotalCompra.setEditable(false);
     txtFechaCompra.setDate(new Date());
+    
+    txtIdCompra.setEditable(false); 
+    txtIdCompra.setEnabled(false);
 
     inicializarTabla();
     cargarCombos();
