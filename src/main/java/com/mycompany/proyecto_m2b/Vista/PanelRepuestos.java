@@ -292,6 +292,11 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
         Nuevo2.setText("Nuevo");
 
         ImagenADD2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+        ImagenADD2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                ImagenADD2KeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout btnAgregarMarcaLayout = new javax.swing.GroupLayout(btnAgregarMarca);
         btnAgregarMarca.setLayout(btnAgregarMarcaLayout);
@@ -547,73 +552,67 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
     }//GEN-LAST:event_btnAgregarMarcaMouseExited
 
     private void btnAgregarTipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarTipoMouseClicked
-        javax.swing.JTextField txtNombre = new javax.swing.JTextField(20);
-        javax.swing.JTextField txtDescripcion = new javax.swing.JTextField(20);
+        javax.swing.JTextField txtNombreMarca = new javax.swing.JTextField(20);
 
-        javax.swing.JPanel panel = new javax.swing.JPanel();
-        panel.setBackground(java.awt.Color.WHITE);
-        panel.setLayout(new java.awt.GridLayout(0, 1, 5, 5));
-        panel.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15));
+    javax.swing.JPanel panel = new javax.swing.JPanel();
+    panel.setBackground(java.awt.Color.WHITE);
+    panel.setLayout(new java.awt.GridLayout(0, 1, 5, 5));
+    panel.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15));
+    
+    panel.add(new javax.swing.JLabel("Ingrese el nombre de la nueva marca:"));
+    panel.add(txtNombreMarca);
+
+    javax.swing.JDialog dialog = new javax.swing.JDialog((java.awt.Frame) null, "Nueva Marca", true);
+    dialog.setUndecorated(true);
+    dialog.setBackground(java.awt.Color.WHITE);
+
+    javax.swing.JButton btnAceptar = new javax.swing.JButton("Aceptar");
+    javax.swing.JButton btnCancelar = new javax.swing.JButton("Cancelar");
+    
+    final boolean[] confirmado = {false};
+
+    btnAceptar.addActionListener(e -> {
+        confirmado[0] = true;
+        dialog.dispose();
+    });
+
+    btnCancelar.addActionListener(e -> {
+        confirmado[0] = false;
+        dialog.dispose();
+    });
+
+    javax.swing.JPanel panelBotones = new javax.swing.JPanel();
+    panelBotones.setBackground(java.awt.Color.WHITE);
+    panelBotones.add(btnAceptar);
+    panelBotones.add(btnCancelar);
+
+    dialog.setLayout(new java.awt.BorderLayout());
+    dialog.add(panel, java.awt.BorderLayout.CENTER);
+    dialog.add(panelBotones, java.awt.BorderLayout.SOUTH);
+    
+    dialog.pack();
+    dialog.setLocationRelativeTo(this);
+    dialog.setVisible(true);
+
+    if (confirmado[0]) {
+        String nombreMarca = txtNombreMarca.getText().trim();
         
-        panel.add(new javax.swing.JLabel("Nombre del Tipo:"));
-        panel.add(txtNombre);
-        panel.add(new javax.swing.JLabel("Descripción:"));
-        panel.add(txtDescripcion);
+        if (!nombreMarca.isEmpty()) {
+            RepuestoDAO dao = new RepuestoDAO();
+            
+            String idMarca = dao.obtenerSiguienteIdMarca(miConexion);
+            
+            MarcaRepuesto nuevaMarca = new MarcaRepuesto(idMarca, nombreMarca);
 
-        javax.swing.JDialog dialog = new javax.swing.JDialog((java.awt.Frame) null, "Registrar Nuevo Tipo", true);
-        dialog.setUndecorated(true); 
-        dialog.setBackground(java.awt.Color.WHITE);
-
-        javax.swing.JButton btnAceptar = new javax.swing.JButton("Aceptar");
-        javax.swing.JButton btnCancelar = new javax.swing.JButton("Cancelar");
-        
-        final boolean[] confirmado = {false};
-
-        btnAceptar.addActionListener(e -> {
-            confirmado[0] = true;
-            dialog.dispose();
-        });
-
-        btnCancelar.addActionListener(e -> {
-            confirmado[0] = false;
-            dialog.dispose();
-        });
-
-        javax.swing.JPanel panelBotones = new javax.swing.JPanel();
-        panelBotones.setBackground(java.awt.Color.WHITE);
-        panelBotones.add(btnAceptar);
-        panelBotones.add(btnCancelar);
-
-        dialog.setLayout(new java.awt.BorderLayout());
-        dialog.add(panel, java.awt.BorderLayout.CENTER);
-        dialog.add(panelBotones, java.awt.BorderLayout.SOUTH);
-        
-        dialog.pack();
-        dialog.setLocationRelativeTo(this);
-        dialog.setVisible(true); 
-        if (confirmado[0]) {
-            String nombre = txtNombre.getText().trim();
-            String descripcion = txtDescripcion.getText().trim();
-
-            if (!nombre.isEmpty()) {
-                String idTipo = "TIP-" + (System.currentTimeMillis() % 10000);
-                
-                if (descripcion.isEmpty()) {
-                    descripcion = "Sin descripción";
-                }
-
-                TipoRepuesto nuevoTipo = new TipoRepuesto(idTipo, nombre, descripcion);
-
-                RepuestoDAO dao = new RepuestoDAO();
-                if (dao.guardarTipo(nuevoTipo, miConexion)) {
-                    cbxTipoRepuesto.addItem(nuevoTipo);
-                    cbxTipoRepuesto.setSelectedItem(nuevoTipo);
-                    javax.swing.JOptionPane.showMessageDialog(this, "Tipo guardado exitosamente.");
-                }
-            } else {
-                javax.swing.JOptionPane.showMessageDialog(this, "El nombre del tipo no puede estar vacío.", "Advertencia", javax.swing.JOptionPane.WARNING_MESSAGE);
+            if (dao.guardarMarca(nuevaMarca, miConexion)) {
+                cbxMarcaRepuesto.addItem(nuevaMarca);
+                cbxMarcaRepuesto.setSelectedItem(nuevaMarca);
+                JOptionPane.showMessageDialog(this, "Marca registrada con éxito.");
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "El nombre de la marca no puede estar vacío.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
+    }
     }//GEN-LAST:event_btnAgregarTipoMouseClicked
 
     private void btnAgregarTipoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarTipoMouseEntered
@@ -623,6 +622,10 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
     private void btnAgregarTipoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarTipoMouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAgregarTipoMouseExited
+
+    private void ImagenADD2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ImagenADD2KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ImagenADD2KeyPressed
     
     public void LimpiarDatos (){
 
