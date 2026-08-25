@@ -79,14 +79,13 @@ public class PropietarioDAO {
     }
     private static final String MODIFICARPROPIETARIO =
             "UPDATE propietario "
-            + "SET observaci_propietario=?, ced_perso=?"
+            + "SET observaci_propietario=? "
             + "WHERE id_propietario=?";
     public boolean modificarPropietario (Propietario propietario){
         try (Connection conn=ConexionBD.obtenerConexion();
         PreparedStatement ps=conn.prepareStatement(MODIFICARPROPIETARIO)){
-            ps.setString(1, propietario.getID_propietario());
-            ps.setString(2, propietario.getObservaci_propietario());
-            ps.setString(3, propietario.getCed_perso());
+            ps.setString(1, propietario.getObservaci_propietario());
+            ps.setString(2, propietario.getID_propietario());
             
             int filas=ps.executeUpdate();
             return filas>0;
@@ -134,5 +133,27 @@ public class PropietarioDAO {
             System.out.println("Error al verificar cedula: " + e.getMessage());
             return false;
         }
+    }
+        public Propietario buscarPorCedula(String cedula) {
+        String sql = "SELECT id_propietario, observaci_propietario, ced_perso "
+                   + "FROM propietario WHERE ced_perso = ?";
+
+        try (Connection conn = ConexionBD.obtenerConexion();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, cedula);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Propietario p = new Propietario();
+                    p.setID_propietario(rs.getString("id_propietario"));
+                    p.setObservaci_propietario(rs.getString("observaci_propietario"));
+                    p.setCed_perso(rs.getString("ced_perso"));                    
+                    return p;
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al buscar propietario por cedula: " + ex.getMessage());
+        }
+        return null;
     }
 }

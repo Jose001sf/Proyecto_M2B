@@ -107,16 +107,40 @@ public class EmpleadoDAO {
             + "WHERE id_empleado=?";
     
     public boolean modificarEmpleado (Empleado empleado){
-        try (Connection conn=ConexionBD.obtenerConexion();
-        PreparedStatement ps=conn.prepareStatement(MODIFICAREMPLEADO)){
-            ps.setString(1, empleado.getId_cargo());
-            ps.setString(2, empleado.getId_especialidad());
-            ps.setString(3, empleado.getId_empleado());
-            return ps.executeUpdate() > 0;
+            try (Connection conn=ConexionBD.obtenerConexion();
+            PreparedStatement ps=conn.prepareStatement(MODIFICAREMPLEADO)){
+                ps.setString(1, empleado.getId_cargo());
+                ps.setString(2, empleado.getId_especialidad());
+                ps.setString(3, empleado.getId_empleado());
+                return ps.executeUpdate() > 0;
+            }
+        catch (SQLException e){
+                System.out.println("Error al actualizar empleado: " + e.getMessage());
+                return false;
+            }
         }
-    catch (SQLException e){
-            System.out.println("Error al actualizar empleado: " + e.getMessage());
-            return false;
+        public Empleado buscarPorCedula(String cedula) {
+        String sql = "SELECT id_empleado, ced_perso, id_cargo, id_especialidad "
+                   + "FROM empleado WHERE ced_perso = ?";
+
+        try (Connection conn = ConexionBD.obtenerConexion();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, cedula);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Empleado e = new Empleado();
+                    e.setId_empleado(rs.getString("id_empleado"));
+                    e.setCed_perso(rs.getString("ced_perso"));
+                    e.setId_cargo(rs.getString("id_cargo"));
+                    e.setId_especialidad(rs.getString("id_especialidad"));
+                    return e;
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al buscar empleado por cedula: " + ex.getMessage());
         }
-    }    
+        return null;
+    }
+
 }

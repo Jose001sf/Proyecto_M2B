@@ -28,6 +28,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
      */
     public PanelPropietarios() {
         initComponents();
+        CalendarioRegistro.setEnabled(false);
     }
 
     /**
@@ -165,7 +166,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
         jLabel12.setText("Observaciones:");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
 
-        Fecha_registro.setText("Fecha de nacimiento:");
+        Fecha_registro.setText("Fecha de registro:");
         jPanel1.add(Fecha_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
 
         jLabel14.setText("Género:");
@@ -440,6 +441,9 @@ public class PanelPropietarios extends javax.swing.JPanel {
         PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
         PanelEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelEditarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelEditarMouseEntered(evt);
             }
@@ -1751,6 +1755,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
         // TODO add your handling code here:
         LimpiarDatos();
         TXTcedula.setEnabled(true);
+        TXTcedula.setEditable(true);
         JOptionPane.showMessageDialog(this, "Datos limpiados correctamente"+"\n"
             +"Ingrese los datos");
     }//GEN-LAST:event_PanelNuevoMouseClicked
@@ -2161,6 +2166,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_TXTnumCasaKeyPressed
     Persona persona;
+    Propietario propietario;
     private void VerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerificarActionPerformed
         // TODO add your handling code here:
         TXTnombre.setText("");
@@ -2177,7 +2183,13 @@ public class PanelPropietarios extends javax.swing.JPanel {
         TXTcedula.setEditable(true);
         String ced_perso=TXTcedula.getText().trim();
         PersonaDAO pd=new PersonaDAO();
+        PropietarioDAO pod=new PropietarioDAO();
         persona=pd.buscarPorCedula(ced_perso);
+        propietario=pod.buscarPorCedula(ced_perso);
+        if (propietario==null){
+            JOptionPane.showMessageDialog(this, "Esta persona no esta registrada como propietario");
+            return;
+        }
         if(persona!=null){
             TXTcedula.setEditable(false);
             TXTnombre.setText(persona.getNom1_person());
@@ -2207,6 +2219,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
                     TXTciudad.setText(dir.getCiudad());
                 }
             }
+            Descripcion.setText(propietario.getObservaci_propietario());
             JOptionPane.showMessageDialog(this, "Persona encontrada correctamente");
         }
         else{
@@ -2217,6 +2230,180 @@ public class PanelPropietarios extends javax.swing.JPanel {
     private void TXTcedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTcedulaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TXTcedulaActionPerformed
+
+    //registrar
+    public void modificarPropietario (){
+        Validaciones V = new Validaciones();
+
+        String CallePr = TXTcallePrincipal.getText().trim().toUpperCase();
+        String CalleSe = TXTcalleSecundaria.getText().trim().toUpperCase();
+        String NumCasa = TXTnumCasa.getText().trim().toUpperCase();
+        String Ciudad = TXTciudad.getText().trim().toUpperCase();
+        if (CallePr.isEmpty() || CalleSe.isEmpty() || Ciudad.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese los datos correspondientes");
+            return;
+        }
+        if (CallePr.isBlank() || CalleSe.isBlank() || Ciudad.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese los datos correspondientes");
+            return;
+        }
+        if (!V.validarCallePrincipal(CallePr)) {
+            JOptionPane.showMessageDialog(this, "El número de caracteres de la calle principal en muy alto Máximo: 50 caracteres");
+            return;
+        }
+        if (!V.validarCalleSecundaria(CalleSe)) {
+            JOptionPane.showMessageDialog(this, "El número de caracteres de la calle secundaria en muy alto máximo: 50 caracteres");
+            return;
+        }
+        if (!V.validarNumeroCasa(NumCasa)) {
+            JOptionPane.showMessageDialog(this, "El número de caracteres del número de casa en muy alto máximo: 10 caracteres");
+            return;
+        }
+        if (!V.validarCiudad(Ciudad)) {
+            JOptionPane.showMessageDialog(this, "El número de caracteres de la ciudad en muy alto máximo: 30 caracteres");
+            return;
+        }
+
+        String PrimerNombre = TXTnombre.getText().trim().toUpperCase();
+        String SegundoNombre = TXTnombre1.getText().trim().toUpperCase();
+        String PrimerApellido = TXTapellido.getText().trim().toUpperCase();
+        String SegundoApellido = TXTapellido1.getText().trim().toUpperCase();
+        Date FechaNacimiento = CalendarioNacimiento.getDate();
+        String Genero = Generos.getSelectedItem().toString();
+        String Telefono = TXTTelefono.getText().trim().toUpperCase();
+        String Celular = TXTCelular.getText().trim().toUpperCase();
+        String CorreoE = TXTCorreoElectronico.getText().trim();
+
+        String Observaciones = Descripcion.getText().trim().toUpperCase();
+
+        if (PrimerNombre.isEmpty() || SegundoNombre.isEmpty() || PrimerApellido.isEmpty() || SegundoApellido.isEmpty()
+                || Genero.isEmpty() || Telefono.isEmpty() || Celular.isEmpty() || CorreoE.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor complete los datos que faltan");
+            return;
+        }
+        if (PrimerNombre.isBlank() || SegundoNombre.isBlank() || PrimerApellido.isBlank() || SegundoApellido.isBlank()
+                || Genero.isBlank() || Telefono.isBlank() || Celular.isBlank() || CorreoE.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Por favor complete los datos que faltan");
+            return;
+        }
+        if (FechaNacimiento == null) {
+            JOptionPane.showMessageDialog(this, "Escoja una fecha");
+            return;
+        }
+        if (!V.validarCorreo(CorreoE)) {
+            JOptionPane.showMessageDialog(this, "Correo no valido");
+            TXTCorreoElectronico.setText("");
+            return;
+        }
+        if (!V.validarNombre1(PrimerNombre)) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese solo su primer nombre");
+            TXTnombre.setText("");
+            return;
+        }
+        if (!V.validarNombre2(SegundoNombre)) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese solo su segundo nombre");
+            TXTnombre1.setText("");
+            return;
+        }
+        if (!V.validarApellido1(PrimerApellido)) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese solo su primer apellido");
+            TXTapellido.setText("");
+            return;
+        }
+        if (!V.validarApellido2(SegundoApellido)) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese solo su segundo apellido");
+            TXTapellido1.setText("");
+            return;
+        }
+        if (!V.validarCelular(Celular)) {
+            JOptionPane.showMessageDialog(this, "El número celular esta incorrecto");
+            TXTCelular.setText("");
+            return;
+        }
+        if (!V.validarTelefono(Telefono)) {
+            JOptionPane.showMessageDialog(this, "El número de teléfono esta incorrecto");
+            TXTTelefono.setText("");
+            return;
+        }
+        java.sql.Date FechaNA = new java.sql.Date(FechaNacimiento.getTime());
+        if (!V.FechaNacimiento(FechaNA)) {
+            JOptionPane.showMessageDialog(this, "La fecha esta incorrecta");
+            return;
+        }
+
+
+        Direccion direccion = new Direccion();
+        direccion.setID_direccion(persona.getId_direccion());
+        direccion.setCalle_principal(CallePr);
+        direccion.setCalle_secundaria(CalleSe);
+        direccion.setNumero_casa(NumCasa);
+        direccion.setCiudad(Ciudad);
+
+        DireccionDAO da = new DireccionDAO();
+        da.modificarDireccion(direccion);
+
+
+        persona.setNom1_person(PrimerNombre);
+        persona.setNom2_person(SegundoNombre);
+        persona.setApell1_person(PrimerApellido);
+        persona.setApell2_person(SegundoApellido);
+        persona.setNum_celu_person(Celular);
+        persona.setNum_tel_person(Telefono);
+        persona.setGene_person(Genero);
+        persona.setFech_nac_perso(FechaNA);
+        persona.setCorr_elec_perso(CorreoE);
+
+        PersonaDAO pd = new PersonaDAO();
+        pd.modificarPersona(persona);
+
+        propietario.setID_propietario(propietario.getID_propietario());
+        propietario.setObservaci_propietario(Observaciones);
+
+        PropietarioDAO prd = new PropietarioDAO();
+        boolean si=prd.modificarPropietario(propietario);
+        if (!si){
+            JOptionPane.showMessageDialog(this, "Error al modificar usuario");
+            return;
+        }
+        JOptionPane.showMessageDialog(this, "Se ha actualizado correctamente el propietario");
+        LimpiarDatos();   
+    }
+        
+    private void PanelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseClicked
+        // TODO add your handling code here:
+        String ced_perso=TXTcedula.getText().trim();
+        if (ced_perso.isEmpty() || ced_perso.equals("Ingrese la cédula")){
+            JOptionPane.showMessageDialog(this, "Debe ingresar primero una cédula para buscar");
+            return;
+        }
+        PersonaDAO PD=new PersonaDAO();
+        boolean si=PD.existeCedula(ced_perso);
+        if (si==true){
+            int option = JOptionPane.showConfirmDialog(
+                this, 
+                "¿Esta seguro de editar a la persona con cedula "+ced_perso+"?",
+                "Asegurese de haber ingresado los datos antes de continuar",
+                JOptionPane.YES_NO_OPTION
+            );
+            if (option ==JOptionPane.YES_OPTION){
+                JOptionPane.showMessageDialog(this, "Asegurese de haber ingresado los datos antes de continuar"+"\n"
+                        + "o de haber verificado la cédula");                
+                TXTcedula.setEditable(false);
+                modificarPropietario();
+                TXTcedula.setEditable(true);
+                LimpiarDatos();
+                
+            }
+            else{
+                TXTcedula.setEditable(true);
+                JOptionPane.showMessageDialog(this, "Gracias por confirmar");
+            }
+        }
+        else{
+            TXTcedula.setEditable(true);
+            JOptionPane.showMessageDialog(this, "No existe esa persona");
+        }
+    }//GEN-LAST:event_PanelEditarMouseClicked
 
     public void LimpiarDatos (){
         TXTnombre.setText("");

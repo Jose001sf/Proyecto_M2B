@@ -1735,6 +1735,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
         direccion.setCalle_secundaria(CalleSe);
         direccion.setNumero_casa(NumCasa);
         direccion.setCiudad(Ciudad);
+        direccion.setID_direccion(persona.getId_direccion());
         
         DireccionDAO da=new DireccionDAO();
         da.modificarDireccion(direccion);
@@ -1749,15 +1750,16 @@ public class CrearEmpleado extends javax.swing.JFrame {
         persona.setFech_nac_perso(FechaNA);
         persona.setCorr_elec_perso(CorreoE);
         
+        Empleado em=new Empleado();
         PersonaDAO pd=new PersonaDAO();
         pd.modificarPersona(persona);
         
-        Empleado empleado=new Empleado();
-        empleado.setId_cargo(cargoE.getID_cargo());
-        empleado.setId_especialidad(especialidadE.getID_especialidad());
+        em.setId_cargo(cargoE.getID_cargo());
+        em.setId_especialidad(especialidadE.getID_especialidad());                
+        em.setId_empleado(empleado.getId_empleado());
         
         EmpleadoDAO ed=new EmpleadoDAO();
-        ed.modificarEmpleado(empleado);
+        ed.modificarEmpleado(em);
         JOptionPane.showMessageDialog(this, "Se ha actualizado correctamente el empleado");
         LimpiarDatos();
     }    
@@ -2984,6 +2986,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
         LimpiarDatos();
     }
     Persona persona;
+    Empleado empleado;
     private void VerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerificarActionPerformed
         // TODO add your handling code here:
         TXTnombre.setText("");
@@ -3000,7 +3003,13 @@ public class CrearEmpleado extends javax.swing.JFrame {
         TXTcedula.setEditable(true);
         String ced_perso=TXTcedula.getText().trim();
         PersonaDAO pd=new PersonaDAO();
+        EmpleadoDAO ed=new EmpleadoDAO();
+        empleado=ed.buscarPorCedula(ced_perso);        
         persona=pd.buscarPorCedula(ced_perso);
+        if(empleado==null){
+            JOptionPane.showMessageDialog(this, "No está guardado como empleado");
+            return;
+        }
         if(persona!=null){
             TXTcedula.setEditable(false);
             TXTnombre.setText(persona.getNom1_person());
