@@ -127,9 +127,8 @@ private void generarSiguienteIdCompra() {
         PanelEditar = new javax.swing.JPanel();
         Editar = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        PanelBuscar = new javax.swing.JPanel();
+        btnEliminarFila = new javax.swing.JPanel();
         Buscar = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         btnAgregarProveedor = new javax.swing.JPanel();
         Nuevo1 = new javax.swing.JLabel();
         ImagenADD1 = new javax.swing.JLabel();
@@ -396,45 +395,42 @@ private void generarSiguienteIdCompra() {
 
         Fondo.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 410, -1, -1));
 
-        PanelBuscar.setBackground(new java.awt.Color(255, 255, 255));
-        PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnEliminarFila.setBackground(new java.awt.Color(255, 255, 255));
+        btnEliminarFila.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        btnEliminarFila.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminarFila.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEliminarFilaMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelBuscarMouseEntered(evt);
+                btnEliminarFilaMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelBuscarMouseExited(evt);
+                btnEliminarFilaMouseExited(evt);
             }
         });
 
         Buscar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        Buscar.setText("Buscar");
+        Buscar.setText("X  Eliminar");
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/person_search_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-
-        javax.swing.GroupLayout PanelBuscarLayout = new javax.swing.GroupLayout(PanelBuscar);
-        PanelBuscar.setLayout(PanelBuscarLayout);
-        PanelBuscarLayout.setHorizontalGroup(
-            PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelBuscarLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Buscar)
-                .addContainerGap(31, Short.MAX_VALUE))
-        );
-        PanelBuscarLayout.setVerticalGroup(
-            PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelBuscarLayout.createSequentialGroup()
+        javax.swing.GroupLayout btnEliminarFilaLayout = new javax.swing.GroupLayout(btnEliminarFila);
+        btnEliminarFila.setLayout(btnEliminarFilaLayout);
+        btnEliminarFilaLayout.setHorizontalGroup(
+            btnEliminarFilaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnEliminarFilaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Buscar)
-                    .addComponent(jLabel3))
+                .addComponent(Buscar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        btnEliminarFilaLayout.setVerticalGroup(
+            btnEliminarFilaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnEliminarFilaLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Buscar)
+                .addContainerGap())
+        );
 
-        Fondo.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 410, -1, -1));
+        Fondo.add(btnEliminarFila, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 510, 110, -1));
 
         btnAgregarProveedor.setBackground(new java.awt.Color(255, 255, 255));
         btnAgregarProveedor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -591,44 +587,59 @@ private void calcularTotal() {
     }//GEN-LAST:event_btnAgregarItemMouseExited
 
     private void btnGuardarCompraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarCompraMouseClicked
-        // TODO add your handling code here:
-    if (modeloTabla.getRowCount() == 0) {
-        JOptionPane.showMessageDialog(this, "Debe agregar al menos un repuesto a la compra.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
-    Proveedor provSel = (Proveedor) cbxProveedor.getSelectedItem();
-    if (provSel == null) {
-        JOptionPane.showMessageDialog(this, "Seleccione un proveedor.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
-    String idCompra = txtIdCompra.getText().trim();
-    Date fechaSeleccionada = txtFechaCompra.getDate();
-String fecha = "";
-if (fechaSeleccionada != null) {
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
-    fecha = sdf.format(fechaSeleccionada);
-}
-    double total = Double.parseDouble(txtTotalCompra.getText().trim().replace(',', '.'));
-
-    if (compraDAO.guardarEncabezadoCompra(idCompra, fecha, total, provSel.getIdProveedor(), miConexion)) {
-
-        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-            String idDetalle = "DET-" + System.currentTimeMillis() + "-" + i;
-            String idRepuesto = (String) modeloTabla.getValueAt(i, 0);
-            int cantidad = (int) modeloTabla.getValueAt(i, 2);
-            double subtotal = (double) modeloTabla.getValueAt(i, 4);
-
-            compraDAO.guardarDetalleCompra(idDetalle, cantidad, subtotal, idRepuesto, idCompra, miConexion);
-            compraDAO.actualizarStockRepuesto(idRepuesto, cantidad, miConexion);
+        if (modeloTabla.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Debe agregar al menos un repuesto a la compra.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
         }
 
-        JOptionPane.showMessageDialog(this, "¡Compra registrada y stock actualizado exitosamente!");
-        limpiarFormulario();
-    } else {
-        JOptionPane.showMessageDialog(this, "Error al guardar la compra.", "Error SQL", JOptionPane.ERROR_MESSAGE);
-    }
+        Proveedor provSel = (Proveedor) cbxProveedor.getSelectedItem();
+        if (provSel == null) {
+            JOptionPane.showMessageDialog(this, "Seleccione un proveedor.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String idCompra = txtIdCompra.getText().trim();
+        Date fechaSeleccionada = txtFechaCompra.getDate();
+        String fecha = "";
+        if (fechaSeleccionada != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
+            fecha = sdf.format(fechaSeleccionada);
+        }
+        double total = Double.parseDouble(txtTotalCompra.getText().trim().replace(',', '.'));
+
+        for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+            String idRepuesto = (String) modeloTabla.getValueAt(i, 0);
+            int cantidadAComprar = (int) modeloTabla.getValueAt(i, 2);
+            String nombreRepuesto = (String) modeloTabla.getValueAt(i, 1);
+
+            boolean stockValido = compraDAO.validarStockMaximo(idRepuesto, cantidadAComprar, miConexion);
+
+            if (!stockValido) {
+                JOptionPane.showMessageDialog(this, 
+                    "La cantidad a comprar del repuesto '" + nombreRepuesto + "' excede el stock máximo permitido en el inventario.", 
+                    "Límite de Stock Superado", 
+                    JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        }
+
+        if (compraDAO.guardarEncabezadoCompra(idCompra, fecha, total, provSel.getIdProveedor(), miConexion)) {
+
+            for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+                String idDetalle = "DET-" + (int)(Math.random() * 90000 + 10000); 
+                String idRepuesto = (String) modeloTabla.getValueAt(i, 0);
+                int cantidad = (int) modeloTabla.getValueAt(i, 2);
+                double subtotal = (double) modeloTabla.getValueAt(i, 4);
+
+                compraDAO.guardarDetalleCompra(idDetalle, cantidad, subtotal, idRepuesto, idCompra, miConexion);
+                compraDAO.actualizarStockRepuesto(idRepuesto, cantidad, miConexion);
+            }
+
+            JOptionPane.showMessageDialog(this, "¡Compra registrada y stock actualizado exitosamente!");
+            limpiarFormulario();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al guardar la compra.", "Error SQL", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnGuardarCompraMouseClicked
 
     private void btnGuardarCompraMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarCompraMouseEntered
@@ -655,17 +666,17 @@ if (fechaSeleccionada != null) {
         Editar.setForeground(java.awt.Color.black);
     }//GEN-LAST:event_PanelEditarMouseExited
 
-    private void PanelBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseEntered
+    private void btnEliminarFilaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarFilaMouseEntered
         // TODO add your handling code here:
-        PanelBuscar.setBackground(new java.awt.Color(219,219,219));
+        btnEliminarFila.setBackground(new java.awt.Color(219,219,219));
         Buscar.setForeground(new java.awt.Color(66, 66, 66));
-    }//GEN-LAST:event_PanelBuscarMouseEntered
+    }//GEN-LAST:event_btnEliminarFilaMouseEntered
 
-    private void PanelBuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseExited
+    private void btnEliminarFilaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarFilaMouseExited
         // TODO add your handling code here:
-        PanelBuscar.setBackground(java.awt.Color.white);
+        btnEliminarFila.setBackground(java.awt.Color.white);
         Buscar.setForeground(java.awt.Color.black);
-    }//GEN-LAST:event_PanelBuscarMouseExited
+    }//GEN-LAST:event_btnEliminarFilaMouseExited
 
     private void btnAgregarProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarProveedorMouseClicked
         JTextField txtRuc = new JTextField();
@@ -777,6 +788,30 @@ if (fechaSeleccionada != null) {
 
     }//GEN-LAST:event_cbxRepuestoActionPerformed
 
+    private void btnEliminarFilaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarFilaMouseClicked
+        int filaSeleccionada = tblDetalleCompra.getSelectedRow(); 
+        
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccione de la tabla el repuesto que desea quitar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        DefaultTableModel modelo = (DefaultTableModel) tblDetalleCompra.getModel();
+        modelo.removeRow(filaSeleccionada);
+        
+        calcularTotalCompra();
+    }//GEN-LAST:event_btnEliminarFilaMouseClicked
+    private void calcularTotalCompra() {
+        double sumaTotal = 0.0;
+        DefaultTableModel modelo = (DefaultTableModel) tblDetalleCompra.getModel();
+        
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            double subtotalFila = Double.parseDouble(modelo.getValueAt(i, 4).toString());
+            sumaTotal += subtotalFila;
+        }
+        
+        txtTotalCompra.setText(String.format("%.2f", sumaTotal));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BarraAbajo;
@@ -794,7 +829,6 @@ if (fechaSeleccionada != null) {
     private javax.swing.JLabel NombreVentanaProveedores;
     private javax.swing.JLabel Nuevo;
     private javax.swing.JLabel Nuevo1;
-    private javax.swing.JPanel PanelBuscar;
     private javax.swing.JPanel PanelEditar;
     private javax.swing.JLabel Precio;
     private javax.swing.JLabel Proveedor;
@@ -803,12 +837,12 @@ if (fechaSeleccionada != null) {
     private javax.swing.JLabel TituloFuncion2;
     private javax.swing.JPanel btnAgregarItem;
     private javax.swing.JPanel btnAgregarProveedor;
+    private javax.swing.JPanel btnEliminarFila;
     private javax.swing.JPanel btnGuardarCompra;
     private javax.swing.JLabel btnRegresar;
     private javax.swing.JComboBox<Object> cbxProveedor;
     private javax.swing.JComboBox<Object> cbxRepuesto;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblDetalleCompra;

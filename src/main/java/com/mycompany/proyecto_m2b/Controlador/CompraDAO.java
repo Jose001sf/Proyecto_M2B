@@ -57,4 +57,24 @@ public class CompraDAO {
             return false;
         }
     }
+    
+    public boolean validarStockMaximo(String idRepuesto, int cantidadAComprar, Connection con) {
+    String sql = "SELECT cantidad_actual_repuesto, cantidad_max_repuesto FROM public.repuestos WHERE id_repuestos = ?";
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setString(1, idRepuesto);
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                int actual = rs.getInt("cantidad_actual_repuesto");
+                int maximo = rs.getInt("cantidad_max_repuesto");
+              
+                if ((actual + cantidadAComprar) > maximo) {
+                    return false; 
+                }
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al validar stock máximo: " + e.getMessage());
+    }
+    return true;
+}
 }
