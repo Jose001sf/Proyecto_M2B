@@ -32,7 +32,7 @@ public class CompraDAO {
     }
 
     public boolean guardarDetalleCompra(String idDetalle, int cantidad, double subtotal, String idRepuesto, String idCompra, Connection con) {
-        String sql = "INSERT INTO public.detalle_compra (id_deta_compra, cantidad_enviada, subtotal_deta_compra, id_repuestos, id_enca_compra) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO public.detalle_compra (id_detall_compra, cantidad_enviada, subtotal_deta_compra, id_repuestos, id_enca_compra) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, idDetalle);
             ps.setInt(2, cantidad);
