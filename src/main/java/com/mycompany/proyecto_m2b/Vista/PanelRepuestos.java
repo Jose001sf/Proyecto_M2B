@@ -27,6 +27,26 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
     cargarCombos();
     txtIdRepuesto.setEditable(false);
     generarIdAutomatico();
+    
+    txtNomRepuesto.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                validarNombreRepuesto();
+            }
+
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                validarNombreRepuesto();
+            }
+
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                validarNombreRepuesto();
+            }
+        });
+        
+        lblErrorTipoRepuesto.setText("");
+    
 }
     private void cargarCombos() {
         cbxTipoRepuesto.removeAllItems();
@@ -66,6 +86,28 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
     String nuevoId = dao.obtenerSiguienteIdRepuesto(miConexion);
     txtIdRepuesto.setText(nuevoId);
 }
+    
+    private boolean validarNombreRepuesto() {
+        String texto = txtNomRepuesto.getText().trim();
+        
+        if (texto.isEmpty()) {
+            lblErrorTipoRepuesto.setText("El campo no puede estar vacío.");
+            return false;
+        }
+        
+        if (texto.matches("\\d+")) {
+            lblErrorTipoRepuesto.setText("No puede contener solo números.");
+            return false;
+        }
+        
+        if (texto.matches(".*(.)\\1{3,}.*")) {
+            lblErrorTipoRepuesto.setText("Demasiadas letras repetidas.");
+            return false;
+        }
+        
+        lblErrorTipoRepuesto.setText("");
+        return true;
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -107,6 +149,7 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
         btnAgregarTipo = new javax.swing.JPanel();
         Nuevo3 = new javax.swing.JLabel();
         ImagenADD3 = new javax.swing.JLabel();
+        lblErrorTipoRepuesto = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(238, 238, 238));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -364,6 +407,11 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
 
         jPanel1.add(btnAgregarTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, -1, -1));
 
+        lblErrorTipoRepuesto.setFont(new java.awt.Font("Helvetica Neue", 2, 13)); // NOI18N
+        lblErrorTipoRepuesto.setForeground(new java.awt.Color(255, 51, 51));
+        lblErrorTipoRepuesto.setText("jLabel1");
+        jPanel1.add(lblErrorTipoRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 100, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -402,7 +450,11 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
     }//GEN-LAST:event_txtDescripRepuestoMousePressed
 
     private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
-    try {
+    if (!validarNombreRepuesto()) {
+            txtNomRepuesto.requestFocus();
+            return;
+        }
+        try {
         String id = txtIdRepuesto.getText().trim();
         String nombre = txtNomRepuesto.getText().trim();
         
@@ -696,6 +748,7 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblErrorTipoRepuesto;
     private javax.swing.JTextField txtCantidadMaxima;
     private javax.swing.JTextField txtCantidadMinima;
     private javax.swing.JTextField txtDescripRepuesto;
