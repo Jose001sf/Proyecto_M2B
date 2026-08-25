@@ -18,7 +18,7 @@ public class CompraDAO {
     }
 
     public boolean guardarEncabezadoCompra(String idCompra, String fecha, double total, String idProveedor, Connection con) {
-        String sql = "INSERT INTO public.encabezado_compra (id_enca_compra, fecha_compra, total_enca_compra, id_proveedor) VALUES (?, CAST(? AS DATE), ?, ?)";
+        String sql = "INSERT INTO public.encabezado_compra (id_enca_compra, fecha_compra, total_encab_compra, id_proveedor) VALUES (?, CAST(? AS DATE), ?, ?)";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, idCompra);
             ps.setString(2, fecha);
