@@ -477,20 +477,65 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
     }//GEN-LAST:event_btnGuardarMouseExited
 
     private void btnAgregarMarcaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMarcaMouseClicked
-        // TODO add your handling code here:
-        String nombreMarca = JOptionPane.showInputDialog(this, "Ingrese el nombre de la nueva marca:", "Nueva Marca", JOptionPane.QUESTION_MESSAGE);
-    if (nombreMarca != null && !nombreMarca.trim().isEmpty()) {
-        String idMarca = "MAR-" + (System.currentTimeMillis() % 10000);
-        MarcaRepuesto nuevaMarca = new MarcaRepuesto(idMarca, nombreMarca.trim());
+        javax.swing.JTextField txtNombreMarca = new javax.swing.JTextField(20);
 
-        RepuestoDAO dao = new RepuestoDAO();
-        if (dao.guardarMarca(nuevaMarca, miConexion)) {
-            cbxMarcaRepuesto.addItem(nuevaMarca);
-            cbxMarcaRepuesto.setSelectedItem(nuevaMarca);
-            JOptionPane.showMessageDialog(this, "Marca registrada con éxito.");
+        javax.swing.JPanel panel = new javax.swing.JPanel();
+        panel.setBackground(java.awt.Color.WHITE);
+        panel.setLayout(new java.awt.GridLayout(0, 1, 5, 5));
+        panel.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        
+        panel.add(new javax.swing.JLabel("Ingrese el nombre de la nueva marca:"));
+        panel.add(txtNombreMarca);
+
+        javax.swing.JDialog dialog = new javax.swing.JDialog((java.awt.Frame) null, "Nueva Marca", true);
+        dialog.setUndecorated(true);
+        dialog.setBackground(java.awt.Color.WHITE);
+
+        javax.swing.JButton btnAceptar = new javax.swing.JButton("Aceptar");
+        javax.swing.JButton btnCancelar = new javax.swing.JButton("Cancelar");
+        
+        final boolean[] confirmado = {false};
+
+        btnAceptar.addActionListener(e -> {
+            confirmado[0] = true;
+            dialog.dispose();
+        });
+
+        btnCancelar.addActionListener(e -> {
+            confirmado[0] = false;
+            dialog.dispose();
+        });
+
+        javax.swing.JPanel panelBotones = new javax.swing.JPanel();
+        panelBotones.setBackground(java.awt.Color.WHITE);
+        panelBotones.add(btnAceptar);
+        panelBotones.add(btnCancelar);
+
+        dialog.setLayout(new java.awt.BorderLayout());
+        dialog.add(panel, java.awt.BorderLayout.CENTER);
+        dialog.add(panelBotones, java.awt.BorderLayout.SOUTH);
+        
+        dialog.pack();
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
+
+        if (confirmado[0]) {
+            String nombreMarca = txtNombreMarca.getText().trim();
+            
+            if (!nombreMarca.isEmpty()) {
+                String idMarca = "MAR-" + (System.currentTimeMillis() % 10000);
+                MarcaRepuesto nuevaMarca = new MarcaRepuesto(idMarca, nombreMarca);
+
+                RepuestoDAO dao = new RepuestoDAO();
+                if (dao.guardarMarca(nuevaMarca, miConexion)) {
+                    cbxMarcaRepuesto.addItem(nuevaMarca);
+                    cbxMarcaRepuesto.setSelectedItem(nuevaMarca);
+                    JOptionPane.showMessageDialog(this, "Marca registrada con éxito.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "El nombre de la marca no puede estar vacío.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            }
         }
-    }
-
     }//GEN-LAST:event_btnAgregarMarcaMouseClicked
 
     private void btnAgregarMarcaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMarcaMouseEntered
@@ -502,47 +547,73 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
     }//GEN-LAST:event_btnAgregarMarcaMouseExited
 
     private void btnAgregarTipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarTipoMouseClicked
-        // TODO add your handling code here:
-    javax.swing.JTextField txtNombre = new javax.swing.JTextField();
-    javax.swing.JTextField txtDescripcion = new javax.swing.JTextField();
+        javax.swing.JTextField txtNombre = new javax.swing.JTextField(20);
+        javax.swing.JTextField txtDescripcion = new javax.swing.JTextField(20);
 
-    Object[] formulario = {
-        "Nombre del Tipo:", txtNombre,
-        "Descripción:", txtDescripcion
-    };
+        javax.swing.JPanel panel = new javax.swing.JPanel();
+        panel.setBackground(java.awt.Color.WHITE);
+        panel.setLayout(new java.awt.GridLayout(0, 1, 5, 5));
+        panel.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        
+        panel.add(new javax.swing.JLabel("Nombre del Tipo:"));
+        panel.add(txtNombre);
+        panel.add(new javax.swing.JLabel("Descripción:"));
+        panel.add(txtDescripcion);
 
-    int opcion = javax.swing.JOptionPane.showConfirmDialog(
-        this, 
-        formulario, 
-        "Registrar Nuevo Tipo de Repuesto", 
-        javax.swing.JOptionPane.OK_CANCEL_OPTION
-    );
+        javax.swing.JDialog dialog = new javax.swing.JDialog((java.awt.Frame) null, "Registrar Nuevo Tipo", true);
+        dialog.setUndecorated(true); 
+        dialog.setBackground(java.awt.Color.WHITE);
 
-    if (opcion == javax.swing.JOptionPane.OK_OPTION) {
-        String nombre = txtNombre.getText().trim();
-        String descripcion = txtDescripcion.getText().trim();
+        javax.swing.JButton btnAceptar = new javax.swing.JButton("Aceptar");
+        javax.swing.JButton btnCancelar = new javax.swing.JButton("Cancelar");
+        
+        final boolean[] confirmado = {false};
 
-        if (!nombre.isEmpty()) {
-            String idTipo = "TIP-" + (System.currentTimeMillis() % 10000);
-            
-            if (descripcion.isEmpty()) {
-                descripcion = "Sin descripción";
+        btnAceptar.addActionListener(e -> {
+            confirmado[0] = true;
+            dialog.dispose();
+        });
+
+        btnCancelar.addActionListener(e -> {
+            confirmado[0] = false;
+            dialog.dispose();
+        });
+
+        javax.swing.JPanel panelBotones = new javax.swing.JPanel();
+        panelBotones.setBackground(java.awt.Color.WHITE);
+        panelBotones.add(btnAceptar);
+        panelBotones.add(btnCancelar);
+
+        dialog.setLayout(new java.awt.BorderLayout());
+        dialog.add(panel, java.awt.BorderLayout.CENTER);
+        dialog.add(panelBotones, java.awt.BorderLayout.SOUTH);
+        
+        dialog.pack();
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true); 
+        if (confirmado[0]) {
+            String nombre = txtNombre.getText().trim();
+            String descripcion = txtDescripcion.getText().trim();
+
+            if (!nombre.isEmpty()) {
+                String idTipo = "TIP-" + (System.currentTimeMillis() % 10000);
+                
+                if (descripcion.isEmpty()) {
+                    descripcion = "Sin descripción";
+                }
+
+                TipoRepuesto nuevoTipo = new TipoRepuesto(idTipo, nombre, descripcion);
+
+                RepuestoDAO dao = new RepuestoDAO();
+                if (dao.guardarTipo(nuevoTipo, miConexion)) {
+                    cbxTipoRepuesto.addItem(nuevoTipo);
+                    cbxTipoRepuesto.setSelectedItem(nuevoTipo);
+                    javax.swing.JOptionPane.showMessageDialog(this, "Tipo guardado exitosamente.");
+                }
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "El nombre del tipo no puede estar vacío.", "Advertencia", javax.swing.JOptionPane.WARNING_MESSAGE);
             }
-
-            TipoRepuesto nuevoTipo = new TipoRepuesto(idTipo, nombre, descripcion);
-
-            RepuestoDAO dao = new RepuestoDAO();
-            if (dao.guardarTipo(nuevoTipo, miConexion)) {
-                cbxTipoRepuesto.addItem(nuevoTipo);
-                cbxTipoRepuesto.setSelectedItem(nuevoTipo);
-                javax.swing.JOptionPane.showMessageDialog(this, "Tipo guardado exitosamente.");
-            }
-        } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "El nombre del tipo no puede estar vacío.", "Advertencia", javax.swing.JOptionPane.WARNING_MESSAGE);
         }
-    
-    }
-
     }//GEN-LAST:event_btnAgregarTipoMouseClicked
 
     private void btnAgregarTipoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarTipoMouseEntered
