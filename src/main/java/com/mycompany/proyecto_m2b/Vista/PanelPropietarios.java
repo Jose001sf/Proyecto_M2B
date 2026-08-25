@@ -2186,10 +2186,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
         PropietarioDAO pod=new PropietarioDAO();
         persona=pd.buscarPorCedula(ced_perso);
         propietario=pod.buscarPorCedula(ced_perso);
-        if (propietario==null){
-            JOptionPane.showMessageDialog(this, "Esta persona no esta registrada como propietario");
-            return;
-        }
+        
         if(persona!=null){
             TXTcedula.setEditable(false);
             TXTnombre.setText(persona.getNom1_person());
