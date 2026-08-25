@@ -55,6 +55,18 @@ public class PanelProveedores extends javax.swing.JPanel {
     inicializarTabla();
     cargarCombos();
     generarSiguienteIdCompra();
+    
+            txtCantidadCompra.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { validarCantidadCompra(); }
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { validarCantidadCompra(); }
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { validarCantidadCompra(); }
+        });
+            lblErrorCantidadProveedor.setText("");
+
+    
     }
     
     private void inicializarTabla() {
@@ -92,6 +104,30 @@ private void generarSiguienteIdCompra() {
     txtCantidadCompra.setText("");
     txtPrecioUnitarioCompra.setText("");
     generarSiguienteIdCompra();
+}
+    
+    private void validarCantidadCompra() {
+    String texto = txtCantidadCompra.getText().trim();
+    
+    if (texto.isEmpty()) {
+        lblErrorCantidadProveedor.setText("La cantidad es obligatoria."); 
+        return;
+    }
+    
+    try {
+        int cantidad = Integer.parseInt(texto);
+        
+        if (cantidad == 0) {
+            lblErrorCantidadProveedor.setText("La cantidad no puede ser 0.");
+        } else if (cantidad < 0) {
+            lblErrorCantidadProveedor.setText("La cantidad no puede ser negativa.");
+        } else {
+            lblErrorCantidadProveedor.setText(""); 
+        }
+        
+    } catch (NumberFormatException e) {
+        lblErrorCantidadProveedor.setText("Ingrese solo números enteros válidos.");
+    }
 }
 
     /**
@@ -140,6 +176,7 @@ private void generarSiguienteIdCompra() {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDetalleCompra = new javax.swing.JTable();
         txtTotalCompra = new javax.swing.JTextField();
+        lblErrorCantidadProveedor = new javax.swing.JLabel();
 
         Fondo.setBackground(new java.awt.Color(255, 255, 255));
         Fondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -495,6 +532,11 @@ private void generarSiguienteIdCompra() {
 
         Fondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 480, 380, 100));
         Fondo.add(txtTotalCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 400, 110, -1));
+
+        lblErrorCantidadProveedor.setFont(new java.awt.Font("Helvetica Neue", 2, 13)); // NOI18N
+        lblErrorCantidadProveedor.setForeground(new java.awt.Color(255, 51, 51));
+        lblErrorCantidadProveedor.setText("jLabel1");
+        Fondo.add(lblErrorCantidadProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 340, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -931,6 +973,7 @@ private void calcularTotal() {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblErrorCantidadProveedor;
     private javax.swing.JTable tblDetalleCompra;
     private javax.swing.JTextField txtCantidadCompra;
     private com.toedter.calendar.JDateChooser txtFechaCompra;
