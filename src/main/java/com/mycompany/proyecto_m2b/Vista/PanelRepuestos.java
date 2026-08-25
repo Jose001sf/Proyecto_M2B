@@ -25,7 +25,8 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
     public PanelRepuestos() {
     initComponents();
     cargarCombos();
-    txtIdRepuesto.setEditable(false);
+    txtIdRepuesto.setEditable(false); 
+    txtIdRepuesto.setEnabled(false);
     generarIdAutomatico();
     
         txtNomRepuesto.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
