@@ -2836,7 +2836,9 @@ public class PanelPropietarios extends javax.swing.JPanel {
         Persona persona=new Persona (Cedula, PrimerNombre, SegundoNombre, PrimerApellido, SegundoApellido, Celular, Telefono, Genero, FechaNA, CorreoE, FechaRe, direccion.getID_direccion());
         PersonaDAO p=new PersonaDAO();
         p.insertar(persona);                
-        Propietario pro=new Propietario(observaciones, persona.getCed_perso());
+        Propietario pro=new Propietario();
+        pro.setCed_perso(persona.getCed_perso());
+        pro.setObservaci_propietario(observaciones);
         PropietarioDAO pr=new PropietarioDAO();
         pr.insertarPropietario(pro);
         JOptionPane.showMessageDialog(this, "Propietario guardado de manera correcta");
