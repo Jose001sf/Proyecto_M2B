@@ -4,7 +4,11 @@
  */
 package com.mycompany.proyecto_m2b.Vista;
 
-import com.mycompany.proyecto_m2b.Controlador.Validaciones;
+import com.mycompany.proyecto_m2b.Controlador.ConexionBD;
+import com.mycompany.proyecto_m2b.Controlador.RepuestoDAO;
+import com.mycompany.proyecto_m2b.modelo.MarcaRepuesto;
+import com.mycompany.proyecto_m2b.modelo.Repuesto;
+import com.mycompany.proyecto_m2b.modelo.TipoRepuesto;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -13,14 +17,56 @@ import javax.swing.JOptionPane;
  * @author HP
  */
 public class PanelRepuestos extends javax.swing.JPanel {
+private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
 
     /**
      * Creates new form PanelRepuestos
      */
     public PanelRepuestos() {
-        initComponents();
+    initComponents();
+    cargarCombos();
+    txtIdRepuesto.setEditable(false);
+    generarIdAutomatico();
+}
+    private void cargarCombos() {
+        cbxTipoRepuesto.removeAllItems();
+        cbxMarcaRepuesto.removeAllItems();
+
+        RepuestoDAO dao = new RepuestoDAO();
+        for (TipoRepuesto t : dao.obtenerTipos(miConexion)) {
+            cbxTipoRepuesto.addItem(t);
+        }
+        for (MarcaRepuesto m : dao.obtenerMarcas(miConexion)) {
+            cbxMarcaRepuesto.addItem(m);
+        }
+    }
+    
+    private void limpiarCampos() {
+    txtIdRepuesto.setText("");
+    txtNomRepuesto.setText("");
+    txtStockActual.setText("");
+    txtCantidadMinima.setText("");
+    txtCantidadMaxima.setText("");
+    txtPrecioBase.setText("");
+    txtDescripRepuesto.setText("");
+    generarIdAutomatico();
+
+    if (cbxTipoRepuesto.getItemCount() > 0) {
+        cbxTipoRepuesto.setSelectedIndex(0);
+    }
+    if (cbxMarcaRepuesto.getItemCount() > 0) {
+        cbxMarcaRepuesto.setSelectedIndex(0);
     }
 
+    txtIdRepuesto.requestFocus();
+}
+    
+    private void generarIdAutomatico() {
+    RepuestoDAO dao = new RepuestoDAO();
+    String nuevoId = dao.obtenerSiguienteIdRepuesto(miConexion);
+    txtIdRepuesto.setText(nuevoId);
+}
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,29 +88,25 @@ public class PanelRepuestos extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        marcas = new javax.swing.JComboBox<>();
-        categorias = new javax.swing.JComboBox<>();
-        TXTrepuesto = new javax.swing.JTextField();
-        TXTprecio = new javax.swing.JTextField();
-        TXTstock = new javax.swing.JTextField();
-        TXTcantidadMinima = new javax.swing.JTextField();
-        TXTcantidadMaxima = new javax.swing.JTextField();
-        Descripcion = new javax.swing.JTextField();
-        PanelNuevo = new javax.swing.JPanel();
-        Nuevo = new javax.swing.JLabel();
-        ImagenADD = new javax.swing.JLabel();
-        PanelGuardar = new javax.swing.JPanel();
+        txtDescripRepuesto = new javax.swing.JTextField();
+        btnGuardar = new javax.swing.JPanel();
         Guardar = new javax.swing.JLabel();
         ImagenSAVE = new javax.swing.JLabel();
-        PanelEditar = new javax.swing.JPanel();
-        Editar = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        PanelDarBaja = new javax.swing.JPanel();
-        DarDeBaja = new javax.swing.JLabel();
-        ImagenDarBaja = new javax.swing.JLabel();
-        PanelBuscar = new javax.swing.JPanel();
-        Buscar = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtIdRepuesto = new javax.swing.JTextField();
+        txtNomRepuesto = new javax.swing.JTextField();
+        cbxTipoRepuesto = new javax.swing.JComboBox<>();
+        cbxMarcaRepuesto = new javax.swing.JComboBox<>();
+        txtStockActual = new javax.swing.JTextField();
+        txtCantidadMinima = new javax.swing.JTextField();
+        txtCantidadMaxima = new javax.swing.JTextField();
+        txtPrecioBase = new javax.swing.JTextField();
+        btnAgregarMarca = new javax.swing.JPanel();
+        Nuevo2 = new javax.swing.JLabel();
+        ImagenADD2 = new javax.swing.JLabel();
+        btnAgregarTipo = new javax.swing.JPanel();
+        Nuevo3 = new javax.swing.JLabel();
+        ImagenADD3 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(238, 238, 238));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -90,7 +132,7 @@ public class PanelRepuestos extends javax.swing.JPanel {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("GESTIÓN DE REPUESTOS");
 
@@ -100,8 +142,8 @@ public class PanelRepuestos extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 899, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 857, Short.MAX_VALUE)
                 .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
         );
@@ -117,180 +159,71 @@ public class PanelRepuestos extends javax.swing.JPanel {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 50));
 
-        jLabel5.setText("Nombre Repuesto:");
+        jLabel5.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel5.setText("ID Repuesto");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
-        jLabel6.setText("Tipo/Categoría:");
+        jLabel6.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel6.setText("Nombre Repueseto");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
 
-        jLabel7.setText("Marca:");
+        jLabel7.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel7.setText("Tipo:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
-        jLabel8.setText("Precio Base:");
+        jLabel8.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel8.setText("Marca:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
 
+        jLabel10.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(153, 153, 153));
         jLabel10.setText("Stock Actual:");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 70, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, -1, -1));
 
+        jLabel11.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(153, 153, 153));
         jLabel11.setText("Cantidad Mínima:");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 100, -1, 20));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 100, -1, 20));
 
+        jLabel12.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(153, 153, 153));
         jLabel12.setText("Descripción del repuesto:");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
 
+        jLabel13.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(153, 153, 153));
         jLabel13.setText("Cantidad Máxima:");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 130, -1, -1));
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, -1, -1));
 
-        marcas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno", "Chevrolet", "Kia", "Suzuki", "Toyota", "Hyundai" }));
-        marcas.setBorder(null);
-        jPanel1.add(marcas, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, -1, -1));
-
-        categorias.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno", "Sedán", "Hatchback", "SUV", "Coupé", "Pick-up" }));
-        categorias.setBorder(null);
-        jPanel1.add(categorias, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, -1, -1));
-
-        TXTrepuesto.setForeground(new java.awt.Color(153, 153, 153));
-        TXTrepuesto.setText("Ingrese el nombre del repuesto");
-        TXTrepuesto.setToolTipText("");
-        TXTrepuesto.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtDescripRepuesto.setForeground(new java.awt.Color(153, 153, 153));
+        txtDescripRepuesto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                TXTrepuestoFocusGained(evt);
+                txtDescripRepuestoFocusGained(evt);
             }
         });
-        TXTrepuesto.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtDescripRepuesto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                TXTrepuestoMousePressed(evt);
+                txtDescripRepuestoMousePressed(evt);
             }
         });
-        jPanel1.add(TXTrepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 220, -1));
+        jPanel1.add(txtDescripRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 690, 70));
 
-        TXTprecio.setForeground(new java.awt.Color(153, 153, 153));
-        TXTprecio.setText("Indique el precio base");
-        TXTprecio.setToolTipText("");
-        TXTprecio.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                TXTprecioFocusGained(evt);
-            }
-        });
-        TXTprecio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                TXTprecioMousePressed(evt);
-            }
-        });
-        jPanel1.add(TXTprecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 170, -1));
-
-        TXTstock.setForeground(new java.awt.Color(153, 153, 153));
-        TXTstock.setText("Indique Stock");
-        TXTstock.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                TXTstockFocusGained(evt);
-            }
-        });
-        TXTstock.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                TXTstockMousePressed(evt);
-            }
-        });
-        jPanel1.add(TXTstock, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 70, 190, -1));
-
-        TXTcantidadMinima.setForeground(new java.awt.Color(153, 153, 153));
-        TXTcantidadMinima.setText("Indique Cantidad Mínima");
-        TXTcantidadMinima.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                TXTcantidadMinimaFocusGained(evt);
-            }
-        });
-        TXTcantidadMinima.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                TXTcantidadMinimaMousePressed(evt);
-            }
-        });
-        TXTcantidadMinima.addActionListener(this::TXTcantidadMinimaActionPerformed);
-        jPanel1.add(TXTcantidadMinima, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 100, 190, -1));
-
-        TXTcantidadMaxima.setForeground(new java.awt.Color(153, 153, 153));
-        TXTcantidadMaxima.setText("Indique Cantidad Máxima");
-        TXTcantidadMaxima.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                TXTcantidadMaximaFocusGained(evt);
-            }
-        });
-        TXTcantidadMaxima.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                TXTcantidadMaximaMousePressed(evt);
-            }
-        });
-        jPanel1.add(TXTcantidadMaxima, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 130, 190, -1));
-
-        Descripcion.setForeground(new java.awt.Color(153, 153, 153));
-        Descripcion.setText("Describa el repuesto");
-        Descripcion.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                DescripcionFocusGained(evt);
-            }
-        });
-        Descripcion.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                DescripcionMousePressed(evt);
-            }
-        });
-        jPanel1.add(Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 690, 70));
-
-        PanelNuevo.setBackground(new java.awt.Color(255, 255, 255));
-        PanelNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnGuardar.setBackground(new java.awt.Color(242, 101, 34));
+        btnGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PanelNuevoMouseClicked(evt);
+                btnGuardarMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelNuevoMouseEntered(evt);
+                btnGuardarMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelNuevoMouseExited(evt);
-            }
-        });
-
-        Nuevo.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        Nuevo.setText("Nuevo");
-
-        ImagenADD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-
-        javax.swing.GroupLayout PanelNuevoLayout = new javax.swing.GroupLayout(PanelNuevo);
-        PanelNuevo.setLayout(PanelNuevoLayout);
-        PanelNuevoLayout.setHorizontalGroup(
-            PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNuevoLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(ImagenADD)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Nuevo)
-                .addContainerGap(33, Short.MAX_VALUE))
-        );
-        PanelNuevoLayout.setVerticalGroup(
-            PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNuevoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ImagenADD)
-                    .addComponent(Nuevo))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel1.add(PanelNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, -1, -1));
-
-        PanelGuardar.setBackground(new java.awt.Color(242, 101, 34));
-        PanelGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PanelGuardarMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelGuardarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelGuardarMouseExited(evt);
+                btnGuardarMouseExited(evt);
             }
         });
 
@@ -300,150 +233,131 @@ public class PanelRepuestos extends javax.swing.JPanel {
 
         ImagenSAVE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/save_22dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
 
-        javax.swing.GroupLayout PanelGuardarLayout = new javax.swing.GroupLayout(PanelGuardar);
-        PanelGuardar.setLayout(PanelGuardarLayout);
-        PanelGuardarLayout.setHorizontalGroup(
-            PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelGuardarLayout.createSequentialGroup()
+        javax.swing.GroupLayout btnGuardarLayout = new javax.swing.GroupLayout(btnGuardar);
+        btnGuardar.setLayout(btnGuardarLayout);
+        btnGuardarLayout.setHorizontalGroup(
+            btnGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnGuardarLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(ImagenSAVE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Guardar)
                 .addContainerGap(36, Short.MAX_VALUE))
         );
-        PanelGuardarLayout.setVerticalGroup(
-            PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelGuardarLayout.createSequentialGroup()
+        btnGuardarLayout.setVerticalGroup(
+            btnGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnGuardarLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(btnGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Guardar)
                     .addComponent(ImagenSAVE))
                 .addContainerGap())
         );
 
-        jPanel1.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 350, -1, -1));
+        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 350, -1, -1));
 
-        PanelEditar.setBackground(new java.awt.Color(255, 255, 255));
-        PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel3.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel3.setText("Precio Base:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 160, -1, -1));
+        jPanel1.add(txtIdRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, 160, -1));
+        jPanel1.add(txtNomRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 160, -1));
+
+        cbxTipoRepuesto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(cbxTipoRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 170, -1));
+
+        cbxMarcaRepuesto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(cbxMarcaRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 170, -1));
+        jPanel1.add(txtStockActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 70, 170, -1));
+        jPanel1.add(txtCantidadMinima, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, 170, -1));
+        jPanel1.add(txtCantidadMaxima, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 130, 170, -1));
+        jPanel1.add(txtPrecioBase, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 160, 170, -1));
+
+        btnAgregarMarca.setBackground(new java.awt.Color(255, 255, 255));
+        btnAgregarMarca.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        btnAgregarMarca.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgregarMarca.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgregarMarcaMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelEditarMouseEntered(evt);
+                btnAgregarMarcaMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelEditarMouseExited(evt);
+                btnAgregarMarcaMouseExited(evt);
             }
         });
 
-        Editar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        Editar.setText("Editar");
+        Nuevo2.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        Nuevo2.setText("Nuevo");
 
-        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/edit_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+        ImagenADD2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
 
-        javax.swing.GroupLayout PanelEditarLayout = new javax.swing.GroupLayout(PanelEditar);
-        PanelEditar.setLayout(PanelEditarLayout);
-        PanelEditarLayout.setHorizontalGroup(
-            PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelEditarLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Editar)
-                .addContainerGap(33, Short.MAX_VALUE))
-        );
-        PanelEditarLayout.setVerticalGroup(
-            PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelEditarLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Editar)
-                    .addComponent(jLabel2))
-                .addContainerGap())
-        );
-
-        jPanel1.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 350, -1, -1));
-
-        PanelDarBaja.setBackground(new java.awt.Color(255, 255, 255));
-        PanelDarBaja.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(215, 106, 106)));
-        PanelDarBaja.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelDarBaja.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelDarBajaMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelDarBajaMouseExited(evt);
-            }
-        });
-
-        DarDeBaja.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        DarDeBaja.setForeground(new java.awt.Color(215, 106, 106));
-        DarDeBaja.setText("Dar de baja");
-
-        ImagenDarBaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/person_cancel_22dp_EA3323_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-
-        javax.swing.GroupLayout PanelDarBajaLayout = new javax.swing.GroupLayout(PanelDarBaja);
-        PanelDarBaja.setLayout(PanelDarBajaLayout);
-        PanelDarBajaLayout.setHorizontalGroup(
-            PanelDarBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelDarBajaLayout.createSequentialGroup()
+        javax.swing.GroupLayout btnAgregarMarcaLayout = new javax.swing.GroupLayout(btnAgregarMarca);
+        btnAgregarMarca.setLayout(btnAgregarMarcaLayout);
+        btnAgregarMarcaLayout.setHorizontalGroup(
+            btnAgregarMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnAgregarMarcaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ImagenDarBaja)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(DarDeBaja)
-                .addGap(30, 30, 30))
-        );
-        PanelDarBajaLayout.setVerticalGroup(
-            PanelDarBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelDarBajaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelDarBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(DarDeBaja)
-                    .addComponent(ImagenDarBaja))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel1.add(PanelDarBaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 350, -1, -1));
-
-        PanelBuscar.setBackground(new java.awt.Color(255, 255, 255));
-        PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelBuscarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelBuscarMouseExited(evt);
-            }
-        });
-
-        Buscar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        Buscar.setText("Buscar");
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/person_search_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-
-        javax.swing.GroupLayout PanelBuscarLayout = new javax.swing.GroupLayout(PanelBuscar);
-        PanelBuscar.setLayout(PanelBuscarLayout);
-        PanelBuscarLayout.setHorizontalGroup(
-            PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelBuscarLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
+                .addComponent(ImagenADD2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Buscar)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addComponent(Nuevo2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        PanelBuscarLayout.setVerticalGroup(
-            PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelBuscarLayout.createSequentialGroup()
+        btnAgregarMarcaLayout.setVerticalGroup(
+            btnAgregarMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnAgregarMarcaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Buscar)
-                    .addComponent(jLabel1))
+                .addGroup(btnAgregarMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ImagenADD2)
+                    .addComponent(Nuevo2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 350, -1, -1));
+        jPanel1.add(btnAgregarMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, -1, -1));
+
+        btnAgregarTipo.setBackground(new java.awt.Color(255, 255, 255));
+        btnAgregarTipo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        btnAgregarTipo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgregarTipo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgregarTipoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAgregarTipoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAgregarTipoMouseExited(evt);
+            }
+        });
+
+        Nuevo3.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        Nuevo3.setText("Nuevo");
+
+        ImagenADD3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+
+        javax.swing.GroupLayout btnAgregarTipoLayout = new javax.swing.GroupLayout(btnAgregarTipo);
+        btnAgregarTipo.setLayout(btnAgregarTipoLayout);
+        btnAgregarTipoLayout.setHorizontalGroup(
+            btnAgregarTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnAgregarTipoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ImagenADD3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Nuevo3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        btnAgregarTipoLayout.setVerticalGroup(
+            btnAgregarTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnAgregarTipoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(btnAgregarTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ImagenADD3)
+                    .addComponent(Nuevo3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(btnAgregarTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -472,496 +386,269 @@ public class PanelRepuestos extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jPanel2MousePressed
 
-    private void TXTrepuestoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTrepuestoFocusGained
+    private void txtDescripRepuestoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDescripRepuestoFocusGained
         // TODO add your handling code here:
-        if (TXTrepuesto.getText().equals("Ingrese el nombre del repuesto")){
-            TXTrepuesto.setText("");
-            TXTrepuesto.setForeground(Color.BLACK);
-        }
-        if (TXTprecio.getText().isEmpty()){
-            TXTprecio.setText("Indique el precio base");
-            TXTprecio.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTstock.getText().isEmpty()){
-            TXTstock.setText("Indique Stock");
-            TXTstock.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMinima.getText().isEmpty()){
-            TXTcantidadMinima.setText("Indique Cantidad Mínima");
-            TXTcantidadMinima.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMaxima.getText().isEmpty()){
-            TXTcantidadMaxima.setText("Indique Cantidad Máxima");
-            TXTcantidadMaxima.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Describa el repuesto");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_TXTrepuestoFocusGained
 
-    private void TXTrepuestoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTrepuestoMousePressed
-        // TODO add your handling code here:
-        if (TXTrepuesto.getText().equals("Ingrese el nombre del repuesto")){
-            TXTrepuesto.setText("");
-            TXTrepuesto.setForeground(Color.BLACK);
-        }
-        if (TXTprecio.getText().isEmpty()){
-            TXTprecio.setText("Indique el precio base");
-            TXTprecio.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTstock.getText().isEmpty()){
-            TXTstock.setText("Indique Stock");
-            TXTstock.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMinima.getText().isEmpty()){
-            TXTcantidadMinima.setText("Indique Cantidad Mínima");
-            TXTcantidadMinima.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMaxima.getText().isEmpty()){
-            TXTcantidadMaxima.setText("Indique Cantidad Máxima");
-            TXTcantidadMaxima.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Describa el repuesto");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_TXTrepuestoMousePressed
+    }//GEN-LAST:event_txtDescripRepuestoFocusGained
 
-    private void TXTprecioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTprecioFocusGained
+    private void txtDescripRepuestoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDescripRepuestoMousePressed
         // TODO add your handling code here:
-        if (TXTprecio.getText().equals("Indique el precio base")){
-            TXTprecio.setText("");
-            TXTprecio.setForeground(Color.BLACK);
-        }
-        if (TXTrepuesto.getText().isEmpty()){
-            TXTrepuesto.setText("Ingrese el nombre del repuesto");
-            TXTrepuesto.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTstock.getText().isEmpty()){
-            TXTstock.setText("Indique Stock");
-            TXTstock.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMinima.getText().isEmpty()){
-            TXTcantidadMinima.setText("Indique Cantidad Mínima");
-            TXTcantidadMinima.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMaxima.getText().isEmpty()){
-            TXTcantidadMaxima.setText("Indique Cantidad Máxima");
-            TXTcantidadMaxima.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Describa el repuesto");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_TXTprecioFocusGained
 
-    private void TXTprecioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTprecioMousePressed
-        // TODO add your handling code here:
-        if (TXTprecio.getText().equals("Indique el precio base")){
-            TXTprecio.setText("");
-            TXTprecio.setForeground(Color.BLACK);
-        }
-        if (TXTrepuesto.getText().isEmpty()){
-            TXTrepuesto.setText("Ingrese el nombre del repuesto");
-            TXTrepuesto.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTstock.getText().isEmpty()){
-            TXTstock.setText("Indique Stock");
-            TXTstock.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMinima.getText().isEmpty()){
-            TXTcantidadMinima.setText("Indique Cantidad Mínima");
-            TXTcantidadMinima.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMaxima.getText().isEmpty()){
-            TXTcantidadMaxima.setText("Indique Cantidad Máxima");
-            TXTcantidadMaxima.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Describa el repuesto");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_TXTprecioMousePressed
+    }//GEN-LAST:event_txtDescripRepuestoMousePressed
 
-    private void TXTstockFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTstockFocusGained
-        // TODO add your handling code here:
-        if (TXTstock.getText().equals("Indique Stock")){
-            TXTstock.setText("");
-            TXTstock.setForeground(Color.BLACK);
-        }
-        if (TXTrepuesto.getText().isEmpty()){
-            TXTrepuesto.setText("Ingrese el nombre del repuesto");
-            TXTrepuesto.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTprecio.getText().isEmpty()){
-            TXTprecio.setText("Indique el precio base");
-            TXTprecio.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMinima.getText().isEmpty()){
-            TXTcantidadMinima.setText("Indique Cantidad Mínima");
-            TXTcantidadMinima.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMaxima.getText().isEmpty()){
-            TXTcantidadMaxima.setText("Indique Cantidad Máxima");
-            TXTcantidadMaxima.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Describa el repuesto");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_TXTstockFocusGained
+    private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
+    try {
+        String id = txtIdRepuesto.getText().trim();
+        String nombre = txtNomRepuesto.getText().trim();
+        
+        TipoRepuesto tipoSel = (TipoRepuesto) cbxTipoRepuesto.getSelectedItem();
+        MarcaRepuesto marcaSel = (MarcaRepuesto) cbxMarcaRepuesto.getSelectedItem();
 
-    private void TXTstockMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTstockMousePressed
-        // TODO add your handling code here:
-        if (TXTstock.getText().equals("Indique Stock")){
-            TXTstock.setText("");
-            TXTstock.setForeground(Color.BLACK);
+        if (nombre.isEmpty() || tipoSel == null || marcaSel == null) {
+            javax.swing.JOptionPane.showMessageDialog(
+                this, 
+                "Por favor complete el nombre, tipo y marca del repuesto.", 
+                "Campos Incompletos", 
+                javax.swing.JOptionPane.WARNING_MESSAGE
+            );
+            return;
         }
-        if (TXTrepuesto.getText().isEmpty()){
-            TXTrepuesto.setText("Ingrese el nombre del repuesto");
-            TXTrepuesto.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTprecio.getText().isEmpty()){
-            TXTprecio.setText("Indique el precio base");
-            TXTprecio.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMinima.getText().isEmpty()){
-            TXTcantidadMinima.setText("Indique Cantidad Mínima");
-            TXTcantidadMinima.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMaxima.getText().isEmpty()){
-            TXTcantidadMaxima.setText("Indique Cantidad Máxima");
-            TXTcantidadMaxima.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Describa el repuesto");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_TXTstockMousePressed
 
-    private void TXTcantidadMinimaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTcantidadMinimaFocusGained
-        // TODO add your handling code here:
-        if (TXTcantidadMinima.getText().equals("Indique Cantidad Mínima")){
-            TXTcantidadMinima.setText("");
-            TXTcantidadMinima.setForeground(Color.BLACK);
-        }
-        if (TXTrepuesto.getText().isEmpty()){
-            TXTrepuesto.setText("Ingrese el nombre del repuesto");
-            TXTrepuesto.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTstock.getText().isEmpty()){
-            TXTstock.setText("Indique Stock");
-            TXTstock.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTprecio.getText().isEmpty()){
-            TXTprecio.setText("Indique el precio base");
-            TXTprecio.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMaxima.getText().isEmpty()){
-            TXTcantidadMaxima.setText("Indique Cantidad Máxima");
-            TXTcantidadMaxima.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Describa el repuesto");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_TXTcantidadMinimaFocusGained
+        int stockActual = Integer.parseInt(txtStockActual.getText().trim());
+        int stockMin = Integer.parseInt(txtCantidadMinima.getText().trim());
+        int stockMax = Integer.parseInt(txtCantidadMaxima.getText().trim());
+        
+        String textoPrecio = txtPrecioBase.getText().trim().replace(',', '.');
+        double precio = Double.parseDouble(textoPrecio);
 
-    private void TXTcantidadMinimaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTcantidadMinimaMousePressed
-        // TODO add your handling code here:
-        if (TXTcantidadMinima.getText().equals("Indique Cantidad Mínima")){
-            TXTcantidadMinima.setText("");
-            TXTcantidadMinima.setForeground(Color.BLACK);
-        }
-        if (TXTrepuesto.getText().isEmpty()){
-            TXTrepuesto.setText("Ingrese el nombre del repuesto");
-            TXTrepuesto.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTstock.getText().isEmpty()){
-            TXTstock.setText("Indique Stock");
-            TXTstock.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTprecio.getText().isEmpty()){
-            TXTprecio.setText("Indique el precio base");
-            TXTprecio.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMaxima.getText().isEmpty()){
-            TXTcantidadMaxima.setText("Indique Cantidad Máxima");
-            TXTcantidadMaxima.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Describa el repuesto");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_TXTcantidadMinimaMousePressed
+        String descripcion = txtDescripRepuesto.getText().trim();
 
-    private void TXTcantidadMinimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTcantidadMinimaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TXTcantidadMinimaActionPerformed
+        Repuesto repuesto = new Repuesto(
+            id, 
+            nombre, 
+            stockMax, 
+            stockMin, 
+            stockActual, 
+            precio, 
+            descripcion, 
+            tipoSel.getIdTipRepuesto(), 
+            marcaSel.getIdMarcaRepuesto()
+        );
 
-    private void TXTcantidadMaximaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTcantidadMaximaFocusGained
-        // TODO add your handling code here:
-        if (TXTcantidadMaxima.getText().equals("Indique Cantidad Máxima")){
-            TXTcantidadMaxima.setText("");
-            TXTcantidadMaxima.setForeground(Color.BLACK);
+        RepuestoDAO dao = new RepuestoDAO();
+        if (dao.guardarRepuesto(repuesto, miConexion)) {
+            javax.swing.JOptionPane.showMessageDialog(
+                this, 
+                "¡Repuesto registrado exitosamente!", 
+                "Éxito", 
+                javax.swing.JOptionPane.INFORMATION_MESSAGE
+            );
+            
+            limpiarCampos(); 
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(
+                this, 
+                "No se pudo guardar el registro en la base de datos.", 
+                "Error de Inserción", 
+                javax.swing.JOptionPane.ERROR_MESSAGE
+            );
         }
-        if (TXTrepuesto.getText().isEmpty()){
-            TXTrepuesto.setText("Ingrese el nombre del repuesto");
-            TXTrepuesto.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTstock.getText().isEmpty()){
-            TXTstock.setText("Indique Stock");
-            TXTstock.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMinima.getText().isEmpty()){
-            TXTcantidadMinima.setText("Indique Cantidad Mínima");
-            TXTcantidadMinima.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTprecio.getText().isEmpty()){
-            TXTprecio.setText("Indique el precio base");
-            TXTprecio.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Describa el repuesto");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_TXTcantidadMaximaFocusGained
 
-    private void TXTcantidadMaximaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTcantidadMaximaMousePressed
-        // TODO add your handling code here:
-        if (TXTcantidadMaxima.getText().equals("Indique Cantidad Máxima")){
-            TXTcantidadMaxima.setText("");
-            TXTcantidadMaxima.setForeground(Color.BLACK);
-        }
-        if (TXTrepuesto.getText().isEmpty()){
-            TXTrepuesto.setText("Ingrese el nombre del repuesto");
-            TXTrepuesto.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTstock.getText().isEmpty()){
-            TXTstock.setText("Indique Stock");
-            TXTstock.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMinima.getText().isEmpty()){
-            TXTcantidadMinima.setText("Indique Cantidad Mínima");
-            TXTcantidadMinima.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTprecio.getText().isEmpty()){
-            TXTprecio.setText("Indique el precio base");
-            TXTprecio.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Describa el repuesto");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_TXTcantidadMaximaMousePressed
+    } catch (NumberFormatException e) {
+        javax.swing.JOptionPane.showMessageDialog(
+            this, 
+            "Asegúrese de ingresar números enteros en los Stocks y un valor numérico/decimal válido en el Precio (ej. 12.50).", 
+            "Error de Formato Numérico", 
+            javax.swing.JOptionPane.ERROR_MESSAGE
+        );
+    }
+    }//GEN-LAST:event_btnGuardarMouseClicked
 
-    private void DescripcionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_DescripcionFocusGained
+    private void btnGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseEntered
         // TODO add your handling code here:
-        if (Descripcion.getText().equals("Describa el repuesto")){
-            Descripcion.setText("");
-            Descripcion.setForeground(Color.BLACK);
-        }
-        if (TXTrepuesto.getText().isEmpty()){
-            TXTrepuesto.setText("Ingrese el nombre del repuesto");
-            TXTrepuesto.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTstock.getText().isEmpty()){
-            TXTstock.setText("Indique Stock");
-            TXTstock.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMinima.getText().isEmpty()){
-            TXTcantidadMinima.setText("Indique Cantidad Mínima");
-            TXTcantidadMinima.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMaxima.getText().isEmpty()){
-            TXTcantidadMaxima.setText("Indique Cantidad Máxima");
-            TXTcantidadMaxima.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTprecio.getText().isEmpty()){
-            TXTprecio.setText("Indique el precio base");
-            TXTprecio.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_DescripcionFocusGained
-
-    private void DescripcionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DescripcionMousePressed
-        // TODO add your handling code here:
-        if (Descripcion.getText().equals("Describa el repuesto")){
-            Descripcion.setText("");
-            Descripcion.setForeground(Color.BLACK);
-        }
-        if (TXTrepuesto.getText().isEmpty()){
-            TXTrepuesto.setText("Ingrese el nombre del repuesto");
-            TXTrepuesto.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTstock.getText().isEmpty()){
-            TXTstock.setText("Indique Stock");
-            TXTstock.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMinima.getText().isEmpty()){
-            TXTcantidadMinima.setText("Indique Cantidad Mínima");
-            TXTcantidadMinima.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcantidadMaxima.getText().isEmpty()){
-            TXTcantidadMaxima.setText("Indique Cantidad Máxima");
-            TXTcantidadMaxima.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTprecio.getText().isEmpty()){
-            TXTprecio.setText("Indique el precio base");
-            TXTprecio.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_DescripcionMousePressed
-
-    private void PanelNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseClicked
-        // TODO add your handling code here:
-        LimpiarDatos();
-        JOptionPane.showMessageDialog(this, "Datos limpiados correctamente"+"\n"
-            +"Ingrese los datos");
-    }//GEN-LAST:event_PanelNuevoMouseClicked
-
-    private void PanelNuevoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseEntered
-        // TODO add your handling code here:
-        PanelNuevo.setBackground(new Color(219,219,219));
-        Nuevo.setForeground(new Color(66, 66, 66));
-    }//GEN-LAST:event_PanelNuevoMouseEntered
-
-    private void PanelNuevoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseExited
-        // TODO add your handling code here:
-        PanelNuevo.setBackground(Color.white);
-        Nuevo.setForeground(Color.black);
-    }//GEN-LAST:event_PanelNuevoMouseExited
-
-    private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
-        // TODO add your handling code here:
-        GuardarRepuestos();
-    }//GEN-LAST:event_PanelGuardarMouseClicked
-
-    private void PanelGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseEntered
-        // TODO add your handling code here:
-        PanelGuardar.setBackground(new Color(227, 95, 32));
+        btnGuardar.setBackground(new Color(227, 95, 32));
         Guardar.setForeground(new Color(217, 217, 192));
-    }//GEN-LAST:event_PanelGuardarMouseEntered
+    }//GEN-LAST:event_btnGuardarMouseEntered
 
-    private void PanelGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseExited
+    private void btnGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseExited
         // TODO add your handling code here:
-        PanelGuardar.setBackground(new Color(242,101,34));
+        btnGuardar.setBackground(new Color(242,101,34));
         Guardar.setForeground(Color.white);
-    }//GEN-LAST:event_PanelGuardarMouseExited
+    }//GEN-LAST:event_btnGuardarMouseExited
 
-    private void PanelEditarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseEntered
-        // TODO add your handling code here:
-        PanelEditar.setBackground(new Color(219,219,219));
-        Editar.setForeground(new Color(66, 66, 66));
-    }//GEN-LAST:event_PanelEditarMouseEntered
+    private void btnAgregarMarcaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMarcaMouseClicked
+        javax.swing.JTextField txtNombreMarca = new javax.swing.JTextField(20);
 
-    private void PanelEditarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseExited
-        // TODO add your handling code here:
-        PanelEditar.setBackground(Color.white);
-        Editar.setForeground(Color.black);
-    }//GEN-LAST:event_PanelEditarMouseExited
+        javax.swing.JPanel panel = new javax.swing.JPanel();
+        panel.setBackground(java.awt.Color.WHITE);
+        panel.setLayout(new java.awt.GridLayout(0, 1, 5, 5));
+        panel.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        
+        panel.add(new javax.swing.JLabel("Ingrese el nombre de la nueva marca:"));
+        panel.add(txtNombreMarca);
 
-    private void PanelDarBajaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarBajaMouseEntered
-        // TODO add your handling code here:
-        PanelDarBaja.setBackground(new Color (252, 168, 168));
-        DarDeBaja.setForeground(Color.white);
-    }//GEN-LAST:event_PanelDarBajaMouseEntered
+        javax.swing.JDialog dialog = new javax.swing.JDialog((java.awt.Frame) null, "Nueva Marca", true);
+        dialog.setUndecorated(true);
+        dialog.setBackground(java.awt.Color.WHITE);
 
-    private void PanelDarBajaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarBajaMouseExited
-        // TODO add your handling code here:
-        PanelDarBaja.setBackground(Color.white);
-        DarDeBaja.setForeground(new Color(215, 106, 106));
-    }//GEN-LAST:event_PanelDarBajaMouseExited
+        javax.swing.JButton btnAceptar = new javax.swing.JButton("Aceptar");
+        javax.swing.JButton btnCancelar = new javax.swing.JButton("Cancelar");
+        
+        final boolean[] confirmado = {false};
 
-    private void PanelBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseEntered
-        // TODO add your handling code here:
-        PanelBuscar.setBackground(new Color(219,219,219));
-        Buscar.setForeground(new Color(66, 66, 66));
-    }//GEN-LAST:event_PanelBuscarMouseEntered
+        btnAceptar.addActionListener(e -> {
+            confirmado[0] = true;
+            dialog.dispose();
+        });
 
-    private void PanelBuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseExited
+        btnCancelar.addActionListener(e -> {
+            confirmado[0] = false;
+            dialog.dispose();
+        });
+
+        javax.swing.JPanel panelBotones = new javax.swing.JPanel();
+        panelBotones.setBackground(java.awt.Color.WHITE);
+        panelBotones.add(btnAceptar);
+        panelBotones.add(btnCancelar);
+
+        dialog.setLayout(new java.awt.BorderLayout());
+        dialog.add(panel, java.awt.BorderLayout.CENTER);
+        dialog.add(panelBotones, java.awt.BorderLayout.SOUTH);
+        
+        dialog.pack();
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
+
+        if (confirmado[0]) {
+            String nombreMarca = txtNombreMarca.getText().trim();
+            
+            if (!nombreMarca.isEmpty()) {
+                String idMarca = "MAR-" + (System.currentTimeMillis() % 10000);
+                MarcaRepuesto nuevaMarca = new MarcaRepuesto(idMarca, nombreMarca);
+
+                RepuestoDAO dao = new RepuestoDAO();
+                if (dao.guardarMarca(nuevaMarca, miConexion)) {
+                    cbxMarcaRepuesto.addItem(nuevaMarca);
+                    cbxMarcaRepuesto.setSelectedItem(nuevaMarca);
+                    JOptionPane.showMessageDialog(this, "Marca registrada con éxito.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "El nombre de la marca no puede estar vacío.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btnAgregarMarcaMouseClicked
+
+    private void btnAgregarMarcaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMarcaMouseEntered
         // TODO add your handling code here:
-        PanelBuscar.setBackground(Color.white);
-        Buscar.setForeground(Color.black);
-    }//GEN-LAST:event_PanelBuscarMouseExited
+    }//GEN-LAST:event_btnAgregarMarcaMouseEntered
+
+    private void btnAgregarMarcaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMarcaMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarMarcaMouseExited
+
+    private void btnAgregarTipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarTipoMouseClicked
+        javax.swing.JTextField txtNombre = new javax.swing.JTextField(20);
+        javax.swing.JTextField txtDescripcion = new javax.swing.JTextField(20);
+
+        javax.swing.JPanel panel = new javax.swing.JPanel();
+        panel.setBackground(java.awt.Color.WHITE);
+        panel.setLayout(new java.awt.GridLayout(0, 1, 5, 5));
+        panel.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        
+        panel.add(new javax.swing.JLabel("Nombre del Tipo:"));
+        panel.add(txtNombre);
+        panel.add(new javax.swing.JLabel("Descripción:"));
+        panel.add(txtDescripcion);
+
+        javax.swing.JDialog dialog = new javax.swing.JDialog((java.awt.Frame) null, "Registrar Nuevo Tipo", true);
+        dialog.setUndecorated(true); 
+        dialog.setBackground(java.awt.Color.WHITE);
+
+        javax.swing.JButton btnAceptar = new javax.swing.JButton("Aceptar");
+        javax.swing.JButton btnCancelar = new javax.swing.JButton("Cancelar");
+        
+        final boolean[] confirmado = {false};
+
+        btnAceptar.addActionListener(e -> {
+            confirmado[0] = true;
+            dialog.dispose();
+        });
+
+        btnCancelar.addActionListener(e -> {
+            confirmado[0] = false;
+            dialog.dispose();
+        });
+
+        javax.swing.JPanel panelBotones = new javax.swing.JPanel();
+        panelBotones.setBackground(java.awt.Color.WHITE);
+        panelBotones.add(btnAceptar);
+        panelBotones.add(btnCancelar);
+
+        dialog.setLayout(new java.awt.BorderLayout());
+        dialog.add(panel, java.awt.BorderLayout.CENTER);
+        dialog.add(panelBotones, java.awt.BorderLayout.SOUTH);
+        
+        dialog.pack();
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true); 
+        if (confirmado[0]) {
+            String nombre = txtNombre.getText().trim();
+            String descripcion = txtDescripcion.getText().trim();
+
+            if (!nombre.isEmpty()) {
+                String idTipo = "TIP-" + (System.currentTimeMillis() % 10000);
+                
+                if (descripcion.isEmpty()) {
+                    descripcion = "Sin descripción";
+                }
+
+                TipoRepuesto nuevoTipo = new TipoRepuesto(idTipo, nombre, descripcion);
+
+                RepuestoDAO dao = new RepuestoDAO();
+                if (dao.guardarTipo(nuevoTipo, miConexion)) {
+                    cbxTipoRepuesto.addItem(nuevoTipo);
+                    cbxTipoRepuesto.setSelectedItem(nuevoTipo);
+                    javax.swing.JOptionPane.showMessageDialog(this, "Tipo guardado exitosamente.");
+                }
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "El nombre del tipo no puede estar vacío.", "Advertencia", javax.swing.JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btnAgregarTipoMouseClicked
+
+    private void btnAgregarTipoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarTipoMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarTipoMouseEntered
+
+    private void btnAgregarTipoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarTipoMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarTipoMouseExited
     
     public void LimpiarDatos (){
-        TXTrepuesto.setText("");
-        TXTrepuesto.setForeground(new Color(94, 94, 94));
-        TXTprecio.setText("");
-        TXTprecio.setForeground(new Color(94, 94, 94));
-        TXTstock.setText("");
-        TXTstock.setForeground(new Color(94, 94, 94));
-        Descripcion.setText("");
-        Descripcion.setForeground(new Color(94, 94, 94));
-        TXTcantidadMinima.setText("");
-        TXTcantidadMinima.setForeground(new Color(94, 94, 94));
-        TXTcantidadMaxima.setText("");
-        TXTcantidadMaxima.setForeground(new Color(94, 94, 94));
-        categorias.setSelectedIndex(0);
-        marcas.setSelectedIndex(0);
+
     }
     public void GuardarRepuestos (){
-        Validaciones V=new Validaciones();
-        
-        String Cedula=TXTrepuesto.getText().trim();
-        String Precio=TXTprecio.getText().trim().toUpperCase();
-        String stock=TXTstock.getText().trim().toUpperCase();
-        String cantidadMin=TXTcantidadMinima.getText().trim().toUpperCase();
-        String cantidadMax=TXTcantidadMaxima.getText().trim().toUpperCase();
-        String descripcion=Descripcion.getText().trim().toUpperCase();
-        String categoria = categorias.getSelectedItem().toString();
-        String marca = marcas.getSelectedItem().toString();
-        if (Cedula.isEmpty()|| Precio.isEmpty()||stock.isEmpty()||cantidadMin.isEmpty()||cantidadMax.isEmpty()||descripcion.isEmpty()||categoria.isEmpty()||marca.isEmpty()){
-            JOptionPane.showMessageDialog (this, "Por favor complete los datos que faltan");
-            return;
-        }
-        if (Cedula.isBlank()|| Precio.isBlank()||stock.isBlank()||cantidadMin.isBlank()||cantidadMax.isBlank()||descripcion.isBlank()||categoria.isBlank()||marca.isBlank()){
-            JOptionPane.showMessageDialog (this, "Por favor complete los datos que faltan");
-            return;
-        }
-        if (categoria.equals("Seleccione una opción") ){
-            JOptionPane.showMessageDialog (this, "Por favor escoga una opción");
-            return;
-        }
-         if (marca.equals("Seleccione una opción") ){
-            JOptionPane.showMessageDialog (this, "Por favor escoga una opción");
-            return;
-        }
-        if (!V.ValidarCedula(Cedula)){
-            JOptionPane.showMessageDialog (this, "La cédula esta incorrecta");
-            return;
-        }
-        LimpiarDatos();
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Buscar;
-    private javax.swing.JLabel DarDeBaja;
-    private javax.swing.JTextField Descripcion;
-    private javax.swing.JLabel Editar;
     private javax.swing.JLabel Guardar;
-    private javax.swing.JLabel ImagenADD;
-    private javax.swing.JLabel ImagenDarBaja;
+    private javax.swing.JLabel ImagenADD2;
+    private javax.swing.JLabel ImagenADD3;
     private javax.swing.JLabel ImagenSAVE;
-    private javax.swing.JLabel Nuevo;
-    private javax.swing.JPanel PanelBuscar;
-    private javax.swing.JPanel PanelDarBaja;
-    private javax.swing.JPanel PanelEditar;
-    private javax.swing.JPanel PanelGuardar;
-    private javax.swing.JPanel PanelNuevo;
-    private javax.swing.JTextField TXTcantidadMaxima;
-    private javax.swing.JTextField TXTcantidadMinima;
-    private javax.swing.JTextField TXTprecio;
-    private javax.swing.JTextField TXTrepuesto;
-    private javax.swing.JTextField TXTstock;
-    private javax.swing.JComboBox<String> categorias;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel Nuevo2;
+    private javax.swing.JLabel Nuevo3;
+    private javax.swing.JPanel btnAgregarMarca;
+    private javax.swing.JPanel btnAgregarTipo;
+    private javax.swing.JPanel btnGuardar;
+    private javax.swing.JComboBox<Object> cbxMarcaRepuesto;
+    private javax.swing.JComboBox<Object> cbxTipoRepuesto;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -969,6 +656,12 @@ public class PanelRepuestos extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JComboBox<String> marcas;
+    private javax.swing.JTextField txtCantidadMaxima;
+    private javax.swing.JTextField txtCantidadMinima;
+    private javax.swing.JTextField txtDescripRepuesto;
+    private javax.swing.JTextField txtIdRepuesto;
+    private javax.swing.JTextField txtNomRepuesto;
+    private javax.swing.JTextField txtPrecioBase;
+    private javax.swing.JTextField txtStockActual;
     // End of variables declaration//GEN-END:variables
 }

@@ -24,8 +24,10 @@ import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -50,6 +52,9 @@ public class CrearEmpleado extends javax.swing.JFrame {
         TipoUsuarioDAO Tip=new TipoUsuarioDAO();
         Tip.cargarTiposUsuario(TiposUsuarios);
         ((JTextFieldDateEditor) CalendarioRegistro.getDateEditor()).setDisabledTextColor(java.awt.Color.BLACK);
+        cargarTablaUsuario();
+        TablaEmpleados.setEnabled(false);
+        JPanelBuscar.setVisible(false);
     }
     int xMouse, yMouse;
     /**
@@ -109,7 +114,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
         TXTCorreoElectronico = new javax.swing.JTextField();
         TipoUsuario = new javax.swing.JLabel();
         TiposUsuarios = new javax.swing.JComboBox<>();
-        jPanel1 = new javax.swing.JPanel();
+        JPanelBuscar = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaEmpleados = new javax.swing.JTable();
 
@@ -527,6 +532,9 @@ public class CrearEmpleado extends javax.swing.JFrame {
         PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
         PanelBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelBuscarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelBuscarMouseEntered(evt);
             }
@@ -637,8 +645,8 @@ public class CrearEmpleado extends javax.swing.JFrame {
         TiposUsuarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EMPLEADO" }));
         TiposUsuarios.addActionListener(this::TiposUsuariosActionPerformed);
 
-        jPanel1.setBackground(new java.awt.Color(255, 213, 158));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        JPanelBuscar.setBackground(new java.awt.Color(255, 213, 158));
+        JPanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
         TablaEmpleados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -653,19 +661,19 @@ public class CrearEmpleado extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(TablaEmpleados);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout JPanelBuscarLayout = new javax.swing.GroupLayout(JPanelBuscar);
+        JPanelBuscar.setLayout(JPanelBuscarLayout);
+        JPanelBuscarLayout.setHorizontalGroup(
+            JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JPanelBuscarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 785, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(68, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(84, Short.MAX_VALUE)
+        JPanelBuscarLayout.setVerticalGroup(
+            JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPanelBuscarLayout.createSequentialGroup()
+                .addContainerGap(67, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -723,7 +731,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
                                         .addComponent(PanelEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(PanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(JPanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(BGempleadosLayout.createSequentialGroup()
                                 .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(Cargo)
@@ -849,8 +857,8 @@ public class CrearEmpleado extends javax.swing.JFrame {
                     .addComponent(PanelNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(PanelBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addComponent(JPanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         getContentPane().add(BGempleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, 710));
@@ -1915,7 +1923,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
         String ced_person= TXTcedula.getText().trim();
         boolean si=pd.existeCedula(ced_person);
         if (si==true){
-            int opcion = JOptionPane.showConfirmDialog(this, "¿Quiere convertir a la persona con cédula: "+ced_person+" a empleado?"+JOptionPane.YES_NO_OPTION);
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Quiere convertir a la persona con cédula: "+ced_person+" a empleado?","Confrimar",JOptionPane.YES_NO_OPTION);
             if (opcion==JOptionPane.YES_OPTION){
                 if (persona != null){
                 GuardarEmpleadoYaregistrada(persona);
@@ -3029,6 +3037,28 @@ public class CrearEmpleado extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_VerificarActionPerformed
 
+public void cargarTablaUsuario(){
+        cargarTablaUsuario("", "", "", "");
+    }
+    public void cargarTablaUsuario (String cedula, String empleado, String nom_cargo, String nom_especilidad){        
+        EmpleadoDAO ed=new EmpleadoDAO();
+        List<Empleado> lista= ed.listarEmpleado();
+        String columnas []={"Cédula","Nombre empleado","Nombre del cargo", "Nombre de la especialidad"};
+        DefaultTableModel modelo = new DefaultTableModel (null, columnas);
+        modelo.setRowCount(0);
+        System.out.println(lista.size());
+        for (Empleado e : lista){
+            Object [] fila={
+                e.getCed_perso(),
+                e.getNombre_Completo(),
+                e.getNom_cargo(),
+                e.getNom_especialidad()
+            };
+            modelo.addRow(fila);
+        }
+        // table nombre asignado a la tabla
+        TablaEmpleados.setModel(modelo);
+    }    
     private void PanelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseClicked
         // TODO add your handling code here:
         String ced_perso=TXTcedula.getText().trim();
@@ -3062,6 +3092,16 @@ public class CrearEmpleado extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No existe esa persona");
         }
     }//GEN-LAST:event_PanelEditarMouseClicked
+
+    private void PanelBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseClicked
+        // TODO add your handling code here:
+        if (JPanelBuscar.isVisible()){
+            JPanelBuscar.setVisible(false);
+        }
+        else{
+            JPanelBuscar.setVisible(true);
+        }
+    }//GEN-LAST:event_PanelBuscarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -3111,6 +3151,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
     private javax.swing.JLabel Guardar;
     private javax.swing.JLabel ImagenADD;
     private javax.swing.JLabel ImagenSAVE;
+    private javax.swing.JPanel JPanelBuscar;
     private javax.swing.JLabel NomVentana;
     private javax.swing.JLabel Nombres;
     private javax.swing.JLabel Nuevo;
@@ -3138,7 +3179,6 @@ public class CrearEmpleado extends javax.swing.JFrame {
     private javax.swing.JLabel Volver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

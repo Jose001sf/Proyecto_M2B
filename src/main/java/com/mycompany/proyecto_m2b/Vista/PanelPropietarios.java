@@ -1750,6 +1750,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
     private void PanelNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseClicked
         // TODO add your handling code here:
         LimpiarDatos();
+        TXTcedula.setEnabled(true);
         JOptionPane.showMessageDialog(this, "Datos limpiados correctamente"+"\n"
             +"Ingrese los datos");
     }//GEN-LAST:event_PanelNuevoMouseClicked
@@ -1772,7 +1773,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
         String ced_person= TXTcedula.getText().trim();
         boolean si=pd.existeCedula(ced_person);
         if (si==true){
-            int opcion = JOptionPane.showConfirmDialog(this, "¿Quiere convertir a la persona con cédula: "+ced_person+" a empleado?"+JOptionPane.YES_NO_OPTION);
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Quiere convertir a la persona con cédula: "+ced_person+" a empleado?","Confirmacion", JOptionPane.YES_NO_OPTION);
             if (opcion==JOptionPane.YES_OPTION){
                 if (persona != null){
                 GuardarYaExistentes(persona);
@@ -2246,17 +2247,23 @@ public class PanelPropietarios extends javax.swing.JPanel {
         TXTciudad.setForeground(new Color(94, 94, 94));
     }
     public void GuardarYaExistentes (Persona persona){
+        Validaciones V=new Validaciones();
         Propietario p=new Propietario();
-        EmpleadoDAO e=new EmpleadoDAO ();        
-        if (e.existeCedula(persona.getCed_perso())){
+        PropietarioDAO pd=new PropietarioDAO();
+        if (pd.existeCedula(persona.getCed_perso())){
             JOptionPane.showMessageDialog(this, "Esa persona ya esta registrada");
             return;
         }
         String Observaciones = Descripcion.getText().trim().toUpperCase();
+        if (!V.validarObservaciones(Observaciones)){
+            JOptionPane.showMessageDialog(this, "No cumple con las condiciones de texto");
+            Descripcion.setText("");
+            return;
+        }
         p.setObservaci_propietario(Observaciones);
         p.setCed_perso(persona.getCed_perso());
-        PropietarioDAO pd=new PropietarioDAO();
         pd.insertarPropietario(p);
+        JOptionPane.showMessageDialog(this, "Se ha registrado correctamente el propietario");
         LimpiarDatos();
     }
     

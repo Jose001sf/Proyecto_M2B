@@ -95,30 +95,44 @@ public class PropietarioDAO {
                 return false;
                 }
     }
-    public List<Propietario> buscarPropietario(String criterio) {
-    List<Propietario> lista = new ArrayList<>();
-    String sql = "SELECT * FROM propietario WHERE id_propietario";
+        public List<Propietario> buscarPropietario(String criterio) {
+        List<Propietario> lista = new ArrayList<>();
+        String sql = "SELECT * FROM propietario WHERE id_propietario";
 
-    try (Connection conn = ConexionBD.obtenerConexion();
-         PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = ConexionBD.obtenerConexion();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
 
-        ps.setString(1, "%" + criterio + "%");
-        ps.setString(2, criterio);
+            ps.setString(1, "%" + criterio + "%");
+            ps.setString(2, criterio);
 
-        try (ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                Propietario p = new Propietario(
-                        rs.getString("ID_propietario"),
-                        rs.getString("Observaci_propietario"),                    
-                        rs.getString("ced_perso")   
-                );
-                lista.add(p);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Propietario p = new Propietario(
+                            rs.getString("ID_propietario"),
+                            rs.getString("Observaci_propietario"),                    
+                            rs.getString("ced_perso")   
+                    );
+                    lista.add(p);
+                }
             }
-        }
 
-    } catch (SQLException ex) {
-        System.out.println("Error al buscar propietario: " + ex.getMessage());
+        } catch (SQLException ex) {
+            System.out.println("Error al buscar propietario: " + ex.getMessage());
+        }
+        return lista;
     }
-    return lista;
-}
+        public boolean existeCedula (String ced_perso){
+        String sql = "SELECT 1 FROM propietario WHERE ced_perso = ?";
+        try (Connection conn = ConexionBD.obtenerConexion();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+ 
+            ps.setString(1, ced_perso);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al verificar cedula: " + e.getMessage());
+            return false;
+        }
+    }
 }
