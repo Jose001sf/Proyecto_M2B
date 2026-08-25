@@ -28,24 +28,56 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
     txtIdRepuesto.setEditable(false);
     generarIdAutomatico();
     
-    txtNomRepuesto.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+        txtNomRepuesto.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             @Override
-            public void insertUpdate(javax.swing.event.DocumentEvent e) {
-                validarNombreRepuesto();
-            }
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { validarNombreRepuesto(); }
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { validarNombreRepuesto(); }
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { validarNombreRepuesto(); }
+        });
+        
+        txtStockActual.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { validarStockActual(); }
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { validarStockActual(); }
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { validarStockActual(); }
+        });
 
+        txtCantidadMinima.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             @Override
-            public void removeUpdate(javax.swing.event.DocumentEvent e) {
-                validarNombreRepuesto();
-            }
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { validarStockMinimo(); }
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { validarStockMinimo(); }
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { validarStockMinimo(); }
+        });
 
+        txtCantidadMaxima.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             @Override
-            public void changedUpdate(javax.swing.event.DocumentEvent e) {
-                validarNombreRepuesto();
-            }
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { validarStockMaximo(); }
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { validarStockMaximo(); }
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { validarStockMaximo(); }
+        });
+
+        txtPrecioBase.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { validarPrecioBase(); }
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { validarPrecioBase(); }
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { validarPrecioBase(); }
         });
         
         lblErrorTipoRepuesto.setText("");
+        lblErrorStockActual.setText("");
+        lblErrorStockMinimo.setText("");
+        lblErrorStockMaximo.setText("");
+        lblErrorPrecioBase.setText("");
     
 }
     private void cargarCombos() {
@@ -88,7 +120,7 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
 }
     
     private boolean validarNombreRepuesto() {
-String texto = txtNomRepuesto.getText().trim();
+        String texto = txtNomRepuesto.getText().trim();
         
         if (texto.isEmpty()) {
             lblErrorTipoRepuesto.setText("El campo no puede estar vacío.");
@@ -122,6 +154,62 @@ String texto = txtNomRepuesto.getText().trim();
         }
         
         lblErrorTipoRepuesto.setText("");
+        return true;
+    }
+    
+    private boolean validarStockActual() {
+        String texto = txtStockActual.getText().trim();
+        if (texto.isEmpty()) {
+            lblErrorStockActual.setText("El campo no puede estar vacío.");
+            return false;
+        }
+        if (!texto.matches("\\d+")) {
+            lblErrorStockActual.setText("Solo se permiten números enteros.");
+            return false;
+        }
+        lblErrorStockActual.setText("");
+        return true;
+    }
+
+    private boolean validarStockMinimo() {
+        String texto = txtCantidadMinima.getText().trim();
+        if (texto.isEmpty()) {
+            lblErrorStockMinimo.setText("El campo no puede estar vacío.");
+            return false;
+        }
+        if (!texto.matches("\\d+")) {
+            lblErrorStockMinimo.setText("Solo se permiten números enteros.");
+            return false;
+        }
+        lblErrorStockMinimo.setText("");
+        return true;
+    }
+
+    private boolean validarStockMaximo() {
+        String texto = txtCantidadMaxima.getText().trim();
+        if (texto.isEmpty()) {
+            lblErrorStockMaximo.setText("El campo no puede estar vacío.");
+            return false;
+        }
+        if (!texto.matches("\\d+")) {
+            lblErrorStockMaximo.setText("Solo se permiten números enteros.");
+            return false;
+        }
+        lblErrorStockMaximo.setText("");
+        return true;
+    }
+
+    private boolean validarPrecioBase() {
+        String texto = txtPrecioBase.getText().trim().replace(',', '.');
+        if (texto.isEmpty()) {
+            lblErrorPrecioBase.setText("El campo no puede estar vacío.");
+            return false;
+        }
+        if (!texto.matches("^\\d+(\\.\\d+)?$")) {
+            lblErrorPrecioBase.setText("Ingrese un número válido (ej. 12.50).");
+            return false;
+        }
+        lblErrorPrecioBase.setText("");
         return true;
     }
     
@@ -166,6 +254,10 @@ String texto = txtNomRepuesto.getText().trim();
         Nuevo3 = new javax.swing.JLabel();
         ImagenADD3 = new javax.swing.JLabel();
         lblErrorTipoRepuesto = new javax.swing.JLabel();
+        lblErrorStockActual = new javax.swing.JLabel();
+        lblErrorStockMinimo = new javax.swing.JLabel();
+        lblErrorStockMaximo = new javax.swing.JLabel();
+        lblErrorPrecioBase = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(238, 238, 238));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -241,22 +333,22 @@ String texto = txtNomRepuesto.getText().trim();
         jLabel10.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(153, 153, 153));
         jLabel10.setText("Stock Actual:");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, -1, -1));
 
         jLabel11.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(153, 153, 153));
         jLabel11.setText("Cantidad Mínima:");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 100, -1, 20));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 110, -1, 20));
 
         jLabel12.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(153, 153, 153));
         jLabel12.setText("Descripción del repuesto:");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, -1, -1));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
 
         jLabel13.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(153, 153, 153));
         jLabel13.setText("Cantidad Máxima:");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, -1, -1));
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 160, -1, -1));
 
         txtDescripRepuesto.setForeground(new java.awt.Color(153, 153, 153));
         txtDescripRepuesto.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -269,7 +361,7 @@ String texto = txtNomRepuesto.getText().trim();
                 txtDescripRepuestoMousePressed(evt);
             }
         });
-        jPanel1.add(txtDescripRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 690, 70));
+        jPanel1.add(txtDescripRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 690, 70));
 
         btnGuardar.setBackground(new java.awt.Color(242, 101, 34));
         btnGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -318,7 +410,7 @@ String texto = txtNomRepuesto.getText().trim();
         jLabel3.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(153, 153, 153));
         jLabel3.setText("Precio Base:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 160, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 210, -1, -1));
         jPanel1.add(txtIdRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, 160, -1));
         jPanel1.add(txtNomRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 160, -1));
 
@@ -327,10 +419,10 @@ String texto = txtNomRepuesto.getText().trim();
 
         cbxMarcaRepuesto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(cbxMarcaRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 170, -1));
-        jPanel1.add(txtStockActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 70, 170, -1));
-        jPanel1.add(txtCantidadMinima, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, 170, -1));
-        jPanel1.add(txtCantidadMaxima, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 130, 170, -1));
-        jPanel1.add(txtPrecioBase, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 160, 170, -1));
+        jPanel1.add(txtStockActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 60, 170, -1));
+        jPanel1.add(txtCantidadMinima, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 110, 170, -1));
+        jPanel1.add(txtCantidadMaxima, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 160, 170, -1));
+        jPanel1.add(txtPrecioBase, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 210, 170, -1));
 
         btnAgregarMarca.setBackground(new java.awt.Color(255, 255, 255));
         btnAgregarMarca.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -426,7 +518,27 @@ String texto = txtNomRepuesto.getText().trim();
         lblErrorTipoRepuesto.setFont(new java.awt.Font("Helvetica Neue", 2, 13)); // NOI18N
         lblErrorTipoRepuesto.setForeground(new java.awt.Color(255, 51, 51));
         lblErrorTipoRepuesto.setText("jLabel1");
-        jPanel1.add(lblErrorTipoRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, 180, -1));
+        jPanel1.add(lblErrorTipoRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, 220, -1));
+
+        lblErrorStockActual.setFont(new java.awt.Font("Helvetica Neue", 2, 13)); // NOI18N
+        lblErrorStockActual.setForeground(new java.awt.Color(255, 51, 51));
+        lblErrorStockActual.setText("jLabel1");
+        jPanel1.add(lblErrorStockActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 90, -1, -1));
+
+        lblErrorStockMinimo.setFont(new java.awt.Font("Helvetica Neue", 2, 13)); // NOI18N
+        lblErrorStockMinimo.setForeground(new java.awt.Color(255, 51, 51));
+        lblErrorStockMinimo.setText("jLabel2");
+        jPanel1.add(lblErrorStockMinimo, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 140, -1, -1));
+
+        lblErrorStockMaximo.setFont(new java.awt.Font("Helvetica Neue", 2, 13)); // NOI18N
+        lblErrorStockMaximo.setForeground(new java.awt.Color(255, 51, 51));
+        lblErrorStockMaximo.setText("jLabel9");
+        jPanel1.add(lblErrorStockMaximo, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, -1, -1));
+
+        lblErrorPrecioBase.setFont(new java.awt.Font("Helvetica Neue", 2, 13)); // NOI18N
+        lblErrorPrecioBase.setForeground(new java.awt.Color(255, 51, 51));
+        lblErrorPrecioBase.setText("jLabel14");
+        jPanel1.add(lblErrorPrecioBase, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 240, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -466,9 +578,15 @@ String texto = txtNomRepuesto.getText().trim();
     }//GEN-LAST:event_txtDescripRepuestoMousePressed
 
     private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
-    if (!validarNombreRepuesto()) {
-            txtNomRepuesto.requestFocus();
-            return;
+        boolean v1 = validarNombreRepuesto();
+        boolean v2 = validarStockActual();
+        boolean v3 = validarStockMinimo();
+        boolean v4 = validarStockMaximo();
+        boolean v5 = validarPrecioBase();
+
+        if (!v1 || !v2 || !v3 || !v4 || !v5) {
+            JOptionPane.showMessageDialog(this, "Por favor corrija los errores marcados en rojo.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
+            return; 
         }
         try {
         String id = txtIdRepuesto.getText().trim();
@@ -764,6 +882,10 @@ String texto = txtNomRepuesto.getText().trim();
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblErrorPrecioBase;
+    private javax.swing.JLabel lblErrorStockActual;
+    private javax.swing.JLabel lblErrorStockMaximo;
+    private javax.swing.JLabel lblErrorStockMinimo;
     private javax.swing.JLabel lblErrorTipoRepuesto;
     private javax.swing.JTextField txtCantidadMaxima;
     private javax.swing.JTextField txtCantidadMinima;
