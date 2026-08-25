@@ -1,11 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package com.mycompany.proyecto_m2b.Vista;
 
+import com.mycompany.proyecto_m2b.Controlador.ServicioDAO;
 import com.mycompany.proyecto_m2b.Controlador.TipoServicioDAO;
 import com.mycompany.proyecto_m2b.Controlador.Validaciones;
+import com.mycompany.proyecto_m2b.modelo.Servicio;
 import com.mycompany.proyecto_m2b.modelo.Tipo_de_servicio;
 import java.awt.Color;
 import java.util.List;
@@ -16,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -29,6 +29,21 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
     public PanelCatalogoServicio() {
         initComponents();
         cargarCombotipos();
+        cargarTabla();
+        
+        tblCatalogo.getSelectionModel().addListSelectionListener(evt -> {
+            if (!evt.getValueIsAdjusting()) {
+                int fila = tblCatalogo.getSelectedRow();
+                if (fila >= 0 && fila < lista1.size()) {
+                    Servicio seleccionado = lista1.get(fila);
+                    idSeleccionado = seleccionado.getId_servi();
+                    txtServicio.setText(seleccionado.getNom_servicio());
+                    txtPrecioBase.setText(String.format("%.2f", seleccionado.getPrecio_del_servicio()));
+                    txtTiempoEstimado.setText(String.valueOf(seleccionado.getTiempo_est_hor_servi()));
+                    idSeleccionado2 = seleccionado.getId_tipo_servicio();
+                }
+            }
+        });
         
         validarEnTiempoReal(txtServicio, txtErrorServicio, Validaciones::validarNombreServicio, "Nombre invalido (Ej: Cambio de aceite)");
         validarEnTiempoReal(txtPrecioBase, txtErrorPrecioBase, Validaciones::validarPrecio, "Precio invalido (Ej: 45.50)");
@@ -38,6 +53,10 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
     
     TipoServicioDAO dao = new TipoServicioDAO();
     List<Tipo_de_servicio> lista = dao.listarTipoServicio();
+    ServicioDAO dao1 = new ServicioDAO();
+    List<Servicio> lista1 = dao1.listarServicio();
+    private String idSeleccionado = null;
+    private String idSeleccionado2 = null;
  
     private void cargarCombotipos(){
         DefaultComboBoxModel<Tipo_de_servicio> modelo = new DefaultComboBoxModel();
@@ -73,6 +92,21 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
             public void changedUpdate(DocumentEvent e) { evaluar(); }
         });
     
+    }
+    private void cargarTabla() {
+        DefaultTableModel modelo = (DefaultTableModel) tblCatalogo.getModel();
+        modelo.setRowCount(0);
+
+        lista1 = dao1.listarServicio();
+        for (Servicio t : lista1) {
+            Object[] fila = {
+                t.getNom_servicio(),
+                t.getPrecio_del_servicio(),
+                t.getTiempo_est_hor_servi()
+
+            };
+            modelo.addRow(fila);
+        }
     }
     
     private void limpiarDatos(){
@@ -254,6 +288,9 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
         PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
         PanelEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelEditarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelEditarMouseEntered(evt);
             }
@@ -293,6 +330,9 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
         PanelDarBaja.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(215, 106, 106)));
         PanelDarBaja.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelDarBaja.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelDarBajaMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelDarBajaMouseEntered(evt);
             }
@@ -610,7 +650,30 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
 
     private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
         // TODO add your handling code here:
-       
+        String nombre = txtServicio.getText().trim();
+        String precioBase = txtPrecioBase.getText().trim().replace(",", ".");
+        String hora = txtTiempoEstimado.getText().trim();
+        Tipo_de_servicio tipoSeleccionado = (Tipo_de_servicio) comboTiposServicios.getSelectedItem();
+        String idTipoServicio = tipoSeleccionado.getID_tipo_servicio();
+
+        if (nombre.isEmpty() || precioBase.isEmpty() || hora.isEmpty() || idTipoServicio.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Complete todos los campos.");
+            return;
+        }
+        
+        float preciosBase = Float.parseFloat(precioBase);
+        int horaEstimada = Integer.parseInt(hora);
+        
+        ServicioDAO dao = new ServicioDAO();
+        String id = dao.generarNuevoId();
+        if (id == null) {
+            JOptionPane.showMessageDialog(this, "No se pudo generar un nuevo ID.");
+            return;
+        }
+        Servicio nuevo = new Servicio(id, horaEstimada, preciosBase, nombre, idTipoServicio);
+        dao.insertar(nuevo);
+        limpiarDatos();
+        cargarTabla();
             
     }//GEN-LAST:event_PanelGuardarMouseClicked
 
@@ -676,6 +739,55 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
         // TODO add your handling code here:
         Regresar.setForeground(new java.awt.Color(145, 145, 145));
     }//GEN-LAST:event_RegresarMouseExited
+
+    private void PanelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseClicked
+        // TODO add your handling code here:
+        if (idSeleccionado == null) {
+            JOptionPane.showMessageDialog(this, "Seleccione algun tipo de servicio.");
+            return;
+        }
+        String nombre = txtServicio.getText().trim();
+        String precioBase = txtPrecioBase.getText().trim().replace(",", ".");
+        String hora = txtTiempoEstimado.getText().trim();
+        Tipo_de_servicio tipoSeleccionado = (Tipo_de_servicio) comboTiposServicios.getSelectedItem();
+        String idTipoServicio = tipoSeleccionado.getID_tipo_servicio();
+
+        if (nombre.isEmpty() || precioBase.isEmpty() || hora.isEmpty() || idTipoServicio.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Complete todos los campos.");
+            return;
+        }
+        float preciosBase = Float.parseFloat(precioBase);
+        int horaEstimada = Integer.parseInt(hora);
+        
+        ServicioDAO dao = new ServicioDAO();
+
+        Servicio actualizado = new Servicio(idSeleccionado, horaEstimada, preciosBase, nombre, idTipoServicio);
+        dao.actualizarServicio(actualizado);
+        limpiarDatos();
+        cargarTabla();
+    }//GEN-LAST:event_PanelEditarMouseClicked
+
+    private void PanelDarBajaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarBajaMouseClicked
+        // TODO add your handling code here:
+        if (idSeleccionado == null) {
+            JOptionPane.showMessageDialog(this, "Seleccione algun tipo de servicio.");
+            return;
+        }
+        int Ysisi = JOptionPane.showConfirmDialog(this,
+                "¿Seguro que deseas eliminar este servicio?", "Confirmar eleccion", JOptionPane.YES_NO_OPTION);
+        if (Ysisi != JOptionPane.YES_OPTION) {
+            return;
+        }
+        boolean logro = dao1.eliminarServicio(idSeleccionado);
+
+        if (logro) {
+            JOptionPane.showMessageDialog(this, "Eliminado correctamente.");
+            limpiarDatos();
+            cargarTabla();
+        } else {
+            JOptionPane.showMessageDialog(this, "No se ha eliminado correctamente.");
+        }
+    }//GEN-LAST:event_PanelDarBajaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
