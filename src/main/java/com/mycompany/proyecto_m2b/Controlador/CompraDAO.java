@@ -18,7 +18,7 @@ public class CompraDAO {
     }
 
     public boolean guardarEncabezadoCompra(String idCompra, String fecha, double total, String idProveedor, Connection con) {
-        String sql = "INSERT INTO public.encabezado_compra (id_enca_compra, fecha_compra, total_encab_compra, id_proveedor) VALUES (?, CAST(? AS DATE), ?, ?)";
+        String sql = "INSERT INTO public.encabezado_compra (id_enca_compra, fecha_compra, total_enca_compra, id_proveedor) VALUES (?, CAST(? AS DATE), ?, ?)";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, idCompra);
             ps.setString(2, fecha);
@@ -32,7 +32,7 @@ public class CompraDAO {
     }
 
     public boolean guardarDetalleCompra(String idDetalle, int cantidad, double subtotal, String idRepuesto, String idCompra, Connection con) {
-        String sql = "INSERT INTO public.detalle_compra (id_detall_compra, cantidad_enviada, subtotal_deta_compra, id_repuestos, id_enca_compra) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO public.detalle_compra (id_detall_compra, cantidad_enviada, subtotal_compra, id_repuestos, id_enca_compra) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, idDetalle);
             ps.setInt(2, cantidad);
