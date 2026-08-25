@@ -11,6 +11,7 @@ import com.mycompany.proyecto_m2b.Controlador.DireccionDAO;
 import com.mycompany.proyecto_m2b.Controlador.EmpleadoDAO;
 import com.mycompany.proyecto_m2b.Controlador.EspecialidadDAO;
 import com.mycompany.proyecto_m2b.Controlador.PersonaDAO;
+import com.mycompany.proyecto_m2b.Controlador.Servidor_de_correos;
 import com.mycompany.proyecto_m2b.Controlador.TipoUsuarioDAO;
 import com.mycompany.proyecto_m2b.Controlador.UsuarioDAO;
 import com.mycompany.proyecto_m2b.modelo.Cargo;
@@ -2051,7 +2052,18 @@ public class CrearEmpleado extends javax.swing.JFrame {
         Usuario usuario=new Usuario(Usuario, contrasena, estado_acti_usuario, empleado.getId_empleado(), TipE.getId_tip_de_usuario());
         UsuarioDAO u=new UsuarioDAO();
         u.insertar(usuario);
-                
+        
+        //Hilo para el envio de correos
+        String correo_perso=CorreoE;
+        String nom_usuario=Usuario;
+        String contra_usuario=contrasena;
+        
+        new Thread(() -> {
+            Servidor_de_correos sv=new Servidor_de_correos();
+            sv.enviarCorreoUsuario(nom_usuario, contra_usuario, correo_perso);
+        }).start();
+
+        
         JOptionPane.showMessageDialog(this, "Su usuario es el siguiente: "+Usuario+"\n"
                 + "Y su contraseña es: "+contrasena+"\n"
                 +"Por favor, tome una foto o anótelas en un lugar seguro, no se podran modificar una vez cerrada la ventana");
