@@ -88,12 +88,12 @@ public class Usuarios extends javax.swing.JFrame {
         TXTEmpleado = new javax.swing.JTextField();
         Cedula = new javax.swing.JLabel();
         TXTCedula = new javax.swing.JTextField();
+        estado = new javax.swing.JLabel();
         TXTEstado = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        TablaUsuario = new javax.swing.JTable();
         OtroNombreUsuario = new javax.swing.JLabel();
         TXTNombreUsuario = new javax.swing.JTextField();
-        estado = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TablaUsuario = new javax.swing.JTable();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -131,7 +131,7 @@ public class Usuarios extends javax.swing.JFrame {
 
         NomVentana.setFont(new java.awt.Font("Roboto Condensed ExtraBold", 1, 18)); // NOI18N
         NomVentana.setForeground(new java.awt.Color(255, 255, 255));
-        NomVentana.setText("GESTION DE EMPLEADOS");
+        NomVentana.setText("GESTION DE USUARIOS");
 
         Volver.setBackground(new java.awt.Color(182, 182, 182));
         Volver.setFont(new java.awt.Font("Roboto Condensed", 1, 18)); // NOI18N
@@ -495,6 +495,9 @@ public class Usuarios extends javax.swing.JFrame {
             }
         });
 
+        estado.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        estado.setText("Estado:");
+
         TXTEstado.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         TXTEstado.setForeground(new java.awt.Color(94, 94, 94));
         TXTEstado.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -515,19 +518,6 @@ public class Usuarios extends javax.swing.JFrame {
                 TXTEstadoKeyReleased(evt);
             }
         });
-
-        TablaUsuario.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(TablaUsuario);
 
         OtroNombreUsuario.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         OtroNombreUsuario.setText("Nombre de usuario:");
@@ -553,8 +543,18 @@ public class Usuarios extends javax.swing.JFrame {
             }
         });
 
-        estado.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        estado.setText("Estado:");
+        TablaUsuario.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(TablaUsuario);
 
         javax.swing.GroupLayout PanelBuscarTablaLayout = new javax.swing.GroupLayout(PanelBuscarTabla);
         PanelBuscarTabla.setLayout(PanelBuscarTablaLayout);
