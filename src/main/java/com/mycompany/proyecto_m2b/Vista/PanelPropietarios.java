@@ -29,6 +29,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
     public PanelPropietarios() {
         initComponents();
         CalendarioRegistro.setEnabled(false);
+        CalendarioRegistro.setDate(new Date());
     }
 
     /**
@@ -89,8 +90,9 @@ public class PanelPropietarios extends javax.swing.JPanel {
         jLabel16 = new javax.swing.JLabel();
         CalendarioRegistro = new com.toedter.calendar.JDateChooser();
         Verificar = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
 
-        jPanel1.setBackground(new java.awt.Color(238, 238, 238));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
@@ -655,6 +657,19 @@ public class PanelPropietarios extends javax.swing.JPanel {
         Verificar.addActionListener(this::VerificarActionPerformed);
         jPanel1.add(Verificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 80, 20));
 
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 690, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 190, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 690, 190));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -663,7 +678,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -2186,10 +2201,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
         PropietarioDAO pod=new PropietarioDAO();
         persona=pd.buscarPorCedula(ced_perso);
         propietario=pod.buscarPorCedula(ced_perso);
-        if (propietario==null){
-            JOptionPane.showMessageDialog(this, "Esta persona no esta registrada como propietario");
-            return;
-        }
+        
         if(persona!=null){
             TXTcedula.setEditable(false);
             TXTnombre.setText(persona.getNom1_person());
@@ -2636,5 +2648,6 @@ public class PanelPropietarios extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 }

@@ -3006,10 +3006,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
         EmpleadoDAO ed=new EmpleadoDAO();
         empleado=ed.buscarPorCedula(ced_perso);        
         persona=pd.buscarPorCedula(ced_perso);
-        if(empleado==null){
-            JOptionPane.showMessageDialog(this, "No está guardado como empleado");
-            return;
-        }
+        
         if(persona!=null){
             TXTcedula.setEditable(false);
             TXTnombre.setText(persona.getNom1_person());
