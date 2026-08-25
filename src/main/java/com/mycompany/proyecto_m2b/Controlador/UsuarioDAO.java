@@ -21,7 +21,7 @@ import javax.swing.JComboBox;
 public class UsuarioDAO {
     private  static final String INSERTARUSUARIO=
             "INSERT INTO public.usuario(id_usuario, nombre_usuario, contra_usuario, estado_acti_usuario, id_empleado, id_tip_usuario)" +
-            "VALUES (?, ?, ?, ?, ?, ?)";
+            "VALUES (?, ?, crypt(?, gen_salt('bf')), ?, ?, ?)";
     
      public void insertar(Usuario usuario) {
         String IdGenerado=Generacion_id.generar_id("USU", "seq_usuario");
@@ -98,15 +98,16 @@ public class UsuarioDAO {
     
     private static final String MODIFICARUSUARIO =
             "UPDATE usuario "
-            + "SET nombre_usuario=?, contra_usuario=?, id_tip_usuario=? "
+            + "SET nombre_usuario=?, contra_usuario = CASE WHEN ? LIKE '$2a$%' THEN contra_usuario ELSE crypt(?, gen_salt('bf')) END, id_tip_usuario=? "
             + "WHERE id_usuario=?";
         public boolean modificarUsuario (Usuario usuario){
             try (Connection conn=ConexionBD.obtenerConexion();
             PreparedStatement ps=conn.prepareStatement(MODIFICARUSUARIO)){
                 ps.setString(1, usuario.getNombre_usuario());
                 ps.setString(2, usuario.getContra_usuario());
-                ps.setString(3, usuario.getTip_usuario());
-                ps.setString(4, usuario.getID_usuario());                                
+                ps.setString(3, usuario.getContra_usuario());
+                ps.setString(4, usuario.getTip_usuario());
+                ps.setString(5, usuario.getID_usuario());                                
                 int filas=ps.executeUpdate();
                 return filas>0;
             }catch (SQLException e){
@@ -181,7 +182,7 @@ public class UsuarioDAO {
     public Usuario permiterLogin (String nombre_usuario, String contrasena){
         String sql="SELECT id_usuario, nombre_usuario, contra_usuario, estado_acti_usuario, id_empleado, id_tip_usuario "
                 + "FROM usuario "
-                + "WHERE nombre_usuario=? AND contra_usuario=? AND estado_acti_usuario=true";
+                + "WHERE nombre_usuario=? AND contra_usuario = crypt(?, contra_usuario) AND estado_acti_usuario=true";
         try (Connection conn = ConexionBD.obtenerConexion(); PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setString(1, nombre_usuario);
             ps.setString(2, contrasena);
