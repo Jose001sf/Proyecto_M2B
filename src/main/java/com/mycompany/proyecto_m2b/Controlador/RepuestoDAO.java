@@ -122,4 +122,21 @@ public class RepuestoDAO {
     }
     return lista;
 }
+    
+    public String obtenerSiguienteIdMarca(Connection conexion) {
+    String sql = "SELECT COALESCE(MAX(CAST(SUBSTRING(id_marca_repuesto FROM 5) AS INTEGER)), 0) + 1 AS siguiente "
+               + "FROM public.marca_repuesto WHERE id_marca_repuesto LIKE 'MAR-%'";
+    
+    try (Statement st = conexion.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+        if (rs.next()) {
+            int siguienteNum = rs.getInt("siguiente");
+            return String.format("MAR-%07d", siguienteNum);
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al generar siguiente ID de marca: " + e.getMessage());
+    }
+        return "MAR-0000001";
+}
+    
+    
 }
