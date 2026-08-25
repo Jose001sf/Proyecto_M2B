@@ -23,6 +23,7 @@ public class PanelVehiculos extends javax.swing.JPanel {
     public PanelVehiculos() {
         initComponents();
         cargarComboMarcas();
+        cargarComboTipos();
     txtPlaca.setText("Ingrese la placa del vehiculo");
     txtPlaca.setForeground(java.awt.Color.GRAY);
 
@@ -51,21 +52,45 @@ public class PanelVehiculos extends javax.swing.JPanel {
     
     public void cargarComboMarcas() {
         comboMarcas.removeAllItems();
-        VehiculosDAO dao = new VehiculosDAO();
-        List<Marca> lista = dao.listarMarcas(); // Método en DAO que lee SELECT * FROM marca
+    comboMarcas.addItem("Seleccione una marca"); 
     
-        for (Marca m : lista) {
-        comboMarcas.addItem(m.getNom_mar()); // Agrega el objeto Marca completo
-        }
+    VehiculosDAO dao = new VehiculosDAO();
+    List<Marca> lista = dao.listarMarcas();
+
+    for (Marca m : lista) {
+        comboMarcas.addItem(m.getNom_mar());
     }
+    comboMarcas.revalidate();
+    comboMarcas.repaint();
+    }
+    public void cargarComboTipos() {
+        VehiculosDAO dao = new VehiculosDAO();
+        java.util.List<String> tipos = dao.obtenerNombresTipos();
+
+        comboTipos.removeAllItems(); 
+        comboTipos.addItem("Seleccione un tipo");
+
+        for (String tipo : tipos) {
+        comboTipos.addItem(tipo);
+    }
+        comboTipos.revalidate();
+        comboTipos.repaint();
+}
     public void cargarComboModelos(String idMarca) {
     comboModelos.removeAllItems();
-    VehiculosDAO dao = new VehiculosDAO();
-    List<Modelo> lista = dao.listarModelosPorMarca(idMarca);
+    comboModelos.addItem("Seleccione un modelo");
 
-    for (Modelo mod : lista) {
-        comboModelos.addItem(mod.getNom_mode()); // Agregas solo el texto del modelo
+    if (idMarca != null) {
+        VehiculosDAO dao = new VehiculosDAO();
+        List<Modelo> lista = dao.listarModelosPorMarca(idMarca);
+
+        for (Modelo mod : lista) {
+            comboModelos.addItem(mod.getNom_mode()); 
+        }
     }
+    
+    comboModelos.revalidate();
+    comboModelos.repaint();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -117,12 +142,11 @@ public class PanelVehiculos extends javax.swing.JPanel {
         PanelBuscar = new javax.swing.JPanel();
         Buscar = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        PanelNuevo1 = new javax.swing.JPanel();
-        Nuevo1 = new javax.swing.JLabel();
-        ImagenADD1 = new javax.swing.JLabel();
         PanelNuevo = new javax.swing.JPanel();
         Nuevo = new javax.swing.JLabel();
         ImagenADD = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        comboTipos = new javax.swing.JComboBox<>();
 
         Fondo.setBackground(new java.awt.Color(255, 255, 255));
         Fondo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -200,7 +224,7 @@ public class PanelVehiculos extends javax.swing.JPanel {
         Color.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         Color.setForeground(new java.awt.Color(153, 153, 153));
         Color.setText("Color:");
-        Fondo.add(Color, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, -1, -1));
+        Fondo.add(Color, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, -1, -1));
 
         Kilometraje.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         Kilometraje.setForeground(new java.awt.Color(153, 153, 153));
@@ -218,13 +242,13 @@ public class PanelVehiculos extends javax.swing.JPanel {
         Fondo.add(Propietario, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, -1, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/images (2).jpg"))); // NOI18N
-        Fondo.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 70, -1, -1));
+        Fondo.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 70, -1, -1));
 
         comboMarcas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una marca", "Item 2", "Item 3", "Item 4" }));
         comboMarcas.addActionListener(this::comboMarcasActionPerformed);
         Fondo.add(comboMarcas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 210, -1));
 
-        comboModelos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccion un modelo", "Item 2", "Item 3", "Item 4" }));
+        comboModelos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un modelo", "Item 2", "Item 3", "Item 4" }));
         comboModelos.addActionListener(this::comboModelosActionPerformed);
         Fondo.add(comboModelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 200, 240, -1));
 
@@ -250,7 +274,7 @@ public class PanelVehiculos extends javax.swing.JPanel {
                 txtColorFocusLost(evt);
             }
         });
-        Fondo.add(txtColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, 210, -1));
+        Fondo.add(txtColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 210, -1));
 
         txtKilometraje.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -265,40 +289,40 @@ public class PanelVehiculos extends javax.swing.JPanel {
         TituloFuncion2.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         TituloFuncion2.setForeground(new java.awt.Color(153, 153, 153));
         TituloFuncion2.setText("ESPECIFICACIONES TÉCNICAS");
-        Fondo.add(TituloFuncion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, -1, -1));
+        Fondo.add(TituloFuncion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, -1, -1));
 
         Ano.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         Ano.setForeground(new java.awt.Color(153, 153, 153));
-        Ano.setText("Añ0:");
-        Fondo.add(Ano, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, -1, -1));
+        Ano.setText("Año:");
+        Fondo.add(Ano, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 400, -1, -1));
 
         Chasis.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         Chasis.setForeground(new java.awt.Color(153, 153, 153));
         Chasis.setText("N° Chasis:");
-        Fondo.add(Chasis, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, -1, -1));
+        Fondo.add(Chasis, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 460, -1, -1));
 
         Transmicion.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         Transmicion.setForeground(new java.awt.Color(153, 153, 153));
         Transmicion.setText("Transmisión:");
-        Fondo.add(Transmicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 370, -1, -1));
+        Fondo.add(Transmicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 400, -1, -1));
 
         Motor.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         Motor.setForeground(new java.awt.Color(153, 153, 153));
         Motor.setText("N° Motor:");
-        Fondo.add(Motor, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 430, -1, -1));
+        Fondo.add(Motor, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 460, -1, -1));
 
         Cilindraje.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         Cilindraje.setForeground(new java.awt.Color(153, 153, 153));
         Cilindraje.setText("Cilindraje:");
-        Fondo.add(Cilindraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 370, -1, -1));
+        Fondo.add(Cilindraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 400, -1, -1));
 
         Puertas.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         Puertas.setForeground(new java.awt.Color(153, 153, 153));
         Puertas.setText("N° Puertas:");
-        Fondo.add(Puertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 430, -1, -1));
+        Fondo.add(Puertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 460, -1, -1));
 
-        comboTransmision.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un tipo de transmicion", "Item 2", "Item 3", "Item 4" }));
-        Fondo.add(comboTransmision, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 390, 290, -1));
+        comboTransmision.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un tipo de transmision", "Item 2", "Item 3", "Item 4" }));
+        Fondo.add(comboTransmision, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 420, 290, -1));
 
         txtAnio.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -308,7 +332,7 @@ public class PanelVehiculos extends javax.swing.JPanel {
                 txtAnioFocusLost(evt);
             }
         });
-        Fondo.add(txtAnio, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 270, -1));
+        Fondo.add(txtAnio, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 270, -1));
 
         txtChasis.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -318,7 +342,7 @@ public class PanelVehiculos extends javax.swing.JPanel {
                 txtChasisFocusLost(evt);
             }
         });
-        Fondo.add(txtChasis, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, 270, -1));
+        Fondo.add(txtChasis, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 480, 270, -1));
 
         txtMotor.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -328,7 +352,7 @@ public class PanelVehiculos extends javax.swing.JPanel {
                 txtMotorFocusLost(evt);
             }
         });
-        Fondo.add(txtMotor, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 450, 290, -1));
+        Fondo.add(txtMotor, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 480, 290, -1));
 
         txtCilindraje.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -338,7 +362,7 @@ public class PanelVehiculos extends javax.swing.JPanel {
                 txtCilindrajeFocusLost(evt);
             }
         });
-        Fondo.add(txtCilindraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 390, 270, -1));
+        Fondo.add(txtCilindraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 420, 270, -1));
 
         txtPuertas.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -348,7 +372,7 @@ public class PanelVehiculos extends javax.swing.JPanel {
                 txtPuertasFocusLost(evt);
             }
         });
-        Fondo.add(txtPuertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 450, 270, -1));
+        Fondo.add(txtPuertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 480, 270, -1));
 
         PanelGuardar.setBackground(new java.awt.Color(242, 101, 34));
         PanelGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -392,7 +416,7 @@ public class PanelVehiculos extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        Fondo.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 520, -1, -1));
+        Fondo.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 550, -1, -1));
 
         PanelEditar.setBackground(new java.awt.Color(255, 255, 255));
         PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -433,7 +457,7 @@ public class PanelVehiculos extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        Fondo.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 520, -1, -1));
+        Fondo.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 550, -1, -1));
 
         PanelBuscar.setBackground(new java.awt.Color(255, 255, 255));
         PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -473,50 +497,7 @@ public class PanelVehiculos extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Fondo.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 520, -1, -1));
-
-        PanelNuevo1.setBackground(new java.awt.Color(255, 255, 255));
-        PanelNuevo1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelNuevo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelNuevo1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PanelNuevo1MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelNuevo1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelNuevo1MouseExited(evt);
-            }
-        });
-
-        Nuevo1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        Nuevo1.setText("Nuevo");
-
-        ImagenADD1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-
-        javax.swing.GroupLayout PanelNuevo1Layout = new javax.swing.GroupLayout(PanelNuevo1);
-        PanelNuevo1.setLayout(PanelNuevo1Layout);
-        PanelNuevo1Layout.setHorizontalGroup(
-            PanelNuevo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNuevo1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(ImagenADD1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Nuevo1)
-                .addContainerGap(33, Short.MAX_VALUE))
-        );
-        PanelNuevo1Layout.setVerticalGroup(
-            PanelNuevo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNuevo1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelNuevo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ImagenADD1)
-                    .addComponent(Nuevo1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        Fondo.add(PanelNuevo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 190, -1, -1));
+        Fondo.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 550, -1, -1));
 
         PanelNuevo.setBackground(new java.awt.Color(255, 255, 255));
         PanelNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -534,7 +515,7 @@ public class PanelVehiculos extends javax.swing.JPanel {
         });
 
         Nuevo.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        Nuevo.setText("Añadir marca/modelo");
+        Nuevo.setText("Añadir marca/modelo/tipo");
         Nuevo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 NuevoMouseClicked(evt);
@@ -564,7 +545,15 @@ public class PanelVehiculos extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Fondo.add(PanelNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, -1, -1));
+        Fondo.add(PanelNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 310, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel4.setText("Tipo:");
+        Fondo.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 180, -1, -1));
+
+        comboTipos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un tipo", "Item 2", "Item 3", "Item 4" }));
+        Fondo.add(comboTipos, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 200, 210, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -586,21 +575,20 @@ public class PanelVehiculos extends javax.swing.JPanel {
     private void comboMarcasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMarcasActionPerformed
         // TODO add your handling code here:
         if (comboMarcas.getSelectedIndex() > 0) {
-            // Asumiendo que guardas el ID o el objeto Marca en el combo
-            String marcaSeleccionada = (String) comboMarcas.getSelectedItem();
-            // Carga los modelos pasando la marca o su ID correspondiente
-            cargarComboModelos(marcaSeleccionada);
-        }
-        if (comboMarcas.getSelectedIndex() > 0) { // Asumiendo que el índice 0 es "Seleccione una marca"
-            // Si tu combo guarda objetos Marca o cadenas con ID:
-            String marcaSeleccionada = comboMarcas.getSelectedItem().toString();
-
-            // Si necesitas el ID de la marca, puedes recuperarlo desde la BD o guardar objetos Marca directamente
-            cargarComboModelos(marcaSeleccionada);
+        String nombreMarcaSeleccionada = comboMarcas.getSelectedItem().toString();
+        
+        VehiculosDAO dao = new VehiculosDAO();
+        String idMarca = dao.obtenerIdMarcaPorNombre(nombreMarcaSeleccionada);
+        if (idMarca != null) {
+            cargarComboModelos(idMarca);
         } else {
             comboModelos.removeAllItems();
             comboModelos.addItem("Seleccione un modelo");
         }
+    } else {
+        comboModelos.removeAllItems();
+        comboModelos.addItem("Seleccione un modelo");
+    }
     }//GEN-LAST:event_comboMarcasActionPerformed
 
     private void txtPlacaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPlacaFocusGained
@@ -766,26 +754,17 @@ public class PanelVehiculos extends javax.swing.JPanel {
         Buscar.setForeground(java.awt.Color.black);
     }//GEN-LAST:event_PanelBuscarMouseExited
 
-    private void PanelNuevo1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevo1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PanelNuevo1MouseClicked
-
-    private void PanelNuevo1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevo1MouseEntered
-        // TODO add your handling code here:
-        PanelNuevo1.setBackground(new java.awt.Color(219,219,219));
-        Nuevo1.setForeground(new java.awt.Color(66, 66, 66));
-    }//GEN-LAST:event_PanelNuevo1MouseEntered
-
-    private void PanelNuevo1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevo1MouseExited
-        // TODO add your handling code here:
-        PanelNuevo1.setBackground(java.awt.Color.white);
-        Nuevo1.setForeground(java.awt.Color.black);
-    }//GEN-LAST:event_PanelNuevo1MouseExited
-
     private void PanelNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseClicked
         // TODO add your handling code here:
-        CrearNuevaMarcaModelo CMM=new CrearNuevaMarcaModelo();
-        CMM.setVisible(true);
+        CrearNuevaMarcaModelo ventanaCrear = new CrearNuevaMarcaModelo();
+        ventanaCrear.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent e) {
+            cargarComboMarcas();
+            cargarComboTipos();
+        }
+    });
+    ventanaCrear.setVisible(true);
     }//GEN-LAST:event_PanelNuevoMouseClicked
 
     private void PanelNuevoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseEntered
@@ -808,6 +787,9 @@ public class PanelVehiculos extends javax.swing.JPanel {
 
     private void comboModelosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboModelosActionPerformed
         // TODO add your handling code here:
+        if (comboModelos.getSelectedIndex() > 0) {
+        String modeloSeleccionado = comboModelos.getSelectedItem().toString();
+        }
     }//GEN-LAST:event_comboModelosActionPerformed
     
     public void LimpiarDatos (){
@@ -869,7 +851,7 @@ public class PanelVehiculos extends javax.swing.JPanel {
          if (Modelos.equals("Seleccione una opción") ){
             JOptionPane.showMessageDialog (this, "Por favor escoga una opción");
             return;
-        }
+         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -884,7 +866,6 @@ public class PanelVehiculos extends javax.swing.JPanel {
     private javax.swing.JPanel Fondo;
     private javax.swing.JLabel Guardar;
     private javax.swing.JLabel ImagenADD;
-    private javax.swing.JLabel ImagenADD1;
     private javax.swing.JLabel ImagenSAVE;
     private javax.swing.JLabel Kilometraje;
     private javax.swing.JLabel Marca;
@@ -892,12 +873,10 @@ public class PanelVehiculos extends javax.swing.JPanel {
     private javax.swing.JLabel Motor;
     private javax.swing.JLabel NombreVentanaVehiculos;
     private javax.swing.JLabel Nuevo;
-    private javax.swing.JLabel Nuevo1;
     private javax.swing.JPanel PanelBuscar;
     private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JPanel PanelNuevo;
-    private javax.swing.JPanel PanelNuevo1;
     private javax.swing.JLabel Placa;
     private javax.swing.JLabel Propietario;
     private javax.swing.JLabel Puertas;
@@ -907,10 +886,12 @@ public class PanelVehiculos extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> comboMarcas;
     private javax.swing.JComboBox<String> comboModelos;
     private javax.swing.JComboBox<String> comboPropietarios;
+    private javax.swing.JComboBox<String> comboTipos;
     private javax.swing.JComboBox<String> comboTransmision;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField txtAnio;
     private javax.swing.JTextField txtChasis;
