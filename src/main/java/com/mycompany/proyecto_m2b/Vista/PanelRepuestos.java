@@ -88,10 +88,20 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
 }
     
     private boolean validarNombreRepuesto() {
-        String texto = txtNomRepuesto.getText().trim();
+String texto = txtNomRepuesto.getText().trim();
         
         if (texto.isEmpty()) {
             lblErrorTipoRepuesto.setText("El campo no puede estar vacío.");
+            return false;
+        }
+        
+        if (texto.length() > 30) {
+            lblErrorTipoRepuesto.setText("Máximo 30 caracteres.");
+            return false;
+        }
+        
+        if (!Character.isUpperCase(texto.charAt(0))) {
+            lblErrorTipoRepuesto.setText("Debe iniciar con mayúscula.");
             return false;
         }
         
@@ -102,6 +112,12 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
         
         if (texto.matches(".*(.)\\1{3,}.*")) {
             lblErrorTipoRepuesto.setText("Demasiadas letras repetidas.");
+            return false;
+        }
+        
+        String textoMinus = texto.toLowerCase();
+        if (textoMinus.contains("asdf") || textoMinus.contains("ghjk") || textoMinus.contains("qwer") || textoMinus.contains("zxcv")) {
+            lblErrorTipoRepuesto.setText("Texto no válido o aleatorio.");
             return false;
         }
         
@@ -215,12 +231,12 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
         jLabel7.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(153, 153, 153));
         jLabel7.setText("Tipo:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(153, 153, 153));
         jLabel8.setText("Marca:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(153, 153, 153));
@@ -307,10 +323,10 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
         jPanel1.add(txtNomRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 160, -1));
 
         cbxTipoRepuesto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbxTipoRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 170, -1));
+        jPanel1.add(cbxTipoRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, 170, -1));
 
         cbxMarcaRepuesto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbxMarcaRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 170, -1));
+        jPanel1.add(cbxMarcaRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 170, -1));
         jPanel1.add(txtStockActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 70, 170, -1));
         jPanel1.add(txtCantidadMinima, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, 170, -1));
         jPanel1.add(txtCantidadMaxima, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 130, 170, -1));
@@ -362,7 +378,7 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(btnAgregarMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, -1, -1));
+        jPanel1.add(btnAgregarMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, -1, -1));
 
         btnAgregarTipo.setBackground(new java.awt.Color(255, 255, 255));
         btnAgregarTipo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -405,12 +421,12 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(btnAgregarTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, -1, -1));
+        jPanel1.add(btnAgregarTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, -1, -1));
 
         lblErrorTipoRepuesto.setFont(new java.awt.Font("Helvetica Neue", 2, 13)); // NOI18N
         lblErrorTipoRepuesto.setForeground(new java.awt.Color(255, 51, 51));
         lblErrorTipoRepuesto.setText("jLabel1");
-        jPanel1.add(lblErrorTipoRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 100, -1));
+        jPanel1.add(lblErrorTipoRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, 180, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
