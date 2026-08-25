@@ -3,6 +3,7 @@ package com.mycompany.proyecto_m2b.Controlador;
 
 import com.mycompany.proyecto_m2b.modelo.Marca;
 import com.mycompany.proyecto_m2b.modelo.Modelo;
+import com.mycompany.proyecto_m2b.modelo.Propietario;
 import com.mycompany.proyecto_m2b.modelo.Tipo;
 import com.mycompany.proyecto_m2b.modelo.Usuario;
 import com.mycompany.proyecto_m2b.modelo.Vehiculos;
@@ -266,6 +267,29 @@ public class VehiculosDAO {
     }
     return lista;
 }
+    public List<Propietario> listarPropietarios() {
+    List<Propietario> lista = new ArrayList<>();
+    String sql = "SELECT pr.id_propietario, pe.nom1_person, pe.apell1_person " +
+                 "FROM propietario pr " +
+                 "INNER JOIN persona pe ON pr.ced_perso = pe.ced_perso " +
+                 "ORDER BY pe.apell1_person ASC";
+    
+    try (Connection cn = ConexionBD.obtenerConexion();
+         PreparedStatement ps = cn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+        
+        while (rs.next()) {
+            Propietario P = new Propietario();
+            P.setID_propietario(rs.getString("id_propietario"));
+            String nombre = rs.getString("nom1_person") + " " + rs.getString("apell1_person");
+            P.setNombreCompleto(nombre);
+            lista.add(P);
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al listar propietarios: " + e.getMessage());
+    }
+    return lista;
+}
     public String obtenerIdTipoPorNombre(String nombreTipo) {
     String sql = "SELECT id_tipo FROM tipo WHERE UPPER(nom_tipo) = UPPER(?)";
     
@@ -387,6 +411,19 @@ public boolean insertarModelo(String idMarca, String nombreModelo, String idTipo
         return false;
     }
 }
+public boolean insertarPropietario(String idPropietario, String nomPropietario, String descPropietario) {
+    String sql = "INSERT INTO propietario(id_propietario, observaci_propietario, ced_perso) VALUES (?, ?, ?)";
+    try (Connection cn = ConexionBD.obtenerConexion();
+         PreparedStatement ps = cn.prepareStatement(sql)) {
+        ps.setString(1, idPropietario);
+        ps.setString(2, nomPropietario);
+        ps.setString(3, descPropietario);
+        return ps.executeUpdate() > 0;
+    } catch (SQLException e) {
+        System.err.println("Error al insertar tipo: " + e.getMessage());
+        return false;
+    }
+}
 public String generarNuevoIdModelo() {
     String sql = "SELECT id_mode FROM modelo ORDER BY id_mode DESC LIMIT 1";
     try (Connection cn = ConexionBD.obtenerConexion();
@@ -402,5 +439,26 @@ public String generarNuevoIdModelo() {
         System.err.println("Error al generar ID de modelo: " + e.getMessage());
     }
     return "MOD-001"; 
+}
+public String obtenerIdPropietarioPorNombre(String nombreCompleto) {
+    String sql = "SELECT pr.id_propietario " +
+                 "FROM propietario pr " +
+                 "INNER JOIN persona pe ON pr.ced_perso = pe.ced_perso " +
+                 "WHERE UPPER(CONCAT(pe.nom1_person, ' ', pe.apell1_person)) = UPPER(?)";
+    
+    try (Connection cn = ConexionBD.obtenerConexion();
+         PreparedStatement ps = cn.prepareStatement(sql)) {
+        
+        ps.setString(1, nombreCompleto.trim());
+        
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getString("id_propietario");
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener ID del propietario: " + e.getMessage());
+    }
+    return null;
 }
 }

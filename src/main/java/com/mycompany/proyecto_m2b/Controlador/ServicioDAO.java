@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.proyecto_m2b.Controlador;
 
 import com.mycompany.proyecto_m2b.modelo.Servicio;
@@ -106,6 +103,27 @@ public class ServicioDAO {
         } catch (SQLException e) {
             System.out.println("Error al actualizar el servicio: " + e.getMessage());
             return false;
+        }
+    }
+    
+    private static final String OBTENERULTIMOID
+            = "SELECT id_servi FROM servicio ORDER BY id_servi DESC LIMIT 1";
+    
+    public String generarNuevoId() {
+        try (Connection conn = ConexionBD.obtenerConexion(); PreparedStatement ps = conn.prepareStatement(OBTENERULTIMOID); ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) {
+                String ultimoId = rs.getString("id_servi"); 
+                int numero = Integer.parseInt(ultimoId.substring(3));
+                numero++;
+                return String.format("SRV%03d", numero);
+            } else {
+                return "SRV001"; 
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al generar nuevo ID: " + e.getMessage());
+            return null;
         }
     }
 }

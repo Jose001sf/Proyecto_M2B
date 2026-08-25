@@ -7,6 +7,7 @@ package com.mycompany.proyecto_m2b.Vista;
 import com.mycompany.proyecto_m2b.Controlador.VehiculosDAO;
 import com.mycompany.proyecto_m2b.modelo.Marca;
 import com.mycompany.proyecto_m2b.modelo.Modelo;
+import com.mycompany.proyecto_m2b.modelo.Propietario;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -24,6 +25,7 @@ public class PanelVehiculos extends javax.swing.JPanel {
         initComponents();
         cargarComboMarcas();
         cargarComboTipos();
+        cargarComboPropietarios();
     txtPlaca.setText("Ingrese la placa del vehiculo");
     txtPlaca.setForeground(java.awt.Color.GRAY);
 
@@ -91,6 +93,19 @@ public class PanelVehiculos extends javax.swing.JPanel {
     
     comboModelos.revalidate();
     comboModelos.repaint();
+    }
+    public void cargarComboPropietarios() {
+    comboPropietarios.removeAllItems();
+    comboPropietarios.addItem("Seleccione un propietario");
+
+        VehiculosDAO dao = new VehiculosDAO();
+        List<Propietario> lista = dao.listarPropietarios();
+
+        for (Propietario p : lista) {
+            comboPropietarios.addItem(p.getNombreCompleto()); 
+        }
+    comboPropietarios.revalidate();
+    comboPropietarios.repaint();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -253,6 +268,7 @@ public class PanelVehiculos extends javax.swing.JPanel {
         Fondo.add(comboModelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 200, 240, -1));
 
         comboPropietarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione al propietario", "Item 2", "Item 3", "Item 4" }));
+        comboPropietarios.addActionListener(this::comboPropietariosActionPerformed);
         Fondo.add(comboPropietarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 240, -1));
 
         txtPlaca.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -715,6 +731,21 @@ public class PanelVehiculos extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Por favor ingrese una placa válida.", "Campo Requerido", JOptionPane.WARNING_MESSAGE);
             return;
         }
+        if (comboPropietarios.getSelectedIndex() > 0) {
+        String Propietario = comboPropietarios.getSelectedItem().toString();
+
+        VehiculosDAO dao = new VehiculosDAO();
+        String idPropietario = dao.obtenerIdPropietarioPorNombre(Propietario);
+        if (idPropietario != null) {
+            cargarComboPropietarios();
+        } else {
+            comboPropietarios.removeAllItems();
+            comboPropietarios.addItem("Seleccione un propietario");
+        }
+    } else {
+        comboPropietarios.removeAllItems();
+        comboPropietarios.addItem("Seleccione un propietario");
+    }
         GuardarVehiculos();
     }//GEN-LAST:event_PanelGuardarMouseClicked
 
@@ -791,6 +822,10 @@ public class PanelVehiculos extends javax.swing.JPanel {
         String modeloSeleccionado = comboModelos.getSelectedItem().toString();
         }
     }//GEN-LAST:event_comboModelosActionPerformed
+
+    private void comboPropietariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboPropietariosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboPropietariosActionPerformed
     
     public void LimpiarDatos (){
         txtPlaca.setText("");

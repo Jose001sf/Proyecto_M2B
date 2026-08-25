@@ -41,7 +41,7 @@ public class Tipo_de_servicio {
 
     @Override
     public String toString() {
-        return Nom_tipo_servi;
+        return  this.Nom_tipo_servi;
     }
     
     
