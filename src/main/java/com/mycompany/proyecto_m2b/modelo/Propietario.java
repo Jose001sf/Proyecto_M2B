@@ -11,19 +11,16 @@ package com.mycompany.proyecto_m2b.modelo;
 public class Propietario {
     private String ID_propietario;
     private String Observaci_propietario;
+    private String nombreCompleto;
     private String ced_perso;
 
     public Propietario() {
     }
 
-    public Propietario(String Observaci_propietario, String ced_perso) {
-        this.Observaci_propietario = Observaci_propietario;
-        this.ced_perso = ced_perso;
-    }
-
-    public Propietario(String ID_propietario, String Observaci_propietario, String ced_perso) {
+    public Propietario(String ID_propietario, String Observaci_propietario, String nombreCompleto, String ced_perso) {
         this.ID_propietario = ID_propietario;
         this.Observaci_propietario = Observaci_propietario;
+        this.nombreCompleto = nombreCompleto;
         this.ced_perso = ced_perso;
     }
 
@@ -43,6 +40,14 @@ public class Propietario {
         this.Observaci_propietario = Observaci_propietario;
     }
 
+    public String getNombreCompleto() {
+        return nombreCompleto;
+    }
+
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
+    }
+
     public String getCed_perso() {
         return ced_perso;
     }
@@ -53,7 +58,7 @@ public class Propietario {
 
     @Override
     public String toString() {
-        return "Propietario{" + "ID_propietario=" + ID_propietario + ", Observaci_propietario=" + Observaci_propietario + ", ced_perso=" + ced_perso + '}';
+        return "Propietario{" + "ID_propietario=" + ID_propietario + ", Observaci_propietario=" + Observaci_propietario + ", nombreCompleto=" + nombreCompleto + ", ced_perso=" + ced_perso + '}';
     }
     
 }

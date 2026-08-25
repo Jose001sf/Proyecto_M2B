@@ -53,7 +53,8 @@ public class PropietarioDAO {
             while (rs.next()) {
                 Propietario p = new Propietario(
                         rs.getString("ID_propietario"),
-                        rs.getString("Observaci_propietario"),                    
+                        rs.getString("Observaci_propietario"),
+                        rs.getString("nombreCompleto"),
                         rs.getString("ced_perso")   
                 );
                 lista.add(p);
@@ -108,8 +109,9 @@ public class PropietarioDAO {
                 while (rs.next()) {
                     Propietario p = new Propietario(
                             rs.getString("ID_propietario"),
-                            rs.getString("Observaci_propietario"),                    
-                            rs.getString("ced_perso")   
+                            rs.getString("Observaci_propietario"), 
+                            rs.getString("nombreCompleto"),
+                            rs.getString("ced_perso")
                     );
                     lista.add(p);
                 }
