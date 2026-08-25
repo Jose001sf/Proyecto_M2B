@@ -3,6 +3,7 @@ package com.mycompany.proyecto_m2b.Controlador;
 
 import com.mycompany.proyecto_m2b.modelo.Marca;
 import com.mycompany.proyecto_m2b.modelo.Modelo;
+import com.mycompany.proyecto_m2b.modelo.Tipo;
 import com.mycompany.proyecto_m2b.modelo.Usuario;
 import com.mycompany.proyecto_m2b.modelo.Vehiculos;
 import java.sql.*;
@@ -230,6 +231,59 @@ public class VehiculosDAO {
         }
         return lista;
     }
+    public List<String> obtenerNombresTipos() {
+    List<String> listaTipos = new ArrayList<>();
+    String sql = "SELECT nom_tipo FROM tipo ORDER BY nom_tipo ASC";
+    
+    try (Connection cn = ConexionBD.obtenerConexion();
+         PreparedStatement ps = cn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+        
+        while (rs.next()) {
+            listaTipos.add(rs.getString("nom_tipo"));
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al cargar tipos: " + e.getMessage());
+    }
+    return listaTipos;
+}
+    public List<Tipo> listarTipos() {
+    List<Tipo> lista = new ArrayList<>();
+    String sql = "SELECT id_tipo, nom_tipo FROM tipo ORDER BY nom_tipo ASC";
+    
+    try (Connection cn = ConexionBD.obtenerConexion();
+         PreparedStatement ps = cn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+        
+        while (rs.next()) {
+            Tipo tipo = new Tipo();
+            tipo.setID_tipo(rs.getString("id_tipo"));
+            tipo.setNom_tipo(rs.getString("nom_tipo"));
+            lista.add(tipo);
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al listar tipos de vehículo: " + e.getMessage());
+    }
+    return lista;
+}
+    public String obtenerIdTipoPorNombre(String nombreTipo) {
+    String sql = "SELECT id_tipo FROM tipo WHERE UPPER(nom_tipo) = UPPER(?)";
+    
+    try (Connection cn = ConexionBD.obtenerConexion();
+         PreparedStatement ps = cn.prepareStatement(sql)) {
+        
+        ps.setString(1, nombreTipo.trim());
+        
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getString("id_tipo");
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al buscar ID del tipo: " + e.getMessage());
+    }
+    return null;
+}
     public String obtenerIdMarcaPorNombre(String nombreMarca) {
     String id = "";
     String sql = "SELECT ID_mar FROM marca WHERE Nom_mar = ?";
@@ -250,7 +304,6 @@ public class VehiculosDAO {
 }
     public String obtenerSiguienteIdMarca() {
     String nuevoId = "MAR-001";
-    // Ajusta el nombre de la tabla o columna según tu esquema DB
     String sql = "SELECT COUNT(*) FROM marca"; 
 
     try (Connection con = ConexionBD.obtenerConexion();
@@ -269,7 +322,6 @@ public class VehiculosDAO {
 
 public String obtenerSiguienteIdModelo() {
     String nuevoId = "MOD-001";
-    // Ajusta el nombre de la tabla o columna según tu esquema DB
     String sql = "SELECT COUNT(*) FROM modelo"; 
 
     try (Connection con = ConexionBD.obtenerConexion();
@@ -284,5 +336,71 @@ public String obtenerSiguienteIdModelo() {
         System.err.println("Error al obtener ID de Modelo: " + e.getMessage());
     }
     return nuevoId;
+}
+public String obtenerSiguienteIdTipo() {
+    String sql = "SELECT id_tipo FROM tipo ORDER BY id_tipo DESC LIMIT 1";
+    try (Connection cn = ConexionBD.obtenerConexion();
+         PreparedStatement ps = cn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+        if (rs.next()) {
+            String ultimoId = rs.getString("id_tipo"); 
+            int num = Integer.parseInt(ultimoId.split("-")[1]);
+            return String.format("TIP-%03d", num + 1);
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener ID Tipo: " + e.getMessage());
+    }
+    return "TIP-001";
+}
+
+public boolean insertarTipo(String idTipo, String nomTipo, String descTipo) {
+    String sql = "INSERT INTO tipo (id_tipo, nom_tipo, desc_tipo) VALUES (?, ?, ?)";
+    try (Connection cn = ConexionBD.obtenerConexion();
+         PreparedStatement ps = cn.prepareStatement(sql)) {
+        ps.setString(1, idTipo);
+        ps.setString(2, nomTipo);
+        ps.setString(3, descTipo);
+        return ps.executeUpdate() > 0;
+    } catch (SQLException e) {
+        System.err.println("Error al insertar tipo: " + e.getMessage());
+        return false;
+    }
+}
+public boolean insertarModelo(String idMarca, String nombreModelo, String idTipo) {
+    String nuevoIdModelo = generarNuevoIdModelo();
+    
+    String sql = "INSERT INTO modelo (id_mode, nom_mode, id_mar, id_tipo) VALUES (?, ?, ?, ?)";
+    
+    try (Connection cn = ConexionBD.obtenerConexion();
+         PreparedStatement ps = cn.prepareStatement(sql)) {
+        
+        ps.setString(1, nuevoIdModelo);
+        ps.setString(2, nombreModelo.trim().toUpperCase());
+        ps.setString(3, idMarca);
+        ps.setString(4, idTipo);
+              
+        int filasAfectadas = ps.executeUpdate();
+        return filasAfectadas > 0;
+        
+    } catch (SQLException e) {
+        System.err.println("Error al insertar el modelo: " + e.getMessage());
+        return false;
+    }
+}
+public String generarNuevoIdModelo() {
+    String sql = "SELECT id_mode FROM modelo ORDER BY id_mode DESC LIMIT 1";
+    try (Connection cn = ConexionBD.obtenerConexion();
+         PreparedStatement ps = cn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+        
+        if (rs.next()) {
+            String ultimoId = rs.getString("id_mode"); 
+            int numero = Integer.parseInt(ultimoId.replaceAll("[^0-9]", ""));
+            return String.format("MOD-%03d", numero + 1);
+        }
+    } catch (Exception e) {
+        System.err.println("Error al generar ID de modelo: " + e.getMessage());
+    }
+    return "MOD-001"; 
 }
 }

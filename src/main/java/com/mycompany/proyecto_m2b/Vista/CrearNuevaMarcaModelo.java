@@ -9,9 +9,12 @@ import com.mycompany.proyecto_m2b.Controlador.Validaciones;
 import com.mycompany.proyecto_m2b.Controlador.VehiculosDAO;
 import com.mycompany.proyecto_m2b.modelo.Marca;
 import com.mycompany.proyecto_m2b.modelo.Modelo;
+import com.mycompany.proyecto_m2b.modelo.Tipo;
 import java.awt.Color;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.text.PlainView;
 
 /**
  *
@@ -19,11 +22,14 @@ import javax.swing.JOptionPane;
  */
 public class CrearNuevaMarcaModelo extends javax.swing.JFrame {
     private String idMarcaCreada = null;
+    private String idTipoCreado = null;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CrearNuevaMarcaModelo.class.getName());
 
     /** Creates new form Propietario */
     public CrearNuevaMarcaModelo() {
         initComponents();
+        cargarComboMarcas();
+        cargarComboTipos();
         this.setLocationRelativeTo(null);
     }
 int xMouse;
@@ -52,6 +58,25 @@ int yMouse;
         PanelGuardarModelo = new javax.swing.JPanel();
         Guardar1 = new javax.swing.JLabel();
         ImagenSAVE1 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        TXTtipo = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        TXTdescripTipo = new javax.swing.JTextField();
+        PanelGuardarTipo = new javax.swing.JPanel();
+        Guardar2 = new javax.swing.JLabel();
+        ImagenSAVE2 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        comboMarcasExistentes = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        txtNuevoModelo = new javax.swing.JTextField();
+        PanelGuardarModelo1 = new javax.swing.JPanel();
+        Guardar3 = new javax.swing.JLabel();
+        ImagenSAVE3 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        comboTiposExistentes = new javax.swing.JComboBox<>();
 
         jTextField2.setText("jTextField2");
 
@@ -85,7 +110,7 @@ int yMouse;
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("GESTIÓN DE MARCAS Y MODELOS");
+        jLabel4.setText("GESTIÓN DE MARCAS, MODELOS Y TIPOS");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -111,10 +136,10 @@ int yMouse;
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 50));
 
         jLabel5.setText("Ingrese Marca:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 60, -1, -1));
 
         jLabel8.setText("Ingrese Modelo:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 150, -1, -1));
 
         PanelGuardarMarca.setBackground(new java.awt.Color(242, 101, 34));
         PanelGuardarMarca.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -158,13 +183,37 @@ int yMouse;
                 .addContainerGap())
         );
 
-        jPanel1.add(PanelGuardarMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
+        jPanel1.add(PanelGuardarMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 100, -1, -1));
 
+        TXTmarca.setForeground(new java.awt.Color(153, 153, 153));
+        TXTmarca.setText("Ingrese Marca");
+        TXTmarca.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTmarcaFocusGained(evt);
+            }
+        });
+        TXTmarca.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTmarcaMousePressed(evt);
+            }
+        });
         TXTmarca.addActionListener(this::TXTmarcaActionPerformed);
-        jPanel1.add(TXTmarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 190, -1));
+        jPanel1.add(TXTmarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, 190, -1));
 
+        TXTmodelo.setForeground(new java.awt.Color(153, 153, 153));
+        TXTmodelo.setText("Ingrese Modelo");
+        TXTmodelo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTmodeloFocusGained(evt);
+            }
+        });
+        TXTmodelo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTmodeloMousePressed(evt);
+            }
+        });
         TXTmodelo.addActionListener(this::TXTmodeloActionPerformed);
-        jPanel1.add(TXTmodelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 160, 190, -1));
+        jPanel1.add(TXTmodelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 150, 190, -1));
 
         PanelGuardarModelo.setBackground(new java.awt.Color(242, 101, 34));
         PanelGuardarModelo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -208,7 +257,127 @@ int yMouse;
                 .addContainerGap())
         );
 
-        jPanel1.add(PanelGuardarModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
+        jPanel1.add(PanelGuardarModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 200, -1, -1));
+
+        jLabel1.setText("Ingrese Tipo:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
+        jPanel1.add(TXTtipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 200, -1));
+
+        jLabel2.setText("Descripcion Tipo:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
+        jPanel1.add(TXTdescripTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 280, 80));
+
+        PanelGuardarTipo.setBackground(new java.awt.Color(242, 101, 34));
+        PanelGuardarTipo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        PanelGuardarTipo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelGuardarTipo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelGuardarTipoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PanelGuardarTipoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                PanelGuardarTipoMouseExited(evt);
+            }
+        });
+
+        Guardar2.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        Guardar2.setForeground(new java.awt.Color(255, 255, 255));
+        Guardar2.setText("Guardar Tipo");
+
+        ImagenSAVE2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/save_22dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+
+        javax.swing.GroupLayout PanelGuardarTipoLayout = new javax.swing.GroupLayout(PanelGuardarTipo);
+        PanelGuardarTipo.setLayout(PanelGuardarTipoLayout);
+        PanelGuardarTipoLayout.setHorizontalGroup(
+            PanelGuardarTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelGuardarTipoLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(ImagenSAVE2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Guardar2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        PanelGuardarTipoLayout.setVerticalGroup(
+            PanelGuardarTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelGuardarTipoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PanelGuardarTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Guardar2)
+                    .addComponent(ImagenSAVE2))
+                .addContainerGap())
+        );
+
+        jPanel1.add(PanelGuardarTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, -1, -1));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 260, -1, -1));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 730, -1));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setText("¿Desea asignar un nuevo modelo a una marca?");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 270, -1, -1));
+
+        jLabel6.setText("Elija la marca:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
+
+        comboMarcasExistentes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Marca", "Item 2", "Item 3", "Item 4" }));
+        comboMarcasExistentes.addActionListener(this::comboMarcasExistentesActionPerformed);
+        jPanel1.add(comboMarcasExistentes, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 300, 190, -1));
+
+        jLabel7.setText("Ingrese nuevo modelo:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, -1, -1));
+        jPanel1.add(txtNuevoModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 180, -1));
+
+        PanelGuardarModelo1.setBackground(new java.awt.Color(242, 101, 34));
+        PanelGuardarModelo1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        PanelGuardarModelo1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelGuardarModelo1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelGuardarModelo1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PanelGuardarModelo1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                PanelGuardarModelo1MouseExited(evt);
+            }
+        });
+
+        Guardar3.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        Guardar3.setForeground(new java.awt.Color(255, 255, 255));
+        Guardar3.setText("Guardar Nuevo Modelo");
+
+        ImagenSAVE3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/save_22dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+
+        javax.swing.GroupLayout PanelGuardarModelo1Layout = new javax.swing.GroupLayout(PanelGuardarModelo1);
+        PanelGuardarModelo1.setLayout(PanelGuardarModelo1Layout);
+        PanelGuardarModelo1Layout.setHorizontalGroup(
+            PanelGuardarModelo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelGuardarModelo1Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(ImagenSAVE3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Guardar3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        PanelGuardarModelo1Layout.setVerticalGroup(
+            PanelGuardarModelo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelGuardarModelo1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PanelGuardarModelo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Guardar3)
+                    .addComponent(ImagenSAVE3))
+                .addContainerGap())
+        );
+
+        jPanel1.add(PanelGuardarModelo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, -1, -1));
+
+        jLabel9.setText("Elija el tipo:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 300, -1, -1));
+
+        comboTiposExistentes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Tipo", "Item 2", "Item 3", "Item 4" }));
+        comboTiposExistentes.addActionListener(this::comboTiposExistentesActionPerformed);
+        jPanel1.add(comboTiposExistentes, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 300, 190, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -218,7 +387,7 @@ int yMouse;
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
         );
 
         pack();
@@ -226,14 +395,24 @@ int yMouse;
 
     private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
         // TODO add your handling code here:
-        PanelVehiculos V=new PanelVehiculos();
-        V.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel21MouseClicked
+public void cargarComboTipos() {
+    comboTiposExistentes.removeAllItems();
+    comboTiposExistentes.addItem("Seleccione un tipo");
 
+    VehiculosDAO dao = new VehiculosDAO();
+    List<Tipo> lista = dao.listarTipos(); 
+
+    if (lista != null) {
+        for (Tipo t : lista) {
+            comboTiposExistentes.addItem(t.getNom_tipo());
+        }
+    }
+}
     private void PanelGuardarMarcaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMarcaMouseClicked
         // TODO add your handling code here:
-        String nombreMarca = TXTmarca.getText().trim();
+        String nombreMarca = TXTmarca.getText().trim().toUpperCase();
 
         if (nombreMarca.isEmpty() || nombreMarca.equalsIgnoreCase("Ingrese marca")) {
             JOptionPane.showMessageDialog(this, "Ingrese el nombre de la marca", "Campo Vacío", JOptionPane.WARNING_MESSAGE);
@@ -241,7 +420,6 @@ int yMouse;
         }
 
         VehiculosDAO dao = new VehiculosDAO();
-        // Genera el ID secuencial: MAR-001, MAR-002, etc.
         String idMarca = dao.obtenerSiguienteIdMarca();
         
         Marca marca = new Marca(idMarca, nombreMarca, "N/A", "N/A");
@@ -254,7 +432,17 @@ int yMouse;
             JOptionPane.showMessageDialog(this, "Error al guardar la marca", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_PanelGuardarMarcaMouseClicked
+public void cargarComboMarcas() {
+    comboMarcasExistentes.removeAllItems();
+    comboMarcasExistentes.addItem("Seleccione una marca");
 
+    VehiculosDAO dao = new VehiculosDAO();
+    List<Marca> lista = dao.listarMarcas();
+
+    for (Marca m : lista) {
+        comboMarcasExistentes.addItem(m.getNom_mar()); 
+    }
+}
     private void PanelGuardarMarcaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMarcaMouseEntered
         // TODO add your handling code here:
         PanelGuardarMarca.setBackground(new Color(227, 95, 32));
@@ -282,30 +470,34 @@ int yMouse;
 
     private void PanelGuardarModeloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarModeloMouseClicked
         // TODO add your handling code here:
-        String nombreModelo = TXTmodelo.getText().trim();
+        String nombreModelo = TXTmodelo.getText().trim().toUpperCase();
 
-        if (nombreModelo.isEmpty() || nombreModelo.equalsIgnoreCase("Ingrese modelo")) {
-            JOptionPane.showMessageDialog(this, "Ingrese el nombre del modelo", "Campos Incompletos", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+    if (nombreModelo.isEmpty() || nombreModelo.equalsIgnoreCase("Ingrese modelo")) {
+        JOptionPane.showMessageDialog(this, "Ingrese el nombre del modelo", "Campos Incompletos", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
 
-        if (this.idMarcaCreada == null) {
-            JOptionPane.showMessageDialog(this, "Primero debe guardar una marca antes de asignarle un modelo.", "Atención", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+    // Validación de dependencias
+    if (this.idMarcaCreada == null) {
+        JOptionPane.showMessageDialog(this, "Primero debe guardar una marca.", "Atención", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    if (this.idTipoCreado == null) {
+        JOptionPane.showMessageDialog(this, "Primero debe guardar un tipo de vehículo.", "Atención", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
 
-        VehiculosDAO dao = new VehiculosDAO();
-        // Genera el ID secuencial: MOD-001, MOD-002, etc.
-        String idModelo = dao.obtenerSiguienteIdModelo();
+    VehiculosDAO dao = new VehiculosDAO();
+    String idModelo = dao.obtenerSiguienteIdModelo();
 
-        Modelo modelo = new Modelo(idModelo, nombreModelo, this.idMarcaCreada, "TIP-001");
+    Modelo modelo = new Modelo(idModelo, nombreModelo, this.idMarcaCreada, this.idTipoCreado);
 
-        if (dao.insertarModelo(modelo)) {
-            JOptionPane.showMessageDialog(this, "Modelo guardado con éxito (ID: " + idModelo + ")");
-            TXTmodelo.setText("");
-        } else {
-            JOptionPane.showMessageDialog(this, "Error al guardar el modelo", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+    if (dao.insertarModelo(modelo)) {
+        JOptionPane.showMessageDialog(this, "Modelo guardado con éxito (ID: " + idModelo + ")");
+        TXTmodelo.setText("");
+    } else {
+        JOptionPane.showMessageDialog(this, "Error al guardar el modelo", "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_PanelGuardarModeloMouseClicked
 
     private void PanelGuardarModeloMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarModeloMouseEntered
@@ -333,6 +525,148 @@ int yMouse;
         // TODO add your handling code here:
     }//GEN-LAST:event_TXTmarcaActionPerformed
 
+    private void TXTmarcaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTmarcaMousePressed
+        // TODO add your handling code here:
+        if (TXTmarca.getText().equals("Ingrese Marca")){
+            TXTmarca.setText("");
+            TXTmarca.setForeground(Color.BLACK);
+        }
+        if (TXTmodelo.getText().isEmpty()){
+            TXTmodelo.setText("Ingrese Modelo");
+            TXTmodelo.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTmarcaMousePressed
+
+    private void TXTmodeloMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTmodeloMousePressed
+        // TODO add your handling code here:
+        if (TXTmodelo.getText().equals("Ingrese Modelo")){
+            TXTmodelo.setText("");
+            TXTmodelo.setForeground(Color.BLACK);
+        }
+        if (TXTmarca.getText().isEmpty()){
+            TXTmarca.setText("Ingrese Marca");
+            TXTmarca.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTmodeloMousePressed
+
+    private void TXTmarcaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTmarcaFocusGained
+        // TODO add your handling code here:
+        if (TXTmarca.getText().equals("Ingrese Marca")){
+            TXTmarca.setText("");
+            TXTmarca.setForeground(Color.BLACK);
+        }
+        if (TXTmodelo.getText().isEmpty()){
+            TXTmodelo.setText("Ingrese Modelo");
+            TXTmodelo.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTmarcaFocusGained
+
+    private void TXTmodeloFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTmodeloFocusGained
+        // TODO add your handling code here:
+        if (TXTmodelo.getText().equals("Ingrese Modelo")){
+            TXTmodelo.setText("");
+            TXTmodelo.setForeground(Color.BLACK);
+        }
+        if (TXTmarca.getText().isEmpty()){
+            TXTmarca.setText("Ingrese Marca");
+            TXTmarca.setForeground(new Color(94, 94, 94));
+        }
+    }//GEN-LAST:event_TXTmodeloFocusGained
+
+    private void PanelGuardarTipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarTipoMouseClicked
+        // TODO add your handling code here:
+        String nombreTipo = TXTtipo.getText().trim().toUpperCase();
+    String descTipo = TXTdescripTipo.getText().trim().toUpperCase(); 
+
+    if (nombreTipo.isEmpty() || nombreTipo.equalsIgnoreCase("Ingrese tipo")) {
+        JOptionPane.showMessageDialog(this, "Ingrese el nombre del tipo de vehículo", "Campo Vacío", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    if (descTipo.isEmpty()) {
+        descTipo = "Sin descripción";
+    }
+
+    VehiculosDAO dao = new VehiculosDAO();
+    String idTipo = dao.obtenerSiguienteIdTipo(); 
+
+    if (dao.insertarTipo(idTipo, nombreTipo, descTipo)) {
+        this.idTipoCreado = idTipo; 
+        JOptionPane.showMessageDialog(this, "Tipo guardado con éxito (ID: " + idTipo + ")");
+        TXTtipo.setText("");
+        TXTdescripTipo.setText("");
+    } else {
+        JOptionPane.showMessageDialog(this, "Error al guardar el tipo", "Error", JOptionPane.ERROR_MESSAGE);
+     }
+    }//GEN-LAST:event_PanelGuardarTipoMouseClicked
+
+    private void PanelGuardarTipoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarTipoMouseEntered
+        // TODO add your handling code here:
+        PanelGuardarTipo.setBackground(new java.awt.Color(227, 95, 32));
+        Guardar.setForeground(new java.awt.Color(217, 217, 192));
+    }//GEN-LAST:event_PanelGuardarTipoMouseEntered
+
+    private void PanelGuardarTipoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarTipoMouseExited
+        // TODO add your handling code here:
+        PanelGuardarTipo.setBackground(new java.awt.Color(242,101,34));
+        Guardar.setForeground(java.awt.Color.white);
+    }//GEN-LAST:event_PanelGuardarTipoMouseExited
+
+    private void comboMarcasExistentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMarcasExistentesActionPerformed
+        // TODO add your handling code here:
+       if (comboMarcasExistentes.getSelectedIndex() > 0) {
+        String nombreMarcaSeleccionada = comboMarcasExistentes.getSelectedItem().toString();
+        
+        System.out.println(">>> Marca seleccionada correctamente: " + nombreMarcaSeleccionada);
+    }
+    }//GEN-LAST:event_comboMarcasExistentesActionPerformed
+
+    private void PanelGuardarModelo1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarModelo1MouseClicked
+        // TODO add your handling code here:
+        if (comboMarcasExistentes.getSelectedIndex() <= 0) {
+        JOptionPane.showMessageDialog(this, "Debe seleccionar una marca.");
+        return;
+    }
+    if (comboTiposExistentes.getSelectedIndex() <= 0) {
+        JOptionPane.showMessageDialog(this, "Debe seleccionar un tipo de vehículo.");
+        return;
+    }
+    String nuevoModelo = txtNuevoModelo.getText().trim();
+    if (nuevoModelo.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Debe ingresar el nombre del modelo.");
+        return;
+    }
+    String marcaSeleccionada = comboMarcasExistentes.getSelectedItem().toString();
+    String tipoSeleccionado = comboTiposExistentes.getSelectedItem().toString();
+
+    VehiculosDAO dao = new VehiculosDAO();
+    String idMarca = dao.obtenerIdMarcaPorNombre(marcaSeleccionada);
+    String idTipo = dao.obtenerIdTipoPorNombre(tipoSeleccionado);
+
+    boolean guardado = dao.insertarModelo(idMarca, nuevoModelo, idTipo);
+
+    if (guardado) {
+        JOptionPane.showMessageDialog(this, "Modelo guardado exitosamente con su tipo.");
+        txtNuevoModelo.setText("");
+        comboMarcasExistentes.setSelectedIndex(0);
+        comboTiposExistentes.setSelectedIndex(0);
+    } else {
+        JOptionPane.showMessageDialog(this, "Error al guardar el modelo.");
+    }
+    }//GEN-LAST:event_PanelGuardarModelo1MouseClicked
+
+    private void PanelGuardarModelo1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarModelo1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PanelGuardarModelo1MouseEntered
+
+    private void PanelGuardarModelo1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarModelo1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PanelGuardarModelo1MouseExited
+
+    private void comboTiposExistentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTiposExistentesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboTiposExistentesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -358,7 +692,7 @@ int yMouse;
         java.awt.EventQueue.invokeLater(() -> new CrearNuevaMarcaModelo().setVisible(true));
     }
     public void GuardarRepuestos (){        
-        String Marca=TXTmarca.getText().trim();
+        String Marca=TXTmarca.getText().trim().toUpperCase();
         String Modelo=TXTmodelo.getText().trim().toUpperCase();
         if (Marca.isEmpty()|| Modelo.isEmpty()){
             JOptionPane.showMessageDialog (this, "Por favor complete los datos que faltan");
@@ -373,19 +707,38 @@ int yMouse;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Guardar;
     private javax.swing.JLabel Guardar1;
+    private javax.swing.JLabel Guardar2;
+    private javax.swing.JLabel Guardar3;
     private javax.swing.JLabel ImagenSAVE;
     private javax.swing.JLabel ImagenSAVE1;
+    private javax.swing.JLabel ImagenSAVE2;
+    private javax.swing.JLabel ImagenSAVE3;
     private javax.swing.JPanel PanelGuardarMarca;
     private javax.swing.JPanel PanelGuardarModelo;
+    private javax.swing.JPanel PanelGuardarModelo1;
+    private javax.swing.JPanel PanelGuardarTipo;
+    private javax.swing.JTextField TXTdescripTipo;
     private javax.swing.JTextField TXTmarca;
     private javax.swing.JTextField TXTmodelo;
+    private javax.swing.JTextField TXTtipo;
+    private javax.swing.JComboBox<String> comboMarcasExistentes;
+    private javax.swing.JComboBox<String> comboTiposExistentes;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField txtNuevoModelo;
     // End of variables declaration//GEN-END:variables
 
 }

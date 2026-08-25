@@ -14,6 +14,44 @@ public class Empleado {
     private String ced_perso;
     private String id_cargo;
     private String id_especialidad;
+    //Auxiliares
+    private String nombre_Completo;
+    private String nom_cargo;
+    private String nom_especialidad;
+
+    public String getNom_cargo() {
+        return nom_cargo;
+    }
+
+    public void setNom_cargo(String nom_cargo) {
+        this.nom_cargo = nom_cargo;
+    }
+
+    public String getNom_especialidad() {
+        return nom_especialidad;
+    }
+
+    public void setNom_especialidad(String nom_especialidad) {
+        this.nom_especialidad = nom_especialidad;
+    }
+    
+
+    public Empleado(String id_empleado, String ced_perso, String id_cargo, String id_especialidad, String nombre_Completo) {
+        this.id_empleado = id_empleado;
+        this.ced_perso = ced_perso;
+        this.id_cargo = id_cargo;
+        this.id_especialidad = id_especialidad;
+        this.nombre_Completo = nombre_Completo;
+    }
+
+    public String getNombre_Completo() {
+        return nombre_Completo;
+    }
+
+    public void setNombre_Completo(String nombre_Completo) {
+        this.nombre_Completo = nombre_Completo;
+    }
+    
     
     /**
      * @return the ced_perso

@@ -28,6 +28,9 @@ public class PanelPropietarios extends javax.swing.JPanel {
      */
     public PanelPropietarios() {
         initComponents();
+        CalendarioRegistro.setEnabled(false);
+        CalendarioRegistro.setDate(new Date());
+        JPanelBuscar.setVisible(false);
     }
 
     /**
@@ -88,8 +91,19 @@ public class PanelPropietarios extends javax.swing.JPanel {
         jLabel16 = new javax.swing.JLabel();
         CalendarioRegistro = new com.toedter.calendar.JDateChooser();
         Verificar = new javax.swing.JButton();
+        JPanelBuscar = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TablaEmpleados = new javax.swing.JTable();
+        Empleado = new javax.swing.JLabel();
+        TXTEmpleado = new javax.swing.JTextField();
+        Cedula1 = new javax.swing.JLabel();
+        TXTCedula = new javax.swing.JTextField();
+        estado = new javax.swing.JLabel();
+        TXTEstado = new javax.swing.JTextField();
+        OtroNombreUsuario = new javax.swing.JLabel();
+        TXTNombreUsuario = new javax.swing.JTextField();
 
-        jPanel1.setBackground(new java.awt.Color(238, 238, 238));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
@@ -165,7 +179,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
         jLabel12.setText("Observaciones:");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
 
-        Fecha_registro.setText("Fecha de nacimiento:");
+        Fecha_registro.setText("Fecha de registro:");
         jPanel1.add(Fecha_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
 
         jLabel14.setText("Género:");
@@ -440,6 +454,9 @@ public class PanelPropietarios extends javax.swing.JPanel {
         PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
         PanelEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelEditarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelEditarMouseEntered(evt);
             }
@@ -522,6 +539,9 @@ public class PanelPropietarios extends javax.swing.JPanel {
         PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
         PanelBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelBuscarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelBuscarMouseEntered(evt);
             }
@@ -651,6 +671,172 @@ public class PanelPropietarios extends javax.swing.JPanel {
         Verificar.addActionListener(this::VerificarActionPerformed);
         jPanel1.add(Verificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 80, 20));
 
+        JPanelBuscar.setBackground(new java.awt.Color(255, 213, 158));
+        JPanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+
+        TablaEmpleados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(TablaEmpleados);
+
+        Empleado.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        Empleado.setText("Empleado:");
+
+        TXTEmpleado.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        TXTEmpleado.setForeground(new java.awt.Color(94, 94, 94));
+        TXTEmpleado.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTEmpleadoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TXTEmpleadoFocusLost(evt);
+            }
+        });
+        TXTEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTEmpleadoMousePressed(evt);
+            }
+        });
+        TXTEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                TXTEmpleadoKeyReleased(evt);
+            }
+        });
+
+        Cedula1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        Cedula1.setText("Cedula:");
+
+        TXTCedula.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        TXTCedula.setForeground(new java.awt.Color(94, 94, 94));
+        TXTCedula.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTCedulaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TXTCedulaFocusLost(evt);
+            }
+        });
+        TXTCedula.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTCedulaMousePressed(evt);
+            }
+        });
+        TXTCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                TXTCedulaKeyReleased(evt);
+            }
+        });
+
+        estado.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        estado.setText("Estado:");
+
+        TXTEstado.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        TXTEstado.setForeground(new java.awt.Color(94, 94, 94));
+        TXTEstado.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTEstadoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TXTEstadoFocusLost(evt);
+            }
+        });
+        TXTEstado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTEstadoMousePressed(evt);
+            }
+        });
+        TXTEstado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                TXTEstadoKeyReleased(evt);
+            }
+        });
+
+        OtroNombreUsuario.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        OtroNombreUsuario.setText("Nombre de usuario:");
+
+        TXTNombreUsuario.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        TXTNombreUsuario.setForeground(new java.awt.Color(94, 94, 94));
+        TXTNombreUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTNombreUsuarioFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TXTNombreUsuarioFocusLost(evt);
+            }
+        });
+        TXTNombreUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTNombreUsuarioMousePressed(evt);
+            }
+        });
+        TXTNombreUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                TXTNombreUsuarioKeyReleased(evt);
+            }
+        });
+
+        javax.swing.GroupLayout JPanelBuscarLayout = new javax.swing.GroupLayout(JPanelBuscar);
+        JPanelBuscar.setLayout(JPanelBuscarLayout);
+        JPanelBuscarLayout.setHorizontalGroup(
+            JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JPanelBuscarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 785, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(JPanelBuscarLayout.createSequentialGroup()
+                        .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TXTCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Cedula1))
+                        .addGap(18, 18, 18)
+                        .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Empleado)
+                            .addComponent(TXTEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TXTNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(OtroNombreUsuario))
+                        .addGap(18, 18, 18)
+                        .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(estado)
+                            .addComponent(TXTEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(68, Short.MAX_VALUE))
+        );
+        JPanelBuscarLayout.setVerticalGroup(
+            JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPanelBuscarLayout.createSequentialGroup()
+                .addContainerGap(26, Short.MAX_VALUE)
+                .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPanelBuscarLayout.createSequentialGroup()
+                        .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Empleado)
+                            .addComponent(Cedula1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TXTEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TXTCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPanelBuscarLayout.createSequentialGroup()
+                        .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(OtroNombreUsuario)
+                            .addComponent(estado))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TXTNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TXTEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel1.add(JPanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -659,7 +845,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1750,6 +1936,8 @@ public class PanelPropietarios extends javax.swing.JPanel {
     private void PanelNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseClicked
         // TODO add your handling code here:
         LimpiarDatos();
+        TXTcedula.setEnabled(true);
+        TXTcedula.setEditable(true);
         JOptionPane.showMessageDialog(this, "Datos limpiados correctamente"+"\n"
             +"Ingrese los datos");
     }//GEN-LAST:event_PanelNuevoMouseClicked
@@ -1772,7 +1960,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
         String ced_person= TXTcedula.getText().trim();
         boolean si=pd.existeCedula(ced_person);
         if (si==true){
-            int opcion = JOptionPane.showConfirmDialog(this, "¿Quiere convertir a la persona con cédula: "+ced_person+" a empleado?"+JOptionPane.YES_NO_OPTION);
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Quiere convertir a la persona con cédula: "+ced_person+" a empleado?","Confirmacion", JOptionPane.YES_NO_OPTION);
             if (opcion==JOptionPane.YES_OPTION){
                 if (persona != null){
                 GuardarYaExistentes(persona);
@@ -2160,6 +2348,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_TXTnumCasaKeyPressed
     Persona persona;
+    Propietario propietario;
     private void VerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerificarActionPerformed
         // TODO add your handling code here:
         TXTnombre.setText("");
@@ -2176,7 +2365,10 @@ public class PanelPropietarios extends javax.swing.JPanel {
         TXTcedula.setEditable(true);
         String ced_perso=TXTcedula.getText().trim();
         PersonaDAO pd=new PersonaDAO();
+        PropietarioDAO pod=new PropietarioDAO();
         persona=pd.buscarPorCedula(ced_perso);
+        propietario=pod.buscarPorCedula(ced_perso);
+        
         if(persona!=null){
             TXTcedula.setEditable(false);
             TXTnombre.setText(persona.getNom1_person());
@@ -2206,6 +2398,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
                     TXTciudad.setText(dir.getCiudad());
                 }
             }
+            Descripcion.setText(propietario.getObservaci_propietario());
             JOptionPane.showMessageDialog(this, "Persona encontrada correctamente");
         }
         else{
@@ -2216,6 +2409,258 @@ public class PanelPropietarios extends javax.swing.JPanel {
     private void TXTcedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTcedulaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TXTcedulaActionPerformed
+
+    //registrar
+    public void modificarPropietario (){
+        Validaciones V = new Validaciones();
+
+        String CallePr = TXTcallePrincipal.getText().trim().toUpperCase();
+        String CalleSe = TXTcalleSecundaria.getText().trim().toUpperCase();
+        String NumCasa = TXTnumCasa.getText().trim().toUpperCase();
+        String Ciudad = TXTciudad.getText().trim().toUpperCase();
+        if (CallePr.isEmpty() || CalleSe.isEmpty() || Ciudad.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese los datos correspondientes");
+            return;
+        }
+        if (CallePr.isBlank() || CalleSe.isBlank() || Ciudad.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese los datos correspondientes");
+            return;
+        }
+        if (!V.validarCallePrincipal(CallePr)) {
+            JOptionPane.showMessageDialog(this, "El número de caracteres de la calle principal en muy alto Máximo: 50 caracteres");
+            return;
+        }
+        if (!V.validarCalleSecundaria(CalleSe)) {
+            JOptionPane.showMessageDialog(this, "El número de caracteres de la calle secundaria en muy alto máximo: 50 caracteres");
+            return;
+        }
+        if (!V.validarNumeroCasa(NumCasa)) {
+            JOptionPane.showMessageDialog(this, "El número de caracteres del número de casa en muy alto máximo: 10 caracteres");
+            return;
+        }
+        if (!V.validarCiudad(Ciudad)) {
+            JOptionPane.showMessageDialog(this, "El número de caracteres de la ciudad en muy alto máximo: 30 caracteres");
+            return;
+        }
+
+        String PrimerNombre = TXTnombre.getText().trim().toUpperCase();
+        String SegundoNombre = TXTnombre1.getText().trim().toUpperCase();
+        String PrimerApellido = TXTapellido.getText().trim().toUpperCase();
+        String SegundoApellido = TXTapellido1.getText().trim().toUpperCase();
+        Date FechaNacimiento = CalendarioNacimiento.getDate();
+        String Genero = Generos.getSelectedItem().toString();
+        String Telefono = TXTTelefono.getText().trim().toUpperCase();
+        String Celular = TXTCelular.getText().trim().toUpperCase();
+        String CorreoE = TXTCorreoElectronico.getText().trim();
+
+        String Observaciones = Descripcion.getText().trim().toUpperCase();
+
+        if (PrimerNombre.isEmpty() || SegundoNombre.isEmpty() || PrimerApellido.isEmpty() || SegundoApellido.isEmpty()
+                || Genero.isEmpty() || Telefono.isEmpty() || Celular.isEmpty() || CorreoE.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor complete los datos que faltan");
+            return;
+        }
+        if (PrimerNombre.isBlank() || SegundoNombre.isBlank() || PrimerApellido.isBlank() || SegundoApellido.isBlank()
+                || Genero.isBlank() || Telefono.isBlank() || Celular.isBlank() || CorreoE.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Por favor complete los datos que faltan");
+            return;
+        }
+        if (FechaNacimiento == null) {
+            JOptionPane.showMessageDialog(this, "Escoja una fecha");
+            return;
+        }
+        if (!V.validarCorreo(CorreoE)) {
+            JOptionPane.showMessageDialog(this, "Correo no valido");
+            TXTCorreoElectronico.setText("");
+            return;
+        }
+        if (!V.validarNombre1(PrimerNombre)) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese solo su primer nombre");
+            TXTnombre.setText("");
+            return;
+        }
+        if (!V.validarNombre2(SegundoNombre)) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese solo su segundo nombre");
+            TXTnombre1.setText("");
+            return;
+        }
+        if (!V.validarApellido1(PrimerApellido)) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese solo su primer apellido");
+            TXTapellido.setText("");
+            return;
+        }
+        if (!V.validarApellido2(SegundoApellido)) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese solo su segundo apellido");
+            TXTapellido1.setText("");
+            return;
+        }
+        if (!V.validarCelular(Celular)) {
+            JOptionPane.showMessageDialog(this, "El número celular esta incorrecto");
+            TXTCelular.setText("");
+            return;
+        }
+        if (!V.validarTelefono(Telefono)) {
+            JOptionPane.showMessageDialog(this, "El número de teléfono esta incorrecto");
+            TXTTelefono.setText("");
+            return;
+        }
+        java.sql.Date FechaNA = new java.sql.Date(FechaNacimiento.getTime());
+        if (!V.FechaNacimiento(FechaNA)) {
+            JOptionPane.showMessageDialog(this, "La fecha esta incorrecta");
+            return;
+        }
+
+
+        Direccion direccion = new Direccion();
+        direccion.setID_direccion(persona.getId_direccion());
+        direccion.setCalle_principal(CallePr);
+        direccion.setCalle_secundaria(CalleSe);
+        direccion.setNumero_casa(NumCasa);
+        direccion.setCiudad(Ciudad);
+
+        DireccionDAO da = new DireccionDAO();
+        da.modificarDireccion(direccion);
+
+
+        persona.setNom1_person(PrimerNombre);
+        persona.setNom2_person(SegundoNombre);
+        persona.setApell1_person(PrimerApellido);
+        persona.setApell2_person(SegundoApellido);
+        persona.setNum_celu_person(Celular);
+        persona.setNum_tel_person(Telefono);
+        persona.setGene_person(Genero);
+        persona.setFech_nac_perso(FechaNA);
+        persona.setCorr_elec_perso(CorreoE);
+
+        PersonaDAO pd = new PersonaDAO();
+        pd.modificarPersona(persona);
+
+        propietario.setID_propietario(propietario.getID_propietario());
+        propietario.setObservaci_propietario(Observaciones);
+
+        PropietarioDAO prd = new PropietarioDAO();
+        boolean si=prd.modificarPropietario(propietario);
+        if (!si){
+            JOptionPane.showMessageDialog(this, "Error al modificar usuario");
+            return;
+        }
+        JOptionPane.showMessageDialog(this, "Se ha actualizado correctamente el propietario");
+        LimpiarDatos();   
+    }
+        
+    private void PanelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseClicked
+        // TODO add your handling code here:
+        String ced_perso=TXTcedula.getText().trim();
+        if (ced_perso.isEmpty() || ced_perso.equals("Ingrese la cédula")){
+            JOptionPane.showMessageDialog(this, "Debe ingresar primero una cédula para buscar");
+            return;
+        }
+        PersonaDAO PD=new PersonaDAO();
+        boolean si=PD.existeCedula(ced_perso);
+        if (si==true){
+            int option = JOptionPane.showConfirmDialog(
+                this, 
+                "¿Esta seguro de editar a la persona con cedula "+ced_perso+"?",
+                "Asegurese de haber ingresado los datos antes de continuar",
+                JOptionPane.YES_NO_OPTION
+            );
+            if (option ==JOptionPane.YES_OPTION){
+                JOptionPane.showMessageDialog(this, "Asegurese de haber ingresado los datos antes de continuar"+"\n"
+                        + "o de haber verificado la cédula");                
+                TXTcedula.setEditable(false);
+                modificarPropietario();
+                TXTcedula.setEditable(true);
+                LimpiarDatos();
+                
+            }
+            else{
+                TXTcedula.setEditable(true);
+                JOptionPane.showMessageDialog(this, "Gracias por confirmar");
+            }
+        }
+        else{
+            TXTcedula.setEditable(true);
+            JOptionPane.showMessageDialog(this, "No existe esa persona");
+        }
+    }//GEN-LAST:event_PanelEditarMouseClicked
+
+    private void TXTEmpleadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTEmpleadoFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTEmpleadoFocusGained
+
+    private void TXTEmpleadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTEmpleadoFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTEmpleadoFocusLost
+
+    private void TXTEmpleadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTEmpleadoMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTEmpleadoMousePressed
+
+    private void TXTEmpleadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTEmpleadoKeyReleased
+        // TODO add your handling code here:
+        //Dinamico();
+    }//GEN-LAST:event_TXTEmpleadoKeyReleased
+
+    private void TXTCedulaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTCedulaFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTCedulaFocusGained
+
+    private void TXTCedulaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTCedulaFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTCedulaFocusLost
+
+    private void TXTCedulaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTCedulaMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTCedulaMousePressed
+
+    private void TXTCedulaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTCedulaKeyReleased
+        // TODO add your handling code here:
+        //Dinamico();
+    }//GEN-LAST:event_TXTCedulaKeyReleased
+
+    private void TXTEstadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTEstadoFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTEstadoFocusGained
+
+    private void TXTEstadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTEstadoFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTEstadoFocusLost
+
+    private void TXTEstadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTEstadoMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTEstadoMousePressed
+
+    private void TXTEstadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTEstadoKeyReleased
+        // TODO add your handling code here:
+        //Dinamico();
+    }//GEN-LAST:event_TXTEstadoKeyReleased
+
+    private void TXTNombreUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTNombreUsuarioFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTNombreUsuarioFocusGained
+
+    private void TXTNombreUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTNombreUsuarioFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTNombreUsuarioFocusLost
+
+    private void TXTNombreUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTNombreUsuarioMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTNombreUsuarioMousePressed
+
+    private void TXTNombreUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTNombreUsuarioKeyReleased
+        // TODO add your handling code here:
+        //Dinamico();
+    }//GEN-LAST:event_TXTNombreUsuarioKeyReleased
+
+    private void PanelBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseClicked
+        // TODO add your handling code here:
+        if (JPanelBuscar.isVisible()){
+            JPanelBuscar.setVisible(false);
+        }
+        else{
+            JPanelBuscar.setVisible(true);
+        }
+    }//GEN-LAST:event_PanelBuscarMouseClicked
 
     public void LimpiarDatos (){
         TXTnombre.setText("");
@@ -2246,17 +2691,23 @@ public class PanelPropietarios extends javax.swing.JPanel {
         TXTciudad.setForeground(new Color(94, 94, 94));
     }
     public void GuardarYaExistentes (Persona persona){
+        Validaciones V=new Validaciones();
         Propietario p=new Propietario();
-        EmpleadoDAO e=new EmpleadoDAO ();        
-        if (e.existeCedula(persona.getCed_perso())){
+        PropietarioDAO pd=new PropietarioDAO();
+        if (pd.existeCedula(persona.getCed_perso())){
             JOptionPane.showMessageDialog(this, "Esa persona ya esta registrada");
             return;
         }
         String Observaciones = Descripcion.getText().trim().toUpperCase();
+        if (!V.validarObservaciones(Observaciones)){
+            JOptionPane.showMessageDialog(this, "No cumple con las condiciones de texto");
+            Descripcion.setText("");
+            return;
+        }
         p.setObservaci_propietario(Observaciones);
         p.setCed_perso(persona.getCed_perso());
-        PropietarioDAO pd=new PropietarioDAO();
         pd.insertarPropietario(p);
+        JOptionPane.showMessageDialog(this, "Se ha registrado correctamente el propietario");
         LimpiarDatos();
     }
     
@@ -2396,23 +2847,31 @@ public class PanelPropietarios extends javax.swing.JPanel {
     private javax.swing.JLabel Buscar;
     private com.toedter.calendar.JDateChooser CalendarioNacimiento;
     private com.toedter.calendar.JDateChooser CalendarioRegistro;
+    private javax.swing.JLabel Cedula1;
     private javax.swing.JLabel DarDeBaja;
     private javax.swing.JTextField Descripcion;
     private javax.swing.JLabel Editar;
+    private javax.swing.JLabel Empleado;
     private javax.swing.JLabel Fecha_registro;
     private javax.swing.JComboBox<String> Generos;
     private javax.swing.JLabel Guardar;
     private javax.swing.JLabel ImagenADD;
     private javax.swing.JLabel ImagenDarBaja;
     private javax.swing.JLabel ImagenSAVE;
+    private javax.swing.JPanel JPanelBuscar;
     private javax.swing.JLabel Nuevo;
+    private javax.swing.JLabel OtroNombreUsuario;
     private javax.swing.JPanel PanelBuscar;
     private javax.swing.JPanel PanelDarBaja;
     private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JPanel PanelNuevo;
+    private javax.swing.JTextField TXTCedula;
     private javax.swing.JTextField TXTCelular;
     private javax.swing.JTextField TXTCorreoElectronico;
+    private javax.swing.JTextField TXTEmpleado;
+    private javax.swing.JTextField TXTEstado;
+    private javax.swing.JTextField TXTNombreUsuario;
     private javax.swing.JTextField TXTTelefono;
     private javax.swing.JTextField TXTapellido;
     private javax.swing.JTextField TXTapellido1;
@@ -2423,7 +2882,9 @@ public class PanelPropietarios extends javax.swing.JPanel {
     private javax.swing.JTextField TXTnombre;
     private javax.swing.JTextField TXTnombre1;
     private javax.swing.JTextField TXTnumCasa;
+    private javax.swing.JTable TablaEmpleados;
     private javax.swing.JButton Verificar;
+    private javax.swing.JLabel estado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2442,5 +2903,6 @@ public class PanelPropietarios extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
