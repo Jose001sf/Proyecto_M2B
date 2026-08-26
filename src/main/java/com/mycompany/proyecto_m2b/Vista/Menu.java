@@ -40,7 +40,7 @@ public class Menu extends javax.swing.JFrame {
     private PanelCatalogoServicio Cata=null;
     private CrearEmpleado CrearEmp=null;
     private Especialidad Espe=null;
-    private Estadisticas Esta=null;
+    //private Estadisticas Esta=null;
     private PanelOrdenesServicio OrdenesServ=null;
     private PanelPropietarios Prop=null;
     private PanelProveedores Provee=null;
@@ -64,13 +64,13 @@ public class Menu extends javax.swing.JFrame {
         Regresar = new javax.swing.JLabel();
         ImagenRegresar = new javax.swing.JLabel();
         Cerrar = new javax.swing.JLabel();
-        Minimizar = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         MJ = new javax.swing.JLabel();
         Talleres = new javax.swing.JLabel();
         Titulo = new javax.swing.JLabel();
         Empleados = new javax.swing.JLabel();
         Usuarios = new javax.swing.JLabel();
+        Minimizar = new javax.swing.JLabel();
         PanelBarraInferior = new javax.swing.JPanel();
         PanelFondoBlanco = new javax.swing.JPanel();
         PanelPaneles = new javax.swing.JPanel();
@@ -160,23 +160,6 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        Minimizar.setBackground(new java.awt.Color(255, 255, 255));
-        Minimizar.setFont(new java.awt.Font("Roboto", 0, 36)); // NOI18N
-        Minimizar.setForeground(new java.awt.Color(255, 255, 255));
-        Minimizar.setText("-");
-        Minimizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Minimizar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                MinimizarMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                MinimizarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                MinimizarMouseExited(evt);
-            }
-        });
-
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/images (2).jpg"))); // NOI18N
 
         MJ.setBackground(new java.awt.Color(152, 75, 45));
@@ -237,6 +220,23 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        Minimizar.setBackground(new java.awt.Color(255, 255, 255));
+        Minimizar.setFont(new java.awt.Font("Roboto", 0, 36)); // NOI18N
+        Minimizar.setForeground(new java.awt.Color(255, 255, 255));
+        Minimizar.setText("-");
+        Minimizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Minimizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MinimizarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                MinimizarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                MinimizarMouseExited(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelBarraLayout = new javax.swing.GroupLayout(PanelBarra);
         PanelBarra.setLayout(PanelBarraLayout);
         PanelBarraLayout.setHorizontalGroup(
@@ -254,22 +254,22 @@ public class Menu extends javax.swing.JFrame {
                         .addComponent(Titulo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelBarraLayout.createSequentialGroup()
-                        .addGap(311, 311, 311)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Minimizar)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Cerrar))
                     .addGroup(PanelBarraLayout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(Usuarios)
                         .addGap(18, 18, 18)
                         .addComponent(Empleados)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 388, Short.MAX_VALUE)
                         .addComponent(ImagenRegresar)
-                        .addGap(27, 27, 27)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Regresar)))
-                .addGap(271, 271, 271))
+                .addContainerGap())
         );
         PanelBarraLayout.setVerticalGroup(
             PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,21 +277,17 @@ public class Menu extends javax.swing.JFrame {
                 .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelBarraLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PanelBarraLayout.createSequentialGroup()
-                                .addGap(63, 63, 63)
-                                .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(Empleados)
-                                    .addComponent(Usuarios)))
-                            .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(ImagenRegresar)
-                                .addGroup(PanelBarraLayout.createSequentialGroup()
-                                    .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(Cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(Minimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(18, 18, 18)
-                                    .addComponent(Regresar))))
+                        .addContainerGap()
+                        .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Minimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(ImagenRegresar)
+                            .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(Empleados)
+                                .addComponent(Usuarios)
+                                .addComponent(Regresar)))
                         .addGap(25, 25, 25)))
                 .addContainerGap())
             .addGroup(PanelBarraLayout.createSequentialGroup()
@@ -336,6 +332,7 @@ public class Menu extends javax.swing.JFrame {
         });
 
         PanelAccesos.setBackground(new java.awt.Color(79, 84, 90));
+        PanelAccesos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         PanelOrdenesServicio.setBackground(new java.awt.Color(53, 58, 61));
         PanelOrdenesServicio.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 116, 78), 2, true));
@@ -754,14 +751,17 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PanelPaneles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1595, Short.MAX_VALUE))
+                .addContainerGap(1595, Short.MAX_VALUE))
         );
         PanelFondoBlancoLayout.setVerticalGroup(
             PanelFondoBlancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelFondoBlancoLayout.createSequentialGroup()
                 .addGap(49, 49, 49)
-                .addComponent(PanelPaneles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 743, Short.MAX_VALUE)
+                .addComponent(PanelPaneles, javax.swing.GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelFondoBlancoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         PanelFondoMenu.add(PanelFondoBlanco, java.awt.BorderLayout.CENTER);
@@ -785,15 +785,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void PanelEstadisticasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEstadisticasMouseClicked
         // TODO add your handling code here:
-        if (Esta==null || !Esta.isVisible()){
-            Esta = new Estadisticas();
-            Esta.setVisible(true);
-        }
-        else {
-            Esta.setState(java.awt.Frame.NORMAL);
-            Esta.toFront();
-            Esta.requestFocus();
-        }
+
     }//GEN-LAST:event_PanelEstadisticasMouseClicked
 
     private void PanelResiduosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelResiduosMouseExited
