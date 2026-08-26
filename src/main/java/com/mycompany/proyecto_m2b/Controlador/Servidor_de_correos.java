@@ -61,7 +61,7 @@ public class Servidor_de_correos {
             email.getMailSession().getProperties().put("mail.smtp.ssl.trust", "*");
             email.getMailSession().getProperties().put("mail.smtp.ssl.checkserveridentity", "false");
 
-            email.setFrom(GMAIL_REMITENTE, "Sistema M&J TALLERES");
+            email.setFrom(GMAIL_REMITENTE, " Sistema M&J TALLERES ");
             email.setSubject("[BORRADOR / ORDEN DE COMPRA] - ID: " + idCompra);
             
             StringBuilder mensaje = new StringBuilder();
