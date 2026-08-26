@@ -3,9 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.proyecto_m2b.Controlador;
+
 import org.apache.commons.mail.SimpleEmail;
 import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.*;
+
 /**
  *
  * @author usuario
@@ -13,11 +14,11 @@ import org.apache.commons.mail.*;
 public class Servidor_de_correos {
     private static final String GMAIL_REMITENTE = "talleresmj.latoneriamecanica@gmail.com";
     private static final String GMAIL_APP_PASSWORD = "nzvjhsphojounneb"; 
-    public void enviarCorreoUsuario (String nom_usuario, String contra_usuario, String correo_person){
-        try{
-            SimpleEmail email=new SimpleEmail();
-            email.setHostName("smtp.gmail.com");
 
+    public void enviarCorreoUsuario(String nom_usuario, String contra_usuario, String correo_person) {
+        try {
+            SimpleEmail email = new SimpleEmail();
+            email.setHostName("smtp.gmail.com");
             email.setSmtpPort(587);
             email.setAuthentication(GMAIL_REMITENTE, GMAIL_APP_PASSWORD);
 
@@ -27,28 +28,26 @@ public class Servidor_de_correos {
             email.getMailSession().getProperties().put("mail.smtp.ssl.trust", "*");
             email.getMailSession().getProperties().put("mail.smtp.ssl.checkserveridentity", "false");
 
-            //Cabeceras para el email
-
+            // Cabeceras para el email
             email.setFrom(GMAIL_REMITENTE, "Sistema M&JTALLERES");
-            email.setSubject("Bienvenido a M&JTALLERES"+"- CREDENCIALES DE ACCESO");
+            email.setSubject("Bienvenido a M&JTALLERES" + "- CREDENCIALES DE ACCESO");
             
-            String mensaje= "Estimado/a"+"\n"
+            String mensaje = "Estimado/a\n"
                     + "Estas son su credenciales de usuario\n"
-                    + "USUARIO: "+nom_usuario+"\n"
-                    + "CONTRASEÑA: "+contra_usuario+"\n"
+                    + "USUARIO: " + nom_usuario + "\n"
+                    + "CONTRASEÑA: " + contra_usuario + "\n"
                     + "Administracion M&JTALLERES";
             email.setMsg(mensaje);
             email.addTo(correo_person);
             email.send();
             System.out.println("Correo enviado exitosamente");
-        }catch(EmailException e){
-            System.out.println("Error al enviar el correo: "+e.getMessage());
+        } catch (EmailException e) {
+            System.out.println("Error al enviar el correo: " + e.getMessage());
             e.printStackTrace();
         }
-        
     }
     
-    //Proveedores chavales
+    // Proveedores chavales
     public void enviarBorradorCompraProveedor(String idCompra, String fecha, double total, String nombreProveedor, javax.swing.JTable tablaDetalles) {
         try {
             SimpleEmail email = new SimpleEmail();
@@ -61,17 +60,17 @@ public class Servidor_de_correos {
             email.getMailSession().getProperties().put("mail.smtp.ssl.trust", "*");
             email.getMailSession().getProperties().put("mail.smtp.ssl.checkserveridentity", "false");
 
-            email.setFrom(GMAIL_REMITENTE, " Sistema M&J TALLERES ");
+            email.setFrom(GMAIL_REMITENTE, "Sistema M&J TALLERES");
             email.setSubject("[BORRADOR / ORDEN DE COMPRA] - ID: " + idCompra);
             
             StringBuilder mensaje = new StringBuilder();
-            mensaje.append("Se ha generado una nueva orden de compra: ");
-            mensaje.append("--------------------------------------------------");
-            mensaje.append("• ID Compra: ").append(idCompra).append(" ");
-            mensaje.append("• Proveedor: ").append(nombreProveedor).append(" ");
-            mensaje.append("• Fecha: ").append(fecha).append(" ");
-            mensaje.append("--------------------------------------------------");
-            mensaje.append("DETALLE DE REPUESTOS SOLICITADOS:  ");
+            mensaje.append("Se ha generado una nueva orden de compra:\n\n");
+            mensaje.append("--------------------------------------------------\n");
+            mensaje.append("• ID Compra: ").append(idCompra).append("\n");
+            mensaje.append("• Proveedor: ").append(nombreProveedor).append("\n");
+            mensaje.append("• Fecha: ").append(fecha).append("\n");
+            mensaje.append("--------------------------------------------------\n\n");
+            mensaje.append("DETALLE DE REPUESTOS SOLICITADOS:\n");
             
             javax.swing.table.TableModel modelo = tablaDetalles.getModel();
             for (int i = 0; i < modelo.getRowCount(); i++) {
@@ -81,12 +80,12 @@ public class Servidor_de_correos {
                 String pUnit = modelo.getValueAt(i, 3) != null ? modelo.getValueAt(i, 3).toString() : "";
                 String subtotal = modelo.getValueAt(i, 4) != null ? modelo.getValueAt(i, 4).toString() : "";
                 
-                mensaje.append(String.format("- [%s] %s | Cant: %s | P.Unit: $%s | Subtotal: $%s ", 
+                mensaje.append(String.format("- [%s] %s | Cant: %s | P.Unit: $%s | Subtotal: $%s\n", 
                         idRep, nombreRep, cantidad, pUnit, subtotal));
             }
             
-            mensaje.append("--------------------------------------------------");
-            mensaje.append(String.format("TOTAL A PAGAR: $%.2f ", total));
+            mensaje.append("\n--------------------------------------------------\n");
+            mensaje.append(String.format("TOTAL A PAGAR: $%.2f\n\n", total));
             mensaje.append("--- Mensaje automático generado por el Sistema M&J ---");
 
             email.setMsg(mensaje.toString());
