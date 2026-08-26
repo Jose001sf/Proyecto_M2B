@@ -2012,6 +2012,10 @@ public class CrearEmpleado extends javax.swing.JFrame {
             TXTTelefono.setText("");
             return;
         }
+        if (Genero.equals("Seleccione una opción")){
+            JOptionPane.showMessageDialog(this, "Por favor escoga un género");
+            return;
+        }
         java.sql.Date FechaNA=new java.sql.Date(FechaNacimiento.getTime());
         if (!V.FechaNacimiento(FechaNA)){
             JOptionPane.showMessageDialog(this, "La fecha esta incorrecta");

@@ -11,20 +11,25 @@ import org.apache.commons.mail.*;
  * @author usuario
  */
 public class Servidor_de_correos {
+    private static final String GMAIL_REMITENTE = "talleresmj.latoneriamecanica@gmail.com";
+    private static final String GMAIL_APP_PASSWORD = "nzvjhsphojounneb"; 
     public void enviarCorreoUsuario (String nom_usuario, String contra_usuario, String correo_person){
         try{
             SimpleEmail email=new SimpleEmail();
-            email.setHostName("localhost");
+            email.setHostName("smtp.gmail.com");
 
             email.setSmtpPort(587);
-            email.setAuthentication("admin@mail.mjtalleres.com", "moohoo");
+            email.setAuthentication(GMAIL_REMITENTE, GMAIL_APP_PASSWORD);
 
             email.setStartTLSEnabled(true);
-            email.setSSLCheckServerIdentity(true);
+            email.setSSLCheckServerIdentity(false);
+            
+            email.getMailSession().getProperties().put("mail.smtp.ssl.trust", "*");
+            email.getMailSession().getProperties().put("mail.smtp.ssl.checkserveridentity", "false");
 
             //Cabeceras para el email
 
-            email.setFrom("admin@mail.mjtalleres.com", "Sistema M&JTALLERES");
+            email.setFrom(GMAIL_REMITENTE, "Sistema M&JTALLERES");
             email.setSubject("Bienvenido a M&JTALLERES"+"- CREDENCIALES DE ACCESO");
             
             String mensaje= "Estimado/a"+"\n"
