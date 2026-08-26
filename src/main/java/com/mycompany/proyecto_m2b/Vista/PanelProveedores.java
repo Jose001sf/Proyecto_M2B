@@ -5,6 +5,7 @@ import com.mycompany.proyecto_m2b.Controlador.CompraDAO;
 import com.mycompany.proyecto_m2b.Controlador.ConexionBD;
 import com.mycompany.proyecto_m2b.Controlador.ProveedorDAO;
 import com.mycompany.proyecto_m2b.Controlador.RepuestoDAO;
+import com.mycompany.proyecto_m2b.Controlador.Servidor_de_correos;
 import com.mycompany.proyecto_m2b.modelo.Proveedor;
 import com.mycompany.proyecto_m2b.modelo.Repuesto;
 import com.mycompany.proyecto_m2b.modelo.TipoProveedor;
@@ -632,58 +633,61 @@ private void calcularTotal() {
 
     private void btnGuardarCompraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarCompraMouseClicked
         if (modeloTabla.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(this, "Debe agregar al menos un repuesto a la compra.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Debe agregar al menos un repuesto a la compra.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    Proveedor provSel = (Proveedor) cbxProveedor.getSelectedItem();
+    if (provSel == null) {
+        JOptionPane.showMessageDialog(this, "Seleccione un proveedor.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    String idCompra = txtIdCompra.getText().trim();
+    Date fechaSeleccionada = txtFechaCompra.getDate();
+    String fecha = "";
+    if (fechaSeleccionada != null) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
+        fecha = sdf.format(fechaSeleccionada);
+    }
+    double total = Double.parseDouble(txtTotalCompra.getText().trim().replace(',', '.'));
+
+    for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+        String idRepuesto = (String) modeloTabla.getValueAt(i, 0);
+        int cantidadAComprar = (int) modeloTabla.getValueAt(i, 2);
+        String nombreRepuesto = (String) modeloTabla.getValueAt(i, 1);
+
+        boolean stockValido = compraDAO.validarStockMaximo(idRepuesto, cantidadAComprar, miConexion);
+
+        if (!stockValido) {
+            JOptionPane.showMessageDialog(this, 
+                "La cantidad a comprar del repuesto '" + nombreRepuesto + "' excede el stock máximo permitido en el inventario.", 
+                "Límite de Stock Superado", 
+                JOptionPane.WARNING_MESSAGE);
             return;
         }
+    }
 
-        Proveedor provSel = (Proveedor) cbxProveedor.getSelectedItem();
-        if (provSel == null) {
-            JOptionPane.showMessageDialog(this, "Seleccione un proveedor.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        String idCompra = txtIdCompra.getText().trim();
-        Date fechaSeleccionada = txtFechaCompra.getDate();
-        String fecha = "";
-        if (fechaSeleccionada != null) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
-            fecha = sdf.format(fechaSeleccionada);
-        }
-        double total = Double.parseDouble(txtTotalCompra.getText().trim().replace(',', '.'));
+    if (compraDAO.guardarEncabezadoCompra(idCompra, fecha, total, provSel.getIdProveedor(), miConexion)) {
 
         for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+            String idDetalle = "DET-" + (int)(Math.random() * 90000 + 10000); 
             String idRepuesto = (String) modeloTabla.getValueAt(i, 0);
-            int cantidadAComprar = (int) modeloTabla.getValueAt(i, 2);
-            String nombreRepuesto = (String) modeloTabla.getValueAt(i, 1);
+            int cantidad = (int) modeloTabla.getValueAt(i, 2);
+            double subtotal = (double) modeloTabla.getValueAt(i, 4);
 
-            boolean stockValido = compraDAO.validarStockMaximo(idRepuesto, cantidadAComprar, miConexion);
-
-            if (!stockValido) {
-                JOptionPane.showMessageDialog(this, 
-                    "La cantidad a comprar del repuesto '" + nombreRepuesto + "' excede el stock máximo permitido en el inventario.", 
-                    "Límite de Stock Superado", 
-                    JOptionPane.WARNING_MESSAGE);
-                return;
-            }
+            compraDAO.guardarDetalleCompra(idDetalle, cantidad, subtotal, idRepuesto, idCompra, miConexion);
+            compraDAO.actualizarStockRepuesto(idRepuesto, cantidad, miConexion);
         }
 
-        if (compraDAO.guardarEncabezadoCompra(idCompra, fecha, total, provSel.getIdProveedor(), miConexion)) {
+        Servidor_de_correos servidorCorreos = new Servidor_de_correos();
+        servidorCorreos.enviarBorradorCompraProveedor(idCompra, fecha, total, provSel.getNomEmpresa(), tblDetalleCompra);
 
-            for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-                String idDetalle = "DET-" + (int)(Math.random() * 90000 + 10000); 
-                String idRepuesto = (String) modeloTabla.getValueAt(i, 0);
-                int cantidad = (int) modeloTabla.getValueAt(i, 2);
-                double subtotal = (double) modeloTabla.getValueAt(i, 4);
-
-                compraDAO.guardarDetalleCompra(idDetalle, cantidad, subtotal, idRepuesto, idCompra, miConexion);
-                compraDAO.actualizarStockRepuesto(idRepuesto, cantidad, miConexion);
-            }
-
-            JOptionPane.showMessageDialog(this, "¡Compra registrada y stock actualizado exitosamente!");
-            limpiarFormulario();
-        } else {
-            JOptionPane.showMessageDialog(this, "Error al guardar la compra.", "Error SQL", JOptionPane.ERROR_MESSAGE);
-        }
+        JOptionPane.showMessageDialog(this, "¡Compra registrada, stock actualizado y correo enviado exitosamente!");
+        limpiarFormulario();
+    } else {
+        JOptionPane.showMessageDialog(this, "Error al guardar la compra.", "Error SQL", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_btnGuardarCompraMouseClicked
 
     private void btnGuardarCompraMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarCompraMouseEntered
