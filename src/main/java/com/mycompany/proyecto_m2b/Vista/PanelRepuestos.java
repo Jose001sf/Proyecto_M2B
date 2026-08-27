@@ -7,6 +7,9 @@ import com.mycompany.proyecto_m2b.modelo.MarcaRepuesto;
 import com.mycompany.proyecto_m2b.modelo.Repuesto;
 import com.mycompany.proyecto_m2b.modelo.TipoRepuesto;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,6 +28,51 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
     txtIdRepuesto.setEditable(false); 
     txtIdRepuesto.setEnabled(false);
     generarIdAutomatico();
+    
+    cargarTablaRepuestos("");
+    
+    txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+        @Override
+        public void keyReleased(java.awt.event.KeyEvent evt) {
+            String textoBusqueda = txtBuscar.getText().trim();
+            cargarTablaRepuestos(textoBusqueda);
+        }
+    }); 
+    tblModificar.addMouseListener(new java.awt.event.MouseAdapter() {
+        @Override
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            int filaSeleccionada = tblModificar.getSelectedRow();
+            if (filaSeleccionada != -1) {
+                txtIdRepuesto.setText(tblModificar.getValueAt(filaSeleccionada, 0).toString());
+                txtNomRepuesto.setText(tblModificar.getValueAt(filaSeleccionada, 1).toString());
+                txtCantidadMaxima.setText(tblModificar.getValueAt(filaSeleccionada, 2).toString());
+                txtCantidadMinima.setText(tblModificar.getValueAt(filaSeleccionada, 3).toString());
+                txtStockActual.setText(tblModificar.getValueAt(filaSeleccionada, 4).toString());
+                txtPrecioBase.setText(tblModificar.getValueAt(filaSeleccionada, 5).toString());
+                txtDescripRepuesto.setText(tblModificar.getValueAt(filaSeleccionada, 6).toString());
+                
+                String idTipo = tblModificar.getValueAt(filaSeleccionada, 7).toString();
+                for (int i = 0; i < cbxTipoRepuesto.getItemCount(); i++) {
+                    Object item = cbxTipoRepuesto.getItemAt(i);
+                    if (item instanceof TipoRepuesto && ((TipoRepuesto) item).getIdTipRepuesto().equals(idTipo)) {
+                        cbxTipoRepuesto.setSelectedIndex(i);
+                        break;
+                    }
+                }
+                
+                String idMarca = tblModificar.getValueAt(filaSeleccionada, 8).toString();
+                for (int i = 0; i < cbxMarcaRepuesto.getItemCount(); i++) {
+                    Object item = cbxMarcaRepuesto.getItemAt(i);
+                    if (item instanceof MarcaRepuesto && ((MarcaRepuesto) item).getIdMarcaRepuesto().equals(idMarca)) {
+                        cbxMarcaRepuesto.setSelectedIndex(i);
+                        break;
+                    }
+                }
+            }
+        }
+    });
+
+    
     
         txtNomRepuesto.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             @Override
@@ -256,6 +304,51 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
         return true;
     }
     
+    private void cargarTablaRepuestos(String filtro) {
+    Connection con = ConexionBD.obtenerConexion();
+    try {
+        RepuestoDAO dao = new RepuestoDAO();
+        List<Repuesto> lista = dao.buscarRepuestosPorNombre(con, filtro);
+        
+        String[] columnas = {
+            "ID", "Nombre", "Stock Máx", "Stock Mín", 
+            "Stock Actual", "Precio Base", "Descripción", "Tipo", "Marca"
+        };
+        
+        javax.swing.table.DefaultTableModel modelo = new javax.swing.table.DefaultTableModel(null, columnas) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+                
+            }
+        };
+        
+        for (Repuesto r : lista) {
+            Object[] fila = new Object[9];
+            fila[0] = r.getIdRepuestos();
+            fila[1] = r.getNomRepuesto();
+            fila[2] = r.getCantidadMaxRepuesto();
+            fila[3] = r.getCantidadMinRepuesto();
+            fila[4] = r.getCantidadActualRepuesto();
+            fila[5] = r.getPrecioRepuestoUnit();
+            fila[6] = r.getDescripRepuesto();
+            fila[7] = r.getIdTipRepuesto();
+            fila[8] = r.getIdMarcaRepuesto();
+            
+            modelo.addRow(fila);
+        }
+        
+        tblModificar.setModel(modelo);
+        
+    } catch (Exception e) {
+        System.err.println("Error al cargar todos los datos en la tabla: " + e.getMessage());
+    } finally {
+        if (con != null) {
+            try { con.close(); } catch (SQLException ignored) {}
+        }
+    }
+}
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -301,6 +394,10 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
         lblErrorStockMinimo = new javax.swing.JLabel();
         lblErrorStockMaximo = new javax.swing.JLabel();
         lblErrorPrecioBase = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblModificar = new javax.swing.JTable();
+        jLabel14 = new javax.swing.JLabel();
+        txtBuscar = new javax.swing.JTextField();
 
         jPanel1.setBackground(new java.awt.Color(238, 238, 238));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -375,8 +472,8 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
 
         jLabel10.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel10.setText("Stock Actual:");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, -1, -1));
+        jLabel10.setText("Buscar");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 70, -1, -1));
 
         jLabel11.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(153, 153, 153));
@@ -583,6 +680,27 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
         lblErrorPrecioBase.setText("jLabel14");
         jPanel1.add(lblErrorPrecioBase, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 240, -1, -1));
 
+        tblModificar.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9"
+            }
+        ));
+        jScrollPane1.setViewportView(tblModificar);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 120, 530, -1));
+
+        jLabel14.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel14.setText("Stock Actual:");
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, -1, -1));
+        jPanel1.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 90, 190, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -631,71 +749,91 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
             JOptionPane.showMessageDialog(this, "Por favor corrija los errores marcados en rojo.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
             return; 
         }
+        
         try {
-        String id = txtIdRepuesto.getText().trim();
-        String nombre = txtNomRepuesto.getText().trim();
-        
-        TipoRepuesto tipoSel = (TipoRepuesto) cbxTipoRepuesto.getSelectedItem();
-        MarcaRepuesto marcaSel = (MarcaRepuesto) cbxMarcaRepuesto.getSelectedItem();
-
-        if (nombre.isEmpty() || tipoSel == null || marcaSel == null) {
-            javax.swing.JOptionPane.showMessageDialog(
-                this, 
-                "Por favor complete el nombre, tipo y marca del repuesto.", 
-                "Campos Incompletos", 
-                javax.swing.JOptionPane.WARNING_MESSAGE
-            );
-            return;
-        }
-
-        int stockActual = Integer.parseInt(txtStockActual.getText().trim());
-        int stockMin = Integer.parseInt(txtCantidadMinima.getText().trim());
-        int stockMax = Integer.parseInt(txtCantidadMaxima.getText().trim());
-        
-        String textoPrecio = txtPrecioBase.getText().trim().replace(',', '.');
-        double precio = Double.parseDouble(textoPrecio);
-
-        String descripcion = txtDescripRepuesto.getText().trim();
-
-        Repuesto repuesto = new Repuesto(
-            id, 
-            nombre, 
-            stockMax, 
-            stockMin, 
-            stockActual, 
-            precio, 
-            descripcion, 
-            tipoSel.getIdTipRepuesto(), 
-            marcaSel.getIdMarcaRepuesto()
-        );
-
-        RepuestoDAO dao = new RepuestoDAO();
-        if (dao.guardarRepuesto(repuesto, miConexion)) {
-            javax.swing.JOptionPane.showMessageDialog(
-                this, 
-                "¡Repuesto registrado exitosamente!", 
-                "Éxito", 
-                javax.swing.JOptionPane.INFORMATION_MESSAGE
-            );
+            String id = txtIdRepuesto.getText().trim();
+            String nombre = txtNomRepuesto.getText().trim();
             
-            limpiarCampos(); 
-        } else {
+            TipoRepuesto tipoSel = (TipoRepuesto) cbxTipoRepuesto.getSelectedItem();
+            MarcaRepuesto marcaSel = (MarcaRepuesto) cbxMarcaRepuesto.getSelectedItem();
+
+            if (nombre.isEmpty() || tipoSel == null || marcaSel == null) {
+                javax.swing.JOptionPane.showMessageDialog(
+                    this, 
+                    "Por favor complete el nombre, tipo y marca del repuesto.", 
+                    "Campos Incompletos", 
+                    javax.swing.JOptionPane.WARNING_MESSAGE
+                );
+                return;
+            }
+
+            int stockActual = Integer.parseInt(txtStockActual.getText().trim());
+            int stockMin = Integer.parseInt(txtCantidadMinima.getText().trim());
+            int stockMax = Integer.parseInt(txtCantidadMaxima.getText().trim());
+            
+            String textoPrecio = txtPrecioBase.getText().trim().replace(',', '.');
+            double precio = Double.parseDouble(textoPrecio);
+
+            String descripcion = txtDescripRepuesto.getText().trim();
+
+            Repuesto repuesto = new Repuesto(
+                id, 
+                nombre, 
+                stockMax, 
+                stockMin, 
+                stockActual, 
+                precio, 
+                descripcion, 
+                tipoSel.getIdTipRepuesto(), 
+                marcaSel.getIdMarcaRepuesto()
+            );
+
+            RepuestoDAO dao = new RepuestoDAO();
+            
+            boolean esActualizacion = false;
+            List<Repuesto> todos = dao.obtenerRepuestos(miConexion);
+            for (Repuesto r : todos) {
+                if (r.getIdRepuestos().equals(id)) {
+                    esActualizacion = true;
+                    break;
+                }
+            }
+
+            boolean operacionExitosa = false;
+            if (esActualizacion) {
+                operacionExitosa = dao.actualizarRepuesto(repuesto, miConexion);
+            } else {
+                operacionExitosa = dao.guardarRepuesto(repuesto, miConexion);
+            }
+
+            if (operacionExitosa) {
+                javax.swing.JOptionPane.showMessageDialog(
+                    this, 
+                    esActualizacion ? "¡Repuesto actualizado exitosamente!" : "¡Repuesto registrado exitosamente!", 
+                    "Éxito", 
+                    javax.swing.JOptionPane.INFORMATION_MESSAGE
+                );
+                
+                limpiarCampos(); 
+                cargarTablaRepuestos("");
+                txtBuscar.setText("");
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(
+                    this, 
+                    "No se pudo completar la operación en la base de datos.", 
+                    "Error de Operación", 
+                    javax.swing.JOptionPane.ERROR_MESSAGE
+                );
+            }
+
+        } catch (NumberFormatException e) {
             javax.swing.JOptionPane.showMessageDialog(
                 this, 
-                "No se pudo guardar el registro en la base de datos.", 
-                "Error de Inserción", 
+                "Asegúrese de ingresar números enteros en los Stocks y un valor numérico/decimal válido en el Precio (ej. 12.50).", 
+                "Error de Formato Numérico", 
                 javax.swing.JOptionPane.ERROR_MESSAGE
             );
         }
-
-    } catch (NumberFormatException e) {
-        javax.swing.JOptionPane.showMessageDialog(
-            this, 
-            "Asegúrese de ingresar números enteros en los Stocks y un valor numérico/decimal válido en el Precio (ej. 12.50).", 
-            "Error de Formato Numérico", 
-            javax.swing.JOptionPane.ERROR_MESSAGE
-        );
-    }
     }//GEN-LAST:event_btnGuardarMouseClicked
 
     private void btnGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseEntered
@@ -916,6 +1054,7 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -925,11 +1064,14 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblErrorPrecioBase;
     private javax.swing.JLabel lblErrorStockActual;
     private javax.swing.JLabel lblErrorStockMaximo;
     private javax.swing.JLabel lblErrorStockMinimo;
     private javax.swing.JLabel lblErrorTipoRepuesto;
+    private javax.swing.JTable tblModificar;
+    private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtCantidadMaxima;
     private javax.swing.JTextField txtCantidadMinima;
     private javax.swing.JTextField txtDescripRepuesto;
