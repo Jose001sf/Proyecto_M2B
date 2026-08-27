@@ -47,6 +47,95 @@ public class Servidor_de_correos {
         }
     }
     
+    public void enviarCorreoActualizacionUsuario(String nom_usuario, String contra_usuario, String correo_person) {
+        try {
+            SimpleEmail email = new SimpleEmail();
+            email.setHostName("smtp.gmail.com");
+            email.setSmtpPort(587);
+            email.setAuthentication(GMAIL_REMITENTE, GMAIL_APP_PASSWORD);
+
+            email.setStartTLSEnabled(true);
+            email.setSSLCheckServerIdentity(false);
+            
+            email.getMailSession().getProperties().put("mail.smtp.ssl.trust", "*");
+            email.getMailSession().getProperties().put("mail.smtp.ssl.checkserveridentity", "false");
+
+            // Cabeceras para el email
+            email.setFrom(GMAIL_REMITENTE, "Sistema M&JTALLERES");
+            email.setSubject("Actualización de la credenciales de acceso" + "- M&JTALLERES");
+            
+            String mensaje = "Estimado/a\n"
+                    + "Se le informa que sus credenciales de acceso han sido modificadas\n"
+                    + "NUEVO USUARIO: " + nom_usuario + "\n"
+                    + "NUEVA CONTRASEÑA: " + contra_usuario + "\n"
+                    + "Cualquie inconveniente, por favor comunicarse con el administrador o dueño del taller"+"\n"
+                    + "Administracion M&JTALLERES";
+            email.setMsg(mensaje);
+            email.addTo(correo_person);
+            email.send();
+            System.out.println("Correo enviado exitosamente");
+        } catch (EmailException e) {
+            System.out.println("Error al enviar el correo: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    public void InformarBaja (String correo_person) {
+        try {
+            SimpleEmail email = new SimpleEmail();
+            email.setHostName("smtp.gmail.com");
+            email.setSmtpPort(587);
+            email.setAuthentication(GMAIL_REMITENTE, GMAIL_APP_PASSWORD);
+
+            email.setStartTLSEnabled(true);
+            email.setSSLCheckServerIdentity(false);
+            
+            email.getMailSession().getProperties().put("mail.smtp.ssl.trust", "*");
+            email.getMailSession().getProperties().put("mail.smtp.ssl.checkserveridentity", "false");
+
+            // Cabeceras para el email
+            email.setFrom(GMAIL_REMITENTE, "Sistema M&JTALLERES");
+            email.setSubject("Actualización de la credenciales de acceso" + "- M&JTALLERES");
+            
+            String mensaje = "Estimado/a\n"
+                    + "Se le informa que se le ha dado de baja en el sistema";
+            email.setMsg(mensaje);
+            email.addTo(correo_person);
+            email.send();
+            System.out.println("Correo enviado exitosamente");
+        } catch (EmailException e) {
+            System.out.println("Error al enviar el correo: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    public void InformarAlta (String correo_person) {
+        try {
+            SimpleEmail email = new SimpleEmail();
+            email.setHostName("smtp.gmail.com");
+            email.setSmtpPort(587);
+            email.setAuthentication(GMAIL_REMITENTE, GMAIL_APP_PASSWORD);
+
+            email.setStartTLSEnabled(true);
+            email.setSSLCheckServerIdentity(false);
+            
+            email.getMailSession().getProperties().put("mail.smtp.ssl.trust", "*");
+            email.getMailSession().getProperties().put("mail.smtp.ssl.checkserveridentity", "false");
+
+            // Cabeceras para el email
+            email.setFrom(GMAIL_REMITENTE, "Sistema M&JTALLERES");
+            email.setSubject("Actualización de la credenciales de acceso" + "- M&JTALLERES");
+            
+            String mensaje = "Estimado/a\n"
+                    + "Se le informa que se le ha dado de alta de nuevo en el sistema";
+            email.setMsg(mensaje);
+            email.addTo(correo_person);
+            email.send();
+            System.out.println("Correo enviado exitosamente");
+        } catch (EmailException e) {
+            System.out.println("Error al enviar el correo: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
     // Proveedores chavales
     public void enviarBorradorCompraProveedor(String idCompra, String fecha, double total, String nombreProveedor, javax.swing.JTable tablaDetalles) {
         try {

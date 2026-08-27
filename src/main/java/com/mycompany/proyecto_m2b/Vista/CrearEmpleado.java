@@ -3138,6 +3138,18 @@ public class CrearEmpleado extends javax.swing.JFrame {
                 + "Y su contraseña es: "+contrasena+"\n"
                 +"Por favor, tome una foto o anótelas en un lugar seguro, no se podran modificar una vez cerrada la ventana");
         //Se guarda en la tabla usuarios
+        //Hilo para el envio de correos
+        String correo_perso=persona.getCorr_elec_perso();
+        String nom_usuario=Usuario;
+        String contra_usuario=contrasena;
+        
+        new Thread(() -> {
+            Servidor_de_correos sv=new Servidor_de_correos();
+            sv.enviarCorreoUsuario(nom_usuario, contra_usuario, correo_perso);
+        }).start();
+        
+        
+        
         LimpiarDatos();
     }
     Persona persona;

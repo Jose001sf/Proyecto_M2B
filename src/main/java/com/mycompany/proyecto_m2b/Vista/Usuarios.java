@@ -6,6 +6,7 @@ package com.mycompany.proyecto_m2b.Vista;
 
 import com.mycompany.proyecto_m2b.Controlador.Validaciones;
 import com.mycompany.proyecto_m2b.Controlador.CreacionCredenciales;
+import com.mycompany.proyecto_m2b.Controlador.Servidor_de_correos;
 import com.mycompany.proyecto_m2b.Controlador.TipoUsuarioDAO;
 import com.mycompany.proyecto_m2b.Controlador.UsuarioDAO;
 import com.mycompany.proyecto_m2b.modelo.Usuario;
@@ -850,34 +851,12 @@ public class Usuarios extends javax.swing.JFrame {
         // table nombre asignado a la tabla
         TablaUsuario.setModel(modelo);
     }
-    public void GuardarCambios (){
-        String contrasena=String.valueOf(TXTcontraseña.getPassword());
-        String nombre_usuario=TXTnombreDeUsuario.getText().trim();
-        Validaciones V=new Validaciones();
-        if (!V.validarContrasena(contrasena)){
-            JOptionPane.showMessageDialog(this, "Contraseña no valida");            
-            TXTcontraseña.setText("********");
-            return;
-        }
-        if (!V.validarNombreUsuario(nombre_usuario)){
-            JOptionPane.showMessageDialog(this, "Nombre de usuario no valido");
-            TXTnombreDeUsuario.setText("Nombre de usuario");
-            return;
-        }
-        if (contrasena.equals("********") || nombre_usuario.equals("Nombre de usuario")){
-            JOptionPane.showMessageDialog(this, "Escoga un nombre de usuario, y una contraseña");
-            return;
-        }
-        JOptionPane.showMessageDialog(this, "Cambio guardado con éxito");
-        
-        TXTcontraseña.setText("********");
-        TXTnombreDeUsuario.setText("Nombre de usuario");
-    }
+    
     private void PanelDarBajaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarBajaMouseClicked
         // TODO add your handling code here:
         Usuario selecc=(Usuario) Usuarios.getSelectedItem();
         if (selecc!=null){
-            int opcion=JOptionPane.showConfirmDialog(this, "¿Esta seguro de dar de baja a este empleado?"+JOptionPane.YES_NO_OPTION);
+            int opcion=JOptionPane.showConfirmDialog(this, "¿Esta seguro de dar de baja a este empleado?","Confirmar",JOptionPane.YES_NO_OPTION);
             if (opcion==JOptionPane.YES_OPTION){
                     String id_selecc=selecc.getID_usuario();
                     UsuarioDAO u=new UsuarioDAO();
@@ -886,6 +865,14 @@ public class Usuarios extends javax.swing.JFrame {
                         Estados.setSelectedItem("En pausa");                        
                         JOptionPane.showMessageDialog(this, "Modificado de manera correcta");
                         u.cargarIDusuarios(this.Usuarios);
+                        //Hilo para el envio de correos
+        
+                String correo_perso=u.DevolverCorreoPerson(selecc.getId_empleado());                
+
+                new Thread(() -> {
+                    Servidor_de_correos sv=new Servidor_de_correos();
+                    sv.InformarBaja(correo_perso);
+                }).start();
                         LimpiarDatos();
                         cargarTablaUsuario();
                     }
@@ -920,7 +907,12 @@ public class Usuarios extends javax.swing.JFrame {
 
     private void TXTcontraseñaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTcontraseñaFocusGained
         // TODO add your handling code here:
-        if (String.valueOf(TXTcontraseña.getPassword()).equals("********")){
+        Usuario selecc= (Usuario) Usuarios.getSelectedItem();
+        if (selecc==null){
+            JOptionPane.showMessageDialog(this, "Error al obtener la contraseña, por favor intente de nuevo");
+            return;
+        }
+        if (String.valueOf(TXTcontraseña.getPassword()).equals("********") || String.valueOf(TXTcontraseña.getPassword()).equals(selecc.getContra_usuario())){
             TXTcontraseña.setText("");
             TXTcontraseña.setForeground(new Color(176, 166, 157));
         }
@@ -944,14 +936,19 @@ public class Usuarios extends javax.swing.JFrame {
 
     private void TXTcontraseñaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTcontraseñaFocusLost
         // TODO add your handling code here:
-        if (TXTnombreDeUsuario.getText().equals("Nombre de usuario")){
-            TXTnombreDeUsuario.setText("");
-            TXTnombreDeUsuario.setForeground(Color.BLACK);
-        }        
-        if (String.valueOf(TXTcontraseña.getPassword()).isEmpty()){
-            TXTcontraseña.setText("********");
-            TXTcontraseña.setForeground(new Color(94, 94, 94));
-        }  
+        Usuario selecc= (Usuario) Usuarios.getSelectedItem();
+        if (selecc==null){
+            JOptionPane.showMessageDialog(this, "Error al obtener la contraseña, por favor intente de nuevo");
+            return;
+        }
+        if (String.valueOf(TXTcontraseña.getPassword()).equals("********") || String.valueOf(TXTcontraseña.getPassword()).equals(selecc.getContra_usuario())){
+            TXTcontraseña.setText("");
+            TXTcontraseña.setForeground(new Color(176, 166, 157));
+        }
+        if (TXTnombreDeUsuario.getText().isEmpty()){
+            TXTnombreDeUsuario.setText("Nombre de usuario");
+            TXTnombreDeUsuario.setForeground(new Color(94, 94, 94));
+        }
     }//GEN-LAST:event_TXTcontraseñaFocusLost
 
     private void TXTnombreDeUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTnombreDeUsuarioFocusLost
@@ -991,6 +988,15 @@ public class Usuarios extends javax.swing.JFrame {
                         Estados.setSelectedItem("Activo");                        
                         JOptionPane.showMessageDialog(this, "Modificado de manera correcta");
                         u.cargarIDusuarios(this.Usuarios);
+                        //Hilo para el envio de correos
+        
+                String correo_perso=u.DevolverCorreoPerson(selecc.getId_empleado());                
+
+                new Thread(() -> {
+                    Servidor_de_correos sv=new Servidor_de_correos();
+                    sv.InformarAlta(correo_perso);
+                }).start();
+                        
                         LimpiarDatos();
                         cargarTablaUsuario();
                     }
@@ -1021,7 +1027,7 @@ public class Usuarios extends javax.swing.JFrame {
 
     private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
         // TODO add your handling code here:
-        GuardarCambios();
+        
     }//GEN-LAST:event_PanelGuardarMouseClicked
 
     private void PanelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseClicked
@@ -1049,9 +1055,21 @@ public class Usuarios extends javax.swing.JFrame {
             u.setID_usuario(selecc.getID_usuario().toString());
             UsuarioDAO ud=new UsuarioDAO();
             boolean exist = ud.modificarUsuario(u);
-            if (exist){
+            if (exist){                
                 JOptionPane.showMessageDialog(this, "Se ha modificado de manera correcta");
                 ud.cargarIDusuarios(this.Usuarios);
+                //Hilo para el envio de correos
+        
+                String correo_perso=ud.DevolverCorreoPerson(selecc.getId_empleado());
+                String nom_usuario=NomNuevo;
+                String contra_usuario=ContraNuevo;
+
+                new Thread(() -> {
+                    Servidor_de_correos sv=new Servidor_de_correos();
+                    sv.enviarCorreoActualizacionUsuario(nom_usuario, contra_usuario, correo_perso);
+                }).start();
+                
+                
                 LimpiarDatos();
                 cargarTablaUsuario();
             }

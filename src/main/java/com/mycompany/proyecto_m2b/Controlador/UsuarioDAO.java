@@ -235,4 +235,31 @@ public class UsuarioDAO {
             System.err.println("Error al cargar usuario: "+e.getMessage());        
         }
     }
+    public String DevolverCorreoPerson (String id_empleado){
+        String correo;
+        String sql ="""
+                    SELECT p.corr_elec_perso 
+                    FROM Usuario u 
+                    INNER JOIN Empleado e ON e.id_empleado=u.id_empleado 
+                    INNER JOIN Persona p ON p.ced_perso=e.ced_perso
+                    WHERE u.id_empleado=?
+                    """;
+           
+            try (Connection cn = ConexionBD.obtenerConexion();
+            PreparedStatement ps = cn.prepareStatement(sql)) {
+
+           ps.setString(1, id_empleado);
+
+           try (ResultSet rs = ps.executeQuery()) {
+               if (rs.next()) {
+                  correo = rs.getString("corr_elec_perso");
+                  return correo;
+               }
+           }
+       } catch (SQLException e) {
+           System.out.println("Error al obtener el correo de la persona: " + e.getMessage());
+       }
+
+       return null;
+       }
  }        
