@@ -113,4 +113,28 @@ public class ProveedorDAO {
     }
 }
     
+    public boolean eliminarProveedor(String idProveedor, Connection conexion) {
+    String sqlVerificar = "SELECT COUNT(*) FROM public.encabezado_compra WHERE id_proveedor = ?";
+    try (PreparedStatement psVerificar = conexion.prepareStatement(sqlVerificar)) {
+        psVerificar.setString(1, idProveedor);
+        try (ResultSet rs = psVerificar.executeQuery()) {
+            if (rs.next() && rs.getInt(1) > 0) {
+                return false; 
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al verificar uso del proveedor: " + e.getMessage());
+        return false;
+    }
+
+    String sqlEliminar = "DELETE FROM public.proveedor WHERE id_proveedor = ?";
+    try (PreparedStatement psEliminar = conexion.prepareStatement(sqlEliminar)) {
+        psEliminar.setString(1, idProveedor);
+        return psEliminar.executeUpdate() > 0;
+    } catch (SQLException e) {
+        System.err.println("Error al eliminar proveedor: " + e.getMessage());
+        return false;
+    }
+}
+    
 }

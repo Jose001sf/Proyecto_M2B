@@ -12,6 +12,7 @@ import com.mycompany.proyecto_m2b.modelo.TipoProveedor;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
@@ -66,6 +67,117 @@ public class PanelProveedores extends javax.swing.JPanel {
 
     
     }
+    
+    private boolean esCedulaOrRucValido(String numero) {
+    if (numero == null || !numero.matches("\\d{10}|\\d{13}")) {
+        return false;
+    }
+
+    if (numero.length() == 13) {
+        if (numero.substring(10, 13).equals("000")) return false;
+    }
+
+    int provincia = Integer.parseInt(numero.substring(0, 2));
+    if (!((provincia >= 1 && provincia <= 24) || provincia == 30)) {
+        return false;
+    }
+
+    char tercerDigito = numero.charAt(2);
+    
+    if (tercerDigito >= '0' && tercerDigito <= '5') {
+        String cedula = numero.substring(0, 10);
+        if (cedula.matches("^(0{10}|1{10}|2{10}|3{10}|4{10}|5{10}|6{10}|7{10}|8{10}|9{10})$")) {
+            return false;
+        }
+        return validarModulo10(cedula);
+    }
+    
+    else if (tercerDigito == '9') {
+        String rucPrivada = numero.substring(0, 13);
+        return validarModulo11Privada(rucPrivada);
+    }
+    
+    else if (tercerDigito == '6') {
+        String rucPublica = numero.substring(0, 13);
+        return validarModulo11Publica(rucPublica);
+    }
+
+    return false;
+}
+
+private boolean validarModulo10(String digitos) {
+    int suma = 0;
+    int[] coeficientes = {2, 1, 2, 1, 2, 1, 2, 1, 2};
+    int verificador = Character.getNumericValue(digitos.charAt(9));
+
+    for (int i = 0; i < 9; i++) {
+        int valor = Character.getNumericValue(digitos.charAt(i)) * coeficientes[i];
+        suma += (valor >= 10) ? (valor - 9) : valor;
+    }
+
+    int resultado = suma % 10 == 0 ? 0 : 10 - (suma % 10);
+    return resultado == verificador;
+}
+
+private boolean validarModulo11Privada(String ruc) {
+    int[] coeficientes = {4, 3, 2, 7, 6, 5, 4, 3, 2};
+    int suma = 0;
+    int verificador = Character.getNumericValue(ruc.charAt(9));
+
+    for (int i = 0; i < 9; i++) {
+        suma += Character.getNumericValue(ruc.charAt(i)) * coeficientes[i];
+    }
+
+    int resultado = suma % 11 == 0 ? 0 : 11 - (suma % 11);
+    return resultado == verificador;
+}
+
+private boolean validarModulo11Publica(String ruc) {
+    int[] coeficientes = {3, 2, 7, 6, 5, 4, 3, 2};
+    int suma = 0;
+    int verificador = Character.getNumericValue(ruc.charAt(8));
+
+    for (int i = 0; i < 8; i++) {
+        suma += Character.getNumericValue(ruc.charAt(i)) * coeficientes[i];
+    }
+
+    int resultado = suma % 11 == 0 ? 0 : 11 - (suma % 11);
+    return resultado == verificador;
+}
+
+private boolean esNombreValido(String nombre) {
+    if (nombre == null || nombre.trim().length() < 3) return false;
+
+    char primeraLetra = nombre.trim().charAt(0);
+    if (!Character.isUpperCase(primeraLetra)) {
+        return false;
+    }
+
+    if (nombre.matches("(?i).*([a-zñ])\\1{3,}.*")) {
+        return false; 
+    }
+
+    String limpio = nombre.toLowerCase().replaceAll("[^a-z]", "");
+    if (limpio.isEmpty()) return false;
+
+    return true;
+}
+
+private boolean esTelefonoEcuatorianoValido(String telefono) {
+    if (telefono == null) return false;
+    
+    telefono = telefono.replaceAll("[\\s\\-\\(\\)]", "");
+
+    if (telefono.matches("^09\\d{8}$")) {
+        return true;
+    }
+
+    if (telefono.matches("^0[2-7]\\d{7}$")) {
+        return true;
+    }
+
+    return false;
+}
     
     private void inicializarTabla() {
     modeloTabla = new DefaultTableModel(
@@ -254,6 +366,11 @@ private void generarSiguienteIdCompra() {
         Fondo.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 60, -1, -1));
 
         cbxProveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 2", "Item 3", "Item 4" }));
+        cbxProveedor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbxProveedorMouseClicked(evt);
+            }
+        });
         Fondo.add(cbxProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 240, -1));
 
         TituloFuncion2.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
@@ -677,9 +794,9 @@ private void calcularTotal() {
 
     private void btnAgregarProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarProveedorMouseClicked
         JTextField txtRuc = new JTextField();
-    JTextField txtNombre = new JTextField();
-    JTextField txtTelefono = new JTextField();
-    JComboBox<TipoProveedor> cbxTipoProvPop = new JComboBox<>();
+        JTextField txtNombre = new JTextField();
+        JTextField txtTelefono = new JTextField();
+        JComboBox<TipoProveedor> cbxTipoProvPop = new JComboBox<>();
 
     Runnable cargarTipos = () -> {
         cbxTipoProvPop.removeAllItems();
@@ -690,25 +807,43 @@ private void calcularTotal() {
 
     cargarTipos.run();
 
-    JPanel panel = new JPanel(new GridLayout(5, 2, 5, 5));
+    JLabel lblErrorRuc = new JLabel(" ");
+    lblErrorRuc.setForeground(Color.RED);
+    lblErrorRuc.setFont(new Font("Arial", Font.PLAIN, 11));
+
+    JLabel lblErrorNombre = new JLabel(" ");
+    lblErrorNombre.setForeground(Color.RED);
+    lblErrorNombre.setFont(new Font("Arial", Font.PLAIN, 11));
+
+    JLabel lblErrorTelefono = new JLabel(" ");
+    lblErrorTelefono.setForeground(Color.RED);
+    lblErrorTelefono.setFont(new Font("Arial", Font.PLAIN, 11));
+
+    JPanel panel = new JPanel(new GridLayout(8, 2, 5, 2));
     panel.setBackground(Color.WHITE);
     panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-    panel.setPreferredSize(new Dimension(640, 200));
+    panel.setPreferredSize(new Dimension(640, 320));
 
     JLabel lblRuc = new JLabel("RUC / Identificación:");
     lblRuc.setForeground(Color.BLACK);
     panel.add(lblRuc);
     panel.add(txtRuc);
+    panel.add(new JLabel("")); 
+    panel.add(lblErrorRuc);
 
     JLabel lblNombre = new JLabel("Nombre Empresa:");
     lblNombre.setForeground(Color.BLACK);
     panel.add(lblNombre);
     panel.add(txtNombre);
+    panel.add(new JLabel("")); 
+    panel.add(lblErrorNombre);
 
     JLabel lblTelefono = new JLabel("Teléfono:");
     lblTelefono.setForeground(Color.BLACK);
     panel.add(lblTelefono);
     panel.add(txtTelefono);
+    panel.add(new JLabel("")); 
+    panel.add(lblErrorTelefono);
 
     JLabel lblTipo = new JLabel("Tipo de Proveedor:");
     lblTipo.setForeground(Color.BLACK);
@@ -729,6 +864,9 @@ private void calcularTotal() {
     
     panelTipo.add(panelBotonesTipoAcciones, BorderLayout.EAST);
     panel.add(panelTipo);
+    
+    panel.add(new JLabel(""));
+    panel.add(new JLabel(""));
 
     JDialog dialogProveedor = new JDialog((java.awt.Frame) null, "Gestionar Proveedor", true);
     dialogProveedor.setUndecorated(true);
@@ -741,57 +879,145 @@ private void calcularTotal() {
     JButton btnCancelarProv = new JButton("Cancelar");
     final boolean[] confirmadoProv = {false};
 
+    txtRuc.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+        public void insertUpdate(javax.swing.event.DocumentEvent e) { validar(); }
+        public void removeUpdate(javax.swing.event.DocumentEvent e) { validar(); }
+        public void changedUpdate(javax.swing.event.DocumentEvent e) { validar(); }
+        private void validar() {
+            String texto = txtRuc.getText().trim();
+            if (texto.isEmpty()) {
+                lblErrorRuc.setText("El RUC/Cédula no puede estar vacío.");
+            } else if (!texto.matches("\\d+")) {
+                lblErrorRuc.setText("Solo se permiten números.");
+            } else if (texto.length() != 10 && texto.length() != 13) {
+                lblErrorRuc.setText("Debe tener 10 (cédula) o 13 (RUC) dígitos.");
+            } else {
+                lblErrorRuc.setText(" "); 
+            }
+        }
+    });
+
+    txtNombre.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+        public void insertUpdate(javax.swing.event.DocumentEvent e) { validar(); }
+        public void removeUpdate(javax.swing.event.DocumentEvent e) { validar(); }
+        public void changedUpdate(javax.swing.event.DocumentEvent e) { validar(); }
+        private void validar() {
+            String texto = txtNombre.getText().trim();
+            
+            boolean tieneLetrasRepetidas = texto.matches(".*(.)\\1{3,}.*");
+
+            if (texto.isEmpty()) {
+                lblErrorNombre.setText("El nombre de la empresa es obligatorio.");
+            } else if (texto.length() < 3) {
+                lblErrorNombre.setText("El nombre es muy corto.");
+            } else if (tieneLetrasRepetidas) {
+                lblErrorNombre.setText("Ingrese un nombre de empresa válido.");
+            } else {
+                lblErrorNombre.setText(" "); 
+            }
+        }
+    });
+
+    txtTelefono.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+        public void insertUpdate(javax.swing.event.DocumentEvent e) { validar(); }
+        public void removeUpdate(javax.swing.event.DocumentEvent e) { validar(); }
+        public void changedUpdate(javax.swing.event.DocumentEvent e) { validar(); }
+        private void validar() {
+            String texto = txtTelefono.getText().trim();
+            if (texto.isEmpty()) {
+                lblErrorTelefono.setText("El teléfono es obligatorio.");
+            } else if (!texto.matches("[0-9+\\-\\s]+")) {
+                lblErrorTelefono.setText("Solo números o formato telefónico válido.");
+            } else if (texto.replaceAll("[^0-9]", "").length() < 7) {
+                lblErrorTelefono.setText("Número de teléfono incompleto.");
+            } else {
+                lblErrorTelefono.setText(" "); 
+            }
+        }
+    });
+    
     btnModificar.addActionListener(e -> {
         JDialog dialogSelector = new JDialog(dialogProveedor, "Seleccionar Proveedor", true);
-        dialogSelector.setSize(600, 300);
+        dialogSelector.setSize(650, 300);
         dialogSelector.setLocationRelativeTo(dialogProveedor);
         dialogSelector.setLayout(new BorderLayout());
 
-        List<Proveedor> listaProveedores = proveedorDAO.obtenerProveedores(miConexion);
-        String[] columnas = {"ID", "RUC", "Nombre Empresa", "Teléfono", "Tipo ID"};
-        Object[][] datos = new Object[listaProveedores.size()][5];
+        final Runnable[] cargarTablaSelector = new Runnable[1];
 
-        for (int i = 0; i < listaProveedores.size(); i++) {
-            Proveedor p = listaProveedores.get(i);
-            datos[i][0] = p.getIdProveedor();
-            datos[i][1] = p.getRucProveedor();
-            datos[i][2] = p.getNomEmpresa();
-            datos[i][3] = p.getNumTelelEmpresa();
-            datos[i][4] = p.getIdTipoProveedor();
-        }
+        cargarTablaSelector[0] = () -> {
+            dialogSelector.getContentPane().removeAll();
+            
+            List<Proveedor> listaProveedores = proveedorDAO.obtenerProveedores(miConexion);
+            String[] columnas = {"ID", "RUC", "Nombre Empresa", "Teléfono", "Tipo ID"};
+            Object[][] datos = new Object[listaProveedores.size()][5];
 
-        javax.swing.JTable tabla = new javax.swing.JTable(datos, columnas);
-        dialogSelector.add(new javax.swing.JScrollPane(tabla), BorderLayout.CENTER);
-
-        JButton btnSeleccionar = new JButton("Cargar Datos");
-        btnSeleccionar.addActionListener(ex -> {
-            int fila = tabla.getSelectedRow();
-            if (fila >= 0) {
-                proveedorEnEdicion[0] = listaProveedores.get(fila);
-                
-                txtRuc.setText(proveedorEnEdicion[0].getRucProveedor());
-                txtRuc.setEnabled(false); 
-                
-                txtNombre.setText(proveedorEnEdicion[0].getNomEmpresa());
-                txtTelefono.setText(proveedorEnEdicion[0].getNumTelelEmpresa());
-
-                for (int i = 0; i < cbxTipoProvPop.getItemCount(); i++) {
-                    TipoProveedor tp = cbxTipoProvPop.getItemAt(i);
-                    if (tp.getIdTipoProveedor().equals(proveedorEnEdicion[0].getIdTipoProveedor())) {
-                        cbxTipoProvPop.setSelectedIndex(i);
-                        break;
-                    }
-                }
-                dialogSelector.dispose();
-            } else {
-                JOptionPane.showMessageDialog(dialogSelector, "Seleccione una fila de la tabla.");
+            for (int i = 0; i < listaProveedores.size(); i++) {
+                Proveedor p = listaProveedores.get(i);
+                datos[i][0] = p.getIdProveedor();
+                datos[i][1] = p.getRucProveedor();
+                datos[i][2] = p.getNomEmpresa();
+                datos[i][3] = p.getNumTelelEmpresa();
+                datos[i][4] = p.getIdTipoProveedor();
             }
-        });
 
-        JPanel panelSel = new JPanel();
-        panelSel.setBackground(Color.WHITE);
-        panelSel.add(btnSeleccionar);
-        dialogSelector.add(panelSel, BorderLayout.SOUTH);
+            javax.swing.JTable tabla = new javax.swing.JTable(datos, columnas);
+            dialogSelector.add(new javax.swing.JScrollPane(tabla), BorderLayout.CENTER);
+
+            JButton btnSeleccionar = new JButton("Cargar Datos");
+            btnSeleccionar.addActionListener(ex -> {
+                int fila = tabla.getSelectedRow();
+                if (fila >= 0) {
+                    proveedorEnEdicion[0] = listaProveedores.get(fila);
+                    
+                    txtRuc.setText(proveedorEnEdicion[0].getRucProveedor());
+                    txtRuc.setEnabled(false);
+                    
+                    txtNombre.setText(proveedorEnEdicion[0].getNomEmpresa());
+                    txtTelefono.setText(proveedorEnEdicion[0].getNumTelelEmpresa());
+
+                    for (int i = 0; i < cbxTipoProvPop.getItemCount(); i++) {
+                        TipoProveedor tp = cbxTipoProvPop.getItemAt(i);
+                        if (tp.getIdTipoProveedor().equals(proveedorEnEdicion[0].getIdTipoProveedor())) {
+                            cbxTipoProvPop.setSelectedIndex(i);
+                            break;
+                        }
+                    }
+                    dialogSelector.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(dialogSelector, "Seleccione una fila de la tabla.");
+                }
+            });
+
+            JButton btnEliminarProv = new JButton("Eliminar");
+            btnEliminarProv.addActionListener(ex -> {
+                int fila = tabla.getSelectedRow();
+                if (fila >= 0) {
+                    Proveedor pSel = listaProveedores.get(fila);
+                    int confirm = JOptionPane.showConfirmDialog(dialogSelector, "¿Está seguro de eliminar este proveedor?", "Confirmar", JOptionPane.YES_NO_OPTION);
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        boolean eliminado = proveedorDAO.eliminarProveedor(pSel.getIdProveedor(), miConexion);
+                        if (eliminado) {
+                            JOptionPane.showMessageDialog(dialogSelector, "Proveedor eliminado correctamente.");
+                            cargarTablaSelector[0].run();
+                        } else {
+                            JOptionPane.showMessageDialog(dialogSelector, "No se puede eliminar porque está registrado en compras.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(dialogSelector, "Seleccione una fila de la tabla.");
+                }
+            });
+
+            JPanel panelSel = new JPanel();
+            panelSel.setBackground(Color.WHITE);
+            panelSel.add(btnSeleccionar);
+            panelSel.add(btnEliminarProv);
+            dialogSelector.add(panelSel, BorderLayout.SOUTH);
+            dialogSelector.revalidate();
+            dialogSelector.repaint();
+        };
+
+        cargarTablaSelector[0].run();
         dialogSelector.setVisible(true);
     });
 
@@ -889,7 +1115,7 @@ private void calcularTotal() {
                 tipoEnEdicion[0] = listaTipos.get(fila);
                 dialogSelectorTipo.dispose();
             } else {
-                JOptionPane.showMessageDialog(dialogSelectorTipo, "Seleccione un tipo de proveedor de la tabla.");
+                JOptionPane.showMessageDialog(dialogSelectorTipo, "Seleccione un tipo de proveedor.");
             }
         });
 
@@ -899,12 +1125,9 @@ private void calcularTotal() {
         dialogSelectorTipo.add(panelBotSelTipo, BorderLayout.SOUTH);
         dialogSelectorTipo.setVisible(true);
 
-        if (tipoEnEdicion[0] == null) {
-            return;
-        }
+        if (tipoEnEdicion[0] == null) return;
 
         TipoProveedor tpEdit = tipoEnEdicion[0];
-
         JTextField txtIdTipo = new JTextField(tpEdit.getIdTipoProveedor());
         txtIdTipo.setEnabled(false); 
         JTextField txtNomTip = new JTextField(tpEdit.getNomTipProveedor());
@@ -913,7 +1136,6 @@ private void calcularTotal() {
         JPanel panelTipoDialog = new JPanel(new GridLayout(0, 1, 5, 5));
         panelTipoDialog.setBackground(Color.WHITE);
         panelTipoDialog.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-        
         panelTipoDialog.add(new JLabel("ID Tipo Proveedor:"));
         panelTipoDialog.add(txtIdTipo);
         panelTipoDialog.add(new JLabel("Nombre del Tipo:"));
@@ -929,15 +1151,8 @@ private void calcularTotal() {
         JButton btnCancelarModTipo = new JButton("Cancelar");
         final boolean[] confirmadoModTipo = {false};
 
-        btnAceptarModTipo.addActionListener(ex -> {
-            confirmadoModTipo[0] = true;
-            dialogModTipo.dispose();
-        });
-
-        btnCancelarModTipo.addActionListener(ex -> {
-            confirmadoModTipo[0] = false;
-            dialogModTipo.dispose();
-        });
+        btnAceptarModTipo.addActionListener(ex -> { confirmadoModTipo[0] = true; dialogModTipo.dispose(); });
+        btnCancelarModTipo.addActionListener(ex -> { confirmadoModTipo[0] = false; dialogModTipo.dispose(); });
 
         JPanel panelBotonesModTipo = new JPanel();
         panelBotonesModTipo.setBackground(Color.WHITE);
@@ -954,25 +1169,27 @@ private void calcularTotal() {
         if (confirmadoModTipo[0]) {
             String nuevoNom = txtNomTip.getText().trim();
             String nuevaDesc = txtDescripTip.getText().trim();
-
             if (!nuevoNom.isEmpty()) {
                 tpEdit.setNomTipProveedor(nuevoNom);
                 tpEdit.setDescripTipoProveedor(nuevaDesc);
-
                 if (proveedorDAO.actualizarTipoProveedor(tpEdit, miConexion)) {
-                    JOptionPane.showMessageDialog(dialogModTipo, "Tipo de proveedor modificado con éxito.");
+                    JOptionPane.showMessageDialog(dialogModTipo, "Tipo modificado con éxito.");
                     cargarTipos.run();
                     cbxTipoProvPop.setSelectedItem(tpEdit);
                 } else {
-                    JOptionPane.showMessageDialog(dialogModTipo, "Error al modificar el tipo de proveedor.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(dialogModTipo, "Error al modificar.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            } else {
-                JOptionPane.showMessageDialog(dialogModTipo, "El nombre del tipo es obligatorio.", "Advertencia", JOptionPane.WARNING_MESSAGE);
             }
         }
     });
 
     btnAceptarProv.addActionListener(e -> {
+        if (!lblErrorRuc.getText().trim().isEmpty() || 
+            !lblErrorNombre.getText().trim().isEmpty() || 
+            !lblErrorTelefono.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(dialogProveedor, "Por favor, corrija los errores marcados en rojo antes de continuar.", "Campos Inválidos", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         confirmadoProv[0] = true;
         dialogProveedor.dispose();
     });
@@ -1001,30 +1218,30 @@ private void calcularTotal() {
         String telefono = txtTelefono.getText().trim();
         TipoProveedor tipoSel = (TipoProveedor) cbxTipoProvPop.getSelectedItem();
 
-        if (!ruc.isEmpty() && !nombre.isEmpty() && tipoSel != null) {
-            if (proveedorEnEdicion[0] != null) {
-                proveedorEnEdicion[0].setNomEmpresa(nombre);
-                proveedorEnEdicion[0].setNumTelelEmpresa(telefono);
-                proveedorEnEdicion[0].setIdTipoProveedor(tipoSel.getIdTipoProveedor());
+        if (proveedorEnEdicion[0] != null) {
+            proveedorEnEdicion[0].setNomEmpresa(nombre);
+            proveedorEnEdicion[0].setNumTelelEmpresa(telefono);
+            proveedorEnEdicion[0].setIdTipoProveedor(tipoSel.getIdTipoProveedor());
 
-                if (proveedorDAO.actualizarProveedor(proveedorEnEdicion[0], miConexion)) {
+            if (proveedorDAO.actualizarProveedor(proveedorEnEdicion[0], miConexion)) {
+                if (cbxProveedor != null) {
                     cbxProveedor.removeItem(proveedorEnEdicion[0]);
                     cbxProveedor.addItem(proveedorEnEdicion[0]);
                     cbxProveedor.setSelectedItem(proveedorEnEdicion[0]);
-                    JOptionPane.showMessageDialog(this, "Proveedor actualizado exitosamente.");
                 }
-            } else {
-                String idProv = proveedorDAO.obtenerSiguienteIdProveedor(miConexion);
-                Proveedor nuevoProv = new Proveedor(idProv, ruc, nombre, telefono, tipoSel.getIdTipoProveedor());
-
-                if (proveedorDAO.guardarProveedor(nuevoProv, miConexion)) {
-                    cbxProveedor.addItem(nuevoProv);
-                    cbxProveedor.setSelectedItem(nuevoProv);
-                    JOptionPane.showMessageDialog(this, "Proveedor guardado exitosamente.");
-                }
+                JOptionPane.showMessageDialog(this, "Proveedor actualizado exitosamente.");
             }
         } else {
-            JOptionPane.showMessageDialog(this, "RUC, Nombre y Tipo son obligatorios.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            String idProv = proveedorDAO.obtenerSiguienteIdProveedor(miConexion);
+            Proveedor nuevoProv = new Proveedor(idProv, ruc, nombre, telefono, tipoSel.getIdTipoProveedor());
+
+            if (proveedorDAO.guardarProveedor(nuevoProv, miConexion)) {
+                if (cbxProveedor != null) {
+                    cbxProveedor.addItem(nuevoProv);
+                    cbxProveedor.setSelectedItem(nuevoProv);
+                }
+                JOptionPane.showMessageDialog(this, "Proveedor guardado exitosamente.");
+            }
         }
     }
     }//GEN-LAST:event_btnAgregarProveedorMouseClicked
@@ -1067,6 +1284,11 @@ private void calcularTotal() {
           cargarCombos(); 
 
     }//GEN-LAST:event_cbxRepuestoMouseClicked
+
+    private void cbxProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxProveedorMouseClicked
+        // TODO add your handling code here:
+        cargarCombos();
+    }//GEN-LAST:event_cbxProveedorMouseClicked
     private void calcularTotalCompra() {
         double sumaTotal = 0.0;
         DefaultTableModel modelo = (DefaultTableModel) tblDetalleCompra.getModel();
