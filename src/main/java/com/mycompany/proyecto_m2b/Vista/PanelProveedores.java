@@ -79,7 +79,7 @@ public class PanelProveedores extends javax.swing.JPanel {
     tblDetalleCompra.setModel(modeloTabla);
 }
 
-private void cargarCombos() {
+public void cargarCombos() {
     cbxProveedor.removeAllItems();
     List<Proveedor> proveedores = proveedorDAO.obtenerProveedores(miConexion);
     for (Proveedor p : proveedores) {
@@ -290,6 +290,11 @@ private void generarSiguienteIdCompra() {
         Fondo.add(txtCantidadCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 310, 270, -1));
 
         cbxRepuesto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 2", "Item 3", "Item 4" }));
+        cbxRepuesto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbxRepuestoMouseClicked(evt);
+            }
+        });
         cbxRepuesto.addActionListener(this::cbxRepuestoActionPerformed);
         Fondo.add(cbxRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, 240, -1));
 
@@ -930,6 +935,12 @@ private void calcularTotal() {
         
         calcularTotalCompra();
     }//GEN-LAST:event_btnEliminarFilaMouseClicked
+
+    private void cbxRepuestoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxRepuestoMouseClicked
+        // TODO add your handling code here:
+          cargarCombos(); 
+
+    }//GEN-LAST:event_cbxRepuestoMouseClicked
     private void calcularTotalCompra() {
         double sumaTotal = 0.0;
         DefaultTableModel modelo = (DefaultTableModel) tblDetalleCompra.getModel();
