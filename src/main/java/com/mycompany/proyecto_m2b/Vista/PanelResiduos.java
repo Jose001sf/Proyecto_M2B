@@ -106,9 +106,6 @@ public class PanelResiduos extends javax.swing.JPanel {
         PanelGuardar = new javax.swing.JPanel();
         Guardar = new javax.swing.JLabel();
         ImagenSAVE = new javax.swing.JLabel();
-        PanelEditar = new javax.swing.JPanel();
-        Editar = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         PanelAgregar = new javax.swing.JPanel();
         Buscar = new javax.swing.JLabel();
         ImagenADD3 = new javax.swing.JLabel();
@@ -357,47 +354,6 @@ public class PanelResiduos extends javax.swing.JPanel {
         );
 
         Fondo.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 380, -1, -1));
-
-        PanelEditar.setBackground(new java.awt.Color(255, 255, 255));
-        PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelEditar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelEditarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelEditarMouseExited(evt);
-            }
-        });
-
-        Editar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        Editar.setText("Editar");
-
-        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/edit_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-
-        javax.swing.GroupLayout PanelEditarLayout = new javax.swing.GroupLayout(PanelEditar);
-        PanelEditar.setLayout(PanelEditarLayout);
-        PanelEditarLayout.setHorizontalGroup(
-            PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelEditarLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Editar)
-                .addContainerGap(33, Short.MAX_VALUE))
-        );
-        PanelEditarLayout.setVerticalGroup(
-            PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelEditarLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Editar)
-                    .addComponent(jLabel2))
-                .addContainerGap())
-        );
-
-        Fondo.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 380, -1, -1));
 
         PanelAgregar.setBackground(new java.awt.Color(255, 255, 255));
         PanelAgregar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -652,18 +608,6 @@ public class PanelResiduos extends javax.swing.JPanel {
         Guardar.setForeground(java.awt.Color.white);
     }//GEN-LAST:event_PanelGuardarMouseExited
 
-    private void PanelEditarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseEntered
-        // TODO add your handling code here:
-        PanelEditar.setBackground(new java.awt.Color(219,219,219));
-        Editar.setForeground(new java.awt.Color(66, 66, 66));
-    }//GEN-LAST:event_PanelEditarMouseEntered
-
-    private void PanelEditarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseExited
-        // TODO add your handling code here:
-        PanelEditar.setBackground(java.awt.Color.white);
-        Editar.setForeground(java.awt.Color.black);
-    }//GEN-LAST:event_PanelEditarMouseExited
-
     private void PanelAgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelAgregarMouseEntered
         // TODO add your handling code here:
         PanelAgregar.setBackground(new java.awt.Color(219,219,219));
@@ -781,7 +725,6 @@ public class PanelResiduos extends javax.swing.JPanel {
     private javax.swing.JPanel BarraArriba;
     private javax.swing.JLabel Buscar;
     private javax.swing.JLabel DireccionResiduos;
-    private javax.swing.JLabel Editar;
     private javax.swing.JLabel Empresa;
     private javax.swing.JLabel FacturaResiduos;
     private javax.swing.JLabel FechaResiduos;
@@ -796,7 +739,6 @@ public class PanelResiduos extends javax.swing.JPanel {
     private javax.swing.JLabel Nuevo1;
     private javax.swing.JLabel Nuevo2;
     private javax.swing.JPanel PanelAgregar;
-    private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JPanel PanelNuevaEmpresa;
     private javax.swing.JPanel PanelNuevoResiduo;
@@ -810,7 +752,6 @@ public class PanelResiduos extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> comboVentaResiduo;
     private com.toedter.calendar.JDateChooser dateReciclaje;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

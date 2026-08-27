@@ -77,4 +77,28 @@ public class CompraDAO {
     }
     return true;
 }
+    
+    public boolean eliminarRepuesto(String idRepuesto, Connection conexion) {
+        String sqlVerificar = "SELECT COUNT(*) FROM public.detalle_compra WHERE id_repuestos = ?";
+        try (PreparedStatement psVerificar = conexion.prepareStatement(sqlVerificar)) {
+            psVerificar.setString(1, idRepuesto);
+            try (ResultSet rs = psVerificar.executeQuery()) {
+                if (rs.next() && rs.getInt(1) > 0) {
+                    return false; 
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al verificar uso del repuesto: " + e.getMessage());
+            return false;
+        }
+
+        String sqlEliminar = "DELETE FROM public.repuestos WHERE id_repuestos = ?";
+        try (PreparedStatement psEliminar = conexion.prepareStatement(sqlEliminar)) {
+            psEliminar.setString(1, idRepuesto);
+            return psEliminar.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al eliminar repuesto: " + e.getMessage());
+            return false;
+        }
+    }
 }

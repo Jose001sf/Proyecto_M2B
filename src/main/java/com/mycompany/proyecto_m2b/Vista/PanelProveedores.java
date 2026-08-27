@@ -12,6 +12,7 @@ import com.mycompany.proyecto_m2b.modelo.TipoProveedor;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
@@ -66,6 +67,117 @@ public class PanelProveedores extends javax.swing.JPanel {
 
     
     }
+    
+    private boolean esCedulaOrRucValido(String numero) {
+    if (numero == null || !numero.matches("\\d{10}|\\d{13}")) {
+        return false;
+    }
+
+    if (numero.length() == 13) {
+        if (numero.substring(10, 13).equals("000")) return false;
+    }
+
+    int provincia = Integer.parseInt(numero.substring(0, 2));
+    if (!((provincia >= 1 && provincia <= 24) || provincia == 30)) {
+        return false;
+    }
+
+    char tercerDigito = numero.charAt(2);
+    
+    if (tercerDigito >= '0' && tercerDigito <= '5') {
+        String cedula = numero.substring(0, 10);
+        if (cedula.matches("^(0{10}|1{10}|2{10}|3{10}|4{10}|5{10}|6{10}|7{10}|8{10}|9{10})$")) {
+            return false;
+        }
+        return validarModulo10(cedula);
+    }
+    
+    else if (tercerDigito == '9') {
+        String rucPrivada = numero.substring(0, 13);
+        return validarModulo11Privada(rucPrivada);
+    }
+    
+    else if (tercerDigito == '6') {
+        String rucPublica = numero.substring(0, 13);
+        return validarModulo11Publica(rucPublica);
+    }
+
+    return false;
+}
+
+private boolean validarModulo10(String digitos) {
+    int suma = 0;
+    int[] coeficientes = {2, 1, 2, 1, 2, 1, 2, 1, 2};
+    int verificador = Character.getNumericValue(digitos.charAt(9));
+
+    for (int i = 0; i < 9; i++) {
+        int valor = Character.getNumericValue(digitos.charAt(i)) * coeficientes[i];
+        suma += (valor >= 10) ? (valor - 9) : valor;
+    }
+
+    int resultado = suma % 10 == 0 ? 0 : 10 - (suma % 10);
+    return resultado == verificador;
+}
+
+private boolean validarModulo11Privada(String ruc) {
+    int[] coeficientes = {4, 3, 2, 7, 6, 5, 4, 3, 2};
+    int suma = 0;
+    int verificador = Character.getNumericValue(ruc.charAt(9));
+
+    for (int i = 0; i < 9; i++) {
+        suma += Character.getNumericValue(ruc.charAt(i)) * coeficientes[i];
+    }
+
+    int resultado = suma % 11 == 0 ? 0 : 11 - (suma % 11);
+    return resultado == verificador;
+}
+
+private boolean validarModulo11Publica(String ruc) {
+    int[] coeficientes = {3, 2, 7, 6, 5, 4, 3, 2};
+    int suma = 0;
+    int verificador = Character.getNumericValue(ruc.charAt(8));
+
+    for (int i = 0; i < 8; i++) {
+        suma += Character.getNumericValue(ruc.charAt(i)) * coeficientes[i];
+    }
+
+    int resultado = suma % 11 == 0 ? 0 : 11 - (suma % 11);
+    return resultado == verificador;
+}
+
+private boolean esNombreValido(String nombre) {
+    if (nombre == null || nombre.trim().length() < 3) return false;
+
+    char primeraLetra = nombre.trim().charAt(0);
+    if (!Character.isUpperCase(primeraLetra)) {
+        return false;
+    }
+
+    if (nombre.matches("(?i).*([a-zñ])\\1{3,}.*")) {
+        return false; 
+    }
+
+    String limpio = nombre.toLowerCase().replaceAll("[^a-z]", "");
+    if (limpio.isEmpty()) return false;
+
+    return true;
+}
+
+private boolean esTelefonoEcuatorianoValido(String telefono) {
+    if (telefono == null) return false;
+    
+    telefono = telefono.replaceAll("[\\s\\-\\(\\)]", "");
+
+    if (telefono.matches("^09\\d{8}$")) {
+        return true;
+    }
+
+    if (telefono.matches("^0[2-7]\\d{7}$")) {
+        return true;
+    }
+
+    return false;
+}
     
     private void inicializarTabla() {
     modeloTabla = new DefaultTableModel(
@@ -163,9 +275,6 @@ private void generarSiguienteIdCompra() {
         btnGuardarCompra = new javax.swing.JPanel();
         Guardar = new javax.swing.JLabel();
         ImagenSAVE = new javax.swing.JLabel();
-        PanelEditar = new javax.swing.JPanel();
-        Editar = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         btnEliminarFila = new javax.swing.JPanel();
         Buscar = new javax.swing.JLabel();
         btnAgregarProveedor = new javax.swing.JPanel();
@@ -257,6 +366,11 @@ private void generarSiguienteIdCompra() {
         Fondo.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 60, -1, -1));
 
         cbxProveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 2", "Item 3", "Item 4" }));
+        cbxProveedor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbxProveedorMouseClicked(evt);
+            }
+        });
         Fondo.add(cbxProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 240, -1));
 
         TituloFuncion2.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
@@ -398,47 +512,6 @@ private void generarSiguienteIdCompra() {
         );
 
         Fondo.add(btnGuardarCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 410, -1, -1));
-
-        PanelEditar.setBackground(new java.awt.Color(255, 255, 255));
-        PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelEditar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelEditarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelEditarMouseExited(evt);
-            }
-        });
-
-        Editar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        Editar.setText("Editar");
-
-        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/edit_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-
-        javax.swing.GroupLayout PanelEditarLayout = new javax.swing.GroupLayout(PanelEditar);
-        PanelEditar.setLayout(PanelEditarLayout);
-        PanelEditarLayout.setHorizontalGroup(
-            PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelEditarLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Editar)
-                .addContainerGap(33, Short.MAX_VALUE))
-        );
-        PanelEditarLayout.setVerticalGroup(
-            PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelEditarLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Editar)
-                    .addComponent(jLabel2))
-                .addContainerGap())
-        );
-
-        Fondo.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 410, -1, -1));
 
         btnEliminarFila.setBackground(new java.awt.Color(255, 255, 255));
         btnEliminarFila.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -707,18 +780,6 @@ private void calcularTotal() {
         Guardar.setForeground(java.awt.Color.white);
     }//GEN-LAST:event_btnGuardarCompraMouseExited
 
-    private void PanelEditarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseEntered
-        // TODO add your handling code here:
-        PanelEditar.setBackground(new java.awt.Color(219,219,219));
-        Editar.setForeground(new java.awt.Color(66, 66, 66));
-    }//GEN-LAST:event_PanelEditarMouseEntered
-
-    private void PanelEditarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseExited
-        // TODO add your handling code here:
-        PanelEditar.setBackground(java.awt.Color.white);
-        Editar.setForeground(java.awt.Color.black);
-    }//GEN-LAST:event_PanelEditarMouseExited
-
     private void btnEliminarFilaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarFilaMouseEntered
         // TODO add your handling code here:
         btnEliminarFila.setBackground(new java.awt.Color(219,219,219));
@@ -737,170 +798,452 @@ private void calcularTotal() {
         JTextField txtTelefono = new JTextField();
         JComboBox<TipoProveedor> cbxTipoProvPop = new JComboBox<>();
 
-        Runnable cargarTipos = () -> {
-            cbxTipoProvPop.removeAllItems();
-            for (TipoProveedor tp : proveedorDAO.obtenerTiposProveedor(miConexion)) {
-                cbxTipoProvPop.addItem(tp);
-            }
-        };
+    Runnable cargarTipos = () -> {
+        cbxTipoProvPop.removeAllItems();
+        for (TipoProveedor tp : proveedorDAO.obtenerTiposProveedor(miConexion)) {
+            cbxTipoProvPop.addItem(tp);
+        }
+    };
 
-        cargarTipos.run();
-        
-        JPanel panel = new JPanel(new GridLayout(5, 2, 5, 5));
-        panel.setBackground(Color.WHITE);
-        panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-        panel.setPreferredSize(new Dimension(440, 200));
-        
-        JLabel lblRuc = new JLabel("RUC / Identificación:");
-        lblRuc.setForeground(Color.BLACK);
-        panel.add(lblRuc);
-        panel.add(txtRuc);
-        
-        JLabel lblNombre = new JLabel("Nombre Empresa:");
-        lblNombre.setForeground(Color.BLACK);
-        panel.add(lblNombre);
-        panel.add(txtNombre);
-        
-        JLabel lblTelefono = new JLabel("Teléfono:");
-        lblTelefono.setForeground(Color.BLACK);
-        panel.add(lblTelefono);
-        panel.add(txtTelefono);
-        
-        JLabel lblTipo = new JLabel("Tipo de Proveedor:");
-        lblTipo.setForeground(Color.BLACK);
-        panel.add(lblTipo);
-        
-        JPanel panelTipo = new JPanel(new BorderLayout(5, 0));
-        panelTipo.setBackground(Color.WHITE);
-        panelTipo.add(cbxTipoProvPop, BorderLayout.CENTER);
-        
-        JButton btnNuevoTipo = new JButton("+ Tipo");
-        panelTipo.add(btnNuevoTipo, BorderLayout.EAST);
-        
-        panel.add(panelTipo);
+    cargarTipos.run();
 
-        JDialog dialogProveedor = new JDialog((java.awt.Frame) null, "Registrar Nuevo Proveedor", true);
-        dialogProveedor.setUndecorated(true);
-        dialogProveedor.setBackground(Color.WHITE);
+    JLabel lblErrorRuc = new JLabel(" ");
+    lblErrorRuc.setForeground(Color.RED);
+    lblErrorRuc.setFont(new Font("Arial", Font.PLAIN, 11));
 
-        btnNuevoTipo.addActionListener(e -> {
-            int aleatorio = (int) (Math.random() * 9000) + 1000;
-            JTextField txtIdTipo = new JTextField("TP-" + aleatorio);
-            txtIdTipo.setEnabled(false);
-            JTextField txtNomTip = new JTextField();
-            JTextField txtDescripTip = new JTextField();
+    JLabel lblErrorNombre = new JLabel(" ");
+    lblErrorNombre.setForeground(Color.RED);
+    lblErrorNombre.setFont(new Font("Arial", Font.PLAIN, 11));
 
-            JPanel panelTipoDialog = new JPanel(new GridLayout(0, 1, 5, 5));
-            panelTipoDialog.setBackground(Color.WHITE);
-            panelTipoDialog.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-            
-            panelTipoDialog.add(new JLabel("ID Tipo Proveedor:"));
-            panelTipoDialog.add(txtIdTipo);
-            panelTipoDialog.add(new JLabel("Nombre del Tipo:"));
-            panelTipoDialog.add(txtNomTip);
-            panelTipoDialog.add(new JLabel("Descripción:"));
-            panelTipoDialog.add(txtDescripTip);
+    JLabel lblErrorTelefono = new JLabel(" ");
+    lblErrorTelefono.setForeground(Color.RED);
+    lblErrorTelefono.setFont(new Font("Arial", Font.PLAIN, 11));
 
-            JDialog dialogTipo = new JDialog(dialogProveedor, "Registrar Nuevo Tipo de Proveedor", true);
-            dialogTipo.setUndecorated(true);
-            dialogTipo.setBackground(Color.WHITE);
+    JPanel panel = new JPanel(new GridLayout(8, 2, 5, 2));
+    panel.setBackground(Color.WHITE);
+    panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+    panel.setPreferredSize(new Dimension(640, 320));
 
-            JButton btnAceptarTipo = new JButton("Aceptar");
-            JButton btnCancelarTipo = new JButton("Cancelar");
-            
-            final boolean[] confirmadoTipo = {false};
+    JLabel lblRuc = new JLabel("RUC / Identificación:");
+    lblRuc.setForeground(Color.BLACK);
+    panel.add(lblRuc);
+    panel.add(txtRuc);
+    panel.add(new JLabel("")); 
+    panel.add(lblErrorRuc);
 
-            btnAceptarTipo.addActionListener(ex -> {
-                confirmadoTipo[0] = true;
-                dialogTipo.dispose();
-            });
+    JLabel lblNombre = new JLabel("Nombre Empresa:");
+    lblNombre.setForeground(Color.BLACK);
+    panel.add(lblNombre);
+    panel.add(txtNombre);
+    panel.add(new JLabel("")); 
+    panel.add(lblErrorNombre);
 
-            btnCancelarTipo.addActionListener(ex -> {
-                confirmadoTipo[0] = false;
-                dialogTipo.dispose();
-            });
+    JLabel lblTelefono = new JLabel("Teléfono:");
+    lblTelefono.setForeground(Color.BLACK);
+    panel.add(lblTelefono);
+    panel.add(txtTelefono);
+    panel.add(new JLabel("")); 
+    panel.add(lblErrorTelefono);
 
-            JPanel panelBotonesTipo = new JPanel();
-            panelBotonesTipo.setBackground(Color.WHITE);
-            panelBotonesTipo.add(btnAceptarTipo);
-            panelBotonesTipo.add(btnCancelarTipo);
+    JLabel lblTipo = new JLabel("Tipo de Proveedor:");
+    lblTipo.setForeground(Color.BLACK);
+    panel.add(lblTipo);
 
-            dialogTipo.setLayout(new BorderLayout());
-            dialogTipo.add(panelTipoDialog, BorderLayout.CENTER);
-            dialogTipo.add(panelBotonesTipo, BorderLayout.SOUTH);
-            
-            dialogTipo.pack();
-            dialogTipo.setLocationRelativeTo(dialogProveedor); 
-            dialogTipo.setVisible(true);
+    JPanel panelTipo = new JPanel(new BorderLayout(5, 0));
+    panelTipo.setBackground(Color.WHITE);
+    panelTipo.add(cbxTipoProvPop, BorderLayout.CENTER);
 
-            if (confirmadoTipo[0]) {
-                String idTipo = txtIdTipo.getText().trim();
-                String nomTip = txtNomTip.getText().trim();
-                String descrip = txtDescripTip.getText().trim();
+    JPanel panelBotonesTipoAcciones = new JPanel(new GridLayout(1, 2, 4, 0));
+    panelBotonesTipoAcciones.setBackground(Color.WHITE);
 
-                if (!idTipo.isEmpty() && !nomTip.isEmpty()) {
-                    TipoProveedor nuevoTp = new TipoProveedor(idTipo, nomTip, descrip);
-                    
-                    if (proveedorDAO.guardarTipoProveedor(nuevoTp, miConexion)) {
-                        JOptionPane.showMessageDialog(dialogTipo, "Tipo de proveedor guardado con éxito.");
-                        cargarTipos.run();
-                        cbxTipoProvPop.setSelectedItem(nuevoTp);
-                    } else {
-                        JOptionPane.showMessageDialog(dialogTipo, "Error al guardar el tipo de proveedor.", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(dialogTipo, "El ID y el Nombre del tipo son obligatorios.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-                }
-            }
-        });
+    JButton btnNuevoTipo = new JButton("+ Tipo");
+    JButton btnModificarTipo = new JButton("Modificar");
+    
+    panelBotonesTipoAcciones.add(btnNuevoTipo);
+    panelBotonesTipoAcciones.add(btnModificarTipo);
+    
+    panelTipo.add(panelBotonesTipoAcciones, BorderLayout.EAST);
+    panel.add(panelTipo);
+    
+    panel.add(new JLabel(""));
+    panel.add(new JLabel(""));
 
-        JButton btnAceptarProv = new JButton("Aceptar");
-        JButton btnCancelarProv = new JButton("Cancelar");
-        
-        final boolean[] confirmadoProv = {false};
+    JDialog dialogProveedor = new JDialog((java.awt.Frame) null, "Gestionar Proveedor", true);
+    dialogProveedor.setUndecorated(true);
+    dialogProveedor.setBackground(Color.WHITE);
 
-        btnAceptarProv.addActionListener(e -> {
-            confirmadoProv[0] = true;
-            dialogProveedor.dispose();
-        });
+    final Proveedor[] proveedorEnEdicion = {null};
 
-        btnCancelarProv.addActionListener(e -> {
-            confirmadoProv[0] = false;
-            dialogProveedor.dispose();
-        });
+    JButton btnModificar = new JButton("Modificar Proveedor");
+    JButton btnAceptarProv = new JButton("Aceptar");
+    JButton btnCancelarProv = new JButton("Cancelar");
+    final boolean[] confirmadoProv = {false};
 
-        JPanel panelBotonesProv = new JPanel();
-        panelBotonesProv.setBackground(Color.WHITE);
-        panelBotonesProv.add(btnAceptarProv);
-        panelBotonesProv.add(btnCancelarProv);
-
-        dialogProveedor.setLayout(new BorderLayout());
-        dialogProveedor.add(panel, BorderLayout.CENTER);
-        dialogProveedor.add(panelBotonesProv, BorderLayout.SOUTH);
-        
-        dialogProveedor.pack();
-        dialogProveedor.setLocationRelativeTo(this);
-        dialogProveedor.setVisible(true);
-
-        if (confirmadoProv[0]) {
-            String ruc = txtRuc.getText().trim();
-            String nombre = txtNombre.getText().trim();
-            String telefono = txtTelefono.getText().trim();
-            TipoProveedor tipoSel = (TipoProveedor) cbxTipoProvPop.getSelectedItem();
-
-            if (!ruc.isEmpty() && !nombre.isEmpty() && tipoSel != null) {
-                String idProv = proveedorDAO.obtenerSiguienteIdProveedor(miConexion);
-                Proveedor nuevoProv = new Proveedor(idProv, ruc, nombre, telefono, tipoSel.getIdTipoProveedor());
-
-                if (proveedorDAO.guardarProveedor(nuevoProv, miConexion)) {
-                    cbxProveedor.addItem(nuevoProv);
-                    cbxProveedor.setSelectedItem(nuevoProv);
-                    JOptionPane.showMessageDialog(this, "Proveedor guardado exitosamente.");
-                }
+    txtRuc.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+        public void insertUpdate(javax.swing.event.DocumentEvent e) { validar(); }
+        public void removeUpdate(javax.swing.event.DocumentEvent e) { validar(); }
+        public void changedUpdate(javax.swing.event.DocumentEvent e) { validar(); }
+        private void validar() {
+            String texto = txtRuc.getText().trim();
+            if (texto.isEmpty()) {
+                lblErrorRuc.setText("El RUC/Cédula no puede estar vacío.");
+            } else if (!texto.matches("\\d+")) {
+                lblErrorRuc.setText("Solo se permiten números.");
+            } else if (texto.length() != 10 && texto.length() != 13) {
+                lblErrorRuc.setText("Debe tener 10 (cédula) o 13 (RUC) dígitos.");
             } else {
-                JOptionPane.showMessageDialog(this, "RUC, Nombre y Tipo de Proveedor son obligatorios.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                lblErrorRuc.setText(" "); 
             }
         }
+    });
+
+    txtNombre.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+        public void insertUpdate(javax.swing.event.DocumentEvent e) { validar(); }
+        public void removeUpdate(javax.swing.event.DocumentEvent e) { validar(); }
+        public void changedUpdate(javax.swing.event.DocumentEvent e) { validar(); }
+        private void validar() {
+            String texto = txtNombre.getText().trim();
+            
+            boolean tieneLetrasRepetidas = texto.matches(".*(.)\\1{3,}.*");
+
+            if (texto.isEmpty()) {
+                lblErrorNombre.setText("El nombre de la empresa es obligatorio.");
+            } else if (texto.length() < 3) {
+                lblErrorNombre.setText("El nombre es muy corto.");
+            } else if (tieneLetrasRepetidas) {
+                lblErrorNombre.setText("Ingrese un nombre de empresa válido.");
+            } else {
+                lblErrorNombre.setText(" "); 
+            }
+        }
+    });
+
+    txtTelefono.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+        public void insertUpdate(javax.swing.event.DocumentEvent e) { validar(); }
+        public void removeUpdate(javax.swing.event.DocumentEvent e) { validar(); }
+        public void changedUpdate(javax.swing.event.DocumentEvent e) { validar(); }
+        private void validar() {
+            String texto = txtTelefono.getText().trim();
+            if (texto.isEmpty()) {
+                lblErrorTelefono.setText("El teléfono es obligatorio.");
+            } else if (!texto.matches("[0-9+\\-\\s]+")) {
+                lblErrorTelefono.setText("Solo números o formato telefónico válido.");
+            } else if (texto.replaceAll("[^0-9]", "").length() < 7) {
+                lblErrorTelefono.setText("Número de teléfono incompleto.");
+            } else {
+                lblErrorTelefono.setText(" "); 
+            }
+        }
+    });
+    
+    btnModificar.addActionListener(e -> {
+        JDialog dialogSelector = new JDialog(dialogProveedor, "Seleccionar Proveedor", true);
+        dialogSelector.setSize(650, 300);
+        dialogSelector.setLocationRelativeTo(dialogProveedor);
+        dialogSelector.setLayout(new BorderLayout());
+
+        final Runnable[] cargarTablaSelector = new Runnable[1];
+
+        cargarTablaSelector[0] = () -> {
+            dialogSelector.getContentPane().removeAll();
+            
+            List<Proveedor> listaProveedores = proveedorDAO.obtenerProveedores(miConexion);
+            String[] columnas = {"ID", "RUC", "Nombre Empresa", "Teléfono", "Tipo ID"};
+            Object[][] datos = new Object[listaProveedores.size()][5];
+
+            for (int i = 0; i < listaProveedores.size(); i++) {
+                Proveedor p = listaProveedores.get(i);
+                datos[i][0] = p.getIdProveedor();
+                datos[i][1] = p.getRucProveedor();
+                datos[i][2] = p.getNomEmpresa();
+                datos[i][3] = p.getNumTelelEmpresa();
+                datos[i][4] = p.getIdTipoProveedor();
+            }
+
+            javax.swing.JTable tabla = new javax.swing.JTable(datos, columnas);
+            dialogSelector.add(new javax.swing.JScrollPane(tabla), BorderLayout.CENTER);
+
+            JButton btnSeleccionar = new JButton("Cargar Datos");
+            btnSeleccionar.addActionListener(ex -> {
+                int fila = tabla.getSelectedRow();
+                if (fila >= 0) {
+                    proveedorEnEdicion[0] = listaProveedores.get(fila);
+                    
+                    txtRuc.setText(proveedorEnEdicion[0].getRucProveedor());
+                    txtRuc.setEnabled(false);
+                    
+                    txtNombre.setText(proveedorEnEdicion[0].getNomEmpresa());
+                    txtTelefono.setText(proveedorEnEdicion[0].getNumTelelEmpresa());
+
+                    for (int i = 0; i < cbxTipoProvPop.getItemCount(); i++) {
+                        TipoProveedor tp = cbxTipoProvPop.getItemAt(i);
+                        if (tp.getIdTipoProveedor().equals(proveedorEnEdicion[0].getIdTipoProveedor())) {
+                            cbxTipoProvPop.setSelectedIndex(i);
+                            break;
+                        }
+                    }
+                    dialogSelector.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(dialogSelector, "Seleccione una fila de la tabla.");
+                }
+            });
+
+            JButton btnEliminarProv = new JButton("Eliminar");
+            btnEliminarProv.addActionListener(ex -> {
+                int fila = tabla.getSelectedRow();
+                if (fila >= 0) {
+                    Proveedor pSel = listaProveedores.get(fila);
+                    int confirm = JOptionPane.showConfirmDialog(dialogSelector, "¿Está seguro de eliminar este proveedor?", "Confirmar", JOptionPane.YES_NO_OPTION);
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        boolean eliminado = proveedorDAO.eliminarProveedor(pSel.getIdProveedor(), miConexion);
+                        if (eliminado) {
+                            JOptionPane.showMessageDialog(dialogSelector, "Proveedor eliminado correctamente.");
+                            cargarTablaSelector[0].run();
+                        } else {
+                            JOptionPane.showMessageDialog(dialogSelector, "No se puede eliminar porque está registrado en compras.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(dialogSelector, "Seleccione una fila de la tabla.");
+                }
+            });
+
+            JPanel panelSel = new JPanel();
+            panelSel.setBackground(Color.WHITE);
+            panelSel.add(btnSeleccionar);
+            panelSel.add(btnEliminarProv);
+            dialogSelector.add(panelSel, BorderLayout.SOUTH);
+            dialogSelector.revalidate();
+            dialogSelector.repaint();
+        };
+
+        cargarTablaSelector[0].run();
+        dialogSelector.setVisible(true);
+    });
+
+    btnNuevoTipo.addActionListener(e -> {
+        int aleatorio = (int) (Math.random() * 9000) + 1000;
+        JTextField txtIdTipo = new JTextField("TP-" + aleatorio);
+        txtIdTipo.setEnabled(false);
+        JTextField txtNomTip = new JTextField();
+        JTextField txtDescripTip = new JTextField();
+
+        JPanel panelTipoDialog = new JPanel(new GridLayout(0, 1, 5, 5));
+        panelTipoDialog.setBackground(Color.WHITE);
+        panelTipoDialog.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        panelTipoDialog.add(new JLabel("ID Tipo Proveedor:"));
+        panelTipoDialog.add(txtIdTipo);
+        panelTipoDialog.add(new JLabel("Nombre del Tipo:"));
+        panelTipoDialog.add(txtNomTip);
+        panelTipoDialog.add(new JLabel("Descripción:"));
+        panelTipoDialog.add(txtDescripTip);
+
+        JDialog dialogTipo = new JDialog(dialogProveedor, "Registrar Nuevo Tipo de Proveedor", true);
+        dialogTipo.setUndecorated(true);
+        dialogTipo.setBackground(Color.WHITE);
+
+        JButton btnAceptarTipo = new JButton("Aceptar");
+        JButton btnCancelarTipo = new JButton("Cancelar");
+        final boolean[] confirmadoTipo = {false};
+
+        btnAceptarTipo.addActionListener(ex -> {
+            confirmadoTipo[0] = true;
+            dialogTipo.dispose();
+        });
+
+        btnCancelarTipo.addActionListener(ex -> {
+            confirmadoTipo[0] = false;
+            dialogTipo.dispose();
+        });
+
+        JPanel panelBotonesTipo = new JPanel();
+        panelBotonesTipo.setBackground(Color.WHITE);
+        panelBotonesTipo.add(btnAceptarTipo);
+        panelBotonesTipo.add(btnCancelarTipo);
+
+        dialogTipo.setLayout(new BorderLayout());
+        dialogTipo.add(panelTipoDialog, BorderLayout.CENTER);
+        dialogTipo.add(panelBotonesTipo, BorderLayout.SOUTH);
+        dialogTipo.pack();
+        dialogTipo.setLocationRelativeTo(dialogProveedor);
+        dialogTipo.setVisible(true);
+
+        if (confirmadoTipo[0]) {
+            String idTipo = txtIdTipo.getText().trim();
+            String nomTip = txtNomTip.getText().trim();
+            String descrip = txtDescripTip.getText().trim();
+
+            if (!idTipo.isEmpty() && !nomTip.isEmpty()) {
+                TipoProveedor nuevoTp = new TipoProveedor(idTipo, nomTip, descrip);
+                if (proveedorDAO.guardarTipoProveedor(nuevoTp, miConexion)) {
+                    JOptionPane.showMessageDialog(dialogTipo, "Tipo de proveedor guardado con éxito.");
+                    cargarTipos.run();
+                    cbxTipoProvPop.setSelectedItem(nuevoTp);
+                } else {
+                    JOptionPane.showMessageDialog(dialogTipo, "Error al guardar el tipo.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    });
+
+    btnModificarTipo.addActionListener(e -> {
+        JDialog dialogSelectorTipo = new JDialog(dialogProveedor, "Seleccionar Tipo a Modificar", true);
+        dialogSelectorTipo.setSize(500, 250);
+        dialogSelectorTipo.setLocationRelativeTo(dialogProveedor);
+        dialogSelectorTipo.setLayout(new BorderLayout());
+
+        List<TipoProveedor> listaTipos = proveedorDAO.obtenerTiposProveedor(miConexion);
+        String[] columnasTipos = {"ID Tipo", "Nombre", "Descripción"};
+        Object[][] datosTipos = new Object[listaTipos.size()][3];
+
+        for (int i = 0; i < listaTipos.size(); i++) {
+            TipoProveedor tp = listaTipos.get(i);
+            datosTipos[i][0] = tp.getIdTipoProveedor();
+            datosTipos[i][1] = tp.getNomTipProveedor();
+            datosTipos[i][2] = tp.getDescripTipoProveedor();
+        }
+
+        javax.swing.JTable tablaTipos = new javax.swing.JTable(datosTipos, columnasTipos);
+        dialogSelectorTipo.add(new javax.swing.JScrollPane(tablaTipos), BorderLayout.CENTER);
+
+        JButton btnSeleccionarTipoTabla = new JButton("Cargar y Modificar");
+        final TipoProveedor[] tipoEnEdicion = {null};
+
+        btnSeleccionarTipoTabla.addActionListener(ex -> {
+            int fila = tablaTipos.getSelectedRow();
+            if (fila >= 0) {
+                tipoEnEdicion[0] = listaTipos.get(fila);
+                dialogSelectorTipo.dispose();
+            } else {
+                JOptionPane.showMessageDialog(dialogSelectorTipo, "Seleccione un tipo de proveedor.");
+            }
+        });
+
+        JPanel panelBotSelTipo = new JPanel();
+        panelBotSelTipo.setBackground(Color.WHITE);
+        panelBotSelTipo.add(btnSeleccionarTipoTabla);
+        dialogSelectorTipo.add(panelBotSelTipo, BorderLayout.SOUTH);
+        dialogSelectorTipo.setVisible(true);
+
+        if (tipoEnEdicion[0] == null) return;
+
+        TipoProveedor tpEdit = tipoEnEdicion[0];
+        JTextField txtIdTipo = new JTextField(tpEdit.getIdTipoProveedor());
+        txtIdTipo.setEnabled(false); 
+        JTextField txtNomTip = new JTextField(tpEdit.getNomTipProveedor());
+        JTextField txtDescripTip = new JTextField(tpEdit.getDescripTipoProveedor());
+
+        JPanel panelTipoDialog = new JPanel(new GridLayout(0, 1, 5, 5));
+        panelTipoDialog.setBackground(Color.WHITE);
+        panelTipoDialog.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        panelTipoDialog.add(new JLabel("ID Tipo Proveedor:"));
+        panelTipoDialog.add(txtIdTipo);
+        panelTipoDialog.add(new JLabel("Nombre del Tipo:"));
+        panelTipoDialog.add(txtNomTip);
+        panelTipoDialog.add(new JLabel("Descripción:"));
+        panelTipoDialog.add(txtDescripTip);
+
+        JDialog dialogModTipo = new JDialog(dialogProveedor, "Modificar Tipo de Proveedor", true);
+        dialogModTipo.setUndecorated(true);
+        dialogModTipo.setBackground(Color.WHITE);
+
+        JButton btnAceptarModTipo = new JButton("Guardar Cambios");
+        JButton btnCancelarModTipo = new JButton("Cancelar");
+        final boolean[] confirmadoModTipo = {false};
+
+        btnAceptarModTipo.addActionListener(ex -> { confirmadoModTipo[0] = true; dialogModTipo.dispose(); });
+        btnCancelarModTipo.addActionListener(ex -> { confirmadoModTipo[0] = false; dialogModTipo.dispose(); });
+
+        JPanel panelBotonesModTipo = new JPanel();
+        panelBotonesModTipo.setBackground(Color.WHITE);
+        panelBotonesModTipo.add(btnAceptarModTipo);
+        panelBotonesModTipo.add(btnCancelarModTipo);
+
+        dialogModTipo.setLayout(new BorderLayout());
+        dialogModTipo.add(panelTipoDialog, BorderLayout.CENTER);
+        dialogModTipo.add(panelBotonesModTipo, BorderLayout.SOUTH);
+        dialogModTipo.pack();
+        dialogModTipo.setLocationRelativeTo(dialogProveedor);
+        dialogModTipo.setVisible(true);
+
+        if (confirmadoModTipo[0]) {
+            String nuevoNom = txtNomTip.getText().trim();
+            String nuevaDesc = txtDescripTip.getText().trim();
+            if (!nuevoNom.isEmpty()) {
+                tpEdit.setNomTipProveedor(nuevoNom);
+                tpEdit.setDescripTipoProveedor(nuevaDesc);
+                if (proveedorDAO.actualizarTipoProveedor(tpEdit, miConexion)) {
+                    JOptionPane.showMessageDialog(dialogModTipo, "Tipo modificado con éxito.");
+                    cargarTipos.run();
+                    cbxTipoProvPop.setSelectedItem(tpEdit);
+                } else {
+                    JOptionPane.showMessageDialog(dialogModTipo, "Error al modificar.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    });
+
+    btnAceptarProv.addActionListener(e -> {
+        if (!lblErrorRuc.getText().trim().isEmpty() || 
+            !lblErrorNombre.getText().trim().isEmpty() || 
+            !lblErrorTelefono.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(dialogProveedor, "Por favor, corrija los errores marcados en rojo antes de continuar.", "Campos Inválidos", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        confirmadoProv[0] = true;
+        dialogProveedor.dispose();
+    });
+
+    btnCancelarProv.addActionListener(e -> {
+        confirmadoProv[0] = false;
+        dialogProveedor.dispose();
+    });
+
+    JPanel panelBotonesProv = new JPanel();
+    panelBotonesProv.setBackground(Color.WHITE);
+    panelBotonesProv.add(btnModificar);
+    panelBotonesProv.add(btnAceptarProv);
+    panelBotonesProv.add(btnCancelarProv);
+
+    dialogProveedor.setLayout(new BorderLayout());
+    dialogProveedor.add(panel, BorderLayout.CENTER);
+    dialogProveedor.add(panelBotonesProv, BorderLayout.SOUTH);
+    dialogProveedor.pack();
+    dialogProveedor.setLocationRelativeTo(this);
+    dialogProveedor.setVisible(true);
+
+    if (confirmadoProv[0]) {
+        String ruc = txtRuc.getText().trim();
+        String nombre = txtNombre.getText().trim();
+        String telefono = txtTelefono.getText().trim();
+        TipoProveedor tipoSel = (TipoProveedor) cbxTipoProvPop.getSelectedItem();
+
+        if (proveedorEnEdicion[0] != null) {
+            proveedorEnEdicion[0].setNomEmpresa(nombre);
+            proveedorEnEdicion[0].setNumTelelEmpresa(telefono);
+            proveedorEnEdicion[0].setIdTipoProveedor(tipoSel.getIdTipoProveedor());
+
+            if (proveedorDAO.actualizarProveedor(proveedorEnEdicion[0], miConexion)) {
+                if (cbxProveedor != null) {
+                    cbxProveedor.removeItem(proveedorEnEdicion[0]);
+                    cbxProveedor.addItem(proveedorEnEdicion[0]);
+                    cbxProveedor.setSelectedItem(proveedorEnEdicion[0]);
+                }
+                JOptionPane.showMessageDialog(this, "Proveedor actualizado exitosamente.");
+            }
+        } else {
+            String idProv = proveedorDAO.obtenerSiguienteIdProveedor(miConexion);
+            Proveedor nuevoProv = new Proveedor(idProv, ruc, nombre, telefono, tipoSel.getIdTipoProveedor());
+
+            if (proveedorDAO.guardarProveedor(nuevoProv, miConexion)) {
+                if (cbxProveedor != null) {
+                    cbxProveedor.addItem(nuevoProv);
+                    cbxProveedor.setSelectedItem(nuevoProv);
+                }
+                JOptionPane.showMessageDialog(this, "Proveedor guardado exitosamente.");
+            }
+        }
+    }
     }//GEN-LAST:event_btnAgregarProveedorMouseClicked
 
     private void btnAgregarProveedorMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarProveedorMouseEntered
@@ -941,6 +1284,11 @@ private void calcularTotal() {
           cargarCombos(); 
 
     }//GEN-LAST:event_cbxRepuestoMouseClicked
+
+    private void cbxProveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxProveedorMouseClicked
+        // TODO add your handling code here:
+        cargarCombos();
+    }//GEN-LAST:event_cbxProveedorMouseClicked
     private void calcularTotalCompra() {
         double sumaTotal = 0.0;
         DefaultTableModel modelo = (DefaultTableModel) tblDetalleCompra.getModel();
@@ -958,7 +1306,6 @@ private void calcularTotal() {
     private javax.swing.JPanel BarraArriba;
     private javax.swing.JLabel Buscar;
     private javax.swing.JLabel Cantidad;
-    private javax.swing.JLabel Editar;
     private javax.swing.JLabel Factura;
     private javax.swing.JLabel Fecha;
     private javax.swing.JPanel Fondo;
@@ -969,7 +1316,6 @@ private void calcularTotal() {
     private javax.swing.JLabel NombreVentanaProveedores;
     private javax.swing.JLabel Nuevo;
     private javax.swing.JLabel Nuevo1;
-    private javax.swing.JPanel PanelEditar;
     private javax.swing.JLabel Precio;
     private javax.swing.JLabel Proveedor;
     private javax.swing.JLabel Repuesto;
@@ -982,7 +1328,6 @@ private void calcularTotal() {
     private javax.swing.JLabel btnRegresar;
     private javax.swing.JComboBox<Object> cbxProveedor;
     private javax.swing.JComboBox<Object> cbxRepuesto;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblErrorCantidadProveedor;
