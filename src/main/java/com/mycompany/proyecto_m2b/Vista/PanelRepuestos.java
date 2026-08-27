@@ -116,7 +116,6 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
     String nuevoId = dao.obtenerSiguienteIdRepuesto(miConexion);
     txtIdRepuesto.setText(nuevoId);
 }
-    
     private boolean validarNombreRepuesto() {
         String texto = txtNomRepuesto.getText().trim();
         
@@ -154,7 +153,7 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
         lblErrorTipoRepuesto.setText("");
         return true;
     }
-    
+
     private boolean validarStockActual() {
         String texto = txtStockActual.getText().trim();
         if (texto.isEmpty()) {
@@ -165,6 +164,13 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
             lblErrorStockActual.setText("Solo se permiten números enteros.");
             return false;
         }
+        
+        int stockActual = Integer.parseInt(texto);
+        if (stockActual < 0) {
+            lblErrorStockActual.setText("El stock no puede ser negativo.");
+            return false;
+        }
+        
         lblErrorStockActual.setText("");
         return true;
     }
@@ -179,6 +185,22 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
             lblErrorStockMinimo.setText("Solo se permiten números enteros.");
             return false;
         }
+        
+        int stockMin = Integer.parseInt(texto);
+        if (stockMin < 0) {
+            lblErrorStockMinimo.setText("El stock mínimo no puede ser negativo.");
+            return false;
+        }
+
+        String textoMax = txtCantidadMaxima.getText().trim();
+        if (!textoMax.isEmpty() && textoMax.matches("\\d+")) {
+            int stockMax = Integer.parseInt(textoMax);
+            if (stockMin >= stockMax) {
+                lblErrorStockMinimo.setText("Debe ser menor al stock máximo.");
+                return false;
+            }
+        }
+
         lblErrorStockMinimo.setText("");
         return true;
     }
@@ -193,6 +215,22 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
             lblErrorStockMaximo.setText("Solo se permiten números enteros.");
             return false;
         }
+        
+        int stockMax = Integer.parseInt(texto);
+        if (stockMax <= 0) {
+            lblErrorStockMaximo.setText("El stock máximo debe ser mayor a 0.");
+            return false;
+        }
+
+        String textoMin = txtCantidadMinima.getText().trim();
+        if (!textoMin.isEmpty() && textoMin.matches("\\d+")) {
+            int stockMin = Integer.parseInt(textoMin);
+            if (stockMax <= stockMin) {
+                lblErrorStockMaximo.setText("Debe ser mayor al stock mínimo.");
+                return false;
+            }
+        }
+
         lblErrorStockMaximo.setText("");
         return true;
     }
@@ -207,6 +245,13 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
             lblErrorPrecioBase.setText("Ingrese un número válido (ej. 12.50).");
             return false;
         }
+        
+        double precio = Double.parseDouble(texto);
+        if (precio <= 0) {
+            lblErrorPrecioBase.setText("El precio debe ser mayor a 0.");
+            return false;
+        }
+
         lblErrorPrecioBase.setText("");
         return true;
     }
