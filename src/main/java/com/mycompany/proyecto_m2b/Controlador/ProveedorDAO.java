@@ -85,5 +85,18 @@ public class ProveedorDAO {
         return false;
     }
 }
-    
+    public boolean actualizarProveedor(Proveedor p, Connection con) {
+    String sql = "UPDATE public.proveedor SET ruc_proveedor = ?, nom_empresa = ?, num_telel_empresa = ?, id_tipo_proveedor = ? WHERE id_proveedor = ?";
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setString(1, p.getRucProveedor());
+        ps.setString(2, p.getNomEmpresa());
+        ps.setString(3, p.getNumTelelEmpresa());
+        ps.setString(4, p.getIdTipoProveedor());
+        ps.setString(5, p.getIdProveedor());
+        return ps.executeUpdate() > 0;
+    } catch (SQLException e) {
+        System.err.println("Error al actualizar proveedor: " + e.getMessage());
+        return false;
+    }
+}
 }
