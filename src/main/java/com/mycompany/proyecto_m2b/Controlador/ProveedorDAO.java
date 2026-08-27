@@ -99,4 +99,18 @@ public class ProveedorDAO {
         return false;
     }
 }
+    
+    public boolean actualizarTipoProveedor(TipoProveedor tipo, Connection con) {
+    String sql = "UPDATE public.tipos_de_proveedores SET nom_tip_proveedor = ?, descrip_tipo_proveedor = ? WHERE id_tipo_proveedor = ?";
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setString(1, tipo.getNomTipProveedor());
+        ps.setString(2, tipo.getDescripTipoProveedor());
+        ps.setString(3, tipo.getIdTipoProveedor());
+        return ps.executeUpdate() > 0;
+    } catch (SQLException e) {
+        System.err.println("Error al actualizar tipo de proveedor: " + e.getMessage());
+        return false;
+    }
+}
+    
 }

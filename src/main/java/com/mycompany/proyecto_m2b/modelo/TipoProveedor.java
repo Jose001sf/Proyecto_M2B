@@ -12,6 +12,10 @@ public class TipoProveedor {
         this.descripTipoProveedor = descripTipoProveedor;
     }
 
+    public TipoProveedor() {
+    }
+    
+    
     public String getIdTipoProveedor(){
         return idTipoProveedor; 
     }
@@ -28,8 +32,10 @@ public class TipoProveedor {
         this.descripTipoProveedor = descripTipoProveedor;
     }
     
+    public void setNomTipProveedor(String nomTipProveedor) {
+        this.nomTipProveedor = nomTipProveedor;
+    }
     
-
     @Override
     public String toString() {
         return nomTipProveedor; 
