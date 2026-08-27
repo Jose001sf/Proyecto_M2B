@@ -398,6 +398,8 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
         tblModificar = new javax.swing.JTable();
         jLabel14 = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
+        btnEliminar = new javax.swing.JPanel();
+        Editar3 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(238, 238, 238));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -700,6 +702,43 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
         jLabel14.setText("Stock Actual:");
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, -1, -1));
         jPanel1.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 90, 190, -1));
+
+        btnEliminar.setBackground(new java.awt.Color(255, 255, 255));
+        btnEliminar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEliminarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnEliminarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnEliminarMouseExited(evt);
+            }
+        });
+
+        Editar3.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        Editar3.setText("X  Eliminar");
+
+        javax.swing.GroupLayout btnEliminarLayout = new javax.swing.GroupLayout(btnEliminar);
+        btnEliminar.setLayout(btnEliminarLayout);
+        btnEliminarLayout.setHorizontalGroup(
+            btnEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnEliminarLayout.createSequentialGroup()
+                .addContainerGap(10, Short.MAX_VALUE)
+                .addComponent(Editar3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        btnEliminarLayout.setVerticalGroup(
+            btnEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnEliminarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Editar3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 70, 120, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -1030,6 +1069,66 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
     private void ImagenADD2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ImagenADD2KeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_ImagenADD2KeyPressed
+
+    private void btnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseClicked
+        int filaSeleccionada = tblModificar.getSelectedRow();
+    
+    if (filaSeleccionada == -1) {
+        javax.swing.JOptionPane.showMessageDialog(
+            this, 
+            "Por favor, seleccione de la tabla el repuesto que desea eliminar.", 
+            "Ninguna fila seleccionada", 
+            javax.swing.JOptionPane.WARNING_MESSAGE
+        );
+        return;
+    }
+        String idRepuesto = tblModificar.getValueAt(filaSeleccionada, 0).toString();
+    String nombreRepuesto = tblModificar.getValueAt(filaSeleccionada, 1).toString();
+    
+    int confirmacion = javax.swing.JOptionPane.showConfirmDialog(
+        this, 
+        "¿Está seguro de que desea eliminar el repuesto: " + nombreRepuesto + " (" + idRepuesto + ")?", 
+        "Confirmar Eliminación", 
+        javax.swing.JOptionPane.YES_NO_OPTION,
+        javax.swing.JOptionPane.QUESTION_MESSAGE
+    );
+    
+    if (confirmacion == javax.swing.JOptionPane.YES_OPTION) {
+        RepuestoDAO dao = new RepuestoDAO();
+        boolean eliminado = dao.eliminarRepuesto(idRepuesto, miConexion);
+        
+        if (eliminado) {
+            javax.swing.JOptionPane.showMessageDialog(
+                this, 
+                "¡Repuesto eliminado exitosamente!", 
+                "Éxito", 
+                javax.swing.JOptionPane.INFORMATION_MESSAGE
+            );
+            limpiarCampos();
+            cargarTablaRepuestos("");
+            txtBuscar.setText("");
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(
+                this, 
+                "No se puede eliminar este repuesto porque ya está registrado en transacciones (como compras o ventas).", 
+                "Operación Denegada", 
+                javax.swing.JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+    }//GEN-LAST:event_btnEliminarMouseClicked
+
+    private void btnEliminarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseEntered
+        // TODO add your handling code here:
+        btnEliminar.setBackground(new Color(219,219,219));
+        btnEliminar.setForeground(new Color(66, 66, 66));
+    }//GEN-LAST:event_btnEliminarMouseEntered
+
+    private void btnEliminarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseExited
+        // TODO add your handling code here:
+        btnEliminar.setBackground(Color.white);
+        btnEliminar.setForeground(Color.black);
+    }//GEN-LAST:event_btnEliminarMouseExited
     
     public void LimpiarDatos (){
 
@@ -1039,14 +1138,22 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Editar;
+    private javax.swing.JLabel Editar1;
+    private javax.swing.JLabel Editar2;
+    private javax.swing.JLabel Editar3;
     private javax.swing.JLabel Guardar;
     private javax.swing.JLabel ImagenADD2;
     private javax.swing.JLabel ImagenADD3;
     private javax.swing.JLabel ImagenSAVE;
     private javax.swing.JLabel Nuevo2;
     private javax.swing.JLabel Nuevo3;
+    private javax.swing.JPanel PanelEditar;
+    private javax.swing.JPanel PanelEditar1;
+    private javax.swing.JPanel PanelEditar2;
     private javax.swing.JPanel btnAgregarMarca;
     private javax.swing.JPanel btnAgregarTipo;
+    private javax.swing.JPanel btnEliminar;
     private javax.swing.JPanel btnGuardar;
     private javax.swing.JComboBox<Object> cbxMarcaRepuesto;
     private javax.swing.JComboBox<Object> cbxTipoRepuesto;
@@ -1055,6 +1162,8 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1062,6 +1171,7 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
