@@ -81,6 +81,7 @@ public class CargoDAO {
         PreparedStatement ps=conn.prepareStatement(MODIFICARCARGO)){
             ps.setString(1, cargo.getNom_cargo());
             ps.setString(2, cargo.getDescrip_cargo());
+            ps.setString(3, cargo.getID_cargo());
             return ps.executeUpdate() > 0;
         }
     catch (SQLException e){

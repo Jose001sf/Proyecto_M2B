@@ -155,7 +155,7 @@ public class Validaciones {
             return false;
         }
         Descripcion=Descripcion.trim(); 
-        Pattern pat=Pattern.compile("^[A-Za-zÁÉÍÓÚÑáéíóúñ ]{1,80}$");
+        Pattern pat=Pattern.compile("^[A-Za-zÁÉÍÓÚÑáéíóúñ0-9\\s.,-]{1,80}$");
         Matcher mat=pat.matcher(Descripcion);                
        return mat.matches();                            
     }
@@ -173,7 +173,7 @@ public class Validaciones {
             return false;
         }
         Descripcion=Descripcion.trim(); 
-        Pattern pat=Pattern.compile("^[A-Za-zÁÉÍÓÚÑáéíóúñ ]{1,80}$");
+        Pattern pat=Pattern.compile("^[A-Za-zÁÉÍÓÚÑáéíóúñ0-9\\s.,-]{1,80}$");
         Matcher mat=pat.matcher(Descripcion);                
        return mat.matches();                            
     }

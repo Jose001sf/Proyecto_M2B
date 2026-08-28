@@ -59,4 +59,26 @@ public class EspecialidadDAO {
             System.err.println("Error al cargar especialidades: " + e.getMessage());
         }
     }
+    private static final String MODIFICARESPECIALIDAD=
+            "UPDATE especialidad "
+            + "SET nom_especialidad = ?, descrip_especialidad = ? "
+            + "WHERE id_especialidad=?";
+    
+    public boolean modificarEspecialidad (Especialidad especicalidad){
+        if (especicalidad==null){
+            System.out.println("Error al quere establecer una conexion en la base de datos");
+            return false;
+        }
+        try (Connection conn=ConexionBD.obtenerConexion();
+        PreparedStatement ps=conn.prepareStatement(MODIFICARESPECIALIDAD)){
+            ps.setString(1, especicalidad.getNom_especialidad());
+            ps.setString(2, especicalidad.getDescrip_especi());
+            ps.setString(3, especicalidad.getID_especialidad());
+            return ps.executeUpdate() > 0;
+        }
+    catch (SQLException e){
+            System.out.println("Error al actualizar especialidad: " + e.getMessage());
+            return false;
+        }
+    }
 }

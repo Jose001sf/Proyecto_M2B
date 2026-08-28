@@ -40,7 +40,7 @@ public class Menu extends javax.swing.JFrame {
     private Cargos Car= null;
     private PanelCatalogoServicio Cata=null;
     private CrearEmpleado CrearEmp=null;
-    private Especialidad Espe=null;
+    private PanelEspecialidad Espe=null;
     //private Estadisticas Esta=null;
     private PanelOrdenesServicio OrdenesServ=null;
     private PanelPropietarios Prop=null;

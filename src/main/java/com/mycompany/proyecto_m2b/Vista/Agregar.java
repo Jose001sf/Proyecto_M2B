@@ -282,7 +282,7 @@ public class Agregar extends javax.swing.JFrame {
 
     private void PanelEspecialidadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEspecialidadesMouseClicked
         // TODO add your handling code here:
-        Especialidad E=new Especialidad();
+        PanelEspecialidad E=new PanelEspecialidad();
         E.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_PanelEspecialidadesMouseClicked
