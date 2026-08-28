@@ -102,12 +102,9 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
         PanelGuardar = new javax.swing.JPanel();
         Guardar = new javax.swing.JLabel();
         ImagenSAVE = new javax.swing.JLabel();
-        PanelEditar = new javax.swing.JPanel();
+        btnModificar = new javax.swing.JPanel();
         Editar = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        PanelBuscar = new javax.swing.JPanel();
-        Buscar = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         txtIDNuevaEmpresa = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         txtDescripcionNuevaEmpresa = new javax.swing.JTextField();
@@ -245,81 +242,43 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        PanelEditar.setBackground(new java.awt.Color(255, 255, 255));
-        PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnModificar.setBackground(new java.awt.Color(255, 255, 255));
+        btnModificar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        btnModificar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModificar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelEditarMouseEntered(evt);
+                btnModificarMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelEditarMouseExited(evt);
+                btnModificarMouseExited(evt);
             }
         });
 
         Editar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        Editar.setText("Editar");
+        Editar.setText("Modificar");
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/edit_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
 
-        javax.swing.GroupLayout PanelEditarLayout = new javax.swing.GroupLayout(PanelEditar);
-        PanelEditar.setLayout(PanelEditarLayout);
-        PanelEditarLayout.setHorizontalGroup(
-            PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelEditarLayout.createSequentialGroup()
+        javax.swing.GroupLayout btnModificarLayout = new javax.swing.GroupLayout(btnModificar);
+        btnModificar.setLayout(btnModificarLayout);
+        btnModificarLayout.setHorizontalGroup(
+            btnModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnModificarLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Editar)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        PanelEditarLayout.setVerticalGroup(
-            PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelEditarLayout.createSequentialGroup()
+        btnModificarLayout.setVerticalGroup(
+            btnModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnModificarLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(btnModificarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Editar)
                     .addComponent(jLabel2))
                 .addContainerGap())
-        );
-
-        PanelBuscar.setBackground(new java.awt.Color(255, 255, 255));
-        PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelBuscarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelBuscarMouseExited(evt);
-            }
-        });
-
-        Buscar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        Buscar.setText("Buscar");
-
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/person_search_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-
-        javax.swing.GroupLayout PanelBuscarLayout = new javax.swing.GroupLayout(PanelBuscar);
-        PanelBuscar.setLayout(PanelBuscarLayout);
-        PanelBuscarLayout.setHorizontalGroup(
-            PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelBuscarLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Buscar)
-                .addContainerGap(31, Short.MAX_VALUE))
-        );
-        PanelBuscarLayout.setVerticalGroup(
-            PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelBuscarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Buscar)
-                    .addComponent(jLabel11))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel12.setForeground(new java.awt.Color(153, 153, 153));
@@ -382,9 +341,7 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
                         .addGap(104, 104, 104)
                         .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
-                        .addComponent(PanelEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(PanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         FondoLayout.setVerticalGroup(
@@ -427,8 +384,7 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
                 .addGap(30, 30, 30)
                 .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PanelEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(68, Short.MAX_VALUE))
         );
 
@@ -490,30 +446,6 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
         PanelGuardar.setBackground(new java.awt.Color(242,101,34));
         Guardar.setForeground(java.awt.Color.white);
     }//GEN-LAST:event_PanelGuardarMouseExited
-
-    private void PanelEditarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseEntered
-        // TODO add your handling code here:
-        PanelEditar.setBackground(new java.awt.Color(219,219,219));
-        Editar.setForeground(new java.awt.Color(66, 66, 66));
-    }//GEN-LAST:event_PanelEditarMouseEntered
-
-    private void PanelEditarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseExited
-        // TODO add your handling code here:
-        PanelEditar.setBackground(java.awt.Color.white);
-        Editar.setForeground(java.awt.Color.black);
-    }//GEN-LAST:event_PanelEditarMouseExited
-
-    private void PanelBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseEntered
-        // TODO add your handling code here:
-        PanelBuscar.setBackground(new java.awt.Color(219,219,219));
-        Buscar.setForeground(new java.awt.Color(66, 66, 66));
-    }//GEN-LAST:event_PanelBuscarMouseEntered
-
-    private void PanelBuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseExited
-        // TODO add your handling code here:
-        PanelBuscar.setBackground(java.awt.Color.white);
-        Buscar.setForeground(java.awt.Color.black);
-    }//GEN-LAST:event_PanelBuscarMouseExited
 
     private void txtTelefonoNuevaEmpresaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefonoNuevaEmpresaFocusGained
         if (txtTelefonoNuevaEmpresa.getText().equals("Ingrese el telefono de la empresa")) {
@@ -585,21 +517,30 @@ public class NuevaEmpresaRecicladora extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtCallesNuevaEmpresaFocusLost
 
+    private void btnModificarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseExited
+        // TODO add your handling code here:
+        btnModificar.setBackground(java.awt.Color.white);
+        Editar.setForeground(java.awt.Color.black);
+    }//GEN-LAST:event_btnModificarMouseExited
+
+    private void btnModificarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseEntered
+        // TODO add your handling code here:
+        btnModificar.setBackground(new java.awt.Color(219,219,219));
+        Editar.setForeground(new java.awt.Color(66, 66, 66));
+    }//GEN-LAST:event_btnModificarMouseEntered
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BarraArriba;
-    private javax.swing.JLabel Buscar;
     private javax.swing.JLabel Editar;
     private javax.swing.JPanel Fondo;
     private javax.swing.JLabel Guardar;
     private javax.swing.JLabel ImagenSAVE;
-    private javax.swing.JPanel PanelBuscar;
-    private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JLabel Titulo;
+    private javax.swing.JPanel btnModificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
