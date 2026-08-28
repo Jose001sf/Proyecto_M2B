@@ -4,22 +4,24 @@
  */
 package com.mycompany.proyecto_m2b.Vista;
 
+import com.mycompany.proyecto_m2b.Controlador.EspecialidadDAO;
 import com.mycompany.proyecto_m2b.Controlador.Validaciones;
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import com.mycompany.proyecto_m2b.modelo.Especialidad;
 
 /**
  *
  * @author usuario
  */
-public class Especialidad extends javax.swing.JFrame {
+public class PanelEspecialidad extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Especialidad.class.getName());
 
     /**
      * Creates new form Cargos
      */
-    public Especialidad() {
+    public PanelEspecialidad() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -230,6 +232,9 @@ public class Especialidad extends javax.swing.JFrame {
         PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
         PanelEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelEditarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelEditarMouseEntered(evt);
             }
@@ -442,7 +447,7 @@ public class Especialidad extends javax.swing.JFrame {
 
     private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
         // TODO add your handling code here:
-        GuardarCargo();
+       GuardarEspecialidad();
     }//GEN-LAST:event_PanelGuardarMouseClicked
 
     private void PanelGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseEntered
@@ -493,7 +498,7 @@ public class Especialidad extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_TXTEspecialidadFocusGained
 
-    public void GuardarCargo (){
+    public void GuardarEspecialidad (){
         Validaciones V=new Validaciones();
         String Especialidad=TXTEspecialidad.getText().trim().toUpperCase();
         String Descripcion=TXTDescripcion.getText().trim().toUpperCase();
@@ -525,6 +530,34 @@ public class Especialidad extends javax.swing.JFrame {
         TXTDescripcion.setText("Descripción");
         TXTDescripcion.setForeground(new Color (94, 94, 94));
     }
+    public void ModificarEspecialidad (){
+        Validaciones V=new Validaciones();
+        String Especialidad=TXTEspecialidad.getText().trim().toUpperCase();
+        String Descripcion=TXTDescripcion.getText().trim();
+        if (Especialidad.isEmpty() || Descripcion.isEmpty()){
+            JOptionPane.showMessageDialog (this, "Por favor ingrese los datos correspondientes");
+            return;
+        }
+        if (Especialidad.isBlank() || Descripcion.isBlank()){
+            JOptionPane.showMessageDialog (this, "Por favor ingrese los datos correspondientes");
+            return;
+        }
+        if(!V.validarEspecialidad(Especialidad) || !V.validarDescripcionEspecialidad(Descripcion)){
+            LimpiarDatos();
+            JOptionPane.showMessageDialog(this, "Por favor ingrese los datos de manera correcta");
+            return;
+        }
+        if (Especialidad.equalsIgnoreCase("Especialidad") || Descripcion.equalsIgnoreCase("Descripción")){
+            JOptionPane.showMessageDialog(this, "Por favor ingrese los datos de manera correcta");
+            return;
+        }
+        Especialidad espe=new Especialidad();
+        espe.setNom_especialidad(Especialidad);
+        espe.setDescrip_especi(Descripcion);
+        EspecialidadDAO ed=new EspecialidadDAO();
+        ed.modificarEspecialidad(espe);
+        JOptionPane.showMessageDialog(this, "Se ha actualizado de manera correcta");
+    }
     private void TXTEspecialidadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTEspecialidadMousePressed
         // TODO add your handling code here:
         if (TXTEspecialidad.getText().equals("Especialidad")){
@@ -540,7 +573,7 @@ public class Especialidad extends javax.swing.JFrame {
     private void TXTEspecialidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTEspecialidadKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
-            GuardarCargo();
+            GuardarEspecialidad();
         }
     }//GEN-LAST:event_TXTEspecialidadKeyPressed
 
@@ -571,7 +604,7 @@ public class Especialidad extends javax.swing.JFrame {
     private void TXTDescripcionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTDescripcionKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
-            GuardarCargo();
+            GuardarEspecialidad();
         }
     }//GEN-LAST:event_TXTDescripcionKeyPressed
 
@@ -595,6 +628,11 @@ public class Especialidad extends javax.swing.JFrame {
         this.setLocation(x-xMouse, y-yMouse);
     }//GEN-LAST:event_BarraMouseDragged
 
+    private void PanelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_PanelEditarMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -617,7 +655,7 @@ public class Especialidad extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Especialidad().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new PanelEspecialidad().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

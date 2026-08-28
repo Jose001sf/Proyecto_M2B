@@ -24,6 +24,8 @@ public class Cargos extends javax.swing.JFrame {
     public Cargos() {
         initComponents();
         this.setLocationRelativeTo(null);
+        CargoDAO cd=new CargoDAO();
+        cd.cargarCargos(Cargos);
     }
 
     int xMouse;
@@ -59,6 +61,7 @@ public class Cargos extends javax.swing.JFrame {
         TXTCargo = new javax.swing.JTextField();
         Descripcion = new javax.swing.JLabel();
         TXTDescripcion = new javax.swing.JTextField();
+        Cargos = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -352,6 +355,9 @@ public class Cargos extends javax.swing.JFrame {
             }
         });
 
+        Cargos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Cargos.addItemListener(this::CargosItemStateChanged);
+
         javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu);
         Menu.setLayout(MenuLayout);
         MenuLayout.setHorizontalGroup(
@@ -377,7 +383,9 @@ public class Cargos extends javax.swing.JFrame {
                             .addComponent(NombreCargo))
                         .addGroup(MenuLayout.createSequentialGroup()
                             .addContainerGap()
-                            .addComponent(TXTCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(TXTCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(51, 51, 51)
+                            .addComponent(Cargos, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(MenuLayout.createSequentialGroup()
                             .addGap(17, 17, 17)
                             .addComponent(Descripcion))))
@@ -390,7 +398,9 @@ public class Cargos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(NombreCargo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TXTCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TXTCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Cargos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Descripcion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -606,6 +616,11 @@ public class Cargos extends javax.swing.JFrame {
         Validaciones V=new Validaciones();
         String Cargo=TXTCargo.getText().trim();
         String Descripcion=TXTDescripcion.getText().trim();
+        Cargo car=(Cargo) Cargos.getSelectedItem();
+        if (car==null){
+            JOptionPane.showMessageDialog(this, "Por favor seleccione un cargo para modificar");
+            return;
+        }
         if (Cargo.isEmpty() || Descripcion.isEmpty()){
             JOptionPane.showMessageDialog (this, "Por favor ingrese los datos correspondientes");
             return;
@@ -627,14 +642,25 @@ public class Cargos extends javax.swing.JFrame {
         cargo.setNom_cargo(Cargo);
         cargo.setDescrip_cargo(Descripcion);
         CargoDAO cd=new CargoDAO();
+        
+        cargo.setID_cargo(car.getID_cargo());
         cd.modificarCargo(cargo);
         JOptionPane.showMessageDialog(this, "Se ha actualizado de manera correcta");
     }
     private void PanelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseClicked
-        // TODO add your handling code here:
-        
+        // TODO add your handling code here:        
         ModificarCargos();
     }//GEN-LAST:event_PanelEditarMouseClicked
+
+    private void CargosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CargosItemStateChanged
+        // TODO add your handling code here:
+        Cargo car=(Cargo) Cargos.getSelectedItem();
+        if (car !=null){
+            TXTCargo.setText(car.getNom_cargo());
+            TXTDescripcion.setText(car.getDescrip_cargo());
+            }
+        
+    }//GEN-LAST:event_CargosItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -664,6 +690,7 @@ public class Cargos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Barra;
     private javax.swing.JLabel Buscar;
+    private javax.swing.JComboBox<String> Cargos;
     private javax.swing.JLabel Descripcion;
     private javax.swing.JLabel Editar;
     private javax.swing.JLabel Guardar;
