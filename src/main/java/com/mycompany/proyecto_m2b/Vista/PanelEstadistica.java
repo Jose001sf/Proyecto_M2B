@@ -65,6 +65,10 @@ public class PanelEstadistica extends javax.swing.JPanel {
         labelVehiculos = new javax.swing.JLabel();
         txtValorVehiculos = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        tarjetaOrdenesServicioPorEstado = new com.mycompany.proyecto_m2b.Vista.TarjetaRedonda();
+        labelOrdenesServicioEstado = new javax.swing.JLabel();
+        tarjetaOrdenesServicioPorDia = new com.mycompany.proyecto_m2b.Vista.TarjetaRedonda();
+        labelOrdenesServicioDia = new javax.swing.JLabel();
 
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
@@ -143,6 +147,7 @@ public class PanelEstadistica extends javax.swing.JPanel {
 
         tarjetaIngresos.setBackground(new java.awt.Color(255, 255, 255));
         tarjetaIngresos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        tarjetaIngresos.setPreferredSize(new java.awt.Dimension(266, 170));
 
         labelIngresos.setBackground(new java.awt.Color(0, 0, 0));
         labelIngresos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -151,7 +156,7 @@ public class PanelEstadistica extends javax.swing.JPanel {
 
         txtValorIngresos.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         txtValorIngresos.setForeground(new java.awt.Color(0, 0, 0));
-        txtValorIngresos.setText("$24");
+        txtValorIngresos.setText("$0");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(153, 153, 153));
@@ -172,7 +177,7 @@ public class PanelEstadistica extends javax.swing.JPanel {
                     .addGroup(tarjetaIngresosLayout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(jLabel7)))
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
         tarjetaIngresosLayout.setVerticalGroup(
             tarjetaIngresosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,11 +188,12 @@ public class PanelEstadistica extends javax.swing.JPanel {
                 .addComponent(txtValorIngresos)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         tarjetaServicios.setBackground(new java.awt.Color(255, 255, 255));
         tarjetaServicios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        tarjetaServicios.setPreferredSize(new java.awt.Dimension(266, 170));
 
         labelServicios.setBackground(new java.awt.Color(0, 0, 0));
         labelServicios.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -196,7 +202,7 @@ public class PanelEstadistica extends javax.swing.JPanel {
 
         txtValorServicios.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         txtValorServicios.setForeground(new java.awt.Color(0, 0, 0));
-        txtValorServicios.setText("24");
+        txtValorServicios.setText("0");
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(153, 153, 153));
@@ -217,7 +223,7 @@ public class PanelEstadistica extends javax.swing.JPanel {
                     .addGroup(tarjetaServiciosLayout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(jLabel9)))
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         tarjetaServiciosLayout.setVerticalGroup(
             tarjetaServiciosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,7 +234,7 @@ public class PanelEstadistica extends javax.swing.JPanel {
                 .addComponent(txtValorServicios)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tarjetaOrdenes.setBackground(new java.awt.Color(255, 255, 255));
@@ -241,7 +247,7 @@ public class PanelEstadistica extends javax.swing.JPanel {
 
         txtValorOrdenes.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         txtValorOrdenes.setForeground(new java.awt.Color(0, 0, 0));
-        txtValorOrdenes.setText("24");
+        txtValorOrdenes.setText("0");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(153, 153, 153));
@@ -262,7 +268,7 @@ public class PanelEstadistica extends javax.swing.JPanel {
                     .addGroup(tarjetaOrdenesLayout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(jLabel6)))
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
         tarjetaOrdenesLayout.setVerticalGroup(
             tarjetaOrdenesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,11 +279,12 @@ public class PanelEstadistica extends javax.swing.JPanel {
                 .addComponent(txtValorOrdenes)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tarjetaRepuestos.setBackground(new java.awt.Color(255, 255, 255));
         tarjetaRepuestos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        tarjetaRepuestos.setPreferredSize(new java.awt.Dimension(266, 170));
 
         labelRepuestos.setBackground(new java.awt.Color(0, 0, 0));
         labelRepuestos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -286,7 +293,7 @@ public class PanelEstadistica extends javax.swing.JPanel {
 
         txtValorRepuestos.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         txtValorRepuestos.setForeground(new java.awt.Color(0, 0, 0));
-        txtValorRepuestos.setText("24");
+        txtValorRepuestos.setText("0");
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(153, 153, 153));
@@ -307,7 +314,7 @@ public class PanelEstadistica extends javax.swing.JPanel {
                     .addGroup(tarjetaRepuestosLayout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(jLabel10)))
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
         tarjetaRepuestosLayout.setVerticalGroup(
             tarjetaRepuestosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,11 +325,12 @@ public class PanelEstadistica extends javax.swing.JPanel {
                 .addComponent(txtValorRepuestos)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel10)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tarjetaVehiculos.setBackground(new java.awt.Color(255, 255, 255));
         tarjetaVehiculos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        tarjetaVehiculos.setPreferredSize(new java.awt.Dimension(250, 170));
 
         labelVehiculos.setBackground(new java.awt.Color(0, 0, 0));
         labelVehiculos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -331,7 +339,7 @@ public class PanelEstadistica extends javax.swing.JPanel {
 
         txtValorVehiculos.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         txtValorVehiculos.setForeground(new java.awt.Color(0, 0, 0));
-        txtValorVehiculos.setText("24");
+        txtValorVehiculos.setText("0");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(153, 153, 153));
@@ -353,7 +361,7 @@ public class PanelEstadistica extends javax.swing.JPanel {
                             .addGroup(tarjetaVehiculosLayout.createSequentialGroup()
                                 .addGap(8, 8, 8)
                                 .addComponent(txtValorVehiculos)))))
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         tarjetaVehiculosLayout.setVerticalGroup(
             tarjetaVehiculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -364,7 +372,57 @@ public class PanelEstadistica extends javax.swing.JPanel {
                 .addComponent(txtValorVehiculos)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        tarjetaOrdenesServicioPorEstado.setBackground(new java.awt.Color(255, 255, 255));
+        tarjetaOrdenesServicioPorEstado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+
+        labelOrdenesServicioEstado.setBackground(new java.awt.Color(0, 0, 0));
+        labelOrdenesServicioEstado.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        labelOrdenesServicioEstado.setForeground(new java.awt.Color(0, 0, 0));
+        labelOrdenesServicioEstado.setText("ORDENES DE SERVICIO POR ESTADO");
+
+        javax.swing.GroupLayout tarjetaOrdenesServicioPorEstadoLayout = new javax.swing.GroupLayout(tarjetaOrdenesServicioPorEstado);
+        tarjetaOrdenesServicioPorEstado.setLayout(tarjetaOrdenesServicioPorEstadoLayout);
+        tarjetaOrdenesServicioPorEstadoLayout.setHorizontalGroup(
+            tarjetaOrdenesServicioPorEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tarjetaOrdenesServicioPorEstadoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelOrdenesServicioEstado)
+                .addContainerGap(167, Short.MAX_VALUE))
+        );
+        tarjetaOrdenesServicioPorEstadoLayout.setVerticalGroup(
+            tarjetaOrdenesServicioPorEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tarjetaOrdenesServicioPorEstadoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelOrdenesServicioEstado)
+                .addContainerGap(143, Short.MAX_VALUE))
+        );
+
+        tarjetaOrdenesServicioPorDia.setBackground(new java.awt.Color(255, 255, 255));
+        tarjetaOrdenesServicioPorDia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+
+        labelOrdenesServicioDia.setBackground(new java.awt.Color(0, 0, 0));
+        labelOrdenesServicioDia.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        labelOrdenesServicioDia.setForeground(new java.awt.Color(0, 0, 0));
+        labelOrdenesServicioDia.setText("ORDENES DE SERVICIO POR DIA");
+
+        javax.swing.GroupLayout tarjetaOrdenesServicioPorDiaLayout = new javax.swing.GroupLayout(tarjetaOrdenesServicioPorDia);
+        tarjetaOrdenesServicioPorDia.setLayout(tarjetaOrdenesServicioPorDiaLayout);
+        tarjetaOrdenesServicioPorDiaLayout.setHorizontalGroup(
+            tarjetaOrdenesServicioPorDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tarjetaOrdenesServicioPorDiaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelOrdenesServicioDia)
+                .addContainerGap(308, Short.MAX_VALUE))
+        );
+        tarjetaOrdenesServicioPorDiaLayout.setVerticalGroup(
+            tarjetaOrdenesServicioPorDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tarjetaOrdenesServicioPorDiaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelOrdenesServicioDia)
+                .addContainerGap(143, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -374,40 +432,43 @@ public class PanelEstadistica extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Titulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 426, Short.MAX_VALUE)
+                .addComponent(Reportes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(Guardar1)
-                        .addGap(81, 81, 81))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(Reportes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(Desde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Guardar2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(Hasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAplicar)))
-                .addGap(27, 27, 27))
+                        .addComponent(Desde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(Hasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAplicar))
+                .addGap(356, 356, 356))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(tarjetaOrdenesServicioPorEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(tarjetaOrdenesServicioPorDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(722, 722, 722)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
+                        .addContainerGap()
                         .addComponent(tarjetaOrdenes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(tarjetaIngresos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(tarjetaVehiculos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(tarjetaServicios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(tarjetaRepuestos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(49, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tarjetaIngresos, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tarjetaVehiculos, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tarjetaServicios, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(Guardar1)
+                                .addGap(85, 85, 85)
+                                .addComponent(Guardar2))
+                            .addComponent(tarjetaRepuestos, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -418,12 +479,12 @@ public class PanelEstadistica extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Guardar1)
                             .addComponent(Guardar2))
-                        .addGap(11, 11, 11)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(Hasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(Desde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnAplicar)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(Hasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Desde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAplicar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -433,33 +494,31 @@ public class PanelEstadistica extends javax.swing.JPanel {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(13, 13, 13)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tarjetaOrdenes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tarjetaIngresos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tarjetaRepuestos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tarjetaVehiculos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tarjetaServicios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(425, Short.MAX_VALUE))
+                    .addComponent(tarjetaIngresos, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                    .addComponent(tarjetaOrdenes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tarjetaServicios, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                    .addComponent(tarjetaVehiculos, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                    .addComponent(tarjetaRepuestos, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tarjetaOrdenesServicioPorEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tarjetaOrdenesServicioPorDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(231, 231, 231))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1623, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 12, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 723, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -546,11 +605,15 @@ public class PanelEstadistica extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel labelIngresos;
     private javax.swing.JLabel labelOrdenes;
+    private javax.swing.JLabel labelOrdenesServicioDia;
+    private javax.swing.JLabel labelOrdenesServicioEstado;
     private javax.swing.JLabel labelRepuestos;
     private javax.swing.JLabel labelServicios;
     private javax.swing.JLabel labelVehiculos;
     private javax.swing.JPanel tarjetaIngresos;
     private javax.swing.JPanel tarjetaOrdenes;
+    private javax.swing.JPanel tarjetaOrdenesServicioPorDia;
+    private javax.swing.JPanel tarjetaOrdenesServicioPorEstado;
     private javax.swing.JPanel tarjetaRepuestos;
     private javax.swing.JPanel tarjetaServicios;
     private javax.swing.JPanel tarjetaVehiculos;
