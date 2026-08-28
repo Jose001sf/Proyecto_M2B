@@ -220,6 +220,7 @@ public class RepuestoDAO {
         }
     }
     
+    //sql para estadisticas
     public int contarServiciosRealizados(LocalDate desde, LocalDate hasta) {
         String sql = "SELECT COALESCE(SUM(dr.cantidad_usar), 0)"
                 + "FROM detalle_repuesto dr "
