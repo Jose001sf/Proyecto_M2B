@@ -31,6 +31,7 @@ public class Menu extends javax.swing.JFrame {
         PanelPaneles.add(new PanelRepuestos(), "REPUESTOS");
         PanelPaneles.add(new PanelProveedores(), "PROVEEDORES");
         PanelPaneles.add(new PanelCatalogoServicio(), "CATALOGO_SERVICIOS");
+        PanelPaneles.add(new PanelEstadistica(), "Estadisticas");
        
     }
     int xMouse;
@@ -782,10 +783,18 @@ public class Menu extends javax.swing.JFrame {
         PanelEstadisticas.setBackground(new Color(179, 179, 179));
         Estadisticas.setForeground(Color.white);
     }//GEN-LAST:event_PanelEstadisticasMouseEntered
+    
+    private boolean mostrandoEstadisticas = false;
 
     private void PanelEstadisticasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEstadisticasMouseClicked
         // TODO add your handling code here:
-
+        CardLayout cl = (CardLayout) PanelPaneles.getLayout();
+        if (!mostrandoEstadisticas) {
+            cl.show(PanelPaneles, "Estadisticas");
+        } else {
+            cl.show(PanelPaneles, "Blanco");
+        }
+        mostrandoEstadisticas = !mostrandoEstadisticas;
     }//GEN-LAST:event_PanelEstadisticasMouseClicked
 
     private void PanelResiduosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelResiduosMouseExited

@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -125,5 +126,25 @@ public class ServicioDAO {
             System.out.println("Error al generar nuevo ID: " + e.getMessage());
             return null;
         }
+    }
+    
+    //PARA ESTADISTICA
+    public int contarServiciosRealizados(LocalDate desde, LocalDate hasta) {
+        String sql = "SELECT COALESCE(SUM(dor.cantidad_servi), 0)"
+                + "FROM detalle_de_orden dor "
+                + "JOIN orden_de_servicio os ON dor.id_orden_serv = os.id_orden_serv "
+                + "WHERE os.fecha_ingreso BETWEEN ? AND ?";
+        try (Connection con = ConexionBD.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setDate(1, java.sql.Date.valueOf(desde));
+            ps.setDate(2, java.sql.Date.valueOf(hasta));
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }
