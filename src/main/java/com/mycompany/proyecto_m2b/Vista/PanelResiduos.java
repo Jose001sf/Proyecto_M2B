@@ -432,7 +432,7 @@ public class PanelResiduos extends javax.swing.JPanel {
 
         Kilos2.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         Kilos2.setForeground(new java.awt.Color(153, 153, 153));
-        Kilos2.setText("Cantidad (Kg/L):");
+        Kilos2.setText("Cantidad:");
         Fondo.add(Kilos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 280, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

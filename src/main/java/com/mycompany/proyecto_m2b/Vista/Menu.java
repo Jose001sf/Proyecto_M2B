@@ -265,7 +265,7 @@ public class Menu extends javax.swing.JFrame {
                         .addComponent(Usuarios)
                         .addGap(18, 18, 18)
                         .addComponent(Empleados)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 388, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 365, Short.MAX_VALUE)
                         .addComponent(ImagenRegresar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Regresar)))
