@@ -615,32 +615,32 @@ public class Cargos extends javax.swing.JFrame {
     public void ModificarCargos (){
         Validaciones V=new Validaciones();
         String Cargo=TXTCargo.getText().trim();
-        String Descripcion=TXTDescripcion.getText().trim();
+        String Descrip=TXTDescripcion.getText().trim();
         Cargo car=(Cargo) Cargos.getSelectedItem();
         if (car==null){
             JOptionPane.showMessageDialog(this, "Por favor seleccione un cargo para modificar");
             return;
         }
-        if (Cargo.isEmpty() || Descripcion.isEmpty()){
+        if (Cargo.isEmpty() || Descrip.isEmpty()){
             JOptionPane.showMessageDialog (this, "Por favor ingrese los datos correspondientes");
             return;
         }
-        if (Cargo.isBlank() || Descripcion.isBlank()){
+        if (Cargo.isBlank() || Descrip.isBlank()){
             JOptionPane.showMessageDialog (this, "Por favor ingrese los datos correspondientes");
             return;
         }
-        if(!V.validarCargo(Cargo) || !V.validarDescripcionCargo(Descripcion)){
+        if(!V.validarCargo(Cargo) || !V.validarDescripcionCargo(Descrip)){
             LimpiarDatos();
-            JOptionPane.showMessageDialog(this, "Por favor ingrese los datos de manera correcta");
+            JOptionPane.showMessageDialog(this, "P favor ingrese los datos de manera correcta");
             return;
         }
-        if (Cargo.equalsIgnoreCase("Cargo") || Descripcion.equalsIgnoreCase("Descripción")){
-            JOptionPane.showMessageDialog(this, "Pro favor ingrese los datos de manera correcta");
+        if (Cargo.equalsIgnoreCase("Cargo") || Descrip.equalsIgnoreCase("Descripción")){
+            JOptionPane.showMessageDialog(this, "Por favor ingrese los datos de manera correcta");
             return;
         }
         Cargo cargo=new Cargo();
         cargo.setNom_cargo(Cargo);
-        cargo.setDescrip_cargo(Descripcion);
+        cargo.setDescrip_cargo(Descrip);
         CargoDAO cd=new CargoDAO();
         
         cargo.setID_cargo(car.getID_cargo());
@@ -649,7 +649,22 @@ public class Cargos extends javax.swing.JFrame {
     }
     private void PanelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseClicked
         // TODO add your handling code here:        
-        ModificarCargos();
+        Cargo car= (Cargo) Cargos.getSelectedItem();
+        if(car==null){
+            JOptionPane.showMessageDialog(this, "Escoga una opción");
+        }
+        else{
+            int opcion=JOptionPane.showConfirmDialog(this, "¿Quiere modificar la especialidad?","Confirmar",JOptionPane.YES_NO_OPTION);
+            if(opcion==JOptionPane.YES_OPTION){
+                ModificarCargos();
+                LimpiarDatos();
+                CargoDAO cd=new CargoDAO();
+                cd.cargarCargos(Cargos);
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Gracias por confirmar");
+            }
+        }
     }//GEN-LAST:event_PanelEditarMouseClicked
 
     private void CargosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CargosItemStateChanged

@@ -61,7 +61,7 @@ public class EspecialidadDAO {
     }
     private static final String MODIFICARESPECIALIDAD=
             "UPDATE especialidad "
-            + "SET nom_especialidad = ?, descrip_especialidad = ? "
+            + "SET nom_especialidad = ?, descrip_especi = ? "
             + "WHERE id_especialidad=?";
     
     public boolean modificarEspecialidad (Especialidad especicalidad){

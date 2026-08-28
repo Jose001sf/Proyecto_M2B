@@ -72,7 +72,6 @@ public class Menu extends javax.swing.JFrame {
         Empleados = new javax.swing.JLabel();
         Usuarios = new javax.swing.JLabel();
         Minimizar = new javax.swing.JLabel();
-        PanelBarraInferior = new javax.swing.JPanel();
         PanelFondoBlanco = new javax.swing.JPanel();
         PanelPaneles = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -302,22 +301,6 @@ public class Menu extends javax.swing.JFrame {
         );
 
         PanelFondoMenu.add(PanelBarra, java.awt.BorderLayout.NORTH);
-
-        PanelBarraInferior.setBackground(new java.awt.Color(227, 153, 106));
-        PanelBarraInferior.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout PanelBarraInferiorLayout = new javax.swing.GroupLayout(PanelBarraInferior);
-        PanelBarraInferior.setLayout(PanelBarraInferiorLayout);
-        PanelBarraInferiorLayout.setHorizontalGroup(
-            PanelBarraInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1931, Short.MAX_VALUE)
-        );
-        PanelBarraInferiorLayout.setVerticalGroup(
-            PanelBarraInferiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 78, Short.MAX_VALUE)
-        );
-
-        PanelFondoMenu.add(PanelBarraInferior, java.awt.BorderLayout.SOUTH);
 
         PanelFondoBlanco.setBackground(new java.awt.Color(102, 102, 102));
 
@@ -708,7 +691,7 @@ public class Menu extends javax.swing.JFrame {
             PanelAccesosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelAccesosLayout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 55, Short.MAX_VALUE))
+                .addGap(0, 63, Short.MAX_VALUE))
             .addComponent(PanelProveedores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(PanelVehiculos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(PanelOrdenesServicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -739,7 +722,7 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(PanelResiduos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(PanelEstadisticas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(PanelAccesos);
@@ -758,7 +741,7 @@ public class Menu extends javax.swing.JFrame {
             PanelFondoBlancoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelFondoBlancoLayout.createSequentialGroup()
                 .addGap(49, 49, 49)
-                .addComponent(PanelPaneles, javax.swing.GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE))
+                .addComponent(PanelPaneles, javax.swing.GroupLayout.DEFAULT_SIZE, 774, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelFondoBlancoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -1145,7 +1128,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel OrdenesDeServicio;
     private javax.swing.JPanel PanelAccesos;
     private javax.swing.JPanel PanelBarra;
-    private javax.swing.JPanel PanelBarraInferior;
     private javax.swing.JPanel PanelEstadisticas;
     private javax.swing.JPanel PanelFondoBlanco;
     private javax.swing.JPanel PanelFondoMenu;

@@ -24,6 +24,8 @@ public class PanelEspecialidad extends javax.swing.JFrame {
     public PanelEspecialidad() {
         initComponents();
         this.setLocationRelativeTo(null);
+        EspecialidadDAO ed=new EspecialidadDAO();
+        ed.cargarEspecialidades(Especialidades);
     }
 
     int xMouse;
@@ -59,6 +61,7 @@ public class PanelEspecialidad extends javax.swing.JFrame {
         TXTEspecialidad = new javax.swing.JTextField();
         Descripcion = new javax.swing.JLabel();
         TXTDescripcion = new javax.swing.JTextField();
+        Especialidades = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -352,6 +355,9 @@ public class PanelEspecialidad extends javax.swing.JFrame {
             }
         });
 
+        Especialidades.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Especialidades.addItemListener(this::EspecialidadesItemStateChanged);
+
         javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu);
         Menu.setLayout(MenuLayout);
         MenuLayout.setHorizontalGroup(
@@ -377,7 +383,9 @@ public class PanelEspecialidad extends javax.swing.JFrame {
                             .addComponent(NombreEspecialidad))
                         .addGroup(MenuLayout.createSequentialGroup()
                             .addContainerGap()
-                            .addComponent(TXTEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(TXTEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(131, 131, 131)
+                            .addComponent(Especialidades, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(MenuLayout.createSequentialGroup()
                             .addGap(17, 17, 17)
                             .addComponent(Descripcion))))
@@ -390,7 +398,9 @@ public class PanelEspecialidad extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(NombreEspecialidad)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TXTEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TXTEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Especialidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Descripcion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -534,6 +544,7 @@ public class PanelEspecialidad extends javax.swing.JFrame {
         Validaciones V=new Validaciones();
         String Especialidad=TXTEspecialidad.getText().trim().toUpperCase();
         String Descripcion=TXTDescripcion.getText().trim();
+        Especialidad esper=(Especialidad) Especialidades.getSelectedItem();
         if (Especialidad.isEmpty() || Descripcion.isEmpty()){
             JOptionPane.showMessageDialog (this, "Por favor ingrese los datos correspondientes");
             return;
@@ -554,6 +565,7 @@ public class PanelEspecialidad extends javax.swing.JFrame {
         Especialidad espe=new Especialidad();
         espe.setNom_especialidad(Especialidad);
         espe.setDescrip_especi(Descripcion);
+        espe.setID_especialidad(esper.getID_especialidad());
         EspecialidadDAO ed=new EspecialidadDAO();
         ed.modificarEspecialidad(espe);
         JOptionPane.showMessageDialog(this, "Se ha actualizado de manera correcta");
@@ -630,8 +642,32 @@ public class PanelEspecialidad extends javax.swing.JFrame {
 
     private void PanelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseClicked
         // TODO add your handling code here:
-        
+        Especialidad espe= (Especialidad) Especialidades.getSelectedItem();
+        if(espe==null){
+            JOptionPane.showMessageDialog(this, "Escoga una opción");
+        }
+        else{
+            int opcion=JOptionPane.showConfirmDialog(this, "¿Quiere modificar el cargo?","Confirmar",JOptionPane.YES_NO_OPTION);
+            if(opcion==JOptionPane.YES_OPTION){
+                ModificarEspecialidad();
+                LimpiarDatos();
+                EspecialidadDAO ed=new EspecialidadDAO();
+                ed.cargarEspecialidades(Especialidades);
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Gracias por confirmar");
+            }
+        }
     }//GEN-LAST:event_PanelEditarMouseClicked
+
+    private void EspecialidadesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_EspecialidadesItemStateChanged
+        // TODO add your handling code here:
+        Especialidad espe=(Especialidad) Especialidades.getSelectedItem();
+        if (espe !=null){
+            TXTEspecialidad.setText(espe.getNom_especialidad());
+            TXTDescripcion.setText(espe.getDescrip_especi());
+            }
+    }//GEN-LAST:event_EspecialidadesItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -663,6 +699,7 @@ public class PanelEspecialidad extends javax.swing.JFrame {
     private javax.swing.JLabel Buscar;
     private javax.swing.JLabel Descripcion;
     private javax.swing.JLabel Editar;
+    private javax.swing.JComboBox<String> Especialidades;
     private javax.swing.JLabel Guardar;
     private javax.swing.JLabel ImagenADD;
     private javax.swing.JLabel ImagenRegresar;

@@ -146,7 +146,7 @@ public class Validaciones {
             return false;
         }
         Cargo=Cargo.trim(); 
-        Pattern pat=Pattern.compile("^[A-Za-zÁÉÍÓÚÑáéíóúñ]{1,30}$");
+        Pattern pat=Pattern.compile("^[A-Za-zÁÉÍÓÚÑáéíóúñ\\s]{1,30}$");
         Matcher mat=pat.matcher(Cargo);                
        return mat.matches();                            
     }
@@ -164,7 +164,7 @@ public class Validaciones {
             return false;
         }
         Especialidad=Especialidad.trim(); 
-        Pattern pat=Pattern.compile("^[A-Za-zÁÉÍÓÚÑáéíóúñ]{1,30}$");
+        Pattern pat=Pattern.compile("^[A-Za-zÁÉÍÓÚÑáéíóúñ\\s]{1,30}$");
         Matcher mat=pat.matcher(Especialidad);                
        return mat.matches();                            
     }
