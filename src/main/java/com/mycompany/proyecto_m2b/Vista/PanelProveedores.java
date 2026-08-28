@@ -47,7 +47,8 @@ public class PanelProveedores extends javax.swing.JPanel {
     txtFechaCompra.setEnabled(false);
     txtTotalCompra.setEditable(false);
     txtFechaCompra.setDate(new Date());
-    
+    txtPrecioUnitarioCompra.setEditable(false);
+    txtPrecioUnitarioCompra.setEnabled(false);
     txtIdCompra.setEditable(false); 
     txtIdCompra.setEnabled(false);
 
