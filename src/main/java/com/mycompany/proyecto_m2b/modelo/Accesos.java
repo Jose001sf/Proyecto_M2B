@@ -10,8 +10,27 @@ package com.mycompany.proyecto_m2b.modelo;
  */
 public class Accesos {
 
+    private String id_accesos;
     private String accesos;
     private String desc_persmisos;
+    private String id_tip_usuario;
+
+    public String getId_tip_usuario() {
+        return id_tip_usuario;
+    }
+
+    public void setId_tip_usuario(String id_tip_usuario) {
+        this.id_tip_usuario = id_tip_usuario;
+    }
+
+    public String getId_accesos() {
+        return id_accesos;
+    }
+
+    public void setId_accesos(String id_accesos) {
+        this.id_accesos = id_accesos;
+    }
+    
     
     /**
      * @return the accesos
@@ -47,6 +66,19 @@ public class Accesos {
     public Accesos(String accesos, String desc_persmisos) {
         this.accesos = accesos;
         this.desc_persmisos = desc_persmisos;
+    }
+
+    public Accesos(String accesos, String desc_persmisos, String id_tip_usuario) {
+        this.accesos = accesos;
+        this.desc_persmisos = desc_persmisos;
+        this.id_tip_usuario = id_tip_usuario;
+    }
+
+    public Accesos(String id_accesos, String accesos, String desc_persmisos, String id_tip_usuario) {
+        this.id_accesos = id_accesos;
+        this.accesos = accesos;
+        this.desc_persmisos = desc_persmisos;
+        this.id_tip_usuario = id_tip_usuario;
     }
 
     @Override
