@@ -4,10 +4,12 @@
  */
 package com.mycompany.proyecto_m2b.Vista;
 
+import com.mycompany.proyecto_m2b.Controlador.Validaciones;
 import com.mycompany.proyecto_m2b.Controlador.VehiculosDAO;
 import com.mycompany.proyecto_m2b.modelo.Marca;
 import com.mycompany.proyecto_m2b.modelo.Modelo;
 import com.mycompany.proyecto_m2b.modelo.Propietario;
+import com.mycompany.proyecto_m2b.modelo.Vehiculos;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -24,8 +26,8 @@ public class PanelVehiculos extends javax.swing.JPanel {
     public PanelVehiculos() {
         initComponents();
         cargarComboMarcas();
-        cargarComboTipos();
         cargarComboPropietarios();
+        cargarComboTransmision();
     txtPlaca.setText("Ingrese la placa del vehiculo");
     txtPlaca.setForeground(java.awt.Color.GRAY);
 
@@ -34,9 +36,6 @@ public class PanelVehiculos extends javax.swing.JPanel {
     
     txtKilometraje.setText("Ingrese el kilometraje del vehiculo");
     txtKilometraje.setForeground(java.awt.Color.GRAY);
-    
-    txtAnio.setText("Ingrese el año de fabricacion del vehiculo");
-    txtAnio.setForeground(java.awt.Color.GRAY);
 
     txtChasis.setText("Ingrese el N° de chasis del vehiculo");
     txtChasis.setForeground(java.awt.Color.GRAY);
@@ -65,19 +64,6 @@ public class PanelVehiculos extends javax.swing.JPanel {
     comboMarcas.revalidate();
     comboMarcas.repaint();
     }
-    public void cargarComboTipos() {
-        VehiculosDAO dao = new VehiculosDAO();
-        java.util.List<String> tipos = dao.obtenerNombresTipos();
-
-        comboTipos.removeAllItems(); 
-        comboTipos.addItem("Seleccione un tipo");
-
-        for (String tipo : tipos) {
-        comboTipos.addItem(tipo);
-    }
-        comboTipos.revalidate();
-        comboTipos.repaint();
-}
     public void cargarComboModelos(String idMarca) {
     comboModelos.removeAllItems();
     comboModelos.addItem("Seleccione un modelo");
@@ -107,6 +93,14 @@ public class PanelVehiculos extends javax.swing.JPanel {
     comboPropietarios.revalidate();
     comboPropietarios.repaint();
     }
+    public void cargarComboTransmision() {
+    comboTransmision.removeAllItems();
+    comboTransmision.addItem("Seleccione un tipo");
+    comboTransmision.addItem("Manual");
+    comboTransmision.addItem("Automática");
+    comboTransmision.addItem("CVT");
+    comboTransmision.addItem("Secuencial");
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -143,7 +137,6 @@ public class PanelVehiculos extends javax.swing.JPanel {
         Cilindraje = new javax.swing.JLabel();
         Puertas = new javax.swing.JLabel();
         comboTransmision = new javax.swing.JComboBox<>();
-        txtAnio = new javax.swing.JTextField();
         txtChasis = new javax.swing.JTextField();
         txtMotor = new javax.swing.JTextField();
         txtCilindraje = new javax.swing.JTextField();
@@ -160,8 +153,10 @@ public class PanelVehiculos extends javax.swing.JPanel {
         PanelNuevo = new javax.swing.JPanel();
         Nuevo = new javax.swing.JLabel();
         ImagenADD = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        comboTipos = new javax.swing.JComboBox<>();
+        jYearChooser1 = new com.toedter.calendar.JYearChooser();
+        PanelAgregar = new javax.swing.JPanel();
+        Buscar1 = new javax.swing.JLabel();
+        ImagenADD3 = new javax.swing.JLabel();
 
         Fondo.setBackground(new java.awt.Color(255, 255, 255));
         Fondo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -340,16 +335,6 @@ public class PanelVehiculos extends javax.swing.JPanel {
         comboTransmision.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un tipo de transmision", "Item 2", "Item 3", "Item 4" }));
         Fondo.add(comboTransmision, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 420, 290, -1));
 
-        txtAnio.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtAnioFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtAnioFocusLost(evt);
-            }
-        });
-        Fondo.add(txtAnio, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 270, -1));
-
         txtChasis.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtChasisFocusGained(evt);
@@ -432,12 +417,15 @@ public class PanelVehiculos extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        Fondo.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 550, -1, -1));
+        Fondo.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 550, -1, -1));
 
         PanelEditar.setBackground(new java.awt.Color(255, 255, 255));
         PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
         PanelEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelEditarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelEditarMouseEntered(evt);
             }
@@ -473,12 +461,15 @@ public class PanelVehiculos extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        Fondo.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 550, -1, -1));
+        Fondo.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 550, -1, -1));
 
         PanelBuscar.setBackground(new java.awt.Color(255, 255, 255));
         PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
         PanelBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelBuscarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelBuscarMouseEntered(evt);
             }
@@ -513,7 +504,7 @@ public class PanelVehiculos extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Fondo.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 550, -1, -1));
+        Fondo.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 550, -1, -1));
 
         PanelNuevo.setBackground(new java.awt.Color(255, 255, 255));
         PanelNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -563,13 +554,52 @@ public class PanelVehiculos extends javax.swing.JPanel {
 
         Fondo.add(PanelNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 310, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel4.setText("Tipo:");
-        Fondo.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 180, -1, -1));
+        jYearChooser1.setMaximum(2027);
+        jYearChooser1.setMinimum(1900);
+        Fondo.add(jYearChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 110, -1));
 
-        comboTipos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un tipo", "Item 2", "Item 3", "Item 4" }));
-        Fondo.add(comboTipos, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 200, 210, -1));
+        PanelAgregar.setBackground(new java.awt.Color(255, 255, 255));
+        PanelAgregar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        PanelAgregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelAgregarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PanelAgregarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                PanelAgregarMouseExited(evt);
+            }
+        });
+
+        Buscar1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        Buscar1.setText("Nuevo");
+
+        ImagenADD3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+
+        javax.swing.GroupLayout PanelAgregarLayout = new javax.swing.GroupLayout(PanelAgregar);
+        PanelAgregar.setLayout(PanelAgregarLayout);
+        PanelAgregarLayout.setHorizontalGroup(
+            PanelAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAgregarLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(ImagenADD3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Buscar1)
+                .addContainerGap(31, Short.MAX_VALUE))
+        );
+        PanelAgregarLayout.setVerticalGroup(
+            PanelAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelAgregarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ImagenADD3)
+                    .addComponent(Buscar1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        Fondo.add(PanelAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 550, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -653,20 +683,6 @@ public class PanelVehiculos extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtKilometrajeFocusLost
 
-    private void txtAnioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAnioFocusGained
-        if (txtAnio.getText().equals("Ingrese el año de fabricacion del vehiculo")) {
-            txtAnio.setText("");
-            txtAnio.setForeground(java.awt.Color.BLACK);
-        }
-    }//GEN-LAST:event_txtAnioFocusGained
-
-    private void txtAnioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAnioFocusLost
-        if (txtAnio.getText().trim().isEmpty()) {
-            txtAnio.setText("Ingrese el año de fabricacion del vehiculo");
-            txtAnio.setForeground(java.awt.Color.GRAY);
-        }
-    }//GEN-LAST:event_txtAnioFocusLost
-
     private void txtChasisFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtChasisFocusGained
         if (txtChasis.getText().equals("Ingrese el N° de chasis del vehiculo")) {
             txtChasis.setText("");
@@ -725,27 +741,6 @@ public class PanelVehiculos extends javax.swing.JPanel {
 
     private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
         // TODO add your handling code here:
-        String placa = txtPlaca.getText().trim();
-
-        if (placa.isEmpty() || placa.equals("Ingrese la placa del vehiculo")) {
-            JOptionPane.showMessageDialog(this, "Por favor ingrese una placa válida.", "Campo Requerido", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        if (comboPropietarios.getSelectedIndex() > 0) {
-        String Propietario = comboPropietarios.getSelectedItem().toString();
-
-        VehiculosDAO dao = new VehiculosDAO();
-        String idPropietario = dao.obtenerIdPropietarioPorNombre(Propietario);
-        if (idPropietario != null) {
-            cargarComboPropietarios();
-        } else {
-            comboPropietarios.removeAllItems();
-            comboPropietarios.addItem("Seleccione un propietario");
-        }
-    } else {
-        comboPropietarios.removeAllItems();
-        comboPropietarios.addItem("Seleccione un propietario");
-    }
         GuardarVehiculos();
     }//GEN-LAST:event_PanelGuardarMouseClicked
 
@@ -792,7 +787,6 @@ public class PanelVehiculos extends javax.swing.JPanel {
         @Override
         public void windowClosed(java.awt.event.WindowEvent e) {
             cargarComboMarcas();
-            cargarComboTipos();
         }
     });
     ventanaCrear.setVisible(true);
@@ -826,6 +820,133 @@ public class PanelVehiculos extends javax.swing.JPanel {
     private void comboPropietariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboPropietariosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboPropietariosActionPerformed
+
+    private void PanelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PanelEditarMouseClicked
+private void seleccionarPropietarioPorId(String idPropietario) {
+    if (idPropietario == null) return;
+    
+    VehiculosDAO dao = new VehiculosDAO();
+    String nombreBD = dao.obtenerNombrePropietario(idPropietario.trim());
+
+    if (nombreBD != null) {
+        for (int i = 0; i < comboPropietarios.getItemCount(); i++) {
+            Object item = comboPropietarios.getItemAt(i);
+            if (item != null && item.toString().trim().equalsIgnoreCase(nombreBD.trim())) {
+                comboPropietarios.setSelectedIndex(i);
+                break;
+            }
+        }
+    }
+}
+
+private void seleccionarModeloPorId(String idModelo) {
+    if (idModelo == null || idModelo.trim().isEmpty()) return;
+    
+    VehiculosDAO dao = new VehiculosDAO();
+    String nombreMarcaBD = dao.obtenerNombreMarcaPorModelo(idModelo.trim());
+    String nombreModeloBD = dao.obtenerNombreModelo(idModelo.trim());
+    if (nombreMarcaBD != null) {
+        for (int i = 0; i < comboMarcas.getItemCount(); i++) {
+            Object item = comboMarcas.getItemAt(i);
+            if (item != null && item.toString().trim().equalsIgnoreCase(nombreMarcaBD.trim())) {
+                comboMarcas.setSelectedIndex(i); 
+                break;
+            }
+        }
+    }
+    if (nombreModeloBD != null) {
+        for (int i = 0; i < comboModelos.getItemCount(); i++) {
+            Object item = comboModelos.getItemAt(i);
+            if (item != null && item.toString().trim().equalsIgnoreCase(nombreModeloBD.trim())) {
+                comboModelos.setSelectedIndex(i);
+                break;
+            }
+        }
+    }
+}
+    private void PanelBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseClicked
+        // TODO add your handling code here:
+        String placaBuscar = txtPlaca.getText().trim();
+    if (placaBuscar.isEmpty()) {
+        JOptionPane.showMessageDialog(this, 
+            "Por favor, ingrese el número de placa para realizar la búsqueda.", 
+            "Atención", 
+            JOptionPane.WARNING_MESSAGE);
+        txtPlaca.requestFocus();
+        return;
+    }
+
+    try {
+        VehiculosDAO controlador = new VehiculosDAO(); 
+        Vehiculos v = controlador.buscarPorPlaca(placaBuscar);
+        if (v != null) {
+            txtColor.setText(v.getColor_vehi());
+            txtCilindraje.setText(v.getCilindraje_vehi());
+            txtChasis.setText(v.getNum_chasis_vehi());
+            txtMotor.setText(v.getNum_motor_vehi());
+            txtPuertas.setText(String.valueOf(v.getNum_puertas_vehi()));
+            txtKilometraje.setText(String.valueOf(v.getKilometraje_vehi()));
+            if (v.getAnio_sal_vehi() != null) {
+                java.util.Calendar cal = java.util.Calendar.getInstance();
+                cal.setTime(v.getAnio_sal_vehi());
+                jYearChooser1.setYear(cal.get(java.util.Calendar.YEAR));
+            }
+            if (v.getTransmision_vehi() != null) {
+                comboTransmision.setSelectedItem(v.getTransmision_vehi());
+            }
+
+            seleccionarModeloPorId(v.getID_mode_vehi());
+            seleccionarPropietarioPorId(v.getID_propietario_vehi());
+            txtPlaca.setEditable(false);
+
+            JOptionPane.showMessageDialog(this, 
+                "Vehículo encontrado exitosamente.", 
+                "Éxito", 
+                JOptionPane.INFORMATION_MESSAGE);
+
+        } else {
+            JOptionPane.showMessageDialog(this, 
+                "No se encontró ningún vehículo registrado con la placa: " + placaBuscar, 
+                "Sin Resultados", 
+                JOptionPane.ERROR_MESSAGE);
+            txtPlaca.requestFocus();
+        }
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, 
+            "Ocurrió un error al consultar la base de datos: " + e.getMessage(), 
+            "Error del Sistema", 
+            JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_PanelBuscarMouseClicked
+
+    private void PanelAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelAgregarMouseClicked
+    LimpiarDatos();
+    txtPlaca.setEditable(true);
+    if (comboMarcas.getItemCount() > 0) comboMarcas.setSelectedIndex(0);
+    if (comboModelos.getItemCount() > 0) comboModelos.setSelectedIndex(0);
+    if (comboPropietarios.getItemCount() > 0) comboPropietarios.setSelectedIndex(0);
+    if (comboTransmision.getItemCount() > 0) comboTransmision.setSelectedIndex(0);
+
+    java.util.Calendar cal = java.util.Calendar.getInstance();
+    jYearChooser1.setYear(cal.get(java.util.Calendar.YEAR));
+
+    txtPlaca.requestFocus();
+    }//GEN-LAST:event_PanelAgregarMouseClicked
+
+    private void PanelAgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelAgregarMouseEntered
+        // TODO add your handling code here:
+        PanelAgregar.setBackground(new java.awt.Color(219,219,219));
+        Buscar.setForeground(new java.awt.Color(66, 66, 66));
+    }//GEN-LAST:event_PanelAgregarMouseEntered
+
+    private void PanelAgregarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelAgregarMouseExited
+        // TODO add your handling code here:
+        PanelAgregar.setBackground(java.awt.Color.white);
+        Buscar.setForeground(java.awt.Color.black);
+    }//GEN-LAST:event_PanelAgregarMouseExited
     
     public void LimpiarDatos (){
         txtPlaca.setText("");
@@ -834,8 +955,6 @@ public class PanelVehiculos extends javax.swing.JPanel {
         txtColor.setForeground(new Color(94, 94, 94));
         txtKilometraje.setText("");
         txtKilometraje.setForeground(new Color(94, 94, 94));
-        txtAnio.setText("");
-        txtAnio.setForeground(new Color(94, 94, 94));
         txtChasis.setText("");
         txtChasis.setForeground(new Color(94, 94, 94));
         txtMotor.setText("");
@@ -850,50 +969,119 @@ public class PanelVehiculos extends javax.swing.JPanel {
         comboTransmision.setSelectedIndex(0);
 
     }
-    public void GuardarVehiculos (){        
-        String Placa=txtPlaca.getText().trim();
-        String Color=txtColor.getText().trim().toUpperCase();
-        String Kilometraje=txtKilometraje.getText().trim().toUpperCase();
-        String Anio=txtAnio.getText().trim().toUpperCase();
-        String Chasis=txtChasis.getText().trim().toUpperCase();
-        String Motor=txtMotor.getText().trim().toUpperCase();
-        String Cilindraje=txtCilindraje.getText().trim().toUpperCase();
-        String Puertas=txtPuertas.getText().trim().toUpperCase();
-        String Marcas = comboMarcas.getSelectedItem().toString();
-        String Propietarios= comboPropietarios.getSelectedItem().toString();
-        String Modelos= comboModelos.getSelectedItem().toString();
-        String Transmision= comboTransmision.getSelectedItem().toString();
-        if (Placa.isEmpty()|| Color.isEmpty()||Kilometraje.isEmpty()||Anio.isEmpty()||Chasis.isEmpty()||Motor.isEmpty()||Cilindraje.isEmpty()||Puertas.isEmpty()){
-            JOptionPane.showMessageDialog (this, "Por favor complete los datos que faltan");
+    private void GuardarVehiculos() {
+    try {
+        if (comboPropietarios.getSelectedIndex() <= 0 || comboPropietarios.getSelectedItem().toString().toLowerCase().contains("seleccione")) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un propietario válido.", "Campo Requerido", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        if (Placa.isEmpty()|| Color.isEmpty()||Kilometraje.isEmpty()||Anio.isEmpty()||Chasis.isEmpty()||Motor.isEmpty()||Cilindraje.isEmpty()||Puertas.isEmpty()){
-            JOptionPane.showMessageDialog (this, "Por favor complete los datos que faltan");
+        if (comboMarcas.getSelectedIndex() <= 0 || comboMarcas.getSelectedItem().toString().toLowerCase().contains("seleccione")) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una marca válida.", "Campo Requerido", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        if (Marcas.equals("Seleccione una opción") ){
-            JOptionPane.showMessageDialog (this, "Por favor escoga una opción");
+        if (comboModelos.getSelectedIndex() <= 0 || comboModelos.getSelectedItem().toString().toLowerCase().contains("seleccione")) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un modelo válido.", "Campo Requerido", JOptionPane.WARNING_MESSAGE);
             return;
         }
-         if (Propietarios.equals("Seleccione una opción") ){
-            JOptionPane.showMessageDialog (this, "Por favor escoga una opción");
+        if (comboTransmision.getSelectedIndex() <= 0 || comboTransmision.getSelectedItem().toString().toLowerCase().contains("seleccione")) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una transmisión válida.", "Campo Requerido", JOptionPane.WARNING_MESSAGE);
             return;
         }
-         if (Transmision.equals("Seleccione una opción") ){
-            JOptionPane.showMessageDialog (this, "Por favor escoga una opción");
+        String placa = txtPlaca.getText().trim().toUpperCase();
+        String color = txtColor.getText().trim();
+        String cilindraje = txtCilindraje.getText().trim();
+        String chasis = txtChasis.getText().trim();
+        String motor = txtMotor.getText().trim();
+        String puertasStr = txtPuertas.getText().trim();
+        String kmStr = txtKilometraje.getText().trim();
+        
+        if (Validaciones.esVacio(placa) || Validaciones.esVacio(color) || 
+            Validaciones.esVacio(chasis) || Validaciones.esVacio(motor)) {
+            JOptionPane.showMessageDialog(this, "Todos los campos de texto son obligatorios.", "Atención", JOptionPane.WARNING_MESSAGE);
             return;
         }
-         if (Modelos.equals("Seleccione una opción") ){
-            JOptionPane.showMessageDialog (this, "Por favor escoga una opción");
-            return;
-         }
-    }
 
+        if (!Validaciones.esPlacaValida(placa)) {
+            JOptionPane.showMessageDialog(this, "La placa ingresada no es válida (Ejemplo: ABC-1234 o ABC-123).", "Error de Formato", JOptionPane.WARNING_MESSAGE);
+            txtPlaca.requestFocus();
+            return;
+        }
+
+        if (!Validaciones.esTextoSoloLetras(color)) {
+            JOptionPane.showMessageDialog(this, "El color solo debe contener letras.", "Error de Formato", JOptionPane.WARNING_MESSAGE);
+            txtColor.requestFocus();
+            return;
+        }
+
+        if (!Validaciones.esAlfanumerico(chasis) || !Validaciones.esAlfanumerico(motor)) {
+            JOptionPane.showMessageDialog(this, "El número de chasis y motor deben ser alfanuméricos sin caracteres especiales.", "Error de Formato", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (!Validaciones.esNumeroEnteroPositivo(puertasStr) || 
+            !Validaciones.esNumeroEnteroPositivo(kmStr) || 
+            !Validaciones.esNumeroEnteroPositivo(cilindraje)) {
+            JOptionPane.showMessageDialog(this, "Cilindraje, puertas y kilometraje deben ser números enteros positivos.", "Error de Formato", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (!Validaciones.esNumeroPuertasValido(puertasStr)) {
+            JOptionPane.showMessageDialog(this, "El número de puertas debe estar entre 2 y 5 (incluyendo la compuerta trasera).", "Error de Validación", 
+            JOptionPane.WARNING_MESSAGE);
+            txtPuertas.requestFocus();
+            return;
+        }
+        Vehiculos vehiculo = new Vehiculos();
+        VehiculosDAO dao = new VehiculosDAO();
+
+        String idGenerado = dao.generarSiguienteIdVehiculo(); 
+        vehiculo.setID_vehi(idGenerado);
+
+        int anio = jYearChooser1.getYear(); 
+        int anioActual = java.time.Year.now().getValue();
+        if (anio < 1900 || anio > (anioActual + 1)) {
+          JOptionPane.showMessageDialog(this, 
+          "Por favor, seleccione un año válido (entre 1900 y " + (anioActual + 1) + ").", 
+          "Año Inválido", 
+          JOptionPane.WARNING_MESSAGE);
+          return; 
+        }
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date fechaAnio = sdf.parse(anio + "-01-01");
+        vehiculo.setAnio_sal_vehi(fechaAnio);
+        vehiculo.setNum_chasis_vehi(chasis);
+        vehiculo.setColor_vehi(color);
+        vehiculo.setCilindraje_vehi(cilindraje);
+        vehiculo.setTransmision_vehi(comboTransmision.getSelectedItem().toString().trim());
+        vehiculo.setNum_motor_vehi(motor);
+        vehiculo.setPlaca_carro(placa);
+        vehiculo.setNum_puertas_vehi(Integer.parseInt(puertasStr));
+        vehiculo.setKilometraje_vehi(Integer.parseInt(kmStr));
+        String nombrePropietario = comboPropietarios.getSelectedItem().toString().trim();
+        String nombreModelo = comboModelos.getSelectedItem().toString().trim();
+        String idPropietario = dao.obtenerIdPropietarioPorNombre(nombrePropietario);
+        String idModelo = dao.obtenerIdModeloPorNombre(nombreModelo);
+
+        if (idPropietario == null || idModelo == null) {
+            JOptionPane.showMessageDialog(this, "No se encontró la referencia en la base de datos para el propietario o modelo.", "Error de Asociación", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        vehiculo.setID_propietario_vehi(idPropietario);
+        vehiculo.setID_mode_vehi(idModelo);
+        dao.insertarVehiculos(vehiculo);
+        JOptionPane.showMessageDialog(this, "¡Vehículo guardado exitosamente!", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        LimpiarDatos();
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al guardar el vehículo: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Ano;
     private javax.swing.JPanel BarraAbajo;
     private javax.swing.JPanel BarraArriba;
     private javax.swing.JLabel Buscar;
+    private javax.swing.JLabel Buscar1;
     private javax.swing.JLabel Chasis;
     private javax.swing.JLabel Cilindraje;
     private javax.swing.JLabel Color;
@@ -901,6 +1089,7 @@ public class PanelVehiculos extends javax.swing.JPanel {
     private javax.swing.JPanel Fondo;
     private javax.swing.JLabel Guardar;
     private javax.swing.JLabel ImagenADD;
+    private javax.swing.JLabel ImagenADD3;
     private javax.swing.JLabel ImagenSAVE;
     private javax.swing.JLabel Kilometraje;
     private javax.swing.JLabel Marca;
@@ -908,6 +1097,7 @@ public class PanelVehiculos extends javax.swing.JPanel {
     private javax.swing.JLabel Motor;
     private javax.swing.JLabel NombreVentanaVehiculos;
     private javax.swing.JLabel Nuevo;
+    private javax.swing.JPanel PanelAgregar;
     private javax.swing.JPanel PanelBuscar;
     private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelGuardar;
@@ -921,14 +1111,12 @@ public class PanelVehiculos extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> comboMarcas;
     private javax.swing.JComboBox<String> comboModelos;
     private javax.swing.JComboBox<String> comboPropietarios;
-    private javax.swing.JComboBox<String> comboTipos;
     private javax.swing.JComboBox<String> comboTransmision;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JTextField txtAnio;
+    private com.toedter.calendar.JYearChooser jYearChooser1;
     private javax.swing.JTextField txtChasis;
     private javax.swing.JTextField txtCilindraje;
     private javax.swing.JTextField txtColor;
