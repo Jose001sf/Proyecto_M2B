@@ -1055,15 +1055,61 @@ private void calcularTotal() {
         JTextField txtNomTip = new JTextField();
         JTextField txtDescripTip = new JTextField();
 
-        JPanel panelTipoDialog = new JPanel(new GridLayout(0, 1, 5, 5));
+        JLabel lblErrorNomTip = new JLabel(" ");
+        lblErrorNomTip.setForeground(Color.RED);
+        lblErrorNomTip.setFont(new Font("Arial", Font.PLAIN, 11));
+
+        JLabel lblErrorDescripTip = new JLabel(" ");
+        lblErrorDescripTip.setForeground(Color.RED);
+        lblErrorDescripTip.setFont(new Font("Arial", Font.PLAIN, 11));
+
+        txtNomTip.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            public void insertUpdate(javax.swing.event.DocumentEvent ev) { validar(); }
+            public void removeUpdate(javax.swing.event.DocumentEvent ev) { validar(); }
+            public void changedUpdate(javax.swing.event.DocumentEvent ev) { validar(); }
+            private void validar() {
+                String texto = txtNomTip.getText().trim();
+                boolean repetidas = texto.matches(".*(.)\\1{3,}.*");
+                if (texto.isEmpty()) {
+                    lblErrorNomTip.setText("El nombre del tipo es obligatorio.");
+                } else if (texto.length() < 3) {
+                    lblErrorNomTip.setText("El nombre es muy corto.");
+                } else if (repetidas) {
+                    lblErrorNomTip.setText("Ingrese un nombre válido.");
+                } else {
+                    lblErrorNomTip.setText(" ");
+                }
+            }
+        });
+
+        txtDescripTip.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            public void insertUpdate(javax.swing.event.DocumentEvent ev) { validar(); }
+            public void removeUpdate(javax.swing.event.DocumentEvent ev) { validar(); }
+            public void changedUpdate(javax.swing.event.DocumentEvent ev) { validar(); }
+            private void validar() {
+                String texto = txtDescripTip.getText().trim();
+                boolean repetidas = texto.matches(".*(.)\\1{3,}.*");
+                if (!texto.isEmpty() && texto.length() < 3) {
+                    lblErrorDescripTip.setText("La descripción es muy corta.");
+                } else if (repetidas) {
+                    lblErrorDescripTip.setText("Ingrese una descripción válida.");
+                } else {
+                    lblErrorDescripTip.setText(" ");
+                }
+            }
+        });
+
+        JPanel panelTipoDialog = new JPanel(new GridLayout(0, 1, 5, 2));
         panelTipoDialog.setBackground(Color.WHITE);
         panelTipoDialog.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         panelTipoDialog.add(new JLabel("ID Tipo Proveedor:"));
         panelTipoDialog.add(txtIdTipo);
         panelTipoDialog.add(new JLabel("Nombre del Tipo:"));
         panelTipoDialog.add(txtNomTip);
+        panelTipoDialog.add(lblErrorNomTip);
         panelTipoDialog.add(new JLabel("Descripción:"));
         panelTipoDialog.add(txtDescripTip);
+        panelTipoDialog.add(lblErrorDescripTip);
 
         JDialog dialogTipo = new JDialog(dialogProveedor, "Registrar Nuevo Tipo de Proveedor", true);
         dialogTipo.setUndecorated(true);
@@ -1074,6 +1120,10 @@ private void calcularTotal() {
         final boolean[] confirmadoTipo = {false};
 
         btnAceptarTipo.addActionListener(ex -> {
+            if (!lblErrorNomTip.getText().trim().isEmpty() || !lblErrorDescripTip.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(dialogTipo, "Por favor, corrija los errores marcados en rojo.", "Campos Inválidos", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
             confirmadoTipo[0] = true;
             dialogTipo.dispose();
         });
@@ -1167,19 +1217,65 @@ private void calcularTotal() {
                 dialogSelectorTipo.dispose();
 
                 JTextField txtIdTipo = new JTextField(tpSeleccionado.getIdTipoProveedor());
-                txtIdTipo.setEnabled(false); 
+                txtIdTipo.setEnabled(false);
                 JTextField txtNomTip = new JTextField(tpSeleccionado.getNomTipProveedor());
                 JTextField txtDescripTip = new JTextField(tpSeleccionado.getDescripTipoProveedor());
 
-                JPanel panelTipoDialog = new JPanel(new GridLayout(0, 1, 5, 5));
+                JLabel lblErrorNomTip = new JLabel(" ");
+                lblErrorNomTip.setForeground(Color.RED);
+                lblErrorNomTip.setFont(new Font("Arial", Font.PLAIN, 11));
+
+                JLabel lblErrorDescripTip = new JLabel(" ");
+                lblErrorDescripTip.setForeground(Color.RED);
+                lblErrorDescripTip.setFont(new Font("Arial", Font.PLAIN, 11));
+
+                txtNomTip.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+                    public void insertUpdate(javax.swing.event.DocumentEvent ev) { validar(); }
+                    public void removeUpdate(javax.swing.event.DocumentEvent ev) { validar(); }
+                    public void changedUpdate(javax.swing.event.DocumentEvent ev) { validar(); }
+                    private void validar() {
+                        String texto = txtNomTip.getText().trim();
+                        boolean repetidas = texto.matches(".*(.)\\1{3,}.*");
+                        if (texto.isEmpty()) {
+                            lblErrorNomTip.setText("El nombre del tipo es obligatorio.");
+                        } else if (texto.length() < 3) {
+                            lblErrorNomTip.setText("El nombre es muy corto.");
+                        } else if (repetidas) {
+                            lblErrorNomTip.setText("Ingrese un nombre válido.");
+                        } else {
+                            lblErrorNomTip.setText(" ");
+                        }
+                    }
+                });
+
+                txtDescripTip.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+                    public void insertUpdate(javax.swing.event.DocumentEvent ev) { validar(); }
+                    public void removeUpdate(javax.swing.event.DocumentEvent ev) { validar(); }
+                    public void changedUpdate(javax.swing.event.DocumentEvent ev) { validar(); }
+                    private void validar() {
+                        String texto = txtDescripTip.getText().trim();
+                        boolean repetidas = texto.matches(".*(.)\\1{3,}.*");
+                        if (!texto.isEmpty() && texto.length() < 3) {
+                            lblErrorDescripTip.setText("La descripción es muy corta.");
+                        } else if (repetidas) {
+                            lblErrorDescripTip.setText("Ingrese una descripción válida.");
+                        } else {
+                            lblErrorDescripTip.setText(" ");
+                        }
+                    }
+                });
+
+                JPanel panelTipoDialog = new JPanel(new GridLayout(0, 1, 5, 2));
                 panelTipoDialog.setBackground(Color.WHITE);
                 panelTipoDialog.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
                 panelTipoDialog.add(new JLabel("ID Tipo Proveedor:"));
                 panelTipoDialog.add(txtIdTipo);
                 panelTipoDialog.add(new JLabel("Nombre del Tipo:"));
                 panelTipoDialog.add(txtNomTip);
+                panelTipoDialog.add(lblErrorNomTip);
                 panelTipoDialog.add(new JLabel("Descripción:"));
                 panelTipoDialog.add(txtDescripTip);
+                panelTipoDialog.add(lblErrorDescripTip);
 
                 JDialog dialogEditarTipo = new JDialog(dialogProveedor, "Modificar Tipo de Proveedor", true);
                 dialogEditarTipo.setUndecorated(true);
@@ -1190,6 +1286,10 @@ private void calcularTotal() {
                 final boolean[] confirmadoEditTipo = {false};
 
                 btnAceptarEditTipo.addActionListener(eEdit -> {
+                    if (!lblErrorNomTip.getText().trim().isEmpty() || !lblErrorDescripTip.getText().trim().isEmpty()) {
+                        JOptionPane.showMessageDialog(dialogEditarTipo, "Por favor, corrija los errores marcados en rojo.", "Campos Inválidos", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
                     confirmadoEditTipo[0] = true;
                     dialogEditarTipo.dispose();
                 });
