@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class OrdenServicioDAO {
     
@@ -57,4 +59,26 @@ public class OrdenServicioDAO {
         }
         return 0;
     }
+    
+    public Map<String, Integer> contarOrdenesPorEstado(LocalDate desde, LocalDate hasta){
+        Map<String, Integer> resultado = new LinkedHashMap<>();
+        String sql = "SELECT estado_orden_servi, COUNT(*) AS cantidad " +
+                     "FROM orden_de_servicio " +
+                     "WHERE fecha_ingreso BETWEEN ? AND ? " +
+                     "GROUP BY estado_orden_servi";
+        try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+         ps.setDate(1, java.sql.Date.valueOf(desde));
+         ps.setDate(2, java.sql.Date.valueOf(hasta));
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                resultado.put(rs.getString("estado_orden_servi"), rs.getInt("cantidad"));
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return resultado;      
+    }
 }
+    
