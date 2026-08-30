@@ -18,11 +18,12 @@ import javax.swing.JOptionPane;
  */
 public class PanelRepuestos extends javax.swing.JPanel {
 private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
+private int filaSeleccionadaAnterior = -1;
 
     /**
      * Creates new form PanelRepuestos
      */
-    public PanelRepuestos() {
+public PanelRepuestos() {
     initComponents();
     cargarCombos();
     txtIdRepuesto.setEditable(false); 
@@ -38,11 +39,20 @@ private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
             cargarTablaRepuestos(textoBusqueda);
         }
     }); 
+    
     tblModificar.addMouseListener(new java.awt.event.MouseAdapter() {
         @Override
         public void mouseClicked(java.awt.event.MouseEvent evt) {
             int filaSeleccionada = tblModificar.getSelectedRow();
-            if (filaSeleccionada != -1) {
+            
+            if (filaSeleccionada == filaSeleccionadaAnterior && filaSeleccionada != -1) {
+                tblModificar.clearSelection();
+                limpiarCampos();              
+                generarIdAutomatico();        
+                filaSeleccionadaAnterior = -1; 
+            } else if (filaSeleccionada != -1) {
+                filaSeleccionadaAnterior = filaSeleccionada;
+                
                 txtIdRepuesto.setText(tblModificar.getValueAt(filaSeleccionada, 0).toString());
                 txtNomRepuesto.setText(tblModificar.getValueAt(filaSeleccionada, 1).toString());
                 txtCantidadMaxima.setText(tblModificar.getValueAt(filaSeleccionada, 2).toString());
