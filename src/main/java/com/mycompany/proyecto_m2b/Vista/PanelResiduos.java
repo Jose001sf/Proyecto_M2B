@@ -889,7 +889,7 @@ public class PanelResiduos extends javax.swing.JPanel {
     gbc.gridx = 1; gbc.gridy = 14;
     panel.add(lblErrorCalles, gbc);
 
- javax.swing.JButton btnGuardar = new javax.swing.JButton("Guardar");
+    javax.swing.JButton btnGuardar = new javax.swing.JButton("Guardar");
     javax.swing.JButton btnCancelar = new javax.swing.JButton("Cancelar");
     javax.swing.JButton btnModificarLista = new javax.swing.JButton("Modificar");
 
@@ -918,9 +918,16 @@ public class PanelResiduos extends javax.swing.JPanel {
 
     btnModificarLista.addActionListener(e -> {
         javax.swing.JDialog dialogoTabla = new javax.swing.JDialog(dialogo, "Lista de Empresas Registradas", true);
-        dialogoTabla.setSize(750, 400);
+        dialogoTabla.setSize(750, 450); 
         dialogoTabla.setLocationRelativeTo(dialogo);
         dialogoTabla.setLayout(new java.awt.BorderLayout());
+
+        javax.swing.JPanel panelBusqueda = new javax.swing.JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 10));
+        javax.swing.JLabel lblBuscar = new javax.swing.JLabel("Buscar (ID o Nombre):");
+        javax.swing.JTextField txtBuscar = new javax.swing.JTextField(25);
+        panelBusqueda.add(lblBuscar);
+        panelBusqueda.add(txtBuscar);
+        dialogoTabla.add(panelBusqueda, java.awt.BorderLayout.NORTH);
 
         String[] columnas = {"ID Empresa", "Nombre", "Teléfono", "ID Tipo", "Descripción", "ID Dir", "Ciudad", "Calles"};
         javax.swing.table.DefaultTableModel modeloTabla = new javax.swing.table.DefaultTableModel(columnas, 0) {
@@ -930,6 +937,23 @@ public class PanelResiduos extends javax.swing.JPanel {
 
         javax.swing.JTable tablaEmpresas = new javax.swing.JTable(modeloTabla);
         
+        javax.swing.table.TableRowSorter<javax.swing.table.DefaultTableModel> sorter = new javax.swing.table.TableRowSorter<>(modeloTabla);
+        tablaEmpresas.setRowSorter(sorter);
+
+        txtBuscar.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            private void filtrar() {
+                String texto = txtBuscar.getText().trim();
+                if (texto.length() == 0) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(javax.swing.RowFilter.regexFilter("(?i)" + java.util.regex.Pattern.quote(texto), 0, 1));
+                }
+            }
+            @Override public void insertUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+            @Override public void removeUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+            @Override public void changedUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+        });
+
         List<Object[]> listaEmpresas = dao.obtenerTodasLasEmpresasParaTabla();
         for (Object[] fila : listaEmpresas) {
             modeloTabla.addRow(fila);
@@ -942,7 +966,6 @@ public class PanelResiduos extends javax.swing.JPanel {
         javax.swing.JButton btnTablaModificar = new javax.swing.JButton("Modificar Seleccionada");
         javax.swing.JButton btnTablaEliminar = new javax.swing.JButton("Eliminar Seleccionada");
         
-        // Botones normales (sin colores personalizados)
         btnTablaModificar.setFocusPainted(false);
         btnTablaEliminar.setFocusPainted(false);
 
@@ -951,11 +974,13 @@ public class PanelResiduos extends javax.swing.JPanel {
         dialogoTabla.add(panelBotonesTabla, java.awt.BorderLayout.SOUTH);
 
         btnTablaModificar.addActionListener(ev -> {
-            int filaSel = tablaEmpresas.getSelectedRow();
-            if (filaSel == -1) {
+            int filaSelVista = tablaEmpresas.getSelectedRow();
+            if (filaSelVista == -1) {
                 javax.swing.JOptionPane.showMessageDialog(dialogoTabla, "Por favor seleccione una empresa de la tabla.", "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
                 return;
             }
+
+            int filaSel = tablaEmpresas.convertRowIndexToModel(filaSelVista);
 
             txtIDNuevaEmpresa.setText(modeloTabla.getValueAt(filaSel, 0).toString());
             txtNombreNuevaEmpresa.setText(modeloTabla.getValueAt(filaSel, 1).toString());
@@ -982,11 +1007,13 @@ public class PanelResiduos extends javax.swing.JPanel {
         });
 
         btnTablaEliminar.addActionListener(ev -> {
-            int filaSel = tablaEmpresas.getSelectedRow();
-            if (filaSel == -1) {
+            int filaSelVista = tablaEmpresas.getSelectedRow();
+            if (filaSelVista == -1) {
                 javax.swing.JOptionPane.showMessageDialog(dialogoTabla, "Por favor seleccione una empresa a eliminar.", "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
                 return;
             }
+
+            int filaSel = tablaEmpresas.convertRowIndexToModel(filaSelVista);
 
             String idEmp = modeloTabla.getValueAt(filaSel, 0).toString();
             String idDir = modeloTabla.getValueAt(filaSel, 5).toString();
@@ -1086,7 +1113,8 @@ public class PanelResiduos extends javax.swing.JPanel {
                 javax.swing.JOptionPane.showMessageDialog(this, "Error al guardar la empresa", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
             }
         }
-    }
+    }    
+    
     }//GEN-LAST:event_PanelNuevaEmpresaMouseClicked
 
     private void PanelNuevaEmpresaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevaEmpresaMouseEntered
