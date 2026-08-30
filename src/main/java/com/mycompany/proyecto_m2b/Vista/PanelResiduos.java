@@ -494,22 +494,30 @@ public class PanelResiduos extends javax.swing.JPanel {
         dialog.add(panel);
         dialog.pack();
 
-        java.awt.Point location = new java.awt.Point(0, PanelNuevoResiduo.getHeight());
+        int centerX = (PanelNuevoResiduo.getWidth() - dialog.getWidth()) / 2;
+        java.awt.Point location = new java.awt.Point(centerX, PanelNuevoResiduo.getHeight());
         javax.swing.SwingUtilities.convertPointToScreen(location, PanelNuevoResiduo);
+        
+        dialog.setLocation(location); 
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int dialogWidth = dialog.getWidth();
         int dialogHeight = dialog.getHeight();
 
         if (location.x + dialogWidth > screenSize.width) {
-            location.x = location.x + PanelNuevoResiduo.getWidth() - dialogWidth;
+            location.x = screenSize.width - dialogWidth - 10;
+        }
+        if (location.x < 0) {
+            location.x = 10;
         }
 
         if (location.y + dialogHeight > screenSize.height) {
-            java.awt.Point locationAbove = new java.awt.Point(0, -dialogHeight);
+            java.awt.Point locationAbove = new java.awt.Point(centerX, -dialogHeight);
             javax.swing.SwingUtilities.convertPointToScreen(locationAbove, PanelNuevoResiduo);
             location.y = locationAbove.y;
         }
+
+        dialog.setLocation(location);
 
     dialog.addWindowFocusListener(new java.awt.event.WindowFocusListener() {
     @Override

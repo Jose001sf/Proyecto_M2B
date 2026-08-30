@@ -302,45 +302,63 @@ public class NuevoResiduo extends javax.swing.JPanel {
     private void PanelNuevoTipoResiduoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoTipoResiduoMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_PanelNuevoTipoResiduoMouseEntered
-
+    private javax.swing.JDialog dialogNuevoTipo = null;
+    
     private void PanelNuevoTipoResiduoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoTipoResiduoMouseClicked
-     NuevoTipoResiduo panel = new NuevoTipoResiduo();
-
-    java.awt.Window parentWindow = javax.swing.SwingUtilities.getWindowAncestor(this);
-    javax.swing.JDialog dialog;
-
-    if (parentWindow instanceof java.awt.Frame) {
-        dialog = new javax.swing.JDialog((java.awt.Frame) parentWindow, true); // true = Modal
-    } else if (parentWindow instanceof java.awt.Dialog) {
-        dialog = new javax.swing.JDialog((java.awt.Dialog) parentWindow, true);
-    } else {
-        dialog = new javax.swing.JDialog();
-        dialog.setModal(true);
+    if (dialogNuevoTipo != null && dialogNuevoTipo.isVisible()) {
+        dialogNuevoTipo.dispose();
+        dialogNuevoTipo = null;
+        return;
     }
 
-    dialog.setUndecorated(true);
-    dialog.add(panel);
-    dialog.pack();
+    NuevoTipoResiduo panel = new NuevoTipoResiduo();
 
-    java.awt.Point location = new java.awt.Point(0, PanelNuevoTipoResiduo.getHeight());
+    java.awt.Window parentWindow = javax.swing.SwingUtilities.getWindowAncestor(this);
+
+    if (parentWindow instanceof java.awt.Frame) {
+        dialogNuevoTipo = new javax.swing.JDialog((java.awt.Frame) parentWindow, false);
+    } else if (parentWindow instanceof java.awt.Dialog) {
+        dialogNuevoTipo = new javax.swing.JDialog((java.awt.Dialog) parentWindow, false);
+    } else {
+        dialogNuevoTipo = new javax.swing.JDialog();
+        dialogNuevoTipo.setModal(false);
+    }
+
+    dialogNuevoTipo.setUndecorated(true);
+    dialogNuevoTipo.add(panel);
+    dialogNuevoTipo.pack();
+
+    int centerX = (PanelNuevoTipoResiduo.getWidth() - dialogNuevoTipo.getWidth()) / 2;
+    java.awt.Point location = new java.awt.Point(centerX, PanelNuevoTipoResiduo.getHeight());
     javax.swing.SwingUtilities.convertPointToScreen(location, PanelNuevoTipoResiduo);
 
     java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-    int dialogWidth = dialog.getWidth();
-    int dialogHeight = dialog.getHeight();
+    int dialogWidth = dialogNuevoTipo.getWidth();
+    int dialogHeight = dialogNuevoTipo.getHeight();
 
     if (location.x + dialogWidth > screenSize.width) {
-        location.x = location.x + PanelNuevoTipoResiduo.getWidth() - dialogWidth;
+        location.x = screenSize.width - dialogWidth - 10;
+    }
+    if (location.x < 0) {
+        location.x = 10;
     }
 
     if (location.y + dialogHeight > screenSize.height) {
-        java.awt.Point locationAbove = new java.awt.Point(0, -dialogHeight);
+        java.awt.Point locationAbove = new java.awt.Point(centerX, -dialogHeight);
         javax.swing.SwingUtilities.convertPointToScreen(locationAbove, PanelNuevoTipoResiduo);
         location.y = locationAbove.y;
     }
 
-    dialog.setLocation(location);
-    dialog.setVisible(true);
+    dialogNuevoTipo.setLocation(location);
+
+    dialogNuevoTipo.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent e) {
+            dialogNuevoTipo = null;
+        }
+    });
+
+    dialogNuevoTipo.setVisible(true);
     }//GEN-LAST:event_PanelNuevoTipoResiduoMouseClicked
 
 
