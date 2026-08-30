@@ -904,7 +904,6 @@ private void calcularTotal() {
         public void changedUpdate(javax.swing.event.DocumentEvent e) { validar(); }
         private void validar() {
             String texto = txtNombre.getText().trim();
-            
             boolean tieneLetrasRepetidas = texto.matches(".*(.)\\1{3,}.*");
 
             if (texto.isEmpty()) {
@@ -936,10 +935,10 @@ private void calcularTotal() {
             }
         }
     });
-    
+
     btnModificar.addActionListener(e -> {
-        JDialog dialogSelector = new JDialog(dialogProveedor, "Seleccionar Proveedor", true);
-        dialogSelector.setSize(650, 300);
+        JDialog dialogSelector = new JDialog(dialogProveedor, "Lista de Proveedores", true);
+        dialogSelector.setSize(700, 350);
         dialogSelector.setLocationRelativeTo(dialogProveedor);
         dialogSelector.setLayout(new BorderLayout());
 
@@ -962,13 +961,39 @@ private void calcularTotal() {
             }
 
             javax.swing.JTable tabla = new javax.swing.JTable(datos, columnas);
+            javax.swing.table.TableRowSorter<javax.swing.table.TableModel> sorter = new javax.swing.table.TableRowSorter<>(tabla.getModel());
+            tabla.setRowSorter(sorter);
+
+            JPanel panelBusqueda = new JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 10));
+            panelBusqueda.setBackground(Color.WHITE);
+            JLabel lblBuscar = new JLabel("Buscar (ID o Nombre):");
+            JTextField txtBuscar = new JTextField(25);
+            panelBusqueda.add(lblBuscar);
+            panelBusqueda.add(txtBuscar);
+
+            txtBuscar.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+                public void insertUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+                public void removeUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+                public void changedUpdate(javax.swing.event.DocumentEvent e) { filtrar(); }
+                private void filtrar() {
+                    String texto = txtBuscar.getText().trim();
+                    if (texto.length() == 0) {
+                        sorter.setRowFilter(null);
+                    } else {
+                        sorter.setRowFilter(javax.swing.RowFilter.regexFilter("(?i)" + texto, 0, 2));
+                    }
+                }
+            });
+
+            dialogSelector.add(panelBusqueda, BorderLayout.NORTH);
             dialogSelector.add(new javax.swing.JScrollPane(tabla), BorderLayout.CENTER);
 
-            JButton btnSeleccionar = new JButton("Cargar Datos");
+            JButton btnSeleccionar = new JButton("Modificar Seleccionada");
             btnSeleccionar.addActionListener(ex -> {
-                int fila = tabla.getSelectedRow();
-                if (fila >= 0) {
-                    proveedorEnEdicion[0] = listaProveedores.get(fila);
+                int filaVisual = tabla.getSelectedRow();
+                if (filaVisual >= 0) {
+                    int filaReal = tabla.convertRowIndexToModel(filaVisual);
+                    proveedorEnEdicion[0] = listaProveedores.get(filaReal);
                     
                     txtRuc.setText(proveedorEnEdicion[0].getRucProveedor());
                     txtRuc.setEnabled(false);
@@ -989,11 +1014,12 @@ private void calcularTotal() {
                 }
             });
 
-            JButton btnEliminarProv = new JButton("Eliminar");
+            JButton btnEliminarProv = new JButton("Eliminar Seleccionada");
             btnEliminarProv.addActionListener(ex -> {
-                int fila = tabla.getSelectedRow();
-                if (fila >= 0) {
-                    Proveedor pSel = listaProveedores.get(fila);
+                int filaVisual = tabla.getSelectedRow();
+                if (filaVisual >= 0) {
+                    int filaReal = tabla.convertRowIndexToModel(filaVisual);
+                    Proveedor pSel = listaProveedores.get(filaReal);
                     int confirm = JOptionPane.showConfirmDialog(dialogSelector, "¿Está seguro de eliminar este proveedor?", "Confirmar", JOptionPane.YES_NO_OPTION);
                     if (confirm == JOptionPane.YES_OPTION) {
                         boolean eliminado = proveedorDAO.eliminarProveedor(pSel.getIdProveedor(), miConexion);
@@ -1023,8 +1049,8 @@ private void calcularTotal() {
     });
 
     btnNuevoTipo.addActionListener(e -> {
-        int aleatorio = (int) (Math.random() * 9000) + 1000;
-        JTextField txtIdTipo = new JTextField("TP-" + aleatorio);
+        String nuevoId = proveedorDAO.obtenerSiguienteIdTipoProveedor(miConexion);
+        JTextField txtIdTipo = new JTextField(nuevoId);
         txtIdTipo.setEnabled(false);
         JTextField txtNomTip = new JTextField();
         JTextField txtDescripTip = new JTextField();
@@ -1088,8 +1114,8 @@ private void calcularTotal() {
     });
 
     btnModificarTipo.addActionListener(e -> {
-        JDialog dialogSelectorTipo = new JDialog(dialogProveedor, "Seleccionar Tipo a Modificar", true);
-        dialogSelectorTipo.setSize(500, 250);
+        JDialog dialogSelectorTipo = new JDialog(dialogProveedor, "Lista de Tipos de Proveedor", true);
+        dialogSelectorTipo.setSize(600, 350);
         dialogSelectorTipo.setLocationRelativeTo(dialogProveedor);
         dialogSelectorTipo.setLayout(new BorderLayout());
 
@@ -1105,85 +1131,146 @@ private void calcularTotal() {
         }
 
         javax.swing.JTable tablaTipos = new javax.swing.JTable(datosTipos, columnasTipos);
-        dialogSelectorTipo.add(new javax.swing.JScrollPane(tablaTipos), BorderLayout.CENTER);
+        javax.swing.table.TableRowSorter<javax.swing.table.TableModel> sorterTipos = new javax.swing.table.TableRowSorter<>(tablaTipos.getModel());
+        tablaTipos.setRowSorter(sorterTipos);
+
+        JPanel panelBusquedaTipo = new JPanel(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 10));
+        panelBusquedaTipo.setBackground(Color.WHITE);
+        JLabel lblBuscarTipo = new JLabel("Buscar (ID o Nombre):");
+        JTextField txtBuscarTipo = new JTextField(20);
+        panelBusquedaTipo.add(lblBuscarTipo);
+        panelBusquedaTipo.add(txtBuscarTipo);
+
+        txtBuscarTipo.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            public void insertUpdate(javax.swing.event.DocumentEvent ev) { filtrar(); }
+            public void removeUpdate(javax.swing.event.DocumentEvent ev) { filtrar(); }
+            public void changedUpdate(javax.swing.event.DocumentEvent ev) { filtrar(); }
+            private void filtrar() {
+                String texto = txtBuscarTipo.getText().trim();
+                if (texto.length() == 0) {
+                    sorterTipos.setRowFilter(null);
+                } else {
+                    sorterTipos.setRowFilter(javax.swing.RowFilter.regexFilter("(?i)" + texto, 0, 1));
+                }
+            }
+        });
 
         JButton btnSeleccionarTipoTabla = new JButton("Cargar y Modificar");
-        final TipoProveedor[] tipoEnEdicion = {null};
+        JButton btnEliminarTipoTabla = new JButton("Eliminar Seleccionada");
 
         btnSeleccionarTipoTabla.addActionListener(ex -> {
-            int fila = tablaTipos.getSelectedRow();
-            if (fila >= 0) {
-                tipoEnEdicion[0] = listaTipos.get(fila);
+            int filaVisual = tablaTipos.getSelectedRow();
+            if (filaVisual >= 0) {
+                int filaReal = tablaTipos.convertRowIndexToModel(filaVisual);
+                TipoProveedor tpSeleccionado = listaTipos.get(filaReal);
+                
                 dialogSelectorTipo.dispose();
+
+                JTextField txtIdTipo = new JTextField(tpSeleccionado.getIdTipoProveedor());
+                txtIdTipo.setEnabled(false); 
+                JTextField txtNomTip = new JTextField(tpSeleccionado.getNomTipProveedor());
+                JTextField txtDescripTip = new JTextField(tpSeleccionado.getDescripTipoProveedor());
+
+                JPanel panelTipoDialog = new JPanel(new GridLayout(0, 1, 5, 5));
+                panelTipoDialog.setBackground(Color.WHITE);
+                panelTipoDialog.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+                panelTipoDialog.add(new JLabel("ID Tipo Proveedor:"));
+                panelTipoDialog.add(txtIdTipo);
+                panelTipoDialog.add(new JLabel("Nombre del Tipo:"));
+                panelTipoDialog.add(txtNomTip);
+                panelTipoDialog.add(new JLabel("Descripción:"));
+                panelTipoDialog.add(txtDescripTip);
+
+                JDialog dialogEditarTipo = new JDialog(dialogProveedor, "Modificar Tipo de Proveedor", true);
+                dialogEditarTipo.setUndecorated(true);
+                dialogEditarTipo.setBackground(Color.WHITE);
+
+                JButton btnAceptarEditTipo = new JButton("Guardar Cambios");
+                JButton btnCancelarEditTipo = new JButton("Cancelar");
+                final boolean[] confirmadoEditTipo = {false};
+
+                btnAceptarEditTipo.addActionListener(eEdit -> {
+                    confirmadoEditTipo[0] = true;
+                    dialogEditarTipo.dispose();
+                });
+
+                btnCancelarEditTipo.addActionListener(eEdit -> {
+                    confirmadoEditTipo[0] = false;
+                    dialogEditarTipo.dispose();
+                });
+
+                JPanel panelBotonesEditTipo = new JPanel();
+                panelBotonesEditTipo.setBackground(Color.WHITE);
+                panelBotonesEditTipo.add(btnAceptarEditTipo);
+                panelBotonesEditTipo.add(btnCancelarEditTipo);
+
+                dialogEditarTipo.setLayout(new BorderLayout());
+                dialogEditarTipo.add(panelTipoDialog, BorderLayout.CENTER);
+                dialogEditarTipo.add(panelBotonesEditTipo, BorderLayout.SOUTH);
+                dialogEditarTipo.pack();
+                dialogEditarTipo.setLocationRelativeTo(dialogProveedor);
+                dialogEditarTipo.setVisible(true);
+
+                if (confirmadoEditTipo[0]) {
+                    String nuevoNombre = txtNomTip.getText().trim();
+                    String nuevaDesc = txtDescripTip.getText().trim();
+
+                    if (!nuevoNombre.isEmpty()) {
+                        tpSeleccionado.setNomTipProveedor(nuevoNombre);
+                        tpSeleccionado.setDescripTipoProveedor(nuevaDesc);
+
+                        boolean actualizado = proveedorDAO.actualizarTipoProveedor(tpSeleccionado, miConexion);
+                        if (actualizado) {
+                            JOptionPane.showMessageDialog(dialogProveedor, "Tipo de proveedor actualizado con éxito.");
+                            cargarTipos.run();
+                            cbxTipoProvPop.setSelectedItem(tpSeleccionado);
+                        } else {
+                            JOptionPane.showMessageDialog(dialogProveedor, "Error al actualizar el tipo.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(dialogProveedor, "El nombre no puede estar vacío.", "Aviso", JOptionPane.WARNING_MESSAGE);
+                    }
+                }
+
             } else {
-                JOptionPane.showMessageDialog(dialogSelectorTipo, "Seleccione un tipo de proveedor.");
+                JOptionPane.showMessageDialog(dialogSelectorTipo, "Por favor, seleccione un tipo de proveedor de la tabla.");
+            }
+        });
+
+        btnEliminarTipoTabla.addActionListener(ex -> {
+            int filaVisual = tablaTipos.getSelectedRow();
+            if (filaVisual >= 0) {
+                int filaReal = tablaTipos.convertRowIndexToModel(filaVisual);
+                TipoProveedor tpSel = listaTipos.get(filaReal);
+                
+                int confirm = JOptionPane.showConfirmDialog(dialogSelectorTipo, "¿Está seguro de eliminar este tipo de proveedor?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    boolean eliminado = proveedorDAO.eliminarTipoProveedor(tpSel.getIdTipoProveedor(), miConexion);
+                    if (eliminado) {
+                        JOptionPane.showMessageDialog(dialogSelectorTipo, "Tipo de proveedor eliminado correctamente.");
+                        if (cargarTipos != null) cargarTipos.run();
+                        dialogSelectorTipo.dispose(); 
+                    } else {
+                        JOptionPane.showMessageDialog(dialogSelectorTipo, "No se puede eliminar porque está asignado a uno o más proveedores.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(dialogSelectorTipo, "Por favor, seleccione un tipo de proveedor de la tabla para eliminar.");
             }
         });
 
         JPanel panelBotSelTipo = new JPanel();
         panelBotSelTipo.setBackground(Color.WHITE);
         panelBotSelTipo.add(btnSeleccionarTipoTabla);
+        panelBotSelTipo.add(btnEliminarTipoTabla);
+
+        dialogSelectorTipo.add(panelBusquedaTipo, BorderLayout.NORTH);
+        dialogSelectorTipo.add(new javax.swing.JScrollPane(tablaTipos), BorderLayout.CENTER);
         dialogSelectorTipo.add(panelBotSelTipo, BorderLayout.SOUTH);
+
         dialogSelectorTipo.setVisible(true);
-
-        if (tipoEnEdicion[0] == null) return;
-
-        TipoProveedor tpEdit = tipoEnEdicion[0];
-        JTextField txtIdTipo = new JTextField(tpEdit.getIdTipoProveedor());
-        txtIdTipo.setEnabled(false); 
-        JTextField txtNomTip = new JTextField(tpEdit.getNomTipProveedor());
-        JTextField txtDescripTip = new JTextField(tpEdit.getDescripTipoProveedor());
-
-        JPanel panelTipoDialog = new JPanel(new GridLayout(0, 1, 5, 5));
-        panelTipoDialog.setBackground(Color.WHITE);
-        panelTipoDialog.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-        panelTipoDialog.add(new JLabel("ID Tipo Proveedor:"));
-        panelTipoDialog.add(txtIdTipo);
-        panelTipoDialog.add(new JLabel("Nombre del Tipo:"));
-        panelTipoDialog.add(txtNomTip);
-        panelTipoDialog.add(new JLabel("Descripción:"));
-        panelTipoDialog.add(txtDescripTip);
-
-        JDialog dialogModTipo = new JDialog(dialogProveedor, "Modificar Tipo de Proveedor", true);
-        dialogModTipo.setUndecorated(true);
-        dialogModTipo.setBackground(Color.WHITE);
-
-        JButton btnAceptarModTipo = new JButton("Guardar Cambios");
-        JButton btnCancelarModTipo = new JButton("Cancelar");
-        final boolean[] confirmadoModTipo = {false};
-
-        btnAceptarModTipo.addActionListener(ex -> { confirmadoModTipo[0] = true; dialogModTipo.dispose(); });
-        btnCancelarModTipo.addActionListener(ex -> { confirmadoModTipo[0] = false; dialogModTipo.dispose(); });
-
-        JPanel panelBotonesModTipo = new JPanel();
-        panelBotonesModTipo.setBackground(Color.WHITE);
-        panelBotonesModTipo.add(btnAceptarModTipo);
-        panelBotonesModTipo.add(btnCancelarModTipo);
-
-        dialogModTipo.setLayout(new BorderLayout());
-        dialogModTipo.add(panelTipoDialog, BorderLayout.CENTER);
-        dialogModTipo.add(panelBotonesModTipo, BorderLayout.SOUTH);
-        dialogModTipo.pack();
-        dialogModTipo.setLocationRelativeTo(dialogProveedor);
-        dialogModTipo.setVisible(true);
-
-        if (confirmadoModTipo[0]) {
-            String nuevoNom = txtNomTip.getText().trim();
-            String nuevaDesc = txtDescripTip.getText().trim();
-            if (!nuevoNom.isEmpty()) {
-                tpEdit.setNomTipProveedor(nuevoNom);
-                tpEdit.setDescripTipoProveedor(nuevaDesc);
-                if (proveedorDAO.actualizarTipoProveedor(tpEdit, miConexion)) {
-                    JOptionPane.showMessageDialog(dialogModTipo, "Tipo modificado con éxito.");
-                    cargarTipos.run();
-                    cbxTipoProvPop.setSelectedItem(tpEdit);
-                } else {
-                    JOptionPane.showMessageDialog(dialogModTipo, "Error al modificar.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        }
     });
-
+    
     btnAceptarProv.addActionListener(e -> {
         if (!lblErrorRuc.getText().trim().isEmpty() || 
             !lblErrorNombre.getText().trim().isEmpty() || 
