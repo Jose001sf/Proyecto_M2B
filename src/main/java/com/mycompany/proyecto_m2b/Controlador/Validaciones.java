@@ -284,4 +284,57 @@ public class Validaciones {
         int valor = Integer.parseInt(cadena);
         return valor > 0;
     }
+    // Validar que no esté vacío
+    public static boolean esVacio(String texto) {
+        return texto == null || texto.trim().isEmpty();
+    }
+
+    // Placa Ecuador
+    public static boolean esPlacaValida(String placa) {
+        return placa != null && placa.trim().toUpperCase().matches("^[A-Z]{3}-?\\d{3,4}$");
+    }
+
+    // Solo letras y espacios (para Color)
+    public static boolean esTextoSoloLetras(String texto) {
+        return texto != null && texto.trim().matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$");
+    }
+
+    // Solo letras y números (para Chasis y Motor)
+    public static boolean esAlfanumerico(String texto) {
+        return texto != null && texto.trim().matches("^[A-Za-z0-9]+$");
+    }
+
+    // Entero positivo (Cilindraje, Kilometraje, Puertas)
+    public static boolean esNumeroEnteroPositivo(String texto) {
+        if (texto == null || texto.trim().isEmpty()) return false;
+        try {
+            int val = Integer.parseInt(texto.trim());
+            return val >= 0;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    // Año dentro de un rango coherente (1900 - Año Actual + 1)
+    public static boolean esAnioValido(String textoAnio) {
+        try {
+            int anio = Integer.parseInt(textoAnio.trim());
+            int anioActual = java.time.Year.now().getValue();
+            return anio >= 1900 && anio <= (anioActual + 1);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+    //validar numero de puertas
+    public static boolean esNumeroPuertasValido(String texto) {
+    if (texto == null || texto.trim().isEmpty()) {
+        return false;
+    }
+    try {
+        int puertas = Integer.parseInt(texto.trim());
+        return puertas >= 2 && puertas <= 5; 
+    } catch (NumberFormatException e) {
+        return false;
+    }
+}
 }

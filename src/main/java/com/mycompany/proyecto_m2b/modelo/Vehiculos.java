@@ -17,6 +17,10 @@ public class Vehiculos {
     private String ID_mode_vehi;
     private String Placa_carro;
 
+    public Vehiculos() {
+    }
+    
+
     public Vehiculos(String ID_vehi, Date Anio_sal_vehi, String Num_chasis_vehi, String Color_vehi, String Cilindraje_vehi, String Transmision_vehi, int Num_puertas_vehi, int Kilometraje_vehi, String Num_motor_vehi, String ID_propietario_vehi, String ID_mode_vehi, String Placa_carro) {
         this.ID_vehi = ID_vehi;
         this.Anio_sal_vehi = Anio_sal_vehi;

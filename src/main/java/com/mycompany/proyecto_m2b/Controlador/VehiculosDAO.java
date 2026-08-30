@@ -440,16 +440,42 @@ public String generarNuevoIdModelo() {
     }
     return "MOD-001"; 
 }
+public String generarSiguienteIdVehiculo() {
+    String sql = "SELECT id_vehi FROM vehiculo ORDER BY id_vehi DESC LIMIT 1";
+    String nuevoId = "VEH-001"; // Valor por defecto si la tabla está vacía
+
+    try (Connection conn = ConexionBD.obtenerConexion();
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+
+        if (rs.next()) {
+            String ultimoId = rs.getString("id_vehi"); // Ej: "VEH-005"
+            if (ultimoId != null && ultimoId.startsWith("VEH-")) {
+                // Extrae el número tras el guion ("005" -> 5)
+                int numero = Integer.parseInt(ultimoId.substring(4));
+                numero++; // Incrementa a 6
+                // Formatea de nuevo con ceros a la izquierda (Ej: "VEH-006")
+                nuevoId = String.format("VEH-%03d", numero);
+            }
+        }
+    } catch (SQLException | NumberFormatException e) {
+        System.err.println("Error al generar ID de vehículo: " + e.getMessage());
+    }
+    return nuevoId;
+}
 public String obtenerIdPropietarioPorNombre(String nombreCompleto) {
     String sql = "SELECT pr.id_propietario " +
                  "FROM propietario pr " +
                  "INNER JOIN persona pe ON pr.ced_perso = pe.ced_perso " +
-                 "WHERE UPPER(CONCAT(pe.nom1_person, ' ', pe.apell1_person)) = UPPER(?)";
+                 "WHERE UPPER(CONCAT(pe.nom1_person, ' ', pe.apell1_person)) = UPPER(?) " +
+                 "   OR UPPER(CONCAT(pe.nom1_person, ' ', pe.nom2_person, ' ', pe.apell1_person, ' ', pe.apell2_person)) = UPPER(?)";
     
     try (Connection cn = ConexionBD.obtenerConexion();
          PreparedStatement ps = cn.prepareStatement(sql)) {
         
-        ps.setString(1, nombreCompleto.trim());
+        String nombreLimpio = nombreCompleto.trim().replaceAll("\\s+", " ");
+        ps.setString(1, nombreLimpio);
+        ps.setString(2, nombreLimpio);
         
         try (ResultSet rs = ps.executeQuery()) {
             if (rs.next()) {
@@ -460,5 +486,115 @@ public String obtenerIdPropietarioPorNombre(String nombreCompleto) {
         System.err.println("Error al obtener ID del propietario: " + e.getMessage());
     }
     return null;
+}
+public String obtenerIdModeloPorNombre(String nombreModelo) {
+    String sql = "SELECT id_mode FROM modelo WHERE UPPER(nom_mode) = UPPER(?)";
+    
+    try (Connection conn = ConexionBD.obtenerConexion();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+        
+        ps.setString(1, nombreModelo.trim());
+        
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getString("id_mode");
+            }
+        }
+    } catch (SQLException e) {
+        System.out.println("Error al obtener ID del modelo: " + e.getMessage());
+    }
+    return null;
+}
+public Vehiculos buscarPorPlaca(String placa) {
+    Vehiculos v = null;
+    String sql = "SELECT * FROM vehiculo WHERE \"placa_carro\" = ?"; // Ajustado a tu nombre exacto de columna
+
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setString(1, placa);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            v = new Vehiculos();
+            v.setID_vehi(rs.getString("id_vehi"));
+            v.setAnio_sal_vehi(rs.getDate("anio_sal_vehi"));
+            v.setNum_chasis_vehi(rs.getString("num_chasis_vehi"));
+            v.setColor_vehi(rs.getString("Color_vehi"));
+            v.setCilindraje_vehi(rs.getString("cilindraje_vehi"));
+            v.setTransmision_vehi(rs.getString("transmision_vehi"));
+            v.setNum_puertas_vehi(rs.getInt("num_puertas_vehi"));
+            v.setKilometraje_vehi(rs.getInt("kilometraje_vehi"));
+            v.setNum_motor_vehi(rs.getString("num_motor_vehi"));
+            v.setID_propietario_vehi(rs.getString("id_propietario"));
+            v.setID_mode_vehi(rs.getString("id_mode"));
+            v.setPlaca_carro(rs.getString("placa_carro"));
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al buscar por placa: " + e.getMessage());
+    }
+    return v;
+}
+public String obtenerNombrePropietario(String idPropietario) {
+    String nombre = null;
+    // Hacemos JOIN entre propietarios y personas usando la llave foránea
+    String sql = "SELECT p.\"nom1_person\", p.\"apell1_person\" " +
+                 "FROM propietario pr " +
+                 "JOIN persona p ON pr.\"ced_perso\" = p.\"ced_perso\" " +
+                 "WHERE pr.\"id_propietario\" = ?";
+
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        
+        ps.setString(1, idPropietario);
+        ResultSet rs = ps.executeQuery();
+        
+        if (rs.next()) {
+            nombre = rs.getString("nom1_person") + " " + rs.getString("apell1_person");
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener nombre de propietario: " + e.getMessage());
+    }
+    return nombre;
+}
+
+public String obtenerNombreModelo(String idModelo) {
+    String nombre = null;
+    String sql = "SELECT \"nom_mode\" FROM modelo WHERE \"id_mode\" = ?";
+
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        
+        ps.setString(1, idModelo);
+        ResultSet rs = ps.executeQuery();
+        
+        if (rs.next()) {
+            nombre = rs.getString("nom_mode");
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener nombre de modelo: " + e.getMessage());
+    }
+    return nombre;
+}
+public String obtenerNombreMarcaPorModelo(String idModelo) {
+    String marca = null;
+    String sql = "SELECT m.\"nom_mar\" " +
+                 "FROM modelo mo " +
+                 "JOIN marca m ON mo.\"id_mar\" = m.\"id_mar\" " +
+                 "WHERE mo.\"id_mode\" = ?";
+
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        
+        ps.setString(1, idModelo);
+        ResultSet rs = ps.executeQuery();
+        
+        if (rs.next()) {
+            marca = rs.getString("nom_mar");
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener marca del modelo: " + e.getMessage());
+    }
+    return marca;
 }
 }
