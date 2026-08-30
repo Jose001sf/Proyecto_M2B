@@ -177,6 +177,24 @@ public class Validaciones {
         Matcher mat=pat.matcher(Descripcion);                
        return mat.matches();                            
     }
+    public boolean validarAcceso (String Acceso){                
+        if (Acceso == null){
+            return false;
+        }
+        Acceso=Acceso.trim(); 
+        Pattern pat=Pattern.compile("^[A-Za-zÁÉÍÓÚÑáéíóúñ\\s_-]{3,10}$");
+        Matcher mat=pat.matcher(Acceso);                
+       return mat.matches();                            
+    }
+    public boolean validarDescripcionAccesos (String Descripcion){                
+        if (Descripcion == null){
+            return false;
+        }
+        Descripcion=Descripcion.trim(); 
+        Pattern pat=Pattern.compile("^[A-Za-zÁÉÍÓÚÑáéíóúñ0-9\\s.,-_]{1,80}$");
+        Matcher mat=pat.matcher(Descripcion);                
+       return mat.matches();                            
+    }
     public boolean validarContrasena (String Contrasena){                
         if (Contrasena == null){
             return false;

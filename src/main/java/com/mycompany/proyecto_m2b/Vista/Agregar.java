@@ -36,6 +36,8 @@ public class Agregar extends javax.swing.JFrame {
         Menu = new javax.swing.JPanel();
         PanelCargos = new javax.swing.JPanel();
         Cargos = new javax.swing.JLabel();
+        PanelAccesos = new javax.swing.JPanel();
+        AccesosSistema = new javax.swing.JLabel();
         PanelEspecialidades = new javax.swing.JPanel();
         Especialidades = new javax.swing.JLabel();
         Barra = new javax.swing.JPanel();
@@ -85,6 +87,41 @@ public class Agregar extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelCargosLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Cargos)
+                .addContainerGap())
+        );
+
+        PanelAccesos.setBackground(new java.awt.Color(242, 101, 34));
+        PanelAccesos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelAccesos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelAccesosMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PanelAccesosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                PanelAccesosMouseExited(evt);
+            }
+        });
+
+        AccesosSistema.setFont(new java.awt.Font("Roboto Condensed ExtraBold", 1, 18)); // NOI18N
+        AccesosSistema.setForeground(new java.awt.Color(255, 255, 255));
+        AccesosSistema.setText("ACCESOS DEL SISTEMA");
+
+        javax.swing.GroupLayout PanelAccesosLayout = new javax.swing.GroupLayout(PanelAccesos);
+        PanelAccesos.setLayout(PanelAccesosLayout);
+        PanelAccesosLayout.setHorizontalGroup(
+            PanelAccesosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAccesosLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(AccesosSistema)
+                .addGap(16, 16, 16))
+        );
+        PanelAccesosLayout.setVerticalGroup(
+            PanelAccesosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAccesosLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(AccesosSistema)
                 .addContainerGap())
         );
 
@@ -210,8 +247,11 @@ public class Agregar extends javax.swing.JFrame {
                             .addComponent(PanelEspecialidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(MenuLayout.createSequentialGroup()
                                 .addGap(25, 25, 25)
-                                .addComponent(PanelCargos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(73, Short.MAX_VALUE))
+                                .addComponent(PanelCargos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(MenuLayout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(PanelAccesos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         MenuLayout.setVerticalGroup(
             MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,7 +263,9 @@ public class Agregar extends javax.swing.JFrame {
                 .addComponent(PanelCargos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(PanelEspecialidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(PanelAccesos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         getContentPane().add(Menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 340));
@@ -287,6 +329,25 @@ public class Agregar extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_PanelEspecialidadesMouseClicked
 
+    private void PanelAccesosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelAccesosMouseClicked
+        // TODO add your handling code here:
+        Accesos_del_sistema ac=new Accesos_del_sistema();
+        ac.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_PanelAccesosMouseClicked
+
+    private void PanelAccesosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelAccesosMouseEntered
+        // TODO add your handling code here:
+        PanelAccesos.setBackground(new Color(250, 202, 133));
+        PanelAccesos.setForeground(new Color(247, 247, 247));
+    }//GEN-LAST:event_PanelAccesosMouseEntered
+
+    private void PanelAccesosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelAccesosMouseExited
+        // TODO add your handling code here:
+        PanelAccesos.setBackground(new Color (242,101,34));
+        PanelAccesos.setForeground(Color.white);
+    }//GEN-LAST:event_PanelAccesosMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -313,12 +374,14 @@ public class Agregar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel AccesosSistema;
     private javax.swing.JPanel Barra;
     private javax.swing.JLabel Cargos;
     private javax.swing.JLabel Especialidades;
     private javax.swing.JLabel ImagenRegresar;
     private javax.swing.JLabel MJ;
     private javax.swing.JPanel Menu;
+    private javax.swing.JPanel PanelAccesos;
     private javax.swing.JPanel PanelCargos;
     private javax.swing.JPanel PanelEspecialidades;
     private javax.swing.JPanel PanelFoto;

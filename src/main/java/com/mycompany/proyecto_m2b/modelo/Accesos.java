@@ -14,6 +14,16 @@ public class Accesos {
     private String accesos;
     private String desc_persmisos;
     private String id_tip_usuario;
+    private boolean estado_acti_acceso;
+
+    public boolean isEstado_acti_acceso() {
+        return estado_acti_acceso;
+    }
+
+    public void setEstado_acti_acceso(boolean estado_acti_acceso) {
+        this.estado_acti_acceso = estado_acti_acceso;
+    }
+    
 
     public String getId_tip_usuario() {
         return id_tip_usuario;
@@ -79,6 +89,14 @@ public class Accesos {
         this.accesos = accesos;
         this.desc_persmisos = desc_persmisos;
         this.id_tip_usuario = id_tip_usuario;
+    }
+
+    public Accesos(String id_accesos, String accesos, String desc_persmisos, String id_tip_usuario, boolean estado_acti_acceso) {
+        this.id_accesos = id_accesos;
+        this.accesos = accesos;
+        this.desc_persmisos = desc_persmisos;
+        this.id_tip_usuario = id_tip_usuario;
+        this.estado_acti_acceso = estado_acti_acceso;
     }
 
     @Override
