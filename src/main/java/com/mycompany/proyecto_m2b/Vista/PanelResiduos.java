@@ -524,8 +524,8 @@ public class PanelResiduos extends javax.swing.JPanel {
         }
         
         dialog.dispose();
-    }
-});
+            }
+        });
 
         dialog.setVisible(true);
     }//GEN-LAST:event_PanelNuevoResiduoMouseClicked
@@ -539,16 +539,14 @@ public class PanelResiduos extends javax.swing.JPanel {
     }//GEN-LAST:event_PanelNuevoResiduoMouseExited
 
     private void PanelNuevaEmpresaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevaEmpresaMouseClicked
-        // TODO add your handling code here:
-
-    javax.swing.JTextField txtIDNuevaEmpresa = new javax.swing.JTextField(15);
-    javax.swing.JTextField txtNombreNuevaEmpresa = new javax.swing.JTextField(15);
-    javax.swing.JTextField txtTelefonoNuevaEmpresa = new javax.swing.JTextField(15);
-    javax.swing.JTextField txtIDTipoNuevaEmpresa = new javax.swing.JTextField(15);
-    javax.swing.JTextField txtDescripcionNuevaEmpresa = new javax.swing.JTextField(15);
-    javax.swing.JTextField txtIDDireccionNuevaEmpresa = new javax.swing.JTextField(15);
-    javax.swing.JTextField txtCiudadNuevaEmpresa = new javax.swing.JTextField(15);
-    javax.swing.JTextField txtCallesNuevaEmpresa = new javax.swing.JTextField(15);
+        javax.swing.JTextField txtIDNuevaEmpresa = new javax.swing.JTextField(15);
+        javax.swing.JTextField txtNombreNuevaEmpresa = new javax.swing.JTextField(15);
+        javax.swing.JTextField txtTelefonoNuevaEmpresa = new javax.swing.JTextField(15);
+        javax.swing.JTextField txtIDTipoNuevaEmpresa = new javax.swing.JTextField(15);
+        javax.swing.JTextField txtDescripcionNuevaEmpresa = new javax.swing.JTextField(15);
+        javax.swing.JTextField txtIDDireccionNuevaEmpresa = new javax.swing.JTextField(15);
+        javax.swing.JTextField txtCiudadNuevaEmpresa = new javax.swing.JTextField(15);
+        javax.swing.JTextField txtCallesNuevaEmpresa = new javax.swing.JTextField(15);
 
     txtIDNuevaEmpresa.setEnabled(false);
     txtIDTipoNuevaEmpresa.setEnabled(false);
@@ -559,16 +557,64 @@ public class PanelResiduos extends javax.swing.JPanel {
     txtIDTipoNuevaEmpresa.setText(dao.generarSiguienteID("tipo_empresa", "id_tipo_emp", "TER-"));
     txtIDDireccionNuevaEmpresa.setText(dao.generarSiguienteID("direccion_empresa_recicladora", "id_direccion_empresa_recicladora", "DER-"));
 
-    txtTelefonoNuevaEmpresa.setText("Ingrese el telefono de la empresa");
-    txtTelefonoNuevaEmpresa.setForeground(java.awt.Color.GRAY);
-    txtNombreNuevaEmpresa.setText("Ingrese el nombre de la empresa");
-    txtNombreNuevaEmpresa.setForeground(java.awt.Color.GRAY);
-    txtDescripcionNuevaEmpresa.setText("Ingrese una descripcion");
-    txtDescripcionNuevaEmpresa.setForeground(java.awt.Color.GRAY);
-    txtCiudadNuevaEmpresa.setText("Ingrese la ciudad");
-    txtCiudadNuevaEmpresa.setForeground(java.awt.Color.GRAY);
-    txtCallesNuevaEmpresa.setText("Ingrese calles");
-    txtCallesNuevaEmpresa.setForeground(java.awt.Color.GRAY);
+        txtTelefonoNuevaEmpresa.setText("Ingrese el telefono de la empresa");
+        txtTelefonoNuevaEmpresa.setForeground(java.awt.Color.GRAY);
+        txtNombreNuevaEmpresa.setText("Ingrese el nombre de la empresa");
+        txtNombreNuevaEmpresa.setForeground(java.awt.Color.GRAY);
+        txtDescripcionNuevaEmpresa.setText("Ingrese una descripcion");
+        txtDescripcionNuevaEmpresa.setForeground(java.awt.Color.GRAY);
+        txtCiudadNuevaEmpresa.setText("Ingrese la ciudad");
+        txtCiudadNuevaEmpresa.setForeground(java.awt.Color.GRAY);
+        txtCallesNuevaEmpresa.setText("Ingrese calles");
+        txtCallesNuevaEmpresa.setForeground(java.awt.Color.GRAY);
+
+    javax.swing.JLabel lblErrorNombre = new javax.swing.JLabel(" ");
+    lblErrorNombre.setForeground(java.awt.Color.RED);
+    lblErrorNombre.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 10));
+
+    javax.swing.JLabel lblErrorTelefono = new javax.swing.JLabel(" ");
+    lblErrorTelefono.setForeground(java.awt.Color.RED);
+    lblErrorTelefono.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 10));
+
+    javax.swing.JLabel lblErrorDescripcion = new javax.swing.JLabel(" ");
+    lblErrorDescripcion.setForeground(java.awt.Color.RED);
+    lblErrorDescripcion.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 10));
+
+    javax.swing.JLabel lblErrorCiudad = new javax.swing.JLabel(" ");
+    lblErrorCiudad.setForeground(java.awt.Color.RED);
+    lblErrorCiudad.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 10));
+
+    javax.swing.JLabel lblErrorCalles = new javax.swing.JLabel(" ");
+    lblErrorCalles.setForeground(java.awt.Color.RED);
+    lblErrorCalles.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 10));
+
+    java.util.function.Predicate<String> esTextoBasura = texto -> {
+        if (texto == null || texto.length() < 3) return true;
+        
+        for (int i = 0; i < texto.length() - 2; i++) {
+            char c1 = texto.charAt(i);
+            char c2 = texto.charAt(i + 1);
+            char c3 = texto.charAt(i + 2);
+            if (c1 == c2 && c2 == c3 && Character.isLetter(c1)) {
+                return true; 
+            }
+        }
+
+        int maxRepeticiones = 0;
+        for (int i = 0; i < texto.length(); i++) {
+            char actual = texto.charAt(i);
+            int count = 0;
+            for (int j = 0; j < texto.length(); j++) {
+                if (texto.charAt(j) == actual) count++;
+            }
+            if (count > maxRepeticiones) maxRepeticiones = count;
+        }
+        if ((double) maxRepeticiones / texto.length() > 0.5) {
+            return true;
+        }
+
+        return false;
+    };
 
     txtTelefonoNuevaEmpresa.addFocusListener(new java.awt.event.FocusAdapter() {
         public void focusGained(java.awt.event.FocusEvent evt) {
@@ -581,8 +627,29 @@ public class PanelResiduos extends javax.swing.JPanel {
             if (txtTelefonoNuevaEmpresa.getText().trim().isEmpty()) {
                 txtTelefonoNuevaEmpresa.setText("Ingrese el telefono de la empresa");
                 txtTelefonoNuevaEmpresa.setForeground(java.awt.Color.GRAY);
+                lblErrorTelefono.setText(" ");
             }
         }
+    });
+
+    txtTelefonoNuevaEmpresa.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+        private void validar() {
+            String text = txtTelefonoNuevaEmpresa.getText();
+            if (text.equals("Ingrese el telefono de la empresa") || text.trim().isEmpty()) {
+                lblErrorTelefono.setText("El teléfono no puede estar vacío.");
+            } else if (!text.matches("\\d+")) {
+                lblErrorTelefono.setText("Solo se permiten números.");
+            } else if (esTextoBasura.test(text)) {
+                lblErrorTelefono.setText("Número de teléfono no válido.");
+            } else if (text.length() < 7 || text.length() > 15) {
+                lblErrorTelefono.setText("Debe tener entre 7 y 15 dígitos.");
+            } else {
+                lblErrorTelefono.setText(" ");
+            }
+        }
+        public void insertUpdate(javax.swing.event.DocumentEvent e) { validar(); }
+        public void removeUpdate(javax.swing.event.DocumentEvent e) { validar(); }
+        public void changedUpdate(javax.swing.event.DocumentEvent e) { validar(); }
     });
 
     txtNombreNuevaEmpresa.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -596,8 +663,27 @@ public class PanelResiduos extends javax.swing.JPanel {
             if (txtNombreNuevaEmpresa.getText().trim().isEmpty()) {
                 txtNombreNuevaEmpresa.setText("Ingrese el nombre de la empresa");
                 txtNombreNuevaEmpresa.setForeground(java.awt.Color.GRAY);
+                lblErrorNombre.setText(" ");
             }
         }
+    });
+
+    txtNombreNuevaEmpresa.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+        private void validar() {
+            String text = txtNombreNuevaEmpresa.getText().trim();
+            if (text.equals("Ingrese el nombre de la empresa") || text.isEmpty()) {
+                lblErrorNombre.setText("El nombre no puede estar vacío.");
+            } else if (text.length() < 3) {
+                lblErrorNombre.setText("Debe tener al menos 3 caracteres.");
+            } else if (esTextoBasura.test(text.toLowerCase())) {
+                lblErrorNombre.setText("Ingrese un nombre de empresa válido.");
+            } else {
+                lblErrorNombre.setText(" ");
+            }
+        }
+        public void insertUpdate(javax.swing.event.DocumentEvent e) { validar(); }
+        public void removeUpdate(javax.swing.event.DocumentEvent e) { validar(); }
+        public void changedUpdate(javax.swing.event.DocumentEvent e) { validar(); }
     });
 
     txtDescripcionNuevaEmpresa.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -611,8 +697,27 @@ public class PanelResiduos extends javax.swing.JPanel {
             if (txtDescripcionNuevaEmpresa.getText().trim().isEmpty()) {
                 txtDescripcionNuevaEmpresa.setText("Ingrese una descripcion");
                 txtDescripcionNuevaEmpresa.setForeground(java.awt.Color.GRAY);
+                lblErrorDescripcion.setText(" ");
             }
         }
+    });
+
+    txtDescripcionNuevaEmpresa.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+        private void validar() {
+            String text = txtDescripcionNuevaEmpresa.getText().trim();
+            if (text.equals("Ingrese una descripcion") || text.isEmpty()) {
+                lblErrorDescripcion.setText("La descripción no puede estar vacía.");
+            } else if (text.length() < 5) {
+                lblErrorDescripcion.setText("Debe tener al menos 5 caracteres.");
+            } else if (esTextoBasura.test(text.toLowerCase())) {
+                lblErrorDescripcion.setText("Ingrese una descripción válida.");
+            } else {
+                lblErrorDescripcion.setText(" ");
+            }
+        }
+        public void insertUpdate(javax.swing.event.DocumentEvent e) { validar(); }
+        public void removeUpdate(javax.swing.event.DocumentEvent e) { validar(); }
+        public void changedUpdate(javax.swing.event.DocumentEvent e) { validar(); }
     });
 
     txtCiudadNuevaEmpresa.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -626,8 +731,27 @@ public class PanelResiduos extends javax.swing.JPanel {
             if (txtCiudadNuevaEmpresa.getText().trim().isEmpty()) {
                 txtCiudadNuevaEmpresa.setText("Ingrese la ciudad");
                 txtCiudadNuevaEmpresa.setForeground(java.awt.Color.GRAY);
+                lblErrorCiudad.setText(" ");
             }
         }
+    });
+
+    txtCiudadNuevaEmpresa.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+        private void validar() {
+            String text = txtCiudadNuevaEmpresa.getText().trim();
+            if (text.equals("Ingrese la ciudad") || text.isEmpty()) {
+                lblErrorCiudad.setText("La ciudad no puede estar vacía.");
+            } else if (text.length() < 3) {
+                lblErrorCiudad.setText("Debe tener al menos 3 caracteres.");
+            } else if (esTextoBasura.test(text.toLowerCase())) {
+                lblErrorCiudad.setText("Ingrese una ciudad válida.");
+            } else {
+                lblErrorCiudad.setText(" ");
+            }
+        }
+        public void insertUpdate(javax.swing.event.DocumentEvent e) { validar(); }
+        public void removeUpdate(javax.swing.event.DocumentEvent e) { validar(); }
+        public void changedUpdate(javax.swing.event.DocumentEvent e) { validar(); }
     });
 
     txtCallesNuevaEmpresa.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -641,8 +765,27 @@ public class PanelResiduos extends javax.swing.JPanel {
             if (txtCallesNuevaEmpresa.getText().trim().isEmpty()) {
                 txtCallesNuevaEmpresa.setText("Ingrese calles");
                 txtCallesNuevaEmpresa.setForeground(java.awt.Color.GRAY);
+                lblErrorCalles.setText(" ");
             }
         }
+    });
+
+    txtCallesNuevaEmpresa.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+        private void validar() {
+            String text = txtCallesNuevaEmpresa.getText().trim();
+            if (text.equals("Ingrese calles") || text.isEmpty()) {
+                lblErrorCalles.setText("Las calles no pueden estar vacías.");
+            } else if (text.length() < 3) {
+                lblErrorCalles.setText("Debe tener al menos 3 caracteres.");
+            } else if (esTextoBasura.test(text.toLowerCase())) {
+                lblErrorCalles.setText("Ingrese calles válidas.");
+            } else {
+                lblErrorCalles.setText(" ");
+            }
+        }
+        public void insertUpdate(javax.swing.event.DocumentEvent e) { validar(); }
+        public void removeUpdate(javax.swing.event.DocumentEvent e) { validar(); }
+        public void changedUpdate(javax.swing.event.DocumentEvent e) { validar(); }
     });
 
     javax.swing.JPanel panel = new javax.swing.JPanel(new java.awt.GridBagLayout());
@@ -650,7 +793,7 @@ public class PanelResiduos extends javax.swing.JPanel {
     panel.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 15, 20));
 
     java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints();
-    gbc.insets = new java.awt.Insets(6, 6, 6, 6);
+    gbc.insets = new java.awt.Insets(2, 6, 2, 6);
     gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
 
     gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 2;
@@ -676,7 +819,10 @@ public class PanelResiduos extends javax.swing.JPanel {
     gbc.gridx = 1; gbc.weightx = 1.0;
     panel.add(txtNombreNuevaEmpresa, gbc);
 
-    gbc.gridx = 0; gbc.gridy = 3; gbc.weightx = 0.0;
+    gbc.gridx = 1; gbc.gridy = 3;
+    panel.add(lblErrorNombre, gbc);
+
+    gbc.gridx = 0; gbc.gridy = 4; gbc.weightx = 0.0;
     javax.swing.JLabel lbl5 = new javax.swing.JLabel("Telefono de Contacto:");
     lbl5.setForeground(new java.awt.Color(153, 153, 153));
     panel.add(lbl5, gbc);
@@ -686,13 +832,16 @@ public class PanelResiduos extends javax.swing.JPanel {
     lbl6.setForeground(new java.awt.Color(153, 153, 153));
     panel.add(lbl6, gbc);
 
-    gbc.gridx = 0; gbc.gridy = 4; gbc.weightx = 0.0;
+    gbc.gridx = 0; gbc.gridy = 5; gbc.weightx = 0.0;
     panel.add(txtTelefonoNuevaEmpresa, gbc);
 
     gbc.gridx = 1; gbc.weightx = 1.0;
     panel.add(txtIDTipoNuevaEmpresa, gbc);
 
-    gbc.gridx = 0; gbc.gridy = 5; gbc.weightx = 0.0;
+    gbc.gridx = 0; gbc.gridy = 6;
+    panel.add(lblErrorTelefono, gbc);
+
+    gbc.gridx = 0; gbc.gridy = 7; gbc.weightx = 0.0;
     javax.swing.JLabel lbl12 = new javax.swing.JLabel("Descripcion:");
     lbl12.setForeground(new java.awt.Color(153, 153, 153));
     panel.add(lbl12, gbc);
@@ -700,14 +849,17 @@ public class PanelResiduos extends javax.swing.JPanel {
     gbc.gridx = 1; gbc.weightx = 1.0;
     panel.add(txtDescripcionNuevaEmpresa, gbc);
 
-    gbc.gridx = 0; gbc.gridy = 6; gbc.gridwidth = 2;
+    gbc.gridx = 1; gbc.gridy = 8;
+    panel.add(lblErrorDescripcion, gbc);
+
+    gbc.gridx = 0; gbc.gridy = 9; gbc.gridwidth = 2;
     javax.swing.JLabel lblTituloDir = new javax.swing.JLabel("Direccion");
     lblTituloDir.setFont(new java.awt.Font("Arial Black", 0, 14));
     lblTituloDir.setForeground(new java.awt.Color(153, 153, 153));
     panel.add(lblTituloDir, gbc);
 
     gbc.gridwidth = 1;
-    gbc.gridx = 0; gbc.gridy = 7; 
+    gbc.gridx = 0; gbc.gridy = 10; 
     javax.swing.JLabel lbl8 = new javax.swing.JLabel("ID_Direccion:");
     lbl8.setForeground(new java.awt.Color(153, 153, 153));
     panel.add(lbl8, gbc);
@@ -717,13 +869,16 @@ public class PanelResiduos extends javax.swing.JPanel {
     lbl9.setForeground(new java.awt.Color(153, 153, 153));
     panel.add(lbl9, gbc);
 
-    gbc.gridx = 0; gbc.gridy = 8; gbc.weightx = 0.0;
+    gbc.gridx = 0; gbc.gridy = 11; gbc.weightx = 0.0;
     panel.add(txtIDDireccionNuevaEmpresa, gbc);
 
     gbc.gridx = 1; gbc.weightx = 1.0;
     panel.add(txtCiudadNuevaEmpresa, gbc);
 
-    gbc.gridx = 0; gbc.gridy = 9; gbc.weightx = 0.0;
+    gbc.gridx = 1; gbc.gridy = 12;
+    panel.add(lblErrorCiudad, gbc);
+
+    gbc.gridx = 0; gbc.gridy = 13; gbc.weightx = 0.0;
     javax.swing.JLabel lbl10 = new javax.swing.JLabel("Calles:");
     lbl10.setForeground(new java.awt.Color(153, 153, 153));
     panel.add(lbl10, gbc);
@@ -731,28 +886,149 @@ public class PanelResiduos extends javax.swing.JPanel {
     gbc.gridx = 1; gbc.weightx = 1.0;
     panel.add(txtCallesNuevaEmpresa, gbc);
 
-    javax.swing.JButton btnGuardar = new javax.swing.JButton("Guardar");
+    gbc.gridx = 1; gbc.gridy = 14;
+    panel.add(lblErrorCalles, gbc);
+
+ javax.swing.JButton btnGuardar = new javax.swing.JButton("Guardar");
     javax.swing.JButton btnCancelar = new javax.swing.JButton("Cancelar");
+    javax.swing.JButton btnModificarLista = new javax.swing.JButton("Modificar");
 
     btnGuardar.setBackground(new java.awt.Color(242, 101, 34));
     btnGuardar.setForeground(java.awt.Color.WHITE);
     btnGuardar.setFocusPainted(false);
+    
+    btnModificarLista.setBackground(new java.awt.Color(70, 130, 180));
+    btnModificarLista.setForeground(java.awt.Color.WHITE);
+    btnModificarLista.setFocusPainted(false);
 
     final int[] opcion = {javax.swing.JOptionPane.CANCEL_OPTION};
+    final boolean[] esModificacion = {false};
 
     javax.swing.JDialog dialogo;
     java.awt.Window ventanaPrincipal = javax.swing.SwingUtilities.getWindowAncestor(this);
 
     if (ventanaPrincipal instanceof java.awt.Frame) {
-        dialogo = new javax.swing.JDialog((java.awt.Frame) ventanaPrincipal, "Registrar Nueva Empresa Recicladora", true);
+        dialogo = new javax.swing.JDialog((java.awt.Frame) ventanaPrincipal, "Registrar / Modificar Empresa Recicladora", true);
     } else {
-        dialogo = new javax.swing.JDialog((java.awt.Dialog) ventanaPrincipal, "Registrar Nueva Empresa Recicladora", true);
+        dialogo = new javax.swing.JDialog((java.awt.Dialog) ventanaPrincipal, "Registrar / Modificar Empresa Recicladora", true);
     }
 
     dialogo.setUndecorated(true);
     dialogo.getRootPane().setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(180, 180, 180), 1));
 
+    btnModificarLista.addActionListener(e -> {
+        javax.swing.JDialog dialogoTabla = new javax.swing.JDialog(dialogo, "Lista de Empresas Registradas", true);
+        dialogoTabla.setSize(750, 400);
+        dialogoTabla.setLocationRelativeTo(dialogo);
+        dialogoTabla.setLayout(new java.awt.BorderLayout());
+
+        String[] columnas = {"ID Empresa", "Nombre", "Teléfono", "ID Tipo", "Descripción", "ID Dir", "Ciudad", "Calles"};
+        javax.swing.table.DefaultTableModel modeloTabla = new javax.swing.table.DefaultTableModel(columnas, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) { return false; }
+        };
+
+        javax.swing.JTable tablaEmpresas = new javax.swing.JTable(modeloTabla);
+        
+        List<Object[]> listaEmpresas = dao.obtenerTodasLasEmpresasParaTabla();
+        for (Object[] fila : listaEmpresas) {
+            modeloTabla.addRow(fila);
+        }
+
+        javax.swing.JScrollPane scrollTabla = new javax.swing.JScrollPane(tablaEmpresas);
+        dialogoTabla.add(scrollTabla, java.awt.BorderLayout.CENTER);
+
+        javax.swing.JPanel panelBotonesTabla = new javax.swing.JPanel();
+        javax.swing.JButton btnTablaModificar = new javax.swing.JButton("Modificar Seleccionada");
+        javax.swing.JButton btnTablaEliminar = new javax.swing.JButton("Eliminar Seleccionada");
+        
+        // Botones normales (sin colores personalizados)
+        btnTablaModificar.setFocusPainted(false);
+        btnTablaEliminar.setFocusPainted(false);
+
+        panelBotonesTabla.add(btnTablaModificar);
+        panelBotonesTabla.add(btnTablaEliminar);
+        dialogoTabla.add(panelBotonesTabla, java.awt.BorderLayout.SOUTH);
+
+        btnTablaModificar.addActionListener(ev -> {
+            int filaSel = tablaEmpresas.getSelectedRow();
+            if (filaSel == -1) {
+                javax.swing.JOptionPane.showMessageDialog(dialogoTabla, "Por favor seleccione una empresa de la tabla.", "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            txtIDNuevaEmpresa.setText(modeloTabla.getValueAt(filaSel, 0).toString());
+            txtNombreNuevaEmpresa.setText(modeloTabla.getValueAt(filaSel, 1).toString());
+            txtNombreNuevaEmpresa.setForeground(java.awt.Color.BLACK);
+            
+            txtTelefonoNuevaEmpresa.setText(modeloTabla.getValueAt(filaSel, 2).toString());
+            txtTelefonoNuevaEmpresa.setForeground(java.awt.Color.BLACK);
+            
+            txtIDTipoNuevaEmpresa.setText(modeloTabla.getValueAt(filaSel, 3).toString());
+            txtDescripcionNuevaEmpresa.setText(modeloTabla.getValueAt(filaSel, 4).toString());
+            txtDescripcionNuevaEmpresa.setForeground(java.awt.Color.BLACK);
+            
+            txtIDDireccionNuevaEmpresa.setText(modeloTabla.getValueAt(filaSel, 5).toString());
+            txtCiudadNuevaEmpresa.setText(modeloTabla.getValueAt(filaSel, 6).toString());
+            txtCiudadNuevaEmpresa.setForeground(java.awt.Color.BLACK);
+            
+            txtCallesNuevaEmpresa.setText(modeloTabla.getValueAt(filaSel, 7).toString());
+            txtCallesNuevaEmpresa.setForeground(java.awt.Color.BLACK);
+
+            esModificacion[0] = true;
+            btnGuardar.setText("Actualizar");
+            
+            dialogoTabla.dispose();
+        });
+
+        btnTablaEliminar.addActionListener(ev -> {
+            int filaSel = tablaEmpresas.getSelectedRow();
+            if (filaSel == -1) {
+                javax.swing.JOptionPane.showMessageDialog(dialogoTabla, "Por favor seleccione una empresa a eliminar.", "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            String idEmp = modeloTabla.getValueAt(filaSel, 0).toString();
+            String idDir = modeloTabla.getValueAt(filaSel, 5).toString();
+            String idTip = modeloTabla.getValueAt(filaSel, 3).toString();
+
+            if (dao.empresaEstaEnUso(idEmp)) {
+                javax.swing.JOptionPane.showMessageDialog(dialogoTabla, 
+                    "No se puede eliminar la empresa porque está asociada a una orden/detalle de venta.", 
+                    "Acción Denegada", 
+                    javax.swing.JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            int confirm = javax.swing.JOptionPane.showConfirmDialog(dialogoTabla, 
+                "¿Está seguro de eliminar esta empresa?", "Confirmar Eliminación", javax.swing.JOptionPane.YES_NO_OPTION);
+            
+            if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+                boolean eliminado = dao.eliminarEmpresaCompleta(idEmp, idDir, idTip);
+                if (eliminado) {
+                    javax.swing.JOptionPane.showMessageDialog(dialogoTabla, "Empresa eliminada correctamente.");
+                    modeloTabla.removeRow(filaSel);
+                } else {
+                    javax.swing.JOptionPane.showMessageDialog(dialogoTabla, "Error al eliminar de la base de datos.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        dialogoTabla.setVisible(true);
+    });
+
     btnGuardar.addActionListener(e -> {
+        if (!lblErrorNombre.getText().equals(" ") ||  
+            !lblErrorTelefono.getText().equals(" ") ||  
+            !lblErrorDescripcion.getText().equals(" ") ||  
+            !lblErrorCiudad.getText().equals(" ") ||  
+            !lblErrorCalles.getText().equals(" ")) {
+            javax.swing.JOptionPane.showMessageDialog(dialogo,  
+                    "Por favor corrija los errores marcados en rojo antes de guardar.",  
+                    "Campos inválidos",  
+                    javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         opcion[0] = javax.swing.JOptionPane.OK_OPTION;
         dialogo.dispose();
     });
@@ -764,6 +1040,7 @@ public class PanelResiduos extends javax.swing.JPanel {
 
     javax.swing.JPanel panelBotones = new javax.swing.JPanel();
     panelBotones.setBackground(java.awt.Color.WHITE);
+    panelBotones.add(btnModificarLista);
     panelBotones.add(btnCancelar);
     panelBotones.add(btnGuardar);
 
@@ -786,33 +1063,28 @@ public class PanelResiduos extends javax.swing.JPanel {
         String idEmp = txtIDNuevaEmpresa.getText().trim();
         String nomEmp = txtNombreNuevaEmpresa.getText().trim();
         String telf = txtTelefonoNuevaEmpresa.getText().trim();
-        String idTipo = txtIDTipoNuevaEmpresa.getText().trim();                       
-        String descTipo = txtDescripcionNuevaEmpresa.getText().trim();            
-        String idDir = txtIDDireccionNuevaEmpresa.getText().trim();                           
+        String idTipo = txtIDTipoNuevaEmpresa.getText().trim();                    
+        String descTipo = txtDescripcionNuevaEmpresa.getText().trim();          
+        String idDir = txtIDDireccionNuevaEmpresa.getText().trim();                                 
         String ciudad = txtCiudadNuevaEmpresa.getText().trim();
         String calles = txtCallesNuevaEmpresa.getText().trim();
 
-        if (idEmp.isEmpty() || nomEmp.isEmpty() || nomEmp.equals("Ingrese el nombre de la empresa") || 
-            idDir.isEmpty() || idTipo.isEmpty() || descTipo.isEmpty() || descTipo.equals("Ingrese una descripcion")) {
-            javax.swing.JOptionPane.showMessageDialog(this, 
-                    "Por favor complete todos los campos obligatorios.", 
-                    "Campos incompletos", 
-                    javax.swing.JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+        boolean operacionExitosa = false;
 
-        boolean guardado = dao.guardarEmpresaCompleta(idDir, ciudad, calles, idTipo, descTipo, idEmp, nomEmp, telf);
-
-        if (guardado) {
-            javax.swing.JOptionPane.showMessageDialog(this, 
-                    "Empresa recicladora registrada exitosamente en la base de datos", 
-                    "Exito", 
-                    javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        if (esModificacion[0]) {
+            operacionExitosa = dao.modificarEmpresaCompleta(idDir, ciudad, calles, idTipo, descTipo, idEmp, nomEmp, telf);
+            if (operacionExitosa) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Empresa modificada exitosamente", "Éxito", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Error al actualizar la empresa", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
         } else {
-            javax.swing.JOptionPane.showMessageDialog(this, 
-                    "Error al guardar la empresa en la base de datos", 
-                    "Error", 
-                    javax.swing.JOptionPane.ERROR_MESSAGE);
+            operacionExitosa = dao.guardarEmpresaCompleta(idDir, ciudad, calles, idTipo, descTipo, idEmp, nomEmp, telf);
+            if (operacionExitosa) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Empresa recicladora registrada exitosamente", "Éxito", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Error al guardar la empresa", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
     }//GEN-LAST:event_PanelNuevaEmpresaMouseClicked
