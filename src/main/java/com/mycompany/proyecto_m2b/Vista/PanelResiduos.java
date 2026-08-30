@@ -519,21 +519,23 @@ public class PanelResiduos extends javax.swing.JPanel {
 
         dialog.setLocation(location);
 
-    dialog.addWindowFocusListener(new java.awt.event.WindowFocusListener() {
-    @Override
-    public void windowGainedFocus(java.awt.event.WindowEvent e) {}
+        dialog.addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+        @Override
+        public void windowGainedFocus(java.awt.event.WindowEvent e) {}
 
-    @Override
-    public void windowLostFocus(java.awt.event.WindowEvent e) {
-        java.awt.Window opposite = e.getOppositeWindow();
-        
-        if (opposite != null && opposite.getOwner() == dialog) {
-            return; 
-        }
-        
-        dialog.dispose();
+        @Override
+        public void windowLostFocus(java.awt.event.WindowEvent e) {
+            java.awt.Window opposite = e.getOppositeWindow();
+            
+            if (opposite != null) {
+                if (opposite.getOwner() == dialog || opposite instanceof ListaResiduosDialog) {
+                    return; 
+                }
             }
-        });
+            
+            dialog.dispose();
+        }
+    });
 
         dialog.setVisible(true);
     }//GEN-LAST:event_PanelNuevoResiduoMouseClicked

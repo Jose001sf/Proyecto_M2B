@@ -6,7 +6,10 @@ package com.mycompany.proyecto_m2b.Vista;
 
 import com.mycompany.proyecto_m2b.Controlador.ResiduoDAO;
 import com.mycompany.proyecto_m2b.modelo.Residuos;
+import java.awt.Frame;
+import java.awt.Window;
 import java.util.List;
+import javax.swing.SwingUtilities;
 
 
 /**
@@ -474,9 +477,28 @@ public class NuevoResiduo extends javax.swing.JPanel {
     private void comboResiduosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboResiduosMouseClicked
         cargarComboTiposResiduo();
     }//GEN-LAST:event_comboResiduosMouseClicked
-
+    private ListaResiduosDialog dialogListaResiduos = null;
+    
     private void btnModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseClicked
+       if (dialogListaResiduos != null && dialogListaResiduos.isVisible()) {
+            dialogListaResiduos.dispose();
+            dialogListaResiduos = null;
+            return;
+        }
+
+        Window parentWindow = SwingUtilities.getWindowAncestor(this);
+        Frame parentFrame = (parentWindow instanceof Frame) ? (Frame) parentWindow : null;
         
+        dialogListaResiduos = new ListaResiduosDialog(parentFrame, false, this);
+        
+        dialogListaResiduos.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent e) {
+                dialogListaResiduos = null;
+            }
+        });
+
+        dialogListaResiduos.setVisible(true);
     }//GEN-LAST:event_btnModificarMouseClicked
 
     private void btnModificarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseEntered
@@ -490,7 +512,12 @@ public class NuevoResiduo extends javax.swing.JPanel {
         btnModificar.setBackground(java.awt.Color.white);
         Editar.setForeground(java.awt.Color.black);
     }//GEN-LAST:event_btnModificarMouseExited
-
+    
+    public void cargarDatosParaEdicion(String id, String nombre, String estado, int cantidad) {
+        txtCantidad.setText(String.valueOf(cantidad));
+        comboEstadoResiduo.setSelectedItem(estado);
+        comboResiduos.setSelectedItem(nombre);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BarraArriba;
