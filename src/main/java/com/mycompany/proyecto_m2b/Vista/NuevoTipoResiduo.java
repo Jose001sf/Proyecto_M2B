@@ -22,6 +22,64 @@ public class NuevoTipoResiduo extends javax.swing.JPanel {
         txtIDTipoResiduo.setEnabled(false);
         cargarGradosRiesgo();
         generarIDAutomatico();
+        
+        VerificarNombreTipoResiduo.setText("");
+        ValidarDescripcion.setText("");
+        
+        txtNombreTipo.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { validarNombreEnTiempoReal(); }
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { validarNombreEnTiempoReal(); }
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { validarNombreEnTiempoReal(); }
+        });
+
+        txtDescripcionTipo.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { validarDescripcionEnTiempoReal(); }
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { validarDescripcionEnTiempoReal(); }
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { validarDescripcionEnTiempoReal(); }
+        });
+    }
+    
+    private void validarNombreEnTiempoReal() {
+        String texto = txtNombreTipo.getText();
+
+        if (texto.isEmpty()) {
+            VerificarNombreTipoResiduo.setText("");
+            return;
+        }
+
+        if (texto.trim().isEmpty()) {
+            VerificarNombreTipoResiduo.setText("No puede contener solo espacios en blanco.");
+            return;
+        }
+
+        if (texto.matches(".*(.)\\1{2,}.*")) {
+            VerificarNombreTipoResiduo.setText("Contiene letras repetidas excesivas.");
+            return;
+        }
+
+        VerificarNombreTipoResiduo.setText("");
+    }
+
+    private void validarDescripcionEnTiempoReal() {
+        String texto = txtDescripcionTipo.getText();
+
+        if (texto.isEmpty()) {
+            ValidarDescripcion.setText("");
+            return;
+        }
+
+        if (texto.trim().isEmpty()) {
+            ValidarDescripcion.setText("La descripción no puede estar vacía.");
+            return;
+        }
+
+        ValidarDescripcion.setText("");
     }
     
     private void cargarGradosRiesgo() {
@@ -68,6 +126,8 @@ public class NuevoTipoResiduo extends javax.swing.JPanel {
         txtNombreTipo = new javax.swing.JTextField();
         comboGradoRiesgo = new javax.swing.JComboBox<>();
         txtDescripcionTipo = new javax.swing.JTextField();
+        VerificarNombreTipoResiduo = new javax.swing.JLabel();
+        ValidarDescripcion = new javax.swing.JLabel();
 
         Fondo.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -155,6 +215,12 @@ public class NuevoTipoResiduo extends javax.swing.JPanel {
 
         comboGradoRiesgo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        VerificarNombreTipoResiduo.setForeground(new java.awt.Color(255, 0, 0));
+        VerificarNombreTipoResiduo.setText("jLabel2");
+
+        ValidarDescripcion.setForeground(new java.awt.Color(255, 0, 51));
+        ValidarDescripcion.setText("jLabel7");
+
         javax.swing.GroupLayout FondoLayout = new javax.swing.GroupLayout(Fondo);
         Fondo.setLayout(FondoLayout);
         FondoLayout.setHorizontalGroup(
@@ -164,6 +230,7 @@ public class NuevoTipoResiduo extends javax.swing.JPanel {
                     .addGroup(FondoLayout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
                             .addGroup(FondoLayout.createSequentialGroup()
                                 .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -172,11 +239,12 @@ public class NuevoTipoResiduo extends javax.swing.JPanel {
                                     .addComponent(comboGradoRiesgo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
                                 .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(VerificarNombreTipoResiduo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(txtNombreTipo)
-                                    .addComponent(txtDescripcionTipo)))
-                            .addComponent(jLabel3)))
+                                    .addComponent(txtDescripcionTipo)
+                                    .addComponent(ValidarDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(FondoLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(BarraArriba, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -200,15 +268,19 @@ public class NuevoTipoResiduo extends javax.swing.JPanel {
                 .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtIDTipoResiduo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNombreTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
+                .addComponent(VerificarNombreTipoResiduo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(FondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboGradoRiesgo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDescripcionTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(73, 73, 73)
+                    .addComponent(txtDescripcionTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboGradoRiesgo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ValidarDescripcion)
+                .addGap(30, 30, 30)
                 .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(54, Short.MAX_VALUE))
         );
@@ -227,35 +299,40 @@ public class NuevoTipoResiduo extends javax.swing.JPanel {
 
     private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
         String id = txtIDTipoResiduo.getText().trim();
-    String nombre = txtNombreTipo.getText().trim();
-    String desc = txtDescripcionTipo.getText().trim();
-    
-    if (comboGradoRiesgo.getSelectedIndex() <= 0) {
-        JOptionPane.showMessageDialog(this, "Seleccione un grado de riesgo válido.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-    
-    String grado = comboGradoRiesgo.getSelectedItem().toString();
-
-    if (nombre.isEmpty() || desc.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Por favor llene todos los campos.", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
-    Tipo_residuo tipo = new Tipo_residuo(id, nombre, grado, desc);
-    ResiduoDAO dao = new ResiduoDAO();
-
-    if (dao.guardarTipoResiduo(tipo)) {
-        JOptionPane.showMessageDialog(this, "Tipo de residuo guardado con éxito.", "Operación exitosa", JOptionPane.INFORMATION_MESSAGE);
-        limpiarFormulario();
+        String nombre = txtNombreTipo.getText().trim();
+        String desc = txtDescripcionTipo.getText().trim();
         
-        java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(this);
-        if (window != null) {
-            window.dispose();
+        if (!VerificarNombreTipoResiduo.getText().isEmpty() || !ValidarDescripcion.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, corrija los errores antes de guardar.", "Error de Validación", JOptionPane.WARNING_MESSAGE);
+            return;
         }
-    } else {
-        JOptionPane.showMessageDialog(this, "Ocurrió un error al guardar el registro.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
+        
+        if (comboGradoRiesgo.getSelectedIndex() <= 0) {
+            JOptionPane.showMessageDialog(this, "Seleccione un grado de riesgo válido.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        String grado = comboGradoRiesgo.getSelectedItem().toString();
+
+        if (nombre.isEmpty() || desc.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor llene todos los campos.", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        Tipo_residuo tipo = new Tipo_residuo(id, nombre, grado, desc);
+        ResiduoDAO dao = new ResiduoDAO();
+
+        if (dao.guardarTipoResiduo(tipo)) {
+            JOptionPane.showMessageDialog(this, "Tipo de residuo guardado con éxito.", "Operación exitosa", JOptionPane.INFORMATION_MESSAGE);
+            limpiarFormulario();
+            
+            java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(this);
+            if (window != null) {
+                window.dispose();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error al guardar el registro.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_PanelGuardarMouseClicked
 
     private void PanelGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseEntered
@@ -278,6 +355,8 @@ public class NuevoTipoResiduo extends javax.swing.JPanel {
     private javax.swing.JLabel ImagenSAVE;
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JLabel Titulo;
+    private javax.swing.JLabel ValidarDescripcion;
+    private javax.swing.JLabel VerificarNombreTipoResiduo;
     private javax.swing.JComboBox<String> comboGradoRiesgo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;

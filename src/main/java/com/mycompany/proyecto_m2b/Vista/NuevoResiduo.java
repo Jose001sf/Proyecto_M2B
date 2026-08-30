@@ -21,8 +21,52 @@ public class NuevoResiduo extends javax.swing.JPanel {
         initComponents();
         cargarComboTiposResiduo();
         cargarComboEstados(); 
+        ValidarCantidad.setText("");
+        
+        txtCantidad.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                validarCantidadEnTiempoReal();
+            }
+
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                validarCantidadEnTiempoReal();
+            }
+
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                validarCantidadEnTiempoReal();
+            }
+        });
     }
     
+    public void validarCantidadEnTiempoReal() {
+        String texto = txtCantidad.getText().trim();
+        final int CANTIDAD_MAXIMA_PERMITIDA = 1000;
+
+        if (texto.isEmpty()) {
+            ValidarCantidad.setText("");
+            return;
+        }
+
+        try {
+            int cantidad = Integer.parseInt(texto);
+
+            if (cantidad < 0) {
+                ValidarCantidad.setText("No se permiten números negativos.");
+            } else if (cantidad == 0) {
+                ValidarCantidad.setText("La cantidad no puede ser 0.");
+            } else if (cantidad > CANTIDAD_MAXIMA_PERMITIDA) {
+                ValidarCantidad.setText("Excede el límite máximo (" + CANTIDAD_MAXIMA_PERMITIDA + ").");
+            } else {
+                ValidarCantidad.setText("");
+            }
+
+        } catch (NumberFormatException e) {
+            ValidarCantidad.setText("Solo se permiten números enteros.");
+        }
+    }
         
     public void cargarComboTiposResiduo() {
     comboResiduos.removeAllItems();
@@ -49,6 +93,14 @@ public class NuevoResiduo extends javax.swing.JPanel {
         public void procesarRegistroResiduo() {
         final int CANTIDAD_MAXIMA_PERMITIDA = 1000;
 
+    if (!ValidarCantidad.getText().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Por favor, corrija el error en la cantidad antes de guardar.", 
+                "Error de Validación", javax.swing.JOptionPane.WARNING_MESSAGE);
+            txtCantidad.requestFocus();
+            return;
+        }    
+        
     if (comboResiduos.getSelectedIndex() <= 0 || comboEstadoResiduo.getSelectedIndex() <= 0) {
         javax.swing.JOptionPane.showMessageDialog(this, 
             "Debe seleccionar un tipo de residuo y su estado físico.", 
@@ -124,6 +176,7 @@ public class NuevoResiduo extends javax.swing.JPanel {
         ImagenSAVE = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         comboEstadoResiduo = new javax.swing.JComboBox<>();
+        ValidarCantidad = new javax.swing.JLabel();
 
         Fondo.setBackground(new java.awt.Color(255, 255, 255));
         Fondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -169,6 +222,11 @@ public class NuevoResiduo extends javax.swing.JPanel {
         Fondo.add(Kilos, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, -1, -1));
 
         comboResiduos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccion un tipo de residuo", "Item 2", "Item 3", "Item 4" }));
+        comboResiduos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                comboResiduosMouseClicked(evt);
+            }
+        });
         Fondo.add(comboResiduos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 240, -1));
         Fondo.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 130, 240, -1));
 
@@ -266,6 +324,10 @@ public class NuevoResiduo extends javax.swing.JPanel {
         comboEstadoResiduo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         Fondo.add(comboEstadoResiduo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 240, -1));
 
+        ValidarCantidad.setForeground(new java.awt.Color(255, 51, 51));
+        ValidarCantidad.setText("jLabel1");
+        Fondo.add(ValidarCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, 230, 20));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -361,6 +423,10 @@ public class NuevoResiduo extends javax.swing.JPanel {
     dialogNuevoTipo.setVisible(true);
     }//GEN-LAST:event_PanelNuevoTipoResiduoMouseClicked
 
+    private void comboResiduosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboResiduosMouseClicked
+        cargarComboTiposResiduo();
+    }//GEN-LAST:event_comboResiduosMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BarraArriba;
@@ -375,6 +441,7 @@ public class NuevoResiduo extends javax.swing.JPanel {
     private javax.swing.JPanel PanelNuevoTipoResiduo;
     private javax.swing.JLabel Residuo;
     private javax.swing.JLabel TituloFuncion2;
+    private javax.swing.JLabel ValidarCantidad;
     private javax.swing.JComboBox<String> comboEstadoResiduo;
     private javax.swing.JComboBox<String> comboResiduos;
     private javax.swing.JLabel jLabel7;
