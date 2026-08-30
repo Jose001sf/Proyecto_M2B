@@ -7,6 +7,7 @@ import java.sql.*;
 import com.mycompany.proyecto_m2b.modelo.Accesos;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -24,7 +25,7 @@ public class AccesosDAO {
             ps.setString(2, acceso.getAccesos());
             ps.setString(3, acceso.getDesc_persmisos());
             ps.setString(4, acceso.getId_tip_usuario());
-            ps.setBoolean(5, true);
+            ps.setBoolean(5, acceso.isEstado_acti_acceso());
             ps.executeUpdate();
             System.out.println("Acceso insertado correctamente");
         }
@@ -178,7 +179,7 @@ public class AccesosDAO {
     
     private static final String LISTARCODIGOSUNICOS =
         "SELECT DISTINCT ON (accesos) accesos, desc_permisos "
-        + "FROM accesos WHERE activo = true "
+        + "FROM accesos WHERE estado_acti_acceso = true "
         + "ORDER BY accesos";
 
     public List<Accesos> listarCodigosUnicos() {
@@ -201,7 +202,7 @@ public class AccesosDAO {
     
     private static final String ELIMINARPORCODIGOYTIPO =
             "UPDATE accesos "
-            + "SET activo = false "
+            + "SET estado_acti_acceso = false "
             + "WHERE accesos = ? AND id_tip_de_usuario = ?";
  
     public void eliminarPorCodigoYTipo(String codigoPermiso, String idTipoUsuario) {
@@ -213,6 +214,83 @@ public class AccesosDAO {
             ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error al dar de baja acceso: " + e.getMessage());
+        }
+    }
+    
+    public Accesos buscarAccesoEspecifico(String nombreAcceso, String idTipoUsuario) {
+        String sql = "SELECT id_accesos, accesos, desc_permisos, id_tip_de_usuario, estado_acti_acceso "
+                   + "FROM accesos WHERE accesos = ? AND id_tip_de_usuario = ?";
+                   
+        try (Connection conn = ConexionBD.obtenerConexion();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+             
+            ps.setString(1, nombreAcceso);
+            ps.setString(2, idTipoUsuario);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new Accesos(
+                        rs.getString("id_accesos"),
+                        rs.getString("accesos"),
+                        rs.getString("desc_permisos"),
+                        rs.getString("id_tip_de_usuario"),
+                        rs.getBoolean("estado_acti_acceso")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al buscar específico: " + e.getMessage());
+        }
+        return null;
+    }
+    
+    private static final String ACTUALIZARCONESTADO =
+        "UPDATE accesos SET desc_permisos = ?, estado_acti_acceso = ? "
+            + "WHERE id_accesos = ?";
+ 
+    public void actualizarConEstado(Accesos acceso) {
+        try (Connection conn = ConexionBD.obtenerConexion();
+             PreparedStatement ps = conn.prepareStatement(ACTUALIZARCONESTADO)) {
+
+            ps.setString(1, acceso.getDesc_persmisos());
+            ps.setBoolean(2, acceso.isEstado_acti_acceso());
+            ps.setString(3, acceso.getId_accesos());
+            ps.executeUpdate();
+            System.out.println("Acceso actualizado (descripcion + estado)");
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar acceso: " + e.getMessage());
+        }
+    }
+    
+    public void cargarAccesos(JComboBox comboBoxAccesos) {
+        String sql = """
+            SELECT DISTINCT ON (accesos) id_accesos, accesos, desc_permisos, id_tip_de_usuario, estado_acti_acceso 
+            FROM accesos 
+            ORDER BY accesos
+            """;
+
+        try (Connection con = ConexionBD.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            comboBoxAccesos.removeAllItems();
+            Accesos opcionPorDefecto = new Accesos();
+            opcionPorDefecto.setId_accesos("");
+            opcionPorDefecto.setAccesos("Seleccione una opción"); 
+            comboBoxAccesos.addItem(opcionPorDefecto);
+            int i=0;
+            while (rs.next()) {
+                Accesos acce = new Accesos();
+                acce.setId_accesos(rs.getString("id_accesos"));
+                acce.setAccesos(rs.getString("accesos"));
+                acce.setDesc_persmisos(rs.getString("desc_permisos"));
+                acce.setId_tip_usuario(rs.getString("id_tip_de_usuario"));
+                acce.setEstado_acti_acceso(rs.getBoolean("estado_acti_acceso"));
+                comboBoxAccesos.addItem(acce);
+                i++;
+            }
+            System.out.println("Hay un total de "+i+" registros");
+        } catch (SQLException e) {
+            System.err.println("Error al cargar los accesos: " + e.getMessage());
         }
     }
 }

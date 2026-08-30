@@ -34,6 +34,9 @@ public class Accesos_del_sistema extends javax.swing.JFrame {
         List<Tipos_de_usuario> tipos = new TipoUsuarioDAO().listarTodos();
         TiposUsuarios.setListData(tipos.toArray(new Tipos_de_usuario[0]));
         TiposUsuarios.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        Accesos acce= (Accesos) AccesosCombo.getSelectedItem();
+        AccesosDAO ad=new AccesosDAO();
+        ad.cargarAccesos(AccesosCombo);
     }
 
     
@@ -459,8 +462,8 @@ public class Accesos_del_sistema extends javax.swing.JFrame {
             }
         });
 
-        AccesosCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno" }));
         AccesosCombo.addItemListener(this::AccesosComboItemStateChanged);
+        AccesosCombo.addActionListener(this::AccesosComboActionPerformed);
 
         Estados.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una opción", "Activo", "En Pausa" }));
 
@@ -600,7 +603,7 @@ public class Accesos_del_sistema extends javax.swing.JFrame {
 
     private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
         // TODO add your handling code here:
-        GuardarCargo();
+        GuardarAcceso();
     }//GEN-LAST:event_PanelGuardarMouseClicked
 
     private void PanelGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseEntered
@@ -651,19 +654,20 @@ public class Accesos_del_sistema extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_TXTAccesoFocusGained
 
-    public void GuardarCargo (){
+    public void GuardarAcceso (){
         Validaciones V=new Validaciones();
         String acceso=TXTAcceso.getText().trim().toUpperCase();
         String Descripcion=TXTDescripcion.getText().trim().toUpperCase();
-        String estado=Estados.getSelectedItem().toString();
+        Object itemselecc=Estados.getSelectedItem();
+        if (itemselecc==null || itemselecc.toString().equals("Seleccione una opción")){
+            JOptionPane.showMessageDialog(this, "Escoga un estado");
+            return;
+        }        
+        String estado=itemselecc.toString();        
         if (acceso.isEmpty() || Descripcion.isEmpty()){
             JOptionPane.showMessageDialog (this, "Por favor ingrese los datos correspondientes");
             return;
-        }
-        if (estado.equals("Seleccione una opción")){
-            JOptionPane.showMessageDialog(this, "Escoga un estado");
-            return;
-        }
+        }        
         if (acceso.isBlank() || Descripcion.isBlank()){
             JOptionPane.showMessageDialog (this, "Por favor ingrese los datos correspondientes");
             return;
@@ -685,19 +689,28 @@ public class Accesos_del_sistema extends javax.swing.JFrame {
         }
         AccesosDAO ad=new AccesosDAO();
         int agregados=0;
-        
+        boolean estadoActi=estado.equalsIgnoreCase("Activo");
         
         for (Tipos_de_usuario tipo : seleccionados){
-            if (ad.existeAcceso(acceso, tipo.getId_tip_de_usuario())){
-                continue;
-            }
-            
+            Accesos existeBD = ad.buscarAccesoEspecifico(acceso, tipo.getId_tip_de_usuario());
+            if (existeBD == null){
             Accesos acce=new Accesos(); 
             acce.setAccesos(acceso);
             acce.setDesc_persmisos(Descripcion);
-            acce.setId_tip_usuario(tipo.getId_tip_de_usuario());
+            acce.setId_tip_usuario(tipo.getId_tip_de_usuario());            
+            acce.setEstado_acti_acceso(estadoActi);
             ad.insertarAccesos(acce);
             agregados++;
+            }
+            else if (existeBD.isEstado_acti_acceso() != estadoActi){
+                existeBD.setEstado_acti_acceso(estadoActi);                
+                existeBD.setDesc_persmisos(Descripcion);                                
+                ad.actualizarConEstado(existeBD);
+                agregados++;
+            }
+            else{
+                continue;
+            }                        
         }
         if (agregados>0){
             JOptionPane.showMessageDialog(this, "Se ha guardado correctamente el acceso para "+agregados+" tipo/s de usuario/s");
@@ -708,12 +721,13 @@ public class Accesos_del_sistema extends javax.swing.JFrame {
         }                
     }
     public void LimpiarDatos (){
-        TXTAcceso.setText("Cargo");
+        TXTAcceso.setText("Acceso");
         TXTAcceso.setForeground(new Color (94, 94, 94));
         TXTDescripcion.setText("Descripción");
         TXTDescripcion.setForeground(new Color (94, 94, 94));
         TiposUsuarios.clearSelection();
-        Estados.setSelectedItem(0);
+        Estados.setSelectedIndex(0);
+        AccesosCombo.setSelectedIndex(0);
         PanelGuardar.setEnabled(true);
     }
     private void TXTAccesoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTAccesoMousePressed
@@ -731,7 +745,7 @@ public class Accesos_del_sistema extends javax.swing.JFrame {
     private void TXTAccesoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTAccesoKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
-            GuardarCargo();
+            GuardarAcceso();
         }
     }//GEN-LAST:event_TXTAccesoKeyPressed
 
@@ -762,7 +776,7 @@ public class Accesos_del_sistema extends javax.swing.JFrame {
     private void TXTDescripcionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTDescripcionKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
-            GuardarCargo();
+            GuardarAcceso();
         }
     }//GEN-LAST:event_TXTDescripcionKeyPressed
 
@@ -928,8 +942,8 @@ public class Accesos_del_sistema extends javax.swing.JFrame {
     private void AccesosComboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_AccesosComboItemStateChanged
         // TODO add your handling code here:
         Accesos accesoSeleccionado = (Accesos) AccesosCombo.getSelectedItem();
-        if (accesoSeleccionado == null){
-            JOptionPane.showMessageDialog(this, "Escoga para buscar");
+        if (accesoSeleccionado == null || accesoSeleccionado.getAccesos().equalsIgnoreCase("Seleccione una opción")){
+            JOptionPane.showMessageDialog(this, "Si quiere editar debe escoger una un acceso");
             return;
         }
 
@@ -957,6 +971,10 @@ public class Accesos_del_sistema extends javax.swing.JFrame {
         int[] indicesArray = indicesAMarcar.stream().mapToInt(Integer::intValue).toArray();
         TiposUsuarios.setSelectedIndices(indicesArray);
     }//GEN-LAST:event_AccesosComboItemStateChanged
+
+    private void AccesosComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccesosComboActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AccesosComboActionPerformed
 
     /**
      * @param args the command line arguments

@@ -101,7 +101,7 @@ public class Accesos {
 
     @Override
     public String toString() {
-        return desc_persmisos;
+        return accesos+"-"+desc_persmisos;
     }
     
     
