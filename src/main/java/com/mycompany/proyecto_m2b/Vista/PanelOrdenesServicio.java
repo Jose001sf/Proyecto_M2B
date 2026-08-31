@@ -4,10 +4,14 @@
  */
 package com.mycompany.proyecto_m2b.Vista;
 
+import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
+import java.util.List;
 import com.mycompany.proyecto_m2b.Controlador.OrdenServicioDAO;
 import com.mycompany.proyecto_m2b.Controlador.Servidor_de_correos;
 import com.mycompany.proyecto_m2b.Controlador.Validaciones;
 import com.mycompany.proyecto_m2b.Controlador.VehiculosDAO;
+import com.mycompany.proyecto_m2b.modelo.Servicio;
 import com.mycompany.proyecto_m2b.modelo.orden_de_servicio;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
@@ -31,8 +35,13 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         CalendarioFechaIngreso.setDate(new java.util.Date());
         CalendarioFechaIngreso.setEnabled(false);
         ((JTextFieldDateEditor) CalendarioFechaIngreso.getDateEditor()).setEditable(false);
+        inicializarTablaDetalleServicio();
     }
-
+    
+    private void inicializarTablaDetalleServicio() {
+        modeloTablaServicios = (DefaultTableModel) tblDetalleServicio.getModel();
+        modeloTablaServicios.setRowCount(0);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -74,6 +83,17 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         comboPlacas = new javax.swing.JComboBox<>();
         comboCliente = new javax.swing.JComboBox<>();
         comboEmpleado = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblDetalleServicio = new javax.swing.JTable();
+        jLabel13 = new javax.swing.JLabel();
+        lblSubTotalServicios = new javax.swing.JLabel();
+        PanelAgregarServicio = new javax.swing.JPanel();
+        Nuevo1 = new javax.swing.JLabel();
+        ImagenADD1 = new javax.swing.JLabel();
+        PanelEliminarServicio = new javax.swing.JPanel();
+        DarDeBaja = new javax.swing.JLabel();
+        ImagenDarBaja = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(238, 238, 238));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -111,7 +131,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 906, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 946, Short.MAX_VALUE)
                 .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
@@ -125,7 +145,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 .addGap(31, 31, 31))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 60));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1360, 60));
 
         jLabel5.setText("Placa del vehiculo:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
@@ -146,7 +166,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, -1, 20));
 
         jLabel12.setText("Detalle/Trabajo a realizar:");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, -1, -1));
 
         TXTcostoTotal.setForeground(new java.awt.Color(153, 153, 153));
         TXTcostoTotal.setText("0.00");
@@ -186,7 +206,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 DescripcionKeyPressed(evt);
             }
         });
-        jPanel1.add(Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 630, 70));
+        jPanel1.add(Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 540, 630, 70));
 
         PanelNuevo.setBackground(new java.awt.Color(255, 255, 255));
         PanelNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -217,7 +237,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 .addComponent(ImagenADD)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Nuevo)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         PanelNuevoLayout.setVerticalGroup(
             PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,7 +249,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(PanelNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, -1, -1));
+        jPanel1.add(PanelNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 620, -1, -1));
 
         PanelGuardar.setBackground(new java.awt.Color(242, 101, 34));
         PanelGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -273,7 +293,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanel1.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, -1, -1));
+        jPanel1.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 620, -1, -1));
 
         PanelEditar.setBackground(new java.awt.Color(255, 255, 255));
         PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -317,7 +337,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanel1.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 310, -1, -1));
+        jPanel1.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 620, -1, -1));
 
         PanelBuscar.setBackground(new java.awt.Color(255, 255, 255));
         PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -360,7 +380,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 310, -1, -1));
+        jPanel1.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 620, -1, -1));
 
         jLabel3.setText("Fecha de entrega:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, -1, -1));
@@ -379,6 +399,121 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
 
         comboEmpleado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(comboEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 210, -1));
+
+        jLabel9.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("DETALLE DE SERVICIO");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
+
+        tblDetalleServicio.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Nombre del Servicio", "Precio Unitario", "Cantidad", "Subtotal Servicio"
+            }
+        ));
+        jScrollPane1.setViewportView(tblDetalleServicio);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 750, 90));
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel13.setText("Subtotal Servicios: $");
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 320, -1, -1));
+
+        lblSubTotalServicios.setText(" ");
+        jPanel1.add(lblSubTotalServicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 320, 70, -1));
+
+        PanelAgregarServicio.setBackground(new java.awt.Color(255, 255, 255));
+        PanelAgregarServicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        PanelAgregarServicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelAgregarServicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelAgregarServicioMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PanelAgregarServicioMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                PanelAgregarServicioMouseExited(evt);
+            }
+        });
+
+        Nuevo1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        Nuevo1.setText("Agregar Servicio");
+
+        ImagenADD1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+
+        javax.swing.GroupLayout PanelAgregarServicioLayout = new javax.swing.GroupLayout(PanelAgregarServicio);
+        PanelAgregarServicio.setLayout(PanelAgregarServicioLayout);
+        PanelAgregarServicioLayout.setHorizontalGroup(
+            PanelAgregarServicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelAgregarServicioLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ImagenADD1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Nuevo1)
+                .addGap(16, 16, 16))
+        );
+        PanelAgregarServicioLayout.setVerticalGroup(
+            PanelAgregarServicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelAgregarServicioLayout.createSequentialGroup()
+                .addGroup(PanelAgregarServicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Nuevo1)
+                    .addComponent(ImagenADD1))
+                .addGap(0, 4, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(PanelAgregarServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, 180, 30));
+
+        PanelEliminarServicio.setBackground(new java.awt.Color(255, 255, 255));
+        PanelEliminarServicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(215, 106, 106)));
+        PanelEliminarServicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelEliminarServicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelEliminarServicioMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PanelEliminarServicioMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                PanelEliminarServicioMouseExited(evt);
+            }
+        });
+
+        DarDeBaja.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        DarDeBaja.setForeground(new java.awt.Color(215, 106, 106));
+        DarDeBaja.setText("Eliminar");
+
+        ImagenDarBaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/person_cancel_22dp_EA3323_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+
+        javax.swing.GroupLayout PanelEliminarServicioLayout = new javax.swing.GroupLayout(PanelEliminarServicio);
+        PanelEliminarServicio.setLayout(PanelEliminarServicioLayout);
+        PanelEliminarServicioLayout.setHorizontalGroup(
+            PanelEliminarServicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelEliminarServicioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ImagenDarBaja)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(DarDeBaja)
+                .addGap(30, 30, 30))
+        );
+        PanelEliminarServicioLayout.setVerticalGroup(
+            PanelEliminarServicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelEliminarServicioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelEliminarServicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(DarDeBaja)
+                    .addComponent(ImagenDarBaja))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(PanelEliminarServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 470, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -688,6 +823,61 @@ private void EditarOrdenDeServicio() {
     }
     }//GEN-LAST:event_PanelBuscarMouseClicked
 
+    private void PanelAgregarServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelAgregarServicioMouseClicked
+        // TODO add your handling code here:
+        PanelServiciosOrden panel = new PanelServiciosOrden();
+        java.awt.Window parentWindow = javax.swing.SwingUtilities.getWindowAncestor(this);
+        javax.swing.JDialog dialog = (parentWindow instanceof java.awt.Frame)
+                ? new javax.swing.JDialog((java.awt.Frame) parentWindow, "Agregar Servicio", true)
+                : new javax.swing.JDialog();
+        dialog.add(panel);
+        dialog.pack();
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true); // se detiene aquí (es modal) hasta que cierres el diálogo
+
+        if (panel.isAceptado()) {
+            agregarServicioADetalle(panel.getServicioSeleccionado(), panel.getCantidadSeleccionada());
+        }
+    }//GEN-LAST:event_PanelAgregarServicioMouseClicked
+
+    private void PanelAgregarServicioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelAgregarServicioMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PanelAgregarServicioMouseEntered
+
+    private void PanelAgregarServicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelAgregarServicioMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PanelAgregarServicioMouseExited
+
+    private void PanelEliminarServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEliminarServicioMouseClicked
+        // TODO add your handling code here:
+        int fila = tblDetalleServicio.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccione un servicio de la tabla para eliminar.");
+            return;
+        }
+        int confirmar = JOptionPane.showConfirmDialog(this,
+                "¿Seguro que deseas quitar este servicio de la orden?", "Confirmar",
+                JOptionPane.YES_NO_OPTION);
+        if (confirmar != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        detalleServicios.remove(fila);
+        actualizarTablaDetalleServicio();
+    }//GEN-LAST:event_PanelEliminarServicioMouseClicked
+
+    private void PanelEliminarServicioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEliminarServicioMouseEntered
+        // TODO add your handling code here:
+        PanelEliminarServicio.setBackground(new Color (252, 168, 168));
+        DarDeBaja.setForeground(Color.white);
+    }//GEN-LAST:event_PanelEliminarServicioMouseEntered
+
+    private void PanelEliminarServicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEliminarServicioMouseExited
+        // TODO add your handling code here:
+        PanelEliminarServicio.setBackground(Color.white);
+        DarDeBaja.setForeground(new Color(215, 106, 106));
+    }//GEN-LAST:event_PanelEliminarServicioMouseExited
+
 
     public void LimpiarDatos() {
     if (TXTcostoTotal != null) {
@@ -826,20 +1016,86 @@ private void EditarOrdenDeServicio() {
             JOptionPane.ERROR_MESSAGE);
         e.printStackTrace();
     }
-}
+    }
+    private final List<ItemServicioOrden> detalleServicios = new ArrayList<>();
+    private DefaultTableModel modeloTablaServicios;
+
+    private static class ItemServicioOrden {
+
+        String idServicio;
+        String nombre;
+        float precioUnitario;
+        int cantidad;
+
+        ItemServicioOrden(String idServicio, String nombre, float precioUnitario, int cantidad) {
+            this.idServicio = idServicio;
+            this.nombre = nombre;
+            this.precioUnitario = precioUnitario;
+            this.cantidad = cantidad;
+        }
+
+        double getSubtotal() {
+            return cantidad * precioUnitario;
+        }
+    }
+    
+    private void agregarServicioADetalle(Servicio s, int cantidadNueva) {
+        if (s == null) {
+            return;
+        }
+        ItemServicioOrden existente = null;
+        for (ItemServicioOrden item : detalleServicios) {
+            if (item.idServicio.equals(s.getId_servi())) {
+                existente = item;
+                break;
+            }
+        }
+        if (existente != null) {
+            existente.cantidad += cantidadNueva;
+        } else {
+            detalleServicios.add(new ItemServicioOrden(
+                    s.getId_servi(), s.getNom_servicio(), s.getPrecio_del_servicio(), cantidadNueva));
+        }
+        actualizarTablaDetalleServicio();
+    }
+
+    private void actualizarTablaDetalleServicio() {
+        modeloTablaServicios.setRowCount(0);
+        for (ItemServicioOrden item : detalleServicios) {
+            modeloTablaServicios.addRow(new Object[]{
+                item.nombre, item.precioUnitario, item.cantidad, item.getSubtotal()
+            });
+        }
+        recalcularSubtotalServicios();
+    }
+
+    private void recalcularSubtotalServicios() {
+        double total = 0;
+        for (ItemServicioOrden item : detalleServicios) {
+            total += item.getSubtotal();
+        }
+        lblSubTotalServicios.setText(String.format("%.2f", total));
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Buscar;
     private com.toedter.calendar.JDateChooser CalendarioFechaEntrega;
     private com.toedter.calendar.JDateChooser CalendarioFechaIngreso;
+    private javax.swing.JLabel DarDeBaja;
     private javax.swing.JTextField Descripcion;
     private javax.swing.JLabel Editar;
     private javax.swing.JComboBox<String> Estados;
     private javax.swing.JLabel Guardar;
     private javax.swing.JLabel ImagenADD;
+    private javax.swing.JLabel ImagenADD1;
+    private javax.swing.JLabel ImagenDarBaja;
     private javax.swing.JLabel ImagenSAVE;
     private javax.swing.JLabel Nuevo;
+    private javax.swing.JLabel Nuevo1;
+    private javax.swing.JPanel PanelAgregarServicio;
     private javax.swing.JPanel PanelBuscar;
     private javax.swing.JPanel PanelEditar;
+    private javax.swing.JPanel PanelEliminarServicio;
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JPanel PanelNuevo;
     private javax.swing.JTextField TXTcostoTotal;
@@ -850,6 +1106,7 @@ private void EditarOrdenDeServicio() {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
@@ -858,7 +1115,11 @@ private void EditarOrdenDeServicio() {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblSubTotalServicios;
+    private javax.swing.JTable tblDetalleServicio;
     // End of variables declaration//GEN-END:variables
 }
