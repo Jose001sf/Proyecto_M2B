@@ -4,7 +4,13 @@
  */
 package com.mycompany.proyecto_m2b.Vista;
 
+import com.mycompany.proyecto_m2b.Controlador.AccesosDAO;
+import com.mycompany.proyecto_m2b.modelo.Accesos;
+import com.mycompany.proyecto_m2b.modelo.Usuario;
 import java.awt.Color;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -21,7 +27,34 @@ public class Agregar extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
     }
-
+    public Agregar(Usuario usuario) {
+        this();
+        this.usuarioActual = usuario;
+        cargarPermisos();
+        configurarOpciones();
+    }
+    
+    private void cargarPermisos() {
+        AccesosDAO ad = new AccesosDAO();
+        List<Accesos> lista = ad.obtenerPermisosPorTipoUsuario(usuarioActual.getTip_usuario()
+        );
+        permisos = new HashSet<>();
+        for (Accesos acceso : lista) {
+            permisos.add(acceso.getAccesos());
+        }
+    }
+    
+    private void configurarOpciones() {
+        PanelCargos.setVisible(permisos.contains("CARGO_GEST"));
+        PanelEspecialidades.setVisible(permisos.contains("ESPE_GEST"));
+        PanelAccesos.setVisible(permisos.contains("ACC_GEST"));
+        
+        revalidate();
+        repaint();
+    }
+    
+    private Usuario usuarioActual;
+    private Set<String> permisos;
     int xMouse;
     int yMouse;
     /**

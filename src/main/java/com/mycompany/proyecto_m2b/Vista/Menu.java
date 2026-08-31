@@ -51,7 +51,10 @@ public class Menu extends javax.swing.JFrame {
     }
     private Usuario usuarioActual;
     private Set<String> permisos;
-     
+    
+    public boolean tienePermiso(String codigoAcceso) {
+        return permisos != null && permisos.contains(codigoAcceso);
+    }
     private void cargarPermisos() {
         AccesosDAO ad = new AccesosDAO();
 
@@ -66,14 +69,19 @@ public class Menu extends javax.swing.JFrame {
         }
     }
     private void configurarMenu() {
-        Usuarios.setVisible(permisos.contains("USR_GEST"));
-        CrearEmpleado cr=new CrearEmpleado();
-        cr.setVisible(permisos.contains("EMP_GEST"));       
-        PanelProveedores.setVisible(permisos.contains("PROV_GEST"));
-        Agregar ag=new Agregar();
-        ag.setVisible(permisos.contains("CARGO_GEST"));
-        PanelEspecialidad pe=new PanelEspecialidad();
-        pe.setVisible(permisos.contains("ESPE_GEST"));
+        Usuarios.setVisible(tienePermiso("USR_GEST"));
+        Empleados.setVisible(tienePermiso("EMP_GEST"));
+        Agregar.setVisible(tienePermiso("CARGO_GEST") || tienePermiso("ESPE_GEST"));
+        PanelProveedores.setVisible(tienePermiso("PROV_GEST"));        
+        PanelOrdenesServicio.setVisible(tienePermiso("ORD_GEST"));
+        PanelVehiculos.setVisible(tienePermiso("VEH_GEST"));
+        PanelPropietarios.setVisible(tienePermiso("PROP_GEST"));
+        PanelServicios.setVisible(tienePermiso("SERV_GEST"));
+        PanelRepuestos.setVisible(tienePermiso("REP_GEST"));
+        PanelResiduos.setVisible(tienePermiso("RES_GEST"));
+        PanelEstadisticas.setVisible(tienePermiso("EST_VER"));
+        revalidate();
+        repaint();
     }
 
     int xMouse;
@@ -114,6 +122,7 @@ public class Menu extends javax.swing.JFrame {
         Empleados = new javax.swing.JLabel();
         Usuarios = new javax.swing.JLabel();
         Minimizar = new javax.swing.JLabel();
+        Agregar = new javax.swing.JLabel();
         PanelFondoBlanco = new javax.swing.JPanel();
         PanelPaneles = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -279,6 +288,22 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        Agregar.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
+        Agregar.setForeground(new java.awt.Color(145, 145, 145));
+        Agregar.setText("Agregar");
+        Agregar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Agregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AgregarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                AgregarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                AgregarMouseExited(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelBarraLayout = new javax.swing.GroupLayout(PanelBarra);
         PanelBarra.setLayout(PanelBarraLayout);
         PanelBarraLayout.setHorizontalGroup(
@@ -307,7 +332,9 @@ public class Menu extends javax.swing.JFrame {
                         .addComponent(Usuarios)
                         .addGap(18, 18, 18)
                         .addComponent(Empleados)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 365, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(Agregar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 293, Short.MAX_VALUE)
                         .addComponent(ImagenRegresar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Regresar)))
@@ -329,7 +356,8 @@ public class Menu extends javax.swing.JFrame {
                             .addGroup(PanelBarraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(Empleados)
                                 .addComponent(Usuarios)
-                                .addComponent(Regresar)))
+                                .addComponent(Regresar)
+                                .addComponent(Agregar)))
                         .addGap(25, 25, 25)))
                 .addContainerGap())
             .addGroup(PanelBarraLayout.createSequentialGroup()
@@ -813,6 +841,10 @@ public class Menu extends javax.swing.JFrame {
 
     private void PanelEstadisticasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEstadisticasMouseClicked
         // TODO add your handling code here:
+        if (!tienePermiso("EST_VER")) {
+            JOptionPane.showMessageDialog(this, "No tiene permiso para ver estadisticas");
+            return;
+        }
         CardLayout cl = (CardLayout) PanelPaneles.getLayout();
         if (!mostrandoEstadisticas) {
             cl.show(PanelPaneles, "Estadisticas");
@@ -838,6 +870,10 @@ public class Menu extends javax.swing.JFrame {
     private void PanelResiduosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelResiduosMouseClicked
                                             
         // TODO add your handling code here:
+        if (!tienePermiso("RES_GEST")) {
+            JOptionPane.showMessageDialog(this, "No tiene permiso para gestionar residuos");
+            return;
+        }
         CardLayout cl = (CardLayout) PanelPaneles.getLayout();
         if (!mostrandoresiduos) {
             cl.show(PanelPaneles, "RESIDUOS");
@@ -863,6 +899,10 @@ public class Menu extends javax.swing.JFrame {
     private boolean mostrandoProveedores = false;
     private void PanelProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelProveedoresMouseClicked
 
+        if (!tienePermiso("PROV_GEST")) {
+            JOptionPane.showMessageDialog(this, "No tiene permiso para gestionar proveedores");
+            return;
+        }
         CardLayout cl = (CardLayout) PanelPaneles.getLayout();
         if (!mostrandoProveedores) {
             cl.show(PanelPaneles, "PROVEEDORES");
@@ -888,6 +928,11 @@ public class Menu extends javax.swing.JFrame {
     private void PanelRepuestosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelRepuestosMouseClicked
                                            
         // TODO add your handling code here:
+        //validacion del permiso
+        if (!tienePermiso("REP_GEST")) {
+            JOptionPane.showMessageDialog(this, "No tiene permiso para gestionar repuestos.");
+            return;
+        }
         CardLayout cl = (CardLayout) PanelPaneles.getLayout();
         if (!mostrandoRepuestos) {
             cl.show(PanelPaneles, "REPUESTOS");
@@ -922,6 +967,10 @@ public class Menu extends javax.swing.JFrame {
     private boolean mostrandoCatalogoServicios = false;
     private void PanelServiciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelServiciosMouseClicked
 
+        if (!tienePermiso("SERV_GEST")) {
+            JOptionPane.showMessageDialog(this, "No tiene permiso para gestionar servicios");
+            return;
+        }
         CardLayout cl = (CardLayout) PanelPaneles.getLayout();
         if (!mostrandoCatalogoServicios) {
             cl.show(PanelPaneles, "CATALOGO_SERVICIOS");
@@ -947,7 +996,10 @@ public class Menu extends javax.swing.JFrame {
     private void PanelPropietariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelPropietariosMouseClicked
         // TODO add your handling code here:
                                             
-        // TODO add your handling code here:
+        if (!tienePermiso("PROP_GEST")) {
+            JOptionPane.showMessageDialog(this, "No tiene permiso para gestionar propietarios");
+            return;
+        }
         CardLayout cl = (CardLayout) PanelPaneles.getLayout();
         if (!mostrandoPropietarios) {
             cl.show(PanelPaneles, "PROPIETARIOS");
@@ -972,6 +1024,10 @@ public class Menu extends javax.swing.JFrame {
     private boolean mostrandoVehiculos = false;
     private void PanelVehiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelVehiculosMouseClicked
         // TODO add your handling code here:
+        if (!tienePermiso("VEH_GEST")) {
+            JOptionPane.showMessageDialog(this, "No tiene permiso para gestionar vehiculos");
+            return;
+        }
         CardLayout cl = (CardLayout) PanelPaneles.getLayout();
         if (!mostrandoVehiculos) {
             cl.show(PanelPaneles, "VEHICULOS");
@@ -996,7 +1052,11 @@ public class Menu extends javax.swing.JFrame {
 
     private boolean mostrandoOrdenesServicio = false;
     private void PanelOrdenesServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelOrdenesServicioMouseClicked
-                                             
+
+        if (!tienePermiso("ORD_GEST")) {
+            JOptionPane.showMessageDialog(this, "No tiene permiso para gestionar ordenes de servicio");
+            return;
+        }
         CardLayout cl = (CardLayout) PanelPaneles.getLayout();
         if (!mostrandoOrdenesServicio) {
             cl.show(PanelPaneles, "ORDENES_SERVICIO");
@@ -1043,6 +1103,10 @@ public class Menu extends javax.swing.JFrame {
 
     private void UsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UsuariosMouseClicked
         // TODO add your handling code here:
+        if (!tienePermiso("USR_GEST")) {
+            JOptionPane.showMessageDialog(this, "No tiene permiso para gestionar usuarios");
+            return;
+        }
         if (Usu==null || !Usu.isVisible()){
             Usu = new Usuarios();
             Usu.setVisible(true);
@@ -1108,6 +1172,11 @@ public class Menu extends javax.swing.JFrame {
 
     private void EmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmpleadosMouseClicked
         // TODO add your handling code here:
+        if (!tienePermiso("EMP_GEST")) {
+            JOptionPane.showMessageDialog(this, "No tiene permiso para gestionar empleados");
+            return;
+        }
+        
         CrearEmpleado cr=new CrearEmpleado();
         if (cr.isVisible()){
             cr.setVisible(false);
@@ -1126,6 +1195,25 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         Empleados.setForeground(new Color (145, 145, 145));
     }//GEN-LAST:event_EmpleadosMouseExited
+
+    private void AgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseClicked
+        // TODO add your handling code here:
+        if (!tienePermiso("CARGO_GEST") && !tienePermiso("ESPE_GEST") && !tienePermiso("ACC_GEST")) {
+            JOptionPane.showMessageDialog(this, "No puede acceder si no cuenta con los permisos");
+            return;
+        }
+        Agregar menuAgregar = new Agregar(usuarioActual);
+    }//GEN-LAST:event_AgregarMouseClicked
+
+    private void AgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseEntered
+        // TODO add your handling code here:
+        Agregar.setForeground(Color.white);
+    }//GEN-LAST:event_AgregarMouseEntered
+
+    private void AgregarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseExited
+        // TODO add your handling code here:
+        Agregar.setForeground(new Color (145, 145, 145));
+    }//GEN-LAST:event_AgregarMouseExited
 
     /**
      * @param args the command line arguments
@@ -1154,6 +1242,7 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Accesos;
+    private javax.swing.JLabel Agregar;
     private javax.swing.JLabel Cerrar;
     private javax.swing.JLabel Empleados;
     private javax.swing.JLabel Estadisticas;
