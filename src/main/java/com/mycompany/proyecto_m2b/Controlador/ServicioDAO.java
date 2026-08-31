@@ -9,7 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -146,5 +148,30 @@ public class ServicioDAO {
             e.printStackTrace();
         }
         return 0;
+    }
+    
+        public Map<String, Integer> topServiciosMasRealizados(LocalDate Desde, LocalDate Hasta, int limite) {
+        Map<String, Integer> resultado = new LinkedHashMap<>();
+        String sql = "SELECT s.nom_servicio AS nombre, SUM(d.cantidad_servi) AS cantidad "
+                + "FROM detalle_de_orden d "
+                + "JOIN orden_de_servicio o ON d.id_orden_serv = o.id_orden_serv"
+                + "JOIN servicio s ON d.id_servi = s.id_servi "
+                + "WHERE o.fecha_ingreso BETWEEN ? AND ? "
+                + "GROUP BY s.nom_servicio"
+                + "ORDER BY cantidad DESC"
+                + "LIMIT ?";
+        try (Connection con = ConexionBD.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setDate(1, java.sql.Date.valueOf(Desde));
+            ps.setDate(2, java.sql.Date.valueOf(Hasta));
+            ps.setInt(3, limite);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    resultado.put(rs.getString("nombre"), rs.getInt("cantidad"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultado;
     }
 }

@@ -11,7 +11,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RepuestoDAO {
 
@@ -240,4 +242,28 @@ public class RepuestoDAO {
         return 0;
     }
     
+    public Map<String, Integer> topRepuestosMasUtilizados(LocalDate Desde, LocalDate Hasta, int limite) {
+        Map<String, Integer> resultado = new LinkedHashMap<>();
+        String sql = "SELECT r.nombre_repuesto AS nombre, SUM(d.cantidad_usar) AS cantidad "
+                + "FROM detalle_repuesto d "
+                + "JOIN orden_de_servicio o ON d.id_orden_serv = o.id_orden_serv"
+                + "JOIN repuestos r ON d.id_repuestos = s.id_repuestos "
+                + "WHERE o.fecha_ingreso BETWEEN ? AND ? "
+                + "GROUP BY r.nom_repuesto"
+                + "ORDER BY cantidad DESC"
+                + "LIMIT ?";
+        try (Connection con = ConexionBD.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setDate(1, java.sql.Date.valueOf(Desde));
+            ps.setDate(2, java.sql.Date.valueOf(Hasta));
+            ps.setInt(3, limite);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    resultado.put(rs.getString("nombre"), rs.getInt("cantidad"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultado;
+    }
 }
