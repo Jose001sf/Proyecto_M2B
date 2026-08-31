@@ -154,11 +154,11 @@ public class ServicioDAO {
         Map<String, Integer> resultado = new LinkedHashMap<>();
         String sql = "SELECT s.nom_servicio AS nombre, SUM(d.cantidad_servi) AS cantidad "
                 + "FROM detalle_de_orden d "
-                + "JOIN orden_de_servicio o ON d.id_orden_serv = o.id_orden_serv"
+                + "JOIN orden_de_servicio o ON d.id_orden_serv = o.id_orden_serv "
                 + "JOIN servicio s ON d.id_servi = s.id_servi "
                 + "WHERE o.fecha_ingreso BETWEEN ? AND ? "
-                + "GROUP BY s.nom_servicio"
-                + "ORDER BY cantidad DESC"
+                + "GROUP BY s.nom_servicio "
+                + "ORDER BY cantidad DESC "
                 + "LIMIT ?";
         try (Connection con = ConexionBD.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setDate(1, java.sql.Date.valueOf(Desde));

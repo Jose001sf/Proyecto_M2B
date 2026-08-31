@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.mycompany.proyecto_m2b.Vista;
 
 import com.mycompany.proyecto_m2b.Controlador.AccesosDAO;
@@ -14,17 +11,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- *
- * @author usuario
- */
 public class Menu extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Menu.class.getName());
 
-    /**
-     * Creates new form Menu
-     */
     public Menu() {
         initComponents();
         iniciarMenu();
@@ -91,7 +81,7 @@ public class Menu extends javax.swing.JFrame {
     private PanelCatalogoServicio Cata=null;
     private CrearEmpleado CrearEmp=null;
     private PanelEspecialidad Espe=null;
-    //private Estadisticas Esta=null;
+    //private Es Esta=null;
     private PanelOrdenesServicio OrdenesServ=null;
     private PanelPropietarios Prop=null;
     private PanelProveedores Provee=null;

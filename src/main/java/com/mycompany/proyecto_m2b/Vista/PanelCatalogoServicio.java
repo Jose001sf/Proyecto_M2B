@@ -9,23 +9,25 @@ import com.mycompany.proyecto_m2b.modelo.Tipo_de_servicio;
 import java.awt.Color;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
  * @author HP
  */
 public class PanelCatalogoServicio extends javax.swing.JPanel {
-
-    /**
-     * Creates new form PanelCatalogoServicio
-     */
+    
+    private TableRowSorter<DefaultTableModel> sortear;
+    
     public PanelCatalogoServicio() {
         initComponents();
         cargarCombotipos();
@@ -43,6 +45,19 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
                     idSeleccionado2 = seleccionado.getId_tipo_servicio();
                 }
             }
+        });
+        initSorter();
+        
+        sortear = new TableRowSorter<>((DefaultTableModel) tblCatalogo.getModel());
+        tblCatalogo.setRowSorter(sortear);
+        
+        txtBuscar.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {filtrar();}
+            @Override
+            public void removeUpdate(DocumentEvent e) {filtrar();}
+            @Override
+            public void changedUpdate(DocumentEvent e) {filtrar();}
         });
         
         validarEnTiempoReal(txtServicio, txtErrorServicio, Validaciones::validarNombreServicio, "Nombre invalido (Ej: Cambio de aceite)");
@@ -132,7 +147,6 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
         txtPrecioBase = new javax.swing.JTextField();
         txtTiempoEstimado = new javax.swing.JTextField();
         TxtCatalogoServicios = new javax.swing.JLabel();
-        btnHistorial = new javax.swing.JButton();
         TxtBuscar = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -150,9 +164,6 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
         PanelDarBaja = new javax.swing.JPanel();
         DarDeBaja = new javax.swing.JLabel();
         ImagenDarBaja = new javax.swing.JLabel();
-        PanelBuscar = new javax.swing.JPanel();
-        Buscar = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         Talleres = new javax.swing.JLabel();
         MJ = new javax.swing.JLabel();
@@ -206,8 +217,6 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
         TxtCatalogoServicios.setFont(new java.awt.Font("Segoe UI", 1, 34)); // NOI18N
         TxtCatalogoServicios.setForeground(new java.awt.Color(120, 120, 120));
         TxtCatalogoServicios.setText("Catalogo Servicios");
-
-        btnHistorial.setText("Historial");
 
         TxtBuscar.setBackground(new java.awt.Color(0, 0, 0));
         TxtBuscar.setText("Buscar:");
@@ -368,44 +377,6 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        PanelBuscar.setBackground(new java.awt.Color(255, 255, 255));
-        PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelBuscarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelBuscarMouseExited(evt);
-            }
-        });
-
-        Buscar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        Buscar.setText("Buscar");
-
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/person_search_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-
-        javax.swing.GroupLayout PanelBuscarLayout = new javax.swing.GroupLayout(PanelBuscar);
-        PanelBuscar.setLayout(PanelBuscarLayout);
-        PanelBuscarLayout.setHorizontalGroup(
-            PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelBuscarLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Buscar)
-                .addContainerGap(31, Short.MAX_VALUE))
-        );
-        PanelBuscarLayout.setVerticalGroup(
-            PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelBuscarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Buscar)
-                    .addComponent(jLabel7))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setPreferredSize(new java.awt.Dimension(413, 103));
 
@@ -476,6 +447,11 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
                 .addGap(29, 29, 29)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(TxtBuscar)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(txtErrorServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -483,7 +459,6 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
                             .addComponent(jScrollPane1)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(PanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(TxtCatalogoServicios, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -509,9 +484,7 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
                                                 .addGap(18, 18, 18)
                                                 .addComponent(PanelEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(18, 18, 18)
-                                                .addComponent(PanelDarBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(47, 47, 47)
-                                                .addComponent(btnHistorial)))
+                                                .addComponent(PanelDarBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGap(49, 49, 49)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jButton1)
@@ -519,11 +492,7 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
                                                 .addComponent(jLabel5)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(comboTiposServicios, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(TxtBuscar)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(comboTiposServicios, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(694, 694, 694))))
         );
@@ -560,18 +529,14 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(PanelEditar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(PanelDarBaja, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jButton1)
-                                .addComponent(btnHistorial)))))
-                .addGap(20, 20, 20)
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addGap(42, 42, 42)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TxtBuscar)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(PanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -713,18 +678,6 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
         DarDeBaja.setForeground(new Color(215, 106, 106));
     }//GEN-LAST:event_PanelDarBajaMouseExited
 
-    private void PanelBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseEntered
-        // TODO add your handling code here:
-        PanelBuscar.setBackground(new Color(219,219,219));
-        Buscar.setForeground(new Color(66, 66, 66));
-    }//GEN-LAST:event_PanelBuscarMouseEntered
-
-    private void PanelBuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseExited
-        // TODO add your handling code here:
-        PanelBuscar.setBackground(Color.white);
-        Buscar.setForeground(Color.black);
-    }//GEN-LAST:event_PanelBuscarMouseExited
-
     private void RegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegresarMouseClicked
         // TODO add your handling code here:
         
@@ -788,17 +741,34 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "No se ha eliminado correctamente.");
         }
     }//GEN-LAST:event_PanelDarBajaMouseClicked
+    
+    private void initSorter(){
+        TableRowSorter<DefaultTableModel> sorter
+                = new TableRowSorter<>((DefaultTableModel) tblCatalogo.getModel());
+        tblCatalogo.setRowSorter(sorter);
 
+        txtBuscar.addActionListener(e -> {
+            String texto = txtBuscar.getText().trim();
+            sorter.setRowFilter(texto.isEmpty() ? null : RowFilter.regexFilter("(?i)" + texto));
+        });
+    }
+    
+    private void filtrar() {
+        String texto = txtBuscar.getText().trim();
+        if (texto.isEmpty()) {
+            sortear.setRowFilter(null);
+        } else {
+            sortear.setRowFilter(RowFilter.regexFilter("(?i)" + Pattern.quote(texto), 0));
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Buscar;
     private javax.swing.JLabel DarDeBaja;
     private javax.swing.JLabel Editar;
     private javax.swing.JLabel Guardar;
     private javax.swing.JLabel ImagenDarBaja;
     private javax.swing.JLabel ImagenSAVE;
     private javax.swing.JLabel MJ;
-    private javax.swing.JPanel PanelBuscar;
     private javax.swing.JPanel PanelDarBaja;
     private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelGuardar;
@@ -806,7 +776,6 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
     private javax.swing.JLabel Talleres;
     private javax.swing.JLabel TxtBuscar;
     private javax.swing.JLabel TxtCatalogoServicios;
-    private javax.swing.JButton btnHistorial;
     private javax.swing.JComboBox<Tipo_de_servicio> comboTiposServicios;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -815,7 +784,6 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
