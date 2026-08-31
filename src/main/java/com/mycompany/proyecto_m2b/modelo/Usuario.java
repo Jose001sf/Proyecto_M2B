@@ -18,6 +18,17 @@ public class Usuario {
     //Atributos auxiliares
     private String ced_perso;
     private String nombre_completo;
+    private String nombre_tip_usuario;
+
+    public String getNombre_tip_usuario() {
+        return nombre_tip_usuario;
+    }
+
+    public void setNombre_tip_usuario(String nombre_tip_usuario) {
+        this.nombre_tip_usuario = nombre_tip_usuario;
+    }
+    
+    
     public Usuario() {
     }
 

@@ -56,7 +56,7 @@ public class Tipos_de_usuario {
     
     @Override
     public String toString() {
-        return id_tip_de_usuario+"-"+nom_tip_de_usuario;
+        return nom_tip_de_usuario;
     }
     
 }

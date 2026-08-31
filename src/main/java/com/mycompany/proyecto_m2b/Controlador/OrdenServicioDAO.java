@@ -68,7 +68,7 @@ public class OrdenServicioDAO {
         String sql = "SELECT estado_orden_servi, COUNT(*) AS cantidad " +
                      "FROM orden_de_servicio " +
                      "WHERE fecha_ingreso BETWEEN ? AND ? " +
-                     "GROUP BY estado_orden_servi";
+                     "GROUP BY estado_orden_servi ";
         try (Connection con = ConexionBD.obtenerConexion();
          PreparedStatement ps = con.prepareStatement(sql)) {
          ps.setDate(1, java.sql.Date.valueOf(Desde));
@@ -89,7 +89,7 @@ public class OrdenServicioDAO {
         String sql = "SELECT fecha_ingreso, COUNT(*) AS cantidad "
                 + "FROM orden_de_servicio "
                 + "WHERE fecha_ingreso BETWEEN ? AND ? "
-                + "GROUP BY fecha_ingreso"
+                + "GROUP BY fecha_ingreso "
                 + "ORDER BY fecha_ingreso";
         try (Connection con = ConexionBD.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setDate(1, java.sql.Date.valueOf(Desde));
@@ -110,8 +110,8 @@ public class OrdenServicioDAO {
         String sql = "SELECT fecha_ingreso, SUM(costo_total) AS total "
                 + "FROM orden_de_servicio "
                 + "WHERE fecha_ingreso BETWEEN ? AND ? "
-                + "GROUP BY fecha_ingreso"
-                + "ORDER BY fecha_ingreso";
+                + "GROUP BY fecha_ingreso "
+                + "ORDER BY fecha_ingreso ";
         try (Connection con = ConexionBD.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setDate(1, java.sql.Date.valueOf(Desde));
             ps.setDate(2, java.sql.Date.valueOf(Hasta));

@@ -11,8 +11,11 @@ import com.mycompany.proyecto_m2b.modelo.DetalleVenta;
 import com.mycompany.proyecto_m2b.modelo.Empresa_recicladora;
 import com.mycompany.proyecto_m2b.modelo.EncabezadoVenta;
 import com.mycompany.proyecto_m2b.modelo.Residuos;
+import java.awt.Color;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  *
@@ -38,6 +41,8 @@ public class PanelResiduos extends javax.swing.JPanel {
 
     cargarComboResiduos();
     cargarEmpresasEnCombo();
+    
+    configurarValidacionesEnTiempoReal();
     }
     
     private void cargarEmpresasEnCombo() {
@@ -68,7 +73,75 @@ public class PanelResiduos extends javax.swing.JPanel {
         comboVentaResiduo.addItem(r.getID_resiudos() + " - " + r.getNom_residuo());
     }
 }
+    public void configurarValidacionesEnTiempoReal() {
     
+    ValidarCantidad.setText("");
+    ValidarPrecio.setText("");
+
+    txtCantidadVenta.getDocument().addDocumentListener(new DocumentListener() {
+        @Override
+        public void insertUpdate(DocumentEvent e) { validarCantidad(); }
+        @Override
+        public void removeUpdate(DocumentEvent e) { validarCantidad(); }
+        @Override
+        public void changedUpdate(DocumentEvent e) { validarCantidad(); }
+    });
+
+    txtPrecioUnitario.getDocument().addDocumentListener(new DocumentListener() {
+        @Override
+        public void insertUpdate(DocumentEvent e) { validarPrecio(); }
+        @Override
+        public void removeUpdate(DocumentEvent e) { validarPrecio(); }
+        @Override
+        public void changedUpdate(DocumentEvent e) { validarPrecio(); }
+    });
+}
+
+private void validarCantidad() {
+    String texto = txtCantidadVenta.getText().trim();
+    
+    if (texto.isEmpty()) {
+        ValidarCantidad.setText("");
+        return;
+    }
+    
+    try {
+        double cantidad = Double.parseDouble(texto);
+        
+        if (cantidad <= 0) {
+            ValidarCantidad.setText("Debe ser mayor a 0.");
+            ValidarCantidad.setForeground(Color.RED);
+        } else {
+            ValidarCantidad.setText("");
+        }
+    } catch (NumberFormatException e) {
+        ValidarCantidad.setText("Ingrese un número válido.");
+        ValidarCantidad.setForeground(Color.RED);
+    }
+}
+
+private void validarPrecio() {
+    String texto = txtPrecioUnitario.getText().trim();
+    
+    if (texto.isEmpty()) {
+        ValidarPrecio.setText("");
+        return;
+    }
+    
+    try {
+        double precio = Double.parseDouble(texto);
+        
+        if (precio <= 0) {
+            ValidarPrecio.setText("El precio debe ser mayor a 0.");
+            ValidarPrecio.setForeground(Color.RED);
+        } else {
+            ValidarPrecio.setText("");
+        }
+    } catch (NumberFormatException e) {
+        ValidarPrecio.setText("Formato de precio incorrecto.");
+        ValidarPrecio.setForeground(Color.RED);
+    }
+}
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -119,6 +192,8 @@ public class PanelResiduos extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         TotalPrecio = new javax.swing.JLabel();
         Kilos2 = new javax.swing.JLabel();
+        ValidarCantidad = new javax.swing.JLabel();
+        ValidarPrecio = new javax.swing.JLabel();
 
         Fondo.setBackground(new java.awt.Color(255, 255, 255));
         Fondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -444,6 +519,14 @@ public class PanelResiduos extends javax.swing.JPanel {
         Kilos2.setForeground(new java.awt.Color(153, 153, 153));
         Kilos2.setText("Cantidad:");
         Fondo.add(Kilos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 280, -1, -1));
+
+        ValidarCantidad.setForeground(new java.awt.Color(255, 0, 0));
+        ValidarCantidad.setText("jLabel2");
+        Fondo.add(ValidarCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, 130, -1));
+
+        ValidarPrecio.setForeground(new java.awt.Color(255, 0, 0));
+        ValidarPrecio.setText("jLabel3");
+        Fondo.add(ValidarPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 330, 140, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -1348,6 +1431,8 @@ public class PanelResiduos extends javax.swing.JPanel {
     private javax.swing.JLabel TituloFuncion1;
     private javax.swing.JLabel TituloFuncion2;
     private javax.swing.JLabel TotalPrecio;
+    private javax.swing.JLabel ValidarCantidad;
+    private javax.swing.JLabel ValidarPrecio;
     private javax.swing.JLabel btnRegresar;
     private javax.swing.JComboBox<Object> comboEmpresas;
     private javax.swing.JComboBox<String> comboVentaResiduo;
