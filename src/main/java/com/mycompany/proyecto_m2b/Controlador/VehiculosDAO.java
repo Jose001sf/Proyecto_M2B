@@ -597,4 +597,40 @@ public String obtenerNombreMarcaPorModelo(String idModelo) {
     }
     return marca;
 }
+public boolean actualizarVehiculo(Vehiculos v) {
+    String sql = "UPDATE vehiculo SET " +
+                 "\"anio_sal_vehi\" = ?, " +
+                 "\"num_chasis_vehi\" = ?, " +
+                 "\"color_vehi\" = ?, " +
+                 "\"cilindraje_vehi\" = ?, " +
+                 "\"transmision_vehi\" = ?, " +
+                 "\"num_puertas_vehi\" = ?, " +
+                 "\"kilometraje_vehi\" = ?, " +
+                 "\"num_motor_vehi\" = ?, " +
+                 "\"id_propietario\" = ?, " +
+                 "\"id_mode\" = ? " +
+                 "WHERE \"placa_carro\" = ?";
+
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setDate(1, (Date) v.getAnio_sal_vehi());
+        ps.setString(2, v.getNum_chasis_vehi());
+        ps.setString(3, v.getColor_vehi());
+        ps.setString(4, v.getCilindraje_vehi());
+        ps.setString(5, v.getTransmision_vehi());
+        ps.setInt(6, v.getNum_puertas_vehi());
+        ps.setInt(7, v.getKilometraje_vehi());
+        ps.setString(8, v.getNum_motor_vehi());
+        ps.setString(9, v.getID_propietario_vehi());
+        ps.setString(10, v.getID_mode_vehi());
+        ps.setString(11, v.getPlaca_carro()); 
+
+        return ps.executeUpdate() > 0;
+
+    } catch (SQLException e) {
+        System.err.println("Error al actualizar vehículo: " + e.getMessage());
+        return false;
+    }
+}
 }

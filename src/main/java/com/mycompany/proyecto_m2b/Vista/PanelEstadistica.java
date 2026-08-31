@@ -7,8 +7,35 @@ package com.mycompany.proyecto_m2b.Vista;
 import com.mycompany.proyecto_m2b.Controlador.OrdenServicioDAO;
 import com.mycompany.proyecto_m2b.Controlador.RepuestoDAO;
 import com.mycompany.proyecto_m2b.Controlador.ServicioDAO;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.time.LocalDate;
+import java.util.Locale;
+import java.util.Map;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.RingPlot;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.time.Day;
+import org.jfree.data.time.TimeSeries;
+import org.jfree.data.time.TimeSeriesCollection;
+import org.jfree.chart.axis.DateAxis;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYAreaRenderer;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.renderer.category.BarRenderer;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 /**
  *
@@ -69,6 +96,26 @@ public class PanelEstadistica extends javax.swing.JPanel {
         labelOrdenesServicioEstado = new javax.swing.JLabel();
         tarjetaOrdenesServicioPorDia = new com.mycompany.proyecto_m2b.Vista.TarjetaRedonda();
         labelOrdenesServicioDia = new javax.swing.JLabel();
+        TarjetaServiciosRealizados = new javax.swing.JPanel();
+        TarjetaServiciosMasRealizados = new javax.swing.JPanel();
+        lblSeriviciosRealzados = new javax.swing.JLabel();
+        panelContenidoServiciosMasRealizados = new javax.swing.JPanel();
+        TarjetaIngresosDia = new javax.swing.JPanel();
+        lblIngresosDia = new javax.swing.JLabel();
+        panelContenidoIngresosDia = new javax.swing.JPanel();
+        TarjetaRepuestosMasUtilizados = new javax.swing.JPanel();
+        lblRepuestosUtilizados = new javax.swing.JLabel();
+        panelContenidoRepuestosMasUtilizados = new javax.swing.JPanel();
+        TarjetaUsuario = new javax.swing.JPanel();
+        labelVehiculos1 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        labelVehiculos2 = new javax.swing.JLabel();
+        labelVehiculos3 = new javax.swing.JLabel();
+        labelVehiculos4 = new javax.swing.JLabel();
+        labelVehiculos5 = new javax.swing.JLabel();
+        txtDias = new javax.swing.JLabel();
+        txtPromedioOrdenes = new javax.swing.JLabel();
+        txtPromedioIngresos = new javax.swing.JLabel();
 
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
@@ -425,6 +472,224 @@ public class PanelEstadistica extends javax.swing.JPanel {
                 .addContainerGap(143, Short.MAX_VALUE))
         );
 
+        TarjetaServiciosRealizados.setBackground(new java.awt.Color(255, 255, 255));
+
+        TarjetaServiciosMasRealizados.setBackground(new java.awt.Color(255, 255, 255));
+
+        lblSeriviciosRealzados.setBackground(new java.awt.Color(0, 0, 0));
+        lblSeriviciosRealzados.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblSeriviciosRealzados.setForeground(new java.awt.Color(0, 0, 0));
+        lblSeriviciosRealzados.setText("SERVICIOS MAS REALIZADOS");
+
+        panelContenidoServiciosMasRealizados.setLayout(new java.awt.BorderLayout());
+
+        javax.swing.GroupLayout TarjetaServiciosMasRealizadosLayout = new javax.swing.GroupLayout(TarjetaServiciosMasRealizados);
+        TarjetaServiciosMasRealizados.setLayout(TarjetaServiciosMasRealizadosLayout);
+        TarjetaServiciosMasRealizadosLayout.setHorizontalGroup(
+            TarjetaServiciosMasRealizadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TarjetaServiciosMasRealizadosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(TarjetaServiciosMasRealizadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panelContenidoServiciosMasRealizados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSeriviciosRealzados))
+                .addContainerGap(104, Short.MAX_VALUE))
+        );
+        TarjetaServiciosMasRealizadosLayout.setVerticalGroup(
+            TarjetaServiciosMasRealizadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TarjetaServiciosMasRealizadosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblSeriviciosRealzados)
+                .addGap(51, 51, 51)
+                .addComponent(panelContenidoServiciosMasRealizados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(76, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout TarjetaServiciosRealizadosLayout = new javax.swing.GroupLayout(TarjetaServiciosRealizados);
+        TarjetaServiciosRealizados.setLayout(TarjetaServiciosRealizadosLayout);
+        TarjetaServiciosRealizadosLayout.setHorizontalGroup(
+            TarjetaServiciosRealizadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(TarjetaServiciosRealizadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TarjetaServiciosRealizadosLayout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(TarjetaServiciosMasRealizados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(86, 86, 86)))
+        );
+        TarjetaServiciosRealizadosLayout.setVerticalGroup(
+            TarjetaServiciosRealizadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(TarjetaServiciosRealizadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(TarjetaServiciosRealizadosLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(TarjetaServiciosMasRealizados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+
+        TarjetaIngresosDia.setBackground(new java.awt.Color(255, 255, 255));
+
+        lblIngresosDia.setBackground(new java.awt.Color(0, 0, 0));
+        lblIngresosDia.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblIngresosDia.setForeground(new java.awt.Color(0, 0, 0));
+        lblIngresosDia.setText("INGRESOS POR DIA");
+
+        panelContenidoIngresosDia.setLayout(new java.awt.BorderLayout());
+
+        javax.swing.GroupLayout TarjetaIngresosDiaLayout = new javax.swing.GroupLayout(TarjetaIngresosDia);
+        TarjetaIngresosDia.setLayout(TarjetaIngresosDiaLayout);
+        TarjetaIngresosDiaLayout.setHorizontalGroup(
+            TarjetaIngresosDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TarjetaIngresosDiaLayout.createSequentialGroup()
+                .addGroup(TarjetaIngresosDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(TarjetaIngresosDiaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblIngresosDia))
+                    .addGroup(TarjetaIngresosDiaLayout.createSequentialGroup()
+                        .addGap(91, 91, 91)
+                        .addComponent(panelContenidoIngresosDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(159, Short.MAX_VALUE))
+        );
+        TarjetaIngresosDiaLayout.setVerticalGroup(
+            TarjetaIngresosDiaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TarjetaIngresosDiaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblIngresosDia)
+                .addGap(57, 57, 57)
+                .addComponent(panelContenidoIngresosDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(82, Short.MAX_VALUE))
+        );
+
+        TarjetaRepuestosMasUtilizados.setBackground(new java.awt.Color(255, 255, 255));
+
+        lblRepuestosUtilizados.setBackground(new java.awt.Color(0, 0, 0));
+        lblRepuestosUtilizados.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblRepuestosUtilizados.setForeground(new java.awt.Color(0, 0, 0));
+        lblRepuestosUtilizados.setText("REPUESTOS MAS UTILIZADOS");
+
+        panelContenidoRepuestosMasUtilizados.setLayout(new java.awt.BorderLayout());
+
+        javax.swing.GroupLayout TarjetaRepuestosMasUtilizadosLayout = new javax.swing.GroupLayout(TarjetaRepuestosMasUtilizados);
+        TarjetaRepuestosMasUtilizados.setLayout(TarjetaRepuestosMasUtilizadosLayout);
+        TarjetaRepuestosMasUtilizadosLayout.setHorizontalGroup(
+            TarjetaRepuestosMasUtilizadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TarjetaRepuestosMasUtilizadosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblRepuestosUtilizados)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TarjetaRepuestosMasUtilizadosLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelContenidoRepuestosMasUtilizados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(100, 100, 100))
+        );
+        TarjetaRepuestosMasUtilizadosLayout.setVerticalGroup(
+            TarjetaRepuestosMasUtilizadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TarjetaRepuestosMasUtilizadosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblRepuestosUtilizados)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelContenidoRepuestosMasUtilizados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56))
+        );
+
+        TarjetaUsuario.setBackground(new java.awt.Color(255, 255, 255));
+
+        labelVehiculos1.setBackground(new java.awt.Color(0, 0, 0));
+        labelVehiculos1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        labelVehiculos1.setForeground(new java.awt.Color(0, 0, 0));
+        labelVehiculos1.setText("Usuario:");
+
+        javax.swing.GroupLayout TarjetaUsuarioLayout = new javax.swing.GroupLayout(TarjetaUsuario);
+        TarjetaUsuario.setLayout(TarjetaUsuarioLayout);
+        TarjetaUsuarioLayout.setHorizontalGroup(
+            TarjetaUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TarjetaUsuarioLayout.createSequentialGroup()
+                .addGap(74, 74, 74)
+                .addComponent(labelVehiculos1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        TarjetaUsuarioLayout.setVerticalGroup(
+            TarjetaUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TarjetaUsuarioLayout.createSequentialGroup()
+                .addContainerGap(93, Short.MAX_VALUE)
+                .addComponent(labelVehiculos1)
+                .addGap(29, 29, 29))
+        );
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+
+        labelVehiculos2.setBackground(new java.awt.Color(0, 0, 0));
+        labelVehiculos2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        labelVehiculos2.setForeground(new java.awt.Color(0, 0, 0));
+        labelVehiculos2.setText("Resumen del Periodo");
+
+        labelVehiculos3.setBackground(new java.awt.Color(0, 0, 0));
+        labelVehiculos3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelVehiculos3.setForeground(new java.awt.Color(0, 0, 0));
+        labelVehiculos3.setText("Dias en el periodo:");
+
+        labelVehiculos4.setBackground(new java.awt.Color(0, 0, 0));
+        labelVehiculos4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelVehiculos4.setForeground(new java.awt.Color(0, 0, 0));
+        labelVehiculos4.setText("Promedio diario de ingresos:");
+
+        labelVehiculos5.setBackground(new java.awt.Color(0, 0, 0));
+        labelVehiculos5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelVehiculos5.setForeground(new java.awt.Color(0, 0, 0));
+        labelVehiculos5.setText("Promedio de ordenes por dia:");
+
+        txtDias.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        txtDias.setForeground(new java.awt.Color(0, 0, 0));
+        txtDias.setText("0");
+
+        txtPromedioOrdenes.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        txtPromedioOrdenes.setForeground(new java.awt.Color(0, 0, 0));
+        txtPromedioOrdenes.setText("0");
+
+        txtPromedioIngresos.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        txtPromedioIngresos.setForeground(new java.awt.Color(0, 0, 0));
+        txtPromedioIngresos.setText("$0");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelVehiculos2)
+                    .addComponent(labelVehiculos4)
+                    .addComponent(labelVehiculos5)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(labelVehiculos3)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtDias))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPromedioIngresos)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(txtPromedioOrdenes)))))
+                .addContainerGap(38, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelVehiculos2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDias)
+                    .addComponent(labelVehiculos3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelVehiculos5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPromedioOrdenes)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelVehiculos4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addComponent(txtPromedioIngresos))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -443,12 +708,7 @@ public class PanelEstadistica extends javax.swing.JPanel {
                     .addComponent(btnAplicar))
                 .addGap(356, 356, 356))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(tarjetaOrdenesServicioPorEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tarjetaOrdenesServicioPorDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(722, 722, 722)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -467,8 +727,25 @@ public class PanelEstadistica extends javax.swing.JPanel {
                                 .addComponent(Guardar1)
                                 .addGap(85, 85, 85)
                                 .addComponent(Guardar2))
-                            .addComponent(tarjetaRepuestos, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(340, Short.MAX_VALUE))
+                            .addComponent(tarjetaRepuestos, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(TarjetaIngresosDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TarjetaServiciosRealizados, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TarjetaRepuestosMasUtilizados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(tarjetaOrdenesServicioPorEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tarjetaOrdenesServicioPorDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TarjetaUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(327, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -500,10 +777,21 @@ public class PanelEstadistica extends javax.swing.JPanel {
                     .addComponent(tarjetaVehiculos, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
                     .addComponent(tarjetaRepuestos, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tarjetaOrdenesServicioPorEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tarjetaOrdenesServicioPorDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(246, 246, 246))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tarjetaOrdenesServicioPorEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tarjetaOrdenesServicioPorDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(TarjetaServiciosRealizados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TarjetaRepuestosMasUtilizados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TarjetaIngresosDia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(TarjetaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -580,9 +868,219 @@ public class PanelEstadistica extends javax.swing.JPanel {
         txtValorVehiculos.setText(String.valueOf(totalVehiculo));
         txtValorServicios.setText(String.valueOf(totalServicios));
         txtValorRepuestos.setText(String.valueOf(totalRepuestos));
+        
+        actualizarGraficoDona(Desde, Hasta);
+        actualizarGraficosOrdenesPorDia(Desde, Hasta);
+        actualizarGraficosIngresosPorDia(Desde, Hasta);
+        actualizarGraficoServiciosMasRealizados(Desde, Hasta);
+        actualizarGraficoRepuestosMasUtilizados(Desde, Hasta);
+        
+        long dias = ChronoUnit.DAYS.between(Desde, Hasta) + 1;
+        double promedioordenes = dias == 0 ? 0 : (double) totalOrdenes / dias;
+        double promedioingresos = dias == 0 ? 0 : totalIngresos / dias;
+        
+        txtDias.setText(String.valueOf(dias));
+        txtPromedioOrdenes.setText(String.format("%.1f", promedioordenes));
+        txtPromedioIngresos.setText(String.format("$%,.2f", promedioingresos));
     }
     private LocalDate fechaDesde;
     private LocalDate fechaHasta;
+    
+    private void actualizarGraficoDona(LocalDate Desde, LocalDate Hasta){
+        OrdenServicioDAO ordenDAO = new OrdenServicioDAO();
+        Map<String, Integer> datos = ordenDAO.contarOrdenesPorEstado(Desde, Hasta);
+        int total = datos.values().stream().mapToInt(Integer::intValue).sum();
+        
+        DefaultPieDataset<String> dataset = new DefaultPieDataset<>();
+        datos.forEach(dataset::setValue);
+        
+        JFreeChart chart = ChartFactory.createRingChart(null, dataset, false, false, false);
+        RingPlot plot = (RingPlot) chart.getPlot();
+        chart.setBackgroundPaint(null);
+        plot.setBackgroundPaint(null);
+        plot.setOutlineVisible(false);
+        for(String estado : datos.keySet()){
+            plot.setSectionPaint(estado, colorPorEstado(estado));
+        }
+        
+        ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setOpaque(false);
+        
+        JLabel titulo = (JLabel) tarjetaOrdenesServicioPorEstado.getComponent(0);
+        tarjetaOrdenesServicioPorEstado.removeAll();
+        tarjetaOrdenesServicioPorEstado.setLayout(new BorderLayout());
+        tarjetaOrdenesServicioPorEstado.add(titulo, BorderLayout.NORTH);
+        tarjetaOrdenesServicioPorEstado.add(chartPanel, BorderLayout.CENTER);
+        
+        JPanel leyenda = new JPanel();
+        leyenda.setOpaque(false);
+        leyenda.setLayout(new BoxLayout(leyenda, BoxLayout.Y_AXIS));
+        datos.forEach((estado, cantidad) -> {
+            double pct = total == 0 ? 0 : cantidad * 100.0 / total;
+            JLabel lbl = new JLabel(String.format("●  %s — %d (%.1f%%)", estado, cantidad, pct));
+            lbl.setForeground(colorPorEstado(estado));
+            leyenda.add(lbl);
+        });
+        tarjetaOrdenesServicioPorEstado.add(leyenda, BorderLayout.SOUTH);
+        
+        tarjetaOrdenesServicioPorEstado.revalidate();
+        tarjetaOrdenesServicioPorEstado.repaint();
+    }
+    
+    private Color colorPorEstado(String estado){
+        switch (estado) {
+            case "En Proceso": return new Color(255,140,0);
+            case "Completada": return new Color(30,100,220);
+            case "Pendiente": return Color.GRAY;
+            case "Cancelada": return new Color(200,30,30);
+            default: return Color.LIGHT_GRAY;
+        }
+    }
+    
+    private void actualizarGraficosOrdenesPorDia(LocalDate Desde, LocalDate Hasta){
+        OrdenServicioDAO ordenDAO = new OrdenServicioDAO();
+        Map<LocalDate, Integer> datosCr = ordenDAO.contarOrdenesPorDia(Desde, Hasta);
+        
+        TimeSeries series = new TimeSeries("Ordenes");
+        for (LocalDate fecha = Desde; !fecha.isAfter(Hasta); fecha = fecha.plusDays(1)){
+            int cantidad = datosCr.getOrDefault(fecha, 0);
+            series.add(new Day(fecha.getDayOfMonth(), fecha.getMonthValue(), fecha.getYear()), cantidad);
+        }
+        
+        TimeSeriesCollection dataset = new TimeSeriesCollection();
+        dataset.addSeries(series);
+        
+        JFreeChart chart = ChartFactory.createTimeSeriesChart(null, null, null, dataset, false, false, false);
+        
+        XYPlot plot = chart.getXYPlot();
+        chart.setBackgroundPaint(null);
+        plot.setBackgroundPaint(null);
+        plot.setDomainGridlinesVisible(false);
+        plot.setRangeGridlinesVisible(false);
+        plot.setOutlineVisible(false);
+        
+        XYAreaRenderer render = new XYAreaRenderer(XYAreaRenderer.AREA);
+        render.setSeriesPaint(0, new Color(255,140,0,120));
+        plot.setRenderer(render);
+        
+        DateAxis ejex = (DateAxis) plot.getDomainAxis();
+        ejex.setDateFormatOverride(new SimpleDateFormat("dd/MM"));
+        
+        ChartPanel chartpanel = new ChartPanel(chart);
+        chartpanel.setOpaque(false);
+        
+        JLabel titulo = (JLabel) tarjetaOrdenesServicioPorDia.getComponent(0);
+        tarjetaOrdenesServicioPorDia.removeAll();
+        tarjetaOrdenesServicioPorDia.setLayout(new BorderLayout());
+        tarjetaOrdenesServicioPorDia.add(titulo, BorderLayout.NORTH);
+        tarjetaOrdenesServicioPorDia.add(chartpanel, BorderLayout.CENTER);
+        
+        tarjetaOrdenesServicioPorDia.revalidate();
+        tarjetaOrdenesServicioPorDia.repaint();
+    }
+    
+    private void actualizarGraficosIngresosPorDia(LocalDate Desde, LocalDate Hasta){
+        OrdenServicioDAO ordenDAO = new OrdenServicioDAO();
+        Map<LocalDate, Double> datosCr = ordenDAO.sumarIngresosPorDia(Desde, Hasta);
+        
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM");
+        
+        for (LocalDate fecha = Desde; !fecha.isAfter(Hasta); fecha = fecha.plusDays(1)){
+            double total = datosCr.getOrDefault(fecha, 0.0);
+            dataset.addValue(total, "Ingresos", fecha.format(formato));
+        }
+        
+        JFreeChart chart = ChartFactory.createBarChart(null, null, null, dataset);
+        
+        CategoryPlot plot = chart.getCategoryPlot();
+        chart.setBackgroundImage(null);
+        plot.setBackgroundPaint(null);
+        plot.setDomainGridlinesVisible(false);
+        plot.setRangeGridlinesVisible(false);
+        plot.setOutlineVisible(false);
+        
+        BarRenderer render = (BarRenderer) plot.getRenderer();
+        render.setSeriesPaint(0, new Color(255, 140, 0));
+        render.setShadowVisible(false);
+        plot.setRenderer(render);
+        
+        plot.getRangeAxis().setVisible(true);
+        chart.getLegend().setVisible(false);
+        
+        ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setOpaque(false);
+        
+        panelContenidoIngresosDia.removeAll();
+        panelContenidoIngresosDia.add(chartPanel, BorderLayout.CENTER);
+        panelContenidoIngresosDia.revalidate();
+        panelContenidoIngresosDia.repaint();
+    }
+    
+    private void actualizarGraficoServiciosMasRealizados(LocalDate Desde, LocalDate Hasta) {
+        ServicioDAO ordenDAO = new ServicioDAO();
+        Map<String, Integer> datos = ordenDAO.topServiciosMasRealizados(Desde, Hasta, 5);
+        
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        for(Map.Entry<String, Integer> entry : datos.entrySet()){
+            dataset.addValue(entry.getValue(), "Cantidad", entry.getKey());
+        }
+        
+        JFreeChart chart = ChartFactory.createBarChart(null, null, null, dataset, org.jfree.chart.plot.PlotOrientation.HORIZONTAL, false, false, false);
+
+        CategoryPlot plot = chart.getCategoryPlot();
+        chart.setBackgroundPaint(null);
+        plot.setBackgroundPaint(null);
+        plot.setDomainGridlinesVisible(false);
+        plot.setRangeGridlinesVisible(false);
+        plot.setOutlineVisible(false);
+        
+        BarRenderer render = (BarRenderer) plot.getRenderer();
+        render.setSeriesPaint(0, new Color(255, 140, 0));
+        render.setShadowVisible(false);
+        
+        ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setOpaque(false);
+        
+        panelContenidoServiciosMasRealizados.removeAll();
+        panelContenidoServiciosMasRealizados.add(chartPanel, BorderLayout.CENTER);
+        panelContenidoServiciosMasRealizados.revalidate();
+        panelContenidoServiciosMasRealizados.repaint();
+    }
+    
+    private void actualizarGraficoRepuestosMasUtilizados(LocalDate Desde, LocalDate Hasta) {
+        RepuestoDAO ordenDAO = new RepuestoDAO();
+        Map<String, Integer> datos = ordenDAO.topRepuestosMasUtilizados(Desde, Hasta, 5);
+
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        for (Map.Entry<String, Integer> entry : datos.entrySet()) {
+            dataset.addValue(entry.getValue(), "Cantidad", entry.getKey());
+        }
+
+        JFreeChart chart = ChartFactory.createBarChart(null, null, null, dataset, org.jfree.chart.plot.PlotOrientation.HORIZONTAL, false, false, false);
+
+        CategoryPlot plot = chart.getCategoryPlot();
+        chart.setBackgroundPaint(null);
+        plot.setBackgroundPaint(null);
+        plot.setDomainGridlinesVisible(false);
+        plot.setRangeGridlinesVisible(false);
+        plot.setOutlineVisible(false);
+
+        BarRenderer render = (BarRenderer) plot.getRenderer();
+        render.setSeriesPaint(0, new Color(30,100,220));
+        render.setShadowVisible(false);
+
+        ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setOpaque(false);
+
+        panelContenidoRepuestosMasUtilizados.removeAll();
+        panelContenidoRepuestosMasUtilizados.add(chartPanel, BorderLayout.CENTER);
+        panelContenidoRepuestosMasUtilizados.revalidate();
+        panelContenidoRepuestosMasUtilizados.repaint();
+    }
+    
+    
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser Desde;
@@ -592,6 +1090,11 @@ public class PanelEstadistica extends javax.swing.JPanel {
     private com.toedter.calendar.JDateChooser Hasta;
     private javax.swing.JLabel ImagenSAVE;
     private javax.swing.JPanel Reportes;
+    private javax.swing.JPanel TarjetaIngresosDia;
+    private javax.swing.JPanel TarjetaRepuestosMasUtilizados;
+    private javax.swing.JPanel TarjetaServiciosMasRealizados;
+    private javax.swing.JPanel TarjetaServiciosRealizados;
+    private javax.swing.JPanel TarjetaUsuario;
     private javax.swing.JLabel Titulo;
     private javax.swing.JButton btnAplicar;
     private javax.swing.JLabel jLabel10;
@@ -601,6 +1104,7 @@ public class PanelEstadistica extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JLabel labelIngresos;
     private javax.swing.JLabel labelOrdenes;
     private javax.swing.JLabel labelOrdenesServicioDia;
@@ -608,6 +1112,17 @@ public class PanelEstadistica extends javax.swing.JPanel {
     private javax.swing.JLabel labelRepuestos;
     private javax.swing.JLabel labelServicios;
     private javax.swing.JLabel labelVehiculos;
+    private javax.swing.JLabel labelVehiculos1;
+    private javax.swing.JLabel labelVehiculos2;
+    private javax.swing.JLabel labelVehiculos3;
+    private javax.swing.JLabel labelVehiculos4;
+    private javax.swing.JLabel labelVehiculos5;
+    private javax.swing.JLabel lblIngresosDia;
+    private javax.swing.JLabel lblRepuestosUtilizados;
+    private javax.swing.JLabel lblSeriviciosRealzados;
+    private javax.swing.JPanel panelContenidoIngresosDia;
+    private javax.swing.JPanel panelContenidoRepuestosMasUtilizados;
+    private javax.swing.JPanel panelContenidoServiciosMasRealizados;
     private javax.swing.JPanel tarjetaIngresos;
     private javax.swing.JPanel tarjetaOrdenes;
     private javax.swing.JPanel tarjetaOrdenesServicioPorDia;
@@ -615,6 +1130,9 @@ public class PanelEstadistica extends javax.swing.JPanel {
     private javax.swing.JPanel tarjetaRepuestos;
     private javax.swing.JPanel tarjetaServicios;
     private javax.swing.JPanel tarjetaVehiculos;
+    private javax.swing.JLabel txtDias;
+    private javax.swing.JLabel txtPromedioIngresos;
+    private javax.swing.JLabel txtPromedioOrdenes;
     private javax.swing.JLabel txtValorIngresos;
     private javax.swing.JLabel txtValorOrdenes;
     private javax.swing.JLabel txtValorRepuestos;
