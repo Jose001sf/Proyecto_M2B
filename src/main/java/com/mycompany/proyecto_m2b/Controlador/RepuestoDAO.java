@@ -244,13 +244,13 @@ public class RepuestoDAO {
     
     public Map<String, Integer> topRepuestosMasUtilizados(LocalDate Desde, LocalDate Hasta, int limite) {
         Map<String, Integer> resultado = new LinkedHashMap<>();
-        String sql = "SELECT r.nombre_repuesto AS nombre, SUM(d.cantidad_usar) AS cantidad "
+        String sql = "SELECT r.nom_repuesto AS nombre, SUM(d.cantidad_usar) AS cantidad "
                 + "FROM detalle_repuesto d "
-                + "JOIN orden_de_servicio o ON d.id_orden_serv = o.id_orden_serv"
-                + "JOIN repuestos r ON d.id_repuestos = s.id_repuestos "
+                + "JOIN orden_de_servicio o ON d.id_orden_serv = o.id_orden_serv "
+                + "JOIN repuestos r ON d.id_repuestos = r.id_repuestos "
                 + "WHERE o.fecha_ingreso BETWEEN ? AND ? "
-                + "GROUP BY r.nom_repuesto"
-                + "ORDER BY cantidad DESC"
+                + "GROUP BY r.nom_repuesto "
+                + "ORDER BY cantidad DESC "
                 + "LIMIT ?";
         try (Connection con = ConexionBD.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setDate(1, java.sql.Date.valueOf(Desde));
