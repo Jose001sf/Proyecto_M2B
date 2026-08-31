@@ -5,9 +5,11 @@
 package com.mycompany.proyecto_m2b.Vista;
 
 import com.mycompany.proyecto_m2b.Controlador.OrdenServicioDAO;
+import com.mycompany.proyecto_m2b.Controlador.Servidor_de_correos;
 import com.mycompany.proyecto_m2b.Controlador.Validaciones;
 import com.mycompany.proyecto_m2b.Controlador.VehiculosDAO;
 import com.mycompany.proyecto_m2b.modelo.orden_de_servicio;
+import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
 import java.time.LocalDate;
 import java.util.Date;
@@ -22,9 +24,13 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
     /**
      * Creates new form PanelOrdenesServicio
      */
+    private String idOrdenCargada = null;
     public PanelOrdenesServicio() {
         initComponents();
         cargarCombosIniciales();
+        CalendarioFechaIngreso.setDate(new java.util.Date());
+        CalendarioFechaIngreso.setEnabled(false);
+        ((JTextFieldDateEditor) CalendarioFechaIngreso.getDateEditor()).setEditable(false);
     }
 
     /**
@@ -58,9 +64,6 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         PanelEditar = new javax.swing.JPanel();
         Editar = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        PanelDarBaja = new javax.swing.JPanel();
-        DarDeBaja = new javax.swing.JLabel();
-        ImagenDarBaja = new javax.swing.JLabel();
         PanelBuscar = new javax.swing.JPanel();
         Buscar = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -146,7 +149,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
 
         TXTcostoTotal.setForeground(new java.awt.Color(153, 153, 153));
-        TXTcostoTotal.setText("Costo Total");
+        TXTcostoTotal.setText("0.00");
         TXTcostoTotal.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 TXTcostoTotalFocusGained(evt);
@@ -276,6 +279,9 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
         PanelEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelEditarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelEditarMouseEntered(evt);
             }
@@ -313,51 +319,13 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
 
         jPanel1.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 310, -1, -1));
 
-        PanelDarBaja.setBackground(new java.awt.Color(255, 255, 255));
-        PanelDarBaja.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(215, 106, 106)));
-        PanelDarBaja.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelDarBaja.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelDarBajaMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelDarBajaMouseExited(evt);
-            }
-        });
-
-        DarDeBaja.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        DarDeBaja.setForeground(new java.awt.Color(215, 106, 106));
-        DarDeBaja.setText("Dar de baja");
-
-        ImagenDarBaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/person_cancel_22dp_EA3323_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-
-        javax.swing.GroupLayout PanelDarBajaLayout = new javax.swing.GroupLayout(PanelDarBaja);
-        PanelDarBaja.setLayout(PanelDarBajaLayout);
-        PanelDarBajaLayout.setHorizontalGroup(
-            PanelDarBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelDarBajaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ImagenDarBaja)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(DarDeBaja)
-                .addGap(30, 30, 30))
-        );
-        PanelDarBajaLayout.setVerticalGroup(
-            PanelDarBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelDarBajaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelDarBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(DarDeBaja)
-                    .addComponent(ImagenDarBaja))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel1.add(PanelDarBaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 310, -1, -1));
-
         PanelBuscar.setBackground(new java.awt.Color(255, 255, 255));
         PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
         PanelBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelBuscarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelBuscarMouseEntered(evt);
             }
@@ -392,7 +360,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 310, -1, -1));
+        jPanel1.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 310, -1, -1));
 
         jLabel3.setText("Fecha de entrega:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, -1, -1));
@@ -440,7 +408,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
 
     private void TXTcostoTotalFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTcostoTotalFocusGained
         // TODO add your handling code here:
-        if (TXTcostoTotal.getText().equals("Costo Total")){
+        if (TXTcostoTotal.getText().equals("0.00")){
             TXTcostoTotal.setText("");
             TXTcostoTotal.setForeground(Color.BLACK);
         }
@@ -452,7 +420,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
 
     private void TXTcostoTotalMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTcostoTotalMousePressed
         // TODO add your handling code here:
-        if (TXTcostoTotal.getText().equals("Costo Total")){
+        if (TXTcostoTotal.getText().equals("0.00")){
             TXTcostoTotal.setText("");
             TXTcostoTotal.setForeground(Color.BLACK);
         }
@@ -548,18 +516,6 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         Editar.setForeground(Color.black);
     }//GEN-LAST:event_PanelEditarMouseExited
 
-    private void PanelDarBajaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarBajaMouseEntered
-        // TODO add your handling code here:
-        PanelDarBaja.setBackground(new Color (252, 168, 168));
-        DarDeBaja.setForeground(Color.white);
-    }//GEN-LAST:event_PanelDarBajaMouseEntered
-
-    private void PanelDarBajaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarBajaMouseExited
-        // TODO add your handling code here:
-        PanelDarBaja.setBackground(Color.white);
-        DarDeBaja.setForeground(new Color(215, 106, 106));
-    }//GEN-LAST:event_PanelDarBajaMouseExited
-
     private void PanelBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseEntered
         // TODO add your handling code here:
         PanelBuscar.setBackground(new Color(219,219,219));
@@ -608,60 +564,293 @@ public void cargarCombosIniciales() {
         OrdenServicioDAO dao=new OrdenServicioDAO();
         dao.sumarIngresosPorDia(LocalDate.MIN, LocalDate.MAX);
     }//GEN-LAST:event_TXTcostoTotalActionPerformed
+private void EditarOrdenDeServicio() {
+    try {
+        // 1. Validar que se haya cargado una orden previa usando el botón 'Buscar'
+        if (idOrdenCargada == null || idOrdenCargada.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, 
+                "Por favor seleccione o busque primero la orden que desea editar.", 
+                "Atención", 
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // 2. Validar que se haya seleccionado un estado válido en el ComboBox
+        if (Estados == null || Estados.getSelectedIndex() <= 0) {
+            JOptionPane.showMessageDialog(this, 
+                "Por favor seleccione un estado de orden válido.", 
+                "Atención", 
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // 3. Obtener el texto del ComboBox de Estado
+        String estadoSeleccionado = Estados.getSelectedItem().toString().trim();
+
+        OrdenServicioDAO dao = new OrdenServicioDAO();
+        orden_de_servicio orden = new orden_de_servicio();
+        
+        // Asignamos el ID de la orden activa
+        orden.setId_orden_serv(idOrdenCargada);
+        orden.setEstadoorden_servi(estadoSeleccionado);
+
+        // 4. Capturar Fechas
+        orden.setFecha_ingreso(CalendarioFechaIngreso.getDate());
+        if (CalendarioFechaEntrega != null && CalendarioFechaEntrega.getDate() != null) {
+            orden.setFecha_entrega(CalendarioFechaEntrega.getDate());
+        } else {
+            orden.setFecha_entrega(null);
+        }
+
+        // 5. Capturar Costo Total
+        double costoTotal = 0.0;
+        if (TXTcostoTotal != null && !TXTcostoTotal.getText().trim().isEmpty()) {
+            try {
+                costoTotal = Double.parseDouble(TXTcostoTotal.getText().trim());
+            } catch (NumberFormatException nfe) {
+                costoTotal = 0.0;
+            }
+        }
+        orden.setCosto_total(costoTotal);
+
+        // 6. Capturar ID del Vehículo mediante la placa seleccionada en el ComboBox
+        if (comboPlacas != null && comboPlacas.getSelectedIndex() > 0) {
+            String placa = comboPlacas.getSelectedItem().toString().trim();
+            orden.setId_vehi(dao.obtenerIdVehiculoPorPlaca(placa));
+        }
+
+        // 7. Capturar ID del Empleado mediante el ComboBox de empleados
+        if (comboEmpleado != null && comboEmpleado.getSelectedIndex() > 0) {
+            String empleadoNombre = comboEmpleado.getSelectedItem().toString().trim();
+            orden.setId_empleado(dao.obtenerIdEmpleadoPorNombre(empleadoNombre));
+        }
+
+        // 8. Actualizar en Base de Datos
+        boolean actualizado = dao.actualizarOrdenServicio(orden);
+
+        if (actualizado) {
+            JOptionPane.showMessageDialog(this, 
+                "La Orden de Servicio (" + idOrdenCargada + ") ha sido actualizada con éxito.", 
+                "Actualización Exitosa", 
+                JOptionPane.INFORMATION_MESSAGE);
+
+            // 9. Si el ComboBox cambió a "Terminado" o "Finalizado", enviamos el correo al propietario
+            if (estadoSeleccionado.equalsIgnoreCase("Terminado") || estadoSeleccionado.equalsIgnoreCase("Finalizado")) {
+                new Thread(() -> {
+                    String[] datosPropietario = dao.obtenerDatosPropietarioPorVehiculo(orden.getId_vehi());
+                    String nombrePropietario = datosPropietario[0];
+                    String correoPropietario = datosPropietario[1];
+                    Servidor_de_correos correo=new Servidor_de_correos();
+                    if (correoPropietario != null && !correoPropietario.trim().isEmpty()) {
+                        correo.enviarCorreoEstadoVehiculo(nombrePropietario, estadoSeleccionado, correoPropietario);
+                    } else {
+                        System.out.println("No se envió correo: El propietario no registra un correo válido.");
+                    }
+                }).start();
+            }
+
+            // Limpiar los campos para finalizar
+            LimpiarDatos();
+
+        } else {
+            JOptionPane.showMessageDialog(this, 
+                "No se pudo actualizar la orden de servicio en la base de datos.", 
+                "Error de Actualización", 
+                JOptionPane.ERROR_MESSAGE);
+        }
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, 
+            "Error inesperado al editar: " + e.getMessage(), 
+            "Error General", 
+            JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+}
+    private void PanelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseClicked
+        // TODO add your handling code here:
+        EditarOrdenDeServicio();
+    }//GEN-LAST:event_PanelEditarMouseClicked
+
+    private void PanelBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseClicked
+        // TODO add your handling code here:
+        if (comboPlacas.getSelectedIndex() <= 0) {
+        JOptionPane.showMessageDialog(this, 
+            "Por favor seleccione una placa de la lista para buscar su orden.", 
+            "Atención", 
+            JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    String placaSeleccionada = comboPlacas.getSelectedItem().toString().trim();
+    OrdenServicioDAO dao = new OrdenServicioDAO();
+    orden_de_servicio orden = dao.buscarOrdenPorPlaca(placaSeleccionada);
+
+    if (orden != null) {
+        this.idOrdenCargada = orden.getId_orden_serv();
+
+        Estados.setSelectedItem(orden.getEstadoorden_servi());
+        CalendarioFechaIngreso.setDate(orden.getFecha_ingreso());
+        CalendarioFechaEntrega.setDate(orden.getFecha_entrega());
+        TXTcostoTotal.setText(String.format(java.util.Locale.US, "%.2f", orden.getCosto_total()));
+
+        JOptionPane.showMessageDialog(this, "Datos de la orden cargados correctamente.");
+    } else {
+        JOptionPane.showMessageDialog(this, "El vehículo no tiene una orden de servicio registrada.");
+    }
+    }//GEN-LAST:event_PanelBuscarMouseClicked
 
 
-    public void LimpiarDatos (){
-        TXTcostoTotal.setText("");
+    public void LimpiarDatos() {
+    if (TXTcostoTotal != null) {
+        TXTcostoTotal.setText("0.00");
         TXTcostoTotal.setForeground(new Color(94, 94, 94));
+    }
+        if (Descripcion != null) {
         Descripcion.setText("");
         Descripcion.setForeground(new Color(94, 94, 94));
-        Estados.setSelectedIndex(0);
-        CalendarioFechaEntrega.setDate(null);
-        CalendarioFechaIngreso.setDate(null);
     }
-    public void GuardarOrdenDeServicio (){
-        try {
-        orden_de_servicio orden = new orden_de_servicio();
-        orden.setEstadoorden_servi(Estados.getSelectedItem().toString()); 
+    if (Estados != null && Estados.getItemCount() > 0) Estados.setSelectedIndex(0);
+    if (comboPlacas != null && comboPlacas.getItemCount() > 0) comboPlacas.setSelectedIndex(0);
+    if (comboCliente != null && comboCliente.getItemCount() > 0) comboCliente.setSelectedIndex(0);
+    if (comboEmpleado != null && comboEmpleado.getItemCount() > 0) comboEmpleado.setSelectedIndex(0);
+    if (CalendarioFechaEntrega != null) CalendarioFechaEntrega.setDate(null);
+    this.idOrdenCargada = null; 
+}
+    private void GuardarOrdenDeServicio() {
+    try {
+        if (comboPlacas.getSelectedIndex() <= 0) {
+            JOptionPane.showMessageDialog(this, 
+                "Por favor seleccione una placa de vehículo.", 
+                "Atención", 
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
-        orden.setFecha_ingreso(CalendarioFechaIngreso.getDate());
-        orden.setFecha_entrega(CalendarioFechaEntrega.getDate());
+        if (CalendarioFechaIngreso.getDate() == null) {
+            JOptionPane.showMessageDialog(this, 
+                "Por favor seleccione la fecha de ingreso.", 
+                "Atención", 
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
-        double costoTotal = TXTcostoTotal.getText().trim().isEmpty() ? 0.0 : Double.parseDouble(TXTcostoTotal.getText().trim());
-        orden.setCosto_total(costoTotal);
         OrdenServicioDAO dao = new OrdenServicioDAO();
+        orden_de_servicio orden = new orden_de_servicio();
+        String nuevoId = dao.generarSiguienteIdOrden();
+        orden.setId_orden_serv(nuevoId);
         
-        String placaSeleccionada = comboPlacas.getSelectedItem().toString();
-        String empleadoSeleccionado = comboEmpleado.getSelectedItem().toString();
-
-        orden.setId_vehi(dao.obtenerIdVehiculoPorPlaca(placaSeleccionada));
-        orden.setId_empleado(dao.obtenerIdEmpleadoPorNombre(empleadoSeleccionado));
-        if (dao.guardarOrdenServicio(orden)) {
-            JOptionPane.showMessageDialog(this, "Orden de servicio registrada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        if (Estados != null && Estados.getSelectedItem() != null) {
+            orden.setEstadoorden_servi(Estados.getSelectedItem().toString());
         } else {
-            JOptionPane.showMessageDialog(this, "Error al registrar la orden.", "Error", JOptionPane.ERROR_MESSAGE);
+            orden.setEstadoorden_servi("Ingresado"); 
+        }
+        orden.setFecha_ingreso(CalendarioFechaIngreso.getDate());
+        
+        if (CalendarioFechaEntrega != null && CalendarioFechaEntrega.getDate() != null) {
+            orden.setFecha_entrega(CalendarioFechaEntrega.getDate());
+        } else {
+            orden.setFecha_entrega(null);
+        }
+        double costoTotal = 0.0;
+        String textoCosto = TXTcostoTotal.getText().trim();
+        if (!textoCosto.isEmpty()) {
+            costoTotal = Double.parseDouble(textoCosto);
+        }
+        orden.setCosto_total(costoTotal);
+
+        String placaSeleccionada = comboPlacas.getSelectedItem().toString().trim();
+        String idVehiculo = dao.obtenerIdVehiculoPorPlaca(placaSeleccionada);
+
+        if (idVehiculo == null) {
+            JOptionPane.showMessageDialog(this, 
+                "No se encontró el registro del vehículo seleccionado en la base de datos.", 
+                "Error de Referencia", 
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        orden.setId_vehi(idVehiculo);
+        
+        if (comboEmpleado != null && comboEmpleado.getSelectedIndex() > 0) {
+    String empleadoTexto = comboEmpleado.getSelectedItem().toString();
+    String idEmpleado = dao.obtenerIdEmpleadoPorNombre(empleadoTexto);
+    
+    if (idEmpleado == null) {
+        JOptionPane.showMessageDialog(this, 
+            "No se encontró el ID del empleado seleccionado en la base de datos.", 
+            "Error de Empleado", 
+            JOptionPane.WARNING_MESSAGE);
+        return; 
+    }
+    
+    orden.setId_empleado(idEmpleado);
+} else {
+    JOptionPane.showMessageDialog(this, 
+        "Por favor seleccione un empleado asignado.", 
+        "Atención", 
+        JOptionPane.WARNING_MESSAGE);
+    return;
+}
+    if (comboPlacas == null || comboPlacas.getSelectedIndex() <= 0) {
+    JOptionPane.showMessageDialog(this, "Por favor seleccione una placa de vehículo.", "Atención", JOptionPane.WARNING_MESSAGE);
+    return;
+}
+    if (comboEmpleado == null || comboEmpleado.getSelectedIndex() <= 0) {
+    JOptionPane.showMessageDialog(this, "Por favor seleccione un empleado asignado.", "Atención", JOptionPane.WARNING_MESSAGE);
+    return;
+}
+    if (Estados == null || Estados.getSelectedIndex() <= 0) {
+    JOptionPane.showMessageDialog(this, "Por favor seleccione un estado para la orden.", "Atención", JOptionPane.WARNING_MESSAGE);
+    return;
+}
+    if (CalendarioFechaIngreso == null || CalendarioFechaIngreso.getDate() == null) {
+    JOptionPane.showMessageDialog(this, "Por favor seleccione la fecha de ingreso.", "Atención", JOptionPane.WARNING_MESSAGE);
+    return;
+}
+    if (Descripcion == null || Descripcion.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(this, "Por favor ingrese la descripción del trabajo a realizar.", "Atención", JOptionPane.WARNING_MESSAGE);
+    return;
+}
+        boolean guardadoExitoso = dao.guardarOrdenServicio(orden);
+
+        if (guardadoExitoso) {
+            JOptionPane.showMessageDialog(this, 
+                "Orden de Servicio registrada con éxito.\nCódigo: " + nuevoId, 
+                "Registro Exitoso", 
+                JOptionPane.INFORMATION_MESSAGE);
+            LimpiarDatos();
+        } else {
+            JOptionPane.showMessageDialog(this, 
+                "No se pudo guardar la orden de servicio. Verifique la conexión o los datos.", 
+                "Error de Guardado", 
+                JOptionPane.ERROR_MESSAGE);
         }
 
     } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Verifique que el costo total sea un valor numérico válido.", "Error de Formato", JOptionPane.WARNING_MESSAGE);
-        }  
-        LimpiarDatos();
+        JOptionPane.showMessageDialog(this, 
+            "El costo total debe ser un número válido (ejemplo: 45.50).", 
+            "Error de Formato", 
+            JOptionPane.ERROR_MESSAGE);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, 
+            "Ocurrió un error inesperado: " + e.getMessage(), 
+            "Error General", 
+            JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
     }
+}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Buscar;
     private com.toedter.calendar.JDateChooser CalendarioFechaEntrega;
     private com.toedter.calendar.JDateChooser CalendarioFechaIngreso;
-    private javax.swing.JLabel DarDeBaja;
     private javax.swing.JTextField Descripcion;
     private javax.swing.JLabel Editar;
     private javax.swing.JComboBox<String> Estados;
     private javax.swing.JLabel Guardar;
     private javax.swing.JLabel ImagenADD;
-    private javax.swing.JLabel ImagenDarBaja;
     private javax.swing.JLabel ImagenSAVE;
     private javax.swing.JLabel Nuevo;
     private javax.swing.JPanel PanelBuscar;
-    private javax.swing.JPanel PanelDarBaja;
     private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JPanel PanelNuevo;

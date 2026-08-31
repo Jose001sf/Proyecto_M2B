@@ -187,4 +187,37 @@ public class Servidor_de_correos {
             e.printStackTrace();
         }
     }
+    //Estado del vehiculo cambió a terminado
+    public void enviarCorreoEstadoVehiculo(String nom_usuario, String estado, String correo_person) {
+        try {
+            SimpleEmail email = new SimpleEmail();
+            email.setHostName("smtp.gmail.com");
+            email.setSmtpPort(587);
+            email.setAuthentication(GMAIL_REMITENTE, GMAIL_APP_PASSWORD);
+
+            email.setStartTLSEnabled(true);
+            email.setSSLCheckServerIdentity(false);
+            
+            email.getMailSession().getProperties().put("mail.smtp.ssl.trust", "*");
+            email.getMailSession().getProperties().put("mail.smtp.ssl.checkserveridentity", "false");
+
+            // Cabeceras para el email
+            email.setFrom(GMAIL_REMITENTE, "Sistema M&JTALLERES");
+            email.setSubject("M&JTALLERES - ACTUALIZACION DE ESTADO DE SU VEHICULO");
+            
+            String mensaje = "Estimado/a " + nom_usuario + ",\n\n"
+                       + "Le informamos que el estado de su vehículo en nuestro taller ahora es: " 
+                       + estado.toUpperCase() + ".\n\n"
+                       + "Por favor, acérquese a nuestras instalaciones para proceder con la entrega.\n\n"
+                       + "Atentamente,\n"
+                       + "Administración M&JTALLERES";
+            email.setMsg(mensaje);
+            email.addTo(correo_person);
+            email.send();
+            System.out.println("Correo enviado exitosamente");
+        } catch (EmailException e) {
+            System.out.println("Error al enviar el correo: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 }

@@ -227,20 +227,138 @@ public String obtenerIdVehiculoPorPlaca(String placa) {
     }
     return id;
 }
-public String obtenerIdEmpleadoPorNombre(String nombreCompleto) {
+public String obtenerIdEmpleadoPorNombre(String textoEmpleado) {
+    if (textoEmpleado == null || textoEmpleado.trim().isEmpty() || textoEmpleado.startsWith("Seleccione")) {
+        return null;
+    }
+    if (textoEmpleado.contains("(")) {
+        textoEmpleado = textoEmpleado.substring(0, textoEmpleado.indexOf("(")).trim();
+    }
+
     String id = null;
     String sql = "SELECT e.\"id_empleado\" " +
                  "FROM empleado e " +
                  "JOIN persona p ON e.\"ced_perso\" = p.\"ced_perso\" " +
-                 "WHERE (p.\"nom1_person\" || ' ' || p.\"apell1_person\") = ?";
+                 "WHERE TRIM(p.\"nom1_person\" || ' ' || p.\"apell1_person\") = ?";
     try (Connection con = ConexionBD.obtenerConexion();
          PreparedStatement ps = con.prepareStatement(sql)) {
-        ps.setString(1, nombreCompleto);
+
+        ps.setString(1, textoEmpleado.trim());
         ResultSet rs = ps.executeQuery();
-        if (rs.next()) id = rs.getString("id_empleado");
+        if (rs.next()) {
+            id = rs.getString("id_empleado");
+        }
     } catch (SQLException e) {
-        System.err.println("Error al obtener ID empleado: " + e.getMessage());
+        System.err.println("Error al obtener ID de empleado: " + e.getMessage());
     }
     return id;
+    
+}public String generarSiguienteIdOrden() {
+    String nuevoId = "ODS-001"; 
+    String sql = "SELECT \"id_orden_serv\" FROM orden_de_servicio " +
+                 "WHERE \"id_orden_serv\" LIKE 'ODS-%' " +
+                 "ORDER BY \"id_orden_serv\" DESC LIMIT 1";
+
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+
+        if (rs.next()) {
+            String ultimoId = rs.getString("id_orden_serv"); 
+            String numeroStr = ultimoId.replace("ODS-", "").trim();
+            int siguienteNumero = Integer.parseInt(numeroStr) + 1;
+            nuevoId = String.format("ODS-%03d", siguienteNumero);
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al generar ID de orden: " + e.getMessage());
+    } catch (NumberFormatException e) {
+        System.err.println("Error al parsear el número del ID: " + e.getMessage());
+    }
+    return nuevoId;
+}
+public String[] obtenerDatosPropietarioPorVehiculo(String idVehi) {
+    String[] datos = new String[2]; 
+    
+    String sql = "SELECT (p.\"nom1_person\" || ' ' || p.\"apell1_person\") AS nombre_completo, p.\"corr_elec_perso\" " +
+                 "FROM vehiculo v " +
+                 "JOIN propietario prop ON v.\"id_propietario\" = prop.\"id_propietario\" " +
+                 "JOIN persona p ON prop.\"ced_perso\" = p.\"ced_perso\" " +
+                 "WHERE v.\"id_vehi\" = ?";
+
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setString(1, idVehi);
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                datos[0] = rs.getString("nombre_completo");
+                datos[1] = rs.getString("corr_elec_perso");
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener datos del propietario: " + e.getMessage());
+    }
+    return datos;
+}
+public boolean actualizarOrdenServicio(orden_de_servicio orden) {
+    String sql = "UPDATE orden_de_servicio SET " +
+                 "\"estado_orden_servi\" = ?, " +
+                 "\"fecha_entrega\" = ?, " +
+                 "\"costo_total\" = ?, " +
+                 "\"id_vehi\" = ?, " +
+                 "\"id_empleado\" = ? " +
+                 "WHERE \"id_orden_serv\" = ?";
+
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setString(1, orden.getEstadoorden_servi());
+
+        // Manejo de fecha de entrega
+        if (orden.getFecha_entrega() != null) {
+            ps.setDate(2, new java.sql.Date(orden.getFecha_entrega().getTime()));
+        } else {
+            ps.setNull(2, java.sql.Types.DATE);
+        }
+
+        ps.setDouble(3, orden.getCosto_total());
+        ps.setString(4, orden.getId_vehi());
+        ps.setString(5, orden.getId_empleado());
+        ps.setString(6, orden.getId_orden_serv());
+
+        return ps.executeUpdate() > 0;
+
+    } catch (SQLException e) {
+        System.err.println("Error al actualizar la orden de servicio: " + e.getMessage());
+        return false;
+    }
+}
+public orden_de_servicio buscarOrdenPorPlaca(String placa) {
+    orden_de_servicio orden = null;
+    String sql = "SELECT o.* FROM orden_de_servicio o " +
+                 "JOIN vehiculo v ON o.\"id_vehi\" = v.\"id_vehi\" " +
+                 "WHERE UPPER(v.\"placa_carro\") = UPPER(?) " +
+                 "ORDER BY o.\"fecha_ingreso\" DESC LIMIT 1";
+
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setString(1, placa.trim());
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                orden = new orden_de_servicio();
+                orden.setId_orden_serv(rs.getString("id_orden_serv"));
+                orden.setEstadoorden_servi(rs.getString("estado_orden_servi"));
+                orden.setFecha_ingreso(rs.getDate("fecha_ingreso"));
+                orden.setFecha_entrega(rs.getDate("fecha_entrega"));
+                orden.setCosto_total(rs.getDouble("costo_total"));
+                orden.setId_vehi(rs.getString("id_vehi"));
+                orden.setId_empleado(rs.getString("id_empleado"));
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al buscar por placa: " + e.getMessage());
+    }
+    return orden;
 }
 }
