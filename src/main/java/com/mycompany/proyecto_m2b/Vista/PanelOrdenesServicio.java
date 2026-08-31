@@ -4,8 +4,12 @@
  */
 package com.mycompany.proyecto_m2b.Vista;
 
+import com.mycompany.proyecto_m2b.Controlador.OrdenServicioDAO;
 import com.mycompany.proyecto_m2b.Controlador.Validaciones;
+import com.mycompany.proyecto_m2b.Controlador.VehiculosDAO;
+import com.mycompany.proyecto_m2b.modelo.orden_de_servicio;
 import java.awt.Color;
+import java.time.LocalDate;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
@@ -20,6 +24,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
      */
     public PanelOrdenesServicio() {
         initComponents();
+        cargarCombosIniciales();
     }
 
     /**
@@ -42,9 +47,6 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        TXTplaca = new javax.swing.JTextField();
-        TXTcedula = new javax.swing.JTextField();
-        TXTempleado = new javax.swing.JTextField();
         TXTcostoTotal = new javax.swing.JTextField();
         Descripcion = new javax.swing.JTextField();
         PanelNuevo = new javax.swing.JPanel();
@@ -66,6 +68,9 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         Estados = new javax.swing.JComboBox<>();
         CalendarioFechaIngreso = new com.toedter.calendar.JDateChooser();
         CalendarioFechaEntrega = new com.toedter.calendar.JDateChooser();
+        comboPlacas = new javax.swing.JComboBox<>();
+        comboCliente = new javax.swing.JComboBox<>();
+        comboEmpleado = new javax.swing.JComboBox<>();
 
         jPanel1.setBackground(new java.awt.Color(238, 238, 238));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -140,66 +145,6 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         jLabel12.setText("Detalle/Trabajo a realizar:");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
 
-        TXTplaca.setForeground(new java.awt.Color(153, 153, 153));
-        TXTplaca.setText("Ingrese la placa");
-        TXTplaca.setToolTipText("");
-        TXTplaca.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                TXTplacaFocusGained(evt);
-            }
-        });
-        TXTplaca.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                TXTplacaMousePressed(evt);
-            }
-        });
-        TXTplaca.addActionListener(this::TXTplacaActionPerformed);
-        TXTplaca.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                TXTplacaKeyPressed(evt);
-            }
-        });
-        jPanel1.add(TXTplaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 210, -1));
-
-        TXTcedula.setForeground(new java.awt.Color(153, 153, 153));
-        TXTcedula.setText("Ingrese la cédula");
-        TXTcedula.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                TXTcedulaFocusGained(evt);
-            }
-        });
-        TXTcedula.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                TXTcedulaMousePressed(evt);
-            }
-        });
-        TXTcedula.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                TXTcedulaKeyPressed(evt);
-            }
-        });
-        jPanel1.add(TXTcedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 210, -1));
-
-        TXTempleado.setForeground(new java.awt.Color(153, 153, 153));
-        TXTempleado.setText("Ingrese empleado");
-        TXTempleado.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                TXTempleadoFocusGained(evt);
-            }
-        });
-        TXTempleado.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                TXTempleadoMousePressed(evt);
-            }
-        });
-        TXTempleado.addActionListener(this::TXTempleadoActionPerformed);
-        TXTempleado.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                TXTempleadoKeyPressed(evt);
-            }
-        });
-        jPanel1.add(TXTempleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 210, -1));
-
         TXTcostoTotal.setForeground(new java.awt.Color(153, 153, 153));
         TXTcostoTotal.setText("Costo Total");
         TXTcostoTotal.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -212,6 +157,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 TXTcostoTotalMousePressed(evt);
             }
         });
+        TXTcostoTotal.addActionListener(this::TXTcostoTotalActionPerformed);
         TXTcostoTotal.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 TXTcostoTotalKeyPressed(evt);
@@ -456,6 +402,16 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         jPanel1.add(CalendarioFechaIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, 250, -1));
         jPanel1.add(CalendarioFechaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 250, -1));
 
+        comboPlacas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboPlacas.addActionListener(this::comboPlacasActionPerformed);
+        jPanel1.add(comboPlacas, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 210, -1));
+
+        comboCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(comboCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 210, -1));
+
+        comboEmpleado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(comboEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 210, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -482,190 +438,11 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
    
     }//GEN-LAST:event_jPanel2MousePressed
 
-    private void TXTplacaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTplacaFocusGained
-        // TODO add your handling code here:
-        if (TXTplaca.getText().equals("Ingrese la placa")){
-            TXTplaca.setText("");
-            TXTplaca.setForeground(Color.BLACK);
-        }
-        if (TXTcedula.getText().isEmpty()){
-            TXTcedula.setText("Ingrese la cédula");
-            TXTcedula.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTempleado.getText().isEmpty()){
-            TXTempleado.setText("Ingrese empleado");
-            TXTempleado.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcostoTotal.getText().isEmpty()){
-            TXTcostoTotal.setText("Costo Total");
-            TXTcostoTotal.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Describa el trabajo a realizar");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_TXTplacaFocusGained
-
-    private void TXTplacaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTplacaMousePressed
-        // TODO add your handling code here:
-        if (TXTplaca.getText().equals("Ingrese la placa")){
-            TXTplaca.setText("");
-            TXTplaca.setForeground(Color.BLACK);
-        }
-        if (TXTcedula.getText().isEmpty()){
-            TXTcedula.setText("Ingrese la cédula");
-            TXTcedula.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTempleado.getText().isEmpty()){
-            TXTempleado.setText("Ingrese empleado");
-            TXTempleado.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcostoTotal.getText().isEmpty()){
-            TXTcostoTotal.setText("Costo Total");
-            TXTcostoTotal.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Describa el trabajo a realizar");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_TXTplacaMousePressed
-
-    private void TXTplacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTplacaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TXTplacaActionPerformed
-
-    private void TXTplacaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTplacaKeyPressed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_TXTplacaKeyPressed
-
-    private void TXTcedulaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTcedulaFocusGained
-        // TODO add your handling code here:
-        if (TXTcedula.getText().equals("Ingrese la cédula")){
-            TXTcedula.setText("");
-            TXTcedula.setForeground(Color.BLACK);
-        }
-        if (TXTplaca.getText().isEmpty()){
-            TXTplaca.setText("Ingrese la placa");
-            TXTplaca.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTempleado.getText().isEmpty()){
-            TXTempleado.setText("Ingrese empleado");
-            TXTempleado.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcostoTotal.getText().isEmpty()){
-            TXTcostoTotal.setText("Costo Total");
-            TXTcostoTotal.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Describa el trabajo a realizar");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_TXTcedulaFocusGained
-
-    private void TXTcedulaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTcedulaMousePressed
-        // TODO add your handling code here:
-        if (TXTcedula.getText().equals("Ingrese la cédula")){
-            TXTcedula.setText("");
-            TXTcedula.setForeground(Color.BLACK);
-        }
-        if (TXTplaca.getText().isEmpty()){
-            TXTplaca.setText("Ingrese la placa");
-            TXTplaca.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTempleado.getText().isEmpty()){
-            TXTempleado.setText("Ingrese empleado");
-            TXTempleado.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcostoTotal.getText().isEmpty()){
-            TXTcostoTotal.setText("Costo Total");
-            TXTcostoTotal.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Describa el trabajo a realizar");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_TXTcedulaMousePressed
-
-    private void TXTcedulaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTcedulaKeyPressed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_TXTcedulaKeyPressed
-
-    private void TXTempleadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTempleadoFocusGained
-        // TODO add your handling code here:
-        if (TXTempleado.getText().equals("Ingrese empleado")){
-            TXTempleado.setText("");
-            TXTempleado.setForeground(Color.BLACK);
-        }
-        if (TXTplaca.getText().isEmpty()){
-            TXTplaca.setText("Ingrese la placa");
-            TXTplaca.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcedula.getText().isEmpty()){
-            TXTcedula.setText("Ingrese la cédula");
-            TXTcedula.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcostoTotal.getText().isEmpty()){
-            TXTcostoTotal.setText("Costo Total");
-            TXTcostoTotal.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Describa el trabajo a realizar");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_TXTempleadoFocusGained
-
-    private void TXTempleadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTempleadoMousePressed
-        // TODO add your handling code here:
-        if (TXTempleado.getText().equals("Ingrese empleado")){
-            TXTempleado.setText("");
-            TXTempleado.setForeground(Color.BLACK);
-        }
-        if (TXTplaca.getText().isEmpty()){
-            TXTplaca.setText("Ingrese la placa");
-            TXTplaca.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcedula.getText().isEmpty()){
-            TXTcedula.setText("Ingrese la cédula");
-            TXTcedula.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcostoTotal.getText().isEmpty()){
-            TXTcostoTotal.setText("Costo Total");
-            TXTcostoTotal.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Describa el trabajo a realizar");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_TXTempleadoMousePressed
-
-    private void TXTempleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTempleadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TXTempleadoActionPerformed
-
-    private void TXTempleadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTempleadoKeyPressed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_TXTempleadoKeyPressed
-
     private void TXTcostoTotalFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTcostoTotalFocusGained
         // TODO add your handling code here:
         if (TXTcostoTotal.getText().equals("Costo Total")){
             TXTcostoTotal.setText("");
             TXTcostoTotal.setForeground(Color.BLACK);
-        }
-        if (TXTplaca.getText().isEmpty()){
-            TXTplaca.setText("Ingrese la placa");
-            TXTplaca.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTempleado.getText().isEmpty()){
-            TXTempleado.setText("Ingrese empleado");
-            TXTempleado.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcedula.getText().isEmpty()){
-            TXTcedula.setText("Ingrese la cédula");
-            TXTcedula.setForeground(new Color(94, 94, 94));
         }
         if (Descripcion.getText().isEmpty()){
             Descripcion.setText("Describa el trabajo a realizar");
@@ -678,18 +455,6 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         if (TXTcostoTotal.getText().equals("Costo Total")){
             TXTcostoTotal.setText("");
             TXTcostoTotal.setForeground(Color.BLACK);
-        }
-        if (TXTplaca.getText().isEmpty()){
-            TXTplaca.setText("Ingrese la placa");
-            TXTplaca.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTempleado.getText().isEmpty()){
-            TXTempleado.setText("Ingrese empleado");
-            TXTempleado.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcedula.getText().isEmpty()){
-            TXTcedula.setText("Ingrese la cédula");
-            TXTcedula.setForeground(new Color(94, 94, 94));
         }
         if (Descripcion.getText().isEmpty()){
             Descripcion.setText("Describa el trabajo a realizar");
@@ -708,21 +473,9 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
             Descripcion.setText("");
             Descripcion.setForeground(Color.BLACK);
         }
-        if (TXTplaca.getText().isEmpty()){
-            TXTplaca.setText("Ingrese la placa");
-            TXTplaca.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTempleado.getText().isEmpty()){
-            TXTempleado.setText("Ingrese empleado");
-            TXTempleado.setForeground(new Color(94, 94, 94));
-        }
         if (TXTcostoTotal.getText().isEmpty()){
             TXTcostoTotal.setText("Costo Total");
             TXTcostoTotal.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcedula.getText().isEmpty()){
-            TXTcedula.setText("Ingrese la cédula");
-            TXTcedula.setForeground(new Color(94, 94, 94));
         }
     }//GEN-LAST:event_DescripcionFocusGained
 
@@ -732,21 +485,9 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
             Descripcion.setText("");
             Descripcion.setForeground(Color.BLACK);
         }
-        if (TXTplaca.getText().isEmpty()){
-            TXTplaca.setText("Ingrese la placa");
-            TXTplaca.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTempleado.getText().isEmpty()){
-            TXTempleado.setText("Ingrese empleado");
-            TXTempleado.setForeground(new Color(94, 94, 94));
-        }
         if (TXTcostoTotal.getText().isEmpty()){
             TXTcostoTotal.setText("Costo Total");
             TXTcostoTotal.setForeground(new Color(94, 94, 94));
-        }
-        if (TXTcedula.getText().isEmpty()){
-            TXTcedula.setText("Ingrese la cédula");
-            TXTcedula.setForeground(new Color(94, 94, 94));
         }
     }//GEN-LAST:event_DescripcionMousePressed
 
@@ -831,58 +572,78 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         Buscar.setForeground(Color.black);
     }//GEN-LAST:event_PanelBuscarMouseExited
 
+    private void comboPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboPlacasActionPerformed
+        // TODO add your handling code here:
+        if (comboPlacas.getSelectedIndex() > 0) { // Ignora el índice 0 ("Seleccione...")
+        String placaSeleccionada = comboPlacas.getSelectedItem().toString();
+        
+        OrdenServicioDAO dao = new OrdenServicioDAO();
+        String datosCliente = dao.obtenerCedulaPorPlaca(placaSeleccionada);
+
+        if (datosCliente != null) {
+            comboCliente.removeAllItems();
+            comboCliente.addItem(datosCliente);
+            comboCliente.setSelectedIndex(0);
+        }
+    } else {
+        comboCliente.removeAllItems();
+    }
+    }//GEN-LAST:event_comboPlacasActionPerformed
+public void cargarCombosIniciales() {
+    OrdenServicioDAO dao = new OrdenServicioDAO();
+
+    comboPlacas.removeAllItems();
+    comboPlacas.addItem("Seleccione una placa");
+    for (String placa : dao.obtenerPlacas()) {
+        comboPlacas.addItem(placa);
+    }
+    comboEmpleado.removeAllItems();
+    comboEmpleado.addItem("Seleccione un empleado");
+    for (String emp : dao.obtenerEmpleadosConEspecialidad()) {
+        comboEmpleado.addItem(emp);
+    }
+}
+    private void TXTcostoTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTcostoTotalActionPerformed
+        // TODO add your handling code here:
+        OrdenServicioDAO dao=new OrdenServicioDAO();
+        dao.sumarIngresosPorDia(LocalDate.MIN, LocalDate.MAX);
+    }//GEN-LAST:event_TXTcostoTotalActionPerformed
+
 
     public void LimpiarDatos (){
-        TXTplaca.setText("");
-        TXTplaca.setForeground(new Color(94, 94, 94));
-        TXTempleado.setText("");
-        TXTempleado.setForeground(new Color(94, 94, 94));
         TXTcostoTotal.setText("");
         TXTcostoTotal.setForeground(new Color(94, 94, 94));
         Descripcion.setText("");
         Descripcion.setForeground(new Color(94, 94, 94));
-        TXTcedula.setText("");
-        TXTcedula.setForeground(new Color(94, 94, 94));
         Estados.setSelectedIndex(0);
         CalendarioFechaEntrega.setDate(null);
         CalendarioFechaIngreso.setDate(null);
     }
     public void GuardarOrdenDeServicio (){
-        Validaciones V=new Validaciones();
+        try {
+        orden_de_servicio orden = new orden_de_servicio();
+        orden.setEstadoorden_servi(Estados.getSelectedItem().toString()); 
+
+        orden.setFecha_ingreso(CalendarioFechaIngreso.getDate());
+        orden.setFecha_entrega(CalendarioFechaEntrega.getDate());
+
+        double costoTotal = TXTcostoTotal.getText().trim().isEmpty() ? 0.0 : Double.parseDouble(TXTcostoTotal.getText().trim());
+        orden.setCosto_total(costoTotal);
+        OrdenServicioDAO dao = new OrdenServicioDAO();
         
-        String Cedula=TXTcedula.getText().trim();
-        String Placa=TXTplaca.getText().trim().toUpperCase();
-        String Empleado=TXTempleado.getText().trim().toUpperCase();
-        String costoTotal=TXTcostoTotal.getText().trim().toUpperCase();
-        String descripcion=Descripcion.getText().trim().toUpperCase();
-        Date FechaIngreso=CalendarioFechaIngreso.getDate();
-        Date FechaEntrega=CalendarioFechaEntrega.getDate();
-        String Estado = Estados.getSelectedItem().toString();
-        if (Cedula.isEmpty()|| Placa.isEmpty()||Empleado.isEmpty()||costoTotal.isEmpty()||descripcion.isEmpty()||Estado.isEmpty()){
-            JOptionPane.showMessageDialog (this, "Por favor complete los datos que faltan");
-            return;
+        String placaSeleccionada = comboPlacas.getSelectedItem().toString();
+        String empleadoSeleccionado = comboEmpleado.getSelectedItem().toString();
+
+        orden.setId_vehi(dao.obtenerIdVehiculoPorPlaca(placaSeleccionada));
+        orden.setId_empleado(dao.obtenerIdEmpleadoPorNombre(empleadoSeleccionado));
+        if (dao.guardarOrdenServicio(orden)) {
+            JOptionPane.showMessageDialog(this, "Orden de servicio registrada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al registrar la orden.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        if (Cedula.isBlank()|| Placa.isBlank()||Empleado.isBlank()||costoTotal.isBlank()||descripcion.isBlank()||Estado.isBlank()){
-            JOptionPane.showMessageDialog (this, "Por favor complete los datos que faltan");
-            return;
-        }
-        if (Estado.equals("Seleccione una opción") ){
-            JOptionPane.showMessageDialog (this, "Por favor escoga una opción");
-            return;
-        }
-        if (!V.ValidarCedula(Cedula)){
-            JOptionPane.showMessageDialog (this, "La cédula esta incorrecta");
-            return;
-        }
-        java.sql.Date FechaIN=new java.sql.Date(FechaIngreso.getTime());
-        if (!V.FechaNacimiento(FechaIN)){
-            JOptionPane.showMessageDialog(this, "La fecha de ingreso esta incorrecta");
-            return;
-        }
-        java.sql.Date FechaENT=new java.sql.Date(FechaEntrega.getTime());
-        if (!V.FechaNacimiento(FechaENT)){
-            JOptionPane.showMessageDialog(this, "La fecha de entrega esta incorrecta");
-            return;
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Verifique que el costo total sea un valor numérico válido.", "Error de Formato", JOptionPane.WARNING_MESSAGE);
         }  
         LimpiarDatos();
     }
@@ -904,10 +665,10 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
     private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JPanel PanelNuevo;
-    private javax.swing.JTextField TXTcedula;
     private javax.swing.JTextField TXTcostoTotal;
-    private javax.swing.JTextField TXTempleado;
-    private javax.swing.JTextField TXTplaca;
+    private javax.swing.JComboBox<String> comboCliente;
+    private javax.swing.JComboBox<String> comboEmpleado;
+    private javax.swing.JComboBox<String> comboPlacas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

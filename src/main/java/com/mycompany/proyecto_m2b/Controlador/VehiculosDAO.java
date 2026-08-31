@@ -537,7 +537,6 @@ public Vehiculos buscarPorPlaca(String placa) {
 }
 public String obtenerNombrePropietario(String idPropietario) {
     String nombre = null;
-    // Hacemos JOIN entre propietarios y personas usando la llave foránea
     String sql = "SELECT p.\"nom1_person\", p.\"apell1_person\" " +
                  "FROM propietario pr " +
                  "JOIN persona p ON pr.\"ced_perso\" = p.\"ced_perso\" " +
