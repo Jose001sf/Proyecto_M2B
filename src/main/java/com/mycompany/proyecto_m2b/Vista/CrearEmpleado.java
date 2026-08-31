@@ -26,6 +26,7 @@ import java.awt.Color;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -651,7 +652,6 @@ public class CrearEmpleado extends javax.swing.JFrame {
         TipoUsuario.setText("Tipo de usuario:");
 
         TiposUsuarios.setBackground(new java.awt.Color(247, 247, 247));
-        TiposUsuarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EMPLEADO" }));
         TiposUsuarios.addActionListener(this::TiposUsuariosActionPerformed);
 
         JPanelBuscar.setBackground(new java.awt.Color(255, 213, 158));
@@ -862,7 +862,6 @@ public class CrearEmpleado extends javax.swing.JFrame {
                                 .addGap(6, 6, 6)
                                 .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(TipoUsuario)
-                                    .addComponent(TiposUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(BGempleadosLayout.createSequentialGroup()
                                         .addComponent(PanelNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -871,7 +870,8 @@ public class CrearEmpleado extends javax.swing.JFrame {
                                         .addComponent(PanelEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(PanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(JPanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(JPanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(TiposUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(BGempleadosLayout.createSequentialGroup()
                                 .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(Cargo)
@@ -1389,6 +1389,9 @@ public class CrearEmpleado extends javax.swing.JFrame {
         Cargos.setSelectedIndex(0);
         Especialidades.setSelectedIndex(0);
         CalendarioNacimiento.setDate(null);
+        empleado=null;
+        usuario=null;
+        persona=null;
     }
     private void TXTnombreMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTnombreMousePressed
         // TODO add your handling code here:
@@ -1900,7 +1903,19 @@ public class CrearEmpleado extends javax.swing.JFrame {
         
         EmpleadoDAO ed=new EmpleadoDAO();
         ed.modificarEmpleado(em);
+        UsuarioDAO ud=new UsuarioDAO();
+        String tipNombre = TiposUsuarios.getSelectedItem().toString();
+        boolean exito=ud.modificarTipoUsuario(usuario.getID_usuario(), tipNombre);
+        if(exito){
+            JOptionPane.showMessageDialog(this, "Se ha modificado el tipo de usuario");
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Error al cambiar el tipo de usuario");
+            return;
+        }
         JOptionPane.showMessageDialog(this, "Se ha actualizado correctamente el empleado");
+        TipoUsuarioDAO td=new TipoUsuarioDAO();
+        td.cargarTiposUsuario(TiposUsuarios);
         LimpiarDatos();
     }    
     
@@ -3152,8 +3167,26 @@ public class CrearEmpleado extends javax.swing.JFrame {
         
         LimpiarDatos();
     }
+    private void seleccionarPorNombre(JComboBox<?> combo, String nombre) {
+        if (nombre == null) {
+            combo.setSelectedIndex(0);
+            return;
+        }
+        for (int i = 0; i < combo.getItemCount(); i++) {
+            Object item = combo.getItemAt(i);
+            if (item != null && item.toString().trim().equalsIgnoreCase(nombre.trim())) {
+                combo.setSelectedIndex(i);
+                return;
+            }
+        }
+        System.out.println(
+            "No se encontró en el combo: " + nombre
+        );
+    }
+    
     Persona persona;
     Empleado empleado;
+    Usuario usuario;
     private void VerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerificarActionPerformed
         // TODO add your handling code here:
         TXTnombre.setText("");
@@ -3171,7 +3204,8 @@ public class CrearEmpleado extends javax.swing.JFrame {
         String ced_perso=TXTcedula.getText().trim();
         PersonaDAO pd=new PersonaDAO();
         EmpleadoDAO ed=new EmpleadoDAO();
-        empleado=ed.buscarPorCedula(ced_perso);        
+        UsuarioDAO ud=new UsuarioDAO();
+        
         persona=pd.buscarPorCedula(ced_perso);
         
         if(persona!=null){
@@ -3203,11 +3237,33 @@ public class CrearEmpleado extends javax.swing.JFrame {
                 TXTciudad.setText(dir.getCiudad());
             }
         }
+            //Conseguir cargos
+            empleado = ed.buscarPorCedula(ced_perso);
+            if (empleado !=null){
+                seleccionarPorNombre(Cargos, empleado.getNom_cargo());
+                seleccionarPorNombre(Especialidades, empleado.getNom_especialidad());
+                System.out.println("cargo: "+empleado.getNom_cargo()+", especialidad: "+empleado.getNom_especialidad());
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Error al buscar empleado");
+                return;
+            }
+            //Conseguir tipo de usuario
+            usuario=ud.buscarPorEmpleado(empleado.getId_empleado());
+            if(usuario!=null){
+                seleccionarPorNombre(TiposUsuarios, usuario.getNombre_tip_usuario());
+                System.out.println("Tipo de usuario: "+usuario.getNombre_tip_usuario());
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Error al conseguir el tipo de usuario");
+                return;
+            }
             JOptionPane.showMessageDialog(this, "Persona encontrada correctamente");
         }
         else{
             JOptionPane.showMessageDialog(this, "No se pudo encontrar a la persona");
         }
+        
     }//GEN-LAST:event_VerificarActionPerformed
 
 public void cargarTablaUsuario(){

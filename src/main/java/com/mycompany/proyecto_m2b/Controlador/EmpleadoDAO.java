@@ -120,8 +120,12 @@ public class EmpleadoDAO {
             }
         }
         public Empleado buscarPorCedula(String cedula) {
-        String sql = "SELECT id_empleado, ced_perso, id_cargo, id_especialidad "
-                   + "FROM empleado WHERE ced_perso = ?";
+        String sql = "SELECT e.id_empleado, p.ced_perso, c.id_cargo, es.id_especialidad, c.nom_cargo, es.nom_especialidad "
+                + "FROM empleado e "
+                + "LEFT JOIN persona p ON p.ced_perso=e.ced_perso "
+                + "LEFT JOIN cargo c ON c.id_cargo=e.id_cargo "
+                + "LEFT JOIN especialidad es ON es.id_especialidad = e.id_especialidad "
+                + "WHERE e.ced_perso = ?";
 
         try (Connection conn = ConexionBD.obtenerConexion();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -134,6 +138,8 @@ public class EmpleadoDAO {
                     e.setCed_perso(rs.getString("ced_perso"));
                     e.setId_cargo(rs.getString("id_cargo"));
                     e.setId_especialidad(rs.getString("id_especialidad"));
+                    e.setNom_cargo(rs.getString("nom_cargo"));
+                    e.setNom_especialidad(rs.getString("nom_especialidad"));
                     return e;
                 }
             }

@@ -96,6 +96,26 @@ public class UsuarioDAO {
         return lista;
     }
     
+    private static final String MODIFICARTIPOUSUARIO =
+             "UPDATE usuario u "
+            + "SET id_tip_usuario = tu.id_tip_de_usuario "
+            + "FROM tipos_de_usuario tu "
+            + "WHERE u.id_usuario = ? "
+            + "AND tu.nom_tip_usuario = ?";
+    public boolean modificarTipoUsuario(String idUsuario, String nombreTipoUsuario) {
+        try (Connection conn = ConexionBD.obtenerConexion();
+                PreparedStatement ps=conn.prepareStatement(MODIFICARTIPOUSUARIO)) {
+            ps.setString(1, idUsuario);
+            ps.setString(2, nombreTipoUsuario);
+            int filasAfectadas = ps.executeUpdate();
+            return filasAfectadas > 0;
+        } catch (SQLException e) {
+            System.out.println("Error al modificar el tipo de usuario: "+e.getMessage());
+            return false;
+        }
+    }
+    
+    
     private static final String MODIFICARUSUARIO =
             "UPDATE usuario "
             + "SET nombre_usuario=?, contra_usuario = CASE WHEN ? LIKE '$2a$%' THEN contra_usuario ELSE crypt(?, gen_salt('bf')) END, id_tip_usuario=? "
@@ -262,4 +282,36 @@ public class UsuarioDAO {
 
        return null;
        }
+    
+    private static final String BUSCARUSUARIOPOREMPLEADO =
+            "SELECT u.id_usuario, u.nombre_usuario, u.contra_usuario, "
+            + "u.estado_acti_usuario, u.id_empleado, u.id_tip_usuario, tu.nom_tip_usuario "            
+            + "FROM usuario u "
+            + "LEFT JOIN tipos_de_usuario tu ON tu.id_tip_de_usuario=u.id_tip_usuario "
+            + "WHERE u.id_empleado = ?";
+
+    public Usuario buscarPorEmpleado(String idEmpleado) {
+        try (Connection conn = ConexionBD.obtenerConexion();
+            PreparedStatement ps = conn.prepareStatement(BUSCARUSUARIOPOREMPLEADO)) {
+            ps.setString(1, idEmpleado);
+            ResultSet rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                Usuario u = new Usuario();
+                
+                u.setID_usuario(rs.getString("id_usuario"));
+                u.setNombre_usuario(rs.getString("nombre_usuario"));
+                u.setEstado_acti_usuario(rs.getBoolean("estado_acti_usuario"));
+                u.setId_empleado(rs.getString("id_empleado"));
+                u.setTip_usuario(rs.getString("id_tip_usuario"));
+                u.setNombre_tip_usuario(rs.getString("nom_tip_usuario"));
+                
+                return u;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al buscar usuario por empleado: " + e.getMessage());
+        }
+        return null;
+    }
+    
  }        
