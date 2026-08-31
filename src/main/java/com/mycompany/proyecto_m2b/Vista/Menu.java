@@ -1167,7 +1167,7 @@ public class Menu extends javax.swing.JFrame {
             return;
         }
         
-        CrearEmpleado cr=new CrearEmpleado();
+        PanelCrearEmpleado cr=new PanelCrearEmpleado();
         if (cr.isVisible()){
             cr.setVisible(false);
         }
