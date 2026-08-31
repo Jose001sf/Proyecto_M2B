@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JComboBox;
 
 /**
@@ -57,4 +59,30 @@ public class TipoUsuarioDAO {
             System.err.println("Error al cargar tipos de usuario: " + e.getMessage());
         }
     }    
+    
+        public List<Tipos_de_usuario> listarTodos() {
+        List<Tipos_de_usuario> lista = new ArrayList<>();
+        String sql = "SELECT id_tip_de_usuario, nom_tip_usuario "
+                + "FROM tipos_de_usuario "
+                + "ORDER BY nom_tip_usuario";
+
+        try (Connection conn = ConexionBD.obtenerConexion();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Tipos_de_usuario t = new Tipos_de_usuario();
+                t.setId_tip_de_usuario(rs.getString("id_tip_de_usuario"));
+                t.setNom_tip_de_usuario(rs.getString("nom_tip_usuario"));
+                lista.add(t);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al listar tipos de usuario: " + e.getMessage());
+        }
+        return lista;
+    }
 }
+
+
+
+

@@ -114,4 +114,136 @@ public class RegistrarEmpresaRecicladoraDAO {
     }
     return lista;
 }
+    public List<Object[]> obtenerTodasLasEmpresasParaTabla() {
+        List<Object[]> lista = new ArrayList<>();
+        String sql = "SELECT e.id_empresa_rec, e.nom_empresa_rec, e.telf_empresa_rec, "
+                   + "t.id_tipo_emp, t.desc_emp, "
+                   + "d.id_direccion_empresa_recicladora, d.nom_ciudad_dir_emp, d.nom_calles_dir_emp "
+                   + "FROM empresa_recicladora e "
+                   + "JOIN tipo_empresa t ON e.id_tipo_emp = t.id_tipo_emp "
+                   + "JOIN direccion_empresa_recicladora d ON e.id_direccion_empresa_recicladora = d.id_direccion_empresa_recicladora "
+                   + "ORDER BY e.nom_empresa_rec ASC";
+
+        try (Connection conn = ConexionBD.obtenerConexion();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Object[] fila = new Object[8];
+                fila[0] = rs.getString("id_empresa_rec");
+                fila[1] = rs.getString("nom_empresa_rec");
+                fila[2] = rs.getString("telf_empresa_rec");
+                fila[3] = rs.getString("id_tipo_emp");
+                fila[4] = rs.getString("desc_emp");
+                fila[5] = rs.getString("id_direccion_empresa_recicladora");
+                fila[6] = rs.getString("nom_ciudad_dir_emp");
+                fila[7] = rs.getString("nom_calles_dir_emp");
+                lista.add(fila);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al listar empresas para tabla: " + e.getMessage());
+        }
+        return lista;
+    }
+
+    public boolean modificarEmpresaCompleta(String idDir, String ciudad, String calles, String idTipo, String descTipo, String idEmpresa, String nombreEmpresa, String telefono) {
+        Connection conn = null;
+        try {
+            conn = ConexionBD.obtenerConexion();
+            conn.setAutoCommit(false);
+
+            String sqlDir = "UPDATE direccion_empresa_recicladora SET nom_ciudad_dir_emp = ?, nom_calles_dir_emp = ? WHERE id_direccion_empresa_recicladora = ?";
+            try (PreparedStatement psDir = conn.prepareStatement(sqlDir)) {
+                psDir.setString(1, ciudad);
+                psDir.setString(2, calles);
+                psDir.setString(3, idDir);
+                psDir.executeUpdate();
+            }
+
+            String sqlTipo = "UPDATE tipo_empresa SET desc_emp = ? WHERE id_tipo_emp = ?";
+            try (PreparedStatement psTipo = conn.prepareStatement(sqlTipo)) {
+                psTipo.setString(1, descTipo);
+                psTipo.setString(2, idTipo);
+                psTipo.executeUpdate();
+            }
+
+            String sqlEmp = "UPDATE empresa_recicladora SET nom_empresa_rec = ?, telf_empresa_rec = ? WHERE id_empresa_rec = ?";
+            try (PreparedStatement psEmp = conn.prepareStatement(sqlEmp)) {
+                psEmp.setString(1, nombreEmpresa);
+                psEmp.setString(2, telefono);
+                psEmp.setString(3, idEmpresa);
+                psEmp.executeUpdate();
+            }
+
+            conn.commit();
+            return true;
+
+        } catch (SQLException e) {
+            System.err.println("Error en la transacción de modificación: " + e.getMessage());
+            if (conn != null) {
+                try { conn.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
+            }
+            return false;
+        } finally {
+            if (conn != null) {
+                try { conn.setAutoCommit(true); conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+            }
+        }
+    }
+
+    public boolean empresaEstaEnUso(String idEmpresa) {
+        String sql = "SELECT COUNT(*) FROM encabezado_venta WHERE id_empresa_rec = ?";
+        try (Connection conn = ConexionBD.obtenerConexion();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, idEmpresa);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean eliminarEmpresaCompleta(String idEmpresa, String idDir, String idTipo) {
+        Connection conn = null;
+        try {
+            conn = ConexionBD.obtenerConexion();
+            conn.setAutoCommit(false);
+
+            String sqlEmp = "DELETE FROM empresa_recicladora WHERE id_empresa_rec = ?";
+            try (PreparedStatement ps = conn.prepareStatement(sqlEmp)) {
+                ps.setString(1, idEmpresa);
+                ps.executeUpdate();
+            }
+
+            String sqlTipo = "DELETE FROM tipo_empresa WHERE id_tipo_emp = ?";
+            try (PreparedStatement ps = conn.prepareStatement(sqlTipo)) {
+                ps.setString(1, idTipo);
+                ps.executeUpdate();
+            }
+
+            String sqlDir = "DELETE FROM direccion_empresa_recicladora WHERE id_direccion_empresa_recicladora = ?";
+            try (PreparedStatement ps = conn.prepareStatement(sqlDir)) {
+                ps.setString(1, idDir);
+                ps.executeUpdate();
+            }
+
+            conn.commit();
+            return true;
+        } catch (SQLException e) {
+            System.err.println("Error al eliminar empresa: " + e.getMessage());
+            if (conn != null) {
+                try { conn.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
+            }
+            return false;
+        } finally {
+            if (conn != null) {
+                try { conn.setAutoCommit(true); conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+            }
+        }
+    }
 }
+    

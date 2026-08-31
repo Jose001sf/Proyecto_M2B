@@ -136,5 +136,39 @@ public class ProveedorDAO {
         return false;
     }
 }
-    
+    public String obtenerSiguienteIdTipoProveedor(Connection con) {
+        String sql = "SELECT COALESCE(MAX(CAST(SUBSTRING(id_tipo_proveedor FROM 4) AS INTEGER)), 0) + 1 AS sig FROM public.tipos_de_proveedores WHERE id_tipo_proveedor LIKE 'TP-%'";
+        try (Statement st = con.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+            if (rs.next()) {
+                return String.format("TP-%04d", rs.getInt("sig"));
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener ID de tipo de proveedor: " + e.getMessage());
+        }
+        return "TP-0001";
+    }
+
+    public boolean eliminarTipoProveedor(String idTipoProveedor, Connection conexion) {
+        String sqlVerificar = "SELECT COUNT(*) FROM public.proveedor WHERE id_tipo_proveedor = ?";
+        try (PreparedStatement psVerificar = conexion.prepareStatement(sqlVerificar)) {
+            psVerificar.setString(1, idTipoProveedor);
+            try (ResultSet rs = psVerificar.executeQuery()) {
+                if (rs.next() && rs.getInt(1) > 0) {
+                    return false; 
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al verificar uso del tipo de proveedor: " + e.getMessage());
+            return false;
+        }
+
+        String sqlEliminar = "DELETE FROM public.tipos_de_proveedores WHERE id_tipo_proveedor = ?";
+        try (PreparedStatement psEliminar = conexion.prepareStatement(sqlEliminar)) {
+            psEliminar.setString(1, idTipoProveedor);
+            return psEliminar.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al eliminar tipo de proveedor: " + e.getMessage());
+            return false;
+        }
+    }
 }
