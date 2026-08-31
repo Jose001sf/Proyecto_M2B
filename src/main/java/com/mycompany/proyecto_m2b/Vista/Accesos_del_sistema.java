@@ -13,9 +13,12 @@ import com.mycompany.proyecto_m2b.modelo.Cargo;
 import com.mycompany.proyecto_m2b.modelo.Tipos_de_usuario;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -37,6 +40,8 @@ public class Accesos_del_sistema extends javax.swing.JFrame {
         Accesos acce= (Accesos) AccesosCombo.getSelectedItem();
         AccesosDAO ad=new AccesosDAO();
         ad.cargarAccesos(AccesosCombo);
+        cargarTablaAccesos();
+        jPanelBuscar.setVisible(false);
     }
 
     
@@ -69,12 +74,6 @@ public class Accesos_del_sistema extends javax.swing.JFrame {
         PanelBuscar = new javax.swing.JPanel();
         Buscar = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        PanelDarBaja = new javax.swing.JPanel();
-        DarDeBaja = new javax.swing.JLabel();
-        ImagenDarBaja = new javax.swing.JLabel();
-        PanelDarDeAlta = new javax.swing.JPanel();
-        DarDeAlta = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         NombreAcceso = new javax.swing.JLabel();
         TXTAcceso = new javax.swing.JTextField();
         Descripcion = new javax.swing.JLabel();
@@ -86,6 +85,15 @@ public class Accesos_del_sistema extends javax.swing.JFrame {
         NombreAcceso3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TiposUsuarios = new javax.swing.JList<>();
+        jPanelBuscar = new javax.swing.JPanel();
+        Acceso = new javax.swing.JLabel();
+        TXTFiltrarAcces = new javax.swing.JTextField();
+        textoDescripcion = new javax.swing.JLabel();
+        TXTFiltrarDescrip = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaAccesos = new javax.swing.JTable();
+        estado = new javax.swing.JLabel();
+        FiltrarEstados = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -201,7 +209,7 @@ public class Accesos_del_sistema extends javax.swing.JFrame {
                 .addComponent(ImagenADD)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Nuevo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         PanelNuevoLayout.setVerticalGroup(
             PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,7 +251,7 @@ public class Accesos_del_sistema extends javax.swing.JFrame {
                 .addComponent(ImagenSAVE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Guardar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         PanelGuardarLayout.setVerticalGroup(
             PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,7 +293,7 @@ public class Accesos_del_sistema extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Editar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         PanelEditarLayout.setVerticalGroup(
             PanelEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -301,6 +309,9 @@ public class Accesos_del_sistema extends javax.swing.JFrame {
         PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
         PanelBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelBuscarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelBuscarMouseEntered(evt);
             }
@@ -323,7 +334,7 @@ public class Accesos_del_sistema extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Buscar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         PanelBuscarLayout.setVerticalGroup(
             PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,89 +343,6 @@ public class Accesos_del_sistema extends javax.swing.JFrame {
                 .addGroup(PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Buscar)
                     .addComponent(jLabel1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        PanelDarBaja.setBackground(new java.awt.Color(255, 255, 255));
-        PanelDarBaja.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(215, 106, 106)));
-        PanelDarBaja.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelDarBaja.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PanelDarBajaMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelDarBajaMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelDarBajaMouseExited(evt);
-            }
-        });
-
-        DarDeBaja.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        DarDeBaja.setForeground(new java.awt.Color(215, 106, 106));
-        DarDeBaja.setText("Dar de baja");
-
-        ImagenDarBaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/person_cancel_22dp_EA3323_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-
-        javax.swing.GroupLayout PanelDarBajaLayout = new javax.swing.GroupLayout(PanelDarBaja);
-        PanelDarBaja.setLayout(PanelDarBajaLayout);
-        PanelDarBajaLayout.setHorizontalGroup(
-            PanelDarBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelDarBajaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ImagenDarBaja)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(DarDeBaja)
-                .addContainerGap())
-        );
-        PanelDarBajaLayout.setVerticalGroup(
-            PanelDarBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelDarBajaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelDarBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(DarDeBaja)
-                    .addComponent(ImagenDarBaja))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        PanelDarDeAlta.setBackground(new java.awt.Color(255, 255, 255));
-        PanelDarDeAlta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelDarDeAlta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelDarDeAlta.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PanelDarDeAltaMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelDarDeAltaMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelDarDeAltaMouseExited(evt);
-            }
-        });
-
-        DarDeAlta.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        DarDeAlta.setText("Dar de alta");
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-
-        javax.swing.GroupLayout PanelDarDeAltaLayout = new javax.swing.GroupLayout(PanelDarDeAlta);
-        PanelDarDeAlta.setLayout(PanelDarDeAltaLayout);
-        PanelDarDeAltaLayout.setHorizontalGroup(
-            PanelDarDeAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelDarDeAltaLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(DarDeAlta)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        PanelDarDeAltaLayout.setVerticalGroup(
-            PanelDarDeAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelDarDeAltaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelDarDeAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DarDeAlta)
-                    .addComponent(jLabel3))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -478,51 +406,166 @@ public class Accesos_del_sistema extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(TiposUsuarios);
 
+        jPanelBuscar.setBackground(new java.awt.Color(255, 213, 158));
+        jPanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+
+        Acceso.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        Acceso.setText("Acceso:");
+
+        TXTFiltrarAcces.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        TXTFiltrarAcces.setForeground(new java.awt.Color(94, 94, 94));
+        TXTFiltrarAcces.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTFiltrarAccesFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TXTFiltrarAccesFocusLost(evt);
+            }
+        });
+        TXTFiltrarAcces.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTFiltrarAccesMousePressed(evt);
+            }
+        });
+        TXTFiltrarAcces.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                TXTFiltrarAccesKeyReleased(evt);
+            }
+        });
+
+        textoDescripcion.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        textoDescripcion.setText("Descripción:");
+
+        TXTFiltrarDescrip.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        TXTFiltrarDescrip.setForeground(new java.awt.Color(94, 94, 94));
+        TXTFiltrarDescrip.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TXTFiltrarDescripFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TXTFiltrarDescripFocusLost(evt);
+            }
+        });
+        TXTFiltrarDescrip.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                TXTFiltrarDescripMousePressed(evt);
+            }
+        });
+        TXTFiltrarDescrip.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                TXTFiltrarDescripKeyReleased(evt);
+            }
+        });
+
+        tablaAccesos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tablaAccesos);
+
+        estado.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        estado.setText("Estado:");
+
+        FiltrarEstados.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "En pausa" }));
+        FiltrarEstados.addItemListener(this::FiltrarEstadosItemStateChanged);
+        FiltrarEstados.addActionListener(this::FiltrarEstadosActionPerformed);
+
+        javax.swing.GroupLayout jPanelBuscarLayout = new javax.swing.GroupLayout(jPanelBuscar);
+        jPanelBuscar.setLayout(jPanelBuscarLayout);
+        jPanelBuscarLayout.setHorizontalGroup(
+            jPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelBuscarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelBuscarLayout.createSequentialGroup()
+                        .addComponent(TXTFiltrarAcces, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(TXTFiltrarDescrip, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelBuscarLayout.createSequentialGroup()
+                        .addComponent(Acceso)
+                        .addGap(121, 121, 121)
+                        .addComponent(textoDescripcion)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(estado)
+                    .addComponent(FiltrarEstados, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(335, Short.MAX_VALUE))
+            .addGroup(jPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelBuscarLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 785, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        jPanelBuscarLayout.setVerticalGroup(
+            jPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelBuscarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Acceso)
+                    .addComponent(textoDescripcion)
+                    .addComponent(estado))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(TXTFiltrarAcces, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(TXTFiltrarDescrip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(FiltrarEstados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(170, Short.MAX_VALUE))
+            .addGroup(jPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelBuscarLayout.createSequentialGroup()
+                    .addGap(73, 73, 73)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(10, Short.MAX_VALUE)))
+        );
+
         javax.swing.GroupLayout MenuLayout = new javax.swing.GroupLayout(Menu);
         Menu.setLayout(MenuLayout);
         MenuLayout.setHorizontalGroup(
             MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(Barra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(MenuLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, MenuLayout.createSequentialGroup()
-                            .addGap(27, 27, 27)
-                            .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(TXTAcceso, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(NombreAcceso))
-                            .addGap(18, 18, 18)
-                            .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(NombreAcceso1))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(AccesosCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(NombreAcceso3))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(NombreAcceso2)
-                                .addComponent(Estados, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, MenuLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(TXTDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 745, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, MenuLayout.createSequentialGroup()
-                                    .addComponent(PanelNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(PanelEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(PanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(PanelDarBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(PanelDarDeAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addComponent(TXTDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 745, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Descripcion)
                     .addGroup(MenuLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(Descripcion)))
+                        .addGap(6, 6, 6)
+                        .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(MenuLayout.createSequentialGroup()
+                                .addComponent(PanelNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(PanelEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(PanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(MenuLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(NombreAcceso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(TXTAcceso))
+                .addGap(18, 18, 18)
+                .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(NombreAcceso1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(AccesosCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NombreAcceso3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(NombreAcceso2)
+                    .addComponent(Estados, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         MenuLayout.setVerticalGroup(
             MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -536,31 +579,28 @@ public class Accesos_del_sistema extends javax.swing.JFrame {
                     .addComponent(NombreAcceso3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(MenuLayout.createSequentialGroup()
-                        .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TXTAcceso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(AccesosCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Estados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Descripcion))
-                    .addGroup(MenuLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 60, Short.MAX_VALUE)))
+                    .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(TXTAcceso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(AccesosCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Estados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(Descripcion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TXTDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(PanelGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(PanelEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(PanelNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(PanelBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(PanelDarBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PanelDarDeAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15))
+                        .addComponent(PanelNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(PanelEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanelBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        getContentPane().add(Menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 450));
+        getContentPane().add(Menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 640));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -659,6 +699,13 @@ public class Accesos_del_sistema extends javax.swing.JFrame {
         String acceso=TXTAcceso.getText().trim().toUpperCase();
         String Descripcion=TXTDescripcion.getText().trim().toUpperCase();
         Object itemselecc=Estados.getSelectedItem();
+        
+        if (!guardarHabilitado){
+            JOptionPane.showMessageDialog(this, "Actualmente esta viendo un acceso ya registrado\n"
+                    + "Presione ''Nuevo'' si quiere registrar un nuevo acceso");
+            return;
+        }
+        
         if (itemselecc==null || itemselecc.toString().equals("Seleccione una opción")){
             JOptionPane.showMessageDialog(this, "Escoga un estado");
             return;
@@ -674,7 +721,8 @@ public class Accesos_del_sistema extends javax.swing.JFrame {
         }
         if(!V.validarAcceso(acceso) || !V.validarDescripcionAccesos(Descripcion)){
             LimpiarDatos();
-            JOptionPane.showMessageDialog(this, "Por favor ingrese los datos de manera correcta");
+            JOptionPane.showMessageDialog(this, "Por favor ingrese los datos de manera correcta \n"
+                    + "(Acceso maximo 10 caracteres y Descripcion máximo 80 caracteres)");
             return;
         }
         if (acceso.equalsIgnoreCase("Acceso") || Descripcion.equalsIgnoreCase("Descripción")){
@@ -729,6 +777,9 @@ public class Accesos_del_sistema extends javax.swing.JFrame {
         Estados.setSelectedIndex(0);
         AccesosCombo.setSelectedIndex(0);
         PanelGuardar.setEnabled(true);
+        guardarHabilitado=true;
+        accesoSeleccionado=null;
+        TXTAcceso.setEnabled(true);
     }
     private void TXTAccesoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTAccesoMousePressed
         // TODO add your handling code here:
@@ -800,155 +851,192 @@ public class Accesos_del_sistema extends javax.swing.JFrame {
         this.setLocation(x-xMouse, y-yMouse);
     }//GEN-LAST:event_BarraMouseDragged
 
-    /*
-    public void ModificarAccesos (){
-        Validaciones V=new Validaciones();
-        String Acceso=TXTAcceso.getText().trim();
-        String Descrip=TXTDescripcion.getText().trim();        
-        Accesos selec = (Accesos) AccesosCombo.getSelectedItem();
+    public void cargarTablaAccesos(){
         
-        if (selec==null){
-            JOptionPane.showMessageDialog(this, "Por favor seleccione un cargo para modificar");
-            return;
-        }
-        
-        if (Acceso.isEmpty() || Descrip.isEmpty()){
-            JOptionPane.showMessageDialog (this, "Por favor ingrese los datos correspondientes");
-            return;
-        }
-        if (Acceso.isBlank() || Descrip.isBlank()){
-            JOptionPane.showMessageDialog (this, "Por favor ingrese los datos correspondientes");
-            return;
-        }
-        if(!V.validarAcceso(Acceso) || !V.validarDescripcionAccesos(Descrip)){
-            LimpiarDatos();
-            JOptionPane.showMessageDialog(this, "P favor ingrese los datos de manera correcta");
-            return;
-        }
-        if (Acceso.equalsIgnoreCase("Acceso") || Descrip.equalsIgnoreCase("Descripción")){
-            JOptionPane.showMessageDialog(this, "Por favor ingrese los datos de manera correcta");
-            return;
-        }
-        Accesos ac=new Accesos();
-        ac.setAccesos(Acceso);
-        ac.setDesc_persmisos(Descrip);
-        AccesosDAO ad=new AccesosDAO();
-        
-        ac.setId_tip_usuario(tu.getId_tip_de_usuario());
-        ad.actualizar(ac);
-        JOptionPane.showMessageDialog(this, "Se ha actualizado de manera correcta");
     }
-    */
+    public void cargarTablaAccesos(String Nom_acceso, String descrip_acceso, boolean estado_selecc) {
+        
+        AccesosDAO ad = new AccesosDAO();
+        
+        List<Accesos> lista = ad.buscarAcceso(Nom_acceso, descrip_acceso, estado_selecc);
+        
+        String[] columnas = {"ID", "Acceso", "Descripción", "Tipo de usuario", "Estado"};
+        
+        DefaultTableModel modelo = new DefaultTableModel(null, columnas);
+        
+        for (Accesos acceso : lista) {
+            String estado;
+            
+            if (acceso.isEstado_acti_acceso()) {
+                estado = "Activo";
+            } else {
+                estado = "En pausa";
+            }
+            
+            Object[] fila = {
+                acceso.getId_accesos(),
+                acceso.getAccesos(),
+                acceso.getDesc_persmisos(),
+                acceso.getId_tip_usuario(),
+                estado
+            };
+            modelo.addRow(fila);
+        }
+        tablaAccesos.setModel(modelo);
+    }
+    
+    public void editarAcceso() {
+        if (accesoSeleccionado == null || "Seleccione una opción".equals(accesoSeleccionado.getAccesos())) {
+            JOptionPane.showMessageDialog(this, "Seleccione un acceso para poder editar");
+            return;
+        }
+        Validaciones validaciones = new Validaciones();
+        
+        String codigoAcceso = accesoSeleccionado.getAccesos();
+        String descripcionNueva = TXTDescripcion.getText().trim().toUpperCase();
+        Object itemEstado = Estados.getSelectedItem();
+        
+        if (itemEstado == null || itemEstado.toString().equals("Seleccione una opción")) {
+            JOptionPane.showMessageDialog(this, "Escoja un estado");
+            return;
+        }
+        
+        if (descripcionNueva.isEmpty()) {
+            JOptionPane.showMessageDialog(this,"Ingrese correctamente los datos");
+            return;
+        }
+
+        if (descripcionNueva.equalsIgnoreCase("Descripción")){
+            JOptionPane.showMessageDialog(this, "Ingrese los datos correctamente");
+            return;
+        }
+        
+        if (!validaciones.validarDescripcionAccesos(descripcionNueva)) {
+            JOptionPane.showMessageDialog(this, "Ingrese los datos de manera correcta \n"
+                    + "(Descripcion máximo 80 caracteres)");
+            return;
+        }
+        
+        List<Tipos_de_usuario> tiposSeleccionados = TiposUsuarios.getSelectedValuesList();
+        
+        if (tiposSeleccionados.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Seleccione al menos un tipo de usuario");
+            return;
+        }
+        
+        boolean estadoActivo = itemEstado.toString().equalsIgnoreCase("Activo");
+        
+        AccesosDAO ad = new AccesosDAO();
+        
+        List<Accesos> accesosActuales = ad.listarPorCodigo(codigoAcceso);
+        
+        if (accesosActuales.isEmpty()){
+            JOptionPane.showMessageDialog(this, "No hay tipos seleccionados para este tipo de acceso");
+            return;
+        }
+        
+        Set<String> idsTiposSeleccionados = new HashSet<>();
+        
+        for (Tipos_de_usuario tipo : tiposSeleccionados) {
+            idsTiposSeleccionados.add(tipo.getId_tip_de_usuario());
+        }
+        
+        Set<String> idsTiposActuales = new HashSet<>();
+        
+        for (Accesos accesoActual : accesosActuales) {
+            String idTipo = accesoActual.getId_tip_usuario();
+            
+            idsTiposActuales.add(idTipo);
+            
+            if (idsTiposSeleccionados.contains(idTipo)) {
+                accesoActual.setDesc_persmisos(descripcionNueva);
+                accesoActual.setEstado_acti_acceso(estadoActivo);
+                
+                ad.actualizarConEstado(accesoActual);
+            } else {
+                ad.eliminar(accesoActual.getId_accesos());
+            }
+        }
+        
+        for (Tipos_de_usuario tipo : tiposSeleccionados) {
+            String idTipo = tipo.getId_tip_de_usuario();
+            
+            if (!idsTiposActuales.contains(idTipo)) {
+                Accesos nuevoAcceso = new Accesos();
+                
+                nuevoAcceso.setAccesos(codigoAcceso);
+                nuevoAcceso.setDesc_persmisos(descripcionNueva);
+                nuevoAcceso.setId_tip_usuario(idTipo);
+                nuevoAcceso.setEstado_acti_acceso(estadoActivo);
+                
+                ad.insertarAccesos(nuevoAcceso);
+            }
+        }
+
+        JOptionPane.showMessageDialog(this, "Acceso actualizado correctamente.");
+        
+        accesoSeleccionado = null;
+        LimpiarDatos();
+    }
+    
     private void PanelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseClicked
         // TODO add your handling code here:        
-        /*
-        Cargo car= (Cargo) TiposUsuario.getSelectedItem();
-        if(car==null){
+        Accesos ac= (Accesos) AccesosCombo.getSelectedItem();
+        if(ac==null){
             JOptionPane.showMessageDialog(this, "Escoga una opción");
         }
         else{
-            int opcion=JOptionPane.showConfirmDialog(this, "¿Quiere modificar la especialidad?","Confirmar",JOptionPane.YES_NO_OPTION);
+            int opcion=JOptionPane.showConfirmDialog(this, "¿Quiere modificar el acceso?","Confirmar",JOptionPane.YES_NO_OPTION);
             if(opcion==JOptionPane.YES_OPTION){
-                ModificarCargos();
+                editarAcceso();
                 LimpiarDatos();
-                CargoDAO cd=new CargoDAO();
-                cd.cargarCargos(TiposUsuario);
+                AccesosDAO ad=new AccesosDAO();
+                ad.cargarAccesos(AccesosCombo);
             }
             else{
                 JOptionPane.showMessageDialog(this, "Gracias por confirmar");
             }
         }
-        */
     }//GEN-LAST:event_PanelEditarMouseClicked
 
-    private void PanelDarBajaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarBajaMouseClicked
-        // TODO add your handling code here:
-        Accesos selecc=(Accesos) AccesosCombo.getSelectedItem();
-        if (selecc!=null){
-            int opcion=JOptionPane.showConfirmDialog(this, "¿Esta seguro de dar de baja a este acceso?","Confirmar",JOptionPane.YES_NO_OPTION);
-            if (opcion==JOptionPane.YES_OPTION){
-                String id_acceso=selecc.getId_accesos();
-                AccesosDAO ad=new AccesosDAO();
-                boolean exito=ad.eliminar(id_acceso);
-                if (exito){
-                    Estados.setSelectedItem("En pausa");
-                    JOptionPane.showMessageDialog(this, "Modificado de manera correcta");                    
-                    LimpiarDatos();
-                }
-                else{
-                    JOptionPane.showMessageDialog(this, "Error al dar de baja al acceso: "+selecc.getAccesos());
-                }
-            }
-            else{
-                JOptionPane.showMessageDialog(this, "Gracias por confirmar");
-            }
+    public boolean guardarHabilitado;
+    public Accesos accesoSeleccionado;
+    
+    private void cambiarEstadoGuardar(boolean habilitado) {
+        guardarHabilitado = habilitado;
+
+        PanelGuardar.setEnabled(habilitado);
+
+        if (habilitado) {
+            PanelGuardar.setBackground(new Color(242,101,34));
+            PanelGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR)
+            );
+        } else {
+            PanelGuardar.setBackground(new Color(242,101,34));
+            PanelGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR)
+            );
         }
-        else{
-            JOptionPane.showMessageDialog(this, "Por favor un acceso");
-        }
-    }//GEN-LAST:event_PanelDarBajaMouseClicked
-
-    private void PanelDarBajaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarBajaMouseEntered
-        // TODO add your handling code here:
-        PanelDarBaja.setBackground(new Color (252, 168, 168));
-        DarDeBaja.setForeground(Color.white);
-    }//GEN-LAST:event_PanelDarBajaMouseEntered
-
-    private void PanelDarBajaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarBajaMouseExited
-        // TODO add your handling code here:
-        PanelDarBaja.setBackground(Color.white);
-        DarDeBaja.setForeground(new Color(215, 106, 106));
-    }//GEN-LAST:event_PanelDarBajaMouseExited
-
-    private void PanelDarDeAltaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarDeAltaMouseClicked
-        // TODO add your handling code here:
-        Accesos selecc=(Accesos) AccesosCombo.getSelectedItem();
-        if (selecc!=null){
-            int opcion=JOptionPane.showConfirmDialog(this, "¿Esta seguro de dar de alta a este acceso?"+JOptionPane.YES_NO_OPTION);
-            if (opcion==JOptionPane.YES_OPTION){
-                String id_selecc=selecc.getId_accesos();
-                AccesosDAO ad=new AccesosDAO();
-                boolean exito=ad.reactivar(id_selecc);
-                if (exito){
-                    Estados.setSelectedItem("Activo");
-                    JOptionPane.showMessageDialog(this, "Modificado de manera correcta");
-                    LimpiarDatos();                    
-                }
-                else{
-                    JOptionPane.showMessageDialog(this, "Error al reactivar el acceso: "+selecc.getAccesos());
-                }
-            }
-            else{
-                JOptionPane.showMessageDialog(this, "Gracias por confirmar");
-            }
-        }
-        else{
-            JOptionPane.showMessageDialog(this, "Por favor escoga a un acceso");
-        }
-    }//GEN-LAST:event_PanelDarDeAltaMouseClicked
-
-    private void PanelDarDeAltaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarDeAltaMouseEntered
-        // TODO add your handling code here:
-        PanelDarDeAlta.setBackground(new Color(219,219,219));
-        PanelDarDeAlta.setForeground(new Color(66, 66, 66));
-    }//GEN-LAST:event_PanelDarDeAltaMouseEntered
-
-    private void PanelDarDeAltaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarDeAltaMouseExited
-        // TODO add your handling code here:
-        PanelDarDeAlta.setBackground(Color.white);
-        PanelDarDeAlta.setForeground(Color.black);
-    }//GEN-LAST:event_PanelDarDeAltaMouseExited
-
+    }
+    
     private void AccesosComboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_AccesosComboItemStateChanged
         // TODO add your handling code here:
-        Accesos accesoSeleccionado = (Accesos) AccesosCombo.getSelectedItem();
-        if (accesoSeleccionado == null || accesoSeleccionado.getAccesos().equalsIgnoreCase("Seleccione una opción")){
-            JOptionPane.showMessageDialog(this, "Si quiere editar debe escoger una un acceso");
+        //Esta parte del código sirve paras que no se disparo el evento dos veces de manera inecesaria, solamente cuando se escoga una seleccion del comboBox de Accesos
+        if (evt.getStateChange() != java.awt.event.ItemEvent.SELECTED) {
             return;
         }
+        accesoSeleccionado = (Accesos) AccesosCombo.getSelectedItem();
+        if (accesoSeleccionado == null || accesoSeleccionado.getAccesos().equalsIgnoreCase("Seleccione una opción")){
+            cambiarEstadoGuardar(true);
+            TXTAcceso.setText("");
+            TXTAcceso.setEnabled(true);
+            TXTDescripcion.setText("");
+            TiposUsuarios.clearSelection();
+            return;  
+        }
 
-        PanelGuardar.setEnabled(false);
+        cambiarEstadoGuardar(false);
         TXTAcceso.setText(accesoSeleccionado.getAccesos());
+        TXTAcceso.setEnabled(false);
         TXTDescripcion.setText(accesoSeleccionado.getDesc_persmisos());
 
         if(accesoSeleccionado.isEstado_acti_acceso()){
@@ -976,6 +1064,90 @@ public class Accesos_del_sistema extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_AccesosComboActionPerformed
 
+    private void TXTFiltrarAccesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTFiltrarAccesFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTFiltrarAccesFocusGained
+
+    private void TXTFiltrarAccesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTFiltrarAccesFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTFiltrarAccesFocusLost
+
+    private void TXTFiltrarAccesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTFiltrarAccesMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTFiltrarAccesMousePressed
+
+    private void TXTFiltrarAccesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTFiltrarAccesKeyReleased
+        // TODO add your handling code here:
+        String NomAcceso=TXTFiltrarAcces.getText().trim().toUpperCase();
+        String descripcion=TXTFiltrarDescrip.getText().trim().toUpperCase();
+        String estadoSelecc=FiltrarEstados.getSelectedItem().toString();
+        boolean estado;
+        if(estadoSelecc.equalsIgnoreCase("Activo")){
+            estado=true;
+        }
+        else{
+            estado=false;
+        }
+        cargarTablaAccesos(NomAcceso, descripcion, estado);
+    }//GEN-LAST:event_TXTFiltrarAccesKeyReleased
+
+    private void TXTFiltrarDescripFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTFiltrarDescripFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTFiltrarDescripFocusGained
+
+    private void TXTFiltrarDescripFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTFiltrarDescripFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTFiltrarDescripFocusLost
+
+    private void TXTFiltrarDescripMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTFiltrarDescripMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTFiltrarDescripMousePressed
+
+    private void TXTFiltrarDescripKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTFiltrarDescripKeyReleased
+        // TODO add your handling code here:
+        String NomAcceso=TXTFiltrarAcces.getText().trim().toUpperCase();
+        String descripcion=TXTFiltrarDescrip.getText().trim().toUpperCase();
+        String estadoSelecc=FiltrarEstados.getSelectedItem().toString();
+        boolean estado;
+        if(estadoSelecc.equalsIgnoreCase("Activo")){
+            estado=true;
+        }
+        else{
+            estado=false;
+        }
+        cargarTablaAccesos(NomAcceso, descripcion, estado);
+    }//GEN-LAST:event_TXTFiltrarDescripKeyReleased
+
+    private void PanelBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseClicked
+        // TODO add your handling code here:
+        if (jPanelBuscar.isVisible()){
+            jPanelBuscar.setVisible(false);
+        }
+        else{
+            jPanelBuscar.setVisible(true);
+        }
+    }//GEN-LAST:event_PanelBuscarMouseClicked
+
+    private void FiltrarEstadosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_FiltrarEstadosItemStateChanged
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_FiltrarEstadosItemStateChanged
+
+    private void FiltrarEstadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FiltrarEstadosActionPerformed
+        // TODO add your handling code here:
+        String NomAcceso=TXTFiltrarAcces.getText().trim().toUpperCase();
+        String descripcion=TXTFiltrarDescrip.getText().trim().toUpperCase();
+        String estadoSelecc=FiltrarEstados.getSelectedItem().toString();
+        boolean estado;
+        if(estadoSelecc.equalsIgnoreCase("Activo")){
+            estado=true;
+        }
+        else{
+            estado=false;
+        }
+        cargarTablaAccesos(NomAcceso, descripcion, estado);
+    }//GEN-LAST:event_FiltrarEstadosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1002,17 +1174,16 @@ public class Accesos_del_sistema extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Acceso;
     private javax.swing.JComboBox<String> AccesosCombo;
     private javax.swing.JPanel Barra;
     private javax.swing.JLabel Buscar;
-    private javax.swing.JLabel DarDeAlta;
-    private javax.swing.JLabel DarDeBaja;
     private javax.swing.JLabel Descripcion;
     private javax.swing.JLabel Editar;
     private javax.swing.JComboBox<String> Estados;
+    private javax.swing.JComboBox<String> FiltrarEstados;
     private javax.swing.JLabel Guardar;
     private javax.swing.JLabel ImagenADD;
-    private javax.swing.JLabel ImagenDarBaja;
     private javax.swing.JLabel ImagenRegresar;
     private javax.swing.JLabel ImagenSAVE;
     private javax.swing.JLabel MJ;
@@ -1023,19 +1194,23 @@ public class Accesos_del_sistema extends javax.swing.JFrame {
     private javax.swing.JLabel NombreAcceso3;
     private javax.swing.JLabel Nuevo;
     private javax.swing.JPanel PanelBuscar;
-    private javax.swing.JPanel PanelDarBaja;
-    private javax.swing.JPanel PanelDarDeAlta;
     private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JPanel PanelNuevo;
     private javax.swing.JLabel Regresar;
     private javax.swing.JTextField TXTAcceso;
     private javax.swing.JTextField TXTDescripcion;
+    private javax.swing.JTextField TXTFiltrarAcces;
+    private javax.swing.JTextField TXTFiltrarDescrip;
     private javax.swing.JLabel Talleres;
     private javax.swing.JList<com.mycompany.proyecto_m2b.modelo.Tipos_de_usuario> TiposUsuarios;
+    private javax.swing.JLabel estado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanelBuscar;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tablaAccesos;
+    private javax.swing.JLabel textoDescripcion;
     // End of variables declaration//GEN-END:variables
 }

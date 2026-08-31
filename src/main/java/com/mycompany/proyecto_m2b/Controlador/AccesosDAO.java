@@ -36,21 +36,23 @@ public class AccesosDAO {
     
     public static final String LISTARACCESOS= "SELECT id_accesos, accesos, desc_permisos, id_tip_de_usuario, estado_acti_acceso"
             + " FROM accesos "
-            + "WHERE estado_acti_acceso = true "
-            +"ORDER BY id_tip_de_usuario";
+            +"ORDER BY accesos, id_tip_de_usuario";
     public List<Accesos> listarAccesos (){
         List<Accesos> lista=new ArrayList<>();
         try (Connection conn = ConexionBD.obtenerConexion();
                 PreparedStatement ps=conn.prepareStatement(LISTARACCESOS)){
             ResultSet rs = ps.executeQuery();
+            int i=0;
             while(rs.next()){
                 Accesos ac=new Accesos(rs.getString("id_accesos"),
                 rs.getString("accesos"),
                 rs.getString("desc_permisos"),
                 rs.getString("id_tip_de_usuario"),
                 rs.getBoolean("estado_acti_acceso"));                
+                i++;
                 lista.add(ac);
             }
+            System.err.println("Hay un total de: "+i+" registros");
         }
         catch (SQLException e){
             System.out.println("Error al lista accesos: "+e.getMessage());
@@ -145,20 +147,7 @@ public class AccesosDAO {
         }
     }
     
-    private static final String REACTIVAR = "UPDATE accesos "
-            + "SET estado_acti_acceso = true "
-            + "WHERE id_accesos = ?"; 
-    public boolean reactivar(String idAccesos) {
-        try (Connection conn = ConexionBD.obtenerConexion();
-             PreparedStatement ps = conn.prepareStatement(REACTIVAR)) {
-            ps.setString(1, idAccesos);
-            int filasAfectadas=ps.executeUpdate();
-            return filasAfectadas>0;
-        } catch (SQLException e) {
-            System.out.println("Error al reactivar acceso: " + e.getMessage());
-            return false;
-        }
-    }
+    
     
     public boolean existeAcceso(String codigoPermiso, String idTipoUsuario) {
         String sql = "SELECT 1 FROM accesos "
@@ -200,22 +189,7 @@ public class AccesosDAO {
         return lista;
     }
     
-    private static final String ELIMINARPORCODIGOYTIPO =
-            "UPDATE accesos "
-            + "SET estado_acti_acceso = false "
-            + "WHERE accesos = ? AND id_tip_de_usuario = ?";
- 
-    public void eliminarPorCodigoYTipo(String codigoPermiso, String idTipoUsuario) {
-        try (Connection conn = ConexionBD.obtenerConexion();
-             PreparedStatement ps = conn.prepareStatement(ELIMINARPORCODIGOYTIPO)) {
-
-            ps.setString(1, codigoPermiso);
-            ps.setString(2, idTipoUsuario);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("Error al dar de baja acceso: " + e.getMessage());
-        }
-    }
+    
     
     public Accesos buscarAccesoEspecifico(String nombreAcceso, String idTipoUsuario) {
         String sql = "SELECT id_accesos, accesos, desc_permisos, id_tip_de_usuario, estado_acti_acceso "
@@ -293,6 +267,68 @@ public class AccesosDAO {
             System.err.println("Error al cargar los accesos: " + e.getMessage());
         }
     }
+    
+    private static final String LISTARPORCODIGO = """
+        SELECT id_accesos, accesos, desc_permisos, id_tip_de_usuario, estado_acti_acceso
+        FROM accesos
+        WHERE accesos = ?
+        ORDER BY id_tip_de_usuario
+        """;
+    public List<Accesos> listarPorCodigo(String codigoAcceso) {
+        List<Accesos> lista = new ArrayList<>();
+
+        try (Connection conn = ConexionBD.obtenerConexion();
+             PreparedStatement ps = conn.prepareStatement(LISTARPORCODIGO)) {
+            ps.setString(1, codigoAcceso);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Accesos acceso = new Accesos(
+                        rs.getString("id_accesos"),
+                        rs.getString("accesos"),
+                        rs.getString("desc_permisos"),
+                        rs.getString("id_tip_de_usuario"),
+                        rs.getBoolean("estado_acti_acceso")
+                    );
+                    lista.add(acceso);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al listar acceso por código: " + e.getMessage());
+        }
+        return lista;
+    }
+    
+    private static final String BUSCARACCESO = "SELECT * FROM accesos "
+            + "WHERE accesos ILIKE ? AND desc_permisos ILIKE ? AND estado_acti_acceso = ?";
+    
+    public List<Accesos> buscarAcceso(String acceso, String descripcion, boolean estado) {
+        
+        List<Accesos> lista = new ArrayList<>();
+        
+        try (Connection conn = ConexionBD.obtenerConexion();
+             PreparedStatement ps = conn.prepareStatement(BUSCARACCESO)) {            
+            ps.setString(1, "%" + acceso + "%");
+            ps.setString(2, "%" + descripcion + "%");
+            ps.setBoolean(3, estado);
+            ResultSet rs = ps.executeQuery();
+            int i=0;
+            while (rs.next()) {
+                Accesos ac = new Accesos();
+                ac.setId_accesos(rs.getString("id_accesos"));
+                ac.setAccesos(rs.getString("accesos"));
+                ac.setDesc_persmisos(rs.getString("desc_permisos"));
+                ac.setId_tip_usuario(rs.getString("id_tip_de_usuario"));
+                ac.setEstado_acti_acceso(rs.getBoolean("estado_acti_acceso"));
+                lista.add(ac);
+                i++;
+            }
+            System.out.println("Hay un total de "+i+" registros");
+        } catch (SQLException e) {
+            System.out.println("Error al buscar acceso: " + e.getMessage());
+        }
+        return lista;
+    }
+    
 }
 
 

@@ -4,9 +4,15 @@
  */
 package com.mycompany.proyecto_m2b.Vista;
 
+import com.mycompany.proyecto_m2b.Controlador.AccesosDAO;
+import com.mycompany.proyecto_m2b.modelo.Accesos;
+import com.mycompany.proyecto_m2b.modelo.Usuario;
 import java.awt.CardLayout;
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -21,6 +27,16 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
+        iniciarMenu();
+       
+    }
+    public Menu(Usuario usuario) {
+        this();
+        this.usuarioActual = usuario;
+        cargarPermisos();
+        configurarMenu();
+    }
+    public void iniciarMenu(){
         setExtendedState(MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
         PanelPaneles.add(new PanelBlanco(), "Blanco");
@@ -32,8 +48,34 @@ public class Menu extends javax.swing.JFrame {
         PanelPaneles.add(new PanelProveedores(), "PROVEEDORES");
         PanelPaneles.add(new PanelCatalogoServicio(), "CATALOGO_SERVICIOS");
         PanelPaneles.add(new PanelEstadistica(), "Estadisticas");
-       
     }
+    private Usuario usuarioActual;
+    private Set<String> permisos;
+     
+    private void cargarPermisos() {
+        AccesosDAO ad = new AccesosDAO();
+
+        List<Accesos> lista = ad.obtenerPermisosPorTipoUsuario(
+            usuarioActual.getTip_usuario()
+        );
+
+        permisos = new HashSet<>();
+
+        for (Accesos acceso : lista) {
+            permisos.add(acceso.getAccesos());
+        }
+    }
+    private void configurarMenu() {
+        Usuarios.setVisible(permisos.contains("USR_GEST"));
+        CrearEmpleado cr=new CrearEmpleado();
+        cr.setVisible(permisos.contains("EMP_GEST"));       
+        PanelProveedores.setVisible(permisos.contains("PROV_GEST"));
+        Agregar ag=new Agregar();
+        ag.setVisible(permisos.contains("CARGO_GEST"));
+        PanelEspecialidad pe=new PanelEspecialidad();
+        pe.setVisible(permisos.contains("ESPE_GEST"));
+    }
+
     int xMouse;
     int yMouse;
     private Agregar AG = null;

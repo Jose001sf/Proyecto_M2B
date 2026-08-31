@@ -472,7 +472,7 @@ public class Login extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Credenciales incorrectas");
                 return;
             }
-            Menu M=new Menu();
+            Menu M=new Menu(u);
             M.setVisible(true);
             this.dispose();
         }

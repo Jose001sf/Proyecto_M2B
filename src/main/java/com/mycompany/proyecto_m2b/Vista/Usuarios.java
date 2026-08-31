@@ -9,6 +9,7 @@ import com.mycompany.proyecto_m2b.Controlador.CreacionCredenciales;
 import com.mycompany.proyecto_m2b.Controlador.Servidor_de_correos;
 import com.mycompany.proyecto_m2b.Controlador.TipoUsuarioDAO;
 import com.mycompany.proyecto_m2b.Controlador.UsuarioDAO;
+import com.mycompany.proyecto_m2b.modelo.Tipos_de_usuario;
 import com.mycompany.proyecto_m2b.modelo.Usuario;
 import java.awt.Color;
 import java.time.ZoneId;
@@ -64,8 +65,6 @@ public class Usuarios extends javax.swing.JFrame {
         Estados = new javax.swing.JComboBox<>();
         TiposUsuario = new javax.swing.JLabel();
         TiposDeUsuario = new javax.swing.JComboBox<>();
-        Permisos = new javax.swing.JLabel();
-        Permiso = new javax.swing.JComboBox<>();
         PanelGuardar = new javax.swing.JPanel();
         Guardar = new javax.swing.JLabel();
         ImagenSAVE = new javax.swing.JLabel();
@@ -208,13 +207,6 @@ public class Usuarios extends javax.swing.JFrame {
         TiposDeUsuario.setBackground(new java.awt.Color(247, 247, 247));
         TiposDeUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una opción", "Empleado", "Jefe latonero", "Jefe mecánico", "Jefe del taller" }));
         TiposDeUsuario.addActionListener(this::TiposDeUsuarioActionPerformed);
-
-        Permisos.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        Permisos.setText("Permisos:");
-
-        Permiso.setBackground(new java.awt.Color(247, 247, 247));
-        Permiso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una opción", "Pintura", "Motor", "Enderezado", "Cambio de aceites", "Cambio de pastillas" }));
-        Permiso.addActionListener(this::PermisoActionPerformed);
 
         PanelGuardar.setBackground(new java.awt.Color(242, 101, 34));
         PanelGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -619,7 +611,7 @@ public class Usuarios extends javax.swing.JFrame {
             .addGroup(BGempleadosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(BGempleadosLayout.createSequentialGroup()
                             .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(BGempleadosLayout.createSequentialGroup()
@@ -635,28 +627,26 @@ public class Usuarios extends javax.swing.JFrame {
                             .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(TiposUsuario)
                                 .addComponent(TiposDeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(Permisos)
-                                .addComponent(Permiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(BGempleadosLayout.createSequentialGroup()
-                            .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(Usuariostext)
-                                .addComponent(Usuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(NombreDeUsuario)
-                                .addComponent(TXTnombreDeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, BGempleadosLayout.createSequentialGroup()
-                            .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(PanelEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(PanelDarBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(PanelDarDeAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(PanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(171, 171, 171))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, BGempleadosLayout.createSequentialGroup()
+                                .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Usuariostext)
+                                    .addComponent(Usuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(NombreDeUsuario)
+                                    .addComponent(TXTnombreDeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, BGempleadosLayout.createSequentialGroup()
+                                .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(PanelEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(PanelDarBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(PanelDarDeAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(PanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(PanelBuscarTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(111, Short.MAX_VALUE))
         );
@@ -686,11 +676,7 @@ public class Usuarios extends javax.swing.JFrame {
                     .addGroup(BGempleadosLayout.createSequentialGroup()
                         .addComponent(TiposUsuario)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(TiposDeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(BGempleadosLayout.createSequentialGroup()
-                        .addComponent(Permisos)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Permiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(TiposDeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -745,10 +731,6 @@ public class Usuarios extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TiposDeUsuarioActionPerformed
 
-    private void PermisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PermisoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PermisoActionPerformed
-
     private void PanelEditarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseEntered
         // TODO add your handling code here:
         PanelEditar.setBackground(new Color(219,219,219));
@@ -793,7 +775,6 @@ public class Usuarios extends javax.swing.JFrame {
         TXTcontraseña.setForeground(new Color(94, 94, 94));        
         Estados.setSelectedIndex(0);
         TiposDeUsuario.setSelectedIndex(0);
-        Permiso.setSelectedIndex(0);
         
     }
     private void TXTnombreDeUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTnombreDeUsuarioMousePressed
@@ -889,6 +870,7 @@ public class Usuarios extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_PanelDarBajaMouseClicked
 
+    
     private void UsuariosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_UsuariosItemStateChanged
         // TODO add your handling code here:
         Usuario selecc=(Usuario) Usuarios.getSelectedItem();
@@ -901,7 +883,8 @@ public class Usuarios extends javax.swing.JFrame {
             }
             else{
                 Estados.setSelectedItem("En pausa");
-            }
+            }            
+            TiposDeUsuario.setSelectedItem(selecc.getTip_usuario());
         }
     }//GEN-LAST:event_UsuariosItemStateChanged
 
@@ -1213,8 +1196,6 @@ public class Usuarios extends javax.swing.JFrame {
     private javax.swing.JPanel PanelDarDeAlta;
     private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelGuardar;
-    private javax.swing.JComboBox<String> Permiso;
-    private javax.swing.JLabel Permisos;
     private javax.swing.JTextField TXTCedula;
     private javax.swing.JTextField TXTEmpleado;
     private javax.swing.JTextField TXTEstado;

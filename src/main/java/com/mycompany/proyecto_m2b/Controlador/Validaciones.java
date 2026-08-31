@@ -135,6 +135,9 @@ public class Validaciones {
         if(FechaNA.isAfter(hoy)){
             return false;
         }
+        if (FechaNA.isAfter(hoy.minusYears(18))){
+            return false;
+        }
         LocalDate minimo=hoy.minusYears(120);
         if (FechaNA.isBefore(minimo)){
             return false;
