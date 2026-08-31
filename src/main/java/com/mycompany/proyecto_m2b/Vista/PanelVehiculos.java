@@ -823,6 +823,65 @@ public class PanelVehiculos extends javax.swing.JPanel {
 
     private void PanelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseClicked
         // TODO add your handling code here:
+        if (txtPlaca.isEditable()) {
+        JOptionPane.showMessageDialog(this, 
+            "Primero debe buscar un vehículo existente usando su placa antes de poder editarlo.", 
+            "Atención", 
+            JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    try {
+        Vehiculos v = new Vehiculos();
+        
+        v.setPlaca_carro(txtPlaca.getText().trim());
+        v.setColor_vehi(txtColor.getText().trim());
+        v.setCilindraje_vehi(txtCilindraje.getText().trim());
+        v.setNum_chasis_vehi(txtChasis.getText().trim());
+        v.setNum_motor_vehi(txtMotor.getText().trim());
+        
+        v.setNum_puertas_vehi(Integer.parseInt(txtPuertas.getText().trim()));
+        v.setKilometraje_vehi(Integer.parseInt(txtKilometraje.getText().trim()));
+        
+        int anio = jYearChooser1.getYear();
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        cal.set(anio, java.util.Calendar.JANUARY, 1);
+        v.setAnio_sal_vehi(new java.sql.Date(cal.getTimeInMillis()));
+        
+        if (comboTransmision.getSelectedItem() != null) {
+            v.setTransmision_vehi(comboTransmision.getSelectedItem().toString());
+        }
+
+        v.setID_mode_vehi(obtenerIdModeloSeleccionado());
+        v.setID_propietario_vehi(obtenerIdPropietarioSeleccionado());
+
+        VehiculosDAO dao = new VehiculosDAO();
+        boolean actualizado = dao.actualizarVehiculo(v);
+
+        if (actualizado) {
+            JOptionPane.showMessageDialog(this, 
+                "Los datos del vehículo han sido actualizados con éxito.", 
+                "Éxito", 
+                JOptionPane.INFORMATION_MESSAGE);
+                LimpiarDatos(); 
+        } else {
+            JOptionPane.showMessageDialog(this, 
+                "No se pudo actualizar el vehículo. Intente nuevamente.", 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
+        }
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, 
+            "Por favor revise los campos numéricos (Puertas y Kilometraje). Deben ser números válidos.", 
+            "Error de Formato", 
+            JOptionPane.ERROR_MESSAGE);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, 
+            "Ocurrió un error al intentar actualizar: " + e.getMessage(), 
+            "Error del Sistema", 
+            JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_PanelEditarMouseClicked
 private void seleccionarPropietarioPorId(String idPropietario) {
     if (idPropietario == null) return;
@@ -865,6 +924,17 @@ private void seleccionarModeloPorId(String idModelo) {
             }
         }
     }
+}
+private String obtenerIdModeloSeleccionado() {
+    if (comboModelos.getSelectedItem() == null) return null;
+    VehiculosDAO dao = new VehiculosDAO();
+    return dao.obtenerIdModeloPorNombre(comboModelos.getSelectedItem().toString().trim());
+}
+
+private String obtenerIdPropietarioSeleccionado() {
+    if (comboPropietarios.getSelectedItem() == null) return null;
+    VehiculosDAO dao = new VehiculosDAO();
+    return dao.obtenerIdPropietarioPorNombre(comboPropietarios.getSelectedItem().toString().trim());
 }
     private void PanelBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseClicked
         // TODO add your handling code here:

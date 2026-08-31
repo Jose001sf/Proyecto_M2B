@@ -179,4 +179,62 @@ public class ResiduoDAO {
     }
     return 0.0;
 }
+    
+    public List<Residuos> listarResiduosDetallados(String filtro) {
+        List<Residuos> lista = new ArrayList<>();
+        String sql = "SELECT id_residuos, nom_residuo, estado_residuo, id_tipo_resi, cantidad_actual, cantidad_max " +
+                     "FROM residuos WHERE id_residuos ILIKE ? OR nom_residuo ILIKE ? ORDER BY nom_residuo ASC";
+
+        try (Connection con = ConexionBD.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            
+            ps.setString(1, "%" + filtro + "%");
+            ps.setString(2, "%" + filtro + "%");
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Residuos r = new Residuos(
+                        rs.getString("id_residuos"),
+                        rs.getString("nom_residuo"),
+                        rs.getString("estado_residuo"),
+                        rs.getString("id_tipo_resi"),
+                        rs.getInt("cantidad_actual"),
+                        rs.getInt("cantidad_max")
+                    );
+                    lista.add(r);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al listar residuos detallados: " + e.getMessage());
+        }
+        return lista;
+    }
+
+    public boolean estaResiduoEnVenta(String idResiduo) {
+        String sql = "SELECT COUNT(*) FROM detalle_venta WHERE id_residuos = ?";
+        try (Connection con = ConexionBD.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, idResiduo);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al verificar uso del residuo en ventas: " + e.getMessage());
+        }
+        return false;
+    }
+
+    public boolean eliminarResiduo(String idResiduo) {
+        String sql = "DELETE FROM residuos WHERE id_residuos = ?";
+        try (Connection con = ConexionBD.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, idResiduo);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al eliminar residuo: " + e.getMessage());
+            return false;
+        }
+    }
 }
