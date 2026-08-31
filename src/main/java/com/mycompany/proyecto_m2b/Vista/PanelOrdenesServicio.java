@@ -566,7 +566,7 @@ public void cargarCombosIniciales() {
     }//GEN-LAST:event_TXTcostoTotalActionPerformed
 private void EditarOrdenDeServicio() {
     try {
-        // 1. Validar que se haya cargado una orden previa usando el botón 'Buscar'
+        
         if (idOrdenCargada == null || idOrdenCargada.trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, 
                 "Por favor seleccione o busque primero la orden que desea editar.", 
@@ -575,7 +575,6 @@ private void EditarOrdenDeServicio() {
             return;
         }
 
-        // 2. Validar que se haya seleccionado un estado válido en el ComboBox
         if (Estados == null || Estados.getSelectedIndex() <= 0) {
             JOptionPane.showMessageDialog(this, 
                 "Por favor seleccione un estado de orden válido.", 
@@ -584,17 +583,14 @@ private void EditarOrdenDeServicio() {
             return;
         }
 
-        // 3. Obtener el texto del ComboBox de Estado
         String estadoSeleccionado = Estados.getSelectedItem().toString().trim();
 
         OrdenServicioDAO dao = new OrdenServicioDAO();
         orden_de_servicio orden = new orden_de_servicio();
         
-        // Asignamos el ID de la orden activa
         orden.setId_orden_serv(idOrdenCargada);
         orden.setEstadoorden_servi(estadoSeleccionado);
 
-        // 4. Capturar Fechas
         orden.setFecha_ingreso(CalendarioFechaIngreso.getDate());
         if (CalendarioFechaEntrega != null && CalendarioFechaEntrega.getDate() != null) {
             orden.setFecha_entrega(CalendarioFechaEntrega.getDate());
@@ -602,7 +598,6 @@ private void EditarOrdenDeServicio() {
             orden.setFecha_entrega(null);
         }
 
-        // 5. Capturar Costo Total
         double costoTotal = 0.0;
         if (TXTcostoTotal != null && !TXTcostoTotal.getText().trim().isEmpty()) {
             try {
@@ -613,19 +608,16 @@ private void EditarOrdenDeServicio() {
         }
         orden.setCosto_total(costoTotal);
 
-        // 6. Capturar ID del Vehículo mediante la placa seleccionada en el ComboBox
         if (comboPlacas != null && comboPlacas.getSelectedIndex() > 0) {
             String placa = comboPlacas.getSelectedItem().toString().trim();
             orden.setId_vehi(dao.obtenerIdVehiculoPorPlaca(placa));
         }
 
-        // 7. Capturar ID del Empleado mediante el ComboBox de empleados
         if (comboEmpleado != null && comboEmpleado.getSelectedIndex() > 0) {
             String empleadoNombre = comboEmpleado.getSelectedItem().toString().trim();
             orden.setId_empleado(dao.obtenerIdEmpleadoPorNombre(empleadoNombre));
         }
 
-        // 8. Actualizar en Base de Datos
         boolean actualizado = dao.actualizarOrdenServicio(orden);
 
         if (actualizado) {
@@ -633,8 +625,6 @@ private void EditarOrdenDeServicio() {
                 "La Orden de Servicio (" + idOrdenCargada + ") ha sido actualizada con éxito.", 
                 "Actualización Exitosa", 
                 JOptionPane.INFORMATION_MESSAGE);
-
-            // 9. Si el ComboBox cambió a "Terminado" o "Finalizado", enviamos el correo al propietario
             if (estadoSeleccionado.equalsIgnoreCase("Terminado") || estadoSeleccionado.equalsIgnoreCase("Finalizado")) {
                 new Thread(() -> {
                     String[] datosPropietario = dao.obtenerDatosPropietarioPorVehiculo(orden.getId_vehi());
@@ -648,8 +638,6 @@ private void EditarOrdenDeServicio() {
                     }
                 }).start();
             }
-
-            // Limpiar los campos para finalizar
             LimpiarDatos();
 
         } else {
@@ -759,7 +747,7 @@ private void EditarOrdenDeServicio() {
         }
         orden.setCosto_total(costoTotal);
 
-        String placaSeleccionada = comboPlacas.getSelectedItem().toString().trim();
+        String placaSeleccionada = comboPlacas.getSelectedItem().toString().trim().toUpperCase();
         String idVehiculo = dao.obtenerIdVehiculoPorPlaca(placaSeleccionada);
 
         if (idVehiculo == null) {
@@ -772,7 +760,7 @@ private void EditarOrdenDeServicio() {
         orden.setId_vehi(idVehiculo);
         
         if (comboEmpleado != null && comboEmpleado.getSelectedIndex() > 0) {
-    String empleadoTexto = comboEmpleado.getSelectedItem().toString();
+    String empleadoTexto = comboEmpleado.getSelectedItem().toString().toUpperCase();
     String idEmpleado = dao.obtenerIdEmpleadoPorNombre(empleadoTexto);
     
     if (idEmpleado == null) {
