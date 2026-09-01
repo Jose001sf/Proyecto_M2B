@@ -253,8 +253,6 @@ private void generarSiguienteIdCompra() {
         Fondo = new javax.swing.JPanel();
         BarraArriba = new javax.swing.JPanel();
         NombreVentanaProveedores = new javax.swing.JLabel();
-        btnRegresar = new javax.swing.JLabel();
-        BarraAbajo = new javax.swing.JPanel();
         TituloFuncion1 = new javax.swing.JLabel();
         Proveedor = new javax.swing.JLabel();
         Factura = new javax.swing.JLabel();
@@ -296,16 +294,6 @@ private void generarSiguienteIdCompra() {
         NombreVentanaProveedores.setForeground(new java.awt.Color(255, 255, 255));
         NombreVentanaProveedores.setText("GESTIÓN DE PROVEEDORES Y COMPRA DE REPUESTOS");
 
-        btnRegresar.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
-        btnRegresar.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegresar.setText("Regresar");
-        btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnRegresar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnRegresarMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout BarraArribaLayout = new javax.swing.GroupLayout(BarraArriba);
         BarraArriba.setLayout(BarraArribaLayout);
         BarraArribaLayout.setHorizontalGroup(
@@ -313,88 +301,71 @@ private void generarSiguienteIdCompra() {
             .addGroup(BarraArribaLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(NombreVentanaProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 529, Short.MAX_VALUE)
-                .addComponent(btnRegresar)
-                .addGap(43, 43, 43))
+                .addContainerGap(700, Short.MAX_VALUE))
         );
         BarraArribaLayout.setVerticalGroup(
             BarraArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BarraArribaLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(BarraArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRegresar)
-                    .addComponent(NombreVentanaProveedores))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(23, 23, 23)
+                .addComponent(NombreVentanaProveedores)
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
-        Fondo.add(BarraArriba, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 60));
+        Fondo.add(BarraArriba, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1330, 60));
 
-        BarraAbajo.setBackground(new java.awt.Color(227, 153, 106));
-
-        javax.swing.GroupLayout BarraAbajoLayout = new javax.swing.GroupLayout(BarraAbajo);
-        BarraAbajo.setLayout(BarraAbajoLayout);
-        BarraAbajoLayout.setHorizontalGroup(
-            BarraAbajoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        BarraAbajoLayout.setVerticalGroup(
-            BarraAbajoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        Fondo.add(BarraAbajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 1210, 70));
-
-        TituloFuncion1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        TituloFuncion1.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         TituloFuncion1.setForeground(new java.awt.Color(153, 153, 153));
         TituloFuncion1.setText("ENCABEZADO DEL ENVÍO / COMPRA");
         Fondo.add(TituloFuncion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
 
-        Proveedor.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        Proveedor.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         Proveedor.setForeground(new java.awt.Color(153, 153, 153));
         Proveedor.setText("Proveedor (RUC / Nombre)::");
-        Fondo.add(Proveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
+        Fondo.add(Proveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
 
-        Factura.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        Factura.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         Factura.setForeground(new java.awt.Color(153, 153, 153));
         Factura.setText("N° Factura / Referencia:");
-        Fondo.add(Factura, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, -1, -1));
+        Fondo.add(Factura, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 120, -1, -1));
 
-        Fecha.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        Fecha.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         Fecha.setForeground(new java.awt.Color(153, 153, 153));
         Fecha.setText("Fecha de Envío:");
-        Fondo.add(Fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 170, -1, -1));
+        Fondo.add(Fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 120, -1, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/images (2).jpg"))); // NOI18N
-        Fondo.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 60, -1, -1));
+        Fondo.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 60, -1, -1));
 
+        cbxProveedor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cbxProveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 2", "Item 3", "Item 4" }));
         cbxProveedor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cbxProveedorMouseClicked(evt);
             }
         });
-        Fondo.add(cbxProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 240, -1));
+        Fondo.add(cbxProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 240, -1));
 
-        TituloFuncion2.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        TituloFuncion2.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         TituloFuncion2.setForeground(new java.awt.Color(153, 153, 153));
         TituloFuncion2.setText("DETALLE DE REPUESTOS SOLICITADOS");
-        Fondo.add(TituloFuncion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, -1));
+        Fondo.add(TituloFuncion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, -1, -1));
 
-        Repuesto.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        Repuesto.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         Repuesto.setForeground(new java.awt.Color(153, 153, 153));
         Repuesto.setText("Repuesto:");
-        Fondo.add(Repuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, -1, -1));
+        Fondo.add(Repuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, -1, -1));
 
-        Cantidad.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        Cantidad.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         Cantidad.setForeground(new java.awt.Color(153, 153, 153));
         Cantidad.setText("Cantidad:");
-        Fondo.add(Cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 290, -1, -1));
+        Fondo.add(Cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 320, -1, -1));
 
-        Precio.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        Precio.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         Precio.setForeground(new java.awt.Color(153, 153, 153));
         Precio.setText("Total:");
-        Fondo.add(Precio, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 380, -1, -1));
+        Fondo.add(Precio, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 410, -1, -1));
 
+        txtCantidadCompra.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtCantidadCompra.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtCantidadCompraFocusGained(evt);
@@ -403,8 +374,9 @@ private void generarSiguienteIdCompra() {
                 txtCantidadCompraFocusLost(evt);
             }
         });
-        Fondo.add(txtCantidadCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 310, 270, -1));
+        Fondo.add(txtCantidadCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 350, 270, -1));
 
+        cbxRepuesto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cbxRepuesto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 2", "Item 3", "Item 4" }));
         cbxRepuesto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -412,12 +384,14 @@ private void generarSiguienteIdCompra() {
             }
         });
         cbxRepuesto.addActionListener(this::cbxRepuestoActionPerformed);
-        Fondo.add(cbxRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, 240, -1));
+        Fondo.add(cbxRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 240, -1));
 
+        txtIdCompra.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtIdCompra.addActionListener(this::txtIdCompraActionPerformed);
-        Fondo.add(txtIdCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 140, 200, -1));
-        Fondo.add(txtFechaCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 190, 200, -1));
+        Fondo.add(txtIdCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 160, 200, -1));
+        Fondo.add(txtFechaCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 160, 200, -1));
 
+        txtPrecioUnitarioCompra.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtPrecioUnitarioCompra.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtPrecioUnitarioCompraFocusGained(evt);
@@ -426,7 +400,7 @@ private void generarSiguienteIdCompra() {
                 txtPrecioUnitarioCompraFocusLost(evt);
             }
         });
-        Fondo.add(txtPrecioUnitarioCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 310, 270, -1));
+        Fondo.add(txtPrecioUnitarioCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 350, 270, -1));
 
         btnAgregarItem.setBackground(new java.awt.Color(255, 255, 255));
         btnAgregarItem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -455,21 +429,21 @@ private void generarSiguienteIdCompra() {
             .addGroup(btnAgregarItemLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(ImagenADD)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Nuevo)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         btnAgregarItemLayout.setVerticalGroup(
             btnAgregarItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnAgregarItemLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(btnAgregarItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ImagenADD)
-                    .addComponent(Nuevo))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(btnAgregarItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Nuevo)
+                    .addComponent(ImagenADD))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
-        Fondo.add(btnAgregarItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 310, -1, -1));
+        Fondo.add(btnAgregarItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 340, -1, -1));
 
         btnGuardarCompra.setBackground(new java.awt.Color(242, 101, 34));
         btnGuardarCompra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -513,7 +487,7 @@ private void generarSiguienteIdCompra() {
                 .addContainerGap())
         );
 
-        Fondo.add(btnGuardarCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 410, -1, -1));
+        Fondo.add(btnGuardarCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 440, -1, -1));
 
         btnEliminarFila.setBackground(new java.awt.Color(255, 255, 255));
         btnEliminarFila.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -531,6 +505,7 @@ private void generarSiguienteIdCompra() {
         });
 
         Buscar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        Buscar.setForeground(new java.awt.Color(255, 0, 0));
         Buscar.setText("X  Eliminar");
 
         javax.swing.GroupLayout btnEliminarFilaLayout = new javax.swing.GroupLayout(btnEliminarFila);
@@ -550,7 +525,7 @@ private void generarSiguienteIdCompra() {
                 .addContainerGap())
         );
 
-        Fondo.add(btnEliminarFila, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 510, 110, -1));
+        Fondo.add(btnEliminarFila, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 750, 110, -1));
 
         btnAgregarProveedor.setBackground(new java.awt.Color(255, 255, 255));
         btnAgregarProveedor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -593,7 +568,7 @@ private void generarSiguienteIdCompra() {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Fondo.add(btnAgregarProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, -1, -1));
+        Fondo.add(btnAgregarProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
 
         tblDetalleCompra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -608,18 +583,20 @@ private void generarSiguienteIdCompra() {
         ));
         jScrollPane1.setViewportView(tblDetalleCompra);
 
-        Fondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 480, 380, 100));
-        Fondo.add(txtTotalCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 400, 110, -1));
+        Fondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 530, 1310, 210));
+
+        txtTotalCompra.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Fondo.add(txtTotalCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 440, 110, -1));
 
         lblErrorCantidadProveedor.setFont(new java.awt.Font("Helvetica Neue", 2, 13)); // NOI18N
         lblErrorCantidadProveedor.setForeground(new java.awt.Color(255, 51, 51));
         lblErrorCantidadProveedor.setText("jLabel1");
-        Fondo.add(lblErrorCantidadProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 340, -1, -1));
+        Fondo.add(lblErrorCantidadProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 390, -1, -1));
 
-        Precio1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        Precio1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         Precio1.setForeground(new java.awt.Color(153, 153, 153));
         Precio1.setText("Precio Unitario:");
-        Fondo.add(Precio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 290, -1, -1));
+        Fondo.add(Precio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 320, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -632,11 +609,6 @@ private void generarSiguienteIdCompra() {
             .addComponent(Fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseClicked
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_btnRegresarMouseClicked
 
     private void txtCantidadCompraFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCantidadCompraFocusGained
         if (txtCantidadCompra.getText().equals("Ingrese la cantidad a solicitar")) {
@@ -1496,7 +1468,6 @@ private void calcularTotal() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel BarraAbajo;
     private javax.swing.JPanel BarraArriba;
     private javax.swing.JLabel Buscar;
     private javax.swing.JLabel Cantidad;
@@ -1520,7 +1491,6 @@ private void calcularTotal() {
     private javax.swing.JPanel btnAgregarProveedor;
     private javax.swing.JPanel btnEliminarFila;
     private javax.swing.JPanel btnGuardarCompra;
-    private javax.swing.JLabel btnRegresar;
     private javax.swing.JComboBox<Object> cbxProveedor;
     private javax.swing.JComboBox<Object> cbxRepuesto;
     private javax.swing.JLabel jLabel6;

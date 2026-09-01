@@ -165,7 +165,7 @@ public class PanelEstadistica extends javax.swing.JPanel {
         );
 
         tarjetaServicios.setBackground(new java.awt.Color(255, 255, 255));
-        tarjetaServicios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        tarjetaServicios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tarjetaServicios.setPreferredSize(new java.awt.Dimension(266, 170));
 
         labelServicios.setBackground(new java.awt.Color(0, 0, 0));
@@ -211,7 +211,7 @@ public class PanelEstadistica extends javax.swing.JPanel {
         );
 
         tarjetaOrdenes.setBackground(new java.awt.Color(255, 255, 255));
-        tarjetaOrdenes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        tarjetaOrdenes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         labelOrdenes.setBackground(new java.awt.Color(0, 0, 0));
         labelOrdenes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -256,7 +256,7 @@ public class PanelEstadistica extends javax.swing.JPanel {
         );
 
         tarjetaRepuestos.setBackground(new java.awt.Color(255, 255, 255));
-        tarjetaRepuestos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        tarjetaRepuestos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tarjetaRepuestos.setPreferredSize(new java.awt.Dimension(266, 170));
 
         labelRepuestos.setBackground(new java.awt.Color(0, 0, 0));
@@ -302,7 +302,7 @@ public class PanelEstadistica extends javax.swing.JPanel {
         );
 
         tarjetaVehiculos.setBackground(new java.awt.Color(255, 255, 255));
-        tarjetaVehiculos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        tarjetaVehiculos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tarjetaVehiculos.setPreferredSize(new java.awt.Dimension(250, 170));
 
         labelVehiculos.setBackground(new java.awt.Color(0, 0, 0));
@@ -349,7 +349,7 @@ public class PanelEstadistica extends javax.swing.JPanel {
         );
 
         tarjetaOrdenesServicioPorEstado.setBackground(new java.awt.Color(255, 255, 255));
-        tarjetaOrdenesServicioPorEstado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        tarjetaOrdenesServicioPorEstado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         labelOrdenesServicioEstado.setBackground(new java.awt.Color(0, 0, 0));
         labelOrdenesServicioEstado.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -374,7 +374,7 @@ public class PanelEstadistica extends javax.swing.JPanel {
         );
 
         tarjetaOrdenesServicioPorDia.setBackground(new java.awt.Color(255, 255, 255));
-        tarjetaOrdenesServicioPorDia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+        tarjetaOrdenesServicioPorDia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         labelOrdenesServicioDia.setBackground(new java.awt.Color(0, 0, 0));
         labelOrdenesServicioDia.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -399,6 +399,7 @@ public class PanelEstadistica extends javax.swing.JPanel {
         );
 
         TarjetaServiciosRealizados.setBackground(new java.awt.Color(255, 255, 255));
+        TarjetaServiciosRealizados.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lblSeriviciosRealzados.setBackground(new java.awt.Color(0, 0, 0));
         lblSeriviciosRealzados.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -423,6 +424,7 @@ public class PanelEstadistica extends javax.swing.JPanel {
         );
 
         TarjetaIngresosDia.setBackground(new java.awt.Color(255, 255, 255));
+        TarjetaIngresosDia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lblIngresosDia.setBackground(new java.awt.Color(0, 0, 0));
         lblIngresosDia.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -456,6 +458,7 @@ public class PanelEstadistica extends javax.swing.JPanel {
         );
 
         TarjetaRepuestosMasUtilizados.setBackground(new java.awt.Color(255, 255, 255));
+        TarjetaRepuestosMasUtilizados.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lblRepuestosUtilizados.setBackground(new java.awt.Color(0, 0, 0));
         lblRepuestosUtilizados.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -488,6 +491,7 @@ public class PanelEstadistica extends javax.swing.JPanel {
         );
 
         TarjetaUsuario.setBackground(new java.awt.Color(255, 255, 255));
+        TarjetaUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         labelVehiculos1.setBackground(new java.awt.Color(0, 0, 0));
         labelVehiculos1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -512,6 +516,7 @@ public class PanelEstadistica extends javax.swing.JPanel {
         );
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         labelVehiculos2.setBackground(new java.awt.Color(0, 0, 0));
         labelVehiculos2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -562,7 +567,7 @@ public class PanelEstadistica extends javax.swing.JPanel {
                             .addComponent(txtPromedioIngresos)
                             .addComponent(txtPromedioOrdenes)
                             .addComponent(txtDias))))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
