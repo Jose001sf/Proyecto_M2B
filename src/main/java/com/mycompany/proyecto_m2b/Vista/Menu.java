@@ -814,7 +814,50 @@ public class Menu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    private void desactivarOtrosPaneles(String panelExcepcion) {
+    if (!panelExcepcion.equals("ORDENES_SERVICIO")) {
+        mostrandoOrdenesServicio = false;
+        PanelOrdenesServicio.setBackground(new Color(70, 70, 70));
+        OrdenesDeServicio.setForeground(Color.white);
+    }
+    if (!panelExcepcion.equals("VEHICULOS")) {
+        mostrandoVehiculos = false;
+        PanelVehiculos.setBackground(new Color(70, 70, 70));
+        Vehiculos.setForeground(Color.white);
+    }
+    if (!panelExcepcion.equals("PROPIETARIOS")) {
+        mostrandoPropietarios = false;
+        PanelPropietarios.setBackground(new Color(70, 70, 70));
+        Propietarios.setForeground(Color.white);
+    }
+    if (!panelExcepcion.equals("CATALOGO_SERVICIOS")) {
+        mostrandoCatalogoServicios = false;
+        PanelServicios.setBackground(new Color(70, 70, 70));
+        Servicios.setForeground(Color.white);
+    }
+    if (!panelExcepcion.equals("REPUESTOS")) {
+        mostrandoRepuestos = false;
+        PanelRepuestos.setBackground(new Color(70, 70, 70));
+        Repuestos.setForeground(Color.white);
+    }
+    if (!panelExcepcion.equals("PROVEEDORES")) {
+        mostrandoProveedores = false;
+        PanelProveedores.setBackground(new Color(70, 70, 70));
+        Proveedores.setForeground(Color.white);
+    }
+    if (!panelExcepcion.equals("RESIDUOS")) {
+        mostrandoresiduos = false;
+        PanelResiduos.setBackground(new Color(70, 70, 70));
+        Residuos.setForeground(Color.white);
+    }
+    if (!panelExcepcion.equals("ESTADISTICAS")) {
+        mostrandoEstadisticas = false;
+        PanelEstadisticas.setBackground(new Color(70, 70, 70));
+        Estadisticas.setForeground(Color.white);
+    }
+}
+    
     private void PanelEstadisticasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEstadisticasMouseExited
         if (!mostrandoEstadisticas) {
         PanelEstadisticas.setBackground(new Color(70, 70, 70));
@@ -838,13 +881,14 @@ public class Menu extends javax.swing.JFrame {
     }
     CardLayout cl = (CardLayout) PanelPaneles.getLayout();
     
-    mostrandoEstadisticas = !mostrandoEstadisticas;
-    
-    if (mostrandoEstadisticas) {
+    if (!mostrandoEstadisticas) {
+        desactivarOtrosPaneles("ESTADISTICAS");
+        mostrandoEstadisticas = true;
         cl.show(PanelPaneles, "Estadisticas");
         PanelEstadisticas.setBackground(Color.white);
         Estadisticas.setForeground(Color.black);
     } else {
+        mostrandoEstadisticas = false;
         cl.show(PanelPaneles, "Blanco");
         PanelEstadisticas.setBackground(new Color(70, 70, 70));
         Estadisticas.setForeground(Color.white);
@@ -873,13 +917,14 @@ public class Menu extends javax.swing.JFrame {
     }
     CardLayout cl = (CardLayout) PanelPaneles.getLayout();
     
-    mostrandoresiduos = !mostrandoresiduos;
-    
-    if (mostrandoresiduos) {
+    if (!mostrandoresiduos) {
+        desactivarOtrosPaneles("RESIDUOS");
+        mostrandoresiduos = true;
         cl.show(PanelPaneles, "RESIDUOS");
         PanelResiduos.setBackground(Color.white);
         Residuos.setForeground(Color.black);
     } else {
+        mostrandoresiduos = false;
         cl.show(PanelPaneles, "Blanco");
         PanelResiduos.setBackground(new Color(70, 70, 70));
         Residuos.setForeground(Color.white);
@@ -908,13 +953,14 @@ public class Menu extends javax.swing.JFrame {
     }
     CardLayout cl = (CardLayout) PanelPaneles.getLayout();
     
-    mostrandoProveedores = !mostrandoProveedores;
-    
-    if (mostrandoProveedores) {
+    if (!mostrandoProveedores) {
+        desactivarOtrosPaneles("PROVEEDORES");
+        mostrandoProveedores = true;
         cl.show(PanelPaneles, "PROVEEDORES");
         PanelProveedores.setBackground(Color.white);
         Proveedores.setForeground(Color.black);
     } else {
+        mostrandoProveedores = false;
         cl.show(PanelPaneles, "Blanco");
         PanelProveedores.setBackground(new Color(70, 70, 70));
         Proveedores.setForeground(Color.white);
@@ -943,17 +989,18 @@ public class Menu extends javax.swing.JFrame {
     }
     CardLayout cl = (CardLayout) PanelPaneles.getLayout();
     
-    mostrandoRepuestos = !mostrandoRepuestos;
-    
-    if (mostrandoRepuestos) {
+    if (!mostrandoRepuestos) {
+        desactivarOtrosPaneles("REPUESTOS");
+        mostrandoRepuestos = true;
         cl.show(PanelPaneles, "REPUESTOS");
         PanelRepuestos.setBackground(Color.white);
         Repuestos.setForeground(Color.black);
     } else {
+        mostrandoRepuestos = false;
         cl.show(PanelPaneles, "Blanco");
         PanelRepuestos.setBackground(new Color(70, 70, 70));
         Repuestos.setForeground(Color.white);
-    }        
+    }  
     }//GEN-LAST:event_PanelRepuestosMouseClicked
 
     private void PanelServiciosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelServiciosMouseReleased
@@ -988,13 +1035,14 @@ public class Menu extends javax.swing.JFrame {
     }
     CardLayout cl = (CardLayout) PanelPaneles.getLayout();
     
-    mostrandoCatalogoServicios = !mostrandoCatalogoServicios;
-    
-    if (mostrandoCatalogoServicios) {
+    if (!mostrandoCatalogoServicios) {
+        desactivarOtrosPaneles("CATALOGO_SERVICIOS");
+        mostrandoCatalogoServicios = true;
         cl.show(PanelPaneles, "CATALOGO_SERVICIOS");
         PanelServicios.setBackground(Color.white);
         Servicios.setForeground(Color.black);
     } else {
+        mostrandoCatalogoServicios = false;
         cl.show(PanelPaneles, "Blanco");
         PanelServicios.setBackground(new Color(70, 70, 70));
         Servicios.setForeground(Color.white);
@@ -1023,13 +1071,14 @@ public class Menu extends javax.swing.JFrame {
     }
     CardLayout cl = (CardLayout) PanelPaneles.getLayout();
     
-    mostrandoPropietarios = !mostrandoPropietarios;
-    
-    if (mostrandoPropietarios) {
+    if (!mostrandoPropietarios) {
+        desactivarOtrosPaneles("PROPIETARIOS");
+        mostrandoPropietarios = true;
         cl.show(PanelPaneles, "PROPIETARIOS");
         PanelPropietarios.setBackground(Color.white);
         Propietarios.setForeground(Color.black);
     } else {
+        mostrandoPropietarios = false;
         cl.show(PanelPaneles, "Blanco");
         PanelPropietarios.setBackground(new Color(70, 70, 70));
         Propietarios.setForeground(Color.white);
@@ -1058,13 +1107,14 @@ public class Menu extends javax.swing.JFrame {
     }
     CardLayout cl = (CardLayout) PanelPaneles.getLayout();
     
-    mostrandoVehiculos = !mostrandoVehiculos;
-    
-    if (mostrandoVehiculos) {
+    if (!mostrandoVehiculos) {
+        desactivarOtrosPaneles("VEHICULOS");
+        mostrandoVehiculos = true;
         cl.show(PanelPaneles, "VEHICULOS");
         PanelVehiculos.setBackground(Color.white);
         Vehiculos.setForeground(Color.black);
     } else {
+        mostrandoVehiculos = false;
         cl.show(PanelPaneles, "Blanco");
         PanelVehiculos.setBackground(new Color(70, 70, 70));
         Vehiculos.setForeground(Color.white);
@@ -1087,20 +1137,20 @@ public class Menu extends javax.swing.JFrame {
 
     private boolean mostrandoOrdenesServicio = false;
     private void PanelOrdenesServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelOrdenesServicioMouseClicked
-
         if (!tienePermiso("ORD_GEST")) {
         JOptionPane.showMessageDialog(this, "No tiene permiso para gestionar ordenes de servicio");
         return;
     }
     CardLayout cl = (CardLayout) PanelPaneles.getLayout();
     
-    mostrandoOrdenesServicio = !mostrandoOrdenesServicio;
-    
-    if (mostrandoOrdenesServicio) {
+    if (!mostrandoOrdenesServicio) {
+        desactivarOtrosPaneles("ORDENES_SERVICIO");
+        mostrandoOrdenesServicio = true;
         cl.show(PanelPaneles, "ORDENES_SERVICIO");
         PanelOrdenesServicio.setBackground(Color.white);
         OrdenesDeServicio.setForeground(Color.black);
     } else {
+        mostrandoOrdenesServicio = false;
         cl.show(PanelPaneles, "Blanco");
         PanelOrdenesServicio.setBackground(new Color(70, 70, 70));
         OrdenesDeServicio.setForeground(Color.white);
