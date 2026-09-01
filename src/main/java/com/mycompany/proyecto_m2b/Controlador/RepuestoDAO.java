@@ -320,4 +320,19 @@ public class RepuestoDAO {
     }
     return lista;
 }
+    
+    public int obtenerStockActual(Connection con, String idRepuesto) {
+    String sql = "SELECT cantidad_actual_repuesto FROM public.repuestos WHERE id_repuestos = ?";
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setString(1, idRepuesto);
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt("cantidad_actual_repuesto");
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al consultar stock actual: " + e.getMessage());
+    }
+    return -1; 
+}
 }
