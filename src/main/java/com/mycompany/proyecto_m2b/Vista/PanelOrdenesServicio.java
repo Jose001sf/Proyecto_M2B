@@ -183,6 +183,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         btnAgregarRepuestos = new javax.swing.JButton();
         txtSubtotalRepuestos = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
+        btnEliminarRepuesto = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(238, 238, 238));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -255,7 +256,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, -1, 20));
 
         jLabel12.setText("Detalle/Trabajo a realizar:");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 520, -1, -1));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, -1, -1));
 
         TXTcostoTotal.setForeground(new java.awt.Color(153, 153, 153));
         TXTcostoTotal.setText("0.00");
@@ -295,7 +296,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 DescripcionKeyPressed(evt);
             }
         });
-        jPanel1.add(Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 540, 630, 70));
+        jPanel1.add(Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 550, 630, 70));
 
         PanelNuevo.setBackground(new java.awt.Color(255, 255, 255));
         PanelNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -654,6 +655,10 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("Subtotal Servicios: $");
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 320, -1, -1));
+
+        btnEliminarRepuesto.setText("X  Eliminar");
+        btnEliminarRepuesto.addActionListener(this::btnEliminarRepuestoActionPerformed);
+        jPanel1.add(btnEliminarRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 500, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -1134,6 +1139,32 @@ private void EditarOrdenDeServicio() {
     }
     }//GEN-LAST:event_btnAgregarRepuestosActionPerformed
 
+    private void btnEliminarRepuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRepuestoActionPerformed
+        int filaSeleccionada = tblRepuestosUsados.getSelectedRow();
+    
+    if (filaSeleccionada == -1) {
+        javax.swing.JOptionPane.showMessageDialog(this, 
+            "Por favor seleccione un repuesto de la tabla para eliminar.", 
+            "Atención", 
+            javax.swing.JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    javax.swing.table.DefaultTableModel modeloTabla = (javax.swing.table.DefaultTableModel) tblRepuestosUsados.getModel();
+    
+    modeloTabla.removeRow(filaSeleccionada);
+    
+    double nuevoSubtotalRepuestos = 0.0;
+    for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+        Object valorSubtotal = modeloTabla.getValueAt(i, 4);
+        if (valorSubtotal != null) {
+            nuevoSubtotalRepuestos += Double.parseDouble(valorSubtotal.toString());
+        }
+    }
+    
+    txtSubtotalRepuestos.setText(String.format("%.2f", nuevoSubtotalRepuestos));
+    }//GEN-LAST:event_btnEliminarRepuestoActionPerformed
+
 
     public void LimpiarDatos() {
     if (TXTcostoTotal != null) {
@@ -1370,6 +1401,7 @@ private void EditarOrdenDeServicio() {
     private javax.swing.JPanel PanelNuevo;
     private javax.swing.JTextField TXTcostoTotal;
     private javax.swing.JButton btnAgregarRepuestos;
+    private javax.swing.JButton btnEliminarRepuesto;
     private javax.swing.JComboBox<String> comboCliente;
     private javax.swing.JComboBox<String> comboEmpleado;
     private javax.swing.JComboBox<String> comboPlacas;
