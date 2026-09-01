@@ -148,5 +148,48 @@ public class EmpleadoDAO {
         }
         return null;
     }
-
+        
+        private static final String FILTRAREMPLEADOS =
+            "SELECT e.id_empleado, e.ced_perso, e.id_cargo, e.id_especialidad, p.nom1_person, p.nom2_person, p.apell1_person, p.apell2_person, c.nom_cargo, es.nom_especialidad "
+            + "FROM empleado e "
+            + "INNER JOIN persona p ON p.ced_perso = e.ced_perso "
+            + "INNER JOIN cargo c ON c.id_cargo = e.id_cargo "
+            + "INNER JOIN especialidad es ON es.id_especialidad = e.id_especialidad "
+            + "WHERE p.ced_perso ILIKE ? AND (p.nom1_person ILIKE ? OR p.nom2_person ILIKE ? OR p.apell1_person ILIKE ? OR p.apell2_person ILIKE ?) "
+            + "AND c.nom_cargo ILIKE ? "
+            + "AND es.nom_especialidad ILIKE ? "
+            + "ORDER BY p.nom1_person, p.apell1_person";
+        
+        public List<Empleado> filtrarEmpleados(String cedula, String nombre, String cargo, String especialidad) {
+        List<Empleado> lista = new ArrayList<>();
+        try (Connection conn = ConexionBD.obtenerConexion();
+             PreparedStatement ps =conn.prepareStatement(FILTRAREMPLEADOS)) {
+            ps.setString(1, "%" + cedula.trim() + "%");
+            ps.setString(2, "%" + nombre.trim() + "%");
+            ps.setString(3, "%" + nombre.trim() + "%");
+            ps.setString(4, "%" + nombre.trim() + "%");
+            ps.setString(5, "%" + nombre.trim() + "%");
+            ps.setString(6, "%" + cargo.trim() + "%");
+            ps.setString(7, "%" + especialidad.trim() + "%");
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                Empleado empleado = new Empleado();
+                
+                empleado.setId_empleado(rs.getString("id_empleado"));
+                empleado.setCed_perso(rs.getString("ced_perso"));
+                empleado.setId_cargo(rs.getString("id_cargo"));
+                empleado.setId_especialidad(rs.getString("id_especialidad"));
+                String nombreCompleto = rs.getString("nom1_person") + " "+ rs.getString("nom2_person") + " "+ rs.getString("apell1_person") + " "+ rs.getString("apell2_person");
+                empleado.setNombre_Completo(nombreCompleto.trim().replaceAll("\\s+", " "));
+                empleado.setNom_cargo(rs.getString("nom_cargo"));
+                empleado.setNom_especialidad(rs.getString("nom_especialidad"));
+                lista.add(empleado);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al filtrar empleados: " + e.getMessage());
+        }
+        return lista;
+    }
 }

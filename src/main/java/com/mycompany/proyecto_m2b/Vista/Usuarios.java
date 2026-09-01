@@ -89,11 +89,11 @@ public class Usuarios extends javax.swing.JFrame {
         Cedula = new javax.swing.JLabel();
         TXTCedula = new javax.swing.JTextField();
         estado = new javax.swing.JLabel();
-        TXTEstado = new javax.swing.JTextField();
         OtroNombreUsuario = new javax.swing.JLabel();
         TXTNombreUsuario = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         TablaUsuario = new javax.swing.JTable();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -491,27 +491,6 @@ public class Usuarios extends javax.swing.JFrame {
         estado.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         estado.setText("Estado:");
 
-        TXTEstado.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        TXTEstado.setForeground(new java.awt.Color(94, 94, 94));
-        TXTEstado.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                TXTEstadoFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                TXTEstadoFocusLost(evt);
-            }
-        });
-        TXTEstado.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                TXTEstadoMousePressed(evt);
-            }
-        });
-        TXTEstado.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                TXTEstadoKeyReleased(evt);
-            }
-        });
-
         OtroNombreUsuario.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         OtroNombreUsuario.setText("Nombre de usuario:");
 
@@ -549,6 +528,8 @@ public class Usuarios extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(TablaUsuario);
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "En pausa" }));
+
         javax.swing.GroupLayout PanelBuscarTablaLayout = new javax.swing.GroupLayout(PanelBuscarTabla);
         PanelBuscarTabla.setLayout(PanelBuscarTablaLayout);
         PanelBuscarTablaLayout.setHorizontalGroup(
@@ -571,7 +552,7 @@ public class Usuarios extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(PanelBuscarTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(estado)
-                            .addComponent(TXTEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(PanelBuscarTablaLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 748, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -595,9 +576,9 @@ public class Usuarios extends javax.swing.JFrame {
                             .addComponent(OtroNombreUsuario)
                             .addComponent(estado))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(PanelBuscarTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(PanelBuscarTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(TXTNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TXTEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
@@ -801,13 +782,7 @@ public class Usuarios extends javax.swing.JFrame {
         }        
     }//GEN-LAST:event_TXTnombreDeUsuarioFocusGained
 
-    public void Dinamico (){
-        String cedula=TXTCedula.getText().trim();
-        String empleado=TXTEmpleado.getText().trim();
-        String usuario=TXTNombreUsuario.getText().trim();
-        String estado=TXTEstado.getText().trim();
-        cargarTablaUsuario(cedula, empleado, usuario, estado);
-    }
+    
     public void cargarTablaUsuario(){
         cargarTablaUsuario("", "", "", "");
     }
@@ -1103,18 +1078,6 @@ public class Usuarios extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TXTCedulaMousePressed
 
-    private void TXTEstadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTEstadoFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TXTEstadoFocusGained
-
-    private void TXTEstadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTEstadoFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TXTEstadoFocusLost
-
-    private void TXTEstadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTEstadoMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TXTEstadoMousePressed
-
     private void TXTNombreUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTNombreUsuarioFocusGained
         // TODO add your handling code here:
     }//GEN-LAST:event_TXTNombreUsuarioFocusGained
@@ -1141,11 +1104,6 @@ public class Usuarios extends javax.swing.JFrame {
         // TODO add your handling code here:
         //Dinamico();
     }//GEN-LAST:event_TXTNombreUsuarioKeyReleased
-
-    private void TXTEstadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTEstadoKeyReleased
-        // TODO add your handling code here:
-        //Dinamico();
-    }//GEN-LAST:event_TXTEstadoKeyReleased
 
     /**
      * @param args the command line arguments
@@ -1198,7 +1156,6 @@ public class Usuarios extends javax.swing.JFrame {
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JTextField TXTCedula;
     private javax.swing.JTextField TXTEmpleado;
-    private javax.swing.JTextField TXTEstado;
     private javax.swing.JTextField TXTNombreUsuario;
     private javax.swing.JPasswordField TXTcontraseña;
     private javax.swing.JTextField TXTnombreDeUsuario;
@@ -1209,6 +1166,7 @@ public class Usuarios extends javax.swing.JFrame {
     private javax.swing.JLabel Usuariostext;
     private javax.swing.JLabel Volver;
     private javax.swing.JLabel estado;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
