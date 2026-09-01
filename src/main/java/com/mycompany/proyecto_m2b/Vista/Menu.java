@@ -324,7 +324,7 @@ public class Menu extends javax.swing.JFrame {
                         .addComponent(Empleados)
                         .addGap(18, 18, 18)
                         .addComponent(Agregar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 293, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE)
                         .addComponent(ImagenRegresar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Regresar)))
@@ -378,7 +378,7 @@ public class Menu extends javax.swing.JFrame {
         PanelAccesos.setBackground(new java.awt.Color(79, 84, 90));
         PanelAccesos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        PanelOrdenesServicio.setBackground(new java.awt.Color(53, 58, 61));
+        PanelOrdenesServicio.setBackground(new java.awt.Color(70, 70, 70));
         PanelOrdenesServicio.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 116, 78), 2, true));
         PanelOrdenesServicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelOrdenesServicio.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -420,7 +420,7 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        PanelVehiculos.setBackground(new java.awt.Color(53, 58, 61));
+        PanelVehiculos.setBackground(new java.awt.Color(70, 70, 70));
         PanelVehiculos.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 116, 78), 2, true));
         PanelVehiculos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelVehiculos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -462,7 +462,7 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        PanelPropietarios.setBackground(new java.awt.Color(53, 58, 61));
+        PanelPropietarios.setBackground(new java.awt.Color(70, 70, 70));
         PanelPropietarios.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 116, 78), 2, true));
         PanelPropietarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelPropietarios.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -504,7 +504,7 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        PanelServicios.setBackground(new java.awt.Color(53, 58, 61));
+        PanelServicios.setBackground(new java.awt.Color(70, 70, 70));
         PanelServicios.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 116, 78), 2, true));
         PanelServicios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelServicios.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -552,7 +552,7 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        PanelRepuestos.setBackground(new java.awt.Color(53, 58, 61));
+        PanelRepuestos.setBackground(new java.awt.Color(70, 70, 70));
         PanelRepuestos.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 116, 78), 2, true));
         PanelRepuestos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelRepuestos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -597,7 +597,7 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        PanelProveedores.setBackground(new java.awt.Color(53, 58, 61));
+        PanelProveedores.setBackground(new java.awt.Color(70, 70, 70));
         PanelProveedores.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 116, 78), 2, true));
         PanelProveedores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -639,7 +639,7 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        PanelResiduos.setBackground(new java.awt.Color(53, 58, 61));
+        PanelResiduos.setBackground(new java.awt.Color(70, 70, 70));
         PanelResiduos.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 116, 78), 2, true));
         PanelResiduos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelResiduos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -681,7 +681,7 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        PanelEstadisticas.setBackground(new java.awt.Color(53, 58, 61));
+        PanelEstadisticas.setBackground(new java.awt.Color(70, 70, 70));
         PanelEstadisticas.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 116, 78), 2, true));
         PanelEstadisticas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelEstadisticas.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -816,120 +816,144 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void PanelEstadisticasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEstadisticasMouseExited
-        // TODO add your handling code here:
-        PanelEstadisticas.setBackground(Color.white);
-        Estadisticas.setForeground(Color.black);
+        if (!mostrandoEstadisticas) {
+        PanelEstadisticas.setBackground(new Color(70, 70, 70));
+        Estadisticas.setForeground(Color.white);
+    }
     }//GEN-LAST:event_PanelEstadisticasMouseExited
 
     private void PanelEstadisticasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEstadisticasMouseEntered
-        // TODO add your handling code here:
-        PanelEstadisticas.setBackground(new Color(179, 179, 179));
+        if (!mostrandoEstadisticas) {
+        PanelEstadisticas.setBackground(new Color(110, 110, 110));
         Estadisticas.setForeground(Color.white);
+    }
     }//GEN-LAST:event_PanelEstadisticasMouseEntered
     
     private boolean mostrandoEstadisticas = false;
 
     private void PanelEstadisticasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEstadisticasMouseClicked
-        // TODO add your handling code here:
         if (!tienePermiso("EST_VER")) {
-            JOptionPane.showMessageDialog(this, "No tiene permiso para ver estadisticas");
-            return;
-        }
-        CardLayout cl = (CardLayout) PanelPaneles.getLayout();
-        if (!mostrandoEstadisticas) {
-            cl.show(PanelPaneles, "Estadisticas");
-        } else {
-            cl.show(PanelPaneles, "Blanco");
-        }
-        mostrandoEstadisticas = !mostrandoEstadisticas;
+        JOptionPane.showMessageDialog(this, "No tiene permiso para ver estadisticas");
+        return;
+    }
+    CardLayout cl = (CardLayout) PanelPaneles.getLayout();
+    
+    mostrandoEstadisticas = !mostrandoEstadisticas;
+    
+    if (mostrandoEstadisticas) {
+        cl.show(PanelPaneles, "Estadisticas");
+        PanelEstadisticas.setBackground(Color.white);
+        Estadisticas.setForeground(Color.black);
+    } else {
+        cl.show(PanelPaneles, "Blanco");
+        PanelEstadisticas.setBackground(new Color(70, 70, 70));
+        Estadisticas.setForeground(Color.white);
+    }
     }//GEN-LAST:event_PanelEstadisticasMouseClicked
 
     private void PanelResiduosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelResiduosMouseExited
-        // TODO add your handling code here:
-        PanelResiduos.setBackground(Color.white);
-        Residuos.setForeground(Color.black);
+        if (!mostrandoresiduos) {
+        PanelResiduos.setBackground(new Color(70, 70, 70));
+        Residuos.setForeground(Color.white);
+    }
     }//GEN-LAST:event_PanelResiduosMouseExited
 
     private void PanelResiduosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelResiduosMouseEntered
-        // TODO add your handling code here:
-        PanelResiduos.setBackground(new Color(179, 179, 179));
+        if (!mostrandoresiduos) {
+        PanelResiduos.setBackground(new Color(110, 110, 110));
         Residuos.setForeground(Color.white);
+    }
     }//GEN-LAST:event_PanelResiduosMouseEntered
     
     private boolean mostrandoresiduos = false;
     private void PanelResiduosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelResiduosMouseClicked
-                                            
-        // TODO add your handling code here:
         if (!tienePermiso("RES_GEST")) {
-            JOptionPane.showMessageDialog(this, "No tiene permiso para gestionar residuos");
-            return;
-        }
-        CardLayout cl = (CardLayout) PanelPaneles.getLayout();
-        if (!mostrandoresiduos) {
-            cl.show(PanelPaneles, "RESIDUOS");
-        } else {
-            cl.show(PanelPaneles, "Blanco");
-        }
-        mostrandoresiduos = !mostrandoresiduos;
-
+        JOptionPane.showMessageDialog(this, "No tiene permiso para gestionar residuos");
+        return;
+    }
+    CardLayout cl = (CardLayout) PanelPaneles.getLayout();
+    
+    mostrandoresiduos = !mostrandoresiduos;
+    
+    if (mostrandoresiduos) {
+        cl.show(PanelPaneles, "RESIDUOS");
+        PanelResiduos.setBackground(Color.white);
+        Residuos.setForeground(Color.black);
+    } else {
+        cl.show(PanelPaneles, "Blanco");
+        PanelResiduos.setBackground(new Color(70, 70, 70));
+        Residuos.setForeground(Color.white);
+    }
     }//GEN-LAST:event_PanelResiduosMouseClicked
 
     private void PanelProveedoresMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelProveedoresMouseExited
-        // TODO add your handling code here:
-        PanelProveedores.setBackground(Color.white);
-        Proveedores.setForeground(Color.black);
+        if (!mostrandoProveedores) {
+        PanelProveedores.setBackground(new Color(70, 70, 70));
+        Proveedores.setForeground(Color.white);
+    }
     }//GEN-LAST:event_PanelProveedoresMouseExited
 
     private void PanelProveedoresMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelProveedoresMouseEntered
-        // TODO add your handling code here:
-        PanelProveedores.setBackground(new Color(179, 179, 179));
+        if (!mostrandoProveedores) {
+        PanelProveedores.setBackground(new Color(110, 110, 110));
         Proveedores.setForeground(Color.white);
+    }
     }//GEN-LAST:event_PanelProveedoresMouseEntered
 
     private boolean mostrandoProveedores = false;
     private void PanelProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelProveedoresMouseClicked
-
         if (!tienePermiso("PROV_GEST")) {
-            JOptionPane.showMessageDialog(this, "No tiene permiso para gestionar proveedores");
-            return;
-        }
-        CardLayout cl = (CardLayout) PanelPaneles.getLayout();
-        if (!mostrandoProveedores) {
-            cl.show(PanelPaneles, "PROVEEDORES");
-        } else {
-            cl.show(PanelPaneles, "Blanco");
-        }
-        mostrandoProveedores = !mostrandoProveedores;        
+        JOptionPane.showMessageDialog(this, "No tiene permiso para gestionar proveedores");
+        return;
+    }
+    CardLayout cl = (CardLayout) PanelPaneles.getLayout();
+    
+    mostrandoProveedores = !mostrandoProveedores;
+    
+    if (mostrandoProveedores) {
+        cl.show(PanelPaneles, "PROVEEDORES");
+        PanelProveedores.setBackground(Color.white);
+        Proveedores.setForeground(Color.black);
+    } else {
+        cl.show(PanelPaneles, "Blanco");
+        PanelProveedores.setBackground(new Color(70, 70, 70));
+        Proveedores.setForeground(Color.white);
+    }
     }//GEN-LAST:event_PanelProveedoresMouseClicked
 
     private void PanelRepuestosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelRepuestosMouseExited
-        // TODO add your handling code here:
-        PanelRepuestos.setBackground(Color.white);
-        Repuestos.setForeground(Color.black);
+        if (!mostrandoRepuestos) {
+        PanelRepuestos.setBackground(new Color(70, 70, 70));
+        Repuestos.setForeground(Color.white);
+    }
     }//GEN-LAST:event_PanelRepuestosMouseExited
 
     private void PanelRepuestosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelRepuestosMouseEntered
-        // TODO add your handling code here:
-        PanelRepuestos.setBackground(new Color(179, 179, 179));
+        if (!mostrandoRepuestos) {
+        PanelRepuestos.setBackground(new Color(110, 110, 110));
         Repuestos.setForeground(Color.white);
+    }
     }//GEN-LAST:event_PanelRepuestosMouseEntered
 
     private boolean mostrandoRepuestos = false;
     private void PanelRepuestosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelRepuestosMouseClicked
-                                           
-        // TODO add your handling code here:
-        //validacion del permiso
         if (!tienePermiso("REP_GEST")) {
-            JOptionPane.showMessageDialog(this, "No tiene permiso para gestionar repuestos.");
-            return;
-        }
-        CardLayout cl = (CardLayout) PanelPaneles.getLayout();
-        if (!mostrandoRepuestos) {
-            cl.show(PanelPaneles, "REPUESTOS");
-        } else {
-            cl.show(PanelPaneles, "Blanco");
-        }
-        mostrandoRepuestos = !mostrandoRepuestos;        
+        JOptionPane.showMessageDialog(this, "No tiene permiso para gestionar repuestos.");
+        return;
+    }
+    CardLayout cl = (CardLayout) PanelPaneles.getLayout();
+    
+    mostrandoRepuestos = !mostrandoRepuestos;
+    
+    if (mostrandoRepuestos) {
+        cl.show(PanelPaneles, "REPUESTOS");
+        PanelRepuestos.setBackground(Color.white);
+        Repuestos.setForeground(Color.black);
+    } else {
+        cl.show(PanelPaneles, "Blanco");
+        PanelRepuestos.setBackground(new Color(70, 70, 70));
+        Repuestos.setForeground(Color.white);
+    }        
     }//GEN-LAST:event_PanelRepuestosMouseClicked
 
     private void PanelServiciosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelServiciosMouseReleased
@@ -943,89 +967,108 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_PanelServiciosMousePressed
 
     private void PanelServiciosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelServiciosMouseExited
-        // TODO add your handling code here:
-        PanelServicios.setBackground(Color.white);
-        Servicios.setForeground(Color.black);
+        if (!mostrandoCatalogoServicios) {
+        PanelServicios.setBackground(new Color(70, 70, 70));
+        Servicios.setForeground(Color.white);
+    }
     }//GEN-LAST:event_PanelServiciosMouseExited
 
     private void PanelServiciosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelServiciosMouseEntered
-        // TODO add your handling code here:
-        PanelServicios.setBackground(new Color (252, 170, 118));
+        if (!mostrandoCatalogoServicios) {
+        PanelServicios.setBackground(new Color(110, 110, 110));
         Servicios.setForeground(Color.white);
+    }
     }//GEN-LAST:event_PanelServiciosMouseEntered
     
     private boolean mostrandoCatalogoServicios = false;
     private void PanelServiciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelServiciosMouseClicked
-
         if (!tienePermiso("SERV_GEST")) {
-            JOptionPane.showMessageDialog(this, "No tiene permiso para gestionar servicios");
-            return;
-        }
-        CardLayout cl = (CardLayout) PanelPaneles.getLayout();
-        if (!mostrandoCatalogoServicios) {
-            cl.show(PanelPaneles, "CATALOGO_SERVICIOS");
-        } else {
-            cl.show(PanelPaneles, "Blanco");
-        }
-        mostrandoCatalogoServicios = !mostrandoCatalogoServicios;
+        JOptionPane.showMessageDialog(this, "No tiene permiso para gestionar servicios");
+        return;
+    }
+    CardLayout cl = (CardLayout) PanelPaneles.getLayout();
+    
+    mostrandoCatalogoServicios = !mostrandoCatalogoServicios;
+    
+    if (mostrandoCatalogoServicios) {
+        cl.show(PanelPaneles, "CATALOGO_SERVICIOS");
+        PanelServicios.setBackground(Color.white);
+        Servicios.setForeground(Color.black);
+    } else {
+        cl.show(PanelPaneles, "Blanco");
+        PanelServicios.setBackground(new Color(70, 70, 70));
+        Servicios.setForeground(Color.white);
+    }
     }//GEN-LAST:event_PanelServiciosMouseClicked
 
     private void PanelPropietariosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelPropietariosMouseExited
-        // TODO add your handling code here:
-        PanelPropietarios.setBackground(Color.white);
-        Propietarios.setForeground(Color.black);
+        if (!mostrandoPropietarios) {
+        PanelPropietarios.setBackground(new Color(70, 70, 70));
+        Propietarios.setForeground(Color.white);
+    }
     }//GEN-LAST:event_PanelPropietariosMouseExited
 
     private void PanelPropietariosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelPropietariosMouseEntered
-        // TODO add your handling code here:
-        PanelPropietarios.setBackground(new Color (252, 170, 118));
-        Propietarios.setForeground(Color.WHITE);
+        if (!mostrandoPropietarios) {
+        PanelPropietarios.setBackground(new Color(110, 110, 110));
+        Propietarios.setForeground(Color.white);
+    }
     }//GEN-LAST:event_PanelPropietariosMouseEntered
 
     private boolean mostrandoPropietarios = false;
     private void PanelPropietariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelPropietariosMouseClicked
-        // TODO add your handling code here:
-                                            
         if (!tienePermiso("PROP_GEST")) {
-            JOptionPane.showMessageDialog(this, "No tiene permiso para gestionar propietarios");
-            return;
-        }
-        CardLayout cl = (CardLayout) PanelPaneles.getLayout();
-        if (!mostrandoPropietarios) {
-            cl.show(PanelPaneles, "PROPIETARIOS");
-        } else {
-            cl.show(PanelPaneles, "Blanco");
-        }
-        mostrandoPropietarios = !mostrandoPropietarios;
+        JOptionPane.showMessageDialog(this, "No tiene permiso para gestionar propietarios");
+        return;
+    }
+    CardLayout cl = (CardLayout) PanelPaneles.getLayout();
+    
+    mostrandoPropietarios = !mostrandoPropietarios;
+    
+    if (mostrandoPropietarios) {
+        cl.show(PanelPaneles, "PROPIETARIOS");
+        PanelPropietarios.setBackground(Color.white);
+        Propietarios.setForeground(Color.black);
+    } else {
+        cl.show(PanelPaneles, "Blanco");
+        PanelPropietarios.setBackground(new Color(70, 70, 70));
+        Propietarios.setForeground(Color.white);
+    }
     }//GEN-LAST:event_PanelPropietariosMouseClicked
 
     private void PanelVehiculosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelVehiculosMouseExited
-        // TODO add your handling code here:
-        PanelVehiculos.setBackground(Color.gray);
-        Vehiculos.setForeground(Color.black);
+        if (!mostrandoVehiculos) {
+        PanelVehiculos.setBackground(new Color(70, 70, 70));
+        Vehiculos.setForeground(Color.white);
+    }
     }//GEN-LAST:event_PanelVehiculosMouseExited
 
     private void PanelVehiculosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelVehiculosMouseEntered
-        // TODO add your handling code here:
-        PanelVehiculos.setBackground(new Color(53, 58, 61));
-        Vehiculos.setForeground(Color.gray);
+        if (!mostrandoVehiculos) {
+        PanelVehiculos.setBackground(new Color(110, 110, 110));
+        Vehiculos.setForeground(Color.white);
+    }
     }//GEN-LAST:event_PanelVehiculosMouseEntered
     
     private boolean mostrandoVehiculos = false;
     private void PanelVehiculosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelVehiculosMouseClicked
-        // TODO add your handling code here:
         if (!tienePermiso("VEH_GEST")) {
-            JOptionPane.showMessageDialog(this, "No tiene permiso para gestionar vehiculos");
-            return;
-        }
-        CardLayout cl = (CardLayout) PanelPaneles.getLayout();
-        if (!mostrandoVehiculos) {
-            cl.show(PanelPaneles, "VEHICULOS");
-        } else {
-            cl.show(PanelPaneles, "Blanco");
-        }
-        mostrandoVehiculos = !mostrandoVehiculos;
-        
+        JOptionPane.showMessageDialog(this, "No tiene permiso para gestionar vehiculos");
+        return;
+    }
+    CardLayout cl = (CardLayout) PanelPaneles.getLayout();
+    
+    mostrandoVehiculos = !mostrandoVehiculos;
+    
+    if (mostrandoVehiculos) {
+        cl.show(PanelPaneles, "VEHICULOS");
+        PanelVehiculos.setBackground(Color.white);
+        Vehiculos.setForeground(Color.black);
+    } else {
+        cl.show(PanelPaneles, "Blanco");
+        PanelVehiculos.setBackground(new Color(70, 70, 70));
+        Vehiculos.setForeground(Color.white);
+    }
     }//GEN-LAST:event_PanelVehiculosMouseClicked
 
     private void PanelOrdenesServicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelOrdenesServicioMouseExited
