@@ -65,9 +65,6 @@ public class Usuarios extends javax.swing.JFrame {
         Estados = new javax.swing.JComboBox<>();
         TiposUsuario = new javax.swing.JLabel();
         TiposDeUsuario = new javax.swing.JComboBox<>();
-        PanelGuardar = new javax.swing.JPanel();
-        Guardar = new javax.swing.JLabel();
-        ImagenSAVE = new javax.swing.JLabel();
         PanelEditar = new javax.swing.JPanel();
         Editar = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -93,7 +90,7 @@ public class Usuarios extends javax.swing.JFrame {
         TXTNombreUsuario = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         TablaUsuario = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        ComboEstados = new javax.swing.JComboBox<>();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -207,48 +204,6 @@ public class Usuarios extends javax.swing.JFrame {
         TiposDeUsuario.setBackground(new java.awt.Color(247, 247, 247));
         TiposDeUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una opción", "Empleado", "Jefe latonero", "Jefe mecánico", "Jefe del taller" }));
         TiposDeUsuario.addActionListener(this::TiposDeUsuarioActionPerformed);
-
-        PanelGuardar.setBackground(new java.awt.Color(242, 101, 34));
-        PanelGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PanelGuardarMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelGuardarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelGuardarMouseExited(evt);
-            }
-        });
-
-        Guardar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        Guardar.setForeground(new java.awt.Color(255, 255, 255));
-        Guardar.setText("Guardar");
-
-        ImagenSAVE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/save_22dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-
-        javax.swing.GroupLayout PanelGuardarLayout = new javax.swing.GroupLayout(PanelGuardar);
-        PanelGuardar.setLayout(PanelGuardarLayout);
-        PanelGuardarLayout.setHorizontalGroup(
-            PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelGuardarLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(ImagenSAVE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Guardar)
-                .addContainerGap(36, Short.MAX_VALUE))
-        );
-        PanelGuardarLayout.setVerticalGroup(
-            PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelGuardarLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Guardar)
-                    .addComponent(ImagenSAVE))
-                .addContainerGap())
-        );
 
         PanelEditar.setBackground(new java.awt.Color(255, 255, 255));
         PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -528,7 +483,8 @@ public class Usuarios extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(TablaUsuario);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "En pausa" }));
+        ComboEstados.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "En pausa" }));
+        ComboEstados.addItemListener(this::ComboEstadosItemStateChanged);
 
         javax.swing.GroupLayout PanelBuscarTablaLayout = new javax.swing.GroupLayout(PanelBuscarTabla);
         PanelBuscarTabla.setLayout(PanelBuscarTablaLayout);
@@ -552,7 +508,7 @@ public class Usuarios extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(PanelBuscarTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(estado)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(ComboEstados, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(PanelBuscarTablaLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 748, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -578,7 +534,7 @@ public class Usuarios extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(PanelBuscarTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(TXTNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(ComboEstados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
@@ -619,8 +575,7 @@ public class Usuarios extends javax.swing.JFrame {
                                     .addComponent(NombreDeUsuario)
                                     .addComponent(TXTnombreDeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, BGempleadosLayout.createSequentialGroup()
-                                .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(154, 154, 154)
                                 .addComponent(PanelEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(PanelDarBaja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -661,7 +616,6 @@ public class Usuarios extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(BGempleadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(PanelGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(PanelEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(PanelDarBaja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(PanelBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -784,11 +738,12 @@ public class Usuarios extends javax.swing.JFrame {
 
     
     public void cargarTablaUsuario(){
-        cargarTablaUsuario("", "", "", "");
+        
     }
-    public void cargarTablaUsuario (String cedula, String empleado, String usuario, String estado){        
+    public void cargarTablaUsuario (String cedula, String empleado, String usuario, boolean estado){        
         UsuarioDAO ud=new UsuarioDAO();
-        List<Usuario> lista= ud.listarUsuario();
+        
+        List<Usuario> lista= ud.filtrarUsuarios(cedula, empleado, usuario, estado);
         String columnas []={"Cédula","ID","Nombre usuario","Empleado", "Tipo usuario", "Estado"};
         DefaultTableModel modelo = new DefaultTableModel (null, columnas);
         modelo.setRowCount(0);
@@ -971,23 +926,6 @@ public class Usuarios extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_PanelDarDeAltaMouseClicked
 
-    private void PanelGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseExited
-        // TODO add your handling code here:
-        PanelGuardar.setBackground(new Color(242,101,34));
-        Guardar.setForeground(Color.white);
-    }//GEN-LAST:event_PanelGuardarMouseExited
-
-    private void PanelGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseEntered
-        // TODO add your handling code here:
-        PanelGuardar.setBackground(new Color(227, 95, 32));
-        Guardar.setForeground(new Color(217, 217, 192));
-    }//GEN-LAST:event_PanelGuardarMouseEntered
-
-    private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_PanelGuardarMouseClicked
-
     private void PanelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseClicked
         // TODO add your handling code here:
         Usuario selecc= (Usuario) Usuarios.getSelectedItem();
@@ -1092,18 +1030,67 @@ public class Usuarios extends javax.swing.JFrame {
 
     private void TXTCedulaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTCedulaKeyReleased
         // TODO add your handling code here:
-        //Dinamico();
+        String estadovalido = ComboEstados.getSelectedItem().toString();
+        boolean estado;
+        if (estadovalido.equalsIgnoreCase("Activo")){
+            estado=true;
+        }
+        else{
+            estado=false;
+        }
+        String Cedula=TXTCedula.getText().trim();
+        String Nombre=TXTEmpleado.getText().trim();
+        String NOmUsuario=TXTNombreUsuario.getText().trim();
+        cargarTablaUsuario(Cedula, Nombre, NOmUsuario, estado);
     }//GEN-LAST:event_TXTCedulaKeyReleased
 
     private void TXTEmpleadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTEmpleadoKeyReleased
         // TODO add your handling code here:
-        //Dinamico();
+        String estadovalido = ComboEstados.getSelectedItem().toString();
+        boolean estado;
+        if (estadovalido.equalsIgnoreCase("Activo")){
+            estado=true;
+        }
+        else{
+            estado=false;
+        }
+        String Cedula=TXTCedula.getText().trim();
+        String Nombre=TXTEmpleado.getText().trim();
+        String NOmUsuario=TXTNombreUsuario.getText().trim();
+        cargarTablaUsuario(Cedula, Nombre, NOmUsuario, estado);
     }//GEN-LAST:event_TXTEmpleadoKeyReleased
 
     private void TXTNombreUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTNombreUsuarioKeyReleased
         // TODO add your handling code here:
-        //Dinamico();
+        String estadovalido = ComboEstados.getSelectedItem().toString();
+        boolean estado;
+        if (estadovalido.equalsIgnoreCase("Activo")){
+            estado=true;
+        }
+        else{
+            estado=false;
+        }
+        String Cedula=TXTCedula.getText().trim();
+        String Nombre=TXTEmpleado.getText().trim();
+        String NOmUsuario=TXTNombreUsuario.getText().trim();
+        cargarTablaUsuario(Cedula, Nombre, NOmUsuario, estado);
     }//GEN-LAST:event_TXTNombreUsuarioKeyReleased
+
+    private void ComboEstadosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboEstadosItemStateChanged
+        // TODO add your handling code here:
+        String estadovalido = ComboEstados.getSelectedItem().toString();
+        boolean estado;
+        if (estadovalido.equalsIgnoreCase("Activo")){
+            estado=true;
+        }
+        else{
+            estado=false;
+        }
+        String Cedula=TXTCedula.getText().trim();
+        String Nombre=TXTEmpleado.getText().trim();
+        String NOmUsuario=TXTNombreUsuario.getText().trim();
+        cargarTablaUsuario(Cedula, Nombre, NOmUsuario, estado);
+    }//GEN-LAST:event_ComboEstadosItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -1134,6 +1121,7 @@ public class Usuarios extends javax.swing.JFrame {
     private javax.swing.JPanel BGempleados;
     private javax.swing.JLabel Buscar;
     private javax.swing.JLabel Cedula;
+    private javax.swing.JComboBox<String> ComboEstados;
     private javax.swing.JLabel Contrasena;
     private javax.swing.JLabel DarDeAlta;
     private javax.swing.JLabel DarDeBaja;
@@ -1142,9 +1130,7 @@ public class Usuarios extends javax.swing.JFrame {
     private javax.swing.JLabel Empleado;
     private javax.swing.JLabel Estado;
     private javax.swing.JComboBox<String> Estados;
-    private javax.swing.JLabel Guardar;
     private javax.swing.JLabel ImagenDarBaja;
-    private javax.swing.JLabel ImagenSAVE;
     private javax.swing.JLabel NomVentana;
     private javax.swing.JLabel NombreDeUsuario;
     private javax.swing.JLabel OtroNombreUsuario;
@@ -1153,7 +1139,6 @@ public class Usuarios extends javax.swing.JFrame {
     private javax.swing.JPanel PanelDarBaja;
     private javax.swing.JPanel PanelDarDeAlta;
     private javax.swing.JPanel PanelEditar;
-    private javax.swing.JPanel PanelGuardar;
     private javax.swing.JTextField TXTCedula;
     private javax.swing.JTextField TXTEmpleado;
     private javax.swing.JTextField TXTNombreUsuario;
@@ -1166,7 +1151,6 @@ public class Usuarios extends javax.swing.JFrame {
     private javax.swing.JLabel Usuariostext;
     private javax.swing.JLabel Volver;
     private javax.swing.JLabel estado;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

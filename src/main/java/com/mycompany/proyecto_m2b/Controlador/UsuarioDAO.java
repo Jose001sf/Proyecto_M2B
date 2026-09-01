@@ -336,4 +336,44 @@ public class UsuarioDAO {
        }
         return false;
     }
- }        
+    
+    private static final String FILTRARUSUARIOS =
+            "SELECT u.id_usuario, u.nombre_usuario, u.estado_acti_usuario, u.id_empleado, u.id_tip_usuario, p.ced_perso, p.nom1_person, p.nom2_person, p.apell1_person, p.apell2_person "
+            + "FROM usuario u "
+            + "INNER JOIN empleado e ON e.id_empleado = u.id_empleado "
+            + "INNER JOIN persona p ON p.ced_perso = e.ced_perso "
+            + "WHERE p.ced_perso ILIKE ? AND (p.nom1_person ILIKE ? OR p.nom2_person ILIKE ? OR p.apell1_person ILIKE ? OR p.apell2_person ILIKE ?) "
+            + "AND u.nombre_usuario ILIKE ? AND u.estado_acti_usuario = ? "
+            + "ORDER BY p.nom1_person, p.apell1_person";
+    public List<Usuario> filtrarUsuarios(String cedula, String nombreEmpleado, String nombreUsuario, boolean estado) {
+        List<Usuario> lista = new ArrayList<>();
+        try (Connection conn = ConexionBD.obtenerConexion();
+             PreparedStatement ps =conn.prepareStatement(FILTRARUSUARIOS)) {
+            ps.setString(1, "%" + cedula.trim() + "%");
+            ps.setString(2, "%" + nombreEmpleado.trim() + "%");
+            ps.setString(3, "%" + nombreEmpleado.trim() + "%");
+            ps.setString(4, "%" + nombreEmpleado.trim() + "%");
+            ps.setString(5, "%" + nombreEmpleado.trim() + "%");
+            ps.setString(6, "%" + nombreUsuario.trim() + "%");
+            ps.setBoolean(7, estado);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setID_usuario(rs.getString("id_usuario"));
+                usuario.setNombre_usuario(rs.getString("nombre_usuario"));
+                usuario.setEstado_acti_usuario(rs.getBoolean("estado_acti_usuario"));
+                usuario.setId_empleado(rs.getString("id_empleado"));
+                usuario.setTip_usuario(rs.getString("id_tip_usuario"));
+                usuario.setCed_perso(rs.getString("ced_perso"));
+                String nombreCompleto =rs.getString("nom1_person") + " "+ rs.getString("nom2_person") + " "+ rs.getString("apell1_person") + " "+ rs.getString("apell2_person");                
+                usuario.setNombre_completo(nombreCompleto.trim().replaceAll("\\s+", " "));
+                lista.add(usuario);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al filtrar usuarios: " + e.getMessage());
+        }
+        return lista;
+    }
+ }
