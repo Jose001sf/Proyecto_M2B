@@ -2061,9 +2061,20 @@ public class CrearEmpleado extends javax.swing.JFrame {
         EmpleadoDAO e = new EmpleadoDAO();        
         e.insertar(empleado);
         //Se genera el usuarios
-        String Usuario = CreacionCredenciales.GenerarUsuario(PrimerNombre, PrimerApellido);
+        
+        
+        UsuarioDAO u=new UsuarioDAO();
+        String Usuario;
         String contrasena = CreacionCredenciales.GenerarContraseña();
+        //Valida que no se repita        
+        do{
+        Usuario = CreacionCredenciales.GenerarUsuario(persona.getNom1_person(), persona.getApell1_person());        
+        }while (u.existeNombreUsuario(Usuario));
         boolean estado_acti_usuario=true;
+        
+
+
+
         //Se genera el tipo de usuario
         Tipos_de_usuario TipE=(Tipos_de_usuario)TiposUsuarios.getSelectedItem();
         if(TipE==null){
@@ -2072,7 +2083,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
         }               
         //Se debe verificar para que el usuario no se repita
         Usuario usuario=new Usuario(Usuario, contrasena, estado_acti_usuario, empleado.getId_empleado(), TipE.getId_tip_de_usuario());
-        UsuarioDAO u=new UsuarioDAO();
+
         u.insertar(usuario);
         
         //Hilo para el envio de correos
@@ -3141,15 +3152,20 @@ public class CrearEmpleado extends javax.swing.JFrame {
         
         
         //Se genera el usuarios
-        String Usuario = CreacionCredenciales.GenerarUsuario(persona.getNom1_person(), persona.getApell1_person());
+        UsuarioDAO u=new UsuarioDAO();
+        String Usuario;
         String contrasena = CreacionCredenciales.GenerarContraseña();
+        //Valida que no se repita        
+        do{
+        Usuario = CreacionCredenciales.GenerarUsuario(persona.getNom1_person(), persona.getApell1_person());        
+        }while (u.existeNombreUsuario(Usuario));
         boolean estado_acti_usuario=true;
         //Se genera el tipo de usuario              
         //Se debe verificar para que el usuario no se repita
         String id_empleado=empleado.getId_empleado();
         System.out.println(id_empleado);
         Usuario usuario=new Usuario(Usuario, contrasena, true, id_empleado, TipE.getId_tip_de_usuario());
-        UsuarioDAO u=new UsuarioDAO();
+        
         u.insertar(usuario);
                 
         JOptionPane.showMessageDialog(this, "Su usuario es el siguiente: "+Usuario+"\n"
@@ -3160,7 +3176,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
         String correo_perso=persona.getCorr_elec_perso();
         String nom_usuario=Usuario;
         String contra_usuario=contrasena;
-        
+                            
         new Thread(() -> {
             Servidor_de_correos sv=new Servidor_de_correos();
             sv.enviarCorreoUsuario(nom_usuario, contra_usuario, correo_perso);

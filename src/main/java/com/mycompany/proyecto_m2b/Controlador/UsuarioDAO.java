@@ -376,4 +376,44 @@ public class UsuarioDAO {
         }
         return lista;
     }
+    //Valida que no se repita usuario
+    private static final String EXISTENOMBREUSUARIO =
+            "SELECT 1 "
+            + "FROM usuario "
+            + "WHERE nombre_usuario ILIKE ?";
+
+    public boolean existeNombreUsuario(String nombreUsuario) {
+        try (Connection conn = ConexionBD.obtenerConexion();
+             PreparedStatement ps = conn.prepareStatement(EXISTENOMBREUSUARIO)) {
+            ps.setString(1, nombreUsuario.trim());
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            System.out.println(
+                "Error al verificar nombre de usuario: "
+                + e.getMessage()
+            );
+            return false;
+        }
+    }
+    private static final String EXISTENOMBREUSUARIOOTRO =
+            "SELECT 1 "
+            + "FROM usuario "
+            + "WHERE nombre_usuario ILIKE ? "
+            + "AND id_usuario <> ?";
+
+    public boolean existeNombreUsuarioEnOtro(String nombreUsuario, String idUsuario) {
+        try (Connection conn = ConexionBD.obtenerConexion();
+             PreparedStatement ps=conn.prepareStatement(EXISTENOMBREUSUARIOOTRO)) {
+            ps.setString(1, nombreUsuario.trim());
+            ps.setString(2, idUsuario);
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            System.out.println("Error al verificar nombre de usuario: "+ e.getMessage()
+            );
+            return false;
+        }
+    }
+    
  }
