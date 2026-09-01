@@ -3182,9 +3182,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
                 return;
             }
         }
-        System.out.println(
-            "No se encontró en el combo: " + nombre
-        );
+        System.out.println("No se encontró en el combo: " + nombre);
     }
     
     Persona persona;
