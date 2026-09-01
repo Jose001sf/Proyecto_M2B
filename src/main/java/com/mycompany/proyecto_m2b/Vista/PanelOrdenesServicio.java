@@ -4,10 +4,16 @@
  */
 package com.mycompany.proyecto_m2b.Vista;
 
+import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
+import java.util.List;
 import com.mycompany.proyecto_m2b.Controlador.OrdenServicioDAO;
+import com.mycompany.proyecto_m2b.Controlador.Servidor_de_correos;
 import com.mycompany.proyecto_m2b.Controlador.Validaciones;
 import com.mycompany.proyecto_m2b.Controlador.VehiculosDAO;
+import com.mycompany.proyecto_m2b.modelo.Servicio;
 import com.mycompany.proyecto_m2b.modelo.orden_de_servicio;
+import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
 import java.time.LocalDate;
 import java.util.Date;
@@ -22,11 +28,20 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
     /**
      * Creates new form PanelOrdenesServicio
      */
+    private String idOrdenCargada = null;
     public PanelOrdenesServicio() {
         initComponents();
         cargarCombosIniciales();
+        CalendarioFechaIngreso.setDate(new java.util.Date());
+        CalendarioFechaIngreso.setEnabled(false);
+        ((JTextFieldDateEditor) CalendarioFechaIngreso.getDateEditor()).setEditable(false);
+        inicializarTablaDetalleServicio();
     }
-
+    
+    private void inicializarTablaDetalleServicio() {
+        modeloTablaServicios = (DefaultTableModel) tblDetalleServicio.getModel();
+        modeloTablaServicios.setRowCount(0);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,9 +73,6 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         PanelEditar = new javax.swing.JPanel();
         Editar = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        PanelDarBaja = new javax.swing.JPanel();
-        DarDeBaja = new javax.swing.JLabel();
-        ImagenDarBaja = new javax.swing.JLabel();
         PanelBuscar = new javax.swing.JPanel();
         Buscar = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -71,6 +83,22 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         comboPlacas = new javax.swing.JComboBox<>();
         comboCliente = new javax.swing.JComboBox<>();
         comboEmpleado = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblDetalleServicio = new javax.swing.JTable();
+        jLabel13 = new javax.swing.JLabel();
+        lblSubTotalServicios = new javax.swing.JLabel();
+        PanelAgregarServicio = new javax.swing.JPanel();
+        Nuevo1 = new javax.swing.JLabel();
+        ImagenADD1 = new javax.swing.JLabel();
+        PanelEliminarServicio = new javax.swing.JPanel();
+        DarDeBaja = new javax.swing.JLabel();
+        ImagenDarBaja = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        txtBuscarRepueseto = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         jPanel1.setBackground(new java.awt.Color(238, 238, 238));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -108,7 +136,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 906, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 946, Short.MAX_VALUE)
                 .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
@@ -122,7 +150,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 .addGap(31, 31, 31))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 60));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1360, 60));
 
         jLabel5.setText("Placa del vehiculo:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
@@ -143,10 +171,10 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, -1, 20));
 
         jLabel12.setText("Detalle/Trabajo a realizar:");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, -1, -1));
 
         TXTcostoTotal.setForeground(new java.awt.Color(153, 153, 153));
-        TXTcostoTotal.setText("Costo Total");
+        TXTcostoTotal.setText("0.00");
         TXTcostoTotal.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 TXTcostoTotalFocusGained(evt);
@@ -183,7 +211,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 DescripcionKeyPressed(evt);
             }
         });
-        jPanel1.add(Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 630, 70));
+        jPanel1.add(Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 540, 630, 70));
 
         PanelNuevo.setBackground(new java.awt.Color(255, 255, 255));
         PanelNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -214,7 +242,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 .addComponent(ImagenADD)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Nuevo)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         PanelNuevoLayout.setVerticalGroup(
             PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,7 +254,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(PanelNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, -1, -1));
+        jPanel1.add(PanelNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 620, -1, -1));
 
         PanelGuardar.setBackground(new java.awt.Color(242, 101, 34));
         PanelGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -270,12 +298,15 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanel1.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, -1, -1));
+        jPanel1.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 620, -1, -1));
 
         PanelEditar.setBackground(new java.awt.Color(255, 255, 255));
         PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
         PanelEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelEditarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelEditarMouseEntered(evt);
             }
@@ -311,53 +342,15 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanel1.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 310, -1, -1));
-
-        PanelDarBaja.setBackground(new java.awt.Color(255, 255, 255));
-        PanelDarBaja.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(215, 106, 106)));
-        PanelDarBaja.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelDarBaja.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelDarBajaMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelDarBajaMouseExited(evt);
-            }
-        });
-
-        DarDeBaja.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        DarDeBaja.setForeground(new java.awt.Color(215, 106, 106));
-        DarDeBaja.setText("Dar de baja");
-
-        ImagenDarBaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/person_cancel_22dp_EA3323_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-
-        javax.swing.GroupLayout PanelDarBajaLayout = new javax.swing.GroupLayout(PanelDarBaja);
-        PanelDarBaja.setLayout(PanelDarBajaLayout);
-        PanelDarBajaLayout.setHorizontalGroup(
-            PanelDarBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelDarBajaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ImagenDarBaja)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(DarDeBaja)
-                .addGap(30, 30, 30))
-        );
-        PanelDarBajaLayout.setVerticalGroup(
-            PanelDarBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelDarBajaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelDarBajaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(DarDeBaja)
-                    .addComponent(ImagenDarBaja))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel1.add(PanelDarBaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 310, -1, -1));
+        jPanel1.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 620, -1, -1));
 
         PanelBuscar.setBackground(new java.awt.Color(255, 255, 255));
         PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
         PanelBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PanelBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelBuscarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PanelBuscarMouseEntered(evt);
             }
@@ -392,7 +385,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 310, -1, -1));
+        jPanel1.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 620, -1, -1));
 
         jLabel3.setText("Fecha de entrega:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, -1, -1));
@@ -412,6 +405,147 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         comboEmpleado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(comboEmpleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 210, -1));
 
+        jLabel9.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("DETALLE DE REPUESTOS");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, -1, -1));
+
+        tblDetalleServicio.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Nombre del Servicio", "Precio Unitario", "Cantidad", "Subtotal Servicio"
+            }
+        ));
+        jScrollPane1.setViewportView(tblDetalleServicio);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 750, 90));
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel13.setText("Subtotal Servicios: $");
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 320, -1, -1));
+
+        lblSubTotalServicios.setText(" ");
+        jPanel1.add(lblSubTotalServicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 320, 70, -1));
+
+        PanelAgregarServicio.setBackground(new java.awt.Color(255, 255, 255));
+        PanelAgregarServicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        PanelAgregarServicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelAgregarServicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelAgregarServicioMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PanelAgregarServicioMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                PanelAgregarServicioMouseExited(evt);
+            }
+        });
+
+        Nuevo1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        Nuevo1.setText("Agregar Servicio");
+
+        ImagenADD1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/add_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+
+        javax.swing.GroupLayout PanelAgregarServicioLayout = new javax.swing.GroupLayout(PanelAgregarServicio);
+        PanelAgregarServicio.setLayout(PanelAgregarServicioLayout);
+        PanelAgregarServicioLayout.setHorizontalGroup(
+            PanelAgregarServicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelAgregarServicioLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ImagenADD1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Nuevo1)
+                .addGap(16, 16, 16))
+        );
+        PanelAgregarServicioLayout.setVerticalGroup(
+            PanelAgregarServicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelAgregarServicioLayout.createSequentialGroup()
+                .addGroup(PanelAgregarServicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Nuevo1)
+                    .addComponent(ImagenADD1))
+                .addGap(0, 4, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(PanelAgregarServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, 180, 30));
+
+        PanelEliminarServicio.setBackground(new java.awt.Color(255, 255, 255));
+        PanelEliminarServicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(215, 106, 106)));
+        PanelEliminarServicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelEliminarServicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelEliminarServicioMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PanelEliminarServicioMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                PanelEliminarServicioMouseExited(evt);
+            }
+        });
+
+        DarDeBaja.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        DarDeBaja.setForeground(new java.awt.Color(215, 106, 106));
+        DarDeBaja.setText("Eliminar");
+
+        ImagenDarBaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/person_cancel_22dp_EA3323_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+
+        javax.swing.GroupLayout PanelEliminarServicioLayout = new javax.swing.GroupLayout(PanelEliminarServicio);
+        PanelEliminarServicio.setLayout(PanelEliminarServicioLayout);
+        PanelEliminarServicioLayout.setHorizontalGroup(
+            PanelEliminarServicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelEliminarServicioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ImagenDarBaja)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(DarDeBaja)
+                .addGap(30, 30, 30))
+        );
+        PanelEliminarServicioLayout.setVerticalGroup(
+            PanelEliminarServicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelEliminarServicioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelEliminarServicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(DarDeBaja)
+                    .addComponent(ImagenDarBaja))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(PanelEliminarServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 470, -1, -1));
+
+        jLabel14.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel14.setText("DETALLE DE SERVICIO");
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
+
+        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel15.setText("Buscar ID/Nombre:");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, -1, 20));
+        jPanel1.add(txtBuscarRepueseto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, 220, -1));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, -1, 80));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -420,7 +554,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 669, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -440,7 +574,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
 
     private void TXTcostoTotalFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTcostoTotalFocusGained
         // TODO add your handling code here:
-        if (TXTcostoTotal.getText().equals("Costo Total")){
+        if (TXTcostoTotal.getText().equals("0.00")){
             TXTcostoTotal.setText("");
             TXTcostoTotal.setForeground(Color.BLACK);
         }
@@ -452,7 +586,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
 
     private void TXTcostoTotalMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTcostoTotalMousePressed
         // TODO add your handling code here:
-        if (TXTcostoTotal.getText().equals("Costo Total")){
+        if (TXTcostoTotal.getText().equals("0.00")){
             TXTcostoTotal.setText("");
             TXTcostoTotal.setForeground(Color.BLACK);
         }
@@ -548,18 +682,6 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         Editar.setForeground(Color.black);
     }//GEN-LAST:event_PanelEditarMouseExited
 
-    private void PanelDarBajaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarBajaMouseEntered
-        // TODO add your handling code here:
-        PanelDarBaja.setBackground(new Color (252, 168, 168));
-        DarDeBaja.setForeground(Color.white);
-    }//GEN-LAST:event_PanelDarBajaMouseEntered
-
-    private void PanelDarBajaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelDarBajaMouseExited
-        // TODO add your handling code here:
-        PanelDarBaja.setBackground(Color.white);
-        DarDeBaja.setForeground(new Color(215, 106, 106));
-    }//GEN-LAST:event_PanelDarBajaMouseExited
-
     private void PanelBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseEntered
         // TODO add your handling code here:
         PanelBuscar.setBackground(new Color(219,219,219));
@@ -608,45 +730,384 @@ public void cargarCombosIniciales() {
         OrdenServicioDAO dao=new OrdenServicioDAO();
         dao.sumarIngresosPorDia(LocalDate.MIN, LocalDate.MAX);
     }//GEN-LAST:event_TXTcostoTotalActionPerformed
+private void EditarOrdenDeServicio() {
+    try {
+        
+        if (idOrdenCargada == null || idOrdenCargada.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, 
+                "Por favor seleccione o busque primero la orden que desea editar.", 
+                "Atención", 
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
+        if (Estados == null || Estados.getSelectedIndex() <= 0) {
+            JOptionPane.showMessageDialog(this, 
+                "Por favor seleccione un estado de orden válido.", 
+                "Atención", 
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
-    public void LimpiarDatos (){
-        TXTcostoTotal.setText("");
-        TXTcostoTotal.setForeground(new Color(94, 94, 94));
-        Descripcion.setText("");
-        Descripcion.setForeground(new Color(94, 94, 94));
-        Estados.setSelectedIndex(0);
-        CalendarioFechaEntrega.setDate(null);
-        CalendarioFechaIngreso.setDate(null);
-    }
-    public void GuardarOrdenDeServicio (){
-        try {
+        String estadoSeleccionado = Estados.getSelectedItem().toString().trim();
+
+        OrdenServicioDAO dao = new OrdenServicioDAO();
         orden_de_servicio orden = new orden_de_servicio();
-        orden.setEstadoorden_servi(Estados.getSelectedItem().toString()); 
+        
+        orden.setId_orden_serv(idOrdenCargada);
+        orden.setEstadoorden_servi(estadoSeleccionado);
 
         orden.setFecha_ingreso(CalendarioFechaIngreso.getDate());
-        orden.setFecha_entrega(CalendarioFechaEntrega.getDate());
-
-        double costoTotal = TXTcostoTotal.getText().trim().isEmpty() ? 0.0 : Double.parseDouble(TXTcostoTotal.getText().trim());
-        orden.setCosto_total(costoTotal);
-        OrdenServicioDAO dao = new OrdenServicioDAO();
-        
-        String placaSeleccionada = comboPlacas.getSelectedItem().toString();
-        String empleadoSeleccionado = comboEmpleado.getSelectedItem().toString();
-
-        orden.setId_vehi(dao.obtenerIdVehiculoPorPlaca(placaSeleccionada));
-        orden.setId_empleado(dao.obtenerIdEmpleadoPorNombre(empleadoSeleccionado));
-        if (dao.guardarOrdenServicio(orden)) {
-            JOptionPane.showMessageDialog(this, "Orden de servicio registrada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        if (CalendarioFechaEntrega != null && CalendarioFechaEntrega.getDate() != null) {
+            orden.setFecha_entrega(CalendarioFechaEntrega.getDate());
         } else {
-            JOptionPane.showMessageDialog(this, "Error al registrar la orden.", "Error", JOptionPane.ERROR_MESSAGE);
+            orden.setFecha_entrega(null);
+        }
+
+        double costoTotal = 0.0;
+        if (TXTcostoTotal != null && !TXTcostoTotal.getText().trim().isEmpty()) {
+            try {
+                costoTotal = Double.parseDouble(TXTcostoTotal.getText().trim());
+            } catch (NumberFormatException nfe) {
+                costoTotal = 0.0;
+            }
+        }
+        orden.setCosto_total(costoTotal);
+
+        if (comboPlacas != null && comboPlacas.getSelectedIndex() > 0) {
+            String placa = comboPlacas.getSelectedItem().toString().trim();
+            orden.setId_vehi(dao.obtenerIdVehiculoPorPlaca(placa));
+        }
+
+        if (comboEmpleado != null && comboEmpleado.getSelectedIndex() > 0) {
+            String empleadoNombre = comboEmpleado.getSelectedItem().toString().trim();
+            orden.setId_empleado(dao.obtenerIdEmpleadoPorNombre(empleadoNombre));
+        }
+
+        boolean actualizado = dao.actualizarOrdenServicio(orden);
+
+        if (actualizado) {
+            JOptionPane.showMessageDialog(this, 
+                "La Orden de Servicio (" + idOrdenCargada + ") ha sido actualizada con éxito.", 
+                "Actualización Exitosa", 
+                JOptionPane.INFORMATION_MESSAGE);
+            if (estadoSeleccionado.equalsIgnoreCase("Terminado") || estadoSeleccionado.equalsIgnoreCase("Finalizado")) {
+                new Thread(() -> {
+                    String[] datosPropietario = dao.obtenerDatosPropietarioPorVehiculo(orden.getId_vehi());
+                    String nombrePropietario = datosPropietario[0];
+                    String correoPropietario = datosPropietario[1];
+                    Servidor_de_correos correo=new Servidor_de_correos();
+                    if (correoPropietario != null && !correoPropietario.trim().isEmpty()) {
+                        correo.enviarCorreoEstadoVehiculo(nombrePropietario, estadoSeleccionado, correoPropietario);
+                    } else {
+                        System.out.println("No se envió correo: El propietario no registra un correo válido.");
+                    }
+                }).start();
+            }
+            LimpiarDatos();
+
+        } else {
+            JOptionPane.showMessageDialog(this, 
+                "No se pudo actualizar la orden de servicio en la base de datos.", 
+                "Error de Actualización", 
+                JOptionPane.ERROR_MESSAGE);
+        }
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, 
+            "Error inesperado al editar: " + e.getMessage(), 
+            "Error General", 
+            JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+}
+    private void PanelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseClicked
+        // TODO add your handling code here:
+        EditarOrdenDeServicio();
+    }//GEN-LAST:event_PanelEditarMouseClicked
+
+    private void PanelBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseClicked
+        // TODO add your handling code here:
+        if (comboPlacas.getSelectedIndex() <= 0) {
+        JOptionPane.showMessageDialog(this, 
+            "Por favor seleccione una placa de la lista para buscar su orden.", 
+            "Atención", 
+            JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    String placaSeleccionada = comboPlacas.getSelectedItem().toString().trim();
+    OrdenServicioDAO dao = new OrdenServicioDAO();
+    orden_de_servicio orden = dao.buscarOrdenPorPlaca(placaSeleccionada);
+
+    if (orden != null) {
+        this.idOrdenCargada = orden.getId_orden_serv();
+
+        Estados.setSelectedItem(orden.getEstadoorden_servi());
+        CalendarioFechaIngreso.setDate(orden.getFecha_ingreso());
+        CalendarioFechaEntrega.setDate(orden.getFecha_entrega());
+        TXTcostoTotal.setText(String.format(java.util.Locale.US, "%.2f", orden.getCosto_total()));
+
+        JOptionPane.showMessageDialog(this, "Datos de la orden cargados correctamente.");
+    } else {
+        JOptionPane.showMessageDialog(this, "El vehículo no tiene una orden de servicio registrada.");
+    }
+    }//GEN-LAST:event_PanelBuscarMouseClicked
+
+    private void PanelAgregarServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelAgregarServicioMouseClicked
+        // TODO add your handling code here:
+        PanelServiciosOrden panel = new PanelServiciosOrden();
+        java.awt.Window parentWindow = javax.swing.SwingUtilities.getWindowAncestor(this);
+        javax.swing.JDialog dialog = (parentWindow instanceof java.awt.Frame)
+                ? new javax.swing.JDialog((java.awt.Frame) parentWindow, "Agregar Servicio", true)
+                : new javax.swing.JDialog();
+        dialog.add(panel);
+        dialog.pack();
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true); // se detiene aquí (es modal) hasta que cierres el diálogo
+
+        if (panel.isAceptado()) {
+            agregarServicioADetalle(panel.getServicioSeleccionado(), panel.getCantidadSeleccionada());
+        }
+    }//GEN-LAST:event_PanelAgregarServicioMouseClicked
+
+    private void PanelAgregarServicioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelAgregarServicioMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PanelAgregarServicioMouseEntered
+
+    private void PanelAgregarServicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelAgregarServicioMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PanelAgregarServicioMouseExited
+
+    private void PanelEliminarServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEliminarServicioMouseClicked
+        // TODO add your handling code here:
+        int fila = tblDetalleServicio.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccione un servicio de la tabla para eliminar.");
+            return;
+        }
+        int confirmar = JOptionPane.showConfirmDialog(this,
+                "¿Seguro que deseas quitar este servicio de la orden?", "Confirmar",
+                JOptionPane.YES_NO_OPTION);
+        if (confirmar != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        detalleServicios.remove(fila);
+        actualizarTablaDetalleServicio();
+    }//GEN-LAST:event_PanelEliminarServicioMouseClicked
+
+    private void PanelEliminarServicioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEliminarServicioMouseEntered
+        // TODO add your handling code here:
+        PanelEliminarServicio.setBackground(new Color (252, 168, 168));
+        DarDeBaja.setForeground(Color.white);
+    }//GEN-LAST:event_PanelEliminarServicioMouseEntered
+
+    private void PanelEliminarServicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEliminarServicioMouseExited
+        // TODO add your handling code here:
+        PanelEliminarServicio.setBackground(Color.white);
+        DarDeBaja.setForeground(new Color(215, 106, 106));
+    }//GEN-LAST:event_PanelEliminarServicioMouseExited
+
+
+    public void LimpiarDatos() {
+    if (TXTcostoTotal != null) {
+        TXTcostoTotal.setText("0.00");
+        TXTcostoTotal.setForeground(new Color(94, 94, 94));
+    }
+        if (Descripcion != null) {
+        Descripcion.setText("");
+        Descripcion.setForeground(new Color(94, 94, 94));
+    }
+    if (Estados != null && Estados.getItemCount() > 0) Estados.setSelectedIndex(0);
+    if (comboPlacas != null && comboPlacas.getItemCount() > 0) comboPlacas.setSelectedIndex(0);
+    if (comboCliente != null && comboCliente.getItemCount() > 0) comboCliente.setSelectedIndex(0);
+    if (comboEmpleado != null && comboEmpleado.getItemCount() > 0) comboEmpleado.setSelectedIndex(0);
+    if (CalendarioFechaEntrega != null) CalendarioFechaEntrega.setDate(null);
+    this.idOrdenCargada = null; 
+}
+    private void GuardarOrdenDeServicio() {
+    try {
+        if (comboPlacas.getSelectedIndex() <= 0) {
+            JOptionPane.showMessageDialog(this, 
+                "Por favor seleccione una placa de vehículo.", 
+                "Atención", 
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (CalendarioFechaIngreso.getDate() == null) {
+            JOptionPane.showMessageDialog(this, 
+                "Por favor seleccione la fecha de ingreso.", 
+                "Atención", 
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        OrdenServicioDAO dao = new OrdenServicioDAO();
+        orden_de_servicio orden = new orden_de_servicio();
+        String nuevoId = dao.generarSiguienteIdOrden();
+        orden.setId_orden_serv(nuevoId);
+        
+        if (Estados != null && Estados.getSelectedItem() != null) {
+            orden.setEstadoorden_servi(Estados.getSelectedItem().toString());
+        } else {
+            orden.setEstadoorden_servi("Ingresado"); 
+        }
+        orden.setFecha_ingreso(CalendarioFechaIngreso.getDate());
+        
+        if (CalendarioFechaEntrega != null && CalendarioFechaEntrega.getDate() != null) {
+            orden.setFecha_entrega(CalendarioFechaEntrega.getDate());
+        } else {
+            orden.setFecha_entrega(null);
+        }
+        double costoTotal = 0.0;
+        String textoCosto = TXTcostoTotal.getText().trim();
+        if (!textoCosto.isEmpty()) {
+            costoTotal = Double.parseDouble(textoCosto);
+        }
+        orden.setCosto_total(costoTotal);
+
+        String placaSeleccionada = comboPlacas.getSelectedItem().toString().trim().toUpperCase();
+        String idVehiculo = dao.obtenerIdVehiculoPorPlaca(placaSeleccionada);
+
+        if (idVehiculo == null) {
+            JOptionPane.showMessageDialog(this, 
+                "No se encontró el registro del vehículo seleccionado en la base de datos.", 
+                "Error de Referencia", 
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        orden.setId_vehi(idVehiculo);
+        
+        if (comboEmpleado != null && comboEmpleado.getSelectedIndex() > 0) {
+    String empleadoTexto = comboEmpleado.getSelectedItem().toString().toUpperCase();
+    String idEmpleado = dao.obtenerIdEmpleadoPorNombre(empleadoTexto);
+    
+    if (idEmpleado == null) {
+        JOptionPane.showMessageDialog(this, 
+            "No se encontró el ID del empleado seleccionado en la base de datos.", 
+            "Error de Empleado", 
+            JOptionPane.WARNING_MESSAGE);
+        return; 
+    }
+    
+    orden.setId_empleado(idEmpleado);
+} else {
+    JOptionPane.showMessageDialog(this, 
+        "Por favor seleccione un empleado asignado.", 
+        "Atención", 
+        JOptionPane.WARNING_MESSAGE);
+    return;
+}
+    if (comboPlacas == null || comboPlacas.getSelectedIndex() <= 0) {
+    JOptionPane.showMessageDialog(this, "Por favor seleccione una placa de vehículo.", "Atención", JOptionPane.WARNING_MESSAGE);
+    return;
+}
+    if (comboEmpleado == null || comboEmpleado.getSelectedIndex() <= 0) {
+    JOptionPane.showMessageDialog(this, "Por favor seleccione un empleado asignado.", "Atención", JOptionPane.WARNING_MESSAGE);
+    return;
+}
+    if (Estados == null || Estados.getSelectedIndex() <= 0) {
+    JOptionPane.showMessageDialog(this, "Por favor seleccione un estado para la orden.", "Atención", JOptionPane.WARNING_MESSAGE);
+    return;
+}
+    if (CalendarioFechaIngreso == null || CalendarioFechaIngreso.getDate() == null) {
+    JOptionPane.showMessageDialog(this, "Por favor seleccione la fecha de ingreso.", "Atención", JOptionPane.WARNING_MESSAGE);
+    return;
+}
+    if (Descripcion == null || Descripcion.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(this, "Por favor ingrese la descripción del trabajo a realizar.", "Atención", JOptionPane.WARNING_MESSAGE);
+    return;
+}
+        boolean guardadoExitoso = dao.guardarOrdenServicio(orden);
+
+        if (guardadoExitoso) {
+            JOptionPane.showMessageDialog(this, 
+                "Orden de Servicio registrada con éxito.\nCódigo: " + nuevoId, 
+                "Registro Exitoso", 
+                JOptionPane.INFORMATION_MESSAGE);
+            LimpiarDatos();
+        } else {
+            JOptionPane.showMessageDialog(this, 
+                "No se pudo guardar la orden de servicio. Verifique la conexión o los datos.", 
+                "Error de Guardado", 
+                JOptionPane.ERROR_MESSAGE);
         }
 
     } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Verifique que el costo total sea un valor numérico válido.", "Error de Formato", JOptionPane.WARNING_MESSAGE);
-        }  
-        LimpiarDatos();
+        JOptionPane.showMessageDialog(this, 
+            "El costo total debe ser un número válido (ejemplo: 45.50).", 
+            "Error de Formato", 
+            JOptionPane.ERROR_MESSAGE);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, 
+            "Ocurrió un error inesperado: " + e.getMessage(), 
+            "Error General", 
+            JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
     }
+    }
+    private final List<ItemServicioOrden> detalleServicios = new ArrayList<>();
+    private DefaultTableModel modeloTablaServicios;
+
+    private static class ItemServicioOrden {
+
+        String idServicio;
+        String nombre;
+        float precioUnitario;
+        int cantidad;
+
+        ItemServicioOrden(String idServicio, String nombre, float precioUnitario, int cantidad) {
+            this.idServicio = idServicio;
+            this.nombre = nombre;
+            this.precioUnitario = precioUnitario;
+            this.cantidad = cantidad;
+        }
+
+        double getSubtotal() {
+            return cantidad * precioUnitario;
+        }
+    }
+    
+    private void agregarServicioADetalle(Servicio s, int cantidadNueva) {
+        if (s == null) {
+            return;
+        }
+        ItemServicioOrden existente = null;
+        for (ItemServicioOrden item : detalleServicios) {
+            if (item.idServicio.equals(s.getId_servi())) {
+                existente = item;
+                break;
+            }
+        }
+        if (existente != null) {
+            existente.cantidad += cantidadNueva;
+        } else {
+            detalleServicios.add(new ItemServicioOrden(
+                    s.getId_servi(), s.getNom_servicio(), s.getPrecio_del_servicio(), cantidadNueva));
+        }
+        actualizarTablaDetalleServicio();
+    }
+
+    private void actualizarTablaDetalleServicio() {
+        modeloTablaServicios.setRowCount(0);
+        for (ItemServicioOrden item : detalleServicios) {
+            modeloTablaServicios.addRow(new Object[]{
+                item.nombre, item.precioUnitario, item.cantidad, item.getSubtotal()
+            });
+        }
+        recalcularSubtotalServicios();
+    }
+
+    private void recalcularSubtotalServicios() {
+        double total = 0;
+        for (ItemServicioOrden item : detalleServicios) {
+            total += item.getSubtotal();
+        }
+        lblSubTotalServicios.setText(String.format("%.2f", total));
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Buscar;
     private com.toedter.calendar.JDateChooser CalendarioFechaEntrega;
@@ -657,12 +1118,15 @@ public void cargarCombosIniciales() {
     private javax.swing.JComboBox<String> Estados;
     private javax.swing.JLabel Guardar;
     private javax.swing.JLabel ImagenADD;
+    private javax.swing.JLabel ImagenADD1;
     private javax.swing.JLabel ImagenDarBaja;
     private javax.swing.JLabel ImagenSAVE;
     private javax.swing.JLabel Nuevo;
+    private javax.swing.JLabel Nuevo1;
+    private javax.swing.JPanel PanelAgregarServicio;
     private javax.swing.JPanel PanelBuscar;
-    private javax.swing.JPanel PanelDarBaja;
     private javax.swing.JPanel PanelEditar;
+    private javax.swing.JPanel PanelEliminarServicio;
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JPanel PanelNuevo;
     private javax.swing.JTextField TXTcostoTotal;
@@ -673,6 +1137,9 @@ public void cargarCombosIniciales() {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
@@ -681,7 +1148,14 @@ public void cargarCombosIniciales() {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblSubTotalServicios;
+    private javax.swing.JTable tblDetalleServicio;
+    private javax.swing.JTextField txtBuscarRepueseto;
     // End of variables declaration//GEN-END:variables
 }

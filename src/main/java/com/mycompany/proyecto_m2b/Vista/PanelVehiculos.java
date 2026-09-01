@@ -834,11 +834,11 @@ public class PanelVehiculos extends javax.swing.JPanel {
     try {
         Vehiculos v = new Vehiculos();
         
-        v.setPlaca_carro(txtPlaca.getText().trim());
-        v.setColor_vehi(txtColor.getText().trim());
-        v.setCilindraje_vehi(txtCilindraje.getText().trim());
-        v.setNum_chasis_vehi(txtChasis.getText().trim());
-        v.setNum_motor_vehi(txtMotor.getText().trim());
+        v.setPlaca_carro(txtPlaca.getText().trim().toUpperCase());
+        v.setColor_vehi(txtColor.getText().trim().toUpperCase());
+        v.setCilindraje_vehi(txtCilindraje.getText().trim().toUpperCase());
+        v.setNum_chasis_vehi(txtChasis.getText().trim().toUpperCase());
+        v.setNum_motor_vehi(txtMotor.getText().trim().toUpperCase());
         
         v.setNum_puertas_vehi(Integer.parseInt(txtPuertas.getText().trim()));
         v.setKilometraje_vehi(Integer.parseInt(txtKilometraje.getText().trim()));
@@ -1059,9 +1059,9 @@ private String obtenerIdPropietarioSeleccionado() {
         }
         String placa = txtPlaca.getText().trim().toUpperCase();
         String color = txtColor.getText().trim();
-        String cilindraje = txtCilindraje.getText().trim();
-        String chasis = txtChasis.getText().trim();
-        String motor = txtMotor.getText().trim();
+        String cilindraje = txtCilindraje.getText().trim().toUpperCase();
+        String chasis = txtChasis.getText().trim().toUpperCase();
+        String motor = txtMotor.getText().trim().toUpperCase();
         String puertasStr = txtPuertas.getText().trim();
         String kmStr = txtKilometraje.getText().trim();
         
