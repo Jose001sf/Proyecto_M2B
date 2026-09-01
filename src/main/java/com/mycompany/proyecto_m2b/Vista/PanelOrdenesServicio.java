@@ -4,17 +4,23 @@
  */
 package com.mycompany.proyecto_m2b.Vista;
 
+import com.mycompany.proyecto_m2b.Controlador.ConexionBD;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.List;
 import com.mycompany.proyecto_m2b.Controlador.OrdenServicioDAO;
+import com.mycompany.proyecto_m2b.Controlador.RepuestoDAO;
 import com.mycompany.proyecto_m2b.Controlador.Servidor_de_correos;
 import com.mycompany.proyecto_m2b.Controlador.Validaciones;
 import com.mycompany.proyecto_m2b.Controlador.VehiculosDAO;
+import com.mycompany.proyecto_m2b.modelo.DetalleRepuesto;
+import com.mycompany.proyecto_m2b.modelo.Repuesto;
 import com.mycompany.proyecto_m2b.modelo.Servicio;
 import com.mycompany.proyecto_m2b.modelo.orden_de_servicio;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -36,12 +42,85 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         CalendarioFechaIngreso.setEnabled(false);
         ((JTextFieldDateEditor) CalendarioFechaIngreso.getDateEditor()).setEditable(false);
         inicializarTablaDetalleServicio();
+        
+        configurarModeloTablaRepuestos();
+        cargarTablaRepuestos("");
+        txtBuscarRepueseto.addKeyListener(new java.awt.event.KeyAdapter() {
+        @Override
+        public void keyReleased(java.awt.event.KeyEvent evt) {
+            txtBuscarRepuesetoKeyReleased(evt);
+        }
+    });
+        configurarModeloTablaRepuestosUsados(); 
     }
     
+    private void calcularSubtotalRepuestos() {
+    double totalRepuestos = 0.0;
+    DefaultTableModel modeloUsados = (DefaultTableModel) tblRepuestosUsados.getModel();
+    
+    for (int i = 0; i < modeloUsados.getRowCount(); i++) {
+        Object valorSubtotal = modeloUsados.getValueAt(i, 4); 
+        if (valorSubtotal != null) {
+            try {
+                totalRepuestos += Double.parseDouble(valorSubtotal.toString());
+            } catch (NumberFormatException e) {
+            }
+        }
+    }
+    
+    txtSubtotalRepuestos.setText(String.format("%.2f", totalRepuestos));
+}
+
     private void inicializarTablaDetalleServicio() {
         modeloTablaServicios = (DefaultTableModel) tblDetalleServicio.getModel();
         modeloTablaServicios.setRowCount(0);
     }
+
+    private void configurarModeloTablaRepuestos() {
+        String[] titulos = {"ID", "Nombre", "Cantidad Actual", "Precio"};
+        DefaultTableModel modelo = new DefaultTableModel(null, titulos) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; 
+            }
+        };
+        tblDetalleRepuestos.setModel(modelo);
+    }
+
+    private void txtBuscarRepuesetoKeyReleased(java.awt.event.KeyEvent evt) {
+        String textoBusqueda = txtBuscarRepueseto.getText();
+        cargarTablaRepuestos(textoBusqueda);
+    }
+   
+    public void cargarTablaRepuestos(String filtro) {
+        DefaultTableModel modelo = (DefaultTableModel) tblDetalleRepuestos.getModel();
+        modelo.setRowCount(0);
+
+        RepuestoDAO dao = new RepuestoDAO();
+        
+        try (Connection con = ConexionBD.obtenerConexion()) {
+            List<Repuesto> lista;
+            
+            if (filtro == null || filtro.trim().isEmpty()) {
+                lista = dao.obtenerRepuestosParaTabla(con);  
+            } else {
+                lista = dao.buscarRepuestosPorFiltro(con, filtro);
+            }
+            
+            for (Repuesto r : lista) {
+                Object[] fila = new Object[4];
+                fila[0] = r.getIdRepuestos();
+                fila[1] = r.getNomRepuesto();
+                fila[2] = r.getCantidadActualRepuesto();
+                fila[3] = r.getPrecioRepuestoUnit();
+                
+                modelo.addRow(fila);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al cargar los repuestos en la tabla: " + e.getMessage());
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -98,7 +177,13 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         jLabel15 = new javax.swing.JLabel();
         txtBuscarRepueseto = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblDetalleRepuestos = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblRepuestosUsados = new javax.swing.JTable();
+        btnAgregarRepuestos = new javax.swing.JButton();
+        txtSubtotalRepuestos = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        btnEliminarRepuesto = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(238, 238, 238));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -171,7 +256,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, -1, 20));
 
         jLabel12.setText("Detalle/Trabajo a realizar:");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, -1, -1));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, -1, -1));
 
         TXTcostoTotal.setForeground(new java.awt.Color(153, 153, 153));
         TXTcostoTotal.setText("0.00");
@@ -211,7 +296,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 DescripcionKeyPressed(evt);
             }
         });
-        jPanel1.add(Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 540, 630, 70));
+        jPanel1.add(Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 550, 630, 70));
 
         PanelNuevo.setBackground(new java.awt.Color(255, 255, 255));
         PanelNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -409,7 +494,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("DETALLE DE REPUESTOS");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, -1));
 
         tblDetalleServicio.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -426,10 +511,10 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 750, 90));
 
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel13.setText("Subtotal Servicios: $");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 320, -1, -1));
+        jLabel13.setText("Subtotal Repuestos:  $");
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 500, -1, -1));
 
         lblSubTotalServicios.setText(" ");
         jPanel1.add(lblSubTotalServicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 320, 70, -1));
@@ -471,10 +556,10 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 .addGroup(PanelAgregarServicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(Nuevo1)
                     .addComponent(ImagenADD1))
-                .addGap(0, 4, Short.MAX_VALUE))
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
-        jPanel1.add(PanelAgregarServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, 180, 30));
+        jPanel1.add(PanelAgregarServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 180, 30));
 
         PanelEliminarServicio.setBackground(new java.awt.Color(255, 255, 255));
         PanelEliminarServicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(215, 106, 106)));
@@ -518,7 +603,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(PanelEliminarServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 470, -1, -1));
+        jPanel1.add(PanelEliminarServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 320, -1, -1));
 
         jLabel14.setBackground(new java.awt.Color(0, 0, 0));
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -528,10 +613,10 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
 
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("Buscar ID/Nombre:");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, -1, 20));
-        jPanel1.add(txtBuscarRepueseto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, 220, -1));
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 380, -1, 20));
+        jPanel1.add(txtBuscarRepueseto, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 380, 220, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblDetalleRepuestos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -542,9 +627,38 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tblDetalleRepuestos);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, -1, 80));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 410, -1, 80));
+
+        tblRepuestosUsados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
+            }
+        ));
+        jScrollPane3.setViewportView(tblRepuestosUsados);
+
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 510, 110));
+
+        btnAgregarRepuestos.setText("+  Agregar");
+        btnAgregarRepuestos.addActionListener(this::btnAgregarRepuestosActionPerformed);
+        jPanel1.add(btnAgregarRepuestos, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 380, -1, -1));
+        jPanel1.add(txtSubtotalRepuestos, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 500, 120, -1));
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel16.setText("Subtotal Servicios: $");
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 320, -1, -1));
+
+        btnEliminarRepuesto.setText("X  Eliminar");
+        btnEliminarRepuesto.addActionListener(this::btnEliminarRepuestoActionPerformed);
+        jPanel1.add(btnEliminarRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 500, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -634,25 +748,6 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
 
     }//GEN-LAST:event_DescripcionKeyPressed
 
-    private void PanelNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseClicked
-        // TODO add your handling code here:
-        LimpiarDatos();
-        JOptionPane.showMessageDialog(this, "Datos limpiados correctamente"+"\n"
-            +"Ingrese los datos");
-    }//GEN-LAST:event_PanelNuevoMouseClicked
-
-    private void PanelNuevoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseEntered
-        // TODO add your handling code here:
-        PanelNuevo.setBackground(new Color(219,219,219));
-        Nuevo.setForeground(new Color(66, 66, 66));
-    }//GEN-LAST:event_PanelNuevoMouseEntered
-
-    private void PanelNuevoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseExited
-        // TODO add your handling code here:
-        PanelNuevo.setBackground(Color.white);
-        Nuevo.setForeground(Color.black);
-    }//GEN-LAST:event_PanelNuevoMouseExited
-
     private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
         // TODO add your handling code here:
         GuardarOrdenDeServicio();
@@ -669,30 +764,6 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         PanelGuardar.setBackground(new Color(242,101,34));
         Guardar.setForeground(Color.white);
     }//GEN-LAST:event_PanelGuardarMouseExited
-
-    private void PanelEditarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseEntered
-        // TODO add your handling code here:
-        PanelEditar.setBackground(new Color(219,219,219));
-        Editar.setForeground(new Color(66, 66, 66));
-    }//GEN-LAST:event_PanelEditarMouseEntered
-
-    private void PanelEditarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseExited
-        // TODO add your handling code here:
-        PanelEditar.setBackground(Color.white);
-        Editar.setForeground(Color.black);
-    }//GEN-LAST:event_PanelEditarMouseExited
-
-    private void PanelBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseEntered
-        // TODO add your handling code here:
-        PanelBuscar.setBackground(new Color(219,219,219));
-        Buscar.setForeground(new Color(66, 66, 66));
-    }//GEN-LAST:event_PanelBuscarMouseEntered
-
-    private void PanelBuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseExited
-        // TODO add your handling code here:
-        PanelBuscar.setBackground(Color.white);
-        Buscar.setForeground(Color.black);
-    }//GEN-LAST:event_PanelBuscarMouseExited
 
     private void comboPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboPlacasActionPerformed
         // TODO add your handling code here:
@@ -821,39 +892,6 @@ private void EditarOrdenDeServicio() {
         e.printStackTrace();
     }
 }
-    private void PanelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseClicked
-        // TODO add your handling code here:
-        EditarOrdenDeServicio();
-    }//GEN-LAST:event_PanelEditarMouseClicked
-
-    private void PanelBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseClicked
-        // TODO add your handling code here:
-        if (comboPlacas.getSelectedIndex() <= 0) {
-        JOptionPane.showMessageDialog(this, 
-            "Por favor seleccione una placa de la lista para buscar su orden.", 
-            "Atención", 
-            JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
-    String placaSeleccionada = comboPlacas.getSelectedItem().toString().trim();
-    OrdenServicioDAO dao = new OrdenServicioDAO();
-    orden_de_servicio orden = dao.buscarOrdenPorPlaca(placaSeleccionada);
-
-    if (orden != null) {
-        this.idOrdenCargada = orden.getId_orden_serv();
-
-        Estados.setSelectedItem(orden.getEstadoorden_servi());
-        CalendarioFechaIngreso.setDate(orden.getFecha_ingreso());
-        CalendarioFechaEntrega.setDate(orden.getFecha_entrega());
-        TXTcostoTotal.setText(String.format(java.util.Locale.US, "%.2f", orden.getCosto_total()));
-
-        JOptionPane.showMessageDialog(this, "Datos de la orden cargados correctamente.");
-    } else {
-        JOptionPane.showMessageDialog(this, "El vehículo no tiene una orden de servicio registrada.");
-    }
-    }//GEN-LAST:event_PanelBuscarMouseClicked
-
     private void PanelAgregarServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelAgregarServicioMouseClicked
         // TODO add your handling code here:
         PanelServiciosOrden panel = new PanelServiciosOrden();
@@ -909,6 +947,224 @@ private void EditarOrdenDeServicio() {
         DarDeBaja.setForeground(new Color(215, 106, 106));
     }//GEN-LAST:event_PanelEliminarServicioMouseExited
 
+    private void PanelBuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseExited
+        // TODO add your handling code here:
+        PanelBuscar.setBackground(Color.white);
+        Buscar.setForeground(Color.black);
+    }//GEN-LAST:event_PanelBuscarMouseExited
+
+    private void PanelBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseEntered
+        // TODO add your handling code here:
+        PanelBuscar.setBackground(new Color(219,219,219));
+        Buscar.setForeground(new Color(66, 66, 66));
+    }//GEN-LAST:event_PanelBuscarMouseEntered
+
+    private void PanelBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseClicked
+        // TODO add your handling code here:
+        if (comboPlacas.getSelectedIndex() <= 0) {
+            JOptionPane.showMessageDialog(this,
+                "Por favor seleccione una placa de la lista para buscar su orden.",
+                "Atención",
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String placaSeleccionada = comboPlacas.getSelectedItem().toString().trim();
+        OrdenServicioDAO dao = new OrdenServicioDAO();
+        orden_de_servicio orden = dao.buscarOrdenPorPlaca(placaSeleccionada);
+
+        if (orden != null) {
+            this.idOrdenCargada = orden.getId_orden_serv();
+
+            Estados.setSelectedItem(orden.getEstadoorden_servi());
+            CalendarioFechaIngreso.setDate(orden.getFecha_ingreso());
+            CalendarioFechaEntrega.setDate(orden.getFecha_entrega());
+            TXTcostoTotal.setText(String.format(java.util.Locale.US, "%.2f", orden.getCosto_total()));
+
+            JOptionPane.showMessageDialog(this, "Datos de la orden cargados correctamente.");
+        } else {
+            JOptionPane.showMessageDialog(this, "El vehículo no tiene una orden de servicio registrada.");
+        }
+    }//GEN-LAST:event_PanelBuscarMouseClicked
+
+    private void PanelEditarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseExited
+        // TODO add your handling code here:
+        PanelEditar.setBackground(Color.white);
+        Editar.setForeground(Color.black);
+    }//GEN-LAST:event_PanelEditarMouseExited
+
+    private void PanelEditarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseEntered
+        // TODO add your handling code here:
+        PanelEditar.setBackground(new Color(219,219,219));
+        Editar.setForeground(new Color(66, 66, 66));
+    }//GEN-LAST:event_PanelEditarMouseEntered
+
+    private void PanelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseClicked
+        // TODO add your handling code here:
+        EditarOrdenDeServicio();
+    }//GEN-LAST:event_PanelEditarMouseClicked
+
+    private void PanelNuevoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseExited
+        // TODO add your handling code here:
+        PanelNuevo.setBackground(Color.white);
+        Nuevo.setForeground(Color.black);
+    }//GEN-LAST:event_PanelNuevoMouseExited
+
+    private void PanelNuevoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseEntered
+        // TODO add your handling code here:
+        PanelNuevo.setBackground(new Color(219,219,219));
+        Nuevo.setForeground(new Color(66, 66, 66));
+    }//GEN-LAST:event_PanelNuevoMouseEntered
+
+    private void PanelNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseClicked
+        // TODO add your handling code here:
+        LimpiarDatos();
+        JOptionPane.showMessageDialog(this, "Datos limpiados correctamente"+"\n"
+            +"Ingrese los datos");
+    }//GEN-LAST:event_PanelNuevoMouseClicked
+    private void configurarModeloTablaRepuestosUsados() {
+    DefaultTableModel modeloUsados = new DefaultTableModel(
+        new Object [][] {},
+        new String [] {
+            "ID", "Nombre", "Cantidad", "Precio Unit.", "Subtotal"
+        }
+    ) {
+        boolean[] canEdit = new boolean [] {
+            false, false, false, false, false
+        };
+
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return canEdit [columnIndex];
+        }
+    };
+    tblRepuestosUsados.setModel(modeloUsados);
+}
+   
+    private void btnAgregarRepuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarRepuestosActionPerformed
+        int filaSeleccionada = tblDetalleRepuestos.getSelectedRow();
+    
+    if (filaSeleccionada == -1) {
+        JOptionPane.showMessageDialog(this, "Por favor, seleccione un repuesto de la tabla.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    String idRepuesto = tblDetalleRepuestos.getValueAt(filaSeleccionada, 0).toString();
+    String nombreRepuesto = tblDetalleRepuestos.getValueAt(filaSeleccionada, 1).toString();
+    double precioUnitario = Double.parseDouble(tblDetalleRepuestos.getValueAt(filaSeleccionada, 3).toString());
+    
+    String inputCantidad = (String) JOptionPane.showInputDialog(
+            this, 
+            "Repuesto: " + nombreRepuesto + "\nIngrese la cantidad a usar:", 
+            "Cantidad de Repuesto", 
+            JOptionPane.PLAIN_MESSAGE, 
+            null, 
+            null, 
+            ""
+    );
+            
+    if (inputCantidad == null) {
+        return; 
+    }
+    
+    try {
+        int cantidadIngresada = Integer.parseInt(inputCantidad.trim());
+        
+        if (cantidadIngresada <= 0) {
+            JOptionPane.showMessageDialog(this, "La cantidad debe ser mayor a 0.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int stockRealEnBD = 0;
+        try (Connection con = ConexionBD.obtenerConexion()) {
+            RepuestoDAO dao = new RepuestoDAO();
+            stockRealEnBD = dao.obtenerStockActual(con, idRepuesto);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al conectar con la base de datos para verificar el stock.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (stockRealEnBD == -1) {
+            JOptionPane.showMessageDialog(this, "No se pudo verificar el stock actual.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (cantidadIngresada > stockRealEnBD) {
+            JOptionPane.showMessageDialog(this, "No hay suficiente stock en la base de datos. Stock actual: " + stockRealEnBD, "Stock Insuficiente", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        double subtotal = cantidadIngresada * precioUnitario;
+        
+        DefaultTableModel modeloUsados = (DefaultTableModel) tblRepuestosUsados.getModel();
+        
+        boolean repuestoExiste = false;
+        for (int i = 0; i < modeloUsados.getRowCount(); i++) {
+            Object valorCelda = modeloUsados.getValueAt(i, 0);
+            if (valorCelda == null) {
+                continue; 
+            }
+            
+            String idExistente = valorCelda.toString();
+            if (idExistente.equals(idRepuesto)) {
+                int cantidadAnterior = Integer.parseInt(modeloUsados.getValueAt(i, 2).toString());
+                int nuevaCantidad = cantidadAnterior + cantidadIngresada;
+                
+                if (nuevaCantidad > stockRealEnBD) {
+                    JOptionPane.showMessageDialog(this, "La cantidad total excede el stock disponible en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                
+                double nuevoSubtotal = nuevaCantidad * precioUnitario;
+                
+                modeloUsados.setValueAt(nuevaCantidad, i, 2);
+                modeloUsados.setValueAt(nuevoSubtotal, i, 4);
+                repuestoExiste = true;
+                break;
+            }
+        }
+        
+        if (!repuestoExiste) {
+            Object[] nuevaFila = new Object[5];
+            nuevaFila[0] = idRepuesto;
+            nuevaFila[1] = nombreRepuesto;
+            nuevaFila[2] = cantidadIngresada;
+            nuevaFila[3] = precioUnitario;
+            nuevaFila[4] = subtotal;
+            
+            modeloUsados.insertRow(0, nuevaFila);
+        }
+        calcularSubtotalRepuestos();    
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Por favor, ingrese un número entero válido.", "Formato Inválido", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_btnAgregarRepuestosActionPerformed
+
+    private void btnEliminarRepuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRepuestoActionPerformed
+        int filaSeleccionada = tblRepuestosUsados.getSelectedRow();
+    
+    if (filaSeleccionada == -1) {
+        javax.swing.JOptionPane.showMessageDialog(this, 
+            "Por favor seleccione un repuesto de la tabla para eliminar.", 
+            "Atención", 
+            javax.swing.JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    javax.swing.table.DefaultTableModel modeloTabla = (javax.swing.table.DefaultTableModel) tblRepuestosUsados.getModel();
+    
+    modeloTabla.removeRow(filaSeleccionada);
+    
+    double nuevoSubtotalRepuestos = 0.0;
+    for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+        Object valorSubtotal = modeloTabla.getValueAt(i, 4);
+        if (valorSubtotal != null) {
+            nuevoSubtotalRepuestos += Double.parseDouble(valorSubtotal.toString());
+        }
+    }
+    
+    txtSubtotalRepuestos.setText(String.format("%.2f", nuevoSubtotalRepuestos));
+    }//GEN-LAST:event_btnEliminarRepuestoActionPerformed
+
 
     public void LimpiarDatos() {
     if (TXTcostoTotal != null) {
@@ -927,7 +1183,7 @@ private void EditarOrdenDeServicio() {
     this.idOrdenCargada = null; 
 }
     private void GuardarOrdenDeServicio() {
-    try {
+        try {
         if (comboPlacas.getSelectedIndex() <= 0) {
             JOptionPane.showMessageDialog(this, 
                 "Por favor seleccione una placa de vehículo.", 
@@ -981,53 +1237,67 @@ private void EditarOrdenDeServicio() {
         orden.setId_vehi(idVehiculo);
         
         if (comboEmpleado != null && comboEmpleado.getSelectedIndex() > 0) {
-    String empleadoTexto = comboEmpleado.getSelectedItem().toString().toUpperCase();
-    String idEmpleado = dao.obtenerIdEmpleadoPorNombre(empleadoTexto);
-    
-    if (idEmpleado == null) {
-        JOptionPane.showMessageDialog(this, 
-            "No se encontró el ID del empleado seleccionado en la base de datos.", 
-            "Error de Empleado", 
-            JOptionPane.WARNING_MESSAGE);
-        return; 
-    }
-    
-    orden.setId_empleado(idEmpleado);
-} else {
-    JOptionPane.showMessageDialog(this, 
-        "Por favor seleccione un empleado asignado.", 
-        "Atención", 
-        JOptionPane.WARNING_MESSAGE);
-    return;
-}
-    if (comboPlacas == null || comboPlacas.getSelectedIndex() <= 0) {
-    JOptionPane.showMessageDialog(this, "Por favor seleccione una placa de vehículo.", "Atención", JOptionPane.WARNING_MESSAGE);
-    return;
-}
-    if (comboEmpleado == null || comboEmpleado.getSelectedIndex() <= 0) {
-    JOptionPane.showMessageDialog(this, "Por favor seleccione un empleado asignado.", "Atención", JOptionPane.WARNING_MESSAGE);
-    return;
-}
-    if (Estados == null || Estados.getSelectedIndex() <= 0) {
-    JOptionPane.showMessageDialog(this, "Por favor seleccione un estado para la orden.", "Atención", JOptionPane.WARNING_MESSAGE);
-    return;
-}
-    if (CalendarioFechaIngreso == null || CalendarioFechaIngreso.getDate() == null) {
-    JOptionPane.showMessageDialog(this, "Por favor seleccione la fecha de ingreso.", "Atención", JOptionPane.WARNING_MESSAGE);
-    return;
-}
-    if (Descripcion == null || Descripcion.getText().trim().isEmpty()) {
-    JOptionPane.showMessageDialog(this, "Por favor ingrese la descripción del trabajo a realizar.", "Atención", JOptionPane.WARNING_MESSAGE);
-    return;
-}
-        boolean guardadoExitoso = dao.guardarOrdenServicio(orden);
+            String empleadoTexto = comboEmpleado.getSelectedItem().toString().toUpperCase();
+            String idEmpleado = dao.obtenerIdEmpleadoPorNombre(empleadoTexto);
+        
+            if (idEmpleado == null) {
+                JOptionPane.showMessageDialog(this, 
+                    "No se encontró el ID del empleado seleccionado en la base de datos.", 
+                    "Error de Empleado", 
+                    JOptionPane.WARNING_MESSAGE);
+                return; 
+            }
+        
+            orden.setId_empleado(idEmpleado);
+        } else {
+            JOptionPane.showMessageDialog(this, 
+                "Por favor seleccione un empleado asignado.", 
+                "Atención", 
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (comboPlacas == null || comboPlacas.getSelectedIndex() <= 0) {
+            JOptionPane.showMessageDialog(this, "Por favor seleccione una placa de vehículo.", "Atención", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (comboEmpleado == null || comboEmpleado.getSelectedIndex() <= 0) {
+            JOptionPane.showMessageDialog(this, "Por favor seleccione un empleado asignado.", "Atención", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (Estados == null || Estados.getSelectedIndex() <= 0) {
+            JOptionPane.showMessageDialog(this, "Por favor seleccione un estado para la orden.", "Atención", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (CalendarioFechaIngreso == null || CalendarioFechaIngreso.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Por favor seleccione la fecha de ingreso.", "Atención", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (Descripcion == null || Descripcion.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese la descripción del trabajo a realizar.", "Atención", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        List<DetalleRepuesto> listaDetalles = new ArrayList<>();
+        javax.swing.table.DefaultTableModel modeloTablaRepuestos = (javax.swing.table.DefaultTableModel) tblRepuestosUsados.getModel();
+
+        for (int i = 0; i < modeloTablaRepuestos.getRowCount(); i++) {
+            String idRepuesto = modeloTablaRepuestos.getValueAt(i, 0).toString();
+            int cantidad = Integer.parseInt(modeloTablaRepuestos.getValueAt(i, 2).toString());
+            double subtotal = Double.parseDouble(modeloTablaRepuestos.getValueAt(i, 4).toString());
+            
+            listaDetalles.add(new DetalleRepuesto(idRepuesto, cantidad, subtotal));
+        }
+
+        boolean guardadoExitoso = dao.guardarOrdenConDetalles(orden, listaDetalles);
 
         if (guardadoExitoso) {
             JOptionPane.showMessageDialog(this, 
-                "Orden de Servicio registrada con éxito.\nCódigo: " + nuevoId, 
+                "Orden de Servicio y repuestos registrados con éxito.\nCódigo: " + nuevoId, 
                 "Registro Exitoso", 
                 JOptionPane.INFORMATION_MESSAGE);
             LimpiarDatos();
+            modeloTablaRepuestos.setRowCount(0); 
         } else {
             JOptionPane.showMessageDialog(this, 
                 "No se pudo guardar la orden de servicio. Verifique la conexión o los datos.", 
@@ -1037,7 +1307,7 @@ private void EditarOrdenDeServicio() {
 
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, 
-            "El costo total debe ser un número válido (ejemplo: 45.50).", 
+            "El costo total o los valores numéricos de los repuestos deben ser válidos.", 
             "Error de Formato", 
             JOptionPane.ERROR_MESSAGE);
     } catch (Exception e) {
@@ -1130,6 +1400,8 @@ private void EditarOrdenDeServicio() {
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JPanel PanelNuevo;
     private javax.swing.JTextField TXTcostoTotal;
+    private javax.swing.JButton btnAgregarRepuestos;
+    private javax.swing.JButton btnEliminarRepuesto;
     private javax.swing.JComboBox<String> comboCliente;
     private javax.swing.JComboBox<String> comboEmpleado;
     private javax.swing.JComboBox<String> comboPlacas;
@@ -1140,6 +1412,7 @@ private void EditarOrdenDeServicio() {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
@@ -1153,9 +1426,12 @@ private void EditarOrdenDeServicio() {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblSubTotalServicios;
+    private javax.swing.JTable tblDetalleRepuestos;
     private javax.swing.JTable tblDetalleServicio;
+    private javax.swing.JTable tblRepuestosUsados;
     private javax.swing.JTextField txtBuscarRepueseto;
+    private javax.swing.JTextField txtSubtotalRepuestos;
     // End of variables declaration//GEN-END:variables
 }

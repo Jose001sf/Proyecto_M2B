@@ -266,4 +266,120 @@ public class RepuestoDAO {
         }
         return resultado;
     }
+    
+    //Servicios
+    public List<Repuesto> obtenerRepuestosParaTabla(Connection con) {
+    List<Repuesto> lista = new ArrayList<>();
+    String sql = "SELECT id_repuestos, nom_repuesto, cantidad_actual_repuesto, precio_repuesto_unit FROM public.repuestos";
+    try (Statement st = con.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+        while (rs.next()) {
+            Repuesto r = new Repuesto();
+            r.setIdRepuestos(rs.getString("id_repuestos"));
+            r.setNomRepuesto(rs.getString("nom_repuesto"));
+            r.setCantidadActualRepuesto(rs.getInt("cantidad_actual_repuesto"));
+            r.setPrecioRepuestoUnit(rs.getDouble("precio_repuesto_unit"));
+            lista.add(r);
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener repuestos para la tabla: " + e.getMessage());
+    }
+    return lista;
+}
+    
+    public List<Repuesto> buscarRepuestosPorFiltro(Connection con, String filtro) {
+    List<Repuesto> lista = new ArrayList<>();
+    String sql = "SELECT id_repuestos, nom_repuesto, cantidad_max_repuesto, cantidad_min_repuesto, "
+               + "cantidad_actual_repuesto, precio_repuesto_unit, descrip_repuesto, "
+               + "id_tip_repuesto, id_marca_repuesto "
+               + "FROM public.repuestos "
+               + "WHERE nom_repuesto ILIKE ? OR id_repuestos ILIKE ?";
+    
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        String patron = "%" + filtro + "%";
+        ps.setString(1, patron);
+        ps.setString(2, patron);
+        
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Repuesto r = new Repuesto();
+                r.setIdRepuestos(rs.getString("id_repuestos"));
+                r.setNomRepuesto(rs.getString("nom_repuesto"));
+                r.setCantidadMaxRepuesto(rs.getInt("cantidad_max_repuesto"));
+                r.setCantidadMinRepuesto(rs.getInt("cantidad_min_repuesto"));
+                r.setCantidadActualRepuesto(rs.getInt("cantidad_actual_repuesto"));
+                r.setPrecioRepuestoUnit(rs.getDouble("precio_repuesto_unit"));
+                r.setDescripRepuesto(rs.getString("descrip_repuesto"));
+                r.setIdTipRepuesto(rs.getString("id_tip_repuesto"));
+                r.setIdMarcaRepuesto(rs.getString("id_marca_repuesto"));
+                
+                lista.add(r);
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al filtrar repuestos: " + e.getMessage());
+    }
+    return lista;
+}
+    
+    public int obtenerStockActual(Connection con, String idRepuesto) {
+    String sql = "SELECT cantidad_actual_repuesto FROM public.repuestos WHERE id_repuestos = ?";
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setString(1, idRepuesto);
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt("cantidad_actual_repuesto");
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al consultar stock actual: " + e.getMessage());
+    }
+    return -1; 
+}
+    
+    public boolean guardarDetallesYDescontarStock(Connection con, javax.swing.JTable tablaRepuestosUsados, String idOrdenServicio) {
+    String sqlDetalle = "INSERT INTO public.detalle_repuesto (id_detalle_repuesto, cantidad_usar, subtotal_repuesto, id_repuestos, id_orden_serv) VALUES (?, ?, ?, ?, ?)";
+    
+    String sqlStock = "UPDATE public.repuestos SET cantidad_actual_repuesto = cantidad_actual_repuesto - ? WHERE id_repuestos = ?";
+    
+    javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tablaRepuestosUsados.getModel();
+    int totalFilas = modelo.getRowCount();
+    
+    if (totalFilas == 0) {
+        return true; 
+    }
+
+    try (PreparedStatement psDetalle = con.prepareStatement(sqlDetalle);
+         PreparedStatement psStock = con.prepareStatement(sqlStock)) {
+         
+        for (int i = 0; i < totalFilas; i++) {
+            Object valId = modelo.getValueAt(i, 0);
+            if (valId == null) continue;
+
+            String idRepuesto = valId.toString();
+            int cantidadUsar = Integer.parseInt(modelo.getValueAt(i, 2).toString());
+            double subtotal = Double.parseDouble(modelo.getValueAt(i, 4).toString());
+
+            String idDetalle = "DR-" + System.currentTimeMillis() + "-" + i;
+
+            psDetalle.setString(1, idDetalle);
+            psDetalle.setInt(2, cantidadUsar);
+            psDetalle.setDouble(3, subtotal);
+            psDetalle.setString(4, idRepuesto);
+            psDetalle.setString(5, idOrdenServicio);
+            psDetalle.addBatch();
+
+            psStock.setInt(1, cantidadUsar);
+            psStock.setString(2, idRepuesto);
+            psStock.addBatch();
+        }
+        
+        psDetalle.executeBatch();
+        psStock.executeBatch();
+        return true;
+        
+    } catch (SQLException e) {
+        System.err.println("Error al guardar detalles y actualizar stock: " + e.getMessage());
+        return false;
+    }
+}
 }
