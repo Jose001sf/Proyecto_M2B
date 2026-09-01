@@ -45,18 +45,18 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         CalendarioFechaIngreso.setEnabled(false);
         ((JTextFieldDateEditor) CalendarioFechaIngreso.getDateEditor()).setEditable(false);
         inicializarTablaDetalleServicio();
-        
+
         configurarModeloTablaRepuestos();
         cargarTablaRepuestos("");
-        LimpiarDatosTabla();
-        
+        LimpiarDatos();
+
         txtBuscarRepueseto.addKeyListener(new java.awt.event.KeyAdapter() {
-        @Override
-        public void keyReleased(java.awt.event.KeyEvent evt) {
-            txtBuscarRepuesetoKeyReleased(evt);
-        }
-    });
-        configurarModeloTablaRepuestosUsados(); 
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarRepuesetoKeyReleased(evt);
+            }
+        });
+        configurarModeloTablaRepuestosUsados();
     }
     private List<Produce> listaTemporal=new ArrayList<>();
     
@@ -1220,6 +1220,8 @@ public void cargarCombosIniciales() {
     if (comboEmpleado != null && comboEmpleado.getItemCount() > 0) comboEmpleado.setSelectedIndex(0);
     if (CalendarioFechaEntrega != null) CalendarioFechaEntrega.setDate(null);
     this.idOrdenCargada = null; 
+    
+    LimpiarDatosTablaDetalles();
 }
     private void GuardarOrdenDeServicio() {
         try {
@@ -1418,6 +1420,12 @@ public void cargarCombosIniciales() {
         }
         recalcularSubtotalServicios();
     }
+    private void LimpiarDatosTablaDetalles() {
+        detalleServicios.clear();
+        if (modeloTablaServicios != null) {
+            actualizarTablaDetalleServicio();
+        }
+    }
 
     private void recalcularSubtotalServicios() {
         double total = 0;
@@ -1437,38 +1445,8 @@ public void cargarCombosIniciales() {
         }
         return true;
     }
-    public void LimpiarDatosTabla() {
-        if (TXTcostoTotal != null) {
-            TXTcostoTotal.setText("0.00");
-            TXTcostoTotal.setForeground(new Color(94, 94, 94));
-        }
-        if (Descripcion != null) {
-            Descripcion.setText("");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
-        if (Estados != null && Estados.getItemCount() > 0) {
-            Estados.setSelectedIndex(0);
-        }
-        if (comboPlacas != null && comboPlacas.getItemCount() > 0) {
-            comboPlacas.setSelectedIndex(0);
-        }
-        if (comboCliente != null && comboCliente.getItemCount() > 0) {
-            comboCliente.setSelectedIndex(0);
-        }
-        if (comboEmpleado != null && comboEmpleado.getItemCount() > 0) {
-            comboEmpleado.setSelectedIndex(0);
-        }
-        if (CalendarioFechaEntrega != null) {
-            CalendarioFechaEntrega.setDate(null);
-        }
-
-        detalleServicios.clear();                  
-        if (modeloTablaServicios != null) {          
-            actualizarTablaDetalleServicio();        
-        }
-
-        this.idOrdenCargada = null;
-    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Buscar;
