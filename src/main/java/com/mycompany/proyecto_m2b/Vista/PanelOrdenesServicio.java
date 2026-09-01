@@ -52,6 +52,23 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
     });
         configurarModeloTablaRepuestosUsados(); 
     }
+    
+    private void calcularSubtotalRepuestos() {
+    double totalRepuestos = 0.0;
+    DefaultTableModel modeloUsados = (DefaultTableModel) tblRepuestosUsados.getModel();
+    
+    for (int i = 0; i < modeloUsados.getRowCount(); i++) {
+        Object valorSubtotal = modeloUsados.getValueAt(i, 4); 
+        if (valorSubtotal != null) {
+            try {
+                totalRepuestos += Double.parseDouble(valorSubtotal.toString());
+            } catch (NumberFormatException e) {
+            }
+        }
+    }
+    
+    txtSubtotalRepuestos.setText(String.format("%.2f", totalRepuestos));
+}
 
     private void inicializarTablaDetalleServicio() {
         modeloTablaServicios = (DefaultTableModel) tblDetalleServicio.getModel();
@@ -1066,7 +1083,7 @@ private void EditarOrdenDeServicio() {
         }
 
         if (cantidadIngresada > stockRealEnBD) {
-            JOptionPane.showMessageDialog(this, "No hay suficiente stock en la base de datos. Stock actual real: " + stockRealEnBD, "Stock Insuficiente", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No hay suficiente stock en la base de datos. Stock actual: " + stockRealEnBD, "Stock Insuficiente", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
@@ -1110,7 +1127,7 @@ private void EditarOrdenDeServicio() {
             
             modeloUsados.insertRow(0, nuevaFila);
         }
-
+        calcularSubtotalRepuestos();    
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "Por favor, ingrese un número entero válido.", "Formato Inválido", JOptionPane.ERROR_MESSAGE);
     }
