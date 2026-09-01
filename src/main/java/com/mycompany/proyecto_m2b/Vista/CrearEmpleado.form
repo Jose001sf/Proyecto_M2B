@@ -1052,13 +1052,13 @@
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="TXTNombreUsuario" alignment="0" min="-2" pref="148" max="-2" attributes="0"/>
+                                  <Component id="TXTFiltrarCargo" alignment="0" min="-2" pref="148" max="-2" attributes="0"/>
                                   <Component id="OtroNombreUsuario" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="estado" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="TXTEstado" alignment="0" min="-2" pref="139" max="-2" attributes="0"/>
+                                  <Component id="TXTFiltrarEspecialidad" alignment="0" min="-2" pref="139" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -1089,8 +1089,8 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="TXTNombreUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="TXTEstado" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="TXTFiltrarCargo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="TXTFiltrarEspecialidad" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -1169,6 +1169,7 @@
                 <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="TXTCedulaFocusLost"/>
                 <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TXTCedulaMousePressed"/>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TXTCedulaKeyReleased"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TXTCedulaKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="estado">
@@ -1176,10 +1177,10 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto" size="14" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Estado:"/>
+                <Property name="text" type="java.lang.String" value="Especialidad:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="TXTEstado">
+            <Component class="javax.swing.JTextField" name="TXTFiltrarEspecialidad">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto" size="18" style="0"/>
@@ -1189,10 +1190,10 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="TXTEstadoFocusGained"/>
-                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="TXTEstadoFocusLost"/>
-                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TXTEstadoMousePressed"/>
-                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TXTEstadoKeyReleased"/>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="TXTFiltrarEspecialidadFocusGained"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="TXTFiltrarEspecialidadFocusLost"/>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TXTFiltrarEspecialidadMousePressed"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TXTFiltrarEspecialidadKeyReleased"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="OtroNombreUsuario">
@@ -1200,10 +1201,10 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto" size="14" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Nombre de usuario:"/>
+                <Property name="text" type="java.lang.String" value="Cargo:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="TXTNombreUsuario">
+            <Component class="javax.swing.JTextField" name="TXTFiltrarCargo">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Roboto" size="18" style="0"/>
@@ -1213,10 +1214,10 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="TXTNombreUsuarioFocusGained"/>
-                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="TXTNombreUsuarioFocusLost"/>
-                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TXTNombreUsuarioMousePressed"/>
-                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TXTNombreUsuarioKeyReleased"/>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="TXTFiltrarCargoFocusGained"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="TXTFiltrarCargoFocusLost"/>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TXTFiltrarCargoMousePressed"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TXTFiltrarCargoKeyReleased"/>
               </Events>
             </Component>
           </SubComponents>
