@@ -1029,31 +1029,39 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_PanelVehiculosMouseClicked
 
     private void PanelOrdenesServicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelOrdenesServicioMouseExited
-        // TODO add your handling code here:
-        PanelOrdenesServicio.setBackground(Color.white);
-        OrdenesDeServicio.setForeground(Color.black);
+    if (!mostrandoOrdenesServicio) {
+        PanelOrdenesServicio.setBackground(new Color(70, 70, 70)); 
+        OrdenesDeServicio.setForeground(Color.white);
+    }
     }//GEN-LAST:event_PanelOrdenesServicioMouseExited
 
     private void PanelOrdenesServicioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelOrdenesServicioMouseEntered
-        // TODO add your handling code here:
-        PanelOrdenesServicio.setBackground(new Color (252, 170, 118));
+       if (!mostrandoOrdenesServicio) {
+        PanelOrdenesServicio.setBackground(new Color(110, 110, 110)); 
         OrdenesDeServicio.setForeground(Color.white);
+    }
     }//GEN-LAST:event_PanelOrdenesServicioMouseEntered
 
     private boolean mostrandoOrdenesServicio = false;
     private void PanelOrdenesServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelOrdenesServicioMouseClicked
 
         if (!tienePermiso("ORD_GEST")) {
-            JOptionPane.showMessageDialog(this, "No tiene permiso para gestionar ordenes de servicio");
-            return;
-        }
-        CardLayout cl = (CardLayout) PanelPaneles.getLayout();
-        if (!mostrandoOrdenesServicio) {
-            cl.show(PanelPaneles, "ORDENES_SERVICIO");
-        } else {
-            cl.show(PanelPaneles, "Blanco");
-        }
-        mostrandoOrdenesServicio = !mostrandoOrdenesServicio;
+        JOptionPane.showMessageDialog(this, "No tiene permiso para gestionar ordenes de servicio");
+        return;
+    }
+    CardLayout cl = (CardLayout) PanelPaneles.getLayout();
+    
+    mostrandoOrdenesServicio = !mostrandoOrdenesServicio;
+    
+    if (mostrandoOrdenesServicio) {
+        cl.show(PanelPaneles, "ORDENES_SERVICIO");
+        PanelOrdenesServicio.setBackground(Color.white);
+        OrdenesDeServicio.setForeground(Color.black);
+    } else {
+        cl.show(PanelPaneles, "Blanco");
+        PanelOrdenesServicio.setBackground(new Color(70, 70, 70));
+        OrdenesDeServicio.setForeground(Color.white);
+    }
     }//GEN-LAST:event_PanelOrdenesServicioMouseClicked
 
     private void PanelBarraMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBarraMousePressed
