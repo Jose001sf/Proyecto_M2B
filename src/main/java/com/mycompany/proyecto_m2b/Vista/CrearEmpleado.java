@@ -3161,6 +3161,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
         }while (u.existeNombreUsuario(Usuario));
         boolean estado_acti_usuario=true;
         //Se genera el tipo de usuario              
+        
         //Se debe verificar para que el usuario no se repita
         String id_empleado=empleado.getId_empleado();
         System.out.println(id_empleado);
