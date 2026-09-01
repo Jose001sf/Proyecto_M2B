@@ -15,6 +15,7 @@ import java.awt.Color;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -800,21 +801,44 @@ public class Usuarios extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_PanelDarBajaMouseClicked
 
-    
+    private void seleccionarPorNombre(JComboBox<?> combo, String nombre) {
+        if (nombre == null) {
+            combo.setSelectedIndex(0);
+            return;
+        }
+        for (int i = 0; i < combo.getItemCount(); i++) {
+            Object item = combo.getItemAt(i);
+            if (item != null && item.toString().trim().equalsIgnoreCase(nombre.trim())) {
+                combo.setSelectedIndex(i);
+                return;
+            }
+        }
+        System.out.println("No se encontró en el combo: " + nombre);
+    }
     private void UsuariosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_UsuariosItemStateChanged
         // TODO add your handling code here:
         Usuario selecc=(Usuario) Usuarios.getSelectedItem();
-        if (selecc !=null){
-            TXTnombreDeUsuario.setText(selecc.getNombre_usuario());
-            TXTnombreDeUsuario.setText(selecc.getNombre_usuario());
-            TXTcontraseña.setText(selecc.getContra_usuario());
-            if(selecc.isEstado_acti_usuario()){
-                Estados.setSelectedItem("Activo");
-            }
-            else{
-                Estados.setSelectedItem("En pausa");
-            }            
+        if (evt.getStateChange()!= java.awt.event.ItemEvent.SELECTED) {
+            return;
+        }
+        if (selecc ==null){
+            return;
+        }
+        TXTnombreDeUsuario.setText(selecc.getNombre_usuario());
+        TXTcontraseña.setText(selecc.getContra_usuario());
+        if(selecc.isEstado_acti_usuario()){
+            Estados.setSelectedItem("Activo");
+        }
+        else{
+            Estados.setSelectedItem("En pausa");
+        }            
             TiposDeUsuario.setSelectedItem(selecc.getTip_usuario());
+        UsuarioDAO ud = new UsuarioDAO();
+        Usuario us = ud.buscarPorEmpleado(selecc.getId_empleado());
+        if (us != null) {
+            seleccionarPorNombre(TiposDeUsuario, us.getNombre_tip_usuario());
+        } else {
+            TiposDeUsuario.setSelectedIndex(0);
         }
     }//GEN-LAST:event_UsuariosItemStateChanged
 

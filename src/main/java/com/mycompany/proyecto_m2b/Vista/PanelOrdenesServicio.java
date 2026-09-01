@@ -149,9 +149,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         TXTcostoTotal = new javax.swing.JTextField();
-        Descripcion = new javax.swing.JTextField();
         PanelNuevo = new javax.swing.JPanel();
         Nuevo = new javax.swing.JLabel();
         ImagenADD = new javax.swing.JLabel();
@@ -265,9 +263,6 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         jLabel11.setText("Costo Total:");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, -1, 20));
 
-        jLabel12.setText("Detalle/Trabajo a realizar:");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, -1, -1));
-
         TXTcostoTotal.setForeground(new java.awt.Color(153, 153, 153));
         TXTcostoTotal.setText("0.00");
         TXTcostoTotal.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -287,26 +282,6 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
             }
         });
         jPanel1.add(TXTcostoTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, 250, -1));
-
-        Descripcion.setForeground(new java.awt.Color(153, 153, 153));
-        Descripcion.setText("Describa el trabajo a realizar");
-        Descripcion.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                DescripcionFocusGained(evt);
-            }
-        });
-        Descripcion.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                DescripcionMousePressed(evt);
-            }
-        });
-        Descripcion.addActionListener(this::DescripcionActionPerformed);
-        Descripcion.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                DescripcionKeyPressed(evt);
-            }
-        });
-        jPanel1.add(Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 550, 630, 70));
 
         PanelNuevo.setBackground(new java.awt.Color(255, 255, 255));
         PanelNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -349,7 +324,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(PanelNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 640, -1, -1));
+        jPanel1.add(PanelNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 550, -1, -1));
 
         PanelGuardar.setBackground(new java.awt.Color(242, 101, 34));
         PanelGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -393,7 +368,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanel1.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 640, -1, -1));
+        jPanel1.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 550, -1, -1));
 
         PanelEditar.setBackground(new java.awt.Color(255, 255, 255));
         PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -437,7 +412,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanel1.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 640, -1, -1));
+        jPanel1.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 550, -1, -1));
 
         PanelBuscar.setBackground(new java.awt.Color(255, 255, 255));
         PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -480,7 +455,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 640, -1, -1));
+        jPanel1.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 550, -1, -1));
 
         jLabel3.setText("Fecha de entrega:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, -1, -1));
@@ -690,9 +665,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 693, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -907,7 +880,19 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         PanelBuscar.setBackground(new Color(219,219,219));
         Buscar.setForeground(new Color(66, 66, 66));
     }//GEN-LAST:event_PanelBuscarMouseEntered
+public void cargarTablaRepuestosPorOrden(List<Object[]> listaRepuestos) {
+    DefaultTableModel modeloIzquierda = (DefaultTableModel) tblRepuestosUsados.getModel();
+    modeloIzquierda.setRowCount(0);
 
+    if (listaRepuestos == null || listaRepuestos.isEmpty()) {
+        return;
+    }
+
+    for (Object[] fila : listaRepuestos) {
+
+        modeloIzquierda.addRow(fila);
+    }
+}
     private void PanelBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseClicked
         // TODO add your handling code here:
         if (comboPlacas.getSelectedIndex() <= 0) {
@@ -921,7 +906,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         String placaSeleccionada = comboPlacas.getSelectedItem().toString().trim();
         OrdenServicioDAO dao = new OrdenServicioDAO();
         orden_de_servicio orden = dao.buscarOrdenPorPlaca(placaSeleccionada);
-
+        DetalleOrdenServicioDAO detalle = new DetalleOrdenServicioDAO();
         if (orden != null) {
             this.idOrdenCargada = orden.getId_orden_serv();
 
@@ -929,7 +914,9 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
             CalendarioFechaIngreso.setDate(orden.getFecha_ingreso());
             CalendarioFechaEntrega.setDate(orden.getFecha_entrega());
             TXTcostoTotal.setText(String.format(java.util.Locale.US, "%.2f", orden.getCosto_total()));
-
+            List<Object[]> listaRepuestos = detalle.obtenerRepuestosPorOrden(this.idOrdenCargada);
+            cargarTablaRepuestosPorOrden(listaRepuestos);
+            inicializarTablaDetalleServicio();
             JOptionPane.showMessageDialog(this, "Datos de la orden cargados correctamente.");
         } else {
             JOptionPane.showMessageDialog(this, "El vehículo no tiene una orden de servicio registrada.");
@@ -951,6 +938,8 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
     private void PanelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseClicked
         // TODO add your handling code here:
         EditarOrdenDeServicio();
+        LimpiarDatos();
+        LimpiarDatosTablaDetalles();
     }//GEN-LAST:event_PanelEditarMouseClicked
 
     private void PanelGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseExited
@@ -968,6 +957,8 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
     private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
         // TODO add your handling code here:
         GuardarOrdenDeServicio();
+        LimpiarDatos();
+        LimpiarDatosTablaDetalles();
     }//GEN-LAST:event_PanelGuardarMouseClicked
 
     private void PanelNuevoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseExited
@@ -985,41 +976,10 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
     private void PanelNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseClicked
         // TODO add your handling code here:
         LimpiarDatos();
+        LimpiarDatosTablaDetalles();
         JOptionPane.showMessageDialog(this, "Datos limpiados correctamente"+"\n"
             +"Ingrese los datos");
     }//GEN-LAST:event_PanelNuevoMouseClicked
-
-    private void DescripcionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DescripcionKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DescripcionKeyPressed
-
-    private void DescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DescripcionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DescripcionActionPerformed
-
-    private void DescripcionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DescripcionMousePressed
-        // TODO add your handling code here:
-        if (Descripcion.getText().equals("Describa el trabajo a realizar")){
-            Descripcion.setText("");
-            Descripcion.setForeground(Color.BLACK);
-        }
-        if (TXTcostoTotal.getText().isEmpty()){
-            TXTcostoTotal.setText("Costo Total");
-            TXTcostoTotal.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_DescripcionMousePressed
-
-    private void DescripcionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_DescripcionFocusGained
-        // TODO add your handling code here:
-        if (Descripcion.getText().equals("Describa el trabajo a realizar")){
-            Descripcion.setText("");
-            Descripcion.setForeground(Color.BLACK);
-        }
-        if (TXTcostoTotal.getText().isEmpty()){
-            TXTcostoTotal.setText("Costo Total");
-            TXTcostoTotal.setForeground(new Color(94, 94, 94));
-        }
-    }//GEN-LAST:event_DescripcionFocusGained
 
     private void TXTcostoTotalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTcostoTotalKeyPressed
         // TODO add your handling code here:
@@ -1038,10 +998,6 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
             TXTcostoTotal.setText("");
             TXTcostoTotal.setForeground(Color.BLACK);
         }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Describa el trabajo a realizar");
-            Descripcion.setForeground(new Color(94, 94, 94));
-        }
     }//GEN-LAST:event_TXTcostoTotalMousePressed
 
     private void TXTcostoTotalFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTcostoTotalFocusGained
@@ -1049,10 +1005,6 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         if (TXTcostoTotal.getText().equals("0.00")){
             TXTcostoTotal.setText("");
             TXTcostoTotal.setForeground(Color.BLACK);
-        }
-        if (Descripcion.getText().isEmpty()){
-            Descripcion.setText("Describa el trabajo a realizar");
-            Descripcion.setForeground(new Color(94, 94, 94));
         }
     }//GEN-LAST:event_TXTcostoTotalFocusGained
 
@@ -1216,10 +1168,6 @@ public void cargarCombosIniciales() {
         TXTcostoTotal.setText("0.00");
         TXTcostoTotal.setForeground(new Color(94, 94, 94));
     }
-        if (Descripcion != null) {
-        Descripcion.setText("");
-        Descripcion.setForeground(new Color(94, 94, 94));
-    }
     if (Estados != null && Estados.getItemCount() > 0) Estados.setSelectedIndex(0);
     if (comboPlacas != null && comboPlacas.getItemCount() > 0) comboPlacas.setSelectedIndex(0);
     if (comboCliente != null && comboCliente.getItemCount() > 0) comboCliente.setSelectedIndex(0);
@@ -1318,10 +1266,6 @@ public void cargarCombosIniciales() {
         }
         if (CalendarioFechaIngreso == null || CalendarioFechaIngreso.getDate() == null) {
             JOptionPane.showMessageDialog(this, "Por favor seleccione la fecha de ingreso.", "Atención", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        if (Descripcion == null || Descripcion.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor ingrese la descripción del trabajo a realizar.", "Atención", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
@@ -1477,7 +1421,6 @@ public void cargarCombosIniciales() {
     private com.toedter.calendar.JDateChooser CalendarioFechaEntrega;
     private com.toedter.calendar.JDateChooser CalendarioFechaIngreso;
     private javax.swing.JLabel DarDeBaja;
-    private javax.swing.JTextField Descripcion;
     private javax.swing.JLabel Editar;
     private javax.swing.JComboBox<String> Estados;
     private javax.swing.JLabel Guardar;
@@ -1503,7 +1446,6 @@ public void cargarCombosIniciales() {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
