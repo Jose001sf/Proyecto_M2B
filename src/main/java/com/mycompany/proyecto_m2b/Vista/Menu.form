@@ -98,7 +98,7 @@
                               <Component id="Empleados" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="Agregar" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="293" max="32767" attributes="0"/>
+                              <EmptySpace pref="198" max="32767" attributes="0"/>
                               <Component id="ImagenRegresar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="Regresar" min="-2" max="-2" attributes="0"/>
@@ -447,7 +447,7 @@
                     <Container class="javax.swing.JPanel" name="PanelOrdenesServicio">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="3d" green="3a" red="35" type="rgb"/>
+                          <Color blue="46" green="46" red="46" type="rgb"/>
                         </Property>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -515,7 +515,7 @@
                     <Container class="javax.swing.JPanel" name="PanelVehiculos">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="3d" green="3a" red="35" type="rgb"/>
+                          <Color blue="46" green="46" red="46" type="rgb"/>
                         </Property>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -583,7 +583,7 @@
                     <Container class="javax.swing.JPanel" name="PanelPropietarios">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="3d" green="3a" red="35" type="rgb"/>
+                          <Color blue="46" green="46" red="46" type="rgb"/>
                         </Property>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -651,7 +651,7 @@
                     <Container class="javax.swing.JPanel" name="PanelServicios">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="3d" green="3a" red="35" type="rgb"/>
+                          <Color blue="46" green="46" red="46" type="rgb"/>
                         </Property>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -721,7 +721,7 @@
                     <Container class="javax.swing.JPanel" name="PanelRepuestos">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="3d" green="3a" red="35" type="rgb"/>
+                          <Color blue="46" green="46" red="46" type="rgb"/>
                         </Property>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -794,7 +794,7 @@
                     <Container class="javax.swing.JPanel" name="PanelProveedores">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="3d" green="3a" red="35" type="rgb"/>
+                          <Color blue="46" green="46" red="46" type="rgb"/>
                         </Property>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -862,7 +862,7 @@
                     <Container class="javax.swing.JPanel" name="PanelResiduos">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="3d" green="3a" red="35" type="rgb"/>
+                          <Color blue="46" green="46" red="46" type="rgb"/>
                         </Property>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -930,7 +930,7 @@
                     <Container class="javax.swing.JPanel" name="PanelEstadisticas">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="3d" green="3a" red="35" type="rgb"/>
+                          <Color blue="46" green="46" red="46" type="rgb"/>
                         </Property>
                         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">

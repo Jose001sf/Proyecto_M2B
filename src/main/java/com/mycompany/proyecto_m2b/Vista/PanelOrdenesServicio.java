@@ -14,6 +14,7 @@ import com.mycompany.proyecto_m2b.Controlador.ResiduoDAO;
 import com.mycompany.proyecto_m2b.Controlador.Servidor_de_correos;
 import com.mycompany.proyecto_m2b.Controlador.Validaciones;
 import com.mycompany.proyecto_m2b.Controlador.VehiculosDAO;
+import com.mycompany.proyecto_m2b.Controlador.DetalleOrdenServicioDAO;
 import com.mycompany.proyecto_m2b.modelo.DetalleRepuesto;
 import com.mycompany.proyecto_m2b.modelo.Produce;
 import com.mycompany.proyecto_m2b.modelo.Repuesto;
@@ -47,6 +48,8 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         
         configurarModeloTablaRepuestos();
         cargarTablaRepuestos("");
+        LimpiarDatosTabla();
+        
         txtBuscarRepueseto.addKeyListener(new java.awt.event.KeyAdapter() {
         @Override
         public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -684,10 +687,9 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 693, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 12, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1326,21 +1328,31 @@ public void cargarCombosIniciales() {
             listaDetalles.add(new DetalleRepuesto(idRepuesto, cantidad, subtotal));
         }
 
-        boolean guardadoExitoso = dao.guardarOrdenConDetalles(orden, listaDetalles);
+            boolean guardadoExitoso = dao.guardarOrdenConDetalles(orden, listaDetalles);
 
-        if (guardadoExitoso) {
-            JOptionPane.showMessageDialog(this, 
-                "Orden de Servicio y repuestos registrados con éxito.\nCódigo: " + nuevoId, 
-                "Registro Exitoso", 
-                JOptionPane.INFORMATION_MESSAGE);
-            LimpiarDatos();
-            modeloTablaRepuestos.setRowCount(0); 
-        } else {
-            JOptionPane.showMessageDialog(this, 
-                "No se pudo guardar la orden de servicio. Verifique la conexión o los datos.", 
-                "Error de Guardado", 
-                JOptionPane.ERROR_MESSAGE);
-        }
+            if (guardadoExitoso) {
+                boolean detalleOk = guardarDetalleServicios(nuevoId);
+
+                if (detalleOk) {
+                    JOptionPane.showMessageDialog(this,
+                            "Orden de Servicio y repuestos registrados con éxito.\nCódigo: " + nuevoId,
+                            "Registro Exitoso",
+                            JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                            "La orden y los repuestos se guardaron, pero hubo un problema al guardar los servicios.",
+                            "Advertencia",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+
+                LimpiarDatos();
+                modeloTablaRepuestos.setRowCount(0);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "No se pudo guardar la orden de servicio. Verifique la conexión o los datos.",
+                        "Error de Guardado",
+                        JOptionPane.ERROR_MESSAGE);
+            }
 
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, 
@@ -1413,6 +1425,49 @@ public void cargarCombosIniciales() {
             total += item.getSubtotal();
         }
         lblSubTotalServicios.setText(String.format("%.2f", total));
+    }
+    private boolean guardarDetalleServicios(String idOrden) {
+        DetalleOrdenServicioDAO dao = new DetalleOrdenServicioDAO();
+        for (ItemServicioOrden item : detalleServicios) {
+            String idDetalle = dao.generarNuevoId();
+            boolean ok = dao.insertarDetalle(idDetalle, item.cantidad, item.getSubtotal(), item.idServicio, idOrden);
+            if (!ok) {
+                return false;
+            }
+        }
+        return true;
+    }
+    public void LimpiarDatosTabla() {
+        if (TXTcostoTotal != null) {
+            TXTcostoTotal.setText("0.00");
+            TXTcostoTotal.setForeground(new Color(94, 94, 94));
+        }
+        if (Descripcion != null) {
+            Descripcion.setText("");
+            Descripcion.setForeground(new Color(94, 94, 94));
+        }
+        if (Estados != null && Estados.getItemCount() > 0) {
+            Estados.setSelectedIndex(0);
+        }
+        if (comboPlacas != null && comboPlacas.getItemCount() > 0) {
+            comboPlacas.setSelectedIndex(0);
+        }
+        if (comboCliente != null && comboCliente.getItemCount() > 0) {
+            comboCliente.setSelectedIndex(0);
+        }
+        if (comboEmpleado != null && comboEmpleado.getItemCount() > 0) {
+            comboEmpleado.setSelectedIndex(0);
+        }
+        if (CalendarioFechaEntrega != null) {
+            CalendarioFechaEntrega.setDate(null);
+        }
+
+        detalleServicios.clear();                  
+        if (modeloTablaServicios != null) {          
+            actualizarTablaDetalleServicio();        
+        }
+
+        this.idOrdenCargada = null;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
