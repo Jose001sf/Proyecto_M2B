@@ -41,6 +41,9 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
     public PanelOrdenesServicio() {
         initComponents();
         cargarCombosIniciales();
+        calcularTotal();
+        tblRepuestosUsados.getModel().addTableModelListener(e->{calcularTotal();});
+        tblDetalleServicio.getModel().addTableModelListener(e->{calcularTotal();});
         CalendarioFechaIngreso.setDate(new java.util.Date());
         CalendarioFechaIngreso.setEnabled(false);
         ((JTextFieldDateEditor) CalendarioFechaIngreso.getDateEditor()).setEditable(false);
@@ -816,6 +819,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese un número entero válido.", "Formato Inválido", JOptionPane.ERROR_MESSAGE);
         }
+        calcularTotal();
     }//GEN-LAST:event_btnAgregarRepuestosActionPerformed
 
     private void PanelEliminarServicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEliminarServicioMouseExited
@@ -871,6 +875,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         if (panel.isAceptado()) {
             agregarServicioADetalle(panel.getServicioSeleccionado(), panel.getCantidadSeleccionada());
         }
+        calcularTotal();
     }//GEN-LAST:event_PanelAgregarServicioMouseClicked
 
     private void comboPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboPlacasActionPerformed
@@ -1024,6 +1029,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         // TODO add your handling code here:
         OrdenServicioDAO dao=new OrdenServicioDAO();
         dao.sumarIngresosPorDia(LocalDate.MIN, LocalDate.MAX);
+        calcularTotal();
     }//GEN-LAST:event_TXTcostoTotalActionPerformed
 
     private void TXTcostoTotalMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTcostoTotalMousePressed
@@ -1445,7 +1451,25 @@ public void cargarCombosIniciales() {
         }
         return true;
     }
-    
+    public void calcularTotal() {
+    try {
+        String textoRepuestos = lblSubTotalServicios.getText().trim();
+        String textoServicios = txtSubtotalRepuestos.getText().trim();
+        textoRepuestos = textoRepuestos.replace("$", "").trim();
+        textoServicios = textoServicios.replace("$", "").trim();
+
+        double subtotalRepuestos = textoRepuestos.isEmpty() ? 0.0 : Double.parseDouble(textoRepuestos);
+        double subtotalServicios = textoServicios.isEmpty() ? 0.0 : Double.parseDouble(textoServicios);
+
+        double totalGeneral = subtotalRepuestos + subtotalServicios;
+
+        TXTcostoTotal.setText(String.format(java.util.Locale.US, "%.2f", totalGeneral));
+
+    } catch (NumberFormatException e) {
+        TXTcostoTotal.setText("0.00");
+    }
+}
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
