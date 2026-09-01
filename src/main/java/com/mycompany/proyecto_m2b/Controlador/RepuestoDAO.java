@@ -266,4 +266,23 @@ public class RepuestoDAO {
         }
         return resultado;
     }
+    
+    //Servicios
+    public List<Repuesto> obtenerRepuestosParaTabla(Connection con) {
+    List<Repuesto> lista = new ArrayList<>();
+    String sql = "SELECT id_repuestos, nom_repuesto, cantidad_actual_repuesto, precio_repuesto_unit FROM public.repuestos";
+    try (Statement st = con.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+        while (rs.next()) {
+            Repuesto r = new Repuesto();
+            r.setIdRepuestos(rs.getString("id_repuestos"));
+            r.setNomRepuesto(rs.getString("nom_repuesto"));
+            r.setCantidadActualRepuesto(rs.getInt("cantidad_actual_repuesto"));
+            r.setPrecioRepuestoUnit(rs.getDouble("precio_repuesto_unit"));
+            lista.add(r);
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener repuestos para la tabla: " + e.getMessage());
+    }
+    return lista;
+}
 }

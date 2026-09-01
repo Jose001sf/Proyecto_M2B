@@ -4,17 +4,22 @@
  */
 package com.mycompany.proyecto_m2b.Vista;
 
+import com.mycompany.proyecto_m2b.Controlador.ConexionBD;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.List;
 import com.mycompany.proyecto_m2b.Controlador.OrdenServicioDAO;
+import com.mycompany.proyecto_m2b.Controlador.RepuestoDAO;
 import com.mycompany.proyecto_m2b.Controlador.Servidor_de_correos;
 import com.mycompany.proyecto_m2b.Controlador.Validaciones;
 import com.mycompany.proyecto_m2b.Controlador.VehiculosDAO;
+import com.mycompany.proyecto_m2b.modelo.Repuesto;
 import com.mycompany.proyecto_m2b.modelo.Servicio;
 import com.mycompany.proyecto_m2b.modelo.orden_de_servicio;
 import com.toedter.calendar.JTextFieldDateEditor;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -36,12 +41,45 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         CalendarioFechaIngreso.setEnabled(false);
         ((JTextFieldDateEditor) CalendarioFechaIngreso.getDateEditor()).setEditable(false);
         inicializarTablaDetalleServicio();
+        cargarTablaRepuestos();
     }
     
     private void inicializarTablaDetalleServicio() {
         modeloTablaServicios = (DefaultTableModel) tblDetalleServicio.getModel();
         modeloTablaServicios.setRowCount(0);
     }
+    
+    public void cargarTablaRepuestos() {
+    String[] titulos = {"ID", "Nombre", "Cantidad Actual", "Precio"};
+    DefaultTableModel modelo = new DefaultTableModel(null, titulos) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+    
+    jTable1.setModel(modelo);
+    modelo.setRowCount(0); 
+
+    RepuestoDAO dao = new RepuestoDAO();
+    
+    try (Connection con = ConexionBD.obtenerConexion()) {
+        List<Repuesto> lista = dao.obtenerRepuestosParaTabla(con);
+        
+        for (Repuesto r : lista) {
+            Object[] fila = new Object[4];
+            fila[0] = r.getIdRepuestos();
+            fila[1] = r.getNomRepuesto();
+            fila[2] = r.getCantidadActualRepuesto();
+            fila[3] = r.getPrecioRepuestoUnit();
+            
+            modelo.addRow(fila);
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al cargar los repuestos en la tabla: " + e.getMessage());
+    }
+}
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -409,7 +447,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("DETALLE DE REPUESTOS");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, -1));
 
         tblDetalleServicio.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -471,10 +509,10 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 .addGroup(PanelAgregarServicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(Nuevo1)
                     .addComponent(ImagenADD1))
-                .addGap(0, 4, Short.MAX_VALUE))
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
-        jPanel1.add(PanelAgregarServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, 180, 30));
+        jPanel1.add(PanelAgregarServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 180, 30));
 
         PanelEliminarServicio.setBackground(new java.awt.Color(255, 255, 255));
         PanelEliminarServicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(215, 106, 106)));
@@ -518,7 +556,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(PanelEliminarServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 470, -1, -1));
+        jPanel1.add(PanelEliminarServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 320, -1, -1));
 
         jLabel14.setBackground(new java.awt.Color(0, 0, 0));
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -528,8 +566,8 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
 
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("Buscar ID/Nombre:");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, -1, 20));
-        jPanel1.add(txtBuscarRepueseto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 340, 220, -1));
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, -1, 20));
+        jPanel1.add(txtBuscarRepueseto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 380, 220, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -544,7 +582,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(jTable1);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, -1, 80));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, -1, 80));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
