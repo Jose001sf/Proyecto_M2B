@@ -343,7 +343,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(PanelNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 950, -1, -1));
+        jPanel1.add(PanelNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 640, -1, -1));
 
         PanelGuardar.setBackground(new java.awt.Color(242, 101, 34));
         PanelGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -387,7 +387,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanel1.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 950, -1, -1));
+        jPanel1.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 640, -1, -1));
 
         PanelEditar.setBackground(new java.awt.Color(255, 255, 255));
         PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -431,7 +431,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanel1.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 950, -1, -1));
+        jPanel1.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 640, -1, -1));
 
         PanelBuscar.setBackground(new java.awt.Color(255, 255, 255));
         PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -474,7 +474,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 950, -1, -1));
+        jPanel1.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 640, -1, -1));
 
         jLabel3.setText("Fecha de entrega:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, -1, -1));
@@ -686,7 +686,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1002, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 693, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
