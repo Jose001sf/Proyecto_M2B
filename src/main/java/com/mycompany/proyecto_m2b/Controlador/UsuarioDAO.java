@@ -314,4 +314,26 @@ public class UsuarioDAO {
         return null;
     }
     
+    public boolean ValidarIngresoEmpleados (String clave){
+        if (clave==null){
+            System.out.println("No hay contraseña");
+            return false;
+        }
+        String sql="""
+                   SELECT id_usuario
+                   FROM usuario
+                   WHERE contra_usuario = crypt(?, contra_usuario) AND id_tip_usuario='TIPUS-0001' AND estado_acti_usuario=true
+                   """;
+        
+        try (Connection cn = ConexionBD.obtenerConexion();
+                PreparedStatement ps = cn.prepareStatement(sql)) {
+           ps.setString(1, clave);
+           try (ResultSet rs = ps.executeQuery()) {
+                  return rs.next();               
+           }
+       } catch (SQLException e) {
+           System.out.println("Error al obtener la contraseña de la persona: " + e.getMessage());
+       }
+        return false;
+    }
  }        

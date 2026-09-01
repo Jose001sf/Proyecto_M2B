@@ -9,6 +9,7 @@ import com.mycompany.proyecto_m2b.Controlador.UsuarioDAO;
 import com.mycompany.proyecto_m2b.modelo.Usuario;
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 
 /**
  *
@@ -451,7 +452,24 @@ public class Login extends javax.swing.JFrame {
 
     private void PanelCrearUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelCrearUsuarioMouseClicked
         // TODO add your handling code here:
+        JPasswordField TXTContrasena = new JPasswordField();
+        Object mensaje [] = {"Es necesario una contraseña de administrador para poder continuar ",TXTContrasena};
+        int opcion = JOptionPane.showConfirmDialog(this, mensaje,"Confirmar",JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (opcion!=JOptionPane.OK_OPTION){
+            return;
+        }
+        char clave[] = TXTContrasena.getPassword();
+            if (clave.length==0){
+                JOptionPane.showMessageDialog(this, "Debe ingresar una contraseña para poder continuar");
+                return;
+            }
+        UsuarioDAO ud=new UsuarioDAO();
+        boolean exito=ud.ValidarIngresoEmpleados(String.valueOf(clave));
         CrearEmpleado Cr=new CrearEmpleado();
+        if (!exito){
+            JOptionPane.showMessageDialog(this, "La clave es incorrecta");
+            return;
+        }
         Cr.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_PanelCrearUsuarioMouseClicked
