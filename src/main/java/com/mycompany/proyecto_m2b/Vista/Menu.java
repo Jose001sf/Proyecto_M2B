@@ -1188,11 +1188,12 @@ public class Menu extends javax.swing.JFrame {
 
     private void AgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseClicked
         // TODO add your handling code here:
-        if (!tienePermiso("CARGO_GEST") && !tienePermiso("ESPE_GEST") && !tienePermiso("ACC_GEST")) {
+        if (!tienePermiso("CARGO_GEST") || !tienePermiso("ESPE_GEST") || !tienePermiso("ACC_GEST")) {
             JOptionPane.showMessageDialog(this, "No puede acceder si no cuenta con los permisos");
             return;
         }
         Agregar menuAgregar = new Agregar(usuarioActual);
+        menuAgregar.setVisible(true);
     }//GEN-LAST:event_AgregarMouseClicked
 
     private void AgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseEntered
