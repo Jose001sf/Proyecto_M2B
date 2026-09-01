@@ -38,7 +38,7 @@ public class ProduceDAO {
 
     private static final String AJUSTARINVENTARIORESIDUO = 
             "UPDATE residuos SET cantidad_actual = cantidad_actual + ? "
-            + "WHERE id_residuos = ? AND (cantidad_actual + ?) <= cantidad_max";
+            + "WHERE id_residuos = ? AND (cantidad_actual + ?) <= cantidad_max AND (cantidad_actual + ?) >= 0";
 
     private static final String EDITARCANTIDADPRODUCE = 
             "UPDATE produce SET cant_gene = ? "
@@ -104,6 +104,7 @@ public class ProduceDAO {
                     ps.setInt(1, diferencia);
                     ps.setString(2, idResiduo);
                     ps.setInt(3, diferencia);
+                    ps.setInt(4, diferencia);
                     int filasAfectadas = ps.executeUpdate();
                     if (filasAfectadas==0){
                         throw new SQLException("Se supera la cantidad máxima");

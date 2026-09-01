@@ -71,6 +71,6 @@ public class Residuos {
 
     @Override
     public String toString() {
-        return "Residuos{" + "ID_resiudos=" + ID_resiudos + ", Nom_residuo=" + Nom_residuo + ", Estado_residuo=" + Estado_residuo + ", ID_tipo_resi=" + ID_tipo_resi + ", cantidad_actual=" + cantidad_actual + ", cantidad_max=" + cantidad_max + '}';
+        return Nom_residuo;
     }
 }

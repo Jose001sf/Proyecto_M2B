@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JComboBox;
 
 public class ResiduoDAO {
 
@@ -235,6 +236,36 @@ public class ResiduoDAO {
         } catch (SQLException e) {
             System.err.println("Error al eliminar residuo: " + e.getMessage());
             return false;
+        }
+    }
+    
+    public void cargarResiduos (JComboBox ComboResiduos) {
+
+        String sql = """
+            SELECT id_residuos, nom_residuo, estado_residuo, cantidad_max
+            FROM residuos                      
+            ORDER BY nom_residuo
+            """;
+
+        try (Connection con = ConexionBD.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            ComboResiduos.removeAllItems();
+            int i=0;
+            while (rs.next()) {
+                Residuos r=new Residuos();
+                r.setID_resiudos(rs.getString("id_residuos"));
+                r.setNom_residuo(rs.getString("nom_residuo"));
+                r.setEstado_residuo(rs.getString("estado_residuo"));
+                r.setCantidad_max(rs.getInt("cantidad_max"));
+                
+                ComboResiduos.addItem(r);
+                i++;
+            }
+            System.out.println("Hay "+i+" registros de residuos");
+        } catch (SQLException e) {
+            System.err.println("Error al cargar residuos: "+e.getMessage());        
         }
     }
 }

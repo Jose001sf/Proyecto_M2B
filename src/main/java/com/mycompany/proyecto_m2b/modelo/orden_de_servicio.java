@@ -90,7 +90,7 @@ public class orden_de_servicio {
 
     @Override
     public String toString() {
-        return "orden_de_servicio{" + "id_orden_serv=" + id_orden_serv + ", estadoorden_servi=" + estadoorden_servi + ", fecha_entrega=" + fecha_entrega + ", costo_total=" + costo_total + ", fecha_ingreso=" + fecha_ingreso + ", id_vehi=" + id_vehi + ", id_empleado=" + id_empleado + '}';
+        return id_orden_serv;
     }
     
 }

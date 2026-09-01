@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JComboBox;
 
 public class OrdenServicioDAO {
     
@@ -434,4 +435,31 @@ public orden_de_servicio buscarOrdenPorPlaca(String placa) {
         }
     }
 }
+    public void cargarOrdenServicio (JComboBox ComboOrdonesServicio) {
+
+        String sql = """
+            SELECT id_orden_serv
+            FROM orden_de_servicio                      
+            ORDER BY id_orden_serv
+            """;
+
+        try (Connection con = ConexionBD.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            ComboOrdonesServicio.removeAllItems();
+            int i=0;
+            while (rs.next()) {
+                orden_de_servicio r=new orden_de_servicio();
+                r.setId_orden_serv(rs.getString("id_orden_serv"));
+                
+                
+                ComboOrdonesServicio.addItem(r);
+                i++;
+            }
+            System.out.println("Hay "+i+" registros de orden de servicio");
+        } catch (SQLException e) {
+            System.err.println("Error al cargar orden de servicio: "+e.getMessage());        
+        }
+    }
 }
