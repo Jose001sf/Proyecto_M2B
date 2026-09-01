@@ -782,13 +782,7 @@ public class Usuarios extends javax.swing.JFrame {
         }        
     }//GEN-LAST:event_TXTnombreDeUsuarioFocusGained
 
-    public void Dinamico (){
-        String cedula=TXTCedula.getText().trim();
-        String empleado=TXTEmpleado.getText().trim();
-        String usuario=TXTNombreUsuario.getText().trim();
-        String estado=TXTEstado.getText().trim();
-        cargarTablaUsuario(cedula, empleado, usuario, estado);
-    }
+    
     public void cargarTablaUsuario(){
         cargarTablaUsuario("", "", "", "");
     }
