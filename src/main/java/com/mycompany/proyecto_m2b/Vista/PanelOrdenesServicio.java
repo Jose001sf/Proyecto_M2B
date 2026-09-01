@@ -38,6 +38,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
      * Creates new form PanelOrdenesServicio
      */
     private String idOrdenCargada = null;
+    private boolean esModoEdicion = false;
     public PanelOrdenesServicio() {
         initComponents();
         cargarCombosIniciales();
@@ -893,6 +894,20 @@ public void cargarTablaRepuestosPorOrden(List<Object[]> listaRepuestos) {
         modeloIzquierda.addRow(fila);
     }
 }
+public void cargarTablaServiciosPorOrden(List<Object[]> listaServicios) {
+    DefaultTableModel modeloServicios = (DefaultTableModel) tblDetalleServicio.getModel();
+    modeloServicios.setRowCount(0);
+
+    if (listaServicios == null || listaServicios.isEmpty()) {
+        return;
+    }
+
+    for (Object[] fila : listaServicios) {
+        modeloServicios.addRow(fila);
+    }
+    tblDetalleServicio.revalidate();
+    tblDetalleServicio.repaint();
+}
     private void PanelBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseClicked
         // TODO add your handling code here:
         if (comboPlacas.getSelectedIndex() <= 0) {
@@ -916,7 +931,8 @@ public void cargarTablaRepuestosPorOrden(List<Object[]> listaRepuestos) {
             TXTcostoTotal.setText(String.format(java.util.Locale.US, "%.2f", orden.getCosto_total()));
             List<Object[]> listaRepuestos = detalle.obtenerRepuestosPorOrden(this.idOrdenCargada);
             cargarTablaRepuestosPorOrden(listaRepuestos);
-            inicializarTablaDetalleServicio();
+            List<Object[]> listaServicios = detalle.obtenerServiciosPorOrden(this.idOrdenCargada);
+            cargarTablaServiciosPorOrden(listaServicios);
             JOptionPane.showMessageDialog(this, "Datos de la orden cargados correctamente.");
         } else {
             JOptionPane.showMessageDialog(this, "El vehículo no tiene una orden de servicio registrada.");

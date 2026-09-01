@@ -51,7 +51,7 @@ public class DetalleOrdenServicioDAO {
     }
     public List<Object[]> obtenerRepuestosPorOrden(String idOrden) {
     List<Object[]> lista = new ArrayList<>();
-    String sql = "SELECT dr.id_detalle_repuesto, r.nom_repuesto, dr.cantidad_usar, r.precio_repuesto_unit, dr.subtotal_repuesto "
+    String sql = "SELECT r.id_repuestos, r.nom_repuesto, dr.cantidad_usar, r.precio_repuesto_unit, dr.subtotal_repuesto "
                + "FROM detalle_repuesto dr "
                + "INNER JOIN repuestos r ON dr.id_repuestos = r.id_repuestos "
                + "WHERE TRIM(dr.id_orden_serv) = TRIM(?)";
@@ -64,7 +64,7 @@ public class DetalleOrdenServicioDAO {
         try (ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 lista.add(new Object[]{
-                    rs.getString("id_detalle_repuesto"),
+                    rs.getString("id_repuestos"),
                     rs.getString("nom_repuesto"),
                     rs.getInt("cantidad_usar"),
                     rs.getDouble("precio_repuesto_unit"),
@@ -79,10 +79,11 @@ public class DetalleOrdenServicioDAO {
 }
     public List<Object[]> obtenerServiciosPorOrden(String idOrden) {
     List<Object[]> lista = new ArrayList<>();
-    String sql = "SELECT ds.id_servicio, s.nombre_servicio, s.precio_servicio, ds.cantidad, ds.subtotal_servicio "
-               + "FROM detalle_servicio ds "
-               + "INNER JOIN servicios s ON ds.id_servicio = s.id_servicio "
-               + "WHERE TRIM(ds.id_orden_serv) = TRIM(?)";
+    
+    String sql = "SELECT s.nom_servicio, s.precio_del_servicio, d.cantidad_servi, d.subtotal_orden "
+               + "FROM detalle_de_orden d "
+               + "INNER JOIN servicio s ON d.id_servi = s.id_servi "
+               + "WHERE LOWER(TRIM(d.id_orden_serv)) = LOWER(TRIM(?))";
 
     try (Connection con = ConexionBD.obtenerConexion();
          PreparedStatement ps = con.prepareStatement(sql)) {
@@ -92,16 +93,18 @@ public class DetalleOrdenServicioDAO {
         try (ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 lista.add(new Object[]{
-                    rs.getString("nombre_servicio"),
-                    rs.getDouble("precio_servicio"),
-                    rs.getInt("cantidad"),
-                    rs.getDouble("subtotal_servicio")
+                    rs.getString("nom_servicio"),
+                    rs.getDouble("precio_del_servicio"),
+                    rs.getInt("cantidad_servi"),
+                    rs.getDouble("subtotal_orden")
                 });
             }
         }
     } catch (SQLException e) {
-        System.err.println("Error al obtener detalle de servicios: " + e.getMessage());
+        System.err.println("Error al obtener servicios desde detalle_orden: " + e.getMessage());
     }
+    System.out.println("-> Buscando servicios para la orden: [" + idOrden + "]");
+    System.out.println("-> Servicios encontrados en BD: " + lista.size());
     return lista;
 }
 }
