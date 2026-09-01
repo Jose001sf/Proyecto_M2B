@@ -54,7 +54,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
         TipoUsuarioDAO Tip=new TipoUsuarioDAO();
         Tip.cargarTiposUsuario(TiposUsuarios);
         ((JTextFieldDateEditor) CalendarioRegistro.getDateEditor()).setDisabledTextColor(java.awt.Color.BLACK);
-        cargarTablaUsuario();
+        cargarTablaEmpleados();
         TablaEmpleados.setEnabled(false);
         JPanelBuscar.setVisible(false);
     }
@@ -124,9 +124,9 @@ public class CrearEmpleado extends javax.swing.JFrame {
         Cedula1 = new javax.swing.JLabel();
         TXTCedula = new javax.swing.JTextField();
         estado = new javax.swing.JLabel();
-        TXTEstado = new javax.swing.JTextField();
+        TXTFiltrarEspecialidad = new javax.swing.JTextField();
         OtroNombreUsuario = new javax.swing.JLabel();
-        TXTNombreUsuario = new javax.swing.JTextField();
+        TXTFiltrarCargo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -716,53 +716,56 @@ public class CrearEmpleado extends javax.swing.JFrame {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 TXTCedulaKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TXTCedulaKeyTyped(evt);
+            }
         });
 
         estado.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        estado.setText("Estado:");
+        estado.setText("Especialidad:");
 
-        TXTEstado.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        TXTEstado.setForeground(new java.awt.Color(94, 94, 94));
-        TXTEstado.addFocusListener(new java.awt.event.FocusAdapter() {
+        TXTFiltrarEspecialidad.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        TXTFiltrarEspecialidad.setForeground(new java.awt.Color(94, 94, 94));
+        TXTFiltrarEspecialidad.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                TXTEstadoFocusGained(evt);
+                TXTFiltrarEspecialidadFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                TXTEstadoFocusLost(evt);
+                TXTFiltrarEspecialidadFocusLost(evt);
             }
         });
-        TXTEstado.addMouseListener(new java.awt.event.MouseAdapter() {
+        TXTFiltrarEspecialidad.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                TXTEstadoMousePressed(evt);
+                TXTFiltrarEspecialidadMousePressed(evt);
             }
         });
-        TXTEstado.addKeyListener(new java.awt.event.KeyAdapter() {
+        TXTFiltrarEspecialidad.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                TXTEstadoKeyReleased(evt);
+                TXTFiltrarEspecialidadKeyReleased(evt);
             }
         });
 
         OtroNombreUsuario.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        OtroNombreUsuario.setText("Nombre de usuario:");
+        OtroNombreUsuario.setText("Cargo:");
 
-        TXTNombreUsuario.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        TXTNombreUsuario.setForeground(new java.awt.Color(94, 94, 94));
-        TXTNombreUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
+        TXTFiltrarCargo.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        TXTFiltrarCargo.setForeground(new java.awt.Color(94, 94, 94));
+        TXTFiltrarCargo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                TXTNombreUsuarioFocusGained(evt);
+                TXTFiltrarCargoFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                TXTNombreUsuarioFocusLost(evt);
+                TXTFiltrarCargoFocusLost(evt);
             }
         });
-        TXTNombreUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+        TXTFiltrarCargo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                TXTNombreUsuarioMousePressed(evt);
+                TXTFiltrarCargoMousePressed(evt);
             }
         });
-        TXTNombreUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+        TXTFiltrarCargo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                TXTNombreUsuarioKeyReleased(evt);
+                TXTFiltrarCargoKeyReleased(evt);
             }
         });
 
@@ -784,12 +787,12 @@ public class CrearEmpleado extends javax.swing.JFrame {
                             .addComponent(TXTEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TXTNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TXTFiltrarCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(OtroNombreUsuario))
                         .addGap(18, 18, 18)
                         .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(estado)
-                            .addComponent(TXTEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(TXTFiltrarEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(68, Short.MAX_VALUE))
         );
         JPanelBuscarLayout.setVerticalGroup(
@@ -811,8 +814,8 @@ public class CrearEmpleado extends javax.swing.JFrame {
                             .addComponent(estado))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TXTNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TXTEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(TXTFiltrarCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TXTFiltrarEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
@@ -3179,9 +3182,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
                 return;
             }
         }
-        System.out.println(
-            "No se encontró en el combo: " + nombre
-        );
+        System.out.println("No se encontró en el combo: " + nombre);
     }
     
     Persona persona;
@@ -3266,12 +3267,13 @@ public class CrearEmpleado extends javax.swing.JFrame {
         
     }//GEN-LAST:event_VerificarActionPerformed
 
-public void cargarTablaUsuario(){
-        cargarTablaUsuario("", "", "", "");
+
+    public void cargarTablaEmpleados(){
+        
     }
-    public void cargarTablaUsuario (String cedula, String empleado, String nom_cargo, String nom_especilidad){        
+    public void cargarTablaEmpleados (String cedula, String nombre, String cargo, String especialidad){        
         EmpleadoDAO ed=new EmpleadoDAO();
-        List<Empleado> lista= ed.listarEmpleado();
+        List<Empleado> lista = ed.filtrarEmpleados(cedula, nombre, cargo, especialidad);
         String columnas []={"Cédula","Nombre empleado","Nombre del cargo", "Nombre de la especialidad"};
         DefaultTableModel modelo = new DefaultTableModel (null, columnas);
         modelo.setRowCount(0);
@@ -3346,7 +3348,11 @@ public void cargarTablaUsuario(){
 
     private void TXTEmpleadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTEmpleadoKeyReleased
         // TODO add your handling code here:
-        //Dinamico();
+        String Cedula=TXTCedula.getText().trim();
+        String Nombre=TXTEmpleado.getText().trim();
+        String Cargo=TXTFiltrarCargo.getText().trim();
+        String Especialidad=TXTFiltrarEspecialidad.getText().trim();
+        cargarTablaEmpleados(Cedula, Nombre, Cargo, Especialidad);
     }//GEN-LAST:event_TXTEmpleadoKeyReleased
 
     private void TXTCedulaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTCedulaFocusGained
@@ -3363,42 +3369,58 @@ public void cargarTablaUsuario(){
 
     private void TXTCedulaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTCedulaKeyReleased
         // TODO add your handling code here:
-        //Dinamico();
+        String Cedula=TXTCedula.getText().trim();
+        String Nombre=TXTEmpleado.getText().trim();
+        String Cargo=TXTFiltrarCargo.getText().trim();
+        String Especialidad=TXTFiltrarEspecialidad.getText().trim();
+        cargarTablaEmpleados(Cedula, Nombre, Cargo, Especialidad);
     }//GEN-LAST:event_TXTCedulaKeyReleased
 
-    private void TXTEstadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTEstadoFocusGained
+    private void TXTFiltrarEspecialidadFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTFiltrarEspecialidadFocusGained
         // TODO add your handling code here:
-    }//GEN-LAST:event_TXTEstadoFocusGained
+    }//GEN-LAST:event_TXTFiltrarEspecialidadFocusGained
 
-    private void TXTEstadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTEstadoFocusLost
+    private void TXTFiltrarEspecialidadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTFiltrarEspecialidadFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_TXTEstadoFocusLost
+    }//GEN-LAST:event_TXTFiltrarEspecialidadFocusLost
 
-    private void TXTEstadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTEstadoMousePressed
+    private void TXTFiltrarEspecialidadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTFiltrarEspecialidadMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TXTEstadoMousePressed
+    }//GEN-LAST:event_TXTFiltrarEspecialidadMousePressed
 
-    private void TXTEstadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTEstadoKeyReleased
+    private void TXTFiltrarEspecialidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTFiltrarEspecialidadKeyReleased
         // TODO add your handling code here:
-        //Dinamico();
-    }//GEN-LAST:event_TXTEstadoKeyReleased
+        String Cedula=TXTCedula.getText().trim();
+        String Nombre=TXTEmpleado.getText().trim();
+        String Cargo=TXTFiltrarCargo.getText().trim();
+        String Especialidad=TXTFiltrarEspecialidad.getText().trim();
+        cargarTablaEmpleados(Cedula, Nombre, Cargo, Especialidad);
+    }//GEN-LAST:event_TXTFiltrarEspecialidadKeyReleased
 
-    private void TXTNombreUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTNombreUsuarioFocusGained
+    private void TXTFiltrarCargoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTFiltrarCargoFocusGained
         // TODO add your handling code here:
-    }//GEN-LAST:event_TXTNombreUsuarioFocusGained
+    }//GEN-LAST:event_TXTFiltrarCargoFocusGained
 
-    private void TXTNombreUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTNombreUsuarioFocusLost
+    private void TXTFiltrarCargoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTFiltrarCargoFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_TXTNombreUsuarioFocusLost
+    }//GEN-LAST:event_TXTFiltrarCargoFocusLost
 
-    private void TXTNombreUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTNombreUsuarioMousePressed
+    private void TXTFiltrarCargoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTFiltrarCargoMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TXTNombreUsuarioMousePressed
+    }//GEN-LAST:event_TXTFiltrarCargoMousePressed
 
-    private void TXTNombreUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTNombreUsuarioKeyReleased
+    private void TXTFiltrarCargoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTFiltrarCargoKeyReleased
         // TODO add your handling code here:
-        //Dinamico();
-    }//GEN-LAST:event_TXTNombreUsuarioKeyReleased
+        String Cedula=TXTCedula.getText().trim();
+        String Nombre=TXTEmpleado.getText().trim();
+        String Cargo=TXTFiltrarCargo.getText().trim();
+        String Especialidad=TXTFiltrarEspecialidad.getText().trim();
+        cargarTablaEmpleados(Cedula, Nombre, Cargo, Especialidad);
+    }//GEN-LAST:event_TXTFiltrarCargoKeyReleased
+
+    private void TXTCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTCedulaKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TXTCedulaKeyTyped
 
     /**
      * @param args the command line arguments
@@ -3463,8 +3485,8 @@ public void cargarTablaUsuario(){
     private javax.swing.JTextField TXTCelular;
     private javax.swing.JTextField TXTCorreoElectronico;
     private javax.swing.JTextField TXTEmpleado;
-    private javax.swing.JTextField TXTEstado;
-    private javax.swing.JTextField TXTNombreUsuario;
+    private javax.swing.JTextField TXTFiltrarCargo;
+    private javax.swing.JTextField TXTFiltrarEspecialidad;
     private javax.swing.JTextField TXTTelefono;
     private javax.swing.JTextField TXTapellido;
     private javax.swing.JTextField TXTapellido1;

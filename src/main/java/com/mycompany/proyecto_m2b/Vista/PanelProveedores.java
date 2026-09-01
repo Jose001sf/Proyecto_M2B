@@ -285,6 +285,7 @@ private void generarSiguienteIdCompra() {
         tblDetalleCompra = new javax.swing.JTable();
         txtTotalCompra = new javax.swing.JTextField();
         lblErrorCantidadProveedor = new javax.swing.JLabel();
+        Precio1 = new javax.swing.JLabel();
 
         Fondo.setBackground(new java.awt.Color(255, 255, 255));
         Fondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -391,8 +392,8 @@ private void generarSiguienteIdCompra() {
 
         Precio.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
         Precio.setForeground(new java.awt.Color(153, 153, 153));
-        Precio.setText("Precio Unitario:");
-        Fondo.add(Precio, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 290, -1, -1));
+        Precio.setText("Total:");
+        Fondo.add(Precio, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 380, -1, -1));
 
         txtCantidadCompra.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -614,6 +615,11 @@ private void generarSiguienteIdCompra() {
         lblErrorCantidadProveedor.setForeground(new java.awt.Color(255, 51, 51));
         lblErrorCantidadProveedor.setText("jLabel1");
         Fondo.add(lblErrorCantidadProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 340, -1, -1));
+
+        Precio1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        Precio1.setForeground(new java.awt.Color(153, 153, 153));
+        Precio1.setText("Precio Unitario:");
+        Fondo.add(Precio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 290, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -1505,6 +1511,7 @@ private void calcularTotal() {
     private javax.swing.JLabel Nuevo;
     private javax.swing.JLabel Nuevo1;
     private javax.swing.JLabel Precio;
+    private javax.swing.JLabel Precio1;
     private javax.swing.JLabel Proveedor;
     private javax.swing.JLabel Repuesto;
     private javax.swing.JLabel TituloFuncion1;
