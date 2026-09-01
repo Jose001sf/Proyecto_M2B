@@ -285,4 +285,39 @@ public class RepuestoDAO {
     }
     return lista;
 }
+    
+    public List<Repuesto> buscarRepuestosPorFiltro(Connection con, String filtro) {
+    List<Repuesto> lista = new ArrayList<>();
+    String sql = "SELECT id_repuestos, nom_repuesto, cantidad_max_repuesto, cantidad_min_repuesto, "
+               + "cantidad_actual_repuesto, precio_repuesto_unit, descrip_repuesto, "
+               + "id_tip_repuesto, id_marca_repuesto "
+               + "FROM public.repuestos "
+               + "WHERE nom_repuesto ILIKE ? OR id_repuestos ILIKE ?";
+    
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        String patron = "%" + filtro + "%";
+        ps.setString(1, patron);
+        ps.setString(2, patron);
+        
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Repuesto r = new Repuesto();
+                r.setIdRepuestos(rs.getString("id_repuestos"));
+                r.setNomRepuesto(rs.getString("nom_repuesto"));
+                r.setCantidadMaxRepuesto(rs.getInt("cantidad_max_repuesto"));
+                r.setCantidadMinRepuesto(rs.getInt("cantidad_min_repuesto"));
+                r.setCantidadActualRepuesto(rs.getInt("cantidad_actual_repuesto"));
+                r.setPrecioRepuestoUnit(rs.getDouble("precio_repuesto_unit"));
+                r.setDescripRepuesto(rs.getString("descrip_repuesto"));
+                r.setIdTipRepuesto(rs.getString("id_tip_repuesto"));
+                r.setIdMarcaRepuesto(rs.getString("id_marca_repuesto"));
+                
+                lista.add(r);
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al filtrar repuestos: " + e.getMessage());
+    }
+    return lista;
+}
 }

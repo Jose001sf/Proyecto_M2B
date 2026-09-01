@@ -41,44 +41,66 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         CalendarioFechaIngreso.setEnabled(false);
         ((JTextFieldDateEditor) CalendarioFechaIngreso.getDateEditor()).setEditable(false);
         inicializarTablaDetalleServicio();
-        cargarTablaRepuestos();
+        
+        configurarModeloTablaRepuestos();
+        cargarTablaRepuestos("");
+        txtBuscarRepueseto.addKeyListener(new java.awt.event.KeyAdapter() {
+        @Override
+        public void keyReleased(java.awt.event.KeyEvent evt) {
+            txtBuscarRepuesetoKeyReleased(evt);
+        }
+    });
     }
-    
+
     private void inicializarTablaDetalleServicio() {
         modeloTablaServicios = (DefaultTableModel) tblDetalleServicio.getModel();
         modeloTablaServicios.setRowCount(0);
     }
-    
-    public void cargarTablaRepuestos() {
-    String[] titulos = {"ID", "Nombre", "Cantidad Actual", "Precio"};
-    DefaultTableModel modelo = new DefaultTableModel(null, titulos) {
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false;
-        }
-    };
-    
-    jTable1.setModel(modelo);
-    modelo.setRowCount(0); 
 
-    RepuestoDAO dao = new RepuestoDAO();
-    
-    try (Connection con = ConexionBD.obtenerConexion()) {
-        List<Repuesto> lista = dao.obtenerRepuestosParaTabla(con);
-        
-        for (Repuesto r : lista) {
-            Object[] fila = new Object[4];
-            fila[0] = r.getIdRepuestos();
-            fila[1] = r.getNomRepuesto();
-            fila[2] = r.getCantidadActualRepuesto();
-            fila[3] = r.getPrecioRepuestoUnit();
-            
-            modelo.addRow(fila);
-        }
-    } catch (SQLException e) {
-        System.err.println("Error al cargar los repuestos en la tabla: " + e.getMessage());
+    private void configurarModeloTablaRepuestos() {
+        String[] titulos = {"ID", "Nombre", "Cantidad Actual", "Precio"};
+        DefaultTableModel modelo = new DefaultTableModel(null, titulos) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; 
+            }
+        };
+        tblDetalleRepuestos.setModel(modelo);
     }
-}
+
+    private void txtBuscarRepuesetoKeyReleased(java.awt.event.KeyEvent evt) {
+        String textoBusqueda = txtBuscarRepueseto.getText();
+        cargarTablaRepuestos(textoBusqueda);
+    }
+   
+    public void cargarTablaRepuestos(String filtro) {
+        DefaultTableModel modelo = (DefaultTableModel) tblDetalleRepuestos.getModel();
+        modelo.setRowCount(0);
+
+        RepuestoDAO dao = new RepuestoDAO();
+        
+        try (Connection con = ConexionBD.obtenerConexion()) {
+            List<Repuesto> lista;
+            
+            if (filtro == null || filtro.trim().isEmpty()) {
+                lista = dao.obtenerRepuestosParaTabla(con);  
+            } else {
+                lista = dao.buscarRepuestosPorFiltro(con, filtro);
+            }
+            
+            for (Repuesto r : lista) {
+                Object[] fila = new Object[4];
+                fila[0] = r.getIdRepuestos();
+                fila[1] = r.getNomRepuesto();
+                fila[2] = r.getCantidadActualRepuesto();
+                fila[3] = r.getPrecioRepuestoUnit();
+                
+                modelo.addRow(fila);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al cargar los repuestos en la tabla: " + e.getMessage());
+        }
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -136,7 +158,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         jLabel15 = new javax.swing.JLabel();
         txtBuscarRepueseto = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblDetalleRepuestos = new javax.swing.JTable();
 
         jPanel1.setBackground(new java.awt.Color(238, 238, 238));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -569,7 +591,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, -1, 20));
         jPanel1.add(txtBuscarRepueseto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 380, 220, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblDetalleRepuestos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -580,7 +602,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tblDetalleRepuestos);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, -1, 80));
 
@@ -1191,8 +1213,8 @@ private void EditarOrdenDeServicio() {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblSubTotalServicios;
+    private javax.swing.JTable tblDetalleRepuestos;
     private javax.swing.JTable tblDetalleServicio;
     private javax.swing.JTextField txtBuscarRepueseto;
     // End of variables declaration//GEN-END:variables
