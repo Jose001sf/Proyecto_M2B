@@ -1,6 +1,7 @@
 
 package com.mycompany.proyecto_m2b.Controlador;
 
+import com.mycompany.proyecto_m2b.modelo.DetalleRepuesto;
 import com.mycompany.proyecto_m2b.modelo.orden_de_servicio;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -360,5 +361,77 @@ public orden_de_servicio buscarOrdenPorPlaca(String placa) {
         System.err.println("Error al buscar por placa: " + e.getMessage());
     }
     return orden;
+}
+
+    public boolean guardarOrdenConDetalles(orden_de_servicio orden, List<DetalleRepuesto> listaDetalles) {
+    String sqlOrden = "INSERT INTO orden_de_servicio (\"id_orden_serv\", \"estado_orden_servi\", \"fecha_entrega\", \"costo_total\", \"fecha_ingreso\", \"id_vehi\", \"id_empleado\") VALUES (?, ?, ?, ?, ?, ?, ?)";
+    
+    String sqlDetalle = "INSERT INTO detalle_repuesto (\"id_detalle_repuesto\", \"cantidad_usar\", \"subtotal_repuesto\", \"id_repuestos\", \"id_orden_serv\") VALUES (?, ?, ?, ?, ?)";
+    
+    String sqlStock = "UPDATE repuestos SET \"cantidad_actual_repuesto\" = \"cantidad_actual_repuesto\" - ? WHERE \"id_repuestos\" = ?";
+
+    Connection con = null;
+    try {
+        con = ConexionBD.obtenerConexion();
+        con.setAutoCommit(false); 
+
+        try (PreparedStatement psOrden = con.prepareStatement(sqlOrden)) {
+            psOrden.setString(1, orden.getId_orden_serv());
+            psOrden.setString(2, orden.getEstadoorden_servi());
+            if (orden.getFecha_entrega() != null) {
+                psOrden.setDate(3, new java.sql.Date(orden.getFecha_entrega().getTime()));
+            } else {
+                psOrden.setNull(3, java.sql.Types.DATE);
+            }
+            psOrden.setDouble(4, orden.getCosto_total());
+            psOrden.setDate(5, new java.sql.Date(orden.getFecha_ingreso().getTime()));
+            psOrden.setString(6, orden.getId_vehi());
+            psOrden.setString(7, orden.getId_empleado());
+            psOrden.executeUpdate();
+        }
+
+        int contadorDetalle = 1;
+        for (DetalleRepuesto det : listaDetalles) {
+            String idDetalle = String.format("DTR-%s-%03d", orden.getId_orden_serv(), contadorDetalle++);
+
+            try (PreparedStatement psDetalle = con.prepareStatement(sqlDetalle);
+                 PreparedStatement psStock = con.prepareStatement(sqlStock)) {
+                
+                psDetalle.setString(1, idDetalle);
+                psDetalle.setInt(2, det.getCantidad());
+                psDetalle.setDouble(3, det.getSubtotal());
+                psDetalle.setString(4, det.getIdRepuesto());
+                psDetalle.setString(5, orden.getId_orden_serv());
+                psDetalle.executeUpdate();
+
+                psStock.setInt(1, det.getCantidad());
+                psStock.setString(2, det.getIdRepuesto());
+                psStock.executeUpdate();
+            }
+        }
+
+        con.commit(); 
+        return true;
+
+    } catch (SQLException e) {
+        if (con != null) {
+            try {
+                con.rollback(); 
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        System.err.println("Error en transacción de orden y repuestos: " + e.getMessage());
+        return false;
+    } finally {
+        if (con != null) {
+            try {
+                con.setAutoCommit(true);
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
 }

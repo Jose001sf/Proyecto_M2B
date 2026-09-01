@@ -13,6 +13,7 @@ import com.mycompany.proyecto_m2b.Controlador.RepuestoDAO;
 import com.mycompany.proyecto_m2b.Controlador.Servidor_de_correos;
 import com.mycompany.proyecto_m2b.Controlador.Validaciones;
 import com.mycompany.proyecto_m2b.Controlador.VehiculosDAO;
+import com.mycompany.proyecto_m2b.modelo.DetalleRepuesto;
 import com.mycompany.proyecto_m2b.modelo.Repuesto;
 import com.mycompany.proyecto_m2b.modelo.Servicio;
 import com.mycompany.proyecto_m2b.modelo.orden_de_servicio;
@@ -1151,7 +1152,7 @@ private void EditarOrdenDeServicio() {
     this.idOrdenCargada = null; 
 }
     private void GuardarOrdenDeServicio() {
-    try {
+        try {
         if (comboPlacas.getSelectedIndex() <= 0) {
             JOptionPane.showMessageDialog(this, 
                 "Por favor seleccione una placa de vehículo.", 
@@ -1205,53 +1206,67 @@ private void EditarOrdenDeServicio() {
         orden.setId_vehi(idVehiculo);
         
         if (comboEmpleado != null && comboEmpleado.getSelectedIndex() > 0) {
-    String empleadoTexto = comboEmpleado.getSelectedItem().toString().toUpperCase();
-    String idEmpleado = dao.obtenerIdEmpleadoPorNombre(empleadoTexto);
-    
-    if (idEmpleado == null) {
-        JOptionPane.showMessageDialog(this, 
-            "No se encontró el ID del empleado seleccionado en la base de datos.", 
-            "Error de Empleado", 
-            JOptionPane.WARNING_MESSAGE);
-        return; 
-    }
-    
-    orden.setId_empleado(idEmpleado);
-} else {
-    JOptionPane.showMessageDialog(this, 
-        "Por favor seleccione un empleado asignado.", 
-        "Atención", 
-        JOptionPane.WARNING_MESSAGE);
-    return;
-}
-    if (comboPlacas == null || comboPlacas.getSelectedIndex() <= 0) {
-    JOptionPane.showMessageDialog(this, "Por favor seleccione una placa de vehículo.", "Atención", JOptionPane.WARNING_MESSAGE);
-    return;
-}
-    if (comboEmpleado == null || comboEmpleado.getSelectedIndex() <= 0) {
-    JOptionPane.showMessageDialog(this, "Por favor seleccione un empleado asignado.", "Atención", JOptionPane.WARNING_MESSAGE);
-    return;
-}
-    if (Estados == null || Estados.getSelectedIndex() <= 0) {
-    JOptionPane.showMessageDialog(this, "Por favor seleccione un estado para la orden.", "Atención", JOptionPane.WARNING_MESSAGE);
-    return;
-}
-    if (CalendarioFechaIngreso == null || CalendarioFechaIngreso.getDate() == null) {
-    JOptionPane.showMessageDialog(this, "Por favor seleccione la fecha de ingreso.", "Atención", JOptionPane.WARNING_MESSAGE);
-    return;
-}
-    if (Descripcion == null || Descripcion.getText().trim().isEmpty()) {
-    JOptionPane.showMessageDialog(this, "Por favor ingrese la descripción del trabajo a realizar.", "Atención", JOptionPane.WARNING_MESSAGE);
-    return;
-}
-        boolean guardadoExitoso = dao.guardarOrdenServicio(orden);
+            String empleadoTexto = comboEmpleado.getSelectedItem().toString().toUpperCase();
+            String idEmpleado = dao.obtenerIdEmpleadoPorNombre(empleadoTexto);
+        
+            if (idEmpleado == null) {
+                JOptionPane.showMessageDialog(this, 
+                    "No se encontró el ID del empleado seleccionado en la base de datos.", 
+                    "Error de Empleado", 
+                    JOptionPane.WARNING_MESSAGE);
+                return; 
+            }
+        
+            orden.setId_empleado(idEmpleado);
+        } else {
+            JOptionPane.showMessageDialog(this, 
+                "Por favor seleccione un empleado asignado.", 
+                "Atención", 
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (comboPlacas == null || comboPlacas.getSelectedIndex() <= 0) {
+            JOptionPane.showMessageDialog(this, "Por favor seleccione una placa de vehículo.", "Atención", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (comboEmpleado == null || comboEmpleado.getSelectedIndex() <= 0) {
+            JOptionPane.showMessageDialog(this, "Por favor seleccione un empleado asignado.", "Atención", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (Estados == null || Estados.getSelectedIndex() <= 0) {
+            JOptionPane.showMessageDialog(this, "Por favor seleccione un estado para la orden.", "Atención", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (CalendarioFechaIngreso == null || CalendarioFechaIngreso.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Por favor seleccione la fecha de ingreso.", "Atención", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (Descripcion == null || Descripcion.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese la descripción del trabajo a realizar.", "Atención", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        List<DetalleRepuesto> listaDetalles = new ArrayList<>();
+        javax.swing.table.DefaultTableModel modeloTablaRepuestos = (javax.swing.table.DefaultTableModel) tblRepuestosUsados.getModel();
+
+        for (int i = 0; i < modeloTablaRepuestos.getRowCount(); i++) {
+            String idRepuesto = modeloTablaRepuestos.getValueAt(i, 0).toString();
+            int cantidad = Integer.parseInt(modeloTablaRepuestos.getValueAt(i, 2).toString());
+            double subtotal = Double.parseDouble(modeloTablaRepuestos.getValueAt(i, 4).toString());
+            
+            listaDetalles.add(new DetalleRepuesto(idRepuesto, cantidad, subtotal));
+        }
+
+        boolean guardadoExitoso = dao.guardarOrdenConDetalles(orden, listaDetalles);
 
         if (guardadoExitoso) {
             JOptionPane.showMessageDialog(this, 
-                "Orden de Servicio registrada con éxito.\nCódigo: " + nuevoId, 
+                "Orden de Servicio y repuestos registrados con éxito.\nCódigo: " + nuevoId, 
                 "Registro Exitoso", 
                 JOptionPane.INFORMATION_MESSAGE);
             LimpiarDatos();
+            modeloTablaRepuestos.setRowCount(0); 
         } else {
             JOptionPane.showMessageDialog(this, 
                 "No se pudo guardar la orden de servicio. Verifique la conexión o los datos.", 
@@ -1261,7 +1276,7 @@ private void EditarOrdenDeServicio() {
 
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, 
-            "El costo total debe ser un número válido (ejemplo: 45.50).", 
+            "El costo total o los valores numéricos de los repuestos deben ser válidos.", 
             "Error de Formato", 
             JOptionPane.ERROR_MESSAGE);
     } catch (Exception e) {

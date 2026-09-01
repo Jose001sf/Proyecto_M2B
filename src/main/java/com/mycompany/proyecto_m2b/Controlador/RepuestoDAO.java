@@ -335,4 +335,51 @@ public class RepuestoDAO {
     }
     return -1; 
 }
+    
+    public boolean guardarDetallesYDescontarStock(Connection con, javax.swing.JTable tablaRepuestosUsados, String idOrdenServicio) {
+    String sqlDetalle = "INSERT INTO public.detalle_repuesto (id_detalle_repuesto, cantidad_usar, subtotal_repuesto, id_repuestos, id_orden_serv) VALUES (?, ?, ?, ?, ?)";
+    
+    String sqlStock = "UPDATE public.repuestos SET cantidad_actual_repuesto = cantidad_actual_repuesto - ? WHERE id_repuestos = ?";
+    
+    javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tablaRepuestosUsados.getModel();
+    int totalFilas = modelo.getRowCount();
+    
+    if (totalFilas == 0) {
+        return true; 
+    }
+
+    try (PreparedStatement psDetalle = con.prepareStatement(sqlDetalle);
+         PreparedStatement psStock = con.prepareStatement(sqlStock)) {
+         
+        for (int i = 0; i < totalFilas; i++) {
+            Object valId = modelo.getValueAt(i, 0);
+            if (valId == null) continue;
+
+            String idRepuesto = valId.toString();
+            int cantidadUsar = Integer.parseInt(modelo.getValueAt(i, 2).toString());
+            double subtotal = Double.parseDouble(modelo.getValueAt(i, 4).toString());
+
+            String idDetalle = "DR-" + System.currentTimeMillis() + "-" + i;
+
+            psDetalle.setString(1, idDetalle);
+            psDetalle.setInt(2, cantidadUsar);
+            psDetalle.setDouble(3, subtotal);
+            psDetalle.setString(4, idRepuesto);
+            psDetalle.setString(5, idOrdenServicio);
+            psDetalle.addBatch();
+
+            psStock.setInt(1, cantidadUsar);
+            psStock.setString(2, idRepuesto);
+            psStock.addBatch();
+        }
+        
+        psDetalle.executeBatch();
+        psStock.executeBatch();
+        return true;
+        
+    } catch (SQLException e) {
+        System.err.println("Error al guardar detalles y actualizar stock: " + e.getMessage());
+        return false;
+    }
+}
 }
