@@ -16,6 +16,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -38,7 +39,7 @@ public class PanelResiduos extends javax.swing.JPanel {
     txtNReciclaje.setEnabled(false);
     txtDireccion.setEnabled(false);
     txtTipoEmpresa.setEnabled(false);
-
+        
     cargarComboResiduos();
     cargarEmpresasEnCombo();
     
@@ -193,6 +194,8 @@ private void validarPrecio() {
         ValidarCantidad = new javax.swing.JLabel();
         ValidarPrecio = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        btnEliminarFilaResiduo = new javax.swing.JPanel();
+        Buscar1 = new javax.swing.JLabel();
 
         Fondo.setBackground(new java.awt.Color(255, 255, 255));
         Fondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -490,7 +493,15 @@ private void validarPrecio() {
             new String [] {
                 "ID Residuo", "Nombre Residuo", "Cantidad", "Precio U.", "Subtotal"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         Fondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 490, 1250, 270));
@@ -515,6 +526,44 @@ private void validarPrecio() {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Cute_mechanic_holding_wrench_cartoon_icon_illustration___Premium_Vector-removebg-preview.png"))); // NOI18N
         Fondo.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 280, 110, 150));
+
+        btnEliminarFilaResiduo.setBackground(new java.awt.Color(255, 255, 255));
+        btnEliminarFilaResiduo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
+        btnEliminarFilaResiduo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminarFilaResiduo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEliminarFilaResiduoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnEliminarFilaResiduoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnEliminarFilaResiduoMouseExited(evt);
+            }
+        });
+
+        Buscar1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        Buscar1.setForeground(new java.awt.Color(255, 0, 0));
+        Buscar1.setText("X  Eliminar");
+
+        javax.swing.GroupLayout btnEliminarFilaResiduoLayout = new javax.swing.GroupLayout(btnEliminarFilaResiduo);
+        btnEliminarFilaResiduo.setLayout(btnEliminarFilaResiduoLayout);
+        btnEliminarFilaResiduoLayout.setHorizontalGroup(
+            btnEliminarFilaResiduoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnEliminarFilaResiduoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Buscar1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        btnEliminarFilaResiduoLayout.setVerticalGroup(
+            btnEliminarFilaResiduoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnEliminarFilaResiduoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Buscar1)
+                .addContainerGap())
+        );
+
+        Fondo.add(btnEliminarFilaResiduo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 430, 110, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -1368,6 +1417,32 @@ private void validarPrecio() {
         // TODO add your handling code here:
         cargarComboResiduos();
     }//GEN-LAST:event_comboVentaResiduoMouseClicked
+
+    private void btnEliminarFilaResiduoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarFilaResiduoMouseClicked
+        int filaSeleccionada = jTable1.getSelectedRow();
+
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccione de la tabla el residuo que desea quitar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        modelo.removeRow(filaSeleccionada);
+
+        calcularTotalVenta();
+    }//GEN-LAST:event_btnEliminarFilaResiduoMouseClicked
+
+    private void btnEliminarFilaResiduoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarFilaResiduoMouseEntered
+        // TODO add your handling code here:
+        btnEliminarFilaResiduo.setBackground(new java.awt.Color(219,219,219));
+        Buscar.setForeground(new java.awt.Color(66, 66, 66));
+    }//GEN-LAST:event_btnEliminarFilaResiduoMouseEntered
+
+    private void btnEliminarFilaResiduoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarFilaResiduoMouseExited
+        // TODO add your handling code here:
+        btnEliminarFilaResiduo.setBackground(java.awt.Color.white);
+        Buscar.setForeground(java.awt.Color.black);
+    }//GEN-LAST:event_btnEliminarFilaResiduoMouseExited
     
     public void calcularTotalVenta() {
     javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
@@ -1391,6 +1466,7 @@ private void validarPrecio() {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BarraArriba;
     private javax.swing.JLabel Buscar;
+    private javax.swing.JLabel Buscar1;
     private javax.swing.JLabel DireccionResiduos;
     private javax.swing.JLabel Empresa;
     private javax.swing.JLabel FacturaResiduos;
@@ -1416,13 +1492,13 @@ private void validarPrecio() {
     private javax.swing.JLabel TotalPrecio;
     private javax.swing.JLabel ValidarCantidad;
     private javax.swing.JLabel ValidarPrecio;
+    private javax.swing.JPanel btnEliminarFilaResiduo;
     private javax.swing.JComboBox<Object> comboEmpresas;
     private javax.swing.JComboBox<String> comboVentaResiduo;
     private com.toedter.calendar.JDateChooser dateReciclaje;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtCantidadVenta;

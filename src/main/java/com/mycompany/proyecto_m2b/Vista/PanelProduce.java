@@ -77,6 +77,9 @@ public class PanelProduce extends javax.swing.JFrame {
         PanelEditar = new javax.swing.JPanel();
         Editar = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        PanelEliminarServicio = new javax.swing.JPanel();
+        DarDeBaja = new javax.swing.JLabel();
+        ImagenDarBaja = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -345,6 +348,48 @@ public class PanelProduce extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        PanelEliminarServicio.setBackground(new java.awt.Color(255, 255, 255));
+        PanelEliminarServicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(215, 106, 106)));
+        PanelEliminarServicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PanelEliminarServicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PanelEliminarServicioMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                PanelEliminarServicioMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                PanelEliminarServicioMouseExited(evt);
+            }
+        });
+
+        DarDeBaja.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        DarDeBaja.setForeground(new java.awt.Color(215, 106, 106));
+        DarDeBaja.setText("Eliminar");
+
+        ImagenDarBaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/person_cancel_22dp_EA3323_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
+
+        javax.swing.GroupLayout PanelEliminarServicioLayout = new javax.swing.GroupLayout(PanelEliminarServicio);
+        PanelEliminarServicio.setLayout(PanelEliminarServicioLayout);
+        PanelEliminarServicioLayout.setHorizontalGroup(
+            PanelEliminarServicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelEliminarServicioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ImagenDarBaja)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(DarDeBaja)
+                .addGap(30, 30, 30))
+        );
+        PanelEliminarServicioLayout.setVerticalGroup(
+            PanelEliminarServicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelEliminarServicioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelEliminarServicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(DarDeBaja)
+                    .addComponent(ImagenDarBaja))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -360,9 +405,7 @@ public class PanelProduce extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(PanelAgregarResiduo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(PanelEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -379,7 +422,11 @@ public class PanelProduce extends javax.swing.JFrame {
                                 .addGap(159, 159, 159)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(Detalles_de_produccion3)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(PanelEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(PanelEliminarServicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -413,7 +460,8 @@ public class PanelProduce extends javax.swing.JFrame {
                         .addComponent(PanelNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(PanelAgregarResiduo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PanelEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(PanelEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PanelEliminarServicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27))
         );
 
@@ -464,6 +512,26 @@ public class PanelProduce extends javax.swing.JFrame {
         TablaProduce.setModel(modelo);
     }
     
+    public void eliminarProduceRegistrado() {
+        if (produceTabla == null) {JOptionPane.showMessageDialog(this, "Seleccione un residuo de la tabla de historial.");
+            return;
+        }
+        
+        ProduceDAO produceDAO = new ProduceDAO();
+        
+        boolean exito = produceDAO.eliminarProduce(produceTabla.getId_produccion(), produceTabla.getId_residuos(), produceTabla.getCant_gene());
+        if (!exito) {
+            JOptionPane.showMessageDialog(this, "No se pudo eliminar el residuo.");
+            return;
+        }
+        String idOrden = produceTabla.getId_orden_serv();
+        JOptionPane.showMessageDialog(this,"Residuo eliminado y cantidad revertida correctamente.");
+        produceTabla = null;
+        TXTCantidad.setText("");
+        ComboOrdenesServicio.setEnabled(true);
+        ComboResiduos.setEnabled(true);
+        cargarHistorialProduce(idOrden);
+    }
     public void agregarResiduo() {
         residuo = (Residuos) ComboResiduos.getSelectedItem();        
         if (residuo == null) {
@@ -749,6 +817,29 @@ public class PanelProduce extends javax.swing.JFrame {
         Editar.setForeground(Color.black);
     }//GEN-LAST:event_PanelEditarMouseExited
 
+    private void PanelEliminarServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEliminarServicioMouseClicked
+        // TODO add your handling code here:
+        int opcion = JOptionPane.showConfirmDialog(this, "Está seguro de querer eliminar este registro de la tabla", "Confirmar", JOptionPane.YES_NO_OPTION);
+        if (opcion == JOptionPane.YES_OPTION){
+            eliminarProduceRegistrado();
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Acción cancelada");
+        }
+    }//GEN-LAST:event_PanelEliminarServicioMouseClicked
+
+    private void PanelEliminarServicioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEliminarServicioMouseEntered
+        // TODO add your handling code here:
+        PanelEliminarServicio.setBackground(new Color (252, 168, 168));
+        DarDeBaja.setForeground(Color.white);
+    }//GEN-LAST:event_PanelEliminarServicioMouseEntered
+
+    private void PanelEliminarServicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEliminarServicioMouseExited
+        // TODO add your handling code here:
+        PanelEliminarServicio.setBackground(Color.white);
+        DarDeBaja.setForeground(new Color(215, 106, 106));
+    }//GEN-LAST:event_PanelEliminarServicioMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -777,6 +868,7 @@ public class PanelProduce extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ComboOrdenesServicio;
     private javax.swing.JComboBox<String> ComboResiduos;
+    private javax.swing.JLabel DarDeBaja;
     private javax.swing.JLabel Detalles_de_produccion1;
     private javax.swing.JLabel Detalles_de_produccion2;
     private javax.swing.JLabel Detalles_de_produccion3;
@@ -784,11 +876,13 @@ public class PanelProduce extends javax.swing.JFrame {
     private javax.swing.JLabel Guardar;
     private javax.swing.JLabel ImagenADD;
     private javax.swing.JLabel ImagenADD2;
+    private javax.swing.JLabel ImagenDarBaja;
     private javax.swing.JLabel ImagenSAVE;
     private javax.swing.JLabel Nuevo;
     private javax.swing.JLabel Nuevo2;
     private javax.swing.JPanel PanelAgregarResiduo;
     private javax.swing.JPanel PanelEditar;
+    private javax.swing.JPanel PanelEliminarServicio;
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JPanel PanelNuevo;
     private javax.swing.JLabel Regresar;

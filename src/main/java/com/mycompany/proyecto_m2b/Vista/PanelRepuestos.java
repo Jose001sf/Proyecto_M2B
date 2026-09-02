@@ -363,7 +363,6 @@ public PanelRepuestos() {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel21 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -403,6 +402,7 @@ public PanelRepuestos() {
         txtBuscar = new javax.swing.JTextField();
         btnEliminar = new javax.swing.JPanel();
         Editar3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(238, 238, 238));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -419,15 +419,6 @@ public PanelRepuestos() {
             }
         });
 
-        jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel21.setText("<- REGRESAR");
-        jLabel21.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel21.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel21MouseClicked(evt);
-            }
-        });
-
         jLabel4.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("GESTIÓN DE REPUESTOS");
@@ -439,61 +430,57 @@ public PanelRepuestos() {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 857, Short.MAX_VALUE)
-                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39))
+                .addContainerGap(1032, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 50));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1330, 50));
 
-        jLabel5.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel5.setText("ID Repuesto");
+        jLabel5.setText("ID Repuesto:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel6.setText("Nombre Repueseto");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
+        jLabel6.setText("Nombre Repuesto:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 70, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(153, 153, 153));
         jLabel7.setText("Tipo:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 70, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(153, 153, 153));
         jLabel8.setText("Marca:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 100, -1, -1));
 
-        jLabel10.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(153, 153, 153));
         jLabel10.setText("Buscar");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 70, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, -1, -1));
 
-        jLabel11.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(153, 153, 153));
         jLabel11.setText("Cantidad Mínima:");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 110, -1, 20));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 160, -1, 20));
 
-        jLabel12.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(153, 153, 153));
         jLabel12.setText("Descripción del repuesto:");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, -1, -1));
 
-        jLabel13.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(153, 153, 153));
         jLabel13.setText("Cantidad Máxima:");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 160, -1, -1));
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 160, -1, -1));
 
         txtDescripRepuesto.setForeground(new java.awt.Color(153, 153, 153));
         txtDescripRepuesto.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -506,7 +493,7 @@ public PanelRepuestos() {
                 txtDescripRepuestoMousePressed(evt);
             }
         });
-        jPanel1.add(txtDescripRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 690, 70));
+        jPanel1.add(txtDescripRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 690, 70));
 
         btnGuardar.setBackground(new java.awt.Color(242, 101, 34));
         btnGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -550,24 +537,38 @@ public PanelRepuestos() {
                 .addContainerGap())
         );
 
-        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 360, -1, -1));
+        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 320, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(153, 153, 153));
         jLabel3.setText("Precio Base:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 210, -1, -1));
-        jPanel1.add(txtIdRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, 160, -1));
-        jPanel1.add(txtNomRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 160, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
 
+        txtIdRepuesto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel1.add(txtIdRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 160, -1));
+
+        txtNomRepuesto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel1.add(txtNomRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 70, 160, -1));
+
+        cbxTipoRepuesto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cbxTipoRepuesto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbxTipoRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, 170, -1));
+        jPanel1.add(cbxTipoRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 70, 170, -1));
 
+        cbxMarcaRepuesto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cbxMarcaRepuesto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbxMarcaRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 170, -1));
-        jPanel1.add(txtStockActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 60, 170, -1));
-        jPanel1.add(txtCantidadMinima, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 110, 170, -1));
-        jPanel1.add(txtCantidadMaxima, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 160, 170, -1));
-        jPanel1.add(txtPrecioBase, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 210, 170, -1));
+        jPanel1.add(cbxMarcaRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 100, 170, -1));
+
+        txtStockActual.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel1.add(txtStockActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 170, -1));
+
+        txtCantidadMinima.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel1.add(txtCantidadMinima, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 160, 170, -1));
+
+        txtCantidadMaxima.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel1.add(txtCantidadMaxima, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 160, 170, -1));
+
+        txtPrecioBase.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel1.add(txtPrecioBase, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 170, -1));
 
         btnAgregarMarca.setBackground(new java.awt.Color(255, 255, 255));
         btnAgregarMarca.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -615,7 +616,7 @@ public PanelRepuestos() {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(btnAgregarMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, -1, -1));
+        jPanel1.add(btnAgregarMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 100, -1, -1));
 
         btnAgregarTipo.setBackground(new java.awt.Color(255, 255, 255));
         btnAgregarTipo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -658,32 +659,32 @@ public PanelRepuestos() {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(btnAgregarTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, -1, -1));
+        jPanel1.add(btnAgregarTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 60, -1, -1));
 
         lblErrorTipoRepuesto.setFont(new java.awt.Font("Helvetica Neue", 2, 13)); // NOI18N
         lblErrorTipoRepuesto.setForeground(new java.awt.Color(255, 51, 51));
         lblErrorTipoRepuesto.setText("jLabel1");
-        jPanel1.add(lblErrorTipoRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, 220, -1));
+        jPanel1.add(lblErrorTipoRepuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 100, 220, -1));
 
         lblErrorStockActual.setFont(new java.awt.Font("Helvetica Neue", 2, 13)); // NOI18N
         lblErrorStockActual.setForeground(new java.awt.Color(255, 51, 51));
         lblErrorStockActual.setText("jLabel1");
-        jPanel1.add(lblErrorStockActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 90, -1, -1));
+        jPanel1.add(lblErrorStockActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, -1, -1));
 
         lblErrorStockMinimo.setFont(new java.awt.Font("Helvetica Neue", 2, 13)); // NOI18N
         lblErrorStockMinimo.setForeground(new java.awt.Color(255, 51, 51));
         lblErrorStockMinimo.setText("jLabel2");
-        jPanel1.add(lblErrorStockMinimo, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 140, -1, -1));
+        jPanel1.add(lblErrorStockMinimo, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 190, -1, -1));
 
         lblErrorStockMaximo.setFont(new java.awt.Font("Helvetica Neue", 2, 13)); // NOI18N
         lblErrorStockMaximo.setForeground(new java.awt.Color(255, 51, 51));
         lblErrorStockMaximo.setText("jLabel9");
-        jPanel1.add(lblErrorStockMaximo, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, -1, -1));
+        jPanel1.add(lblErrorStockMaximo, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 190, -1, -1));
 
         lblErrorPrecioBase.setFont(new java.awt.Font("Helvetica Neue", 2, 13)); // NOI18N
         lblErrorPrecioBase.setForeground(new java.awt.Color(255, 51, 51));
         lblErrorPrecioBase.setText("jLabel14");
-        jPanel1.add(lblErrorPrecioBase, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 240, -1, -1));
+        jPanel1.add(lblErrorPrecioBase, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 250, -1, -1));
 
         tblModificar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -698,13 +699,13 @@ public PanelRepuestos() {
         ));
         jScrollPane1.setViewportView(tblModificar);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 120, 530, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 1290, 370));
 
-        jLabel14.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(153, 153, 153));
         jLabel14.setText("Stock Actual:");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, -1, -1));
-        jPanel1.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 90, 190, -1));
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+        jPanel1.add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 190, -1));
 
         btnEliminar.setBackground(new java.awt.Color(255, 255, 255));
         btnEliminar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -741,7 +742,10 @@ public PanelRepuestos() {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 70, 120, -1));
+        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 390, 120, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Cute_mechanic_holding_wrench_cartoon_icon_illustration___Premium_Vector-removebg-preview.png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 280, 110, 110));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -751,16 +755,9 @@ public PanelRepuestos() {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 846, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_jLabel21MouseClicked
 
     private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
 
@@ -1141,9 +1138,6 @@ public PanelRepuestos() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Editar;
-    private javax.swing.JLabel Editar1;
-    private javax.swing.JLabel Editar2;
     private javax.swing.JLabel Editar3;
     private javax.swing.JLabel Guardar;
     private javax.swing.JLabel ImagenADD2;
@@ -1151,30 +1145,24 @@ public PanelRepuestos() {
     private javax.swing.JLabel ImagenSAVE;
     private javax.swing.JLabel Nuevo2;
     private javax.swing.JLabel Nuevo3;
-    private javax.swing.JPanel PanelEditar;
-    private javax.swing.JPanel PanelEditar1;
-    private javax.swing.JPanel PanelEditar2;
     private javax.swing.JPanel btnAgregarMarca;
     private javax.swing.JPanel btnAgregarTipo;
     private javax.swing.JPanel btnEliminar;
     private javax.swing.JPanel btnGuardar;
     private javax.swing.JComboBox<Object> cbxMarcaRepuesto;
     private javax.swing.JComboBox<Object> cbxTipoRepuesto;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

@@ -151,4 +151,44 @@ public class ProduceDAO {
         }
         return lista;
     }
+    
+    private static final String ELIMINARPRODUCE =
+            "DELETE FROM produce "
+            + "WHERE id_produccion = ?";
+    public boolean eliminarProduce(String idProduccion, String idResiduo, int cantidadGenerada) {
+        int diferencia = -cantidadGenerada;
+        try (Connection conn = ConexionBD.obtenerConexion()) {
+            conn.setAutoCommit(false);
+            try {
+                try (PreparedStatement ps=conn.prepareStatement(AJUSTARINVENTARIORESIDUO)) {
+                    ps.setInt(1, diferencia);
+                    ps.setString(2, idResiduo);
+                    ps.setInt(3, diferencia);
+                    ps.setInt(4, diferencia);
+                    int filaAfectada=ps.executeUpdate();
+                    if (filaAfectada == 0) {
+                        throw new SQLException("No se pudo restar el inventario");
+                    }
+                }
+                try (PreparedStatement ps=conn.prepareStatement(ELIMINARPRODUCE)) {
+                    ps.setString(1, idProduccion);
+                    int filaEliminada=ps.executeUpdate();
+                    if (filaEliminada == 0) {
+                        throw new SQLException("No existe el registro");
+                    }
+                }
+                conn.commit();
+                return true;
+            } catch (SQLException e) {
+                conn.rollback();
+                System.out.println("Error al eliminar Produce: "+ e.getMessage());
+                return false;
+            } finally {
+                conn.setAutoCommit(true);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error de conexión: " + e.getMessage());
+            return false;
+        }
+    }
 }

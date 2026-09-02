@@ -50,7 +50,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         cargarCombosIniciales();
         calcularTotal();
         TXTcostoTotal.setEditable(false);
-        tblRepuestosUsados.getModel().addTableModelListener(e->{calcularTotal();});
+        
         tblDetalleServicio.getModel().addTableModelListener(e->{calcularTotal();});
         CalendarioFechaIngreso.setDate(new java.util.Date());
         CalendarioFechaIngreso.setEnabled(false);
@@ -60,7 +60,10 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         configurarModeloTablaRepuestos();
         cargarTablaRepuestos("");
         LimpiarDatos();
-
+        
+        txtSubtotalRepuestos.setEditable(false);
+        txtSubtotalRepuestos.setEnabled(false);
+        
         txtBuscarRepueseto.addKeyListener(new java.awt.event.KeyAdapter() {
             @Override
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -85,7 +88,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         }
     }
     
-    txtSubtotalRepuestos.setText(String.format("%.2f", totalRepuestos));
+    txtSubtotalRepuestos.setText(String.format(java.util.Locale.US, "%.2f", totalRepuestos));
 }
 
     private void inicializarTablaDetalleServicio() {
@@ -480,6 +483,11 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         jPanel1.add(CalendarioFechaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 250, -1));
 
         comboPlacas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboPlacas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                comboPlacasMouseClicked(evt);
+            }
+        });
         comboPlacas.addActionListener(this::comboPlacasActionPerformed);
         jPanel1.add(comboPlacas, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 210, -1));
 
@@ -500,7 +508,15 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
             new String [] {
                 "Nombre del Servicio", "Precio Unitario", "Cantidad", "Subtotal Servicio"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblDetalleServicio);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 750, 90));
@@ -716,7 +732,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
             }
         }
 
-        txtSubtotalRepuestos.setText(String.format("%.2f", nuevoSubtotalRepuestos));
+        txtSubtotalRepuestos.setText(String.format(java.util.Locale.US, "%.2f", nuevoSubtotalRepuestos));
     }//GEN-LAST:event_btnEliminarRepuestoActionPerformed
 
     private void btnAgregarRepuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarRepuestosActionPerformed
@@ -1201,6 +1217,10 @@ if (ordenesBD.isEmpty()) {
     private void comboClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboClienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboClienteActionPerformed
+    private void comboPlacasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboPlacasMouseClicked
+        // TODO add your handling code here:
+        cargarCombosIniciales();
+    }//GEN-LAST:event_comboPlacasMouseClicked
 public void cargarCombosIniciales() {
     OrdenServicioDAO dao = new OrdenServicioDAO();
 
@@ -1331,6 +1351,7 @@ private void configurarModeloTablaRepuestosUsados() {
         }
     };
     tblRepuestosUsados.setModel(modeloUsados);
+    modeloUsados.addTableModelListener(e -> calcularTotal());
 }
    
 
@@ -1599,7 +1620,7 @@ private void configurarModeloTablaRepuestosUsados() {
         }
     }
 
-    lblSubTotalServicios.setText(String.format("%.2f", total));
+    lblSubTotalServicios.setText(String.format(java.util.Locale.US, "%.2f", total));
     calcularTotal(); 
 }
    private boolean guardarDetalleServicios(String idOrden) {

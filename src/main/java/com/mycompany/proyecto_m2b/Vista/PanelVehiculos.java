@@ -113,8 +113,6 @@ public class PanelVehiculos extends javax.swing.JPanel {
         Fondo = new javax.swing.JPanel();
         BarraArriba = new javax.swing.JPanel();
         NombreVentanaVehiculos = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        BarraAbajo = new javax.swing.JPanel();
         TituloFuncion1 = new javax.swing.JLabel();
         Placa = new javax.swing.JLabel();
         Marca = new javax.swing.JLabel();
@@ -157,6 +155,9 @@ public class PanelVehiculos extends javax.swing.JPanel {
         PanelAgregar = new javax.swing.JPanel();
         Buscar1 = new javax.swing.JLabel();
         ImagenADD3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         Fondo.setBackground(new java.awt.Color(255, 255, 255));
         Fondo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -168,16 +169,6 @@ public class PanelVehiculos extends javax.swing.JPanel {
         NombreVentanaVehiculos.setForeground(new java.awt.Color(255, 255, 255));
         NombreVentanaVehiculos.setText("REGISTRO DE VEHÍCULOS ");
 
-        jLabel1.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Regresar");
-        jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout BarraArribaLayout = new javax.swing.GroupLayout(BarraArriba);
         BarraArriba.setLayout(BarraArribaLayout);
         BarraArribaLayout.setHorizontalGroup(
@@ -185,87 +176,72 @@ public class PanelVehiculos extends javax.swing.JPanel {
             .addGroup(BarraArribaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(NombreVentanaVehiculos, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 858, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(19, 19, 19))
+                .addContainerGap(1005, Short.MAX_VALUE))
         );
         BarraArribaLayout.setVerticalGroup(
             BarraArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BarraArribaLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(BarraArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(NombreVentanaVehiculos))
+                .addGap(24, 24, 24)
+                .addComponent(NombreVentanaVehiculos)
                 .addContainerGap(10, Short.MAX_VALUE))
         );
 
-        Fondo.add(BarraArriba, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 60));
+        Fondo.add(BarraArriba, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1330, 60));
 
-        BarraAbajo.setBackground(new java.awt.Color(227, 153, 106));
-
-        javax.swing.GroupLayout BarraAbajoLayout = new javax.swing.GroupLayout(BarraAbajo);
-        BarraAbajo.setLayout(BarraAbajoLayout);
-        BarraAbajoLayout.setHorizontalGroup(
-            BarraAbajoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1320, Short.MAX_VALUE)
-        );
-        BarraAbajoLayout.setVerticalGroup(
-            BarraAbajoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 70, Short.MAX_VALUE)
-        );
-
-        Fondo.add(BarraAbajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 1320, 70));
-
-        TituloFuncion1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        TituloFuncion1.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         TituloFuncion1.setForeground(new java.awt.Color(153, 153, 153));
         TituloFuncion1.setText("DATOS PRINCIPALES Y PROPIETARIO");
-        Fondo.add(TituloFuncion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
+        Fondo.add(TituloFuncion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
 
-        Placa.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        Placa.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         Placa.setForeground(new java.awt.Color(153, 153, 153));
         Placa.setText("Placa:");
-        Fondo.add(Placa, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
+        Fondo.add(Placa, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
 
-        Marca.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        Marca.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         Marca.setForeground(new java.awt.Color(153, 153, 153));
         Marca.setText("Marca:");
-        Fondo.add(Marca, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
+        Fondo.add(Marca, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 130, -1, -1));
 
-        Color.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        Color.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         Color.setForeground(new java.awt.Color(153, 153, 153));
         Color.setText("Color:");
-        Fondo.add(Color, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, -1, -1));
+        Fondo.add(Color, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 200, -1, -1));
 
-        Kilometraje.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        Kilometraje.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         Kilometraje.setForeground(new java.awt.Color(153, 153, 153));
         Kilometraje.setText("Kilometraje:");
-        Fondo.add(Kilometraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 240, -1, -1));
+        Fondo.add(Kilometraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 210, -1, -1));
 
-        Modelo.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        Modelo.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         Modelo.setForeground(new java.awt.Color(153, 153, 153));
         Modelo.setText("Modelo:");
-        Fondo.add(Modelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 180, -1, -1));
+        Fondo.add(Modelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, -1, -1));
 
-        Propietario.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        Propietario.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         Propietario.setForeground(new java.awt.Color(153, 153, 153));
         Propietario.setText("Propietario:");
-        Fondo.add(Propietario, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, -1, -1));
+        Fondo.add(Propietario, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 130, -1, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/images (2).jpg"))); // NOI18N
-        Fondo.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 70, -1, -1));
+        Fondo.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 60, -1, -1));
 
+        comboMarcas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         comboMarcas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una marca", "Item 2", "Item 3", "Item 4" }));
         comboMarcas.addActionListener(this::comboMarcasActionPerformed);
-        Fondo.add(comboMarcas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 210, -1));
+        Fondo.add(comboMarcas, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 150, 210, -1));
 
+        comboModelos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         comboModelos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un modelo", "Item 2", "Item 3", "Item 4" }));
         comboModelos.addActionListener(this::comboModelosActionPerformed);
-        Fondo.add(comboModelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 200, 240, -1));
+        Fondo.add(comboModelos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 240, -1));
 
+        comboPropietarios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         comboPropietarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione al propietario", "Item 2", "Item 3", "Item 4" }));
         comboPropietarios.addActionListener(this::comboPropietariosActionPerformed);
-        Fondo.add(comboPropietarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 240, -1));
+        Fondo.add(comboPropietarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 150, 240, -1));
 
+        txtPlaca.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtPlaca.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtPlacaFocusGained(evt);
@@ -275,8 +251,9 @@ public class PanelVehiculos extends javax.swing.JPanel {
             }
         });
         txtPlaca.addActionListener(this::txtPlacaActionPerformed);
-        Fondo.add(txtPlaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 210, -1));
+        Fondo.add(txtPlaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 210, -1));
 
+        txtColor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtColor.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtColorFocusGained(evt);
@@ -285,8 +262,9 @@ public class PanelVehiculos extends javax.swing.JPanel {
                 txtColorFocusLost(evt);
             }
         });
-        Fondo.add(txtColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 210, -1));
+        Fondo.add(txtColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 230, 210, -1));
 
+        txtKilometraje.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtKilometraje.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtKilometrajeFocusGained(evt);
@@ -295,46 +273,48 @@ public class PanelVehiculos extends javax.swing.JPanel {
                 txtKilometrajeFocusLost(evt);
             }
         });
-        Fondo.add(txtKilometraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 260, 240, -1));
+        Fondo.add(txtKilometraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 230, 240, -1));
 
-        TituloFuncion2.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        TituloFuncion2.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         TituloFuncion2.setForeground(new java.awt.Color(153, 153, 153));
         TituloFuncion2.setText("ESPECIFICACIONES TÉCNICAS");
         Fondo.add(TituloFuncion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, -1, -1));
 
-        Ano.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        Ano.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         Ano.setForeground(new java.awt.Color(153, 153, 153));
         Ano.setText("Año:");
-        Fondo.add(Ano, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 400, -1, -1));
+        Fondo.add(Ano, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, -1, -1));
 
-        Chasis.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        Chasis.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         Chasis.setForeground(new java.awt.Color(153, 153, 153));
         Chasis.setText("N° Chasis:");
-        Fondo.add(Chasis, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 460, -1, -1));
+        Fondo.add(Chasis, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 490, -1, -1));
 
-        Transmicion.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        Transmicion.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         Transmicion.setForeground(new java.awt.Color(153, 153, 153));
         Transmicion.setText("Transmisión:");
-        Fondo.add(Transmicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 400, -1, -1));
+        Fondo.add(Transmicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 430, -1, -1));
 
-        Motor.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        Motor.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         Motor.setForeground(new java.awt.Color(153, 153, 153));
         Motor.setText("N° Motor:");
-        Fondo.add(Motor, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 460, -1, -1));
+        Fondo.add(Motor, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 490, -1, -1));
 
-        Cilindraje.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        Cilindraje.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         Cilindraje.setForeground(new java.awt.Color(153, 153, 153));
         Cilindraje.setText("Cilindraje:");
-        Fondo.add(Cilindraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 400, -1, -1));
+        Fondo.add(Cilindraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 420, -1, -1));
 
-        Puertas.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 13)); // NOI18N
+        Puertas.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 15)); // NOI18N
         Puertas.setForeground(new java.awt.Color(153, 153, 153));
         Puertas.setText("N° Puertas:");
-        Fondo.add(Puertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 460, -1, -1));
+        Fondo.add(Puertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 490, -1, -1));
 
+        comboTransmision.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         comboTransmision.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un tipo de transmision", "Item 2", "Item 3", "Item 4" }));
-        Fondo.add(comboTransmision, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 420, 290, -1));
+        Fondo.add(comboTransmision, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 450, 290, -1));
 
+        txtChasis.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtChasis.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtChasisFocusGained(evt);
@@ -343,8 +323,9 @@ public class PanelVehiculos extends javax.swing.JPanel {
                 txtChasisFocusLost(evt);
             }
         });
-        Fondo.add(txtChasis, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 480, 270, -1));
+        Fondo.add(txtChasis, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 510, 230, -1));
 
+        txtMotor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtMotor.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtMotorFocusGained(evt);
@@ -353,8 +334,9 @@ public class PanelVehiculos extends javax.swing.JPanel {
                 txtMotorFocusLost(evt);
             }
         });
-        Fondo.add(txtMotor, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 480, 290, -1));
+        Fondo.add(txtMotor, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 510, 290, -1));
 
+        txtCilindraje.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtCilindraje.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtCilindrajeFocusGained(evt);
@@ -363,8 +345,9 @@ public class PanelVehiculos extends javax.swing.JPanel {
                 txtCilindrajeFocusLost(evt);
             }
         });
-        Fondo.add(txtCilindraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 420, 270, -1));
+        Fondo.add(txtCilindraje, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 450, 270, -1));
 
+        txtPuertas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtPuertas.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtPuertasFocusGained(evt);
@@ -373,7 +356,7 @@ public class PanelVehiculos extends javax.swing.JPanel {
                 txtPuertasFocusLost(evt);
             }
         });
-        Fondo.add(txtPuertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 480, 270, -1));
+        Fondo.add(txtPuertas, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 510, 270, -1));
 
         PanelGuardar.setBackground(new java.awt.Color(242, 101, 34));
         PanelGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -417,7 +400,7 @@ public class PanelVehiculos extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        Fondo.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 550, -1, -1));
+        Fondo.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 610, -1, -1));
 
         PanelEditar.setBackground(new java.awt.Color(255, 255, 255));
         PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -461,7 +444,7 @@ public class PanelVehiculos extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        Fondo.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 550, -1, -1));
+        Fondo.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 610, -1, -1));
 
         PanelBuscar.setBackground(new java.awt.Color(255, 255, 255));
         PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -504,7 +487,7 @@ public class PanelVehiculos extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Fondo.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 550, -1, -1));
+        Fondo.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 610, -1, -1));
 
         PanelNuevo.setBackground(new java.awt.Color(255, 255, 255));
         PanelNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -538,9 +521,9 @@ public class PanelVehiculos extends javax.swing.JPanel {
             .addGroup(PanelNuevoLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(ImagenADD)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(Nuevo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         PanelNuevoLayout.setVerticalGroup(
             PanelNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -552,11 +535,11 @@ public class PanelVehiculos extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Fondo.add(PanelNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 310, -1, -1));
+        Fondo.add(PanelNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 310, -1, -1));
 
         jYearChooser1.setMaximum(2027);
         jYearChooser1.setMinimum(1900);
-        Fondo.add(jYearChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 110, -1));
+        Fondo.add(jYearChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, 120, 30));
 
         PanelAgregar.setBackground(new java.awt.Color(255, 255, 255));
         PanelAgregar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -599,7 +582,16 @@ public class PanelVehiculos extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Fondo.add(PanelAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 550, -1, -1));
+        Fondo.add(PanelAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 610, -1, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Cute_mechanic_holding_wrench_cartoon_icon_illustration___Premium_Vector-removebg-preview.png"))); // NOI18N
+        Fondo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 440, -1, -1));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Cute_mechanic_holding_wrench_cartoon_icon_illustration___Premium_Vector-removebg-preview.png"))); // NOI18N
+        Fondo.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 440, -1, -1));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Cute_mechanic_holding_wrench_cartoon_icon_illustration___Premium_Vector-removebg-preview.png"))); // NOI18N
+        Fondo.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 440, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -612,11 +604,6 @@ public class PanelVehiculos extends javax.swing.JPanel {
             .addComponent(Fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        // TODO add your handling code here:
-  
-    }//GEN-LAST:event_jLabel1MouseClicked
 
     private void comboMarcasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMarcasActionPerformed
         // TODO add your handling code here:
@@ -1148,7 +1135,6 @@ private String obtenerIdPropietarioSeleccionado() {
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Ano;
-    private javax.swing.JPanel BarraAbajo;
     private javax.swing.JPanel BarraArriba;
     private javax.swing.JLabel Buscar;
     private javax.swing.JLabel Buscar1;
@@ -1185,6 +1171,8 @@ private String obtenerIdPropietarioSeleccionado() {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private com.toedter.calendar.JYearChooser jYearChooser1;
     private javax.swing.JTextField txtChasis;
