@@ -640,7 +640,15 @@ public class PanelPropietarios extends javax.swing.JPanel {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(TablaPropietarios);
 
         Empleado.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
@@ -2614,6 +2622,8 @@ public class PanelPropietarios extends javax.swing.JPanel {
         TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
         TXTciudad.setText("Ciudad");
         TXTciudad.setForeground(new Color(94, 94, 94));
+        persona=null;
+        propietario=null;
     }
     public void GuardarYaExistentes (Persona persona){
         Validaciones V=new Validaciones();

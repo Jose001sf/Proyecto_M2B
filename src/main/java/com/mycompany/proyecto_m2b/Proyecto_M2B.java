@@ -16,6 +16,6 @@ public class Proyecto_M2B {
         System.out.println("Funcionando Siuuu");
         //siso
         //good
-        //Jovenes trabajen
+        //Jovenes trabajen.
     }
 }

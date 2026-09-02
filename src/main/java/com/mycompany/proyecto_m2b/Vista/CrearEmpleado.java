@@ -56,6 +56,7 @@ public class CrearEmpleado extends javax.swing.JFrame {
         ((JTextFieldDateEditor) CalendarioRegistro.getDateEditor()).setDisabledTextColor(java.awt.Color.BLACK);
         cargarTablaEmpleados();
         TablaEmpleados.setEnabled(false);
+        TablaEmpleados.setEnabled(false);
         JPanelBuscar.setVisible(false);
     }
     int xMouse, yMouse;
