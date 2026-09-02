@@ -464,9 +464,12 @@ public orden_de_servicio buscarOrdenPorPlacaII(String placa) {
 }
     public void cargarOrdenServicio (JComboBox ComboOrdonesServicio) {
         String sql = """
-            SELECT id_orden_serv
-            FROM orden_de_servicio                      
-            ORDER BY id_orden_serv
+            SELECT o.id_orden_serv, v.placa_carro, p.nom1_person, p.apell1_person
+            FROM orden_de_servicio o
+            INNER JOIN vehiculo v ON v.id_vehi = o.id_vehi
+            INNER JOIN propietario pr ON pr.id_propietario = v.id_propietario
+            INNER JOIN persona p ON p.ced_perso = pr.ced_perso
+            ORDER BY o.id_orden_serv
             """;
 
         try (Connection con = ConexionBD.obtenerConexion();
@@ -478,8 +481,9 @@ public orden_de_servicio buscarOrdenPorPlacaII(String placa) {
             while (rs.next()) {
                 orden_de_servicio r=new orden_de_servicio();
                 r.setId_orden_serv(rs.getString("id_orden_serv"));
-                
-                
+                r.setPlacaVehiculo(rs.getString("placa_carro"));
+                String nombrePropietario =rs.getString("nom1_person")+ " "+ rs.getString("apell1_person");
+                r.setNombrePropietario(nombrePropietario);
                 ComboOrdonesServicio.addItem(r);
                 i++;
             }
