@@ -23,6 +23,7 @@ public class Menu extends javax.swing.JFrame {
     public Menu(Usuario usuario) {
         this();
         this.usuarioActual = usuario;
+        iniciarMenu();
         cargarPermisos();
         configurarMenu();
     }
@@ -37,7 +38,7 @@ public class Menu extends javax.swing.JFrame {
         PanelPaneles.add(new PanelRepuestos(), "REPUESTOS");
         PanelPaneles.add(new PanelProveedores(), "PROVEEDORES");
         PanelPaneles.add(new PanelCatalogoServicio(), "CATALOGO_SERVICIOS");
-        PanelPaneles.add(new PanelEstadistica(), "Estadisticas");
+        PanelPaneles.add(new PanelEstadistica(usuarioActual), "Estadisticas");
     }
     private Usuario usuarioActual;
     private Set<String> permisos;
