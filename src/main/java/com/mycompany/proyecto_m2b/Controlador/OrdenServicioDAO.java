@@ -334,7 +334,36 @@ public boolean actualizarOrdenServicio(orden_de_servicio orden) {
         return false;
     }
 }
-public orden_de_servicio buscarOrdenPorPlaca(String placa) {
+public List<orden_de_servicio> buscarOrdenPorPlaca(String placa) {
+    List<orden_de_servicio> lista = new ArrayList<>();
+    String sql = "SELECT o.* FROM orden_de_servicio o " +
+                 "JOIN vehiculo v ON o.\"id_vehi\" = v.\"id_vehi\" " +
+                 "WHERE UPPER(v.\"placa_carro\") = UPPER(?) " +
+                 "ORDER BY o.\"fecha_ingreso\" DESC";
+
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setString(1, placa.trim());
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                orden_de_servicio orden = null;
+                orden = new orden_de_servicio();
+                orden.setId_orden_serv(rs.getString("id_orden_serv"));
+                orden.setEstadoorden_servi(rs.getString("estado_orden_servi"));
+                orden.setFecha_ingreso(rs.getDate("fecha_ingreso"));
+                orden.setFecha_entrega(rs.getDate("fecha_entrega"));
+                orden.setCosto_total(rs.getDouble("costo_total"));
+                orden.setId_vehi(rs.getString("id_vehi"));
+                orden.setId_empleado(rs.getString("id_empleado"));
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al buscar por placa: " + e.getMessage());
+    }
+    return lista;
+}
+public orden_de_servicio buscarOrdenPorPlacaII(String placa) {
     orden_de_servicio orden = null;
     String sql = "SELECT o.* FROM orden_de_servicio o " +
                  "JOIN vehiculo v ON o.\"id_vehi\" = v.\"id_vehi\" " +
@@ -362,7 +391,6 @@ public orden_de_servicio buscarOrdenPorPlaca(String placa) {
     }
     return orden;
 }
-
     public boolean guardarOrdenConDetalles(orden_de_servicio orden, List<DetalleRepuesto> listaDetalles) {
     String sqlOrden = "INSERT INTO orden_de_servicio (\"id_orden_serv\", \"estado_orden_servi\", \"fecha_entrega\", \"costo_total\", \"fecha_ingreso\", \"id_vehi\", \"id_empleado\") VALUES (?, ?, ?, ?, ?, ?, ?)";
     
@@ -392,8 +420,7 @@ public orden_de_servicio buscarOrdenPorPlaca(String placa) {
 
         int contadorDetalle = 1;
         for (DetalleRepuesto det : listaDetalles) {
-            String idDetalle = String.format("DTR-%s-%03d", orden.getId_orden_serv(), contadorDetalle++);
-
+            String idDetalle = String.format("%s_%d", orden.getId_orden_serv().replace("ODS", "DTR"), contadorDetalle++);
             try (PreparedStatement psDetalle = con.prepareStatement(sqlDetalle);
                  PreparedStatement psStock = con.prepareStatement(sqlStock)) {
                 
@@ -462,9 +489,8 @@ public orden_de_servicio buscarOrdenPorPlaca(String placa) {
     }
     public boolean existeOrdenParaVehiculo(String placa) {
     String sql = "SELECT COUNT(*) " +
-                 "FROM orden_de_servicio o " +
-                 "INNER JOIN vehiculo v ON o.id_vehi = v.id_vehi " +
-                 "WHERE REPLACE(LOWER(v.placa_carro), ' ', '') = REPLACE(LOWER(?), ' ', '')";
+                 "FROM orden_de_servicio " +
+                 "WHERE id_orden_serv = ?";
 
     try (Connection con = ConexionBD.obtenerConexion();
          PreparedStatement ps = con.prepareStatement(sql)) {
