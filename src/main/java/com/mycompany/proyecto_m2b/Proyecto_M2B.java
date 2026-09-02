@@ -12,15 +12,10 @@ import com.mycompany.proyecto_m2b.Vista.Login;
 public class Proyecto_M2B {
 
     public static void main(String[] args) {        
-        try {
-            com.formdev.flatlaf.FlatLightLaf.setup();
-        } catch (Exception ex) {
-            System.err.println("No se pudo inicializar FlatLaf");
-        }
-        java.awt.EventQueue.invokeLater(() -> new Login().setVisible(true));
-        System.out.println("Funciona Pibe");
+    java.awt.EventQueue.invokeLater(() -> new Login().setVisible(true));
+        System.out.println("Funcionando Siuuu");
         //siso
         //good
-        //Jovenes trabajen
+        //Jovenes trabajen.
     }
 }

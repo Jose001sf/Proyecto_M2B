@@ -26,6 +26,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Date;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -42,6 +43,11 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
     private String ultimaPlacaProcesada = "";
     public PanelOrdenesServicio() {
         initComponents();
+        comboOrden.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+        comboOrdenActionPerformed(evt);
+    }
+});
         cargarCombosIniciales();
         calcularTotal();
         TXTcostoTotal.setEditable(false);
@@ -95,13 +101,17 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
 
     private void configurarModeloTablaRepuestos() {
         String[] titulos = {"ID", "Nombre", "Cantidad Actual", "Precio"};
-        DefaultTableModel modelo = new DefaultTableModel(null, titulos) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false; 
-            }
-        };
-        tblDetalleRepuestos.setModel(modelo);
+    DefaultTableModel modelo = new DefaultTableModel(null, titulos) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false; 
+        }
+    };
+    tblDetalleRepuestos.setModel(modelo);
+    tblDetalleRepuestos.getColumnModel().getColumn(0).setMinWidth(0);
+    tblDetalleRepuestos.getColumnModel().getColumn(0).setMaxWidth(0);
+    tblDetalleRepuestos.getColumnModel().getColumn(0).setPreferredWidth(0);
+    tblDetalleRepuestos.getColumnModel().getColumn(0).setResizable(false);
     }
     
     private void txtBuscarRepuesetoKeyReleased(java.awt.event.KeyEvent evt) {
@@ -137,6 +147,21 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
             System.err.println("Error al cargar los repuestos en la tabla: " + e.getMessage());
         }
     }
+    private void cargarOrdenesPorPlaca(String placa) {
+    OrdenServicioDAO ordenDAO = new OrdenServicioDAO();
+    List<orden_de_servicio> lista = ordenDAO.buscarOrdenPorPlaca(placa);
+
+    DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+    model.addElement("Seleccione una orden");
+
+    for (orden_de_servicio orden : lista) {
+        // Mostramos el ID de la orden en el combo
+        model.addElement(orden.getId_orden_serv()); 
+    }
+
+    comboOrden.setModel(model);
+    comboOrden.setSelectedIndex(0);
+}
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -200,6 +225,8 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        comboOrden = new javax.swing.JComboBox<>();
 
         jPanel1.setBackground(new java.awt.Color(238, 238, 238));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -268,9 +295,11 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         jLabel10.setText("Fecha de ingreso:");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, -1, -1));
 
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel11.setText("Costo Total:");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, -1, 20));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 170, -1, 20));
 
+        TXTcostoTotal.setEditable(false);
         TXTcostoTotal.setForeground(new java.awt.Color(153, 153, 153));
         TXTcostoTotal.setText("0.00");
         TXTcostoTotal.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -289,7 +318,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 TXTcostoTotalKeyPressed(evt);
             }
         });
-        jPanel1.add(TXTcostoTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, 250, -1));
+        jPanel1.add(TXTcostoTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, 250, -1));
 
         PanelNuevo.setBackground(new java.awt.Color(255, 255, 255));
         PanelNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -483,6 +512,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         jPanel1.add(comboPlacas, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 210, -1));
 
         comboCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboCliente.addActionListener(this::comboClienteActionPerformed);
         jPanel1.add(comboCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 210, -1));
 
         comboEmpleado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -654,6 +684,8 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         btnAgregarRepuestos.setText("+  Agregar");
         btnAgregarRepuestos.addActionListener(this::btnAgregarRepuestosActionPerformed);
         jPanel1.add(btnAgregarRepuestos, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 380, -1, -1));
+
+        txtSubtotalRepuestos.setEditable(false);
         jPanel1.add(txtSubtotalRepuestos, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 500, 120, -1));
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -677,6 +709,13 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel19.setText("DETALLE DE SERVICIO");
         jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
+
+        jLabel9.setText("Escoja una orden:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, -1, -1));
+
+        comboOrden.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboOrden.addActionListener(this::comboOrdenActionPerformed);
+        jPanel1.add(comboOrden, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, 170, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -876,6 +915,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (comboPlacas.getSelectedIndex() > 0) { 
         String placaSeleccionada = comboPlacas.getSelectedItem().toString();
+
         if (placaSeleccionada.equals(ultimaPlacaProcesada)) {
             return;
         }
@@ -883,16 +923,41 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         ultimaPlacaProcesada = placaSeleccionada;
 
         OrdenServicioDAO dao = new OrdenServicioDAO();
-        String datosCliente = dao.obtenerCedulaPorPlaca(placaSeleccionada);
 
-        if (datosCliente != null) {
-            comboCliente.removeAllItems();
+        // 1. Cargar datos del Cliente
+        String datosCliente = dao.obtenerCedulaPorPlaca(placaSeleccionada);
+        comboCliente.removeAllItems();
+
+        if (datosCliente != null && !datosCliente.isEmpty()) {
             comboCliente.addItem(datosCliente);
             comboCliente.setSelectedIndex(0);
+        } else {
+            comboCliente.addItem("Sin cliente asociado");
         }
+
+        // 2. Cargar Órdenes de Servicio
+        List<orden_de_servicio> listaOrdenes = dao.buscarOrdenPorPlaca(placaSeleccionada);
+        comboOrden.removeAllItems(); 
+
+        if (!listaOrdenes.isEmpty()) {
+            comboOrden.addItem("Seleccione una orden"); // Opción inicial por defecto
+            for (orden_de_servicio orden : listaOrdenes) {
+                comboOrden.addItem(orden.getId_orden_serv());
+            }
+            comboOrden.setSelectedIndex(0);
+        } else {
+            comboOrden.addItem("Sin órdenes registradas");
+        }
+
     } else {
+        // Limpieza cuando el usuario selecciona "Seleccione una placa" (Índice 0)
         ultimaPlacaProcesada = "";
+        
         comboCliente.removeAllItems();
+        comboCliente.addItem("Seleccione un cliente");
+
+        comboOrden.removeAllItems();
+        comboOrden.addItem("Seleccione una orden");
     }
     }//GEN-LAST:event_comboPlacasActionPerformed
 
@@ -974,7 +1039,7 @@ private static class ItemIdNombre {
 
         String placaSeleccionada = comboPlacas.getSelectedItem().toString().trim();
         OrdenServicioDAO dao = new OrdenServicioDAO();
-        orden_de_servicio orden = dao.buscarOrdenPorPlaca(placaSeleccionada);
+        orden_de_servicio orden = dao.buscarOrdenPorPlacaII(placaSeleccionada);
         DetalleOrdenServicioDAO detalle = new DetalleOrdenServicioDAO();
         if (orden != null) {
             this.idOrdenCargada = orden.getId_orden_serv();
@@ -1043,14 +1108,24 @@ private static class ItemIdNombre {
         return;
     }
     OrdenServicioDAO ordenDAO = new OrdenServicioDAO();
-    boolean existe = ordenDAO.existeOrdenParaVehiculo(placaSeleccionada);
-    System.out.println("¿Existe en la BD?: " + existe);
     if (ordenDAO.existeOrdenParaVehiculo(placaSeleccionada)) {
         JOptionPane.showMessageDialog(this, 
             "La placa " + placaSeleccionada + " ya tiene una orden de servicio registrada.\nPara modificarla, use el botón EDITAR.", 
             "Orden Duplicada", JOptionPane.WARNING_MESSAGE);
         return;
     }
+    OrdenServicioDAO dao = new OrdenServicioDAO();
+List<orden_de_servicio> ordenesBD = dao.buscarOrdenPorPlaca(placaSeleccionada);
+
+comboOrden.removeAllItems();
+
+if (ordenesBD.isEmpty()) {
+    JOptionPane.showMessageDialog(this, "No se encontraron órdenes para la placa " + placaSeleccionada);
+} else {
+    for (orden_de_servicio orden : ordenesBD) {
+        comboOrden.addItem(orden.getId_orden_serv());
+    }
+}
         GuardarOrdenDeServicio();
         LimpiarDatos();
         LimpiarDatosTablaDetalles();
@@ -1137,6 +1212,62 @@ private static class ItemIdNombre {
         }
     }//GEN-LAST:event_VisualizarMouseClicked
 
+    private void comboOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboOrdenActionPerformed
+        // TODO add your handling code here:
+        if (comboOrden.getSelectedItem() != null) {
+        String idOrdenSeleccionada = comboOrden.getSelectedItem().toString().trim();
+        if (idOrdenSeleccionada.equals("Sin órdenes registradas") || 
+            idOrdenSeleccionada.equals("Seleccione una orden") || 
+            idOrdenSeleccionada.isEmpty()) {
+            
+            LimpiarDatosTablaDetalles();
+            TXTcostoTotal.setText("0.00");
+            return;
+        }
+
+        System.out.println("Cargando detalles para la orden seleccionada: [" + idOrdenSeleccionada + "]");
+        DetalleOrdenServicioDAO daoDetalle = new DetalleOrdenServicioDAO();
+        DefaultTableModel modelRepuestos = (DefaultTableModel) tblRepuestosUsados.getModel();
+        DefaultTableModel modelServicios = (DefaultTableModel) tblDetalleServicio.getModel();
+        modelRepuestos.setRowCount(0);
+        modelServicios.setRowCount(0);
+
+        double totalAcumulado = 0.0;
+        List<Object[]> listaRepuestos = daoDetalle.obtenerRepuestosPorOrden(idOrdenSeleccionada);
+        if (listaRepuestos != null && !listaRepuestos.isEmpty()) {
+            for (Object[] fila : listaRepuestos) {
+                modelRepuestos.addRow(fila); 
+                if (fila.length > 4 && fila[4] != null) {
+                    try {
+                        totalAcumulado += Double.parseDouble(fila[4].toString());
+                    } catch (NumberFormatException e) {
+                        System.err.println("Error parseando subtotal repuesto: " + e.getMessage());
+                    }
+                }
+            }
+        }
+        List<Object[]> listaServicios = daoDetalle.obtenerServiciosPorOrden(idOrdenSeleccionada);
+        if (listaServicios != null && !listaServicios.isEmpty()) {
+            for (Object[] fila : listaServicios) {
+                modelServicios.addRow(fila);
+                if (fila.length > 3 && fila[3] != null) {
+                    try {
+                        totalAcumulado += Double.parseDouble(fila[3].toString());
+                    } catch (NumberFormatException e) {
+                        System.err.println("Error parseando subtotal servicio: " + e.getMessage());
+                    }
+                }
+            }
+        }
+       TXTcostoTotal.setText(String.format(java.util.Locale.US, "%.2f", totalAcumulado));
+       calcularSubtotalRepuestos();
+       recalcularSubtotalServicios();
+        }
+    }//GEN-LAST:event_comboOrdenActionPerformed
+
+    private void comboClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboClienteActionPerformed
     private void comboPlacasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboPlacasMouseClicked
         // TODO add your handling code here:
         cargarCombosIniciales();
@@ -1266,12 +1397,18 @@ private void configurarModeloTablaRepuestosUsados() {
             false, false, false, false, false
         };
 
+        @Override
         public boolean isCellEditable(int rowIndex, int columnIndex) {
             return canEdit [columnIndex];
         }
     };
+    
     tblRepuestosUsados.setModel(modeloUsados);
     modeloUsados.addTableModelListener(e -> calcularTotal());
+    tblRepuestosUsados.getColumnModel().getColumn(0).setMinWidth(0);
+    tblRepuestosUsados.getColumnModel().getColumn(0).setMaxWidth(0);
+    tblRepuestosUsados.getColumnModel().getColumn(0).setPreferredWidth(0);
+    tblRepuestosUsados.getColumnModel().getColumn(0).setResizable(false);
 }
    
 
@@ -1644,6 +1781,7 @@ private void configurarModeloTablaRepuestosUsados() {
     private javax.swing.JButton btnEliminarRepuesto;
     private javax.swing.JComboBox<String> comboCliente;
     private javax.swing.JComboBox<String> comboEmpleado;
+    private javax.swing.JComboBox<String> comboOrden;
     private javax.swing.JComboBox<String> comboPlacas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1661,6 +1799,7 @@ private void configurarModeloTablaRepuestosUsados() {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

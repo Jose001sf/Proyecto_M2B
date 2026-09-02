@@ -3,6 +3,7 @@ package com.mycompany.proyecto_m2b.Vista;
 
 import com.mycompany.proyecto_m2b.Controlador.ConexionBD;
 import com.mycompany.proyecto_m2b.Controlador.RepuestoDAO;
+import com.mycompany.proyecto_m2b.Controlador.Servidor_de_correos;
 import com.mycompany.proyecto_m2b.modelo.MarcaRepuesto;
 import com.mycompany.proyecto_m2b.modelo.Repuesto;
 import com.mycompany.proyecto_m2b.modelo.TipoRepuesto;
@@ -403,6 +404,7 @@ public PanelRepuestos() {
         btnEliminar = new javax.swing.JPanel();
         Editar3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        btnEnviarReporte = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(238, 238, 238));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -746,6 +748,10 @@ public PanelRepuestos() {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Cute_mechanic_holding_wrench_cartoon_icon_illustration___Premium_Vector-removebg-preview.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 280, 110, 110));
+
+        btnEnviarReporte.setText("Reporte Inventario");
+        btnEnviarReporte.addActionListener(this::btnEnviarReporteActionPerformed);
+        jPanel1.add(btnEnviarReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(1170, 420, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -1129,6 +1135,27 @@ public PanelRepuestos() {
         btnEliminar.setBackground(Color.white);
         btnEliminar.setForeground(Color.black);
     }//GEN-LAST:event_btnEliminarMouseExited
+
+    private void btnEnviarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarReporteActionPerformed
+        try {
+        java.sql.Connection con = ConexionBD.obtenerConexion();
+        
+        Servidor_de_correos servidor = new Servidor_de_correos();
+        servidor.enviarReporteInventarioAuto(con);
+
+        javax.swing.JOptionPane.showMessageDialog(this, 
+            "El reporte de inventario se está guardando", 
+            "Reporte en proceso", 
+            javax.swing.JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (java.sql.SQLException e) {
+        System.err.println("Error de conexión a la BD: " + e.getMessage());
+        javax.swing.JOptionPane.showMessageDialog(this, 
+            "Error al conectar con la base de datos.", 
+            "Error", 
+            javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_btnEnviarReporteActionPerformed
     
     public void LimpiarDatos (){
 
@@ -1148,6 +1175,7 @@ public PanelRepuestos() {
     private javax.swing.JPanel btnAgregarMarca;
     private javax.swing.JPanel btnAgregarTipo;
     private javax.swing.JPanel btnEliminar;
+    private javax.swing.JButton btnEnviarReporte;
     private javax.swing.JPanel btnGuardar;
     private javax.swing.JComboBox<Object> cbxMarcaRepuesto;
     private javax.swing.JComboBox<Object> cbxTipoRepuesto;
