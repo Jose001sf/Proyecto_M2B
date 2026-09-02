@@ -45,7 +45,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         cargarCombosIniciales();
         calcularTotal();
         TXTcostoTotal.setEditable(false);
-        tblRepuestosUsados.getModel().addTableModelListener(e->{calcularTotal();});
+        
         tblDetalleServicio.getModel().addTableModelListener(e->{calcularTotal();});
         CalendarioFechaIngreso.setDate(new java.util.Date());
         CalendarioFechaIngreso.setEnabled(false);
@@ -83,7 +83,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         }
     }
     
-    txtSubtotalRepuestos.setText(String.format("%.2f", totalRepuestos));
+    txtSubtotalRepuestos.setText(String.format(java.util.Locale.US, "%.2f", totalRepuestos));
 }
 
     private void inicializarTablaDetalleServicio() {
@@ -705,7 +705,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
             }
         }
 
-        txtSubtotalRepuestos.setText(String.format("%.2f", nuevoSubtotalRepuestos));
+        txtSubtotalRepuestos.setText(String.format(java.util.Locale.US, "%.2f", nuevoSubtotalRepuestos));
     }//GEN-LAST:event_btnEliminarRepuestoActionPerformed
 
     private void btnAgregarRepuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarRepuestosActionPerformed
@@ -1263,6 +1263,7 @@ private void configurarModeloTablaRepuestosUsados() {
         }
     };
     tblRepuestosUsados.setModel(modeloUsados);
+    modeloUsados.addTableModelListener(e -> calcularTotal());
 }
    
 
@@ -1531,7 +1532,7 @@ private void configurarModeloTablaRepuestosUsados() {
         }
     }
 
-    lblSubTotalServicios.setText(String.format("%.2f", total));
+    lblSubTotalServicios.setText(String.format(java.util.Locale.US, "%.2f", total));
     calcularTotal(); 
 }
    private boolean guardarDetalleServicios(String idOrden) {
