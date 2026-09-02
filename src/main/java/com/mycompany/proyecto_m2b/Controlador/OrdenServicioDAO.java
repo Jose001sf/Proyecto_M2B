@@ -462,4 +462,26 @@ public orden_de_servicio buscarOrdenPorPlaca(String placa) {
             System.err.println("Error al cargar orden de servicio: "+e.getMessage());        
         }
     }
+    public boolean existeOrdenParaVehiculo(String placa) {
+    // Unimos la orden de servicio con la tabla vehiculo para validar por la placa real
+    String sql = "SELECT COUNT(*) " +
+                 "FROM orden_de_servicio o " +
+                 "INNER JOIN vehiculo v ON o.id_vehi = v.id_vehi " +
+                 "WHERE REPLACE(LOWER(v.placa_carro), ' ', '') = REPLACE(LOWER(?), ' ', '')";
+
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setString(1, placa.trim());
+
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt(1) > 0; 
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al validar existencia de orden por placa: " + e.getMessage());
+    }
+    return false;
+}
 }

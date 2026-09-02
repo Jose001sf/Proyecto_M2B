@@ -49,18 +49,130 @@ public class DetalleOrdenServicioDAO {
             return null;
         }
     }
-    public List<Object[]> obtenerRepuestosPorOrden(String idOrden) {
+    public List<Object[]> obtenerServiciosPorOrden(String idOrden) {
     List<Object[]> lista = new ArrayList<>();
-    String sql = "SELECT r.id_repuestos, r.nom_repuesto, dr.cantidad_usar, r.precio_repuesto_unit, dr.subtotal_repuesto "
-               + "FROM detalle_repuesto dr "
-               + "INNER JOIN repuestos r ON dr.id_repuestos = r.id_repuestos "
-               + "WHERE TRIM(dr.id_orden_serv) = TRIM(?)";
+    String sql = "SELECT d.id_servi, s.nom_servicio, s.precio_del_servicio, d.cantidad_servi, d.subtotal_orden "
+               + "FROM detalle_de_orden d "
+               + "INNER JOIN servicio s ON d.id_servi = s.id_servi "
+               + "WHERE LOWER(TRIM(d.id_orden_serv)) = LOWER(TRIM(?))";
+
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setString(1, idOrden.trim());
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                lista.add(new Object[]{
+                    rs.getString("id_servi"),
+                    rs.getString("nom_servicio"),
+                    rs.getDouble("precio_del_servicio"),
+                    rs.getInt("cantidad_servi"),
+                    rs.getDouble("subtotal_orden")
+                });
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error SQL: " + e.getMessage());
+    }
+    return lista;
+}
+    public void eliminarDetallesPorOrden(String idOrden) {
+    String sqlServicios = "DELETE FROM detalle_de_orden WHERE TRIM(LOWER(id_orden_serv)) = TRIM(LOWER(?))";
+    String sqlRepuestos = "DELETE FROM detalle_repuesto WHERE TRIM(LOWER(id_orden_serv)) = TRIM(LOWER(?))";
+
+    try (Connection con = ConexionBD.obtenerConexion()) {
+        try (PreparedStatement ps1 = con.prepareStatement(sqlServicios)) {
+            ps1.setString(1, idOrden.trim());
+            ps1.executeUpdate();
+        }
+        try (PreparedStatement ps2 = con.prepareStatement(sqlRepuestos)) {
+            ps2.setString(1, idOrden.trim());
+            ps2.executeUpdate();
+        }
+
+        System.out.println("-> Detalles limpios en BD para la orden: [" + idOrden + "]");
+
+    } catch (SQLException e) {
+        System.err.println("Error al eliminar detalles de la orden: " + e.getMessage());
+    }
+}
+    public String obtenerIdPorNombre(String nombreServicio) {
+    String idServicio = null;
+    
+    // Buscamos el ID en la tabla servicio usando el nombre
+    String sql = "SELECT id_servi FROM servicio WHERE LOWER(TRIM(nom_servicio)) = LOWER(TRIM(?)) LIMIT 1";
 
     try (Connection con = ConexionBD.obtenerConexion();
          PreparedStatement ps = con.prepareStatement(sql)) {
         
-        ps.setString(1, idOrden.trim());
+        ps.setString(1, nombreServicio);
         
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                // Recuperamos la clave primaria corta (ej: "SERV001")
+                idServicio = rs.getString("id_servi");
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener ID del servicio por nombre: " + e.getMessage());
+    }
+    
+    return idServicio;
+}
+    public String obtenerIdRepuestoPorNombre(String nombreRepuesto) {
+    String idRepuesto = null;
+    String sql = "SELECT id_repuestos FROM repuestos WHERE LOWER(TRIM(nom_repuesto)) = LOWER(TRIM(?)) LIMIT 1";
+
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        
+        ps.setString(1, nombreRepuesto);
+        
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                idRepuesto = rs.getString("id_repuestos");
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener ID del repuesto por nombre: " + e.getMessage());
+    }
+    
+    return idRepuesto;
+}
+    public boolean insertarDetalleRepuesto(String idDetalle, int cantidad, double subtotal, String idRepuesto, String idOrden) {
+    String sql = "INSERT INTO detalle_repuesto (id_detalle_repuesto, cantidad_usar, subtotal_repuesto, id_repuestos, id_orden_serv) "
+               + "VALUES (?, ?, ?, ?, ?)";
+
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setString(1, idDetalle);
+        ps.setInt(2, cantidad);
+        ps.setDouble(3, subtotal);
+        ps.setString(4, idRepuesto);
+        ps.setString(5, idOrden);
+
+        return ps.executeUpdate() > 0;
+
+    } catch (SQLException e) {
+        System.err.println("Error al insertar detalle de repuesto: " + e.getMessage());
+        return false;
+    }
+}
+
+// 2. CONSULTAR REPUESTOS POR ORDEN (Sincronizado con las columnas de la captura)
+public List<Object[]> obtenerRepuestosPorOrden(String idOrden) {
+    List<Object[]> lista = new ArrayList<>();
+    
+    String sql = "SELECT d.id_repuestos, r.nom_repuesto, d.cantidad_usar, r.precio_repuesto_unit, d.subtotal_repuesto "
+               + "FROM detalle_repuesto d "
+               + "INNER JOIN repuestos r ON d.id_repuestos = r.id_repuestos "
+               + "WHERE LOWER(TRIM(d.id_orden_serv)) = LOWER(TRIM(?))";
+
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setString(1, idOrden.trim());
+
         try (ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 lista.add(new Object[]{
@@ -73,38 +185,9 @@ public class DetalleOrdenServicioDAO {
             }
         }
     } catch (SQLException e) {
-        System.err.println("Error al obtener detalle con nombres: " + e.getMessage());
+        System.err.println("Error SQL al obtener repuestos: " + e.getMessage());
     }
-    return lista;
-}
-    public List<Object[]> obtenerServiciosPorOrden(String idOrden) {
-    List<Object[]> lista = new ArrayList<>();
     
-    String sql = "SELECT s.nom_servicio, s.precio_del_servicio, d.cantidad_servi, d.subtotal_orden "
-               + "FROM detalle_de_orden d "
-               + "INNER JOIN servicio s ON d.id_servi = s.id_servi "
-               + "WHERE LOWER(TRIM(d.id_orden_serv)) = LOWER(TRIM(?))";
-
-    try (Connection con = ConexionBD.obtenerConexion();
-         PreparedStatement ps = con.prepareStatement(sql)) {
-        
-        ps.setString(1, idOrden.trim());
-        
-        try (ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                lista.add(new Object[]{
-                    rs.getString("nom_servicio"),
-                    rs.getDouble("precio_del_servicio"),
-                    rs.getInt("cantidad_servi"),
-                    rs.getDouble("subtotal_orden")
-                });
-            }
-        }
-    } catch (SQLException e) {
-        System.err.println("Error al obtener servicios desde detalle_orden: " + e.getMessage());
-    }
-    System.out.println("-> Buscando servicios para la orden: [" + idOrden + "]");
-    System.out.println("-> Servicios encontrados en BD: " + lista.size());
     return lista;
 }
 }
