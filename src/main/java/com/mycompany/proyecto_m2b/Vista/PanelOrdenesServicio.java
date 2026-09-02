@@ -471,6 +471,11 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         jPanel1.add(CalendarioFechaEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 250, -1));
 
         comboPlacas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboPlacas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                comboPlacasMouseClicked(evt);
+            }
+        });
         comboPlacas.addActionListener(this::comboPlacasActionPerformed);
         jPanel1.add(comboPlacas, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 210, -1));
 
@@ -1120,6 +1125,11 @@ private static class ItemIdNombre {
             pr.setVisible(true);
         }
     }//GEN-LAST:event_VisualizarMouseClicked
+
+    private void comboPlacasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboPlacasMouseClicked
+        // TODO add your handling code here:
+        cargarCombosIniciales();
+    }//GEN-LAST:event_comboPlacasMouseClicked
 public void cargarCombosIniciales() {
     OrdenServicioDAO dao = new OrdenServicioDAO();
 
