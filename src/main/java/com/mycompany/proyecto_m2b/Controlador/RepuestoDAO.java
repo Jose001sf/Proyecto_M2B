@@ -382,4 +382,46 @@ public class RepuestoDAO {
         return false;
     }
 }
+    
+    public boolean enviarReporteGeneralStock(Connection conexion, String correoDestino) {
+    String sql = "SELECT id_repuestos, nom_repuesto, cantidad_actual_repuesto, "
+               + "cantidad_min_repuesto, cantidad_max_repuesto, precio_repuesto_unit "
+               + "FROM public.repuestos ORDER BY nom_repuesto ASC";
+
+    StringBuilder html = new StringBuilder();
+    html.append("<h2>Reporte General de Inventario y Stocks</h2>")
+        .append("<table border='1' cellpadding='6' cellspacing='0' style='border-collapse: collapse; width: 100%;'>")
+        .append("<tr style='background-color: #f2f2f2;'>")
+        .append("<th>ID</th><th>Repuesto</th><th>Stock Actual</th><th>Stock Mín.</th><th>Stock Máx.</th><th>Estado</th>")
+        .append("</tr>");
+
+    try (Statement st = conexion.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+        while (rs.next()) {
+            int actual = rs.getInt("cantidad_actual_repuesto");
+            int min = rs.getInt("cantidad_min_repuesto");
+            
+            String estado = (actual <= min) 
+                ? "<span style='color: red; font-weight: bold;'>BAJO STOCK</span>" 
+                : "<span style='color: green;'>OK</span>";
+
+            html.append("<tr>")
+                .append("<td>").append(rs.getString("id_repuestos")).append("</td>")
+                .append("<td>").append(rs.getString("nom_repuesto")).append("</td>")
+                .append("<td align='center'>").append(actual).append("</td>")
+                .append("<td align='center'>").append(min).append("</td>")
+                .append("<td align='center'>").append(rs.getInt("cantidad_max_repuesto")).append("</td>")
+                .append("<td align='center'>").append(estado).append("</td>")
+                .append("</tr>");
+        }
+        html.append("</table>");
+
+        Servidor_de_correos servidor = new Servidor_de_correos();
+        servidor.enviarReporteInventarioAuto(conexion);
+        return true;
+
+    } catch (SQLException e) {
+        System.err.println("Error al generar reporte de stock: " + e.getMessage());
+        return false;
+    }
+}
 }

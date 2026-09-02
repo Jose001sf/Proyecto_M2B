@@ -220,4 +220,62 @@ public class Servidor_de_correos {
             e.printStackTrace();
         }
     }
+    
+    //repuestos
+    public void enviarReporteInventarioAuto(java.sql.Connection conexion) {
+    new Thread(() -> {
+        try {
+            SimpleEmail email = new SimpleEmail();
+            email.setHostName("smtp.gmail.com");
+            email.setSmtpPort(587);
+            email.setAuthentication(GMAIL_REMITENTE, GMAIL_APP_PASSWORD);
+            email.setStartTLSEnabled(true);
+            email.setSSLCheckServerIdentity(false);
+
+            email.getMailSession().getProperties().put("mail.smtp.ssl.trust", "*");
+            email.getMailSession().getProperties().put("mail.smtp.ssl.checkserveridentity", "false");
+
+            email.setFrom(GMAIL_REMITENTE, "Sistema M&J TALLERES");
+            email.setSubject("[REPORTE DE INVENTARIO] - Stock Actual de Repuestos");
+
+            StringBuilder mensaje = new StringBuilder();
+            mensaje.append("REPORTE GENERAL DE REPUESTOS Y STOCKS\n");
+            mensaje.append("--------------------------------------------------\n\n");
+
+            String sql = "SELECT id_repuestos, nom_repuesto, cantidad_actual_repuesto, "
+                       + "cantidad_min_repuesto, cantidad_max_repuesto FROM public.repuestos ORDER BY nom_repuesto ASC";
+
+            try (java.sql.Statement st = conexion.createStatement(); 
+                 java.sql.ResultSet rs = st.executeQuery(sql)) {
+
+                while (rs.next()) {
+                    String id = rs.getString("id_repuestos");
+                    String nombre = rs.getString("nom_repuesto");
+                    int actual = rs.getInt("cantidad_actual_repuesto");
+                    int min = rs.getInt("cantidad_min_repuesto");
+                    int max = rs.getInt("cantidad_max_repuesto");
+
+                    String alerta = (actual <= min) ? " [¡STOCK BAJO!]" : "";
+
+                    mensaje.append(String.format("• [%s] %s\n", id, nombre));
+                    mensaje.append(String.format("  Stock Actual: %d | Min: %d | Max: %d%s\n\n", actual, min, max, alerta));
+                }
+            }
+
+            mensaje.append("--------------------------------------------------\n");
+            mensaje.append("--- Mensaje automático generado por el Sistema M&J ---");
+
+            email.setMsg(mensaje.toString());
+            
+            email.addTo(GMAIL_REMITENTE); 
+            email.send();
+
+            System.out.println("Reporte de inventario enviado a ti mismo exitosamente.");
+
+        } catch (Exception e) {
+            System.out.println("Error al enviar el reporte de inventario: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }).start();
+}
 }
