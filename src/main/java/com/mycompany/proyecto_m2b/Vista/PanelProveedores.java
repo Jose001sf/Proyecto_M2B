@@ -35,9 +35,7 @@ public class PanelProveedores extends javax.swing.JPanel {
     private CompraDAO compraDAO;
     private ProveedorDAO proveedorDAO;
     private RepuestoDAO repuestoDAO;
-    /**
-     * Creates new form PanelProveedores
-     */
+
     public PanelProveedores() {
         try {
         this.miConexion = ConexionBD.obtenerConexion();

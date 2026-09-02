@@ -40,4 +40,5 @@ public class ConexionBD {
     public static Connection obtenerConexion() throws SQLException {
         return dataSource.getConnection();
     }
+    //Prueba
 }
