@@ -14,7 +14,8 @@ public class ConexionBD {
         try {
             HikariConfig config = new HikariConfig();
             
-            config.setJdbcUrl("jdbc:postgresql://aws-0-us-east-2.pooler.supabase.com:6543/postgres");
+            config.setJdbcUrl("jdbc:postgresql://aws-0-us-east-2.pooler.supabase.com:6543/postgres"
+            + "?sslmode=require&prepareThreshold=0");
             config.setUsername("postgres.nysvznvdbwwihcqxpcxt");
             config.setPassword("Proyecto_123");
             config.setDriverClassName("org.postgresql.Driver");
@@ -24,9 +25,7 @@ public class ConexionBD {
             config.setIdleTimeout(30000);
             config.setConnectionTimeout(10000);
 
-            config.addDataSourceProperty("prepStmtCacheSize", "250");
-            config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-            config.addDataSourceProperty("useServerPrepStmts", "true");
+            
 
             dataSource = new HikariDataSource(config);
             
