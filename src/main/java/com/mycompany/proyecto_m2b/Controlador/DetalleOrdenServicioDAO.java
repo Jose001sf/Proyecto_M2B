@@ -38,17 +38,19 @@ public class DetalleOrdenServicioDAO {
             = "SELECT id_detalle_orden FROM detalle_de_orden ORDER BY id_detalle_orden DESC LIMIT 1";
 
     public String generarNuevoId() {
-        try (Connection conn = ConexionBD.obtenerConexion(); PreparedStatement ps = conn.prepareStatement(OBTENERULTIMOID); ResultSet rs = ps.executeQuery()) {
-            if (rs.next()) {
-                int numero = Integer.parseInt(rs.getString("id_detalle_orden").substring(3));
-                return String.format("DET%03d", numero + 1);
-                }
-            return "DET001";
-        } catch (SQLException e) {
-            System.out.println("Error al generar id de detalle: " + e.getMessage());
-            return null;
+    String sql = "SELECT COUNT(*) FROM detalle_repuesto";
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+        if (rs.next()) {
+            int count = rs.getInt(1) + 1;
+            return String.format("DTR-%04d", count); 
         }
+    } catch (SQLException e) {
+        System.err.println("Error generando ID: " + e.getMessage());
     }
+    return "DTR-0001";
+}
     public List<Object[]> obtenerServiciosPorOrden(String idOrden) {
     List<Object[]> lista = new ArrayList<>();
     String sql = "SELECT d.id_servi, s.nom_servicio, s.precio_del_servicio, d.cantidad_servi, d.subtotal_orden "
@@ -98,7 +100,7 @@ public class DetalleOrdenServicioDAO {
     public String obtenerIdPorNombre(String nombreServicio) {
     String idServicio = null;
     
-    // Buscamos el ID en la tabla servicio usando el nombre
+    
     String sql = "SELECT id_servi FROM servicio WHERE LOWER(TRIM(nom_servicio)) = LOWER(TRIM(?)) LIMIT 1";
 
     try (Connection con = ConexionBD.obtenerConexion();
@@ -108,7 +110,6 @@ public class DetalleOrdenServicioDAO {
         
         try (ResultSet rs = ps.executeQuery()) {
             if (rs.next()) {
-                // Recuperamos la clave primaria corta (ej: "SERV001")
                 idServicio = rs.getString("id_servi");
             }
         }
@@ -158,8 +159,6 @@ public class DetalleOrdenServicioDAO {
         return false;
     }
 }
-
-// 2. CONSULTAR REPUESTOS POR ORDEN (Sincronizado con las columnas de la captura)
 public List<Object[]> obtenerRepuestosPorOrden(String idOrden) {
     List<Object[]> lista = new ArrayList<>();
     
@@ -190,4 +189,5 @@ public List<Object[]> obtenerRepuestosPorOrden(String idOrden) {
     
     return lista;
 }
+
 }

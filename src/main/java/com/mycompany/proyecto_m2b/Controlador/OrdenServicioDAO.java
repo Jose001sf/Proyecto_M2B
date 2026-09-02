@@ -203,7 +203,7 @@ public boolean guardarOrdenServicio(orden_de_servicio orden) {
         if (orden.getFecha_ingreso() != null) {
             ps.setDate(5, new java.sql.Date(orden.getFecha_ingreso().getTime()));
         } else {
-            ps.setDate(5, new java.sql.Date(System.currentTimeMillis())); // Fecha actual por defecto
+            ps.setDate(5, new java.sql.Date(System.currentTimeMillis())); 
         }
 
         ps.setString(6, orden.getId_vehi());
@@ -316,7 +316,6 @@ public boolean actualizarOrdenServicio(orden_de_servicio orden) {
 
         ps.setString(1, orden.getEstadoorden_servi());
 
-        // Manejo de fecha de entrega
         if (orden.getFecha_entrega() != null) {
             ps.setDate(2, new java.sql.Date(orden.getFecha_entrega().getTime()));
         } else {
@@ -436,7 +435,6 @@ public orden_de_servicio buscarOrdenPorPlaca(String placa) {
     }
 }
     public void cargarOrdenServicio (JComboBox ComboOrdonesServicio) {
-
         String sql = """
             SELECT id_orden_serv
             FROM orden_de_servicio                      
@@ -463,7 +461,6 @@ public orden_de_servicio buscarOrdenPorPlaca(String placa) {
         }
     }
     public boolean existeOrdenParaVehiculo(String placa) {
-    // Unimos la orden de servicio con la tabla vehiculo para validar por la placa real
     String sql = "SELECT COUNT(*) " +
                  "FROM orden_de_servicio o " +
                  "INNER JOIN vehiculo v ON o.id_vehi = v.id_vehi " +
