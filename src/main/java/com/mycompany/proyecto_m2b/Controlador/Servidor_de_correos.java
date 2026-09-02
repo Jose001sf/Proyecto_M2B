@@ -236,7 +236,7 @@ public class Servidor_de_correos {
             email.getMailSession().getProperties().put("mail.smtp.ssl.checkserveridentity", "false");
 
             email.setFrom(GMAIL_REMITENTE, "Sistema M&J TALLERES");
-            email.setSubject("[REPORTE DE INVENTARIO] - Stock Actual de Repuestos");
+            email.setSubject("[INVENTARIO] - Stock Actual de Repuestos");
 
             StringBuilder mensaje = new StringBuilder();
             mensaje.append("REPORTE GENERAL DE REPUESTOS Y STOCKS\n");
