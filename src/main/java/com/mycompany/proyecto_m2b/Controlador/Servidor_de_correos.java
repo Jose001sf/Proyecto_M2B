@@ -282,4 +282,56 @@ public class Servidor_de_correos {
         }
     }).start();
 }
+    
+    public void enviarBorradorVentaResiduos(String idEncabVenta, String fechaCompra, double totalEncabVenta, String idEmpresaRec, javax.swing.JTable tablaDetalles) {
+    try {
+        SimpleEmail email = new SimpleEmail();
+        email.setHostName("smtp.gmail.com");
+        email.setSmtpPort(587);
+        email.setAuthentication(GMAIL_REMITENTE, GMAIL_APP_PASSWORD);
+        email.setStartTLSEnabled(true);
+        email.setSSLCheckServerIdentity(false);
+        
+        email.getMailSession().getProperties().put("mail.smtp.ssl.trust", "*");
+        email.getMailSession().getProperties().put("mail.smtp.ssl.checkserveridentity", "false");
+
+        email.setFrom(GMAIL_REMITENTE, "Sistema M&J TALLERES");
+        email.setSubject("[BORRADOR / VENTA DE RESIDUOS] - ID: " + idEncabVenta);
+        
+        StringBuilder mensaje = new StringBuilder();
+        mensaje.append("Se ha generado un nuevo borrador de venta de residuos:\n\n");
+        mensaje.append("--------------------------------------------------\n");
+        mensaje.append("• ID Venta: ").append(idEncabVenta).append("\n");
+        mensaje.append("• Empresa Recicladora: ").append(idEmpresaRec).append("\n");
+        mensaje.append("• Fecha: ").append(fechaCompra).append("\n");
+        mensaje.append("--------------------------------------------------\n\n");
+        mensaje.append("DETALLE DE RESIDUOS VENDIDOS:\n");
+        
+        javax.swing.table.TableModel modelo = tablaDetalles.getModel();
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            String idResiduos = modelo.getValueAt(i, 0) != null ? modelo.getValueAt(i, 0).toString().trim() : "";
+            String nombreResiduo = modelo.getValueAt(i, 1) != null ? modelo.getValueAt(i, 1).toString().trim() : "";
+            String cantVendida = modelo.getValueAt(i, 2) != null ? modelo.getValueAt(i, 2).toString().trim() : "";
+            String subtotalResiduos = modelo.getValueAt(i, 4) != null ? modelo.getValueAt(i, 4).toString().trim() : "";
+            
+            if (!idResiduos.isEmpty()) {
+                mensaje.append(String.format("- Residuo: [%s] %s | Cant. Vendida: %s | Subtotal: $%s\n", 
+                        idResiduos, nombreResiduo, cantVendida, subtotalResiduos));
+            }
+        }
+        
+        mensaje.append("\n--------------------------------------------------\n");
+        mensaje.append(String.format("TOTAL VENTA: $%.2f\n\n", totalEncabVenta));
+        mensaje.append("--- Mensaje automático generado por el Sistema M&J ---");
+
+        email.setMsg(mensaje.toString());
+        email.addTo(GMAIL_REMITENTE);
+        email.send();
+        
+        System.out.println("Correo de borrador de venta de residuos enviado exitosamente.");
+    } catch (EmailException e) {
+        System.out.println("Error al enviar el correo de respaldo: " + e.getMessage());
+        e.printStackTrace();
+    }
+}
 }

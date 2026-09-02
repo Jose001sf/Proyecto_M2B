@@ -6,6 +6,7 @@ package com.mycompany.proyecto_m2b.Vista;
 
 import com.mycompany.proyecto_m2b.Controlador.RegistrarEmpresaRecicladoraDAO;
 import com.mycompany.proyecto_m2b.Controlador.ResiduoDAO;
+import com.mycompany.proyecto_m2b.Controlador.Servidor_de_correos;
 import com.mycompany.proyecto_m2b.Controlador.VentaDAO;
 import com.mycompany.proyecto_m2b.modelo.DetalleVenta;
 import com.mycompany.proyecto_m2b.modelo.Empresa_recicladora;
@@ -1252,7 +1253,6 @@ private void validarPrecio() {
     }//GEN-LAST:event_PanelNuevaEmpresaMouseExited
 
     private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
-        // TODO add your handling code here:
     Object empSel = comboEmpresas.getSelectedItem();
     if (!(empSel instanceof Empresa_recicladora)) {
         JOptionPane.showMessageDialog(this, "Debe seleccionar una empresa recicladora válida.", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -1292,6 +1292,15 @@ private void validarPrecio() {
 
     VentaDAO dao = new VentaDAO();
     if (dao.registrarVenta(encab, detalles)) {
+        
+        try {
+            Servidor_de_correos servidorCorreos = new Servidor_de_correos();
+            String nombreEmpresa = empresa.toString(); 
+            servidorCorreos.enviarBorradorVentaResiduos(idEncab, fecha.toString(), total, nombreEmpresa, jTable1);
+        } catch (Exception e) {
+            System.err.println("Error al enviar el correo de respaldo: " + e.getMessage());
+        }
+
         JOptionPane.showMessageDialog(this, "¡Venta y detalles registrados con éxito!", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         
         model.setRowCount(0);
