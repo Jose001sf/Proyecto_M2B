@@ -508,4 +508,32 @@ public orden_de_servicio buscarOrdenPorPlacaII(String placa) {
     }
     return false;
 }
+    
+    
+    //sql para datos
+    public Map<String, Integer> topEmpleadosPorOrdenesCompletadas(LocalDate Desde, LocalDate Hasta, int limite) {
+        Map<String, Integer> resultado = new LinkedHashMap<>();
+        String sql = "SELECT p.\"nom1_person\", p.\"apell1_person\", COUNT(*) AS total "
+                + "FROM orden_de_servicio o "
+                + "JOIN empleado emp ON o.\"id_empleado\" = emp.\"id_empleado\" "
+                + "JOIN persona p ON emp.\"ced_perso\" = p.\"ced_perso\" "
+                + "WHERE o.\"estado_orden_servi\" = 'Completada' "
+                + "AND o.\"fecha_ingreso\" BETWEEN ? AND ? "
+                + "GROUP BY p.\"nom1_person\", p.\"apell1_person\" "
+                + "ORDER BY total DESC LIMIT ?";
+        try (Connection con = ConexionBD.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setDate(1, java.sql.Date.valueOf(Desde));
+            ps.setDate(2, java.sql.Date.valueOf(Hasta));
+            ps.setInt(3, limite);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    String nombre = rs.getString("nom1_person") + " " + rs.getString("apell1_person");
+                    resultado.put(nombre, rs.getInt("total"));
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener top empleados: "+e.getMessage());
+        }
+        return resultado;
+    }
 }
