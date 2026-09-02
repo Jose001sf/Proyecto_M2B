@@ -55,7 +55,10 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         configurarModeloTablaRepuestos();
         cargarTablaRepuestos("");
         LimpiarDatos();
-
+        
+        txtSubtotalRepuestos.setEditable(false);
+        txtSubtotalRepuestos.setEnabled(false);
+        
         txtBuscarRepueseto.addKeyListener(new java.awt.event.KeyAdapter() {
             @Override
             public void keyReleased(java.awt.event.KeyEvent evt) {
