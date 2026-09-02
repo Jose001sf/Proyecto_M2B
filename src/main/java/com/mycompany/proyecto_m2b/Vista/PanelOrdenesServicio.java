@@ -498,7 +498,15 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
             new String [] {
                 "Nombre del Servicio", "Precio Unitario", "Cantidad", "Subtotal Servicio"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblDetalleServicio);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 750, 90));
