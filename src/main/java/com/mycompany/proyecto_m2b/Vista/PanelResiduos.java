@@ -39,7 +39,7 @@ public class PanelResiduos extends javax.swing.JPanel {
     txtNReciclaje.setEnabled(false);
     txtDireccion.setEnabled(false);
     txtTipoEmpresa.setEnabled(false);
-
+        
     cargarComboResiduos();
     cargarEmpresasEnCombo();
     
@@ -493,7 +493,15 @@ private void validarPrecio() {
             new String [] {
                 "ID Residuo", "Nombre Residuo", "Cantidad", "Precio U.", "Subtotal"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         Fondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 490, 1250, 270));
