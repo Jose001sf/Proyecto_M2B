@@ -100,7 +100,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         };
         tblDetalleRepuestos.setModel(modelo);
     }
-
+    
     private void txtBuscarRepuesetoKeyReleased(java.awt.event.KeyEvent evt) {
         String textoBusqueda = txtBuscarRepueseto.getText();
         cargarTablaRepuestos(textoBusqueda);
@@ -848,7 +848,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         dialog.add(panel);
         dialog.pack();
         dialog.setLocationRelativeTo(this);
-        dialog.setVisible(true); // se detiene aquí (es modal) hasta que cierres el diálogo
+        dialog.setVisible(true);
 
         if (panel.isAceptado()) {
         agregarServicioADetalle(panel.getServicioSeleccionado(), panel.getCantidadSeleccionada());
@@ -860,8 +860,6 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (comboPlacas.getSelectedIndex() > 0) { 
         String placaSeleccionada = comboPlacas.getSelectedItem().toString();
-
-        // Si es la misma placa que ya estaba seleccionada, ignoramos el disparo repetido
         if (placaSeleccionada.equals(ultimaPlacaProcesada)) {
             return;
         }
@@ -895,26 +893,27 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
     }//GEN-LAST:event_PanelBuscarMouseEntered
 private void cargarTablaRepuestosPorOrden(List<Object[]> listaRepuestos) {
     DefaultTableModel modeloRepuestos = (DefaultTableModel) tblRepuestosUsados.getModel();
-    modeloRepuestos.setRowCount(0); // Limpiar la tabla
+    modeloRepuestos.setRowCount(0); 
 
     if (listaRepuestos != null && !listaRepuestos.isEmpty()) {
         for (Object[] fila : listaRepuestos) {
-            // Viene del DAO: fila[0]=ID, fila[1]=Nombre, fila[2]=Precio, fila[3]=Cantidad, fila[4]=Subtotal
-            String idRepuesto     = fila[0].toString();
-            String nombreRepuesto = fila[1].toString();
-            double precio         = Double.parseDouble(fila[2].toString());
-            int cantidad          = Integer.parseInt(fila[3].toString());
-            double subtotal       = Double.parseDouble(fila[4].toString());
+            try {
+                String idRepuesto     = fila[0].toString();
+                String nombreRepuesto = fila[1].toString();
 
-            // Agregamos respetando exactamente las 5 columnas de la pantalla:
-            // [0] ID | [1] Nombre | [2] Cantidad | [3] Precio Unit. | [4] Subtotal
-            modeloRepuestos.addRow(new Object[]{ 
-                idRepuesto, 
-                nombreRepuesto, 
-                cantidad, 
-                precio, 
-                subtotal 
-            });
+                int cantidad    = (int) Double.parseDouble(fila[2].toString()); 
+                double precio   = Double.parseDouble(fila[3].toString());       
+                double subtotal = Double.parseDouble(fila[4].toString());       
+                modeloRepuestos.addRow(new Object[]{ 
+                    idRepuesto, 
+                    nombreRepuesto, 
+                    cantidad, 
+                    precio, 
+                    subtotal 
+                });
+            } catch (Exception e) {
+                System.err.println("Error procesando fila de repuesto: " + e.getMessage());
+            }
         }
     }
 }
@@ -924,20 +923,15 @@ private void cargarTablaServiciosPorOrden(List<Object[]> listaServicios) {
 
     if (listaServicios != null && !listaServicios.isEmpty()) {
         for (Object[] fila : listaServicios) {
-            // fila[0]=ID, fila[1]=Nombre, fila[2]=Precio, fila[3]=Cantidad, fila[4]=Subtotal
             String idServi = fila[0].toString();
             String nombre  = fila[1].toString();
             double precio  = Double.parseDouble(fila[2].toString());
             int cantidad   = Integer.parseInt(fila[3].toString());
             double subtotal= Double.parseDouble(fila[4].toString());
-
-            // Agregamos una fila donde guardamos la pareja ID/Nombre
             modeloServicios.addRow(new Object[]{ new ItemIdNombre(idServi, nombre), precio, cantidad, subtotal });
         }
     }
 }
-
-// Clase auxiliar sencilla dentro de tu panel (o al final del archivo)
 private static class ItemIdNombre {
     String id;
     String nombre;
@@ -949,7 +943,7 @@ private static class ItemIdNombre {
 
     @Override
     public String toString() {
-        return nombre; // Swing usará esto para mostrar SOLO el nombre en la pantalla
+        return nombre; 
     }
 }
     private void PanelBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseClicked
@@ -981,6 +975,9 @@ private static class ItemIdNombre {
         } else {
             JOptionPane.showMessageDialog(this, "El vehículo no tiene una orden de servicio registrada.");
         }
+        calcularTotal();
+        calcularSubtotalRepuestos();
+        recalcularSubtotalServicios();
     }//GEN-LAST:event_PanelBuscarMouseClicked
 
     private void PanelEditarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseExited
@@ -997,10 +994,16 @@ private static class ItemIdNombre {
 
     private void PanelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseClicked
         // TODO add your handling code here:
-        EditarOrdenDeServicio();
-        DetalleOrdenServicioDAO detalleServicioDAO = new DetalleOrdenServicioDAO();
-        List<Object[]> repuestosBD = detalleServicioDAO.obtenerRepuestosPorOrden(this.idOrdenCargada);
+    boolean exitoRepuestos = guardarDetalleRepuestos(this.idOrdenCargada);
+
+    if (exitoRepuestos) {
+        JOptionPane.showMessageDialog(this, "Orden actualizada con éxito.");
+        DetalleOrdenServicioDAO dao = new DetalleOrdenServicioDAO();
+        List<Object[]> repuestosBD = dao.obtenerRepuestosPorOrden(this.idOrdenCargada);
         cargarTablaRepuestosPorOrden(repuestosBD);
+    } else {
+        JOptionPane.showMessageDialog(this, "Error al guardar repuestos.");
+    }
     }//GEN-LAST:event_PanelEditarMouseClicked
 
     private void PanelGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseExited
@@ -1181,37 +1184,23 @@ private void EditarOrdenDeServicio() {
             String empleadoNombre = comboEmpleado.getSelectedItem().toString().trim();
             orden.setId_empleado(dao.obtenerIdEmpleadoPorNombre(empleadoNombre));
         }
-
-        // 1. Actualizamos la cabecera
         boolean actualizado = dao.actualizarOrdenServicio(orden);
         boolean repuestosOk = guardarDetalleRepuestos(this.idOrdenCargada);
 
         if (actualizado) {
-            // 2. PASO CLAVE: Reemplazamos los detalles de Servicios y Repuestos
             DetalleOrdenServicioDAO detalleServicioDAO = new DetalleOrdenServicioDAO();
-            
-            // Eliminamos el detalle viejo en la BD justo antes de escribir el nuevo
             detalleServicioDAO.eliminarDetallesPorOrden(this.idOrdenCargada);
-
-            // Re-insertamos los datos actualizados de las tablas
             boolean serviciosOk = guardarDetalleServicios(this.idOrdenCargada);
-            // boolean repuestosOk = guardarDetalleRepuestos(this.idOrdenCargada); // Descomenta si aplica
 
             JOptionPane.showMessageDialog(this, 
                 "La Orden de Servicio (" + idOrdenCargada + ") ha sido actualizada con éxito.", 
                 "Actualización Exitosa", 
                 JOptionPane.INFORMATION_MESSAGE);
             LimpiarDatosTablaDetalles();
-
-// 2. Traemos los datos actualizados de Supabase
             List<Object[]> serviciosBD = detalleServicioDAO.obtenerServiciosPorOrden(this.idOrdenCargada);
             List<Object[]> repuestosBD = detalleServicioDAO.obtenerRepuestosPorOrden(this.idOrdenCargada);
-
-// 3. Volvemos a pintar las tablas en la interfaz
             cargarTablaServiciosPorOrden(serviciosBD);
             cargarTablaRepuestosPorOrden(repuestosBD);
-
-            // 3. Envío de correo en segundo plano
             if (estadoSeleccionado.equalsIgnoreCase("Terminado") || estadoSeleccionado.equalsIgnoreCase("Finalizado")) {
                 new Thread(() -> {
                     String[] datosPropietario = dao.obtenerDatosPropietarioPorVehiculo(orden.getId_vehi());
@@ -1225,8 +1214,6 @@ private void EditarOrdenDeServicio() {
                     }
                 }).start();
             }
-
-            // 4. Limpiamos la UI y los modelos de datos tras guardar con éxito
             List<Object[]> serviciosActualizados = detalleServicioDAO.obtenerServiciosPorOrden(this.idOrdenCargada);
             cargarTablaServiciosPorOrden(serviciosActualizados);
             List<Object[]> repuestosActualizados = detalleServicioDAO.obtenerRepuestosPorOrden(this.idOrdenCargada);
@@ -1447,7 +1434,6 @@ private void configurarModeloTablaRepuestosUsados() {
     private void agregarServicioADetalle(Servicio s, int cantidadIngresada) {
     if (s == null) return;
 
-    // Convertimos el ID a String para que coincida con el tipo de dato que lee el modelo
     String idServicio = String.valueOf(s.getId_servi()).trim();
     String nombreServicio = s.getNom_servicio();
     double precioUnitario = s.getPrecio_del_servicio();
@@ -1457,7 +1443,6 @@ private void configurarModeloTablaRepuestosUsados() {
 
     boolean servicioExiste = false;
 
-    // Recorremos la tabla visual tal cual en Repuestos
     for (int i = 0; i < modeloServicios.getRowCount(); i++) {
         Object valorCelda = modeloServicios.getValueAt(i, 0); // Asumiendo que col 0 es ID o Nombre
         if (valorCelda == null) {
@@ -1466,23 +1451,21 @@ private void configurarModeloTablaRepuestosUsados() {
 
         String idExistente = valorCelda.toString().trim();
 
-        // Si coincide por ID (o por Nombre si el ID no se dibuja en la columna 0)
         if (idExistente.equalsIgnoreCase(idServicio) || idExistente.equalsIgnoreCase(nombreServicio)) {
             int cantidadAnterior = Integer.parseInt(modeloServicios.getValueAt(i, 2).toString());
             int nuevaCantidad = cantidadAnterior + cantidadIngresada;
             double nuevoSubtotal = nuevaCantidad * precioUnitario;
 
-            modeloServicios.setValueAt(nuevaCantidad, i, 2); // Columna Cantidad
-            modeloServicios.setValueAt(nuevoSubtotal, i, 3); // Columna Subtotal
+            modeloServicios.setValueAt(nuevaCantidad, i, 2); 
+            modeloServicios.setValueAt(nuevoSubtotal, i, 3); 
             servicioExiste = true;
             break;
         }
     }
 
     if (!servicioExiste) {
-        // Mismo patrón: insertRow directo al modelo
         Object[] nuevaFila = new Object[4];
-        nuevaFila[0] = nombreServicio; // O idServicio según el orden de tus columnas
+        nuevaFila[0] = nombreServicio; 
         nuevaFila[1] = precioUnitario;
         nuevaFila[2] = cantidadIngresada;
         nuevaFila[3] = subtotal;
@@ -1504,24 +1487,17 @@ private void configurarModeloTablaRepuestosUsados() {
         recalcularSubtotalServicios();
     }
     private void LimpiarDatosTablaDetalles() {
-    // 1. Vaciamos la lista interna en memoria
     detalleServicios.clear();
-    
-    // 2. Limpiamos las filas de la JTable de Servicios
+
     if (modeloTablaServicios != null) {
         modeloTablaServicios.setRowCount(0);
     } else if (tblDetalleServicio != null) {
         ((DefaultTableModel) tblDetalleServicio.getModel()).setRowCount(0);
     }
-
-    // 3. Si manejas la JTable de Repuestos Usados, también limpiala aquí:
     
     if (tblRepuestosUsados != null) {
         ((DefaultTableModel) tblRepuestosUsados.getModel()).setRowCount(0);
     }
-    
-
-    // 4. Reiniciamos la etiqueta/campo del subtotal
     if (lblSubTotalServicios != null) {
         lblSubTotalServicios.setText("0.00");
     }
@@ -1552,15 +1528,11 @@ private void configurarModeloTablaRepuestosUsados() {
     for (int i = 0; i < modeloServicios.getRowCount(); i++) {
         Object celdaServicio = modeloServicios.getValueAt(i, 0);
         String idServicio = "";
-
-        // 1. Extraemos el ID real sin importar cómo esté guardada la celda
         if (celdaServicio instanceof ItemIdNombre) {
             idServicio = ((ItemIdNombre) celdaServicio).id;
         } else {
-            // Si en la celda hay texto plano, buscamos su ID en la BD
             idServicio = dao.obtenerIdPorNombre(celdaServicio.toString());
-            
-            // Si no encuentra ID por nombre, cortamos el string a 20 caracteres máximo para evitar el crash de Postgres
+
             if (idServicio == null || idServicio.trim().isEmpty()) {
                 idServicio = celdaServicio.toString();
                 if (idServicio.length() > 20) {
@@ -1572,13 +1544,10 @@ private void configurarModeloTablaRepuestosUsados() {
         int cantidad = Integer.parseInt(modeloServicios.getValueAt(i, 2).toString());
         double subtotal = Double.parseDouble(modeloServicios.getValueAt(i, 3).toString().replace(",", "."));
 
-        // 2. Generamos ID de detalle (Asegurando que no pase de 20 caracteres)
         String idDetalle = dao.generarNuevoId();
         if (idDetalle != null && idDetalle.length() > 20) {
             idDetalle = idDetalle.substring(0, 20);
         }
-
-        // 3. Inserción en BD
         boolean ok = dao.insertarDetalle(idDetalle, cantidad, subtotal, idServicio, idOrden);
         if (!ok) {
             System.err.println("Error insertando detalle en fila: " + i);
@@ -1592,10 +1561,8 @@ private void configurarModeloTablaRepuestosUsados() {
     DefaultTableModel modeloRepuestos = (DefaultTableModel) tblRepuestosUsados.getModel();
 
     for (int i = 0; i < modeloRepuestos.getRowCount(); i++) {
-        // Columna 0 = ID del repuesto (ej: REP-1002)
         String idRepuesto = modeloRepuestos.getValueAt(i, 0).toString();
         
-        // Columna 2 = Cantidad | Columna 4 = Subtotal
         int cantidad = Integer.parseInt(modeloRepuestos.getValueAt(i, 2).toString());
         double subtotal = Double.parseDouble(modeloRepuestos.getValueAt(i, 4).toString().replace(",", "."));
 
