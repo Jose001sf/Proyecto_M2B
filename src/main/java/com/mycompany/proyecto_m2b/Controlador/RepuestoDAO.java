@@ -399,17 +399,23 @@ public class RepuestoDAO {
         while (rs.next()) {
             int actual = rs.getInt("cantidad_actual_repuesto");
             int min = rs.getInt("cantidad_min_repuesto");
+            int max = rs.getInt("cantidad_max_repuesto");
             
-            String estado = (actual <= min) 
-                ? "<span style='color: red; font-weight: bold;'>BAJO STOCK</span>" 
-                : "<span style='color: green;'>OK</span>";
+            String estado;
+            if (actual <= min) {
+                estado = "<span style='color: red; font-weight: bold;'>BAJO STOCK</span>";
+            } else if (actual >= max) {
+                estado = "<span style='color: orange; font-weight: bold;'>EXCESO DE STOCK</span>";
+            } else {
+                estado = "<span style='color: green;'>OK</span>";
+            }
 
             html.append("<tr>")
                 .append("<td>").append(rs.getString("id_repuestos")).append("</td>")
                 .append("<td>").append(rs.getString("nom_repuesto")).append("</td>")
                 .append("<td align='center'>").append(actual).append("</td>")
                 .append("<td align='center'>").append(min).append("</td>")
-                .append("<td align='center'>").append(rs.getInt("cantidad_max_repuesto")).append("</td>")
+                .append("<td align='center'>").append(max).append("</td>")
                 .append("<td align='center'>").append(estado).append("</td>")
                 .append("</tr>");
         }

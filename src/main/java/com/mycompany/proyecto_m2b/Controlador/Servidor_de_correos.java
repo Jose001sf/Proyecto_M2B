@@ -255,7 +255,12 @@ public class Servidor_de_correos {
                     int min = rs.getInt("cantidad_min_repuesto");
                     int max = rs.getInt("cantidad_max_repuesto");
 
-                    String alerta = (actual <= min) ? " [¡STOCK BAJO!]" : "";
+                    String alerta = "";
+                    if (actual <= min) {
+                        alerta = " [¡STOCK BAJO!]";
+                    } else if (actual >= max) {
+                        alerta = " [¡EXCESO DE STOCK!]";
+                    }
 
                     mensaje.append(String.format("• [%s] %s\n", id, nombre));
                     mensaje.append(String.format("  Stock Actual: %d | Min: %d | Max: %d%s\n\n", actual, min, max, alerta));
@@ -266,11 +271,10 @@ public class Servidor_de_correos {
             mensaje.append("--- Mensaje automático generado por el Sistema M&J ---");
 
             email.setMsg(mensaje.toString());
-            
             email.addTo(GMAIL_REMITENTE); 
             email.send();
 
-            System.out.println("Reporte de inventario enviado a ti mismo exitosamente.");
+            System.out.println("Reporte de inventario enviado exitosamente.");
 
         } catch (Exception e) {
             System.out.println("Error al enviar el reporte de inventario: " + e.getMessage());
