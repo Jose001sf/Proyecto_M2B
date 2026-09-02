@@ -1350,12 +1350,18 @@ private void configurarModeloTablaRepuestosUsados() {
             false, false, false, false, false
         };
 
+        @Override
         public boolean isCellEditable(int rowIndex, int columnIndex) {
             return canEdit [columnIndex];
         }
     };
+    
     tblRepuestosUsados.setModel(modeloUsados);
     modeloUsados.addTableModelListener(e -> calcularTotal());
+    tblRepuestosUsados.getColumnModel().getColumn(0).setMinWidth(0);
+    tblRepuestosUsados.getColumnModel().getColumn(0).setMaxWidth(0);
+    tblRepuestosUsados.getColumnModel().getColumn(0).setPreferredWidth(0);
+    tblRepuestosUsados.getColumnModel().getColumn(0).setResizable(false);
 }
    
 
