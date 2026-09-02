@@ -53,7 +53,7 @@ public class DetalleOrdenServicioDAO {
 }
     public List<Object[]> obtenerServiciosPorOrden(String idOrden) {
     List<Object[]> lista = new ArrayList<>();
-    String sql = "SELECT d.id_servi, s.nom_servicio, s.precio_del_servicio, d.cantidad_servi, d.subtotal_orden "
+    String sql = "SELECT s.nom_servicio, s.precio_del_servicio, d.cantidad_servi, d.subtotal_orden "
                + "FROM detalle_de_orden d "
                + "INNER JOIN servicio s ON d.id_servi = s.id_servi "
                + "WHERE LOWER(TRIM(d.id_orden_serv)) = LOWER(TRIM(?))";
@@ -64,11 +64,10 @@ public class DetalleOrdenServicioDAO {
         try (ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 lista.add(new Object[]{
-                    rs.getString("id_servi"),
-                    rs.getString("nom_servicio"),
-                    rs.getDouble("precio_del_servicio"),
-                    rs.getInt("cantidad_servi"),
-                    rs.getDouble("subtotal_orden")
+                    rs.getString("nom_servicio"),         
+                    rs.getDouble("precio_del_servicio"),  
+                    rs.getInt("cantidad_servi"),          
+                    rs.getDouble("subtotal_orden")        
                 });
             }
         }

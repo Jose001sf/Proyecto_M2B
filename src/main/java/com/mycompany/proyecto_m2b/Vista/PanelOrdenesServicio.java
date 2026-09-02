@@ -26,6 +26,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Date;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -142,6 +143,21 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
             System.err.println("Error al cargar los repuestos en la tabla: " + e.getMessage());
         }
     }
+    private void cargarOrdenesPorPlaca(String placa) {
+    OrdenServicioDAO ordenDAO = new OrdenServicioDAO();
+    List<orden_de_servicio> lista = ordenDAO.buscarOrdenPorPlaca(placa);
+
+    DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+    model.addElement("Seleccione una orden");
+
+    for (orden_de_servicio orden : lista) {
+        // Mostramos el ID de la orden en el combo
+        model.addElement(orden.getId_orden_serv()); 
+    }
+
+    comboOrden.setModel(model);
+    comboOrden.setSelectedIndex(0);
+}
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -895,6 +911,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (comboPlacas.getSelectedIndex() > 0) { 
         String placaSeleccionada = comboPlacas.getSelectedItem().toString();
+
         if (placaSeleccionada.equals(ultimaPlacaProcesada)) {
             return;
         }
@@ -902,17 +919,24 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         ultimaPlacaProcesada = placaSeleccionada;
 
         OrdenServicioDAO dao = new OrdenServicioDAO();
-        String datosCliente = dao.obtenerCedulaPorPlaca(placaSeleccionada);
 
-        if (datosCliente != null) {
-            comboCliente.removeAllItems();
+        // 1. Cargar datos del Cliente
+        String datosCliente = dao.obtenerCedulaPorPlaca(placaSeleccionada);
+        comboCliente.removeAllItems();
+
+        if (datosCliente != null && !datosCliente.isEmpty()) {
             comboCliente.addItem(datosCliente);
             comboCliente.setSelectedIndex(0);
+        } else {
+            comboCliente.addItem("Sin cliente asociado");
         }
+
+        // 2. Cargar Órdenes de Servicio
         List<orden_de_servicio> listaOrdenes = dao.buscarOrdenPorPlaca(placaSeleccionada);
         comboOrden.removeAllItems(); 
 
         if (!listaOrdenes.isEmpty()) {
+            comboOrden.addItem("Seleccione una orden"); // Opción inicial por defecto
             for (orden_de_servicio orden : listaOrdenes) {
                 comboOrden.addItem(orden.getId_orden_serv());
             }
@@ -920,10 +944,16 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         } else {
             comboOrden.addItem("Sin órdenes registradas");
         }
+
     } else {
+        // Limpieza cuando el usuario selecciona "Seleccione una placa" (Índice 0)
         ultimaPlacaProcesada = "";
+        
         comboCliente.removeAllItems();
+        comboCliente.addItem("Seleccione un cliente");
+
         comboOrden.removeAllItems();
+        comboOrden.addItem("Seleccione una orden");
     }
     }//GEN-LAST:event_comboPlacasActionPerformed
 
@@ -1182,7 +1212,10 @@ if (ordenesBD.isEmpty()) {
         // TODO add your handling code here:
         if (comboOrden.getSelectedItem() != null) {
         String idOrdenSeleccionada = comboOrden.getSelectedItem().toString().trim();
-        if (idOrdenSeleccionada.equals("Sin órdenes registradas") || idOrdenSeleccionada.isEmpty()) {
+        if (idOrdenSeleccionada.equals("Sin órdenes registradas") || 
+            idOrdenSeleccionada.equals("Seleccione una orden") || 
+            idOrdenSeleccionada.isEmpty()) {
+            
             LimpiarDatosTablaDetalles();
             TXTcostoTotal.setText("0.00");
             return;
@@ -1190,28 +1223,42 @@ if (ordenesBD.isEmpty()) {
 
         System.out.println("Cargando detalles para la orden seleccionada: [" + idOrdenSeleccionada + "]");
         DetalleOrdenServicioDAO daoDetalle = new DetalleOrdenServicioDAO();
-        List<Object[]> listaRepuestos = daoDetalle.obtenerRepuestosPorOrden(idOrdenSeleccionada);
-        DefaultTableModel model = (DefaultTableModel) tblRepuestosUsados.getModel();
-        model.setRowCount(0);
-        DefaultTableModel modelD = (DefaultTableModel) tblDetalleServicio.getModel();
-        model.setRowCount(0);
+        DefaultTableModel modelRepuestos = (DefaultTableModel) tblRepuestosUsados.getModel();
+        DefaultTableModel modelServicios = (DefaultTableModel) tblDetalleServicio.getModel();
+        modelRepuestos.setRowCount(0);
+        modelServicios.setRowCount(0);
 
         double totalAcumulado = 0.0;
-
+        List<Object[]> listaRepuestos = daoDetalle.obtenerRepuestosPorOrden(idOrdenSeleccionada);
         if (listaRepuestos != null && !listaRepuestos.isEmpty()) {
             for (Object[] fila : listaRepuestos) {
-                model.addRow(fila); 
+                modelRepuestos.addRow(fila); 
                 if (fila.length > 4 && fila[4] != null) {
                     try {
                         totalAcumulado += Double.parseDouble(fila[4].toString());
                     } catch (NumberFormatException e) {
-                        System.err.println("Error parseando subtotal: " + e.getMessage());
+                        System.err.println("Error parseando subtotal repuesto: " + e.getMessage());
                     }
                 }
             }
         }
-        TXTcostoTotal.setText(String.format("%.2f", totalAcumulado));
-    }
+        List<Object[]> listaServicios = daoDetalle.obtenerServiciosPorOrden(idOrdenSeleccionada);
+        if (listaServicios != null && !listaServicios.isEmpty()) {
+            for (Object[] fila : listaServicios) {
+                modelServicios.addRow(fila);
+                if (fila.length > 3 && fila[3] != null) {
+                    try {
+                        totalAcumulado += Double.parseDouble(fila[3].toString());
+                    } catch (NumberFormatException e) {
+                        System.err.println("Error parseando subtotal servicio: " + e.getMessage());
+                    }
+                }
+            }
+        }
+       TXTcostoTotal.setText(String.format(java.util.Locale.US, "%.2f", totalAcumulado));
+       calcularSubtotalRepuestos();
+       recalcularSubtotalServicios();
+        }
     }//GEN-LAST:event_comboOrdenActionPerformed
 
     private void comboClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboClienteActionPerformed

@@ -347,8 +347,7 @@ public List<orden_de_servicio> buscarOrdenPorPlaca(String placa) {
         ps.setString(1, placa.trim());
         try (ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
-                orden_de_servicio orden = null;
-                orden = new orden_de_servicio();
+                orden_de_servicio orden = new orden_de_servicio();
                 orden.setId_orden_serv(rs.getString("id_orden_serv"));
                 orden.setEstadoorden_servi(rs.getString("estado_orden_servi"));
                 orden.setFecha_ingreso(rs.getDate("fecha_ingreso"));
@@ -356,6 +355,8 @@ public List<orden_de_servicio> buscarOrdenPorPlaca(String placa) {
                 orden.setCosto_total(rs.getDouble("costo_total"));
                 orden.setId_vehi(rs.getString("id_vehi"));
                 orden.setId_empleado(rs.getString("id_empleado"));
+                
+                lista.add(orden);
             }
         }
     } catch (SQLException e) {
