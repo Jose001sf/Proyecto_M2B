@@ -15,6 +15,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -28,21 +29,25 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author HP
- */
 public class PanelProveedores extends javax.swing.JPanel {
     private Connection miConexion;
     private DefaultTableModel modeloTabla;
-    private CompraDAO compraDAO = new CompraDAO();
-    private ProveedorDAO proveedorDAO = new ProveedorDAO();
-    private RepuestoDAO repuestoDAO = new RepuestoDAO();
+    private CompraDAO compraDAO;
+    private ProveedorDAO proveedorDAO;
+    private RepuestoDAO repuestoDAO;
     /**
      * Creates new form PanelProveedores
      */
     public PanelProveedores() {
-    this.miConexion = ConexionBD.obtenerConexion();
+        try {
+        this.miConexion = ConexionBD.obtenerConexion();
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al conectar a la base de datos: " + e.getMessage());
+    }
+
+    this.compraDAO = new CompraDAO();
+    this.proveedorDAO = new ProveedorDAO();
+    this.repuestoDAO = new RepuestoDAO();
     initComponents();
     txtFechaCompra.setEnabled(false);
     txtTotalCompra.setEditable(false);

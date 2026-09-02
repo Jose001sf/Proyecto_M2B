@@ -1,24 +1,43 @@
-
+    
 package com.mycompany.proyecto_m2b.Controlador;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
 public class ConexionBD {
-    private static final String URL = "jdbc:postgresql://aws-0-us-east-2.pooler.supabase.com:5432/postgres";
-    private static final String USER = "postgres.nysvznvdbwwihcqxpcxt"; 
-    private static final String PASSWORD = "Proyecto_123";
 
-    public static Connection obtenerConexion() {
-        Connection conexion = null;
+    private static HikariDataSource dataSource;
+
+    static {
         try {
-            conexion = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("Conexion exitosa");
-        } catch (SQLException e) {
-            System.err.println("Error al conectar a la base" + e.getMessage());
+            HikariConfig config = new HikariConfig();
+            
+            config.setJdbcUrl("jdbc:postgresql://aws-0-us-east-2.pooler.supabase.com:6543/postgres");
+            config.setUsername("postgres.nysvznvdbwwihcqxpcxt");
+            config.setPassword("Proyecto_123");
+            config.setDriverClassName("org.postgresql.Driver");
+
+            config.setMaximumPoolSize(10);
+            config.setMinimumIdle(2);
+            config.setIdleTimeout(30000);
+            config.setConnectionTimeout(10000);
+
+            config.addDataSourceProperty("prepStmtCacheSize", "250");
+            config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+            config.addDataSourceProperty("useServerPrepStmts", "true");
+
+            dataSource = new HikariDataSource(config);
+            
+            System.out.println("Conectado Chavalin");
+            
+        } catch (Exception e) {
+            System.err.println("Error de conexion: " + e.getMessage());
         }
-        return conexion;
+    }
+
+    public static Connection obtenerConexion() throws SQLException {
+        return dataSource.getConnection();
     }
 }

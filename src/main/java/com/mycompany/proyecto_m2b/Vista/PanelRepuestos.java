@@ -12,18 +12,17 @@ import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author HP
- */
 public class PanelRepuestos extends javax.swing.JPanel {
-private java.sql.Connection miConexion = ConexionBD.obtenerConexion();
+private java.sql.Connection miConexion;
 private int filaSeleccionadaAnterior = -1;
 
-    /**
-     * Creates new form PanelRepuestos
-     */
+    
 public PanelRepuestos() {
+    try {
+        this.miConexion = ConexionBD.obtenerConexion();
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al conectar a la base de datos: " + e.getMessage());
+    }
     initComponents();
     cargarCombos();
     txtIdRepuesto.setEditable(false); 
@@ -315,8 +314,7 @@ public PanelRepuestos() {
     }
     
     private void cargarTablaRepuestos(String filtro) {
-    Connection con = ConexionBD.obtenerConexion();
-    try {
+        try (Connection con = ConexionBD.obtenerConexion()) {
         RepuestoDAO dao = new RepuestoDAO();
         List<Repuesto> lista = dao.buscarRepuestosPorNombre(con, filtro);
         
@@ -329,7 +327,6 @@ public PanelRepuestos() {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
-                
             }
         };
         
@@ -350,12 +347,8 @@ public PanelRepuestos() {
         
         tblModificar.setModel(modelo);
         
-    } catch (Exception e) {
+    } catch (SQLException e) {
         System.err.println("Error al cargar todos los datos en la tabla: " + e.getMessage());
-    } finally {
-        if (con != null) {
-            try { con.close(); } catch (SQLException ignored) {}
-        }
     }
 }
     
