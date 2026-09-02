@@ -15,7 +15,9 @@ import com.mycompany.proyecto_m2b.modelo.Persona;
 import com.mycompany.proyecto_m2b.modelo.Propietario;
 import java.awt.Color;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -90,15 +92,13 @@ public class PanelPropietarios extends javax.swing.JPanel {
         Verificar = new javax.swing.JButton();
         JPanelBuscar = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TablaEmpleados = new javax.swing.JTable();
+        TablaPropietarios = new javax.swing.JTable();
         Empleado = new javax.swing.JLabel();
-        TXTEmpleado = new javax.swing.JTextField();
+        TXTNombreCompleto = new javax.swing.JTextField();
         Cedula1 = new javax.swing.JLabel();
         TXTCedula = new javax.swing.JTextField();
-        estado = new javax.swing.JLabel();
-        TXTEstado = new javax.swing.JTextField();
         OtroNombreUsuario = new javax.swing.JLabel();
-        TXTNombreUsuario = new javax.swing.JTextField();
+        TXTfiltrarObservacion = new javax.swing.JTextField();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -630,7 +630,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
         JPanelBuscar.setBackground(new java.awt.Color(255, 213, 158));
         JPanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
-        TablaEmpleados.setModel(new javax.swing.table.DefaultTableModel(
+        TablaPropietarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -641,29 +641,29 @@ public class PanelPropietarios extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(TablaEmpleados);
+        jScrollPane1.setViewportView(TablaPropietarios);
 
         Empleado.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        Empleado.setText("Empleado:");
+        Empleado.setText("Nombre:");
 
-        TXTEmpleado.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        TXTEmpleado.setForeground(new java.awt.Color(94, 94, 94));
-        TXTEmpleado.addFocusListener(new java.awt.event.FocusAdapter() {
+        TXTNombreCompleto.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        TXTNombreCompleto.setForeground(new java.awt.Color(94, 94, 94));
+        TXTNombreCompleto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                TXTEmpleadoFocusGained(evt);
+                TXTNombreCompletoFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                TXTEmpleadoFocusLost(evt);
+                TXTNombreCompletoFocusLost(evt);
             }
         });
-        TXTEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
+        TXTNombreCompleto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                TXTEmpleadoMousePressed(evt);
+                TXTNombreCompletoMousePressed(evt);
             }
         });
-        TXTEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
+        TXTNombreCompleto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                TXTEmpleadoKeyReleased(evt);
+                TXTNombreCompletoKeyReleased(evt);
             }
         });
 
@@ -691,51 +691,27 @@ public class PanelPropietarios extends javax.swing.JPanel {
             }
         });
 
-        estado.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        estado.setText("Estado:");
-
-        TXTEstado.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        TXTEstado.setForeground(new java.awt.Color(94, 94, 94));
-        TXTEstado.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                TXTEstadoFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                TXTEstadoFocusLost(evt);
-            }
-        });
-        TXTEstado.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                TXTEstadoMousePressed(evt);
-            }
-        });
-        TXTEstado.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                TXTEstadoKeyReleased(evt);
-            }
-        });
-
         OtroNombreUsuario.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        OtroNombreUsuario.setText("Nombre de usuario:");
+        OtroNombreUsuario.setText("Observación:");
 
-        TXTNombreUsuario.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        TXTNombreUsuario.setForeground(new java.awt.Color(94, 94, 94));
-        TXTNombreUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
+        TXTfiltrarObservacion.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        TXTfiltrarObservacion.setForeground(new java.awt.Color(94, 94, 94));
+        TXTfiltrarObservacion.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                TXTNombreUsuarioFocusGained(evt);
+                TXTfiltrarObservacionFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                TXTNombreUsuarioFocusLost(evt);
+                TXTfiltrarObservacionFocusLost(evt);
             }
         });
-        TXTNombreUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+        TXTfiltrarObservacion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                TXTNombreUsuarioMousePressed(evt);
+                TXTfiltrarObservacionMousePressed(evt);
             }
         });
-        TXTNombreUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+        TXTfiltrarObservacion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                TXTNombreUsuarioKeyReleased(evt);
+                TXTfiltrarObservacionKeyReleased(evt);
             }
         });
 
@@ -754,15 +730,11 @@ public class PanelPropietarios extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Empleado)
-                            .addComponent(TXTEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(TXTNombreCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TXTNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(OtroNombreUsuario))
-                        .addGap(18, 18, 18)
-                        .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(estado)
-                            .addComponent(TXTEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(TXTfiltrarObservacion, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(OtroNombreUsuario))))
                 .addContainerGap(68, Short.MAX_VALUE))
         );
         JPanelBuscarLayout.setVerticalGroup(
@@ -776,16 +748,12 @@ public class PanelPropietarios extends javax.swing.JPanel {
                             .addComponent(Cedula1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TXTEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TXTNombreCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(TXTCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPanelBuscarLayout.createSequentialGroup()
-                        .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(OtroNombreUsuario)
-                            .addComponent(estado))
+                        .addComponent(OtroNombreUsuario)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(JPanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TXTNombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TXTEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(TXTfiltrarObservacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1172,6 +1140,27 @@ public class PanelPropietarios extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_TXTnombre1ActionPerformed
 
+    public void cargarTablaEmpleados(){
+        
+    }
+    public void cargarTablaEmpleados (String cedula, String nombre, String observaciones){        
+        PropietarioDAO pd=new PropietarioDAO();
+        List<Propietario> lista = pd.filtrarPropietarios(cedula, nombre, observaciones);
+        String columnas []={"Cédula","Nombre empleado","Observaciones"};
+        DefaultTableModel modelo = new DefaultTableModel (null, columnas);
+        modelo.setRowCount(0);
+        System.out.println(lista.size());
+        for (Propietario p : lista){
+            Object [] fila={
+                p.getCed_perso(),
+                p.getNombreCompleto(),
+                p.getObservaci_propietario()
+            };
+            modelo.addRow(fila);
+        }
+        // table nombre asignado a la tabla
+        TablaPropietarios.setModel(modelo);
+    }   
     private void TXTnombre1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTnombre1KeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
@@ -2528,22 +2517,25 @@ public class PanelPropietarios extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_PanelEditarMouseClicked
 
-    private void TXTEmpleadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTEmpleadoFocusGained
+    private void TXTNombreCompletoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTNombreCompletoFocusGained
         // TODO add your handling code here:
-    }//GEN-LAST:event_TXTEmpleadoFocusGained
+    }//GEN-LAST:event_TXTNombreCompletoFocusGained
 
-    private void TXTEmpleadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTEmpleadoFocusLost
+    private void TXTNombreCompletoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTNombreCompletoFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_TXTEmpleadoFocusLost
+    }//GEN-LAST:event_TXTNombreCompletoFocusLost
 
-    private void TXTEmpleadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTEmpleadoMousePressed
+    private void TXTNombreCompletoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTNombreCompletoMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TXTEmpleadoMousePressed
+    }//GEN-LAST:event_TXTNombreCompletoMousePressed
 
-    private void TXTEmpleadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTEmpleadoKeyReleased
+    private void TXTNombreCompletoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTNombreCompletoKeyReleased
         // TODO add your handling code here:
-        //Dinamico();
-    }//GEN-LAST:event_TXTEmpleadoKeyReleased
+        String Cedula=TXTCedula.getText().trim();
+        String Nombre=TXTNombreCompleto.getText().trim();
+        String Observaciones=TXTfiltrarObservacion.getText().trim();
+        cargarTablaEmpleados(Cedula, Nombre, Observaciones);
+    }//GEN-LAST:event_TXTNombreCompletoKeyReleased
 
     private void TXTCedulaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTCedulaFocusGained
         // TODO add your handling code here:
@@ -2559,42 +2551,31 @@ public class PanelPropietarios extends javax.swing.JPanel {
 
     private void TXTCedulaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTCedulaKeyReleased
         // TODO add your handling code here:
-        //Dinamico();
+        String Cedula=TXTCedula.getText().trim();
+        String Nombre=TXTNombreCompleto.getText().trim();
+        String Observaciones=TXTfiltrarObservacion.getText().trim();
+        cargarTablaEmpleados(Cedula, Nombre, Observaciones);
     }//GEN-LAST:event_TXTCedulaKeyReleased
 
-    private void TXTEstadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTEstadoFocusGained
+    private void TXTfiltrarObservacionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTfiltrarObservacionFocusGained
         // TODO add your handling code here:
-    }//GEN-LAST:event_TXTEstadoFocusGained
+    }//GEN-LAST:event_TXTfiltrarObservacionFocusGained
 
-    private void TXTEstadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTEstadoFocusLost
+    private void TXTfiltrarObservacionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTfiltrarObservacionFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_TXTEstadoFocusLost
+    }//GEN-LAST:event_TXTfiltrarObservacionFocusLost
 
-    private void TXTEstadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTEstadoMousePressed
+    private void TXTfiltrarObservacionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTfiltrarObservacionMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TXTEstadoMousePressed
+    }//GEN-LAST:event_TXTfiltrarObservacionMousePressed
 
-    private void TXTEstadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTEstadoKeyReleased
+    private void TXTfiltrarObservacionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTfiltrarObservacionKeyReleased
         // TODO add your handling code here:
-        //Dinamico();
-    }//GEN-LAST:event_TXTEstadoKeyReleased
-
-    private void TXTNombreUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTNombreUsuarioFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TXTNombreUsuarioFocusGained
-
-    private void TXTNombreUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTNombreUsuarioFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TXTNombreUsuarioFocusLost
-
-    private void TXTNombreUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TXTNombreUsuarioMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TXTNombreUsuarioMousePressed
-
-    private void TXTNombreUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTNombreUsuarioKeyReleased
-        // TODO add your handling code here:
-        //Dinamico();
-    }//GEN-LAST:event_TXTNombreUsuarioKeyReleased
+        String Cedula=TXTCedula.getText().trim();
+        String Nombre=TXTNombreCompleto.getText().trim();
+        String Observaciones=TXTfiltrarObservacion.getText().trim();
+        cargarTablaEmpleados(Cedula, Nombre, Observaciones);
+    }//GEN-LAST:event_TXTfiltrarObservacionKeyReleased
 
     private void PanelBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseClicked
         // TODO add your handling code here:
@@ -2812,9 +2793,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
     private javax.swing.JTextField TXTCedula;
     private javax.swing.JTextField TXTCelular;
     private javax.swing.JTextField TXTCorreoElectronico;
-    private javax.swing.JTextField TXTEmpleado;
-    private javax.swing.JTextField TXTEstado;
-    private javax.swing.JTextField TXTNombreUsuario;
+    private javax.swing.JTextField TXTNombreCompleto;
     private javax.swing.JTextField TXTTelefono;
     private javax.swing.JTextField TXTapellido;
     private javax.swing.JTextField TXTapellido1;
@@ -2822,12 +2801,12 @@ public class PanelPropietarios extends javax.swing.JPanel {
     private javax.swing.JTextField TXTcalleSecundaria;
     private javax.swing.JTextField TXTcedula;
     private javax.swing.JTextField TXTciudad;
+    private javax.swing.JTextField TXTfiltrarObservacion;
     private javax.swing.JTextField TXTnombre;
     private javax.swing.JTextField TXTnombre1;
     private javax.swing.JTextField TXTnumCasa;
-    private javax.swing.JTable TablaEmpleados;
+    private javax.swing.JTable TablaPropietarios;
     private javax.swing.JButton Verificar;
-    private javax.swing.JLabel estado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

@@ -158,4 +158,36 @@ public class PropietarioDAO {
         }
         return null;
     }
+        
+        private static final String FILTRAR_PROPIETARIOS =
+        "SELECT pr.id_propietario, pr.observaci_propietario, p.ced_perso, p.nom1_person, p.nom2_person, p.apell1_person, p.apell2_person "
+        + "FROM propietario pr "
+        + "INNER JOIN persona p ON p.ced_perso = pr.ced_perso "
+        + "WHERE p.ced_perso ILIKE ? AND (p.nom1_person ILIKE ? OR p.nom2_person ILIKE ? OR p.apell1_person ILIKE ? OR p.apell2_person ILIKE ?) AND pr.observaci_propietario ILIKE ? ORDER BY p.nom1_person, p.apell1_person";
+        
+        public List<Propietario> filtrarPropietarios(String cedula, String nombre, String observacion) {
+        List<Propietario> lista = new ArrayList<>();
+        try (Connection conn = ConexionBD.obtenerConexion();
+             PreparedStatement ps=conn.prepareStatement(FILTRAR_PROPIETARIOS)) {
+            ps.setString(1, "%" + cedula.trim() + "%");
+            ps.setString(2, "%" + nombre.trim() + "%");
+            ps.setString(3, "%" + nombre.trim() + "%");
+            ps.setString(4, "%" + nombre.trim() + "%");
+            ps.setString(5, "%" + nombre.trim() + "%");
+            ps.setString(6, "%" + observacion.trim() + "%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Propietario propietario = new Propietario();
+                propietario.setID_propietario(rs.getString("id_propietario"));
+                propietario.setCed_perso(rs.getString("ced_perso"));
+                propietario.setObservaci_propietario(rs.getString("observaci_propietario"));
+                String nombreCompleto = rs.getString("nom1_person") + " "+ rs.getString("nom2_person") + " "+ rs.getString("apell1_person") + " "+ rs.getString("apell2_person");
+                propietario.setNombreCompleto(nombreCompleto.trim().replaceAll("\\s+", " "));
+                lista.add(propietario);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al filtrar propietarios: "+ e.getMessage());
+        }
+        return lista;
+    }
 }
