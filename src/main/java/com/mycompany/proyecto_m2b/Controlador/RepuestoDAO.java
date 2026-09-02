@@ -406,7 +406,6 @@ public class RepuestoDAO {
             }
 
         }
-
         Servidor_de_correos servidor = new Servidor_de_correos();
         servidor.enviarReporteInventarioAuto(conexion);
         return true;
