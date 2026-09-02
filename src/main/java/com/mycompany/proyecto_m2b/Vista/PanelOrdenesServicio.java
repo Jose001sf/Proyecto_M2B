@@ -101,13 +101,17 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
 
     private void configurarModeloTablaRepuestos() {
         String[] titulos = {"ID", "Nombre", "Cantidad Actual", "Precio"};
-        DefaultTableModel modelo = new DefaultTableModel(null, titulos) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false; 
-            }
-        };
-        tblDetalleRepuestos.setModel(modelo);
+    DefaultTableModel modelo = new DefaultTableModel(null, titulos) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false; 
+        }
+    };
+    tblDetalleRepuestos.setModel(modelo);
+    tblDetalleRepuestos.getColumnModel().getColumn(0).setMinWidth(0);
+    tblDetalleRepuestos.getColumnModel().getColumn(0).setMaxWidth(0);
+    tblDetalleRepuestos.getColumnModel().getColumn(0).setPreferredWidth(0);
+    tblDetalleRepuestos.getColumnModel().getColumn(0).setResizable(false);
     }
     
     private void txtBuscarRepuesetoKeyReleased(java.awt.event.KeyEvent evt) {
@@ -1393,12 +1397,18 @@ private void configurarModeloTablaRepuestosUsados() {
             false, false, false, false, false
         };
 
+        @Override
         public boolean isCellEditable(int rowIndex, int columnIndex) {
             return canEdit [columnIndex];
         }
     };
+    
     tblRepuestosUsados.setModel(modeloUsados);
     modeloUsados.addTableModelListener(e -> calcularTotal());
+    tblRepuestosUsados.getColumnModel().getColumn(0).setMinWidth(0);
+    tblRepuestosUsados.getColumnModel().getColumn(0).setMaxWidth(0);
+    tblRepuestosUsados.getColumnModel().getColumn(0).setPreferredWidth(0);
+    tblRepuestosUsados.getColumnModel().getColumn(0).setResizable(false);
 }
    
 
