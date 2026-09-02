@@ -958,10 +958,15 @@ public class Usuarios extends javax.swing.JFrame {
                     + "Confirmar su respuesta", "Condirmar", JOptionPane.YES_NO_OPTION);
             if (opcion==JOptionPane.YES_OPTION){
             Validaciones V=new Validaciones();
+            UsuarioDAO ud=new UsuarioDAO();
             String NomNuevo = TXTnombreDeUsuario.getText();
             String ContraNuevo=String.valueOf(TXTcontraseña.getPassword());
             if (!V.validarNombreUsuario(NomNuevo)){
                 JOptionPane.showMessageDialog(this, "Este nombre no es valido");
+                return;
+            }
+            if(ud.existeNombreUsuarioEnOtro(NomNuevo, selecc.getID_usuario())){
+                JOptionPane.showMessageDialog(this, "Ya existe ese nombre de usuario");
                 return;
             }
             if (!V.validarContrasena(ContraNuevo)){
@@ -973,7 +978,7 @@ public class Usuarios extends javax.swing.JFrame {
             u.setContra_usuario(ContraNuevo);
             u.setTip_usuario(selecc.getTip_usuario());
             u.setID_usuario(selecc.getID_usuario().toString());
-            UsuarioDAO ud=new UsuarioDAO();
+            
             boolean exist = ud.modificarUsuario(u);
             if (exist){                
                 JOptionPane.showMessageDialog(this, "Se ha modificado de manera correcta");
