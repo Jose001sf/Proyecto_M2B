@@ -143,6 +143,7 @@ public class PanelProduce extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        TablaProduce.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(TablaProduce);
 
         Detalles_de_produccion2.setBackground(new java.awt.Color(0, 0, 0));
@@ -205,6 +206,7 @@ public class PanelProduce extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        TablaHistorial.getTableHeader().setReorderingAllowed(false);
         TablaHistorial.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TablaHistorialMouseClicked(evt);
@@ -409,9 +411,8 @@ public class PanelProduce extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(TXTCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(Detalles_de_produccion2)
-                                .addGap(54, 54, 54))))
+                            .addComponent(Detalles_de_produccion2))
+                        .addGap(5, 5, 5))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(PanelNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
