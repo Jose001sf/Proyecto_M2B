@@ -701,6 +701,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         }
 
         txtSubtotalRepuestos.setText(String.format(java.util.Locale.US, "%.2f", nuevoSubtotalRepuestos));
+        calcularTotal();
     }//GEN-LAST:event_btnEliminarRepuestoActionPerformed
 
     private void btnAgregarRepuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarRepuestosActionPerformed
@@ -851,6 +852,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         }
     }
     lblSubTotalServicios.setText(String.format(java.util.Locale.US, "%.2f", nuevoSubtotalServicios));
+    calcularTotal();
     }//GEN-LAST:event_PanelEliminarServicioMouseClicked
 
     private void PanelAgregarServicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelAgregarServicioMouseExited
@@ -1002,7 +1004,7 @@ private List<Object[]> obtenerDatosDeTabla(DefaultTableModel model) {
 }
     private void PanelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseClicked
         // TODO add your handling code here:
-        if (comboOrden.getSelectedItem() == null) {
+    if (comboOrden.getSelectedItem() == null) {
         JOptionPane.showMessageDialog(this, "Por favor, seleccione una orden de servicio para editar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         return;
     }
@@ -1046,11 +1048,12 @@ private List<Object[]> obtenerDatosDeTabla(DefaultTableModel model) {
         return;
     }
 
+    String nuevoEstado = Estados.getSelectedItem().toString().trim();
+
     orden_de_servicio orden = new orden_de_servicio();
     orden.setId_orden_serv(idOrden);
     orden.setId_vehi(idVehiculoReal);
-    orden.setEstadoorden_servi(Estados.getSelectedItem().toString().trim());
-    
+    orden.setEstadoorden_servi(nuevoEstado);
     orden.setFecha_ingreso(CalendarioFechaIngreso.getDate());
     orden.setFecha_entrega(CalendarioFechaEntrega.getDate());
 
@@ -1097,6 +1100,21 @@ private List<Object[]> obtenerDatosDeTabla(DefaultTableModel model) {
 
         if (exitoDetalles) {
             JOptionPane.showMessageDialog(this, "Orden de Servicio actualizada correctamente.");
+
+            if (nuevoEstado.equalsIgnoreCase("terminado") || nuevoEstado.equalsIgnoreCase("finalizado")) {
+                String correoCliente = ordenDAO.obtenerCorreoClientePorPlaca(placaSeleccionada);
+                String nombreCliente = ordenDAO.obtenerNombreClientePorPlaca(placaSeleccionada);
+
+                if (correoCliente != null && !correoCliente.trim().isEmpty()) {
+                    new Thread(() -> {
+                        Servidor_de_correos servidor = new Servidor_de_correos();
+                        servidor.enviarCorreoEstadoVehiculo(nombreCliente, nuevoEstado, correoCliente);
+                    }).start();
+                } else {
+                    System.err.println("No se envió el correo: El cliente no tiene registrado un email válido.");
+                }
+            }
+
             comboOrdenActionPerformed(null);
         } else {
             JOptionPane.showMessageDialog(this, "Error al guardar los detalles de la orden.", "Error", JOptionPane.ERROR_MESSAGE);

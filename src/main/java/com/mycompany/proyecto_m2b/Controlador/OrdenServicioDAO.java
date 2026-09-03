@@ -646,4 +646,44 @@ public orden_de_servicio buscarOrdenPorPlacaII(String placa) {
         }
         return resultado;
     }
+   public String obtenerCorreoClientePorPlaca(String placa) {
+    String sql = "SELECT p.corr_elec_perso "
+               + "FROM vehiculo v "
+               + "INNER JOIN propietario pr ON v.id_propietario = pr.id_propietario "
+               + "INNER JOIN persona p ON pr.ced_perso = p.ced_perso "
+               + "WHERE LOWER(TRIM(v.placa_carro)) = LOWER(TRIM(?))";
+
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setString(1, placa);
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getString("corr_elec_perso");
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener correo de la persona: " + e.getMessage());
+    }
+    return null;
+}
+
+public String obtenerNombreClientePorPlaca(String placa) {
+    String sql = "SELECT p.nom1_person "
+               + "FROM vehiculo v "
+               + "INNER JOIN propietario pr ON v.id_propietario = pr.id_propietario "
+               + "INNER JOIN persona p ON pr.ced_perso = p.ced_perso "
+               + "WHERE LOWER(TRIM(v.placa_carro)) = LOWER(TRIM(?))";
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setString(1, placa);
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getString("nom1_person");
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener nombre de la persona: " + e.getMessage());
+    }
+    return "Cliente";
+}
 }
