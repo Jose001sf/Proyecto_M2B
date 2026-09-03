@@ -184,7 +184,6 @@ public List<Object[]> obtenerRepuestosPorOrden(String idOrden) {
         con = ConexionBD.obtenerConexion();
         con.setAutoCommit(false);
 
-        // 1. Eliminar detalles previos de esta orden
         try (PreparedStatement psDelS = con.prepareStatement(sqlDeleteServ);
              PreparedStatement psDelR = con.prepareStatement(sqlDeleteRep)) {
             psDelS.setString(1, idOrden.trim());
@@ -194,7 +193,11 @@ public List<Object[]> obtenerRepuestosPorOrden(String idOrden) {
             psDelR.executeUpdate();
         }
 
-        // 2. Insertar Servicios (Usa prefijo DTS y timestamp único)
+        String numOrden = idOrden.replaceAll("[^0-9]", "");
+        if (numOrden.length() > 6) {
+            numOrden = numOrden.substring(numOrden.length() - 6);
+        }
+
         try (PreparedStatement psInsS = con.prepareStatement(sqlInsertServ)) {
             for (int i = 0; i < listaServicios.size(); i++) {
                 Object[] fila = listaServicios.get(i);
@@ -212,8 +215,10 @@ public List<Object[]> obtenerRepuestosPorOrden(String idOrden) {
 
                 double subtotal = Double.parseDouble(fila[3].toString().replace(",", "."));
 
-                // Genera una clave primaria única e irrepetible para el detalle de servicio
-                String idDetalleServ = "DTS_" + System.currentTimeMillis() + "_" + i;
+                String idDetalleServ = String.format("DTS-%s-%d", numOrden, (i + 1));
+                if (idDetalleServ.length() > 15) {
+                    idDetalleServ = idDetalleServ.substring(0, 15);
+                }
 
                 psInsS.setString(1, idDetalleServ);
                 psInsS.setString(2, idOrden.trim());
@@ -225,7 +230,6 @@ public List<Object[]> obtenerRepuestosPorOrden(String idOrden) {
             psInsS.executeBatch();
         }
 
-        // 3. Insertar Repuestos (Usa prefijo DTR y timestamp único)
         try (PreparedStatement psInsR = con.prepareStatement(sqlInsertRep)) {
             for (int i = 0; i < listaRepuestos.size(); i++) {
                 Object[] fila = listaRepuestos.get(i);
@@ -245,8 +249,10 @@ public List<Object[]> obtenerRepuestosPorOrden(String idOrden) {
                     subtotal = Double.parseDouble(fila[2].toString().replace(",", "."));
                 } catch (Exception e) {}
 
-                // Genera una clave primaria única e irrepetible para el detalle de repuesto
-                String idDetalleRep = "DTR_" + System.currentTimeMillis() + "_" + i;
+                String idDetalleRep = String.format("DTR-%s-%d", numOrden, (i + 1));
+                if (idDetalleRep.length() > 15) {
+                    idDetalleRep = idDetalleRep.substring(0, 15);
+                }
 
                 psInsR.setString(1, idDetalleRep);
                 psInsR.setInt(2, cantidad);
