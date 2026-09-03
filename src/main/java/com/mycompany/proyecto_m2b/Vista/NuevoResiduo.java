@@ -201,7 +201,7 @@ public class NuevoResiduo extends javax.swing.JPanel {
             .addGroup(BarraArribaLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(NombreVentanaResiduos, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
         BarraArribaLayout.setVerticalGroup(
             BarraArribaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,7 +211,7 @@ public class NuevoResiduo extends javax.swing.JPanel {
                 .addContainerGap(11, Short.MAX_VALUE))
         );
 
-        Fondo.add(BarraArriba, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 690, 60));
+        Fondo.add(BarraArriba, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 730, 60));
 
         TituloFuncion2.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         TituloFuncion2.setForeground(new java.awt.Color(153, 153, 153));
