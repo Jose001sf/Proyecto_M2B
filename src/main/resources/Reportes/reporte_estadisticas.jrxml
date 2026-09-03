@@ -135,8 +135,8 @@
 	<summary>
 		<band height="146" splitType="Stretch">
 			<image>
-				<reportElement x="79" y="65" width="50" height="50" uuid="dcc3b22f-16db-4449-bc89-5668fd793c57"/>
-				<imageExpression><![CDATA["$P{pGraficoImagen}"]]></imageExpression>
+				<reportElement x="79" y="65" width="450" height="250" uuid="dcc3b22f-16db-4449-bc89-5668fd793c57"/>
+				<imageExpression><![CDATA[net.sf.jasperreports.renderers.SimpleDataRenderer.getInstance((byte[])$P{pGraficoImagen})]]></imageExpression>
 			</image>
 		</band>
 	</summary>
