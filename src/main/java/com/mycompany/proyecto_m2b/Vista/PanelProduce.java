@@ -73,7 +73,6 @@ public class PanelProduce extends javax.swing.JFrame {
         Guardar = new javax.swing.JLabel();
         ImagenSAVE = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        Regresar = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         PanelEditar = new javax.swing.JPanel();
         Editar = new javax.swing.JLabel();
@@ -268,22 +267,6 @@ public class PanelProduce extends javax.swing.JFrame {
             }
         });
 
-        Regresar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        Regresar.setForeground(new java.awt.Color(153, 153, 153));
-        Regresar.setText("<- REGRESAR");
-        Regresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Regresar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                RegresarMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                RegresarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                RegresarMouseExited(evt);
-            }
-        });
-
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("DETALLE DE RESIDUOS");
@@ -295,18 +278,14 @@ public class PanelProduce extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 700, Short.MAX_VALUE)
-                .addComponent(Regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addContainerGap(1049, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31))
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
         );
 
         PanelEditar.setBackground(new java.awt.Color(255, 255, 255));
@@ -693,11 +672,6 @@ public class PanelProduce extends javax.swing.JFrame {
         Guardar.setForeground(Color.white);
     }//GEN-LAST:event_PanelGuardarMouseExited
 
-    private void RegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegresarMouseClicked
-        // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_RegresarMouseClicked
-
     private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
         int x=evt.getXOnScreen();
         int y=evt.getYOnScreen();
@@ -709,16 +683,6 @@ public class PanelProduce extends javax.swing.JFrame {
         Mousex=evt.getX();
         Mousey=evt.getY();
     }//GEN-LAST:event_jPanel2MousePressed
-
-    private void RegresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegresarMouseEntered
-        // TODO add your handling code here:
-        Regresar.setForeground(Color.white);
-    }//GEN-LAST:event_RegresarMouseEntered
-
-    private void RegresarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegresarMouseExited
-        // TODO add your handling code here:
-        Regresar.setForeground(new Color(153,153,153));
-    }//GEN-LAST:event_RegresarMouseExited
 
     private void seleccionarOrden(JComboBox<?> combo, String idOrden) {
         if (idOrden==null){
@@ -892,7 +856,6 @@ public class PanelProduce extends javax.swing.JFrame {
     private javax.swing.JPanel PanelEliminarServicio;
     private javax.swing.JPanel PanelGuardar;
     private javax.swing.JPanel PanelNuevo;
-    private javax.swing.JLabel Regresar;
     private javax.swing.JTextField TXTCantidad;
     private javax.swing.JTable TablaHistorial;
     private javax.swing.JTable TablaProduce;
