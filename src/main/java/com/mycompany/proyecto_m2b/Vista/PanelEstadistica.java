@@ -891,12 +891,45 @@ public class PanelEstadistica extends javax.swing.JPanel {
             javax.imageio.ImageIO.write(bufferedImage, "png", baos);
 
             parametros.put("pGraficoImagen", baos.toByteArray());
+            org.jfree.data.category.DefaultCategoryDataset datasetResiduos
+                    = new org.jfree.data.category.DefaultCategoryDataset();
+
+            for (ItemReporteDTO residuo : residuos) {
+                datasetResiduos.addValue(
+                        residuo.getCantidad(),
+                        "Residuos generados",
+                        residuo.getNombre()
+                );
+            }
+
+            org.jfree.chart.JFreeChart chartResiduos
+                    = org.jfree.chart.ChartFactory.createBarChart(
+                            "Residuos más generados",
+                            "Residuo",
+                            "Cantidad",
+                            datasetResiduos
+                    );
+
+            java.awt.image.BufferedImage imagenResiduos
+                    = chartResiduos.createBufferedImage(450, 250);
+
+            java.io.ByteArrayOutputStream baosResiduos
+                    = new java.io.ByteArrayOutputStream();
+
+            javax.imageio.ImageIO.write(imagenResiduos, "png", baosResiduos);
+
+            parametros.put("pGraficoResiduos", baosResiduos.toByteArray());
 
             net.sf.jasperreports.engine.data.JRBeanCollectionDataSource dataSource
                     = new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(items);
 
             String rutaJrxml
                     = "src/main/resources/Reportes/reporte_estadisticas.jrxml";
+
+            System.out.println(
+                    "JRXML usado: "
+                    + new java.io.File(rutaJrxml).getAbsolutePath()
+            );
 
             net.sf.jasperreports.engine.JasperReport jasperReport
                     = net.sf.jasperreports.engine.JasperCompileManager
