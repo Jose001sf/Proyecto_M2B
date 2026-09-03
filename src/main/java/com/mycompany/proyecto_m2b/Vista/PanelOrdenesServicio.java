@@ -615,6 +615,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblDetalleRepuestos.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tblDetalleRepuestos);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 410, -1, 80));
@@ -630,6 +631,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
             }
         ));
+        tblRepuestosUsados.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(tblRepuestosUsados);
 
         jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 510, 110));
