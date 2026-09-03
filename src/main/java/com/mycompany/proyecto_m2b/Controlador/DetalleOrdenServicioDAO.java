@@ -183,7 +183,6 @@ public List<Object[]> obtenerRepuestosPorOrden(String idOrden) {
     try {
         con = ConexionBD.obtenerConexion();
         con.setAutoCommit(false);
-
         try (PreparedStatement psDelS = con.prepareStatement(sqlDeleteServ);
              PreparedStatement psDelR = con.prepareStatement(sqlDeleteRep)) {
             psDelS.setString(1, idOrden.trim());
@@ -192,12 +191,11 @@ public List<Object[]> obtenerRepuestosPorOrden(String idOrden) {
             psDelR.setString(1, idOrden.trim());
             psDelR.executeUpdate();
         }
-
         String numOrden = idOrden.replaceAll("[^0-9]", "");
-        if (numOrden.length() > 6) {
-            numOrden = numOrden.substring(numOrden.length() - 6);
+        if (numOrden.length() > 4) {
+            numOrden = numOrden.substring(numOrden.length() - 4);
         }
-
+        String timeKey = String.valueOf(System.currentTimeMillis() % 10000);
         try (PreparedStatement psInsS = con.prepareStatement(sqlInsertServ)) {
             for (int i = 0; i < listaServicios.size(); i++) {
                 Object[] fila = listaServicios.get(i);
@@ -213,9 +211,12 @@ public List<Object[]> obtenerRepuestosPorOrden(String idOrden) {
                     try { cantidad = Integer.parseInt(fila[2].toString().trim()); } catch (Exception ex) {}
                 }
 
-                double subtotal = Double.parseDouble(fila[3].toString().replace(",", "."));
+                double subtotal = 0.0;
+                try {
+                    subtotal = Double.parseDouble(fila[3].toString().replace(",", "."));
+                } catch (Exception e) {}
 
-                String idDetalleServ = String.format("DTS-%s-%d", numOrden, (i + 1));
+                String idDetalleServ = String.format("DTS-%s-%d-%s", numOrden, (i + 1), timeKey);
                 if (idDetalleServ.length() > 15) {
                     idDetalleServ = idDetalleServ.substring(0, 15);
                 }
@@ -229,7 +230,6 @@ public List<Object[]> obtenerRepuestosPorOrden(String idOrden) {
             }
             psInsS.executeBatch();
         }
-
         try (PreparedStatement psInsR = con.prepareStatement(sqlInsertRep)) {
             for (int i = 0; i < listaRepuestos.size(); i++) {
                 Object[] fila = listaRepuestos.get(i);
@@ -249,7 +249,7 @@ public List<Object[]> obtenerRepuestosPorOrden(String idOrden) {
                     subtotal = Double.parseDouble(fila[2].toString().replace(",", "."));
                 } catch (Exception e) {}
 
-                String idDetalleRep = String.format("DTR-%s-%d", numOrden, (i + 1));
+                String idDetalleRep = String.format("DTR-%s-%d-%s", numOrden, (i + 1), timeKey);
                 if (idDetalleRep.length() > 15) {
                     idDetalleRep = idDetalleRep.substring(0, 15);
                 }
@@ -279,7 +279,6 @@ public List<Object[]> obtenerRepuestosPorOrden(String idOrden) {
         }
     }
 }
-
 private String obtenerIdServicioPorNombre(String nombreServicio) {
     if (nombreServicio == null || nombreServicio.trim().isEmpty()) return nombreServicio;
 
