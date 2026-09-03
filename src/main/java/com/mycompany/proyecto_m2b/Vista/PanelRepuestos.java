@@ -699,6 +699,7 @@ public PanelRepuestos() {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9"
             }
         ));
+        tblModificar.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblModificar);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 1290, 370));

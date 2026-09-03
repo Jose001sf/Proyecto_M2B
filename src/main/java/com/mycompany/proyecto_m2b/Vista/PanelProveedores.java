@@ -584,6 +584,7 @@ private void generarSiguienteIdCompra() {
                 "ID Repuesto", "Nombre Repuesto", "Cantidad", "Precio Unit.", "Subtotal"
             }
         ));
+        tblDetalleCompra.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblDetalleCompra);
 
         Fondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 530, 1310, 210));
