@@ -488,7 +488,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 750, 90));
 
         lblSubTotalServicios.setText(" ");
-        jPanel1.add(lblSubTotalServicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 320, 70, -1));
+        jPanel1.add(lblSubTotalServicios, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 320, 70, -1));
 
         PanelAgregarServicio.setBackground(new java.awt.Color(255, 255, 255));
         PanelAgregarServicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -816,21 +816,41 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
     }//GEN-LAST:event_PanelEliminarServicioMouseEntered
 
     private void PanelEliminarServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEliminarServicioMouseClicked
-        // TODO add your handling code here:
-        int fila = tblDetalleServicio.getSelectedRow();
-        if (fila == -1) {
-            JOptionPane.showMessageDialog(this, "Seleccione un servicio de la tabla para eliminar.");
-            return;
-        }
-        int confirmar = JOptionPane.showConfirmDialog(this,
-            "¿Seguro que deseas quitar este servicio de la orden?", "Confirmar",
-            JOptionPane.YES_NO_OPTION);
-        if (confirmar != JOptionPane.YES_OPTION) {
-            return;
-        }
+        int filaSeleccionada = tblDetalleServicio.getSelectedRow();
 
-        detalleServicios.remove(fila);
-        actualizarTablaDetalleServicio();
+        if (filaSeleccionada == -1) {
+        javax.swing.JOptionPane.showMessageDialog(this,
+            "Por favor seleccione un servicio de la tabla para eliminar.",
+            "Atención",
+            javax.swing.JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    int confirmar = javax.swing.JOptionPane.showConfirmDialog(this,
+        "¿Seguro que deseas quitar este servicio de la orden?", 
+        "Confirmar",
+        javax.swing.JOptionPane.YES_NO_OPTION,
+        javax.swing.JOptionPane.QUESTION_MESSAGE);
+
+    if (confirmar != javax.swing.JOptionPane.YES_OPTION) {
+        return;
+    }
+
+    if (detalleServicios != null && filaSeleccionada < detalleServicios.size()) {
+        detalleServicios.remove(filaSeleccionada);
+    }
+
+    javax.swing.table.DefaultTableModel modeloTabla = (javax.swing.table.DefaultTableModel) tblDetalleServicio.getModel();
+    modeloTabla.removeRow(filaSeleccionada);
+
+    double nuevoSubtotalServicios = 0.0;
+    for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+        Object valorSubtotal = modeloTabla.getValueAt(i, 4); 
+        if (valorSubtotal != null) {
+            nuevoSubtotalServicios += Double.parseDouble(valorSubtotal.toString());
+        }
+    }
+    lblSubTotalServicios.setText(String.format(java.util.Locale.US, "%.2f", nuevoSubtotalServicios));
     }//GEN-LAST:event_PanelEliminarServicioMouseClicked
 
     private void PanelAgregarServicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelAgregarServicioMouseExited

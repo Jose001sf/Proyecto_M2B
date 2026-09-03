@@ -622,14 +622,15 @@ public orden_de_servicio buscarOrdenPorPlacaII(String placa) {
     //sql para datos
     public Map<String, Integer> topEmpleadosPorOrdenesCompletadas(LocalDate Desde, LocalDate Hasta, int limite) {
         Map<String, Integer> resultado = new LinkedHashMap<>();
-        String sql = "SELECT p.\"nom1_person\", p.\"apell1_person\", COUNT(*) AS total "
-                + "FROM orden_de_servicio o "
-                + "JOIN empleado emp ON o.\"id_empleado\" = emp.\"id_empleado\" "
-                + "JOIN persona p ON emp.\"ced_perso\" = p.\"ced_perso\" "
-                + "WHERE o.\"estado_orden_servi\" = 'Completada' "
-                + "AND o.\"fecha_ingreso\" BETWEEN ? AND ? "
-                + "GROUP BY p.\"nom1_person\", p.\"apell1_person\" "
-                + "ORDER BY total DESC LIMIT ?";
+        String sql = "SELECT p.\"nom1_person\", p.\"apell1_person\", COALESCE(SUM(d.cantidad_servi), 0) AS total "
+        + "FROM orden_de_servicio o "
+        + "JOIN empleado emp ON o.\"id_empleado\" = emp.\"id_empleado\" "
+        + "JOIN persona p ON emp.\"ced_perso\" = p.\"ced_perso\" "
+        + "JOIN detalle_de_orden d ON d.id_orden_serv = o.id_orden_serv "
+        + "WHERE o.\"estado_orden_servi\" IN ('Completada', 'Entregado') "
+        + "AND o.\"fecha_ingreso\" BETWEEN ? AND ? "
+        + "GROUP BY p.\"nom1_person\", p.\"apell1_person\" "
+        + "ORDER BY total DESC LIMIT ?";
         try (Connection con = ConexionBD.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setDate(1, java.sql.Date.valueOf(Desde));
             ps.setDate(2, java.sql.Date.valueOf(Hasta));

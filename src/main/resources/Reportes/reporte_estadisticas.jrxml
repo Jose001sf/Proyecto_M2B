@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte_estadisticas" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2af38b64-4360-4e70-b466-018056dc9f15">
+	<subDataset name="dsResiduos" uuid="c691e17d-3c92-4523-a6c3-dadf1a99689f">
+		<field name="nombre" class="java.lang.String"/>
+		<field name="cantidad" class="java.lang.Integer"/>
+	</subDataset>
 	<parameter name="pDesde" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="pHasta" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="pTotalOrdenes" class="java.lang.Integer" isForPrompting="false"/>
@@ -9,6 +13,7 @@
 	<parameter name="pTotalServicios" class="java.lang.Integer"/>
 	<parameter name="pTotalRepuestos" class="java.lang.Integer"/>
 	<parameter name="pGraficoImagen" class="byte[]" isForPrompting="false"/>
+	<parameter name="pResiduos" class="java.util.Collection"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -19,7 +24,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="96" splitType="Stretch">
+		<band height="365" splitType="Stretch">
 			<staticText>
 				<reportElement x="220" y="20" width="153" height="20" uuid="67f0a5e9-bf75-43f6-acd7-51f65d18e358"/>
 				<text><![CDATA[Reporte de estadisticas]]></text>
@@ -36,6 +41,12 @@
 				<reportElement x="300" y="60" width="100" height="30" uuid="221657b3-f1b3-44ac-b305-ec443b3dba26"/>
 				<textFieldExpression><![CDATA[$P{pHasta}]]></textFieldExpression>
 			</textField>
+			<image scaleImage="FillFrame">
+				<reportElement x="52" y="100" width="450" height="250" uuid="dcc3b22f-16db-4449-bc89-5668fd793c57"/>
+				<imageExpression><![CDATA[net.sf.jasperreports.renderers.SimpleDataRenderer.getInstance(
+            (byte[])$P{pGraficoImagen}
+        )]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -133,11 +144,49 @@
 		<band height="54" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="146" splitType="Stretch">
-			<image>
-				<reportElement x="79" y="65" width="50" height="50" uuid="dcc3b22f-16db-4449-bc89-5668fd793c57"/>
-				<imageExpression><![CDATA["$P{pGraficoImagen}"]]></imageExpression>
-			</image>
+		<band height="180" splitType="Stretch">
+			<staticText>
+				<reportElement x="50" y="10" width="300" height="25" uuid="a06051d5-aee8-437c-b09e-2a8c3e794bff"/>
+				<text><![CDATA[Residuos más generados]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement x="50" y="40" width="450" height="100" uuid="f3b913f3-6907-437f-b90d-adf71468f8db"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="dsResiduos" uuid="1d85be6d-18b5-493a-912e-9842c184693b">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(
+                            $P{pResiduos}
+                        )]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="330" uuid="79ae8f50-9cf1-46d6-b8dc-5dfb1ca1cda6">
+						<jr:columnHeader height="25">
+							<staticText>
+								<reportElement x="0" y="0" width="330" height="25" uuid="aec9ae6d-0f60-43f1-9dae-df5096884686"/>
+								<text><![CDATA[Nombre del residuo]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="22">
+							<textField>
+								<reportElement x="0" y="0" width="330" height="22" uuid="b4e467ec-9ff2-4c75-92ea-3f8422e0745e"/>
+								<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="120" uuid="ea1ade4d-26e0-47df-8801-90f3269ceb16">
+						<jr:columnHeader height="25">
+							<staticText>
+								<reportElement x="0" y="0" width="120" height="25" uuid="ec3d20f9-02de-4860-b5bc-127e2d09bb49"/>
+								<text><![CDATA[Cantidad]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="22">
+							<textField>
+								<reportElement x="0" y="0" width="120" height="22" uuid="f33219e1-c0f1-494c-96f1-fce68fc4d9a6"/>
+								<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
 		</band>
 	</summary>
 </jasperReport>

@@ -90,6 +90,8 @@ public class Menu extends javax.swing.JFrame {
     private PanelResiduos Resi=null;
     private PanelVehiculos Vehi=null;
     private Usuarios Usu=null;
+    private PanelCrearEmpleado pr=null;
+    private Agregar ag=null;
     
     private boolean catalogoAbierto = false;
     /**
@@ -1296,12 +1298,14 @@ public class Menu extends javax.swing.JFrame {
             return;
         }
         
-        PanelCrearEmpleado cr=new PanelCrearEmpleado();
-        if (cr.isVisible()){
-            cr.setVisible(false);
+        if (pr==null || !pr.isVisible()){
+            pr = new PanelCrearEmpleado();
+            pr.setVisible(true);
         }
-        else{
-            cr.setVisible(true);
+        else {
+            pr.setState(java.awt.Frame.NORMAL);
+            pr.toFront();
+            pr.requestFocus();
         }
     }//GEN-LAST:event_EmpleadosMouseClicked
 
@@ -1321,8 +1325,15 @@ public class Menu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No puede acceder si no cuenta con los permisos");
             return;
         }
-        Agregar menuAgregar = new Agregar(usuarioActual);
-        menuAgregar.setVisible(true);
+        if (ag==null || !ag.isVisible()){
+            ag = new Agregar();
+            ag.setVisible(true);            
+        }
+        else {
+            ag.setState(java.awt.Frame.NORMAL);
+            ag.toFront();
+            ag.requestFocus();
+        }
     }//GEN-LAST:event_AgregarMouseClicked
 
     private void AgregarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarMouseEntered
