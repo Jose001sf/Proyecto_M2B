@@ -217,13 +217,22 @@ public boolean guardarOrdenServicio(orden_de_servicio orden) {
     }
 }
 public String obtenerIdVehiculoPorPlaca(String placa) {
+    if (placa == null || placa.trim().isEmpty() || placa.contains("Seleccione")) {
+        return null;
+    }
+    
     String id = null;
-    String sql = "SELECT \"id_vehi\" FROM vehiculo WHERE \"placa_carro\" = ?";
+    String sql = "SELECT \"id_vehi\" FROM vehiculo WHERE LOWER(TRIM(\"placa_carro\")) = LOWER(TRIM(?))";
+    
     try (Connection con = ConexionBD.obtenerConexion();
          PreparedStatement ps = con.prepareStatement(sql)) {
-        ps.setString(1, placa);
-        ResultSet rs = ps.executeQuery();
-        if (rs.next()) id = rs.getString("id_vehi");
+        
+        ps.setString(1, placa.trim());
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                id = rs.getString("id_vehi");
+            }
+        }
     } catch (SQLException e) {
         System.err.println("Error al obtener ID vehículo: " + e.getMessage());
     }
@@ -507,5 +516,101 @@ public orden_de_servicio buscarOrdenPorPlacaII(String placa) {
         System.err.println("Error al validar existencia de orden por placa: " + e.getMessage());
     }
     return false;
+}
+    public orden_de_servicio buscarEmpleadoPorId(String idOrden) {
+    orden_de_servicio orden = null;
+    String sql = "SELECT * FROM orden_de_servicio WHERE LOWER(TRIM(id_orden_serv)) = LOWER(TRIM(?))";
+
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setString(1, idOrden.trim());
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                orden = new orden_de_servicio();
+                orden.setId_orden_serv(rs.getString("id_orden_serv"));
+                orden.setId_empleado(rs.getString("id_empleado"));
+                orden.setEstadoorden_servi(rs.getString("estado_orden_servi"));
+                orden.setFecha_ingreso(rs.getDate("fecha_ingreso"));
+                orden.setFecha_entrega(rs.getDate("fecha_entrega"));
+                orden.setCosto_total(rs.getDouble("costo_total"));
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al buscar orden por ID: " + e.getMessage());
+    }
+    return orden;
+}
+    public orden_de_servicio buscarOrdenPorId(String idOrden) {
+    orden_de_servicio orden = null;
+    String sql = "SELECT * FROM orden_de_servicio WHERE LOWER(TRIM(id_orden_serv)) = LOWER(TRIM(?))";
+
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setString(1, idOrden.trim());
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                orden = new orden_de_servicio();
+                orden.setId_orden_serv(rs.getString("id_orden_serv"));
+                orden.setId_empleado(rs.getString("id_empleado"));
+                orden.setEstadoorden_servi(rs.getString("estado_orden_servi"));
+                orden.setFecha_ingreso(rs.getDate("fecha_ingreso"));
+                orden.setFecha_entrega(rs.getDate("fecha_entrega"));
+                orden.setCosto_total(rs.getDouble("costo_total"));
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener la orden por ID: " + e.getMessage());
+    }
+    return orden;
+}
+    public String obtenerFormatoEmpleadoPorId(String idEmpleado) {
+    String empleadoFormateado = null;
+    String sql = "SELECT p.\"nom1_person\", p.\"apell1_person\", e.\"nom_especialidad\" " +
+                 "FROM empleado emp " +
+                 "JOIN persona p ON emp.\"ced_perso\" = p.\"ced_perso\" " +
+                 "JOIN especialidad e ON emp.\"id_especialidad\" = e.\"id_especialidad\" " +
+                 "WHERE LOWER(TRIM(emp.\"id_empleado\")) = LOWER(TRIM(?))";
+
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+        
+        ps.setString(1, idEmpleado.trim());
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                empleadoFormateado = rs.getString("nom1_person") + " " + 
+                                     rs.getString("apell1_person") + " (" + 
+                                     rs.getString("nom_especialidad") + ")";
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener formato de empleado: " + e.getMessage());
+    }
+    return empleadoFormateado;
+}
+    
+    public String obtenerIdEmpleadoDesdeTexto(String textoCombo) {
+    if (textoCombo == null || textoCombo.contains("Seleccione")) return null;
+
+    String sql = "SELECT emp.\"id_empleado\" " +
+                 "FROM empleado emp " +
+                 "JOIN persona p ON emp.\"ced_perso\" = p.\"ced_perso\" " +
+                 "JOIN especialidad e ON emp.\"id_especialidad\" = e.\"id_especialidad\" " +
+                 "WHERE LOWER(TRIM(p.\"nom1_person\" || ' ' || p.\"apell1_person\" || ' (' || e.\"nom_especialidad\" || ')')) = LOWER(TRIM(?))";
+
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setString(1, textoCombo.trim());
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getString("id_empleado");
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener ID del empleado: " + e.getMessage());
+    }
+    return null;
 }
 }

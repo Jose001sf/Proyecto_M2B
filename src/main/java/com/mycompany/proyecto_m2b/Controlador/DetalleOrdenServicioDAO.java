@@ -7,7 +7,9 @@ package com.mycompany.proyecto_m2b.Controlador;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -118,26 +120,6 @@ public class DetalleOrdenServicioDAO {
     
     return idServicio;
 }
-    public String obtenerIdRepuestoPorNombre(String nombreRepuesto) {
-    String idRepuesto = null;
-    String sql = "SELECT id_repuestos FROM repuestos WHERE LOWER(TRIM(nom_repuesto)) = LOWER(TRIM(?)) LIMIT 1";
-
-    try (Connection con = ConexionBD.obtenerConexion();
-         PreparedStatement ps = con.prepareStatement(sql)) {
-        
-        ps.setString(1, nombreRepuesto);
-        
-        try (ResultSet rs = ps.executeQuery()) {
-            if (rs.next()) {
-                idRepuesto = rs.getString("id_repuestos");
-            }
-        }
-    } catch (SQLException e) {
-        System.err.println("Error al obtener ID del repuesto por nombre: " + e.getMessage());
-    }
-    
-    return idRepuesto;
-}
     public boolean insertarDetalleRepuesto(String idDetalle, int cantidad, double subtotal, String idRepuesto, String idOrden) {
     String sql = "INSERT INTO detalle_repuesto (id_detalle_repuesto, cantidad_usar, subtotal_repuesto, id_repuestos, id_orden_serv) "
                + "VALUES (?, ?, ?, ?, ?)";
@@ -160,7 +142,9 @@ public class DetalleOrdenServicioDAO {
 }
 public List<Object[]> obtenerRepuestosPorOrden(String idOrden) {
     List<Object[]> lista = new ArrayList<>();
-    
+    if (idOrden == null || idOrden.trim().isEmpty()) {
+        return lista; 
+    }
     String sql = "SELECT d.id_repuestos, r.nom_repuesto, d.cantidad_usar, r.precio_repuesto_unit, d.subtotal_repuesto "
                + "FROM detalle_repuesto d "
                + "INNER JOIN repuestos r ON d.id_repuestos = r.id_repuestos "
@@ -188,5 +172,187 @@ public List<Object[]> obtenerRepuestosPorOrden(String idOrden) {
     
     return lista;
 }
+   public boolean guardarDetallesOrden(String idOrden, List<Object[]> listaServicios, List<Object[]> listaRepuestos) {
+    String sqlDeleteServ = "DELETE FROM detalle_de_orden WHERE LOWER(TRIM(id_orden_serv)) = LOWER(TRIM(?))";
+    String sqlDeleteRep = "DELETE FROM detalle_repuesto WHERE LOWER(TRIM(id_orden_serv)) = LOWER(TRIM(?))";
 
+    String sqlInsertServ = "INSERT INTO detalle_de_orden (id_detalle_orden, id_orden_serv, id_servi, cantidad_servi, subtotal_orden) VALUES (?, ?, ?, ?, ?)";
+    String sqlInsertRep = "INSERT INTO detalle_repuesto (id_detalle_repuesto, cantidad_usar, subtotal_repuesto, id_repuestos, id_orden_serv) VALUES (?, ?, ?, ?, ?)";
+
+    Connection con = null;
+    try {
+        con = ConexionBD.obtenerConexion();
+        con.setAutoCommit(false);
+
+        // 1. Eliminar detalles previos de esta orden
+        try (PreparedStatement psDelS = con.prepareStatement(sqlDeleteServ);
+             PreparedStatement psDelR = con.prepareStatement(sqlDeleteRep)) {
+            psDelS.setString(1, idOrden.trim());
+            psDelS.executeUpdate();
+
+            psDelR.setString(1, idOrden.trim());
+            psDelR.executeUpdate();
+        }
+
+        // 2. Insertar Servicios (Usa prefijo DTS y timestamp único)
+        try (PreparedStatement psInsS = con.prepareStatement(sqlInsertServ)) {
+            for (int i = 0; i < listaServicios.size(); i++) {
+                Object[] fila = listaServicios.get(i);
+                if (fila == null || fila[0] == null || fila[0].toString().trim().isEmpty()) continue;
+
+                String nombreServicio = fila[0].toString().trim();
+                String idServicioReal = obtenerIdServicioPorNombre(nombreServicio);
+
+                int cantidad = 1;
+                try {
+                    cantidad = (int) Double.parseDouble(fila[2].toString().replace(",", "."));
+                } catch (Exception e) {
+                    try { cantidad = Integer.parseInt(fila[2].toString().trim()); } catch (Exception ex) {}
+                }
+
+                double subtotal = Double.parseDouble(fila[3].toString().replace(",", "."));
+
+                // Genera una clave primaria única e irrepetible para el detalle de servicio
+                String idDetalleServ = "DTS_" + System.currentTimeMillis() + "_" + i;
+
+                psInsS.setString(1, idDetalleServ);
+                psInsS.setString(2, idOrden.trim());
+                psInsS.setString(3, idServicioReal);
+                psInsS.setInt(4, cantidad);
+                psInsS.setDouble(5, subtotal);
+                psInsS.addBatch();
+            }
+            psInsS.executeBatch();
+        }
+
+        // 3. Insertar Repuestos (Usa prefijo DTR y timestamp único)
+        try (PreparedStatement psInsR = con.prepareStatement(sqlInsertRep)) {
+            for (int i = 0; i < listaRepuestos.size(); i++) {
+                Object[] fila = listaRepuestos.get(i);
+                if (fila == null || fila[0] == null || fila[0].toString().trim().isEmpty()) continue;
+
+                String idRepuestoReal = fila[0].toString().trim();
+
+                int cantidad = 1;
+                try {
+                    cantidad = (int) Double.parseDouble(fila[1].toString().replace(",", "."));
+                } catch (Exception e) {
+                    try { cantidad = Integer.parseInt(fila[1].toString().trim()); } catch (Exception ex) {}
+                }
+
+                double subtotal = 0.0;
+                try {
+                    subtotal = Double.parseDouble(fila[2].toString().replace(",", "."));
+                } catch (Exception e) {}
+
+                // Genera una clave primaria única e irrepetible para el detalle de repuesto
+                String idDetalleRep = "DTR_" + System.currentTimeMillis() + "_" + i;
+
+                psInsR.setString(1, idDetalleRep);
+                psInsR.setInt(2, cantidad);
+                psInsR.setDouble(3, subtotal);
+                psInsR.setString(4, idRepuestoReal);
+                psInsR.setString(5, idOrden.trim());
+                psInsR.addBatch();
+            }
+            psInsR.executeBatch();
+        }
+
+        con.commit();
+        return true;
+
+    } catch (SQLException e) {
+        if (con != null) {
+            try { con.rollback(); } catch (SQLException ex) { ex.printStackTrace(); }
+        }
+        System.err.println("Error al actualizar detalles en la BD: " + e.getMessage());
+        return false;
+    } finally {
+        if (con != null) {
+            try { con.setAutoCommit(true); con.close(); } catch (SQLException e) { e.printStackTrace(); }
+        }
+    }
+}
+
+private String obtenerIdServicioPorNombre(String nombreServicio) {
+    if (nombreServicio == null || nombreServicio.trim().isEmpty()) return nombreServicio;
+
+    if (nombreServicio.toUpperCase().startsWith("SERV") || 
+        nombreServicio.toUpperCase().startsWith("SRV") || 
+        nombreServicio.length() <= 10) {
+        return nombreServicio;
+    }
+
+    String nombreLimpio = normalizarTexto(nombreServicio);
+
+    String sql = "SELECT * FROM servicio";
+
+    try (Connection con = ConexionBD.obtenerConexion();
+         PreparedStatement ps = con.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+
+        ResultSetMetaData metaData = rs.getMetaData();
+        int columnCount = metaData.getColumnCount();
+
+        while (rs.next()) {
+            String idVal = rs.getString(1); 
+            for (int i = 2; i <= columnCount; i++) {
+                String valColumna = rs.getString(i);
+                if (valColumna != null) {
+                    String valNormalizado = normalizarTexto(valColumna);
+                    
+                    if (valNormalizado.contains(nombreLimpio) || nombreLimpio.contains(valNormalizado)) {
+                        return idVal.trim();
+                    }
+                }
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al buscar ID de servicio: " + e.getMessage());
+    }
+
+    System.err.println("ADVERTENCIA: No se encontró ID en BD para el servicio: " + nombreServicio);
+    return nombreServicio;
+}
+private String normalizarTexto(String texto) {
+    if (texto == null) return "";
+    String temp = texto.replace("...", "").trim().toLowerCase();
+    temp = Normalizer.normalize(temp, Normalizer.Form.NFD);
+    temp = temp.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+    return temp.replaceAll("[^a-z0-9]", "");
+}
+private String obtenerIdRepuestoPorNombre(String nombreRepuesto) {
+    if (nombreRepuesto == null || nombreRepuesto.trim().isEmpty()) return nombreRepuesto;
+
+    if (nombreRepuesto.toUpperCase().startsWith("REP") || 
+        nombreRepuesto.toUpperCase().startsWith("RPT") || 
+        nombreRepuesto.length() <= 10) {
+        return nombreRepuesto;
+    }
+
+    String cleanName = nombreRepuesto.replace("...", "").trim();
+
+    String[] consultas = {
+        "SELECT id_repuestos FROM repuestos WHERE LOWER(TRIM(nom_repuesto)) LIKE LOWER(TRIM(?)) LIMIT 1",
+        "SELECT id_repuestos FROM repuestos WHERE LOWER(TRIM(nombre_repuesto)) LIKE LOWER(TRIM(?)) LIMIT 1",
+        "SELECT id_repuestos FROM repuestos WHERE LOWER(TRIM(nombre)) LIKE LOWER(TRIM(?)) LIMIT 1"
+    };
+
+    for (String sql : consultas) {
+        try (Connection con = ConexionBD.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, cleanName + "%");
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    String idEncontrado = rs.getString("id_repuestos");
+                    if (idEncontrado != null && !idEncontrado.trim().isEmpty()) {
+                        return idEncontrado.trim();
+                    }
+                }
+            }
+        } catch (SQLException e) {
+        }
+    }
+    return nombreRepuesto;
+}
 }

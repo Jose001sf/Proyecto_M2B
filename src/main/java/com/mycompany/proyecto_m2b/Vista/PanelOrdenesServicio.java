@@ -155,7 +155,6 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
     model.addElement("Seleccione una orden");
 
     for (orden_de_servicio orden : lista) {
-        // Mostramos el ID de la orden en el combo
         model.addElement(orden.getId_orden_serv()); 
     }
 
@@ -192,9 +191,6 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         PanelEditar = new javax.swing.JPanel();
         Editar = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        PanelBuscar = new javax.swing.JPanel();
-        Buscar = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         Estados = new javax.swing.JComboBox<>();
         CalendarioFechaIngreso = new com.toedter.calendar.JDateChooser();
@@ -450,49 +446,6 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         );
 
         jPanel1.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 550, -1, -1));
-
-        PanelBuscar.setBackground(new java.awt.Color(255, 255, 255));
-        PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
-        PanelBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        PanelBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PanelBuscarMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                PanelBuscarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                PanelBuscarMouseExited(evt);
-            }
-        });
-
-        Buscar.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        Buscar.setText("Buscar");
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/person_search_22dp_000000_FILL0_wght400_GRAD0_opsz24.png"))); // NOI18N
-
-        javax.swing.GroupLayout PanelBuscarLayout = new javax.swing.GroupLayout(PanelBuscar);
-        PanelBuscar.setLayout(PanelBuscarLayout);
-        PanelBuscarLayout.setHorizontalGroup(
-            PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelBuscarLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Buscar)
-                .addContainerGap(31, Short.MAX_VALUE))
-        );
-        PanelBuscarLayout.setVerticalGroup(
-            PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelBuscarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Buscar)
-                    .addComponent(jLabel1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel1.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 550, -1, -1));
 
         jLabel3.setText("Fecha de entrega:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, -1, -1));
@@ -923,8 +876,6 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         ultimaPlacaProcesada = placaSeleccionada;
 
         OrdenServicioDAO dao = new OrdenServicioDAO();
-
-        // 1. Cargar datos del Cliente
         String datosCliente = dao.obtenerCedulaPorPlaca(placaSeleccionada);
         comboCliente.removeAllItems();
 
@@ -934,8 +885,6 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         } else {
             comboCliente.addItem("Sin cliente asociado");
         }
-
-        // 2. Cargar Órdenes de Servicio
         List<orden_de_servicio> listaOrdenes = dao.buscarOrdenPorPlaca(placaSeleccionada);
         comboOrden.removeAllItems(); 
 
@@ -950,7 +899,6 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         }
 
     } else {
-        // Limpieza cuando el usuario selecciona "Seleccione una placa" (Índice 0)
         ultimaPlacaProcesada = "";
         
         comboCliente.removeAllItems();
@@ -960,18 +908,6 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         comboOrden.addItem("Seleccione una orden");
     }
     }//GEN-LAST:event_comboPlacasActionPerformed
-
-    private void PanelBuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseExited
-        // TODO add your handling code here:
-        PanelBuscar.setBackground(Color.white);
-        Buscar.setForeground(Color.black);
-    }//GEN-LAST:event_PanelBuscarMouseExited
-
-    private void PanelBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseEntered
-        // TODO add your handling code here:
-        PanelBuscar.setBackground(new Color(219,219,219));
-        Buscar.setForeground(new Color(66, 66, 66));
-    }//GEN-LAST:event_PanelBuscarMouseEntered
 private void cargarTablaRepuestosPorOrden(List<Object[]> listaRepuestos) {
     DefaultTableModel modeloRepuestos = (DefaultTableModel) tblRepuestosUsados.getModel();
     modeloRepuestos.setRowCount(0); 
@@ -1027,40 +963,6 @@ private static class ItemIdNombre {
         return nombre; 
     }
 }
-    private void PanelBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelBuscarMouseClicked
-        // TODO add your handling code here:
-        if (comboPlacas.getSelectedIndex() <= 0) {
-            JOptionPane.showMessageDialog(this,
-                "Por favor seleccione una placa de la lista para buscar su orden.",
-                "Atención",
-                JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        String placaSeleccionada = comboPlacas.getSelectedItem().toString().trim();
-        OrdenServicioDAO dao = new OrdenServicioDAO();
-        orden_de_servicio orden = dao.buscarOrdenPorPlacaII(placaSeleccionada);
-        DetalleOrdenServicioDAO detalle = new DetalleOrdenServicioDAO();
-        if (orden != null) {
-            this.idOrdenCargada = orden.getId_orden_serv();
-
-            Estados.setSelectedItem(orden.getEstadoorden_servi());
-            CalendarioFechaIngreso.setDate(orden.getFecha_ingreso());
-            CalendarioFechaEntrega.setDate(orden.getFecha_entrega());
-            TXTcostoTotal.setText(String.format(java.util.Locale.US, "%.2f", orden.getCosto_total()));
-            List<Object[]> listaRepuestos = detalle.obtenerRepuestosPorOrden(this.idOrdenCargada);
-            cargarTablaRepuestosPorOrden(listaRepuestos);
-            List<Object[]> listaServicios = detalle.obtenerServiciosPorOrden(this.idOrdenCargada);
-            cargarTablaServiciosPorOrden(listaServicios);
-            JOptionPane.showMessageDialog(this, "Datos de la orden cargados correctamente.");
-        } else {
-            JOptionPane.showMessageDialog(this, "El vehículo no tiene una orden de servicio registrada.");
-        }
-        calcularTotal();
-        calcularSubtotalRepuestos();
-        recalcularSubtotalServicios();
-    }//GEN-LAST:event_PanelBuscarMouseClicked
-
     private void PanelEditarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseExited
         // TODO add your handling code here:
         PanelEditar.setBackground(Color.white);
@@ -1072,18 +974,103 @@ private static class ItemIdNombre {
         PanelEditar.setBackground(new Color(219,219,219));
         Editar.setForeground(new Color(66, 66, 66));
     }//GEN-LAST:event_PanelEditarMouseEntered
-
+private List<Object[]> obtenerDatosDeTabla(DefaultTableModel model) {
+    List<Object[]> lista = new ArrayList<>();
+    for (int i = 0; i < model.getRowCount(); i++) {
+        Object[] fila = new Object[model.getColumnCount()];
+        for (int j = 0; j < model.getColumnCount(); j++) {
+            fila[j] = model.getValueAt(i, j);
+        }
+        lista.add(fila);
+    }
+    return lista;
+}
     private void PanelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseClicked
         // TODO add your handling code here:
-    boolean exitoRepuestos = guardarDetalleRepuestos(this.idOrdenCargada);
+        if (comboOrden.getSelectedItem() == null) return;
 
-    if (exitoRepuestos) {
-        JOptionPane.showMessageDialog(this, "Orden actualizada con éxito.");
-        DetalleOrdenServicioDAO dao = new DetalleOrdenServicioDAO();
-        List<Object[]> repuestosBD = dao.obtenerRepuestosPorOrden(this.idOrdenCargada);
-        cargarTablaRepuestosPorOrden(repuestosBD);
+    String idOrden = comboOrden.getSelectedItem().toString().trim();
+    if (idOrden.isEmpty() || idOrden.contains("Seleccione")) return;
+
+    OrdenServicioDAO ordenDAO = new OrdenServicioDAO();
+
+    String placaSeleccionada = comboPlacas.getSelectedItem().toString().trim();
+    String idVehiculoReal = ordenDAO.obtenerIdVehiculoPorPlaca(placaSeleccionada);
+
+    if (idVehiculoReal == null) {
+        JOptionPane.showMessageDialog(this, "No se encontró el vehículo asociado a la placa seleccionada.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    orden_de_servicio orden = new orden_de_servicio();
+    orden.setId_orden_serv(idOrden);
+    orden.setId_vehi(idVehiculoReal);
+    orden.setEstadoorden_servi(Estados.getSelectedItem().toString());
+    
+    orden.setFecha_ingreso(CalendarioFechaIngreso.getDate());
+    orden.setFecha_entrega(CalendarioFechaEntrega.getDate());
+
+    String textoComboEmp = comboEmpleado.getSelectedItem().toString();
+    String idEmpleado = ordenDAO.obtenerIdEmpleadoDesdeTexto(textoComboEmp);
+    orden.setId_empleado(idEmpleado);
+
+    double costoTotal = 0.0;
+    try {
+        costoTotal = Double.parseDouble(TXTcostoTotal.getText().replace(",", "."));
+    } catch (NumberFormatException e) {
+        costoTotal = 0.0;
+    }
+    orden.setCosto_total(costoTotal);
+
+    boolean exitoCabecera = ordenDAO.actualizarOrdenServicio(orden);
+
+    if (exitoCabecera) {
+        DefaultTableModel modelServ = (DefaultTableModel) tblDetalleServicio.getModel();
+        List<Object[]> listaServicios = new ArrayList<>();
+        for (int i = 0; i < modelServ.getRowCount(); i++) {
+            Object nombre = modelServ.getValueAt(i, 0);
+            Object precio = modelServ.getValueAt(i, 1);
+            Object cantidad = modelServ.getValueAt(i, 2);
+            Object subtotal = modelServ.getValueAt(i, 3);
+
+            if (nombre != null && !nombre.toString().trim().isEmpty()) {
+                listaServicios.add(new Object[]{nombre, precio, cantidad, subtotal});
+            }
+        }
+
+        DefaultTableModel modelRep = (DefaultTableModel) tblRepuestosUsados.getModel();
+        List<Object[]> listaRepuestos = new ArrayList<>();
+        for (int i = 0; i < modelRep.getRowCount(); i++) {
+            Object idRepuesto = modelRep.getValueAt(i, 0);
+            Object cantidad = modelRep.getValueAt(i, 2);
+            Object subtotal = modelRep.getValueAt(i, 4);
+
+            if (idRepuesto != null && !idRepuesto.toString().trim().isEmpty()) {
+                listaRepuestos.add(new Object[]{idRepuesto, cantidad, subtotal});
+            }
+        }
+
+        DetalleOrdenServicioDAO detalleDAO = new DetalleOrdenServicioDAO();
+        boolean exitoDetalles = detalleDAO.guardarDetallesOrden(idOrden, listaServicios, listaRepuestos);
+
+        if (exitoDetalles) {
+            JOptionPane.showMessageDialog(this, "Orden de Servicio actualizada correctamente.");
+            comboOrdenActionPerformed(null);
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al guardar los detalles de la orden.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     } else {
-        JOptionPane.showMessageDialog(this, "Error al guardar repuestos.");
+        JOptionPane.showMessageDialog(this, "Error al actualizar la orden en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    if (comboOrden.getSelectedItem() == null) {
+        JOptionPane.showMessageDialog(this, "Por favor, seleccione una orden de servicio para editar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    String Orden = comboOrden.getSelectedItem().toString().trim();
+    if (Orden.isEmpty() || Orden.contains("Seleccione")) {
+        JOptionPane.showMessageDialog(this, "Por favor, seleccione una orden de servicio válida.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        return;
     }
     }//GEN-LAST:event_PanelEditarMouseClicked
 
@@ -1101,34 +1088,27 @@ private static class ItemIdNombre {
 
     private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
         // TODO add your handling code here:
-        String placaSeleccionada = comboPlacas.getSelectedItem().toString().trim();
-        System.out.println("Placa evaluada: [" + placaSeleccionada + "]");
+        if (comboPlacas.getSelectedItem() == null) {
+        JOptionPane.showMessageDialog(this, "Seleccione una placa válida.", "Atención", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    String placaSeleccionada = comboPlacas.getSelectedItem().toString().trim();
+    System.out.println("Placa evaluada: [" + placaSeleccionada + "]");
+
     if (placaSeleccionada.startsWith("-") || placaSeleccionada.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Seleccione una placa válida.", "Atención", JOptionPane.WARNING_MESSAGE);
         return;
     }
-    OrdenServicioDAO ordenDAO = new OrdenServicioDAO();
-    if (ordenDAO.existeOrdenParaVehiculo(placaSeleccionada)) {
-        JOptionPane.showMessageDialog(this, 
-            "La placa " + placaSeleccionada + " ya tiene una orden de servicio registrada.\nPara modificarla, use el botón EDITAR.", 
-            "Orden Duplicada", JOptionPane.WARNING_MESSAGE);
+
+    if (CalendarioFechaEntrega.getDate() == null) {
+        JOptionPane.showMessageDialog(this, "Por favor, seleccione una fecha de entrega.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         return;
     }
-    OrdenServicioDAO dao = new OrdenServicioDAO();
-List<orden_de_servicio> ordenesBD = dao.buscarOrdenPorPlaca(placaSeleccionada);
 
-comboOrden.removeAllItems();
-
-if (ordenesBD.isEmpty()) {
-    JOptionPane.showMessageDialog(this, "No se encontraron órdenes para la placa " + placaSeleccionada);
-} else {
-    for (orden_de_servicio orden : ordenesBD) {
-        comboOrden.addItem(orden.getId_orden_serv());
-    }
-}
-        GuardarOrdenDeServicio();
-        LimpiarDatos();
-        LimpiarDatosTablaDetalles();
+    GuardarOrdenDeServicio();
+    LimpiarDatos();
+    LimpiarDatosTablaDetalles();
     }//GEN-LAST:event_PanelGuardarMouseClicked
 
     private void PanelNuevoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseExited
@@ -1211,24 +1191,80 @@ if (ordenesBD.isEmpty()) {
             pr.setVisible(true);
         }
     }//GEN-LAST:event_VisualizarMouseClicked
+private void seleccionarEmpleadoEnCombo(javax.swing.JComboBox<String> combo, String idEmpleadoBuscado) {
+    if (idEmpleadoBuscado == null || combo == null || idEmpleadoBuscado.trim().isEmpty()) {
+        return;
+    }
 
+    String idLimpio = idEmpleadoBuscado.trim().toLowerCase();
+
+    for (int i = 0; i < combo.getItemCount(); i++) {
+        Object itemObj = combo.getItemAt(i);
+        if (itemObj == null) continue;
+
+        String itemTexto = itemObj.toString().trim().toLowerCase();
+        if (itemTexto.startsWith(idLimpio) || itemTexto.contains(idLimpio) || itemTexto.equals(idLimpio)) {
+            combo.setSelectedIndex(i);
+            System.out.println("Empleado seleccionado en combo (Índice " + i + "): " + itemTexto);
+            return;
+        }
+    }
+
+    System.err.println("No se encontró el empleado [" + idEmpleadoBuscado + "] en la lista del ComboBox.");
+}
+private void seleccionarElementoEnCombo(javax.swing.JComboBox<String> combo, String valorBuscado) {
+    if (valorBuscado == null || combo == null) return;
+    
+    for (int i = 0; i < combo.getItemCount(); i++) {
+        String item = combo.getItemAt(i);
+        if (item != null && item.toLowerCase().contains(valorBuscado.toLowerCase().trim())) {
+            combo.setSelectedIndex(i);
+            return;
+        }
+    }
+}
     private void comboOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboOrdenActionPerformed
         // TODO add your handling code here:
         if (comboOrden.getSelectedItem() != null) {
         String idOrdenSeleccionada = comboOrden.getSelectedItem().toString().trim();
+
         if (idOrdenSeleccionada.equals("Sin órdenes registradas") || 
             idOrdenSeleccionada.equals("Seleccione una orden") || 
             idOrdenSeleccionada.isEmpty()) {
-            
+
             LimpiarDatosTablaDetalles();
             TXTcostoTotal.setText("0.00");
             return;
         }
+        OrdenServicioDAO ordenDAO = new OrdenServicioDAO();
+        orden_de_servicio orden = ordenDAO.buscarOrdenPorId(idOrdenSeleccionada);
 
-        System.out.println("Cargando detalles para la orden seleccionada: [" + idOrdenSeleccionada + "]");
+        if (orden != null) {
+            System.out.println("ID Empleado recuperado de la BD para la orden: [" + orden.getId_empleado() + "]");
+            if (orden.getId_empleado() != null) {
+                seleccionarElementoEnCombo(comboEmpleado, orden.getId_empleado());
+            }
+            if (orden != null && orden.getId_empleado() != null) {
+            String textoBuscado = ordenDAO.obtenerFormatoEmpleadoPorId(orden.getId_empleado());
+            if (textoBuscado != null) {
+            seleccionarElementoEnCombo(comboEmpleado, textoBuscado);
+            }
+        }
+            if (orden.getEstadoorden_servi() != null) {
+                seleccionarElementoEnCombo(Estados, orden.getEstadoorden_servi()); 
+            }
+            if (orden.getFecha_ingreso() != null) {
+                CalendarioFechaIngreso.setDate(orden.getFecha_ingreso()); // Cambia "jDateIngreso" por el nombre de tu control
+            }
+            if (orden.getFecha_entrega() != null) {
+                CalendarioFechaEntrega.setDate(orden.getFecha_entrega()); // Cambia "jDateEntrega" por el nombre de tu control
+            }
+        }
         DetalleOrdenServicioDAO daoDetalle = new DetalleOrdenServicioDAO();
+        
         DefaultTableModel modelRepuestos = (DefaultTableModel) tblRepuestosUsados.getModel();
         DefaultTableModel modelServicios = (DefaultTableModel) tblDetalleServicio.getModel();
+        
         modelRepuestos.setRowCount(0);
         modelServicios.setRowCount(0);
 
@@ -1259,14 +1295,14 @@ if (ordenesBD.isEmpty()) {
                 }
             }
         }
-       TXTcostoTotal.setText(String.format(java.util.Locale.US, "%.2f", totalAcumulado));
-       calcularSubtotalRepuestos();
-       recalcularSubtotalServicios();
-        }
+        TXTcostoTotal.setText(String.format(java.util.Locale.US, "%.2f", totalAcumulado));
+        calcularSubtotalRepuestos();
+        recalcularSubtotalServicios();
+    }
     }//GEN-LAST:event_comboOrdenActionPerformed
 
     private void comboClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboClienteActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here
     }//GEN-LAST:event_comboClienteActionPerformed
     private void comboPlacasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboPlacasMouseClicked
         // TODO add your handling code here:
@@ -1284,6 +1320,7 @@ public void cargarCombosIniciales() {
     comboEmpleado.addItem("Seleccione un empleado");
     for (String emp : dao.obtenerEmpleadosConEspecialidad()) {
         comboEmpleado.addItem(emp);
+        
     }
 }
 private void EditarOrdenDeServicio() {
@@ -1756,7 +1793,6 @@ private void configurarModeloTablaRepuestosUsados() {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Buscar;
     private com.toedter.calendar.JDateChooser CalendarioFechaEntrega;
     private com.toedter.calendar.JDateChooser CalendarioFechaIngreso;
     private javax.swing.JLabel DarDeBaja;
@@ -1770,7 +1806,6 @@ private void configurarModeloTablaRepuestosUsados() {
     private javax.swing.JLabel Nuevo;
     private javax.swing.JLabel Nuevo1;
     private javax.swing.JPanel PanelAgregarServicio;
-    private javax.swing.JPanel PanelBuscar;
     private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelEliminarServicio;
     private javax.swing.JPanel PanelGuardar;
@@ -1783,7 +1818,6 @@ private void configurarModeloTablaRepuestosUsados() {
     private javax.swing.JComboBox<String> comboEmpleado;
     private javax.swing.JComboBox<String> comboOrden;
     private javax.swing.JComboBox<String> comboPlacas;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel15;
