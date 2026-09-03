@@ -721,14 +721,16 @@ public class PanelEstadistica extends javax.swing.JPanel {
                 .addGap(10, 10, 10))
         );
 
+        Guardar1.setBackground(new java.awt.Color(0, 0, 0));
         Guardar1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Guardar1.setForeground(new java.awt.Color(255, 255, 255));
+        Guardar1.setForeground(new java.awt.Color(0, 0, 0));
         Guardar1.setText("Desde");
 
         Desde.setDateFormatString("dd/MM/yyyy");
 
+        Guardar2.setBackground(new java.awt.Color(0, 0, 0));
         Guardar2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        Guardar2.setForeground(new java.awt.Color(255, 255, 255));
+        Guardar2.setForeground(new java.awt.Color(0, 0, 0));
         Guardar2.setText("Hasta");
 
         Hasta.setDateFormatString("dd/MM/yyyy");
@@ -740,26 +742,26 @@ public class PanelEstadistica extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(Titulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Reportes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAplicar)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(Guardar1)
-                        .addGap(83, 83, 83)
-                        .addComponent(Guardar2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(Desde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Hasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(72, 72, 72))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(Titulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Reportes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAplicar)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Guardar1)
+                        .addGap(101, 101, 101)
+                        .addComponent(Guardar2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Desde, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Hasta, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(58, 58, 58))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

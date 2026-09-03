@@ -47,7 +47,6 @@ public class PanelPropietarios extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel21 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -116,16 +115,6 @@ public class PanelPropietarios extends javax.swing.JPanel {
             }
         });
 
-        jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel21.setText("<- REGRESAR");
-        jLabel21.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel21.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel21MouseClicked(evt);
-            }
-        });
-
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("GESTIÓN DE PROPIETARIOS");
@@ -137,54 +126,61 @@ public class PanelPropietarios extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 901, Short.MAX_VALUE)
-                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+                .addContainerGap(1122, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 60));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1390, 60));
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel5.setText("Cédula:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
 
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel6.setText("Primer Nombre:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
 
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel7.setText("Segundo Nombre:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
 
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel8.setText("Primer Apellido:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
 
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel9.setText("Segundo Apellido:");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
 
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel10.setText("Celular:");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 80, -1, -1));
 
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel11.setText("Correo Electrónico:");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, -1, 20));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 200, -1, 20));
 
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel12.setText("Observaciones:");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, -1, -1));
 
+        Fecha_registro.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         Fecha_registro.setText("Fecha de registro:");
-        jPanel1.add(Fecha_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
+        jPanel1.add(Fecha_registro, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, -1, -1));
 
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel14.setText("Género:");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 190, -1, -1));
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 320, -1, -1));
 
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel15.setText("Dirección:");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, -1, -1));
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, -1));
 
         TXTcedula.setForeground(new java.awt.Color(153, 153, 153));
         TXTcedula.setText("Ingrese la cédula");
@@ -204,7 +200,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
                 TXTcedulaKeyPressed(evt);
             }
         });
-        jPanel1.add(TXTcedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 180, -1));
+        jPanel1.add(TXTcedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 82, 240, 30));
 
         TXTnombre.setForeground(new java.awt.Color(153, 153, 153));
         TXTnombre.setText("Primer Nombre");
@@ -223,7 +219,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
                 TXTnombreKeyPressed(evt);
             }
         });
-        jPanel1.add(TXTnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 210, -1));
+        jPanel1.add(TXTnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 132, 270, 30));
 
         TXTnombre1.setForeground(new java.awt.Color(153, 153, 153));
         TXTnombre1.setText("Segundo Nombre");
@@ -243,7 +239,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
                 TXTnombre1KeyPressed(evt);
             }
         });
-        jPanel1.add(TXTnombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 210, -1));
+        jPanel1.add(TXTnombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 192, 270, 30));
 
         TXTapellido.setForeground(new java.awt.Color(153, 153, 153));
         TXTapellido.setText("Primer Apellido");
@@ -263,7 +259,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
                 TXTapellidoKeyPressed(evt);
             }
         });
-        jPanel1.add(TXTapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 210, -1));
+        jPanel1.add(TXTapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 252, 270, 30));
 
         TXTapellido1.setForeground(new java.awt.Color(153, 153, 153));
         TXTapellido1.setText("Segundo Apellido");
@@ -282,7 +278,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
                 TXTapellido1KeyPressed(evt);
             }
         });
-        jPanel1.add(TXTapellido1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 210, -1));
+        jPanel1.add(TXTapellido1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 312, 270, 30));
 
         TXTCelular.setForeground(new java.awt.Color(153, 153, 153));
         TXTCelular.setText("Ingrese el número de celular");
@@ -301,7 +297,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
                 TXTCelularKeyPressed(evt);
             }
         });
-        jPanel1.add(TXTCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, 250, -1));
+        jPanel1.add(TXTCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 80, 320, 30));
 
         TXTCorreoElectronico.setForeground(new java.awt.Color(153, 153, 153));
         TXTCorreoElectronico.setText("Ingrese dirección de correo");
@@ -320,7 +316,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
                 TXTCorreoElectronicoKeyPressed(evt);
             }
         });
-        jPanel1.add(TXTCorreoElectronico, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, 250, -1));
+        jPanel1.add(TXTCorreoElectronico, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 200, 320, 30));
 
         TXTciudad.setForeground(new java.awt.Color(153, 153, 153));
         TXTciudad.setText("Ciudad");
@@ -339,7 +335,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
                 TXTciudadKeyPressed(evt);
             }
         });
-        jPanel1.add(TXTciudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 220, 120, -1));
+        jPanel1.add(TXTciudad, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 360, 120, -1));
 
         Descripcion.setForeground(new java.awt.Color(153, 153, 153));
         Descripcion.setText("Indique observaciones");
@@ -359,7 +355,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
                 DescripcionKeyPressed(evt);
             }
         });
-        jPanel1.add(Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, 630, 50));
+        jPanel1.add(Descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 420, 630, 50));
 
         PanelNuevo.setBackground(new java.awt.Color(255, 255, 255));
         PanelNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -402,7 +398,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(PanelNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, -1, -1));
+        jPanel1.add(PanelNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 490, -1, -1));
 
         PanelGuardar.setBackground(new java.awt.Color(242, 101, 34));
         PanelGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -446,7 +442,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanel1.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 350, -1, -1));
+        jPanel1.add(PanelGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 490, -1, -1));
 
         PanelEditar.setBackground(new java.awt.Color(255, 255, 255));
         PanelEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -490,7 +486,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanel1.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 350, -1, -1));
+        jPanel1.add(PanelEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 490, -1, -1));
 
         PanelBuscar.setBackground(new java.awt.Color(255, 255, 255));
         PanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 187, 187)));
@@ -533,14 +529,15 @@ public class PanelPropietarios extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 350, -1, -1));
+        jPanel1.add(PanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 490, -1, -1));
 
         Generos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno", "M", "F" }));
-        jPanel1.add(Generos, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 190, -1, -1));
-        jPanel1.add(CalendarioNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 160, 200, -1));
+        jPanel1.add(Generos, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 320, 180, 30));
+        jPanel1.add(CalendarioNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 260, 270, 30));
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel3.setText("Teléfono:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 140, -1, -1));
 
         TXTTelefono.setForeground(new java.awt.Color(153, 153, 153));
         TXTTelefono.setText("Ingrese el número de teléfono");
@@ -559,7 +556,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
                 TXTTelefonoKeyPressed(evt);
             }
         });
-        jPanel1.add(TXTTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 250, -1));
+        jPanel1.add(TXTTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 140, 320, 30));
 
         TXTcallePrincipal.setForeground(new java.awt.Color(153, 153, 153));
         TXTcallePrincipal.setText("Calle principal");
@@ -578,7 +575,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
                 TXTcallePrincipalKeyPressed(evt);
             }
         });
-        jPanel1.add(TXTcallePrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 120, -1));
+        jPanel1.add(TXTcallePrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 360, 120, -1));
 
         TXTcalleSecundaria.setForeground(new java.awt.Color(153, 153, 153));
         TXTcalleSecundaria.setText("Calle secundaria");
@@ -597,7 +594,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
                 TXTcalleSecundariaKeyPressed(evt);
             }
         });
-        jPanel1.add(TXTcalleSecundaria, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 220, 120, -1));
+        jPanel1.add(TXTcalleSecundaria, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 360, 120, -1));
 
         TXTnumCasa.setForeground(new java.awt.Color(153, 153, 153));
         TXTnumCasa.setText("Número de casa");
@@ -616,17 +613,18 @@ public class PanelPropietarios extends javax.swing.JPanel {
                 TXTnumCasaKeyPressed(evt);
             }
         });
-        jPanel1.add(TXTnumCasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 220, 120, -1));
+        jPanel1.add(TXTnumCasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 360, 120, -1));
 
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jLabel16.setText("Fecha de nacimiento:");
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, -1, -1));
-        jPanel1.add(CalendarioRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 250, 160, -1));
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 260, -1, -1));
+        jPanel1.add(CalendarioRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 390, 160, -1));
 
         Verificar.setBackground(new java.awt.Color(247, 247, 247));
         Verificar.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
         Verificar.setText("VERIFICAR");
         Verificar.addActionListener(this::VerificarActionPerformed);
-        jPanel1.add(Verificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 80, 20));
+        jPanel1.add(Verificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 80, 80, 20));
 
         JPanelBuscar.setBackground(new java.awt.Color(255, 213, 158));
         JPanelBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -768,23 +766,19 @@ public class PanelPropietarios extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jPanel1.add(JPanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, -1, -1));
+        jPanel1.add(JPanelBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 540, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 844, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 827, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel21MouseClicked
 
     private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
 
@@ -2827,7 +2821,6 @@ public class PanelPropietarios extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
