@@ -42,6 +42,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
     private boolean esModoEdicion = false;
     private String ultimaPlacaProcesada = "";
     private boolean modoEdicion = false;
+    private boolean estaGuardando = false;
     public PanelOrdenesServicio() {
         initComponents();
         comboOrden.addActionListener(new java.awt.event.ActionListener() {
@@ -1111,13 +1112,16 @@ private List<Object[]> obtenerDatosDeTabla(DefaultTableModel model) {
 
     private void PanelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelGuardarMouseClicked
         // TODO add your handling code here:
-        if (comboPlacas.getSelectedItem() == null) {
+    if (!PanelGuardar.isEnabled() || estaGuardando) {
+        return;
+    }
+
+    if (comboPlacas.getSelectedItem() == null) {
         JOptionPane.showMessageDialog(this, "Seleccione una placa válida.", "Atención", JOptionPane.WARNING_MESSAGE);
         return;
     }
 
     String placaSeleccionada = comboPlacas.getSelectedItem().toString().trim();
-    System.out.println("Placa evaluada: [" + placaSeleccionada + "]");
 
     if (placaSeleccionada.startsWith("-") || placaSeleccionada.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Seleccione una placa válida.", "Atención", JOptionPane.WARNING_MESSAGE);
@@ -1128,7 +1132,6 @@ private List<Object[]> obtenerDatosDeTabla(DefaultTableModel model) {
         JOptionPane.showMessageDialog(this, "Por favor, seleccione una fecha de entrega.", "Advertencia", JOptionPane.WARNING_MESSAGE);
         return;
     }
-
     GuardarOrdenDeServicio();
     LimpiarDatos();
     LimpiarDatosTablaDetalles();
@@ -1249,80 +1252,82 @@ private void seleccionarElementoEnCombo(javax.swing.JComboBox<String> combo, Str
 }
     private void comboOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboOrdenActionPerformed
         // TODO add your handling code here:
-        if (comboOrden.getSelectedItem() != null) {
-        String idOrdenSeleccionada = comboOrden.getSelectedItem().toString().trim();
+        if (comboOrden.getSelectedItem() == null) return;
 
-        if (idOrdenSeleccionada.equals("Sin órdenes registradas") || 
-            idOrdenSeleccionada.equals("Seleccione una orden") || 
-            idOrdenSeleccionada.isEmpty()) {
+    String idOrdenSeleccionada = comboOrden.getSelectedItem().toString().trim();
 
-            LimpiarDatosTablaDetalles();
-            TXTcostoTotal.setText("0.00");
-            return;
-        }
-        OrdenServicioDAO ordenDAO = new OrdenServicioDAO();
-        orden_de_servicio orden = ordenDAO.buscarOrdenPorId(idOrdenSeleccionada);
+    if (idOrdenSeleccionada.equals("Sin órdenes registradas") || 
+        idOrdenSeleccionada.equals("Seleccione una orden") || 
+        idOrdenSeleccionada.isEmpty()) {
 
-        if (orden != null) {
-            System.out.println("ID Empleado recuperado de la BD para la orden: [" + orden.getId_empleado() + "]");
-            if (orden.getId_empleado() != null) {
-                seleccionarElementoEnCombo(comboEmpleado, orden.getId_empleado());
-            }
-            if (orden != null && orden.getId_empleado() != null) {
+        LimpiarDatosTablaDetalles();
+        TXTcostoTotal.setText("0.00");
+        PanelGuardar.setEnabled(true);
+        aplicarModoEdicion(true);
+        return;
+    }
+
+    PanelGuardar.setEnabled(false);
+
+    OrdenServicioDAO ordenDAO = new OrdenServicioDAO();
+    orden_de_servicio orden = ordenDAO.buscarOrdenPorId(idOrdenSeleccionada);
+
+    if (orden != null) {
+        if (orden.getId_empleado() != null) {
             String textoBuscado = ordenDAO.obtenerFormatoEmpleadoPorId(orden.getId_empleado());
             if (textoBuscado != null) {
-            seleccionarElementoEnCombo(comboEmpleado, textoBuscado);
+                seleccionarElementoEnCombo(comboEmpleado, textoBuscado);
             }
         }
-            if (orden.getEstadoorden_servi() != null) {
-                seleccionarElementoEnCombo(Estados, orden.getEstadoorden_servi()); 
-            }
-            if (orden.getFecha_ingreso() != null) {
-                CalendarioFechaIngreso.setDate(orden.getFecha_ingreso()); // Cambia "jDateIngreso" por el nombre de tu control
-            }
-            if (orden.getFecha_entrega() != null) {
-                CalendarioFechaEntrega.setDate(orden.getFecha_entrega()); // Cambia "jDateEntrega" por el nombre de tu control
-            }
+        if (orden.getEstadoorden_servi() != null) {
+            seleccionarElementoEnCombo(Estados, orden.getEstadoorden_servi()); 
         }
-        DetalleOrdenServicioDAO daoDetalle = new DetalleOrdenServicioDAO();
-        
-        DefaultTableModel modelRepuestos = (DefaultTableModel) tblRepuestosUsados.getModel();
-        DefaultTableModel modelServicios = (DefaultTableModel) tblDetalleServicio.getModel();
-        
-        modelRepuestos.setRowCount(0);
-        modelServicios.setRowCount(0);
+        if (orden.getFecha_ingreso() != null) {
+            CalendarioFechaIngreso.setDate(orden.getFecha_ingreso());
+        }
+        if (orden.getFecha_entrega() != null) {
+            CalendarioFechaEntrega.setDate(orden.getFecha_entrega());
+        }
+    }
 
-        double totalAcumulado = 0.0;
-        List<Object[]> listaRepuestos = daoDetalle.obtenerRepuestosPorOrden(idOrdenSeleccionada);
-        if (listaRepuestos != null && !listaRepuestos.isEmpty()) {
-            for (Object[] fila : listaRepuestos) {
-                modelRepuestos.addRow(fila); 
-                if (fila.length > 4 && fila[4] != null) {
-                    try {
-                        totalAcumulado += Double.parseDouble(fila[4].toString());
-                    } catch (NumberFormatException e) {
-                        System.err.println("Error parseando subtotal repuesto: " + e.getMessage());
-                    }
+    DetalleOrdenServicioDAO daoDetalle = new DetalleOrdenServicioDAO();
+    DefaultTableModel modelRepuestos = (DefaultTableModel) tblRepuestosUsados.getModel();
+    DefaultTableModel modelServicios = (DefaultTableModel) tblDetalleServicio.getModel();
+
+    modelRepuestos.setRowCount(0);
+    modelServicios.setRowCount(0);
+
+    double totalAcumulado = 0.0;
+    List<Object[]> listaRepuestos = daoDetalle.obtenerRepuestosPorOrden(idOrdenSeleccionada);
+    if (listaRepuestos != null && !listaRepuestos.isEmpty()) {
+        for (Object[] fila : listaRepuestos) {
+            modelRepuestos.addRow(fila); 
+            if (fila.length > 4 && fila[4] != null) {
+                try {
+                    totalAcumulado += Double.parseDouble(fila[4].toString());
+                } catch (NumberFormatException e) {
+                    System.err.println("Error parseando subtotal repuesto: " + e.getMessage());
                 }
             }
         }
-        List<Object[]> listaServicios = daoDetalle.obtenerServiciosPorOrden(idOrdenSeleccionada);
-        if (listaServicios != null && !listaServicios.isEmpty()) {
-            for (Object[] fila : listaServicios) {
-                modelServicios.addRow(fila);
-                if (fila.length > 3 && fila[3] != null) {
-                    try {
-                        totalAcumulado += Double.parseDouble(fila[3].toString());
-                    } catch (NumberFormatException e) {
-                        System.err.println("Error parseando subtotal servicio: " + e.getMessage());
-                    }
+    }
+
+    List<Object[]> listaServicios = daoDetalle.obtenerServiciosPorOrden(idOrdenSeleccionada);
+    if (listaServicios != null && !listaServicios.isEmpty()) {
+        for (Object[] fila : listaServicios) {
+            modelServicios.addRow(fila);
+            if (fila.length > 3 && fila[3] != null) {
+                try {
+                    totalAcumulado += Double.parseDouble(fila[3].toString());
+                } catch (NumberFormatException e) {
+                    System.err.println("Error parseando subtotal servicio: " + e.getMessage());
                 }
             }
         }
-        TXTcostoTotal.setText(String.format(java.util.Locale.US, "%.2f", totalAcumulado));
-        calcularSubtotalRepuestos();
-        recalcularSubtotalServicios();
-        aplicarModoEdicion(false);
+    TXTcostoTotal.setText(String.format(java.util.Locale.US, "%.2f", totalAcumulado));
+    calcularSubtotalRepuestos();
+    recalcularSubtotalServicios();
+    aplicarModoEdicion(false);
     }
     }//GEN-LAST:event_comboOrdenActionPerformed
 
@@ -1489,145 +1494,103 @@ private void configurarModeloTablaRepuestosUsados() {
     LimpiarDatosTablaDetalles();
 }
     private void GuardarOrdenDeServicio() {
-        try {
-        if (comboPlacas.getSelectedIndex() <= 0) {
-            JOptionPane.showMessageDialog(this, 
-                "Por favor seleccione una placa de vehículo.", 
-                "Atención", 
-                JOptionPane.WARNING_MESSAGE);
+    if (estaGuardando) {
+        return;
+    }
+
+    try {
+        estaGuardando = true;
+
+        if (comboEmpleado.getSelectedItem() == null || comboEmpleado.getSelectedItem().toString().contains("Seleccione")) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un empleado asignado.", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        if (CalendarioFechaIngreso.getDate() == null) {
-            JOptionPane.showMessageDialog(this, 
-                "Por favor seleccione la fecha de ingreso.", 
-                "Atención", 
-                JOptionPane.WARNING_MESSAGE);
+        if (Estados.getSelectedItem() == null || Estados.getSelectedItem().toString().contains("Seleccione")) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un estado válido para la orden.", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        OrdenServicioDAO dao = new OrdenServicioDAO();
+        DefaultTableModel modelServ = (DefaultTableModel) tblDetalleServicio.getModel();
+        DefaultTableModel modelRep = (DefaultTableModel) tblRepuestosUsados.getModel();
+
+        if (modelServ.getRowCount() == 0 && modelRep.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Debe agregar al menos un servicio o un repuesto antes de guardar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        OrdenServicioDAO ordenDAO = new OrdenServicioDAO();
+
+        String placaSeleccionada = comboPlacas.getSelectedItem().toString().trim();
+        String idVehiculoReal = ordenDAO.obtenerIdVehiculoPorPlaca(placaSeleccionada);
+
+        if (idVehiculoReal == null) {
+            JOptionPane.showMessageDialog(this, "No se encontró el vehículo asociado a la placa seleccionada.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String nuevoIdOrden = ordenDAO.generarSiguienteIdOrden();
+
         orden_de_servicio orden = new orden_de_servicio();
-        String nuevoId = dao.generarSiguienteIdOrden();
-        orden.setId_orden_serv(nuevoId);
-        
-        if (Estados != null && Estados.getSelectedItem() != null) {
-            orden.setEstadoorden_servi(Estados.getSelectedItem().toString());
-        } else {
-            orden.setEstadoorden_servi("Ingresado"); 
-        }
+        orden.setId_orden_serv(nuevoIdOrden);
+        orden.setId_vehi(idVehiculoReal);
+        orden.setEstadoorden_servi(Estados.getSelectedItem().toString().trim());
         orden.setFecha_ingreso(CalendarioFechaIngreso.getDate());
-        
-        if (CalendarioFechaEntrega != null && CalendarioFechaEntrega.getDate() != null) {
-            orden.setFecha_entrega(CalendarioFechaEntrega.getDate());
-        } else {
-            orden.setFecha_entrega(null);
-        }
+        orden.setFecha_entrega(CalendarioFechaEntrega.getDate());
+
+        String textoComboEmp = comboEmpleado.getSelectedItem().toString().trim();
+        String idEmpleado = ordenDAO.obtenerIdEmpleadoDesdeTexto(textoComboEmp);
+        orden.setId_empleado(idEmpleado);
+
         double costoTotal = 0.0;
-        String textoCosto = TXTcostoTotal.getText().trim();
-        if (!textoCosto.isEmpty()) {
-            costoTotal = Double.parseDouble(textoCosto);
+        try {
+            costoTotal = Double.parseDouble(TXTcostoTotal.getText().replace(",", "."));
+        } catch (NumberFormatException e) {
+            costoTotal = 0.0;
         }
         orden.setCosto_total(costoTotal);
 
-        String placaSeleccionada = comboPlacas.getSelectedItem().toString().trim().toUpperCase();
-        String idVehiculo = dao.obtenerIdVehiculoPorPlaca(placaSeleccionada);
+        boolean exitoCabecera = ordenDAO.guardarOrdenServicio(orden);
 
-        if (idVehiculo == null) {
-            JOptionPane.showMessageDialog(this, 
-                "No se encontró el registro del vehículo seleccionado en la base de datos.", 
-                "Error de Referencia", 
-                JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        orden.setId_vehi(idVehiculo);
-        
-        if (comboEmpleado != null && comboEmpleado.getSelectedIndex() > 0) {
-            String empleadoTexto = comboEmpleado.getSelectedItem().toString().toUpperCase();
-            String idEmpleado = dao.obtenerIdEmpleadoPorNombre(empleadoTexto);
-        
-            if (idEmpleado == null) {
-                JOptionPane.showMessageDialog(this, 
-                    "No se encontró el ID del empleado seleccionado en la base de datos.", 
-                    "Error de Empleado", 
-                    JOptionPane.WARNING_MESSAGE);
-                return; 
-            }
-        
-            orden.setId_empleado(idEmpleado);
-        } else {
-            JOptionPane.showMessageDialog(this, 
-                "Por favor seleccione un empleado asignado.", 
-                "Atención", 
-                JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        
-        if (comboPlacas == null || comboPlacas.getSelectedIndex() <= 0) {
-            JOptionPane.showMessageDialog(this, "Por favor seleccione una placa de vehículo.", "Atención", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        if (comboEmpleado == null || comboEmpleado.getSelectedIndex() <= 0) {
-            JOptionPane.showMessageDialog(this, "Por favor seleccione un empleado asignado.", "Atención", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        if (Estados == null || Estados.getSelectedIndex() <= 0) {
-            JOptionPane.showMessageDialog(this, "Por favor seleccione un estado para la orden.", "Atención", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        if (CalendarioFechaIngreso == null || CalendarioFechaIngreso.getDate() == null) {
-            JOptionPane.showMessageDialog(this, "Por favor seleccione la fecha de ingreso.", "Atención", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+        if (exitoCabecera) {
+            List<Object[]> listaServicios = new ArrayList<>();
+            for (int i = 0; i < modelServ.getRowCount(); i++) {
+                Object nombre = modelServ.getValueAt(i, 0);
+                Object precio = modelServ.getValueAt(i, 1);
+                Object cantidad = modelServ.getValueAt(i, 2);
+                Object subtotal = modelServ.getValueAt(i, 3);
 
-        List<DetalleRepuesto> listaDetalles = new ArrayList<>();
-        javax.swing.table.DefaultTableModel modeloTablaRepuestos = (javax.swing.table.DefaultTableModel) tblRepuestosUsados.getModel();
-
-        for (int i = 0; i < modeloTablaRepuestos.getRowCount(); i++) {
-            String idRepuesto = modeloTablaRepuestos.getValueAt(i, 0).toString();
-            int cantidad = Integer.parseInt(modeloTablaRepuestos.getValueAt(i, 2).toString());
-            double subtotal = Double.parseDouble(modeloTablaRepuestos.getValueAt(i, 4).toString());
-            
-            listaDetalles.add(new DetalleRepuesto(idRepuesto, cantidad, subtotal));
-        }
-
-            boolean guardadoExitoso = dao.guardarOrdenConDetalles(orden, listaDetalles);
-
-            if (guardadoExitoso) {
-                boolean detalleOk = guardarDetalleServicios(nuevoId);
-
-                if (detalleOk) {
-                    JOptionPane.showMessageDialog(this,
-                            "Orden de Servicio y repuestos registrados con éxito.\nCódigo: " + nuevoId,
-                            "Registro Exitoso",
-                            JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(this,
-                            "La orden y los repuestos se guardaron, pero hubo un problema al guardar los servicios.",
-                            "Advertencia",
-                            JOptionPane.WARNING_MESSAGE);
+                if (nombre != null && !nombre.toString().trim().isEmpty()) {
+                    listaServicios.add(new Object[]{nombre, precio, cantidad, subtotal});
                 }
-
-                LimpiarDatos();
-                modeloTablaRepuestos.setRowCount(0);
-            } else {
-                JOptionPane.showMessageDialog(this,
-                        "No se pudo guardar la orden de servicio. Verifique la conexión o los datos.",
-                        "Error de Guardado",
-                        JOptionPane.ERROR_MESSAGE);
             }
 
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, 
-            "El costo total o los valores numéricos de los repuestos deben ser válidos.", 
-            "Error de Formato", 
-            JOptionPane.ERROR_MESSAGE);
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, 
-            "Ocurrió un error inesperado: " + e.getMessage(), 
-            "Error General", 
-            JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
+            List<Object[]> listaRepuestos = new ArrayList<>();
+            for (int i = 0; i < modelRep.getRowCount(); i++) {
+                Object idRepuesto = modelRep.getValueAt(i, 0);
+                Object cantidad = modelRep.getValueAt(i, 2);
+                Object subtotal = modelRep.getValueAt(i, 4);
+
+                if (idRepuesto != null && !idRepuesto.toString().trim().isEmpty()) {
+                    listaRepuestos.add(new Object[]{idRepuesto, cantidad, subtotal});
+                }
+            }
+
+            DetalleOrdenServicioDAO detalleDAO = new DetalleOrdenServicioDAO();
+            boolean exitoDetalles = detalleDAO.guardarDetallesOrden(nuevoIdOrden, listaServicios, listaRepuestos);
+
+            if (exitoDetalles) {
+                JOptionPane.showMessageDialog(this, "Orden de Servicio registrada correctamente con ID: " + nuevoIdOrden);
+                LimpiarDatos();
+                LimpiarDatosTablaDetalles();
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al guardar los detalles de la nueva orden.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al guardar la orden en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } finally {
+        estaGuardando = false;
     }
     }
     private final List<ItemServicioOrden> detalleServicios = new ArrayList<>();
