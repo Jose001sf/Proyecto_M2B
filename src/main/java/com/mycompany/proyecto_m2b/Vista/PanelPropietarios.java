@@ -33,6 +33,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
         CalendarioRegistro.setEnabled(false);
         CalendarioRegistro.setDate(new Date());
         JPanelBuscar.setVisible(false);
+        cargarTablaEmpleados();
     }
 
     /**
@@ -640,7 +641,15 @@ public class PanelPropietarios extends javax.swing.JPanel {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(TablaPropietarios);
 
         Empleado.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
@@ -1160,6 +1169,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
         }
         // table nombre asignado a la tabla
         TablaPropietarios.setModel(modelo);
+        TablaPropietarios.setEnabled(false);
     }   
     private void TXTnombre1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTnombre1KeyPressed
         // TODO add your handling code here:
@@ -2614,6 +2624,8 @@ public class PanelPropietarios extends javax.swing.JPanel {
         TXTcalleSecundaria.setForeground(new Color(94, 94, 94));
         TXTciudad.setText("Ciudad");
         TXTciudad.setForeground(new Color(94, 94, 94));
+        persona=null;
+        propietario=null;
     }
     public void GuardarYaExistentes (Persona persona){
         Validaciones V=new Validaciones();

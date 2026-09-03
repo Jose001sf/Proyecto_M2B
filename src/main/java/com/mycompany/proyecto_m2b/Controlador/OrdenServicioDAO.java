@@ -473,9 +473,12 @@ public orden_de_servicio buscarOrdenPorPlacaII(String placa) {
 }
     public void cargarOrdenServicio (JComboBox ComboOrdonesServicio) {
         String sql = """
-            SELECT id_orden_serv
-            FROM orden_de_servicio                      
-            ORDER BY id_orden_serv
+            SELECT o.id_orden_serv, v.placa_carro, p.nom1_person, p.apell1_person
+            FROM orden_de_servicio o
+            INNER JOIN vehiculo v ON v.id_vehi = o.id_vehi
+            INNER JOIN propietario pr ON pr.id_propietario = v.id_propietario
+            INNER JOIN persona p ON p.ced_perso = pr.ced_perso
+            ORDER BY o.id_orden_serv
             """;
 
         try (Connection con = ConexionBD.obtenerConexion();
@@ -487,8 +490,9 @@ public orden_de_servicio buscarOrdenPorPlacaII(String placa) {
             while (rs.next()) {
                 orden_de_servicio r=new orden_de_servicio();
                 r.setId_orden_serv(rs.getString("id_orden_serv"));
-                
-                
+                r.setPlacaVehiculo(rs.getString("placa_carro"));
+                String nombrePropietario =rs.getString("nom1_person")+ " "+ rs.getString("apell1_person");
+                r.setNombrePropietario(nombrePropietario);
                 ComboOrdonesServicio.addItem(r);
                 i++;
             }
@@ -613,4 +617,32 @@ public orden_de_servicio buscarOrdenPorPlacaII(String placa) {
     }
     return null;
 }
+    
+    
+    //sql para datos
+    public Map<String, Integer> topEmpleadosPorOrdenesCompletadas(LocalDate Desde, LocalDate Hasta, int limite) {
+        Map<String, Integer> resultado = new LinkedHashMap<>();
+        String sql = "SELECT p.\"nom1_person\", p.\"apell1_person\", COUNT(*) AS total "
+                + "FROM orden_de_servicio o "
+                + "JOIN empleado emp ON o.\"id_empleado\" = emp.\"id_empleado\" "
+                + "JOIN persona p ON emp.\"ced_perso\" = p.\"ced_perso\" "
+                + "WHERE o.\"estado_orden_servi\" = 'Completada' "
+                + "AND o.\"fecha_ingreso\" BETWEEN ? AND ? "
+                + "GROUP BY p.\"nom1_person\", p.\"apell1_person\" "
+                + "ORDER BY total DESC LIMIT ?";
+        try (Connection con = ConexionBD.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setDate(1, java.sql.Date.valueOf(Desde));
+            ps.setDate(2, java.sql.Date.valueOf(Hasta));
+            ps.setInt(3, limite);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    String nombre = rs.getString("nom1_person") + " " + rs.getString("apell1_person");
+                    resultado.put(nombre, rs.getInt("total"));
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener top empleados: "+e.getMessage());
+        }
+        return resultado;
+    }
 }

@@ -18,6 +18,26 @@ public class orden_de_servicio {
     private Date fecha_ingreso;
     private String id_vehi;
     private String id_empleado;
+    //
+    private String placaVehiculo;
+    private String nombrePropietario;
+
+    public String getPlacaVehiculo() {
+        return placaVehiculo;
+    }
+
+    public void setPlacaVehiculo(String placaVehiculo) {
+        this.placaVehiculo = placaVehiculo;
+    }
+
+    public String getNombrePropietario() {
+        return nombrePropietario;
+    }
+
+    public void setNombrePropietario(String nombrePropietario) {
+        this.nombrePropietario = nombrePropietario;
+    }
+    
 
     public orden_de_servicio() {
     }
@@ -90,7 +110,7 @@ public class orden_de_servicio {
 
     @Override
     public String toString() {
-        return id_orden_serv;
+        return id_orden_serv+" | "+placaVehiculo+" | "+nombrePropietario;
     }
     
 }

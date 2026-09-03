@@ -382,4 +382,37 @@ public class RepuestoDAO {
         return false;
     }
 }
+    
+    public boolean enviarReporteGeneralStock(Connection conexion, String correoDestino) {
+    String sql = "SELECT id_repuestos, nom_repuesto, cantidad_actual_repuesto, "
+               + "cantidad_min_repuesto, cantidad_max_repuesto, precio_repuesto_unit "
+               + "FROM public.repuestos ORDER BY nom_repuesto ASC";
+
+    try (Statement st = conexion.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+        while (rs.next()) {
+            String idRepuesto = rs.getString("id_repuestos");
+            String nomRepuesto = rs.getString("nom_repuesto");
+            int actual = rs.getInt("cantidad_actual_repuesto");
+            int min = rs.getInt("cantidad_min_repuesto");
+            int max = rs.getInt("cantidad_max_repuesto");
+
+            String estado;
+            if (actual <= min) {
+                estado = "BAJO STOCK";
+            } else if (actual >= max) {
+                estado = "EXCESO DE STOCK";
+            } else {
+                estado = "OK";
+            }
+
+        }
+        Servidor_de_correos servidor = new Servidor_de_correos();
+        servidor.enviarReporteInventarioAuto(conexion);
+        return true;
+
+    } catch (SQLException e) {
+        System.err.println("Error al generar reporte de stock: " + e.getMessage());
+        return false;
+    }
+}
 }

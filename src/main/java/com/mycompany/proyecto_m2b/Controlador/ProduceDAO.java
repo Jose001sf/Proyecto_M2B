@@ -9,8 +9,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -190,5 +193,28 @@ public class ProduceDAO {
             System.out.println("Error de conexión: " + e.getMessage());
             return false;
         }
+    }
+    
+    
+    //sql para datos
+    public Map<String, Integer> sumarResiduosPorTipo(LocalDate Desde, LocalDate Hasta) {
+        Map<String, Integer> resultado = new LinkedHashMap<>();
+        String sql = "SELECT r.nom_residuo, SUM(p.cant_gene) AS total "
+                + "FROM produce p "
+                + "INNER JOIN residuos r ON p.id_residuos = r.id_residuos "
+                + "WHERE p.fecha_registro BETWEEN ? AND ? "
+                + "GROUP BY r.nom_residuo ORDER BY total DESC";
+        try (Connection con = ConexionBD.obtenerConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setDate(1, java.sql.Date.valueOf(Desde));
+            ps.setDate(2, java.sql.Date.valueOf(Hasta));
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    resultado.put(rs.getString("nom_residuo"), rs.getInt("total"));
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al sumar residuos por tipo: "+e.getMessage());
+        }
+        return resultado;
     }
 }
