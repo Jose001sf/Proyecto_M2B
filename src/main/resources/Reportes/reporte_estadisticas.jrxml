@@ -19,7 +19,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="96" splitType="Stretch">
+		<band height="365" splitType="Stretch">
 			<staticText>
 				<reportElement x="220" y="20" width="153" height="20" uuid="67f0a5e9-bf75-43f6-acd7-51f65d18e358"/>
 				<text><![CDATA[Reporte de estadisticas]]></text>
@@ -36,6 +36,12 @@
 				<reportElement x="300" y="60" width="100" height="30" uuid="221657b3-f1b3-44ac-b305-ec443b3dba26"/>
 				<textFieldExpression><![CDATA[$P{pHasta}]]></textFieldExpression>
 			</textField>
+			<image scaleImage="FillFrame">
+				<reportElement x="52" y="100" width="450" height="250" uuid="dcc3b22f-16db-4449-bc89-5668fd793c57"/>
+				<imageExpression><![CDATA[net.sf.jasperreports.renderers.SimpleDataRenderer.getInstance(
+            (byte[])$P{pGraficoImagen}
+        )]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -133,11 +139,6 @@
 		<band height="54" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="330" splitType="Stretch">
-			<image scaleImage="RealSize">
-				<reportElement x="52" y="20" width="450" height="250" uuid="dcc3b22f-16db-4449-bc89-5668fd793c57"/>
-				<imageExpression><![CDATA[net.sf.jasperreports.renderers.SimpleDataRenderer.getInstance((byte[])$P{pGraficoImagen})]]></imageExpression>
-			</image>
-		</band>
+		<band height="1" splitType="Stretch"/>
 	</summary>
 </jasperReport>
