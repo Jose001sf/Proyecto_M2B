@@ -667,7 +667,15 @@ public class PanelCrearEmpleado extends javax.swing.JFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(TablaEmpleados);
 
         Empleado.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
@@ -3298,6 +3306,7 @@ public void cargarTablaEmpleados(){
         }
         // table nombre asignado a la tabla
         TablaEmpleados.setModel(modelo);
+        TablaEmpleados.setEnabled(false);
     }
     private void PanelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseClicked
         // TODO add your handling code here:

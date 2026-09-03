@@ -33,6 +33,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
         CalendarioRegistro.setEnabled(false);
         CalendarioRegistro.setDate(new Date());
         JPanelBuscar.setVisible(false);
+        cargarTablaEmpleados();
     }
 
     /**
@@ -1168,6 +1169,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
         }
         // table nombre asignado a la tabla
         TablaPropietarios.setModel(modelo);
+        TablaPropietarios.setEnabled(false);
     }   
     private void TXTnombre1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTnombre1KeyPressed
         // TODO add your handling code here:

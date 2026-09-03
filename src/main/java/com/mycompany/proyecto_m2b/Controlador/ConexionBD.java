@@ -29,7 +29,7 @@ public class ConexionBD {
 
             dataSource = new HikariDataSource(config);
             
-            System.out.println("Conectado Chavalin");
+            System.out.println("Conectado");
             
         } catch (Exception e) {
             System.err.println("Error de conexion: " + e.getMessage());
