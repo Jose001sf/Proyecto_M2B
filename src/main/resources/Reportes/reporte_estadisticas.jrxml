@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte_estadisticas" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2af38b64-4360-4e70-b466-018056dc9f15">
+	<parameter name="pDesde" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="pHasta" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="pTotalOrdenes" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="pTotalIngresos" class="java.lang.Double" isForPrompting="false"/>
+	<parameter name="pTotalVehiculos" class="java.lang.Integer"/>
+	<parameter name="pTotalServicios" class="java.lang.Integer"/>
+	<parameter name="pTotalRepuestos" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="categoria" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="cantidad" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="96" splitType="Stretch">
+			<staticText>
+				<reportElement x="220" y="20" width="153" height="20" uuid="67f0a5e9-bf75-43f6-acd7-51f65d18e358"/>
+				<text><![CDATA[Reporte de estadisticas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="40" width="100" height="30" uuid="00f6f465-a149-4b1e-9b61-d044a13a41ce"/>
+				<text><![CDATA[Periodo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="210" y="60" width="70" height="30" uuid="9907d164-3cd7-431c-ab27-10e92d63fddb"/>
+				<textFieldExpression><![CDATA[$P{pDesde}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="60" width="100" height="30" uuid="221657b3-f1b3-44ac-b305-ec443b3dba26"/>
+				<textFieldExpression><![CDATA[$P{pHasta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="66" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="20" width="100" height="30" uuid="8e59ee09-532a-49bd-af26-189f2f73084a"/>
+				<text><![CDATA[Ordenes:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="50" y="20" width="100" height="30" uuid="3d790118-925a-46aa-acbf-278286240776"/>
+				<textFieldExpression><![CDATA[$P{pTotalOrdenes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="20" width="100" height="30" uuid="1d77ea1f-d55c-454e-9382-866cbc1a3a0c"/>
+				<textFieldExpression><![CDATA[$P{pTotalIngresos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="20" width="100" height="30" uuid="3e1e96de-e9be-4889-b6ca-ae49ab9525ab"/>
+				<textFieldExpression><![CDATA[$P{pTotalVehiculos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="180" y="20" width="100" height="30" uuid="e4019595-b347-4eb3-b4cf-88705b4a6250"/>
+				<text><![CDATA[Ingresos:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="20" width="100" height="30" uuid="6df55cf9-e135-4620-b573-dd237353a13e"/>
+				<text><![CDATA[Vehiculos:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="69" splitType="Stretch">
+			<textField>
+				<reportElement x="120" y="20" width="100" height="30" uuid="677b175d-dcdd-4fa3-8e64-778d3e3b8976"/>
+				<textFieldExpression><![CDATA[$P{pTotalServicios}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="20" width="100" height="30" uuid="5fe5714c-f487-4b32-9a13-56c15ea924d1"/>
+				<textFieldExpression><![CDATA[$P{pTotalRepuestos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="70" y="20" width="100" height="30" uuid="91aac3ce-cce4-4bd4-be5e-b05d88d809ac"/>
+				<text><![CDATA[Servicios:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="20" width="100" height="30" uuid="7622ae84-8ca6-4f38-930c-549a2fd1693a"/>
+				<text><![CDATA[Repuestos:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="84" y="0" width="100" height="30" uuid="f3ce44f9-e25f-49fd-92bc-7396aedab2c4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7e98c995-3942-4f1d-b7de-ea9839ed192a"/>
+				</reportElement>
+				<text><![CDATA[categoria]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="262" y="0" width="100" height="30" uuid="26c907ac-e7e6-4ac3-a594-95a88580afcf">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7ac1885e-2e6b-4797-8b0a-c3abeaf685b8"/>
+				</reportElement>
+				<text><![CDATA[nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="441" y="0" width="100" height="30" uuid="d39b1347-8881-4533-a694-a58a9bea96b8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="87ca89a1-e17e-472e-b7ad-2c9e41b03576"/>
+				</reportElement>
+				<text><![CDATA[cantidad]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="40" y="47" width="100" height="30" uuid="9e722211-53e2-4f73-93ce-ccf10defb4a1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7e98c995-3942-4f1d-b7de-ea9839ed192a"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{categoria}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="47" width="100" height="30" uuid="35a91766-6c74-4912-9da7-b145056cd7b3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7ac1885e-2e6b-4797-8b0a-c3abeaf685b8"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="50" width="100" height="30" uuid="1a0b5612-f555-412a-a434-829583994c9a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="87ca89a1-e17e-472e-b7ad-2c9e41b03576"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
