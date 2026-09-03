@@ -133,9 +133,9 @@
 		<band height="54" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="146" splitType="Stretch">
-			<image>
-				<reportElement x="79" y="65" width="450" height="250" uuid="dcc3b22f-16db-4449-bc89-5668fd793c57"/>
+		<band height="330" splitType="Stretch">
+			<image scaleImage="RealSize">
+				<reportElement x="52" y="20" width="450" height="250" uuid="dcc3b22f-16db-4449-bc89-5668fd793c57"/>
 				<imageExpression><![CDATA[net.sf.jasperreports.renderers.SimpleDataRenderer.getInstance((byte[])$P{pGraficoImagen})]]></imageExpression>
 			</image>
 		</band>
