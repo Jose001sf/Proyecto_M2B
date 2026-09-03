@@ -110,18 +110,22 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
     }
     private void cargarTabla() {
         DefaultTableModel modelo = (DefaultTableModel) tblCatalogo.getModel();
-        modelo.setRowCount(0);
+    modelo.setRowCount(0);
 
-        lista1 = dao1.listarServicio();
-        for (Servicio t : lista1) {
-            Object[] fila = {
-                t.getNom_servicio(),
-                t.getPrecio_del_servicio(),
-                t.getTiempo_est_hor_servi()
+    lista1 = dao1.listarServicio();
+    for (Servicio t : lista1) {
+        Object[] fila = {
+            t.getNom_servicio(),
+            t.getPrecio_del_servicio(),
+            t.getTiempo_est_hor_servi()
+        };
+        modelo.addRow(fila);
+    }
 
-            };
-            modelo.addRow(fila);
-        }
+    tblCatalogo.getColumnModel().getColumn(2).setMinWidth(0);
+    tblCatalogo.getColumnModel().getColumn(2).setMaxWidth(0);
+    tblCatalogo.getColumnModel().getColumn(2).setPreferredWidth(0);
+    tblCatalogo.getColumnModel().getColumn(2).setResizable(false);
     }
     
     private void limpiarDatos(){
@@ -431,7 +435,6 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1536, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -488,13 +491,17 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
                                     .addComponent(txtErrorTiempoEstimado, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(TxtBuscar)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1384, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 373, Short.MAX_VALUE))))
+                        .addComponent(TxtBuscar)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1536, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1307, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
