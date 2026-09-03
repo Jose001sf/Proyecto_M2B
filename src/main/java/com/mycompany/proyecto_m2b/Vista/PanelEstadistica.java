@@ -840,10 +840,16 @@ public class PanelEstadistica extends javax.swing.JPanel {
             empleadosMasServicios.forEach((nombre, cant)
                     -> items.add(new ItemReporteDTO("Empleado", nombre, cant)));
 
-            produceDAO.sumarResiduosPorTipo(fechaDesde, fechaHasta)
-                    .forEach((nombre, cant)
-                            -> items.add(new ItemReporteDTO("Residuo", nombre, cant)));
+            java.util.List<ItemReporteDTO> residuos = new java.util.ArrayList<>();
 
+            produceDAO.sumarResiduosPorTipo(fechaDesde, fechaHasta)
+                    .forEach((nombre, cant) -> {
+                        ItemReporteDTO residuo
+                                = new ItemReporteDTO("Residuo", nombre, cant);
+
+                        items.add(residuo);
+                        residuos.add(residuo);  
+                    });
             java.util.Map<String, Object> parametros = new java.util.HashMap<>();
             parametros.put("pDesde", fechaDesde.toString());
             parametros.put("pHasta", fechaHasta.toString());
@@ -852,6 +858,7 @@ public class PanelEstadistica extends javax.swing.JPanel {
             parametros.put("pTotalVehiculos", totalVehiculos);
             parametros.put("pTotalServicios", totalServicios);
             parametros.put("pTotalRepuestos", totalRepuestos);
+            parametros.put("pResiduos", residuos);
 
             // El gráfico contiene únicamente los empleados con más servicios.
             org.jfree.data.category.DefaultCategoryDataset dataset
