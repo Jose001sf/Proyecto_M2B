@@ -348,6 +348,11 @@ public PanelRepuestos() {
         
         tblModificar.setModel(modelo);
         
+        tblModificar.getColumnModel().getColumn(0).setMinWidth(0);
+        tblModificar.getColumnModel().getColumn(0).setMaxWidth(0);
+        tblModificar.getColumnModel().getColumn(0).setPreferredWidth(0);
+        tblModificar.getColumnModel().getColumn(0).setResizable(false);
+        
     } catch (SQLException e) {
         System.err.println("Error al cargar todos los datos en la tabla: " + e.getMessage());
     }

@@ -192,7 +192,13 @@ private boolean esTelefonoEcuatorianoValido(String telefono) {
             return false;
         }
     };
+    
     tblDetalleCompra.setModel(modeloTabla);
+
+    tblDetalleCompra.getColumnModel().getColumn(0).setMinWidth(0);
+    tblDetalleCompra.getColumnModel().getColumn(0).setMaxWidth(0);
+    tblDetalleCompra.getColumnModel().getColumn(0).setPreferredWidth(0);
+    tblDetalleCompra.getColumnModel().getColumn(0).setResizable(false);
 }
 
 public void cargarCombos() {
