@@ -41,6 +41,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
     private String idOrdenCargada = null;
     private boolean esModoEdicion = false;
     private String ultimaPlacaProcesada = "";
+    private boolean modoEdicion = false;
     public PanelOrdenesServicio() {
         initComponents();
         comboOrden.addActionListener(new java.awt.event.ActionListener() {
@@ -98,7 +99,12 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         modeloTablaServicios.setRowCount(0);
     }    
     }
-
+    private void aplicarModoEdicion(boolean activar) {
+    this.modoEdicion = activar;
+    comboPlacas.setEnabled(activar);
+    comboCliente.setEnabled(activar);
+    comboEmpleado.setEnabled(activar);
+}
     private void configurarModeloTablaRepuestos() {
         String[] titulos = {"ID", "Nombre", "Cantidad Actual", "Precio"};
     DefaultTableModel modelo = new DefaultTableModel(null, titulos) {
@@ -598,7 +604,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
                 VisualizarMouseExited(evt);
             }
         });
-        jPanel1.add(Visualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 170, -1, -1));
+        jPanel1.add(Visualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 230, -1, -1));
 
         jLabel15.setText("Buscar ID/Nombre:");
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 380, -1, 20));
@@ -989,10 +995,39 @@ private List<Object[]> obtenerDatosDeTabla(DefaultTableModel model) {
 }
     private void PanelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseClicked
         // TODO add your handling code here:
-        if (comboOrden.getSelectedItem() == null) return;
+        if (comboOrden.getSelectedItem() == null) {
+        JOptionPane.showMessageDialog(this, "Por favor, seleccione una orden de servicio para editar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
 
     String idOrden = comboOrden.getSelectedItem().toString().trim();
-    if (idOrden.isEmpty() || idOrden.contains("Seleccione")) return;
+    if (idOrden.isEmpty() || idOrden.contains("Seleccione")) {
+        JOptionPane.showMessageDialog(this, "Por favor, seleccione una orden de servicio válida.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    if (Estados.getSelectedItem() == null || Estados.getSelectedItem().toString().contains("Seleccione")) {
+        JOptionPane.showMessageDialog(this, "Por favor, seleccione un estado válido para la orden.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    if (comboPlacas.getSelectedItem() == null || comboPlacas.getSelectedItem().toString().contains("Seleccione")) {
+        JOptionPane.showMessageDialog(this, "Por favor, seleccione una placa de vehículo válida.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    if (comboEmpleado.getSelectedItem() == null || comboEmpleado.getSelectedItem().toString().contains("Seleccione")) {
+        JOptionPane.showMessageDialog(this, "Por favor, seleccione un empleado asignado.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    DefaultTableModel modelServ = (DefaultTableModel) tblDetalleServicio.getModel();
+    DefaultTableModel modelRep = (DefaultTableModel) tblRepuestosUsados.getModel();
+
+    if (modelServ.getRowCount() == 0 && modelRep.getRowCount() == 0) {
+        JOptionPane.showMessageDialog(this, "Debe agregar al menos un servicio o un repuesto a la orden antes de guardar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
 
     OrdenServicioDAO ordenDAO = new OrdenServicioDAO();
 
@@ -1007,12 +1042,12 @@ private List<Object[]> obtenerDatosDeTabla(DefaultTableModel model) {
     orden_de_servicio orden = new orden_de_servicio();
     orden.setId_orden_serv(idOrden);
     orden.setId_vehi(idVehiculoReal);
-    orden.setEstadoorden_servi(Estados.getSelectedItem().toString());
+    orden.setEstadoorden_servi(Estados.getSelectedItem().toString().trim());
     
     orden.setFecha_ingreso(CalendarioFechaIngreso.getDate());
     orden.setFecha_entrega(CalendarioFechaEntrega.getDate());
 
-    String textoComboEmp = comboEmpleado.getSelectedItem().toString();
+    String textoComboEmp = comboEmpleado.getSelectedItem().toString().trim();
     String idEmpleado = ordenDAO.obtenerIdEmpleadoDesdeTexto(textoComboEmp);
     orden.setId_empleado(idEmpleado);
 
@@ -1027,7 +1062,6 @@ private List<Object[]> obtenerDatosDeTabla(DefaultTableModel model) {
     boolean exitoCabecera = ordenDAO.actualizarOrdenServicio(orden);
 
     if (exitoCabecera) {
-        DefaultTableModel modelServ = (DefaultTableModel) tblDetalleServicio.getModel();
         List<Object[]> listaServicios = new ArrayList<>();
         for (int i = 0; i < modelServ.getRowCount(); i++) {
             Object nombre = modelServ.getValueAt(i, 0);
@@ -1040,7 +1074,6 @@ private List<Object[]> obtenerDatosDeTabla(DefaultTableModel model) {
             }
         }
 
-        DefaultTableModel modelRep = (DefaultTableModel) tblRepuestosUsados.getModel();
         List<Object[]> listaRepuestos = new ArrayList<>();
         for (int i = 0; i < modelRep.getRowCount(); i++) {
             Object idRepuesto = modelRep.getValueAt(i, 0);
@@ -1063,16 +1096,6 @@ private List<Object[]> obtenerDatosDeTabla(DefaultTableModel model) {
         }
     } else {
         JOptionPane.showMessageDialog(this, "Error al actualizar la orden en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-    if (comboOrden.getSelectedItem() == null) {
-        JOptionPane.showMessageDialog(this, "Por favor, seleccione una orden de servicio para editar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-
-    String Orden = comboOrden.getSelectedItem().toString().trim();
-    if (Orden.isEmpty() || Orden.contains("Seleccione")) {
-        JOptionPane.showMessageDialog(this, "Por favor, seleccione una orden de servicio válida.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        return;
     }
     }//GEN-LAST:event_PanelEditarMouseClicked
 
@@ -1131,6 +1154,7 @@ private List<Object[]> obtenerDatosDeTabla(DefaultTableModel model) {
         LimpiarDatosTablaDetalles();
         JOptionPane.showMessageDialog(this, "Datos limpiados correctamente"+"\n"
             +"Ingrese los datos");
+        aplicarModoEdicion(true);
     }//GEN-LAST:event_PanelNuevoMouseClicked
 
     private void TXTcostoTotalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTcostoTotalKeyPressed
@@ -1300,6 +1324,7 @@ private void seleccionarElementoEnCombo(javax.swing.JComboBox<String> combo, Str
         TXTcostoTotal.setText(String.format(java.util.Locale.US, "%.2f", totalAcumulado));
         calcularSubtotalRepuestos();
         recalcularSubtotalServicios();
+        aplicarModoEdicion(false);
     }
     }//GEN-LAST:event_comboOrdenActionPerformed
 
