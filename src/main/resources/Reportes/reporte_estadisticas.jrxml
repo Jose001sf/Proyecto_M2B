@@ -8,6 +8,7 @@
 	<parameter name="pTotalVehiculos" class="java.lang.Integer"/>
 	<parameter name="pTotalServicios" class="java.lang.Integer"/>
 	<parameter name="pTotalRepuestos" class="java.lang.Integer"/>
+	<parameter name="pGraficoImagen" class="byte[]" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -133,31 +134,10 @@
 	</pageFooter>
 	<summary>
 		<band height="146" splitType="Stretch">
-			<barChart>
-				<chart isShowLegend="false" evaluationTime="Report">
-					<reportElement x="0" y="0" width="200" height="146" uuid="9bde8e3b-b070-4861-ae7a-50d415220c98"/>
-					<chartTitle/>
-					<chartSubtitle/>
-					<chartLegend/>
-				</chart>
-				<categoryDataset>
-					<categorySeries>
-						<seriesExpression><![CDATA["SERIES 1"]]></seriesExpression>
-						<categoryExpression><![CDATA[0]]></categoryExpression>
-						<valueExpression><![CDATA[0]]></valueExpression>
-					</categorySeries>
-				</categoryDataset>
-				<barPlot>
-					<plot/>
-					<itemLabel/>
-					<categoryAxisFormat>
-						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
-					</categoryAxisFormat>
-					<valueAxisFormat>
-						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
-					</valueAxisFormat>
-				</barPlot>
-			</barChart>
+			<image>
+				<reportElement x="79" y="65" width="50" height="50" uuid="dcc3b22f-16db-4449-bc89-5668fd793c57"/>
+				<imageExpression><![CDATA["$P{pGraficoImagen}"]]></imageExpression>
+			</image>
 		</band>
 	</summary>
 </jasperReport>

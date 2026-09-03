@@ -800,7 +800,7 @@ public class PanelEstadistica extends javax.swing.JPanel {
 
     private void ReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReportesMouseClicked
         // TODO add your handling code here:
-        if (fechaDesde == null || fechaHasta == null) {
+         if (fechaDesde == null || fechaHasta == null) {
             javax.swing.JOptionPane.showMessageDialog(this, "Primero aplica un rango de fechas.");
             return;
         }
@@ -843,12 +843,15 @@ public class PanelEstadistica extends javax.swing.JPanel {
                     "Cantidad",
                     dataset
             );
-            java.awt.Image imagenGrafico = chart.createBufferedImage(450, 250);
-            parametros.put("pGraficoImagen", imagenGrafico);
+            java.awt.image.BufferedImage bufferedImage = chart.createBufferedImage(450, 250);
+            java.io.ByteArrayOutputStream baos = new java.io.ByteArrayOutputStream();
+            javax.imageio.ImageIO.write(bufferedImage, "png", baos);
+            byte[] imagenGraficoBytes = baos.toByteArray();
+            parametros.put("pGraficoImagen", imagenGraficoBytes);
 
             net.sf.jasperreports.engine.data.JRBeanCollectionDataSource dataSource
                     = new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(items);
-            String rutaJrxml = "src/main/resources/reportes/reporte_estadisticas.jrxml";
+            String rutaJrxml = "src/main/resources/Reportes/reporte_estadisticas.jrxml";
             net.sf.jasperreports.engine.JasperReport jasperReport
                     = net.sf.jasperreports.engine.JasperCompileManager.compileReport(rutaJrxml);
             net.sf.jasperreports.engine.JasperPrint jasperPrint
@@ -858,7 +861,6 @@ public class PanelEstadistica extends javax.swing.JPanel {
             e.printStackTrace();
             javax.swing.JOptionPane.showMessageDialog(this, "Error al generar el reporte: " + e.getMessage());
         }
-    
     }//GEN-LAST:event_ReportesMouseClicked
 
     private void ReportesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReportesMouseEntered
