@@ -1161,6 +1161,7 @@ private List<Object[]> obtenerDatosDeTabla(DefaultTableModel model) {
     GuardarOrdenDeServicio();
     LimpiarDatos();
     LimpiarDatosTablaDetalles();
+    txtSubtotalRepuestos.setText("");
     }//GEN-LAST:event_PanelGuardarMouseClicked
 
     private void PanelNuevoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNuevoMouseExited
@@ -1516,7 +1517,7 @@ private void configurarModeloTablaRepuestosUsados() {
     LimpiarDatosTablaDetalles();
 }
     private void GuardarOrdenDeServicio() {
-    if (estaGuardando) {
+if (estaGuardando) {
         return;
     }
 
@@ -1530,6 +1531,11 @@ private void configurarModeloTablaRepuestosUsados() {
 
         if (Estados.getSelectedItem() == null || Estados.getSelectedItem().toString().contains("Seleccione")) {
             JOptionPane.showMessageDialog(this, "Por favor, seleccione un estado válido para la orden.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (comboPlacas.getSelectedItem() == null || comboPlacas.getSelectedItem().toString().contains("Seleccione")) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una placa de vehículo válida.", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
@@ -1549,6 +1555,39 @@ private void configurarModeloTablaRepuestosUsados() {
         if (idVehiculoReal == null) {
             JOptionPane.showMessageDialog(this, "No se encontró el vehículo asociado a la placa seleccionada.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
+        }
+
+
+        List<Object[]> listaServicios = new ArrayList<>();
+        for (int i = 0; i < modelServ.getRowCount(); i++) {
+            Object nombre = modelServ.getValueAt(i, 0);
+            Object precio = modelServ.getValueAt(i, 1);
+            Object cantidad = modelServ.getValueAt(i, 2);
+            Object subtotal = modelServ.getValueAt(i, 3);
+
+            if (nombre != null && !nombre.toString().trim().isEmpty()) {
+                listaServicios.add(new Object[]{nombre, precio, cantidad, subtotal});
+            }
+        }
+
+        List<Object[]> listaRepuestos = new ArrayList<>();
+        for (int i = 0; i < modelRep.getRowCount(); i++) {
+            Object idRepuesto = modelRep.getValueAt(i, 0);
+            Object cantidad = modelRep.getValueAt(i, 2);
+            Object subtotal = modelRep.getValueAt(i, 4);
+
+            if (idRepuesto != null && !idRepuesto.toString().trim().isEmpty()) {
+                try {
+                    String idRep = idRepuesto.toString().trim();
+                    int cant = Integer.parseInt(cantidad.toString().trim());
+                    double sub = Double.parseDouble(subtotal.toString().replace(",", ".").trim());
+
+                    listaRepuestos.add(new Object[]{idRep, cant, sub});
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Error en el formato de números en la fila " + (i + 1) + " de repuestos.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
         }
 
         String nuevoIdOrden = ordenDAO.generarSiguienteIdOrden();
@@ -1575,42 +1614,32 @@ private void configurarModeloTablaRepuestosUsados() {
         boolean exitoCabecera = ordenDAO.guardarOrdenServicio(orden);
 
         if (exitoCabecera) {
-            List<Object[]> listaServicios = new ArrayList<>();
-            for (int i = 0; i < modelServ.getRowCount(); i++) {
-                Object nombre = modelServ.getValueAt(i, 0);
-                Object precio = modelServ.getValueAt(i, 1);
-                Object cantidad = modelServ.getValueAt(i, 2);
-                Object subtotal = modelServ.getValueAt(i, 3);
-
-                if (nombre != null && !nombre.toString().trim().isEmpty()) {
-                    listaServicios.add(new Object[]{nombre, precio, cantidad, subtotal});
-                }
-            }
-
-            List<Object[]> listaRepuestos = new ArrayList<>();
-            for (int i = 0; i < modelRep.getRowCount(); i++) {
-                Object idRepuesto = modelRep.getValueAt(i, 0);
-                Object cantidad = modelRep.getValueAt(i, 2);
-                Object subtotal = modelRep.getValueAt(i, 4);
-
-                if (idRepuesto != null && !idRepuesto.toString().trim().isEmpty()) {
-                    listaRepuestos.add(new Object[]{idRepuesto, cantidad, subtotal});
-                }
-            }
-
             DetalleOrdenServicioDAO detalleDAO = new DetalleOrdenServicioDAO();
-            boolean exitoDetalles = detalleDAO.guardarDetallesOrden(nuevoIdOrden, listaServicios, listaRepuestos);
+            boolean exitoServicios = detalleDAO.guardarDetallesOrden(nuevoIdOrden, listaServicios, new ArrayList<>()); // solo servicios
 
-            if (exitoDetalles) {
+            boolean exitoRepuestos = true;
+            if (!listaRepuestos.isEmpty()) {
+                RepuestoDAO repuestoDAO = new RepuestoDAO();
+                
+                try (Connection con = ConexionBD.obtenerConexion()) { 
+                    exitoRepuestos = repuestoDAO.guardarDetallesYDescontarStock(con, listaRepuestos, nuevoIdOrden);
+                } catch (SQLException e) {
+                    System.err.println("Error de conexión al procesar repuestos: " + e.getMessage());
+                    exitoRepuestos = false;
+                }
+            }
+
+            if (exitoServicios && exitoRepuestos) {
                 JOptionPane.showMessageDialog(this, "Orden de Servicio registrada correctamente con ID: " + nuevoIdOrden);
                 LimpiarDatos();
                 LimpiarDatosTablaDetalles();
             } else {
-                JOptionPane.showMessageDialog(this, "Error al guardar los detalles de la nueva orden.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error al guardar los detalles de la orden o al actualizar el stock.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Error al guardar la orden en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+
     } finally {
         estaGuardando = false;
     }

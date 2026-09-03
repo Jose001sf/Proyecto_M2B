@@ -336,49 +336,66 @@ public class RepuestoDAO {
     return -1; 
 }
     
-    public boolean guardarDetallesYDescontarStock(Connection con, javax.swing.JTable tablaRepuestosUsados, String idOrdenServicio) {
-    String sqlDetalle = "INSERT INTO public.detalle_repuesto (id_detalle_repuesto, cantidad_usar, subtotal_repuesto, id_repuestos, id_orden_serv) VALUES (?, ?, ?, ?, ?)";
-    
-    String sqlStock = "UPDATE public.repuestos SET cantidad_actual_repuesto = cantidad_actual_repuesto - ? WHERE id_repuestos = ?";
-    
-    javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tablaRepuestosUsados.getModel();
-    int totalFilas = modelo.getRowCount();
-    
-    if (totalFilas == 0) {
+public boolean guardarDetallesYDescontarStock(Connection con, List<Object[]> listaRepuestos, String idOrdenServicio) {
+    if (listaRepuestos == null || listaRepuestos.isEmpty()) {
         return true; 
     }
 
-    try (PreparedStatement psDetalle = con.prepareStatement(sqlDetalle);
-         PreparedStatement psStock = con.prepareStatement(sqlStock)) {
-         
-        for (int i = 0; i < totalFilas; i++) {
-            Object valId = modelo.getValueAt(i, 0);
-            if (valId == null) continue;
+    String sqlDetalle = "INSERT INTO public.detalle_repuesto (id_detalle_repuesto, cantidad_usar, subtotal_repuesto, id_repuestos, id_orden_serv) VALUES (?, ?, ?, ?, ?)";
+    String sqlStock = "UPDATE public.repuestos SET cantidad_actual_repuesto = cantidad_actual_repuesto - ? WHERE id_repuestos = ? AND cantidad_actual_repuesto >= ?";
 
-            String idRepuesto = valId.toString();
-            int cantidadUsar = Integer.parseInt(modelo.getValueAt(i, 2).toString());
-            double subtotal = Double.parseDouble(modelo.getValueAt(i, 4).toString());
+    boolean estadoOriginalAutoCommit = true;
 
-            String idDetalle = "DR-" + System.currentTimeMillis() + "-" + i;
+    try {
+        estadoOriginalAutoCommit = con.getAutoCommit();
+        con.setAutoCommit(false);
 
-            psDetalle.setString(1, idDetalle);
-            psDetalle.setInt(2, cantidadUsar);
-            psDetalle.setDouble(3, subtotal);
-            psDetalle.setString(4, idRepuesto);
-            psDetalle.setString(5, idOrdenServicio);
-            psDetalle.addBatch();
+        try (PreparedStatement psDetalle = con.prepareStatement(sqlDetalle);
+             PreparedStatement psStock = con.prepareStatement(sqlStock)) {
 
-            psStock.setInt(1, cantidadUsar);
-            psStock.setString(2, idRepuesto);
-            psStock.addBatch();
+            for (Object[] fila : listaRepuestos) { 
+                String idRepuesto = fila[0].toString().trim();
+                int cantidadUsar = Integer.parseInt(fila[1].toString().trim());
+                double subtotal = Double.parseDouble(fila[2].toString().replace(",", ".").trim());
+
+                String idDetalle = "DR-" + java.util.UUID.randomUUID().toString().substring(0, 8);
+
+                psDetalle.setString(1, idDetalle);
+                psDetalle.setInt(2, cantidadUsar);
+                psDetalle.setDouble(3, subtotal);
+                psDetalle.setString(4, idRepuesto);
+                psDetalle.setString(5, idOrdenServicio);
+                psDetalle.addBatch();
+
+                psStock.setInt(1, cantidadUsar);
+                psStock.setString(2, idRepuesto);
+                psStock.setInt(3, cantidadUsar);
+                psStock.addBatch();
+            }
+
+            psDetalle.executeBatch();
+            int[] resultadosStock = psStock.executeBatch();
+
+            for (int res : resultadosStock) {
+                if (res == 0) { 
+                    con.rollback();
+                    return false;
+                }
+            }
+
+            con.commit();
+            return true;
+
+        } catch (SQLException e) {
+            con.rollback();
+            System.err.println("Error al procesar la transacción de repuestos: " + e.getMessage());
+            return false;
+        } finally {
+            con.setAutoCommit(estadoOriginalAutoCommit);
         }
-        
-        psDetalle.executeBatch();
-        psStock.executeBatch();
-        return true;
-        
+
     } catch (SQLException e) {
-        System.err.println("Error al guardar detalles y actualizar stock: " + e.getMessage());
+        System.err.println("Error al gestionar el AutoCommit: " + e.getMessage());
         return false;
     }
 }
