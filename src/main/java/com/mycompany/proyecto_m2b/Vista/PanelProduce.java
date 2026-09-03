@@ -487,7 +487,12 @@ public class PanelProduce extends javax.swing.JFrame {
         ProduceDAO produceDAO = new ProduceDAO();
         historialProduce = produceDAO.listarProducePorOrden(idOrden);
         String[] columnas = {"Residuo", "Cantidad generada", "Fecha de registro"};
-        DefaultTableModel modelo = new DefaultTableModel(null, columnas);
+        DefaultTableModel modelo = new DefaultTableModel(null, columnas){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }            
+        };
         for (Produce produce : historialProduce) {
             Object[] fila = {
                 produce.getNom_residuo(),
@@ -510,6 +515,7 @@ public class PanelProduce extends javax.swing.JFrame {
             modelo.addRow(fila);
         }
         TablaProduce.setModel(modelo);
+        TablaProduce.setEnabled(false);
     }
     
     public void eliminarProduceRegistrado() {

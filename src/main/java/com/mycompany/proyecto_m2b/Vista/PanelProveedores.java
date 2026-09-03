@@ -192,7 +192,13 @@ private boolean esTelefonoEcuatorianoValido(String telefono) {
             return false;
         }
     };
+    
     tblDetalleCompra.setModel(modeloTabla);
+
+    tblDetalleCompra.getColumnModel().getColumn(0).setMinWidth(0);
+    tblDetalleCompra.getColumnModel().getColumn(0).setMaxWidth(0);
+    tblDetalleCompra.getColumnModel().getColumn(0).setPreferredWidth(0);
+    tblDetalleCompra.getColumnModel().getColumn(0).setResizable(false);
 }
 
 public void cargarCombos() {
@@ -584,6 +590,7 @@ private void generarSiguienteIdCompra() {
                 "ID Repuesto", "Nombre Repuesto", "Cantidad", "Precio Unit.", "Subtotal"
             }
         ));
+        tblDetalleCompra.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblDetalleCompra);
 
         Fondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 530, 1310, 210));

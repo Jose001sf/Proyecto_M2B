@@ -347,6 +347,21 @@ public PanelRepuestos() {
         }
         
         tblModificar.setModel(modelo);
+                
+        tblModificar.getColumnModel().getColumn(0).setMinWidth(0);
+        tblModificar.getColumnModel().getColumn(0).setMaxWidth(0);
+        tblModificar.getColumnModel().getColumn(0).setPreferredWidth(0);
+        tblModificar.getColumnModel().getColumn(0).setResizable(false);
+        
+        tblModificar.getColumnModel().getColumn(7).setMinWidth(0);
+        tblModificar.getColumnModel().getColumn(7).setMaxWidth(0);
+        tblModificar.getColumnModel().getColumn(7).setPreferredWidth(0);
+        tblModificar.getColumnModel().getColumn(7).setResizable(false);
+
+        tblModificar.getColumnModel().getColumn(8).setMinWidth(0);
+        tblModificar.getColumnModel().getColumn(8).setMaxWidth(0);
+        tblModificar.getColumnModel().getColumn(8).setPreferredWidth(0);
+        tblModificar.getColumnModel().getColumn(8).setResizable(false);
         
     } catch (SQLException e) {
         System.err.println("Error al cargar todos los datos en la tabla: " + e.getMessage());
@@ -699,6 +714,7 @@ public PanelRepuestos() {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9"
             }
         ));
+        tblModificar.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblModificar);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 1290, 370));
