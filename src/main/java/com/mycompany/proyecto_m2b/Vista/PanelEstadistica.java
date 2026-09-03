@@ -920,8 +920,8 @@ public class PanelEstadistica extends javax.swing.JPanel {
 
             parametros.put("pGraficoResiduos", baosResiduos.toByteArray());
 
-            net.sf.jasperreports.engine.data.JRBeanCollectionDataSource dataSource
-                    = new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(items);
+            net.sf.jasperreports.engine.JRDataSource dataSource =
+        new net.sf.jasperreports.engine.JREmptyDataSource(1);
 
             String rutaJrxml
                     = "src/main/resources/Reportes/reporte_estadisticas.jrxml";
