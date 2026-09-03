@@ -134,7 +134,7 @@
 	<summary>
 		<band height="146" splitType="Stretch">
 			<barChart>
-				<chart evaluationTime="Report">
+				<chart isShowLegend="false" evaluationTime="Report">
 					<reportElement x="0" y="0" width="200" height="146" uuid="9bde8e3b-b070-4861-ae7a-50d415220c98"/>
 					<chartTitle/>
 					<chartSubtitle/>
