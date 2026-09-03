@@ -34,6 +34,7 @@ public class PanelProduce extends javax.swing.JFrame {
         rd.cargarResiduos(ComboResiduos);
         OrdenServicioDAO od=new OrdenServicioDAO();
         od.cargarOrdenServicio(ComboOrdenesServicio);
+        this.setLocationRelativeTo(null);
     }
 
     int Mousex;
