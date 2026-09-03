@@ -701,6 +701,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         }
 
         txtSubtotalRepuestos.setText(String.format(java.util.Locale.US, "%.2f", nuevoSubtotalRepuestos));
+        calcularTotal();
     }//GEN-LAST:event_btnEliminarRepuestoActionPerformed
 
     private void btnAgregarRepuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarRepuestosActionPerformed
@@ -851,6 +852,7 @@ public class PanelOrdenesServicio extends javax.swing.JPanel {
         }
     }
     lblSubTotalServicios.setText(String.format(java.util.Locale.US, "%.2f", nuevoSubtotalServicios));
+    calcularTotal();
     }//GEN-LAST:event_PanelEliminarServicioMouseClicked
 
     private void PanelAgregarServicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelAgregarServicioMouseExited
@@ -1796,7 +1798,6 @@ private void configurarModeloTablaRepuestosUsados() {
     } catch (NumberFormatException e) {
         TXTcostoTotal.setText("0.00");
     }
-    
 }
 
     
