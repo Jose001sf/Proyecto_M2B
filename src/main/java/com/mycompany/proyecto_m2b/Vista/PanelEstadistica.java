@@ -926,9 +926,15 @@ public class PanelEstadistica extends javax.swing.JPanel {
             String rutaJrxml
                     = "src/main/resources/Reportes/reporte_estadisticas.jrxml";
 
+            String contenidoJrxml = java.nio.file.Files.readString(
+                    java.nio.file.Paths.get(rutaJrxml)
+            );
+
+            int inicioDetail = contenidoJrxml.indexOf("<detail>");
+
             System.out.println(
-                    "JRXML usado: "
-                    + new java.io.File(rutaJrxml).getAbsolutePath()
+                    "DETAIL LEÍDO POR JAVA: "
+                    + contenidoJrxml.substring(inicioDetail, inicioDetail + 100)
             );
 
             net.sf.jasperreports.engine.JasperReport jasperReport
