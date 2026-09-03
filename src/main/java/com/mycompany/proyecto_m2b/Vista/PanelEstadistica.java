@@ -800,55 +800,67 @@ public class PanelEstadistica extends javax.swing.JPanel {
 
     private void ReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReportesMouseClicked
         // TODO add your handling code here:
-        if (fechaDesde == null || fechaHasta == null){
+         if (fechaDesde == null || fechaHasta == null) {
             javax.swing.JOptionPane.showMessageDialog(this, "Primero aplica un rango de fechas.");
             return;
         }
-        try{
-        OrdenServicioDAO ordenDAO = new OrdenServicioDAO();
-        ServicioDAO servicioDAO = new ServicioDAO();
-        ProduceDAO  produceDAO = new ProduceDAO();
-        RepuestoDAO repuestoDAO = new RepuestoDAO();
-        
-        int totalOrdenes = ordenDAO.contarOrdenes(fechaDesde, fechaHasta);
-        double totalIngresos = ordenDAO.sumarIngresos(fechaDesde, fechaHasta);
-        int totalVehiculos = ordenDAO.contarVehiculosAtendidos(fechaDesde, fechaHasta);
-        int totalServicios = servicioDAO.contarServiciosRealizados(fechaDesde, fechaHasta);
-        int totalRepuestos = repuestoDAO.contarServiciosRealizados(fechaDesde, fechaHasta);
+        try {
+            OrdenServicioDAO ordenDAO = new OrdenServicioDAO();
+            ServicioDAO servicioDAO = new ServicioDAO();
+            ProduceDAO produceDAO = new ProduceDAO();
+            RepuestoDAO repuestoDAO = new RepuestoDAO();
 
-        java.util.List<ItemReporteDTO> items = new java.util.ArrayList<>();
-        servicioDAO.topServiciosMasRealizados(fechaDesde, fechaHasta, 5)
-                .forEach((nombre, cant) -> items.add(new ItemReporteDTO("Servicio", nombre, cant)));
-        repuestoDAO.topRepuestosMasUtilizados(fechaDesde, fechaHasta, 5)
-                .forEach((nombre, cant) -> items.add(new ItemReporteDTO("Repuesto", nombre, cant)));
-        ordenDAO.topEmpleadosPorOrdenesCompletadas(fechaDesde, fechaHasta, 5)
-                .forEach((nombre, cant) -> items.add(new ItemReporteDTO("Empleado", nombre, cant)));
-        produceDAO.sumarResiduosPorTipo(fechaDesde, fechaHasta)
-                .forEach((nombre, cant) -> items.add(new ItemReporteDTO("Residuo", nombre, cant)));
+            int totalOrdenes = ordenDAO.contarOrdenes(fechaDesde, fechaHasta);
+            double totalIngresos = ordenDAO.sumarIngresos(fechaDesde, fechaHasta);
+            int totalVehiculos = ordenDAO.contarVehiculosAtendidos(fechaDesde, fechaHasta);
+            int totalServicios = servicioDAO.contarServiciosRealizados(fechaDesde, fechaHasta);
+            int totalRepuestos = repuestoDAO.contarServiciosRealizados(fechaDesde, fechaHasta);
+            java.util.List<ItemReporteDTO> items = new java.util.ArrayList<>();
+            servicioDAO.topServiciosMasRealizados(fechaDesde, fechaHasta, 5)
+                    .forEach((nombre, cant) -> items.add(new ItemReporteDTO("Servicio", nombre, cant)));
+            repuestoDAO.topRepuestosMasUtilizados(fechaDesde, fechaHasta, 5)
+                    .forEach((nombre, cant) -> items.add(new ItemReporteDTO("Repuesto", nombre, cant)));
+            ordenDAO.topEmpleadosPorOrdenesCompletadas(fechaDesde, fechaHasta, 5)
+                    .forEach((nombre, cant) -> items.add(new ItemReporteDTO("Empleado", nombre, cant)));
+            produceDAO.sumarResiduosPorTipo(fechaDesde, fechaHasta)
+                    .forEach((nombre, cant) -> items.add(new ItemReporteDTO("Residuo", nombre, cant)));
+            java.util.Map<String, Object> parametros = new java.util.HashMap<>();
+            parametros.put("pDesde", fechaDesde.toString());
+            parametros.put("pHasta", fechaHasta.toString());
+            parametros.put("pTotalOrdenes", totalOrdenes);
+            parametros.put("pTotalIngresos", totalIngresos);
+            parametros.put("pTotalVehiculos", totalVehiculos);
+            parametros.put("pTotalServicios", totalServicios);
+            parametros.put("pTotalRepuestos", totalRepuestos);
 
-        java.util.Map<String, Object> parametros = new java.util.HashMap<>();
-        parametros.put("pDesde", fechaDesde.toString());
-        parametros.put("pHasta", fechaHasta.toString());
-        parametros.put("pTotalOrdenes", totalOrdenes);
-        parametros.put("pTotalIngresos", totalIngresos);
-        parametros.put("pTotalVehiculos", totalVehiculos);
-        parametros.put("pTotalServicios", totalServicios);
-        parametros.put("pTotalRepuestos", totalRepuestos);
-        net.sf.jasperreports.engine.data.JRBeanCollectionDataSource dataSource
-                = new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(items);
+            org.jfree.data.category.DefaultCategoryDataset dataset = new org.jfree.data.category.DefaultCategoryDataset();
+            for (ItemReporteDTO item : items) {
+                dataset.addValue(item.getCantidad(), item.getCategoria(), item.getNombre());
+            }
+            org.jfree.chart.JFreeChart chart = org.jfree.chart.ChartFactory.createBarChart(
+                    "Resumen del Período",
+                    "Elemento",
+                    "Cantidad",
+                    dataset
+            );
+            java.awt.image.BufferedImage bufferedImage = chart.createBufferedImage(450, 250);
+            java.io.ByteArrayOutputStream baos = new java.io.ByteArrayOutputStream();
+            javax.imageio.ImageIO.write(bufferedImage, "png", baos);
+            byte[] imagenGraficoBytes = baos.toByteArray();
+            parametros.put("pGraficoImagen", imagenGraficoBytes);
 
-        String rutaJrxml = "src/main/resources/reportes/reporte_estadisticas.jrxml";
-        net.sf.jasperreports.engine.JasperReport jasperReport
-                = net.sf.jasperreports.engine.JasperCompileManager.compileReport(rutaJrxml);
-        net.sf.jasperreports.engine.JasperPrint jasperPrint
-                = net.sf.jasperreports.engine.JasperFillManager.fillReport(jasperReport, parametros, dataSource);
-
-        net.sf.jasperreports.view.JasperViewer.viewReport(jasperPrint, false);
-
-    } catch (Exception e) {
-        e.printStackTrace();
-        javax.swing.JOptionPane.showMessageDialog(this, "Error al generar el reporte: " + e.getMessage());
-    }
+            net.sf.jasperreports.engine.data.JRBeanCollectionDataSource dataSource
+                    = new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(items);
+            String rutaJrxml = "src/main/resources/Reportes/reporte_estadisticas.jrxml";
+            net.sf.jasperreports.engine.JasperReport jasperReport
+                    = net.sf.jasperreports.engine.JasperCompileManager.compileReport(rutaJrxml);
+            net.sf.jasperreports.engine.JasperPrint jasperPrint
+                    = net.sf.jasperreports.engine.JasperFillManager.fillReport(jasperReport, parametros, dataSource);
+            net.sf.jasperreports.view.JasperViewer.viewReport(jasperPrint, false);
+        } catch (Exception e) {
+            e.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al generar el reporte: " + e.getMessage());
+        }
     }//GEN-LAST:event_ReportesMouseClicked
 
     private void ReportesMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReportesMouseEntered

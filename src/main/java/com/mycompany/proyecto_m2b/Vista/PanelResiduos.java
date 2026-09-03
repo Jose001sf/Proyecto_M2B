@@ -31,6 +31,11 @@ public class PanelResiduos extends javax.swing.JPanel {
     public PanelResiduos() {
     initComponents();
 
+    jTable1.getColumnModel().getColumn(0).setMinWidth(0);
+    jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
+    jTable1.getColumnModel().getColumn(0).setPreferredWidth(0);
+    jTable1.getColumnModel().getColumn(0).setResizable(false);
+    
     java.time.LocalDate fechaActual = java.time.LocalDate.now();
     dateReciclaje.setDate(java.sql.Date.valueOf(fechaActual));
     dateReciclaje.setEnabled(false); 
@@ -503,6 +508,7 @@ private void validarPrecio() {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
 
         Fondo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 490, 1250, 270));

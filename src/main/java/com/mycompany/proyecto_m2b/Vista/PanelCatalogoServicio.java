@@ -167,7 +167,6 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         Talleres = new javax.swing.JLabel();
         MJ = new javax.swing.JLabel();
-        Regresar = new javax.swing.JLabel();
         txtErrorServicio = new javax.swing.JLabel();
         txtErrorPrecioBase = new javax.swing.JLabel();
         txtErrorTiempoEstimado = new javax.swing.JLabel();
@@ -397,25 +396,6 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
         MJ.setForeground(new java.awt.Color(152, 75, 45));
         MJ.setText("M&J");
 
-        Regresar.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        Regresar.setForeground(new java.awt.Color(145, 145, 145));
-        Regresar.setText("<- Regresar");
-        Regresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Regresar.setMaximumSize(new java.awt.Dimension(157, 47));
-        Regresar.setMinimumSize(new java.awt.Dimension(157, 47));
-        Regresar.setPreferredSize(new java.awt.Dimension(157, 47));
-        Regresar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                RegresarMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                RegresarMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                RegresarMouseExited(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -425,9 +405,7 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(MJ)
                     .addComponent(Talleres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 912, Short.MAX_VALUE)
-                .addComponent(Regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(222, 222, 222))
+                .addContainerGap(1340, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -437,10 +415,6 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Talleres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(17, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Regresar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -685,21 +659,6 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
         DarDeBaja.setForeground(new Color(215, 106, 106));
     }//GEN-LAST:event_PanelDarBajaMouseExited
 
-    private void RegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegresarMouseClicked
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_RegresarMouseClicked
-
-    private void RegresarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegresarMouseEntered
-        // TODO add your handling code here:
-        Regresar.setForeground(java.awt.Color.white);
-    }//GEN-LAST:event_RegresarMouseEntered
-
-    private void RegresarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegresarMouseExited
-        // TODO add your handling code here:
-        Regresar.setForeground(new java.awt.Color(145, 145, 145));
-    }//GEN-LAST:event_RegresarMouseExited
-
     private void PanelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelEditarMouseClicked
         // TODO add your handling code here:
         if (idSeleccionado == null) {
@@ -779,7 +738,6 @@ public class PanelCatalogoServicio extends javax.swing.JPanel {
     private javax.swing.JPanel PanelDarBaja;
     private javax.swing.JPanel PanelEditar;
     private javax.swing.JPanel PanelGuardar;
-    private javax.swing.JLabel Regresar;
     private javax.swing.JLabel Talleres;
     private javax.swing.JLabel TxtBuscar;
     private javax.swing.JLabel TxtCatalogoServicios;
