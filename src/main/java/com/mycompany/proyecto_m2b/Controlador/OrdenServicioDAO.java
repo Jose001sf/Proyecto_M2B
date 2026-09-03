@@ -627,7 +627,7 @@ public orden_de_servicio buscarOrdenPorPlacaII(String placa) {
         + "JOIN empleado emp ON o.\"id_empleado\" = emp.\"id_empleado\" "
         + "JOIN persona p ON emp.\"ced_perso\" = p.\"ced_perso\" "
         + "JOIN detalle_de_orden d ON d.id_orden_serv = o.id_orden_serv "
-        + "WHERE o.\"estado_orden_servi\" = 'Completada' "
+        + "WHERE o.\"estado_orden_servi\" IN ('Completada', 'Entregado') "
         + "AND o.\"fecha_ingreso\" BETWEEN ? AND ? "
         + "GROUP BY p.\"nom1_person\", p.\"apell1_person\" "
         + "ORDER BY total DESC LIMIT ?";
